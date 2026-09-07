@@ -1,72 +1,78 @@
 /**
- * server.js — CareerPath AI Express Entry Point
+ * server.js — CareerPath AI Express Entry Point (Step 2)
  *
- * What this file does:
- *  1. Loads environment variables from .env
- *  2. Creates the Express application
- *  3. Applies middleware (CORS, JSON parsing)
- *  4. Mounts routes
- *  5. Starts listening on the configured port
- *
- * Run with:  node server.js
- * Dev mode:  npm run dev  (uses nodemon for auto-restart)
+ * Startup order:
+ *  1. Load .env
+ *  2. Connect to MongoDB
+ *  3. Apply security & utility middleware (helmet, cors, rate-limit, morgan)
+ *  4. Mount API routes
+ *  5. 404 handler
+ *  6. Global error handler
+ *  7. Start listening
  */
 
-// ── Load environment variables first (before anything else) ──
-const dotenv = require('dotenv');
-dotenv.config();
+// ── 1. Environment variables must be loaded FIRST ────────────
+require('dotenv').config();
 
-// ── Core dependencies ──────────────────────────────────────────
+// ── Core imports ──────────────────────────────────────────────
 const express = require('express');
-const cors    = require('cors');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 
-// ── Database connection (placeholder — wired in Step 2) ───────
-// const connectDB = require('./config/db');
+// ── Internal imports ──────────────────────────────────────────
+const connectDB = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const errorHandler = require('./middleware/errorMiddleware');
 
-// ── Initialize Express app ────────────────────────────────────
+// ── 2. Connect to MongoDB Atlas ───────────────────────────────
+connectDB();
+
+// ── 3. Create Express app ─────────────────────────────────────
 const app = express();
 
-// ============================================================
-// Middleware
-// ============================================================
+// ── Security: Helmet sets sensible HTTP headers ───────────────
+app.use(helmet());
 
-/**
- * CORS — Allow requests from the frontend.
- * In development: accepts all origins.
- * In production: restrict to your Vercel URL via CLIENT_URL env var.
- */
+// ── CORS: Allow requests from the frontend origin ─────────────
+// In development: CLIENT_URL is http://localhost:5500 (Live Server)
+// In production:  CLIENT_URL is your Vercel URL
 const corsOptions = {
   origin: process.env.CLIENT_URL || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 app.use(cors(corsOptions));
 
-/**
- * JSON Body Parser — Parse incoming request bodies as JSON.
- * Limits payload to 10mb (useful for optional resume uploads later).
- */
-app.use(express.json({ limit: '10mb' }));
+// ── HTTP Request Logger: only in development ──────────────────
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
-/**
- * URL-encoded body parser — For HTML form submissions.
- */
+// ── Body parsers ──────────────────────────────────────────────
+app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// ============================================================
-// Database Connection (uncomment in Step 2)
-// ============================================================
-// connectDB();
+// ── Rate Limiting: protect /api from brute-force ─────────────
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,                  // max 100 requests per IP per window
+  standardHeaders: true,     // Return rate-limit info in headers
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests from this IP. Please try again after 15 minutes.',
+  },
+});
+app.use('/api', apiLimiter);
 
-// ============================================================
-// Routes
-// ============================================================
+// ── Routes ────────────────────────────────────────────────────
 
 /**
  * GET /api/health
- * A simple health-check endpoint.
- * Use this to verify the server is running and reachable.
- * Test: GET http://localhost:5000/api/health
+ * Quick server health check — no auth required.
  */
 app.get('/api/health', (req, res) => {
   res.status(200).json({
@@ -74,36 +80,18 @@ app.get('/api/health', (req, res) => {
     message: 'CareerPath AI Server is running ✅',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
-    version: '1.0.0',
+    version: '2.0.0',
     team: '404 Brain Not Found',
   });
 });
 
-/**
- * Route Placeholders — These will be wired in later steps.
- *
- * Step 2: Authentication routes
- * app.use('/api/auth', require('./routes/authRoutes'));
- *
- * Step 3: User profile routes
- * app.use('/api/profile', require('./routes/profileRoutes'));
- *
- * Step 4: Career data routes
- * app.use('/api/careers', require('./routes/careerRoutes'));
- *
- * Step 5: Career recommendation engine
- * app.use('/api/recommend', require('./routes/recommendRoutes'));
- *
- * Step 6: Roadmap generation and task tracking
- * app.use('/api/roadmap', require('./routes/roadmapRoutes'));
- *
- * Step 7: Progress tracking
- * app.use('/api/progress', require('./routes/progressRoutes'));
- */
+// Authentication: register and login
+app.use('/api/auth', authRoutes);
 
-// ============================================================
-// 404 Handler — catch-all for unknown routes
-// ============================================================
+// User profile: get and update
+app.use('/api/users', userRoutes);
+
+// ── 404 Handler ───────────────────────────────────────────────
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -111,32 +99,21 @@ app.use((req, res) => {
   });
 });
 
-// ============================================================
-// Global Error Handler — catches errors from all routes
-// ============================================================
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  console.error('Server Error:', err.message);
+// ── Global Error Handler ──────────────────────────────────────
+// Must be last — Express identifies it by the 4-parameter signature
+app.use(errorHandler);
 
-  res.status(err.status || 500).json({
-    success: false,
-    message: err.message || 'Internal Server Error',
-    // Only show stack trace in development
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
-  });
-});
-
-// ============================================================
-// Start Server
-// ============================================================
+// ── Start Listening ───────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log('');
   console.log('🚀 CareerPath AI Server started!');
-  console.log(`📡 Listening on: http://localhost:${PORT}`);
-  console.log(`🔍 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`🌱 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log('👥 Team: 404 Brain Not Found · Hack2Ignite 2026–27');
+  console.log(`📡 Listening on  : http://localhost:${PORT}`);
+  console.log(`🔍 Health check  : http://localhost:${PORT}/api/health`);
+  console.log(`🔐 Auth routes   : http://localhost:${PORT}/api/auth`);
+  console.log(`👤 User routes   : http://localhost:${PORT}/api/users`);
+  console.log(`🌱 Environment   : ${process.env.NODE_ENV || 'development'}`);
+  console.log('👥 Team          : 404 Brain Not Found · Hack2Ignite 2026–27');
   console.log('');
 });

@@ -1,33 +1,30 @@
 /**
  * config/db.js — MongoDB Atlas Connection
  *
- * This file exports a function that connects Mongoose to MongoDB Atlas.
- * It will be called once when the server starts.
+ * Exports an async connectDB() function that creates a Mongoose connection
+ * to MongoDB Atlas using the MONGODB_URI environment variable.
  *
- * STATUS: Placeholder for Step 2
- * ─────────────────────────────
- * In Step 2, uncomment the connectDB() call in server.js
- * and fill in your MONGO_URI in the .env file.
- *
- * Usage (in server.js):
- *   const connectDB = require('./config/db');
- *   connectDB();
+ * Called once at server startup (from server.js).
+ * Exits the process on failure so Render/PM2 can restart cleanly.
  */
 
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    // MONGO_URI is loaded from .env by dotenv in server.js
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
 
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    console.log(`📦 Database: ${conn.connection.name}`);
   } catch (error) {
-    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    // Log only the message — never log the full URI (contains credentials)
+    console.error(`❌ MongoDB Connection Failed: ${error.message}`);
+    console.error('   Check your MONGODB_URI in the .env file.');
 
-    // Exit the process with failure code so Render/server restarts it
+    // Exit with non-zero code so the process manager can restart
     process.exit(1);
   }
 };
 
 module.exports = connectDB;
+
