@@ -1,0 +1,28 @@
+# ============================================================
+# CareerPath AI — Git Ignore (Backend)
+# ============================================================
+
+# Environment variables — NEVER commit this file
+.env
+
+# Node modules — install with npm install
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build output (if any)
+dist/
+build/
