@@ -45,11 +45,32 @@ app.use(helmet());
 // In development: CLIENT_URL is http://localhost:5500 (Live Server)
 // In production:  CLIENT_URL is your Vercel URL
 const corsOptions = {
-  origin: process.env.CLIENT_URL || '*',
+  origin: function (origin, callback) {
+    // Allow non-browser requests (Postman, curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    const configuredClient = process.env.CLIENT_URL;
+    const allowedLocal = ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3000'];
+
+    if (
+      process.env.NODE_ENV === 'development' ||
+      !configuredClient ||
+      configuredClient === '*' ||
+      origin === configuredClient ||
+      allowedLocal.includes(origin) ||
+      origin.endsWith('.vercel.app')
+    ) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS origin ${origin} not permitted`));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // ── HTTP Request Logger: only in development ──────────────────
 if (process.env.NODE_ENV === 'development') {
@@ -81,10 +102,11 @@ app.get('/', (req, res) => {
     success: true,
     message: 'Welcome to CareerPath AI API 🚀',
     frontendUrl: process.env.CLIENT_URL || 'http://localhost:5500',
-    version: '4.0.0',
+    version: '1.0.0',
     team: '404 Brain Not Found',
     endpoints: {
       health: 'GET /api/health',
+      version: 'GET /api/version',
       authRegister: 'POST /api/auth/register',
       authLogin: 'POST /api/auth/login',
       careersList: 'GET /api/careers',
@@ -94,6 +116,7 @@ app.get('/', (req, res) => {
       generateRoadmap: 'POST /api/roadmaps/generate',
       currentRoadmap: 'GET /api/roadmaps/current',
       toggleTask: 'PATCH /api/roadmaps/tasks/:taskId/toggle',
+      archiveRoadmap: 'DELETE /api/roadmaps/current',
       dashboard: 'GET /api/dashboard',
     },
     note: 'To use the frontend user interface, please open http://localhost:5500 in your web browser.',
@@ -110,8 +133,23 @@ app.get('/api/health', (req, res) => {
     message: 'CareerPath AI Server is running ✅',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
-    version: '4.0.0',
+    version: '1.0.0',
     team: '404 Brain Not Found',
+  });
+});
+
+/**
+ * GET /api/version
+ * Returns semantic version and environment
+ */
+app.get('/api/version', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'CareerPath AI API',
+    data: {
+      version: '1.0.0',
+      environment: process.env.NODE_ENV || 'development',
+    },
   });
 });
 

@@ -1,0 +1,39 @@
+# ============================================================
+# CareerPath AI — Render Blueprint Deployment Specification
+# Hack2Ignite 2026–27 · Team 404 Brain Not Found
+# ============================================================
+
+services:
+  - type: web
+    name: careerpath-ai-api
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # Render automatically assigns PORT dynamically.
+      # The server code automatically reads process.env.PORT.
+      - key: PORT
+        value: 10000
+
+      - key: JWT_EXPIRES_IN
+        value: 7d
+
+      # Sensitive credentials must be configured securely in the Render dashboard:
+      - key: MONGODB_URI
+        sync: false
+
+      - key: JWT_SECRET
+        sync: false
+
+      # Set this to your deployed Vercel frontend URL, e.g. https://careerpath-ai.vercel.app
+      - key: CLIENT_URL
+        sync: false

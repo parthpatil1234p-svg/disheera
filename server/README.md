@@ -10,6 +10,7 @@
 server/
 ├── server.js                        ← Express entry point & route mounting
 ├── package.json                     ← Dependencies & scripts ("start", "dev", "seed")
+├── render.yaml                      ← Render Web Service deployment blueprint
 ├── .env.example                     ← Template for environment variables
 ├── .env                             ← Local configuration (do not commit)
 ├── seed.js                          ← Seeds Skill and Career collections
@@ -342,10 +343,13 @@ Returns user profile, active roadmap progress, first 5 upcoming incomplete tasks
 
 ## 🧪 Postman & Integration Testing Sequence
 
+> 📬 **Official Postman Collection:** Import `postman/CareerPath-AI.postman_collection.json` directly into Postman. It includes pre-configured collection variables (`baseUrl`, `token`, `taskId`) and automated token capture scripts.
+
 Follow this order to verify all endpoints:
 
-1. **Health Check**  
-   `GET http://localhost:5000/api/health` → Expect `200 OK`
+1. **Health Check & API Version**  
+   - `GET http://localhost:5000/api/health` → Expect `200 OK` (`{ "status": "UP" }`)
+   - `GET http://localhost:5000/api/version` → Expect `200 OK` (`{ "data": { "version": "1.0.0" } }`)
 
 2. **Seed Verification**  
    In terminal: `npm run seed`

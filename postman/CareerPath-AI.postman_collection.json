@@ -1,0 +1,458 @@
+{
+  "info": {
+    "_postman_id": "c7f991b1-2a62-432c-8a1a-8e2b5839db01",
+    "name": "CareerPath AI — API Collection (Round 1 MVP)",
+    "description": "Comprehensive Postman collection for CareerPath AI (Hack2Ignite 2026–27 Round 1 MVP) covering Authentication, Profile Assessments, Career Directory, Deterministic Recommendations, Roadmap Generation, Task Tracking, and Student Dashboard.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "taskId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. System",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            },
+            "description": "Returns system health, server status, database connection state, and team metadata."
+          },
+          "response": []
+        },
+        {
+          "name": "API Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/version",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "version"]
+            },
+            "description": "Returns current API version and deployment environment."
+          },
+          "response": []
+        },
+        {
+          "name": "API Welcome Index",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "Root endpoint returning directory of available endpoints and link to frontend."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Authentication",
+      "item": [
+        {
+          "name": "Register Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.data && json.data.token) {",
+                  "        pm.collectionVariables.set('token', json.data.token);",
+                  "        console.log('Token automatically saved to collection variable {{token}}');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Parth Patil\",\n  \"email\": \"parth.patil@example.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Creates a new student account and returns a JWT token automatically saved into {{token}}."
+          },
+          "response": []
+        },
+        {
+          "name": "Login Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.data && json.data.token) {",
+                  "        pm.collectionVariables.set('token', json.data.token);",
+                  "        console.log('Token automatically updated in collection variable {{token}}');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"parth.patil@example.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Logs in existing student and sets {{token}}."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Authenticated Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "me"]
+            },
+            "description": "Retrieves authenticated student profile using Bearer token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Student Assessment",
+      "item": [
+        {
+          "name": "Submit Profile Assessment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"education\": {\n    \"course\": \"BCA (Computer Applications)\",\n    \"institution\": \"State University of Technology\",\n    \"graduationYear\": 2026\n  },\n  \"interests\": [\n    \"web development\",\n    \"cloud computing\",\n    \"design\"\n  ],\n  \"skills\": [\n    {\n      \"name\": \"html\",\n      \"proficiency\": \"intermediate\"\n    },\n    {\n      \"name\": \"css\",\n      \"proficiency\": \"intermediate\"\n    },\n    {\n      \"name\": \"javascript\",\n      \"proficiency\": \"beginner\"\n    }\n  ],\n  \"careerGoals\": [\n    \"Become a high-performing Front-End Engineer\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/assessment",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "assessment"]
+            },
+            "description": "Submits student academic details, interests, and current skill proficiency levels."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Careers Directory",
+      "item": [
+        {
+          "name": "Get All Careers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/careers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "careers"]
+            },
+            "description": "Returns catalog of 5 seeded tech careers with populated skill definitions."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Career by Slug",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/careers/front-end-developer",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "careers", "front-end-developer"]
+            },
+            "description": "Fetches detailed career specifications and required skills for Front-End Developer."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Recommendations & Skill Gaps",
+      "item": [
+        {
+          "name": "Generate Top 3 Recommendations",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/recommendations/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "recommendations", "generate"]
+            },
+            "description": "Executes deterministic 60% skills + 25% interests + 15% education recommendation formula and returns Top 3 careers with matched, weak, and missing skills."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Learning Roadmaps & Tasks",
+      "item": [
+        {
+          "name": "Generate Personalized Roadmap",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"careerSlug\": \"front-end-developer\",\n  \"durationWeeks\": 8\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/roadmaps/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roadmaps", "generate"]
+            },
+            "description": "Generates personalized 8-week curriculum for front-end-developer, prioritizing missing and weak skills first."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current Active Roadmap",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.data && json.data.tasks && json.data.tasks.length > 0) {",
+                  "        var firstTaskId = json.data.tasks[0]._id || json.data.tasks[0].id;",
+                  "        pm.collectionVariables.set('taskId', firstTaskId);",
+                  "        console.log('Saved first task id to {{taskId}}: ' + firstTaskId);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/roadmaps/current",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roadmaps", "current"]
+            },
+            "description": "Retrieves active roadmap, all tasks, and saves the first task's ID into {{taskId}}."
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Task Completion",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/roadmaps/tasks/{{taskId}}/toggle",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roadmaps", "tasks", "{{taskId}}", "toggle"]
+            },
+            "description": "Toggles completed status of {{taskId}} and recalculates overall roadmap progress percentage."
+          },
+          "response": []
+        },
+        {
+          "name": "Archive Current Roadmap",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/roadmaps/current",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "roadmaps", "current"]
+            },
+            "description": "Archives user's active roadmap so a new career pathway can be explored."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7. Unified Dashboard",
+      "item": [
+        {
+          "name": "Get Student Dashboard",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard"]
+            },
+            "description": "Retrieves comprehensive student dashboard telemetry: profile, active roadmap metrics, upcoming incomplete tasks, and dynamic next recommended action."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
