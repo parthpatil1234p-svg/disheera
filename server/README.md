@@ -1,6 +1,6 @@
-# CareerPath AI — Backend Server
+# CareerPath AI — Backend Server (Step 3)
 
-> Node.js + Express.js REST API · MongoDB Atlas · JWT Authentication
+> Node.js + Express.js REST API · MongoDB Atlas / Local · JWT Authentication · Deterministic Recommendation Engine
 
 ---
 
@@ -8,234 +8,319 @@
 
 ```
 server/
-├── server.js               ← Express entry point
-├── package.json
-├── .env.example            ← Copy this to .env and fill in values
-├── .gitignore
+├── server.js                        ← Express entry point & route mounting
+├── package.json                     ← Dependencies & scripts ("start", "dev", "seed")
+├── .env.example                     ← Template for environment variables
+├── .env                             ← Local configuration (do not commit)
+├── seed.js                          ← Seeds Skill and Career collections
 ├── config/
-│   └── db.js               ← MongoDB Atlas connection
+│   └── db.js                        ← MongoDB connection logic (Atlas / Local)
 ├── models/
-│   └── User.js             ← Mongoose user schema
+│   ├── User.js                      ← User schema with subdocuments for skills & education
+│   ├── Skill.js                     ← Standardized skills with categories and indexes
+│   └── Career.js                    ← Career catalog with populated skill references
 ├── controllers/
-│   ├── authController.js   ← Register & login logic
-│   └── userController.js   ← Get & update profile logic
+│   ├── authController.js            ← Register & login controllers
+│   ├── userController.js            ← User profile read & update controllers
+│   ├── careerController.js          ← Catalog querying and slug lookup
+│   ├── assessmentController.js      ← Profile assessment submission controller
+│   └── recommendationController.js  ← Recommendation generation controller
 ├── routes/
-│   ├── authRoutes.js       ← POST /api/auth/register, /login
-│   └── userRoutes.js       ← GET/PUT /api/users/me
+│   ├── authRoutes.js                ← /api/auth (register, login)
+│   ├── userRoutes.js                ← /api/users (/me)
+│   ├── careerRoutes.js              ← /api/careers (list, :slug)
+│   ├── assessmentRoutes.js          ← /api/assessment (PUT)
+│   └── recommendationRoutes.js      ← /api/recommendations (/generate)
+├── services/
+│   └── recommendationService.js     ← Deterministic mathematical scoring engine
 ├── middleware/
-│   ├── authMiddleware.js   ← JWT protect + role authorize
-│   ├── validateRequest.js  ← Input validation
-│   └── errorMiddleware.js  ← Global error handler
+│   ├── authMiddleware.js            ← JWT protect & role authorize guards
+│   ├── validateRequest.js           ← Register, login, profile, and assessment validators
+│   └── errorMiddleware.js           ← Centralized error handler
+├── data/
+│   ├── skillsData.js                ← 35+ standardized skills across 8 categories
+│   ├── careersData.js               ← 5 target industry career profiles
+│   └── seedData.js                  ← Aggregated seed datasets
 └── utils/
-    └── generateToken.js    ← JWT token creator
+    └── generateToken.js             ← JWT token signing utility
 ```
 
 ---
 
-## ⚙️ Setup
+## ⚙️ Setup & Installation
 
-### Step 1 — Install dependencies
-
+### Step 1 — Install Dependencies
 ```powershell
 cd server
 npm install
 ```
 
-### Step 2 — Create your `.env` file
-
-```powershell
-# Windows
-Copy-Item .env.example .env
-```
-
-Open `.env` and fill in these values:
+### Step 2 — Configure `.env`
+Make sure `server/.env` exists with your MongoDB connection string and JWT secret:
 
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb+srv://<user>:<pass>@<cluster>.mongodb.net/careerpath-ai?retryWrites=true&w=majority
-JWT_SECRET=your_long_random_secret_here
+MONGODB_URI=mongodb://localhost:27017/careerpath-ai
+JWT_SECRET=careerpathai404brainsecret2026
 JWT_EXPIRES_IN=7d
 CLIENT_URL=http://localhost:5500
 ```
 
-### Step 3 — Create a MongoDB Atlas cluster
+*(If using MongoDB Atlas in cloud, paste your `mongodb+srv://...` URI in `MONGODB_URI`)*
 
-1. Go to [cloud.mongodb.com](https://cloud.mongodb.com) and sign in.
-2. Click **Build a Database** → choose **M0 Free Tier**.
-3. Go to **Database Access** → Add a database user (username + password).
-4. Go to **Network Access** → Add IP Address → `0.0.0.0/0` (allow all, fine for hackathon).
-5. Click **Connect** on your cluster → **Drivers** → copy the URI.
-6. Paste the URI into your `.env` as `MONGODB_URI`, replacing `<username>` and `<password>`.
-
-### Step 4 — Generate a secure JWT_SECRET
+### Step 3 — Seed Database (Skills & Careers)
+Populate the database with 35+ standardized skills and 5 target industry careers:
 
 ```powershell
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+npm run seed
 ```
 
-Copy the output into `JWT_SECRET` in your `.env`.
+Output:
+```text
+🌱 Starting CareerPath AI Database Seed...
+✅ MongoDB Connected: localhost
+📦 Database: careerpath-ai
+🧹 Clearing existing Skill and Career collections...
+   (User accounts preserved — never modified by seed)
+📦 Inserting 35 skills...
+✅ Successfully seeded 35 skills!
+📦 Resolving skill references and inserting 5 careers...
+✅ Successfully seeded 5 careers!
+🎉 Database seeding completed successfully!
+```
+
+> **Note:** The seed script never deletes user accounts. It only refreshes the `Skill` and `Career` collections.
 
 ---
 
 ## ▶️ Running the Server
 
 ```powershell
-# Development (auto-restart on file changes)
+# Development mode with nodemon auto-restart
 npm run dev
 
-# Production
+# Production mode
 npm start
 ```
 
-The server starts on: **http://localhost:5000**
+Default address: **http://localhost:5000**
 
 ---
 
-## 🌐 API Endpoints
+## 🎯 Recommendation Engine Formula
 
-### Health Check
+The career recommendation engine is **100% deterministic and runs entirely on the backend** without calling any external AI API.
 
-| Method | Endpoint       | Auth | Description              |
-|--------|----------------|------|--------------------------|
-| GET    | `/api/health`  | No   | Verify server is running |
+$$\text{Career Match Score} = (\text{Skill Match} \times 0.60) + (\text{Interest Match} \times 0.25) + (\text{Education Match} \times 0.15)$$
+
+### 1. Skill Match (60% Weight, 0–100)
+- **Importance Weights:**
+  - High = 3 points
+  - Medium = 2 points
+  - Low = 1 point
+- **Proficiency Values:**
+  - Beginner = 1
+  - Intermediate = 2
+  - Advanced = 3
+- For each career skill requirement:
+  $$\text{Proficiency Ratio} = \min\left(\frac{\text{User Proficiency Value}}{\text{Required Proficiency Value}}, 1.0\right)$$
+  $$\text{Earned Points} = \text{Importance Weight} \times \text{Proficiency Ratio}$$
+  $$\text{Skill Match Score} = \left(\frac{\sum \text{Earned Points}}{\sum \text{Importance Weights}}\right) \times 100$$
+
+### 2. Interest Match (25% Weight, 0–100)
+$$\text{Interest Match Score} = \left(\frac{\text{Number of Matching User Interests in Career Tags}}{\text{Total Career Interest Tags}}\right) \times 100$$
+*(Returns neutral 50 if career has no interest tags)*
+
+### 3. Education Match (15% Weight, 0–100)
+Compares the student's degree and major against the career's `educationPreferences` (e.g. BCA, B.Tech, B.Sc CS).
+- If matched: **100**
+- If no match or undeclared: **50** (neutral fallback)
+
+### 4. Skill Gap Classification
+- **Matched Skills:** Skills where user proficiency meets or exceeds requirement ($\ge$).
+- **Weak Skills:** Skills where user proficiency is below requirement ($<$).
+- **Missing Skills:** Core skills required for the career that the user has not acquired.
 
 ---
 
-### Authentication
+## 🌐 API Reference
 
-| Method | Endpoint               | Auth | Description      |
-|--------|------------------------|------|------------------|
-| POST   | `/api/auth/register`   | No   | Create account   |
-| POST   | `/api/auth/login`      | No   | Login & get JWT  |
-
----
-
-### User Profile
-
-| Method | Endpoint         | Auth | Description          |
-|--------|------------------|------|----------------------|
-| GET    | `/api/users/me`  | Yes  | Get my profile       |
-| PUT    | `/api/users/me`  | Yes  | Update my profile    |
-
-**Auth header format:**
+### All responses follow this unified shape:
+```json
+{
+  "success": true,
+  "message": "...",
+  "data": { ... }
+}
 ```
-Authorization: Bearer <your_jwt_token>
-```
 
 ---
-
-## 🔬 Example curl Commands
 
 ### 1. Health Check
-```bash
-curl http://localhost:5000/api/health
-```
-
-### 2. Register
-```bash
-curl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d "{\"name\": \"Parth Patil\", \"email\": \"parth@example.com\", \"password\": \"password123\"}"
-```
-
-### 3. Login
-```bash
-curl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d "{\"email\": \"parth@example.com\", \"password\": \"password123\"}"
-```
-
-### 4. Get Profile (replace TOKEN)
-```bash
-curl http://localhost:5000/api/users/me \
-  -H "Authorization: Bearer TOKEN"
-```
-
-### 5. Update Profile (replace TOKEN)
-```bash
-curl -X PUT http://localhost:5000/api/users/me \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer TOKEN" \
-  -d "{\"education\": {\"course\": \"B.Tech\", \"branch\": \"CSE\", \"year\": \"3rd\", \"college\": \"PVPIT\"}, \"interests\": [\"Web Development\", \"AI/ML\"], \"skills\": [{\"name\": \"JavaScript\", \"proficiency\": \"intermediate\"}, {\"name\": \"Python\", \"proficiency\": \"beginner\"}], \"careerGoals\": [\"Get a job at a product startup\"]}"
+`GET /api/health` — Public
+```json
+{
+  "success": true,
+  "message": "CareerPath AI Server is running ✅",
+  "version": "3.0.0"
+}
 ```
 
 ---
 
-## 🧪 Postman Test Sequence
+### 2. Careers Catalog
+* `GET /api/careers` — Public (supports query params: `?category=development` & `?search=developer`)
+* `GET /api/careers/:slug` — Public (returns career with populated skill references)
 
-1. **Health Check** → `GET http://localhost:5000/api/health`
-   - Expected: `200 OK`, `"success": true`
-
-2. **Register** → `POST http://localhost:5000/api/auth/register`
-   - Body (JSON): `{ "name": "Parth Patil", "email": "parth@example.com", "password": "password123" }`
-   - Expected: `201 Created`, token in response
-
-3. **Login** → `POST http://localhost:5000/api/auth/login`
-   - Body (JSON): `{ "email": "parth@example.com", "password": "password123" }`
-   - Expected: `200 OK`, token in response
-
-4. **Copy the token** from the login response `data.token`
-
-5. **Get Profile** → `GET http://localhost:5000/api/users/me`
-   - Header: `Authorization: Bearer <token>`
-   - Expected: `200 OK`, user object, `profileCompleted: false`
-
-6. **Update Profile** → `PUT http://localhost:5000/api/users/me`
-   - Header: `Authorization: Bearer <token>`
-   - Body (JSON):
-     ```json
-     {
-       "education": { "course": "B.Tech", "branch": "CSE", "year": "3rd", "college": "PVPIT" },
-       "interests": ["Web Development"],
-       "skills": [{ "name": "JavaScript", "proficiency": "intermediate" }]
-     }
-     ```
-   - Expected: `200 OK`, `profileCompleted: true`
-
-7. **Get Profile Again** → `GET http://localhost:5000/api/users/me`
-   - Expected: `200 OK`, `profileCompleted: true`, updated fields visible
+Example response:
+```json
+{
+  "success": true,
+  "data": {
+    "career": {
+      "title": "Front-End Developer",
+      "slug": "front-end-developer",
+      "shortDescription": "Build intuitive, responsive, and visually stunning user interfaces...",
+      "category": "development",
+      "requiredSkills": [
+        {
+          "skill": {
+            "name": "html",
+            "displayName": "HTML",
+            "category": "frontend"
+          },
+          "importance": "high",
+          "requiredProficiency": "intermediate"
+        }
+      ]
+    }
+  }
+}
+```
 
 ---
 
-## 🔒 Security Notes
+### 3. Student Assessment
+`PUT /api/assessment` — Protected (requires `Authorization: Bearer <token>`)
 
-| Concern | How we handle it |
-|---|---|
-| Password storage | bcrypt with 12 salt rounds — never stored as plain text |
-| Password exposure | `select: false` on schema — never returned in any response |
-| JWT storage | Stored in `localStorage` on the client |
-| Brute-force | express-rate-limit: 100 req / 15 min per IP |
-| HTTP headers | helmet() sets security-related headers |
-| CORS | Restricted to `CLIENT_URL` in production |
-| Mass assignment | Only whitelisted fields accepted in profile update |
-| User enumeration | Login returns identical 401 for unknown email and wrong password |
-
-> ⚠️ **Hackathon MVP Note:** JWT is stored in `localStorage` for simplicity.
-> In a production application, use **httpOnly cookies** with **CSRF protection** instead.
-> `localStorage` tokens are vulnerable to XSS attacks.
+**Request Payload:**
+```json
+{
+  "name": "Parth Patil",
+  "education": {
+    "course": "BCA",
+    "branch": "Computer Science",
+    "year": "Second Year",
+    "college": "Pune University"
+  },
+  "interests": ["web development", "design"],
+  "skills": [
+    { "name": "html", "displayName": "HTML", "proficiency": "intermediate" },
+    { "name": "css", "displayName": "CSS", "proficiency": "intermediate" },
+    { "name": "javascript", "displayName": "JavaScript", "proficiency": "beginner" }
+  ],
+  "careerGoals": ["Become a front-end engineer at a top startup"]
+}
+```
 
 ---
 
-## 🐛 Troubleshooting
+### 4. Career Recommendations
+`POST /api/recommendations/generate` — Protected (requires `Authorization: Bearer <token>`)
 
-### MongoDB connection fails
-- Check that `MONGODB_URI` is set correctly in `.env`
-- Check that your cluster's **Network Access** allows `0.0.0.0/0`
-- Check that your database user credentials in the URI are correct
-- Look at the full error message in the console
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Career recommendations generated successfully",
+  "data": {
+    "generatedAt": "2026-09-07T07:45:00.000Z",
+    "profileSummary": {
+      "education": { "course": "BCA", "branch": "Computer Science" },
+      "interests": ["web development", "design"],
+      "skills": [
+        { "name": "html", "displayName": "HTML", "proficiency": "intermediate" }
+      ]
+    },
+    "recommendations": [
+      {
+        "rank": 1,
+        "career": {
+          "id": "67cc5...",
+          "title": "Front-End Developer",
+          "slug": "front-end-developer",
+          "shortDescription": "Build intuitive, responsive, and visually stunning user interfaces...",
+          "category": "development"
+        },
+        "finalScore": 81,
+        "scoreBreakdown": {
+          "skillMatch": 68,
+          "interestMatch": 100,
+          "educationMatch": 100
+        },
+        "whyRecommended": "Strong match for your profile with a high 81% alignment. You already have strong competence in HTML, CSS. To become fully job-ready as a Front-End Developer, focus next on mastering JavaScript.",
+        "matchedSkills": [...],
+        "weakSkills": [...],
+        "missingSkills": [...]
+      }
+    ]
+  }
+}
+```
 
-### CORS error in the browser
-- Check that `CLIENT_URL` in `.env` matches exactly where your frontend is running
-- VS Code Live Server default is `http://localhost:5500`
-- Python server default is `http://localhost:3000`
-- The URL must NOT have a trailing slash
+---
 
-### `Cannot find module` error
-- Run `npm install` inside the `server/` folder
-- Make sure you're running `node server.js` from inside `server/`, not from the root
+## 🧪 Postman Testing Sequence
 
-### JWT invalid / expired
-- Tokens expire after `JWT_EXPIRES_IN` (default 7 days)
-- Log in again to get a fresh token
-- Make sure the `Authorization` header format is exactly: `Bearer <token>`
+Follow this order to verify all endpoints:
+
+1. **Health Check**  
+   `GET http://localhost:5000/api/health` → Expect `200 OK`
+
+2. **Seed Verification**  
+   In terminal: `npm run seed`
+
+3. **Get All Careers**  
+   `GET http://localhost:5000/api/careers` → Expect `200 OK` (5 careers returned)
+
+4. **Register or Login**  
+   `POST http://localhost:5000/api/auth/register` (or `/login`)  
+   Body:
+   ```json
+   {
+     "name": "Parth Patil",
+     "email": "parth@example.com",
+     "password": "password123"
+   }
+   ```
+   Save the returned `token`.
+
+5. **Submit Assessment**  
+   `PUT http://localhost:5000/api/assessment`  
+   Header: `Authorization: Bearer <YOUR_TOKEN>`  
+   Body: (Use the payload from Section 3 above) → Expect `200 OK` (`profileCompleted: true`)
+
+6. **Generate Recommendations**  
+   `POST http://localhost:5000/api/recommendations/generate`  
+   Header: `Authorization: Bearer <YOUR_TOKEN>`  
+   Expect `200 OK` with Top 3 ranked recommendations and skill gap breakdown.
+
+7. **Inspect Career Slug**  
+   `GET http://localhost:5000/api/careers/front-end-developer` → Expect `200 OK`
+
+---
+
+## 🛠️ Troubleshooting
+
+### Issue 1: "No active career profiles available in the system"
+**Cause:** Database has not been seeded yet.  
+**Fix:** Run `npm run seed` inside the `server/` directory.
+
+### Issue 2: "Please complete your profile with education, at least one interest, and at least one skill"
+**Cause:** The logged-in user hasn't filled in their degree, at least one interest, or at least one skill.  
+**Fix:** Submit `PUT /api/assessment` with valid data before calling `/api/recommendations/generate`.
+
+### Issue 3: "Cannot connect to MongoDB"
+**Cause:** Local MongoDB service is not running or Atlas URI credentials in `.env` are invalid.  
+**Fix:** On Windows PowerShell: `Start-Service MongoDB` or verify your `MONGODB_URI` in `.env`.

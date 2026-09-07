@@ -23,6 +23,11 @@ const SkillSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Skill name is required'],
       trim: true,
+      lowercase: true,
+    },
+    displayName: {
+      type: String,
+      trim: true,
     },
     proficiency: {
       type: String,
@@ -31,6 +36,7 @@ const SkillSchema = new mongoose.Schema(
         message: 'Proficiency must be beginner, intermediate, or advanced',
       },
       required: [true, 'Skill proficiency is required'],
+      lowercase: true,
     },
   },
   { _id: false } // No separate _id for sub-documents

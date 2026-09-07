@@ -25,6 +25,9 @@ const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const careerRoutes = require('./routes/careerRoutes');
+const assessmentRoutes = require('./routes/assessmentRoutes');
+const recommendationRoutes = require('./routes/recommendationRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
 
 // ── 2. Connect to MongoDB Atlas ───────────────────────────────
@@ -80,7 +83,7 @@ app.get('/api/health', (req, res) => {
     message: 'CareerPath AI Server is running ✅',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
-    version: '2.0.0',
+    version: '3.0.0',
     team: '404 Brain Not Found',
   });
 });
@@ -90,6 +93,15 @@ app.use('/api/auth', authRoutes);
 
 // User profile: get and update
 app.use('/api/users', userRoutes);
+
+// Careers directory & details (Step 3)
+app.use('/api/careers', careerRoutes);
+
+// Student evaluation assessment (Step 3)
+app.use('/api/assessment', assessmentRoutes);
+
+// Recommendation engine & skill-gap analysis (Step 3)
+app.use('/api/recommendations', recommendationRoutes);
 
 // ── 404 Handler ───────────────────────────────────────────────
 app.use((req, res) => {
@@ -109,11 +121,14 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log('');
   console.log('🚀 CareerPath AI Server started!');
-  console.log(`📡 Listening on  : http://localhost:${PORT}`);
-  console.log(`🔍 Health check  : http://localhost:${PORT}/api/health`);
-  console.log(`🔐 Auth routes   : http://localhost:${PORT}/api/auth`);
-  console.log(`👤 User routes   : http://localhost:${PORT}/api/users`);
-  console.log(`🌱 Environment   : ${process.env.NODE_ENV || 'development'}`);
-  console.log('👥 Team          : 404 Brain Not Found · Hack2Ignite 2026–27');
+  console.log(`📡 Listening on      : http://localhost:${PORT}`);
+  console.log(`🔍 Health check      : http://localhost:${PORT}/api/health`);
+  console.log(`🔐 Auth routes       : http://localhost:${PORT}/api/auth`);
+  console.log(`👤 User routes       : http://localhost:${PORT}/api/users`);
+  console.log(`💼 Careers routes    : http://localhost:${PORT}/api/careers`);
+  console.log(`📝 Assessment route  : http://localhost:${PORT}/api/assessment`);
+  console.log(`🎯 Recommendations   : http://localhost:${PORT}/api/recommendations/generate`);
+  console.log(`🌱 Environment       : ${process.env.NODE_ENV || 'development'}`);
+  console.log('👥 Team              : 404 Brain Not Found · Hack2Ignite 2026–27');
   console.log('');
 });

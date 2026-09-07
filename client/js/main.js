@@ -170,6 +170,7 @@ function initMobileNavClose() {
 // Init — Run all functions after DOM is ready
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  window.Auth?.initNav();
   initScrollAnimations();
   initCareerCards();
   initCTAPulse();

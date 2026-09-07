@@ -878,3 +878,212 @@ a {
     --section-padding: 4rem 0;
   }
 }
+
+/* ============================================================
+   17. Step 3 — Glassmorphism, Auth, Assessment & Recommendations
+   ============================================================ */
+
+/* Universal Glass Card */
+.glass-card {
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Auth Pages */
+.auth-page {
+  background-color: var(--cp-bg-dark);
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(34, 211, 238, 0.12) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(124, 58, 237, 0.15) 0px, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.auth-card {
+  border-radius: var(--radius-xl);
+}
+
+.auth-icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Assessment Page */
+.assessment-page, .recommendations-page {
+  background-color: var(--cp-bg-dark);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.12) 0px, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.section-number-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--cp-primary), var(--cp-secondary));
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+/* Interest Chips */
+.interest-chip {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--cp-text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 0.55rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+}
+
+.interest-chip:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  border-color: rgba(34, 211, 238, 0.4);
+  transform: translateY(-2px);
+}
+
+.interest-chip.selected {
+  background: rgba(34, 211, 238, 0.15);
+  color: #22d3ee;
+  border-color: #22d3ee;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.25);
+}
+
+/* Skill Picker Cards */
+.skill-picker-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all var(--transition-fast);
+}
+
+.skill-picker-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.skill-picker-card.active-skill {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 2px 10px rgba(34, 211, 238, 0.1);
+}
+
+/* Recommendations Page Cards */
+.recommendation-card {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.recommendation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.top-match-card {
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  box-shadow: 0 0 35px rgba(34, 211, 238, 0.15), 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.top-match-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #22d3ee, #7c3aed);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.match-score-badge {
+  min-width: 140px;
+}
+
+.why-recommended-banner {
+  background: rgba(34, 211, 238, 0.06);
+  border-left: 3px solid #22d3ee;
+}
+
+/* Skill Gap Badges */
+.skill-pill {
+  font-size: 0.775rem;
+  font-weight: 600;
+  padding: 0.4rem 0.65rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.matched-pill {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.weak-pill {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.missing-pill {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+/* 3D Placeholder Banner */
+.career-3d-placeholder {
+  border: 1px dashed rgba(34, 211, 238, 0.3);
+  background: radial-gradient(circle at 80% 50%, rgba(124, 58, 237, 0.2), rgba(15, 23, 42, 0.8));
+}
+
+.placeholder-glow {
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.planet-orb {
+  border-radius: 50%;
+  box-shadow: 0 0 25px currentColor;
+}
+
+.orb-1 { width: 42px; height: 42px; background: #22d3ee; color: rgba(34, 211, 238, 0.6); animation: floatOrb 4s ease-in-out infinite; }
+.orb-2 { width: 28px; height: 28px; background: #7c3aed; color: rgba(124, 58, 237, 0.6); animation: floatOrb 5s ease-in-out infinite 1s; }
+.orb-3 { width: 18px; height: 18px; background: #10b981; color: rgba(16, 185, 129, 0.6); animation: floatOrb 3.5s ease-in-out infinite 0.5s; }
+
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+

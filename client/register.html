@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create a free CareerPath AI account to discover your career, assess skills, and get personalized roadmaps."
+    />
+    <title>Sign Up — CareerPath AI</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="auth-page">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top cp-navbar">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <div class="brand-icon">
+            <i class="bi bi-diagram-3-fill"></i>
+          </div>
+          <span class="brand-name">CareerPath <span class="brand-accent">AI</span></span>
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <a href="index.html" class="btn btn-outline-secondary btn-sm px-3">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+          <a href="login.html" class="btn cp-btn-outline btn-sm px-3">
+            Log In
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Auth Card -->
+    <main class="container d-flex align-items-center justify-content-center min-vh-100 pt-5 pb-4">
+      <div class="auth-card-wrapper w-100" style="max-width: 480px;">
+        <div class="card auth-card glass-card border-0 p-4 p-md-5">
+          <!-- Card Header -->
+          <div class="text-center mb-4">
+            <div class="auth-icon-badge mb-3">
+              <i class="bi bi-rocket-takeoff-fill text-info fs-3"></i>
+            </div>
+            <h1 class="h3 fw-bold text-white mb-2">Create Your Account</h1>
+            <p class="text-secondary small">
+              Join CareerPath AI to discover recommended tech careers and personalized learning roadmaps
+            </p>
+          </div>
+
+          <!-- Alert Container for Feedback -->
+          <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+          <!-- Registration Form -->
+          <form id="registerForm" novalidate>
+            <!-- Full Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label text-light small fw-medium">
+                Full Name <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control bg-dark border-secondary text-light"
+                  id="name"
+                  placeholder="e.g. Parth Patil"
+                  required
+                  autocomplete="name"
+                  minlength="2"
+                  maxlength="60"
+                />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label text-light small fw-medium">
+                Email Address <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <input
+                  type="email"
+                  class="form-control bg-dark border-secondary text-light"
+                  id="email"
+                  placeholder="student@example.com"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label text-light small fw-medium">
+                Password <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary">
+                  <i class="bi bi-key"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control bg-dark border-secondary text-light"
+                  id="password"
+                  placeholder="At least 6 characters"
+                  required
+                  autocomplete="new-password"
+                  minlength="6"
+                />
+              </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-4">
+              <label for="confirmPassword" class="form-label text-light small fw-medium">
+                Confirm Password <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary">
+                  <i class="bi bi-shield-check"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control bg-dark border-secondary text-light"
+                  id="confirmPassword"
+                  placeholder="Re-enter your password"
+                  required
+                  autocomplete="new-password"
+                />
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              id="submitBtn"
+              class="btn cp-btn-primary w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2"
+            >
+              <span>Get Started Free</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </form>
+
+          <!-- Footer Link -->
+          <div class="text-center mt-4 pt-3 border-top border-secondary border-opacity-25">
+            <p class="text-secondary small mb-0">
+              Already have an account?
+              <a href="login.html" class="text-info text-decoration-none fw-medium ms-1">
+                Log in here
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/register.js"></script>
+  </body>
+</html>

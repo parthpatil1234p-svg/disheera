@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personalized Career Recommendations & Skill-Gap Analysis — CareerPath AI"
+    />
+    <title>Career Recommendations — CareerPath AI</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="recommendations-page">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top cp-navbar">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <div class="brand-icon">
+            <i class="bi bi-diagram-3-fill"></i>
+          </div>
+          <span class="brand-name">CareerPath <span class="brand-accent">AI</span></span>
+        </a>
+
+        <!-- Auth Actions -->
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <a href="assessment.html" class="btn cp-btn-outline btn-sm px-3">
+            <i class="bi bi-pencil-square me-1"></i> Edit Assessment
+          </a>
+          <button class="btn btn-outline-danger btn-sm px-3" onclick="Auth.logout()">
+            <i class="bi bi-box-arrow-right me-1"></i> Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container pt-5 mt-5 pb-5">
+      
+      <!-- Header Banner -->
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-8">
+          <div class="hackathon-badge mb-3 d-inline-flex align-items-center">
+            <i class="bi bi-bullseye text-info me-2"></i>
+            Step 2 of 2: AI Recommendation Analysis
+          </div>
+          <h1 class="display-6 fw-bold text-white mb-2">
+            Your Top Recommended <span class="gradient-text">Career Trajectories</span>
+          </h1>
+          <p class="text-secondary lead fs-6 mb-0">
+            Calculated via our deterministic weighted algorithm: <strong class="text-info">60% Skills</strong>, <strong class="text-primary">25% Interests</strong>, and <strong class="text-warning">15% Education</strong>.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="assessment.html" class="btn btn-outline-secondary btn-sm px-3">
+            <i class="bi bi-arrow-repeat me-1"></i> Re-take Assessment
+          </a>
+        </div>
+      </div>
+
+      <!-- Static 3D Career Universe Placeholder Banner (Non-interactive placeholder) -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="career-3d-placeholder p-4 rounded-4 glass-card d-flex align-items-center justify-content-between position-relative overflow-hidden">
+            <div class="placeholder-content position-relative" style="z-index: 2; max-width: 600px;">
+              <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-2 py-1 small mb-2">
+                <i class="bi bi-cube me-1"></i> 3D Career Constellation Preview
+              </span>
+              <h2 class="h5 text-white fw-bold mb-1">Interactive 3D Skill Graph & Universe</h2>
+              <p class="text-secondary small mb-0">
+                Visualizing career trajectory nodes and planetary skill orbits. Complete Three.js interactive canvas activates in upcoming development milestones.
+              </p>
+            </div>
+            <div class="placeholder-art d-none d-md-flex align-items-center gap-3 pe-4" style="z-index: 2;">
+              <div class="planet-orb orb-1"></div>
+              <div class="planet-orb orb-2"></div>
+              <div class="planet-orb orb-3"></div>
+            </div>
+            <!-- Glow background overlay -->
+            <div class="placeholder-glow"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert & Notification Area -->
+      <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+      <!-- Loading State Skeleton -->
+      <div id="loadingState" class="text-center py-5">
+        <div class="spinner-border text-info mb-3" style="width: 3.5rem; height: 3.5rem;" role="status">
+          <span class="visually-hidden">Loading recommendations...</span>
+        </div>
+        <h2 class="h5 text-light fw-medium">Analyzing Your Profile & Evaluating Skill Matrices...</h2>
+        <p class="text-secondary small">Cross-referencing 35+ industry skills with 5 specialized tech career profiles</p>
+      </div>
+
+      <!-- Incomplete Profile Fallback State -->
+      <div id="incompleteProfileState" class="d-none text-center py-5 glass-card rounded-4 p-5">
+        <div class="mb-3 text-warning">
+          <i class="bi bi-exclamation-octagon-fill display-3"></i>
+        </div>
+        <h2 class="h4 text-white fw-bold mb-2">Incomplete Assessment Profile</h2>
+        <p class="text-secondary mb-4 mx-auto" style="max-width: 520px;">
+          To generate highly accurate recommendations, our algorithm requires your degree, at least 1 domain of interest, and at least 1 technical skill with proficiency.
+        </p>
+        <a href="assessment.html" class="btn cp-btn-primary px-4 py-2 fw-semibold">
+          <i class="bi bi-pencil-square me-2"></i> Complete Assessment Now
+        </a>
+      </div>
+
+      <!-- Recommendations Container -->
+      <div id="recommendationsContainer" class="d-none">
+        <!-- Injected Cards via recommendations.js -->
+      </div>
+
+    </main>
+
+    <!-- Modal for Step 4 Roadmap Alert Notification -->
+    <div class="modal fade" id="step4Modal" tabindex="-1" aria-labelledby="step4ModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card border-info border-opacity-50 text-light">
+          <div class="modal-header border-secondary border-opacity-25">
+            <h2 class="modal-title h5 d-flex align-items-center gap-2" id="step4ModalLabel">
+              <i class="bi bi-signpost-split-fill text-info"></i> Career Chosen
+            </h2>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-4 text-center">
+            <div class="mb-3">
+              <i class="bi bi-compass text-info display-4"></i>
+            </div>
+            <h3 class="h5 text-white fw-bold mb-2" id="modalCareerTitle">Front-End Developer</h3>
+            <p class="text-secondary small mb-3">
+              Roadmap generation will be available in Step 4.
+            </p>
+            <div class="alert alert-info bg-opacity-10 border-info border-opacity-25 text-info small text-start mb-0">
+              <i class="bi bi-info-circle me-1"></i> In Step 4, our system will automatically turn your missing & weak skills into a time-boxed, 8-week structured curriculum with curated learning resources!
+            </div>
+          </div>
+          <div class="modal-footer border-secondary border-opacity-25">
+            <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/recommendations.js"></script>
+  </body>
+</html>

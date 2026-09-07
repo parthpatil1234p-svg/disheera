@@ -148,4 +148,105 @@ const validateProfileUpdate = (req, res, next) => {
   next();
 };
 
-module.exports = { validateRegister, validateLogin, validateProfileUpdate };
+// ── validateAssessment ─────────────────────────────────────────
+/**
+ * Validation for PUT /api/assessment
+ *
+ * Rules:
+ *  - education must be an object with non-empty education.course
+ *  - interests must be a non-empty array (max 10 items) of non-empty strings
+ *  - skills must be a non-empty array (max 20 items)
+ *  - each skill must have valid name and proficiency (beginner, intermediate, advanced)
+ *  - no duplicate skills allowed (case-insensitive check)
+ */
+const validateAssessment = (req, res, next) => {
+  const { education, interests, skills, careerGoals } = req.body;
+  const errors = [];
+
+  // 1. education
+  if (!education || typeof education !== 'object' || Array.isArray(education)) {
+    errors.push({ field: 'education', message: 'Education details must be an object' });
+  } else {
+    if (!education.course || typeof education.course !== 'string' || education.course.trim() === '') {
+      errors.push({ field: 'education.course', message: 'Degree or Course is required (e.g. BCA, B.Tech)' });
+    }
+  }
+
+  // 2. interests
+  if (!interests || !Array.isArray(interests) || interests.length === 0) {
+    errors.push({ field: 'interests', message: 'At least one interest is required' });
+  } else {
+    if (interests.length > 10) {
+      errors.push({ field: 'interests', message: 'Cannot select more than 10 interests' });
+    }
+    interests.forEach((item, idx) => {
+      if (!item || typeof item !== 'string' || item.trim() === '') {
+        errors.push({ field: `interests[${idx}]`, message: 'Each interest must be a non-empty string' });
+      }
+    });
+  }
+
+  // 3. skills
+  if (!skills || !Array.isArray(skills) || skills.length === 0) {
+    errors.push({ field: 'skills', message: 'At least one skill is required' });
+  } else {
+    if (skills.length > 20) {
+      errors.push({ field: 'skills', message: 'Cannot select more than 20 skills' });
+    }
+
+    const seenSkillNames = new Set();
+    const validProficiencies = ['beginner', 'intermediate', 'advanced'];
+
+    skills.forEach((skill, idx) => {
+      if (!skill || typeof skill !== 'object') {
+        errors.push({ field: `skills[${idx}]`, message: `Skill at index ${idx} must be an object` });
+        return;
+      }
+
+      const skillName = typeof skill.name === 'string' ? skill.name.trim().toLowerCase() : '';
+
+      if (!skillName) {
+        errors.push({ field: `skills[${idx}].name`, message: `Skill at index ${idx} must have a name` });
+      } else if (seenSkillNames.has(skillName)) {
+        errors.push({
+          field: `skills[${idx}].name`,
+          message: `Duplicate skill "${skill.name}" is not allowed`,
+        });
+      } else {
+        seenSkillNames.add(skillName);
+      }
+
+      const prof = typeof skill.proficiency === 'string' ? skill.proficiency.trim().toLowerCase() : '';
+      if (!prof || !validProficiencies.includes(prof)) {
+        errors.push({
+          field: `skills[${idx}].proficiency`,
+          message: `Skill "${skill.name || idx}" proficiency must be beginner, intermediate, or advanced`,
+        });
+      }
+    });
+  }
+
+  // 4. careerGoals (optional)
+  if (careerGoals !== undefined) {
+    if (!Array.isArray(careerGoals)) {
+      errors.push({ field: 'careerGoals', message: 'Career goals must be an array' });
+    } else {
+      careerGoals.forEach((goal, idx) => {
+        if (typeof goal !== 'string') {
+          errors.push({ field: `careerGoals[${idx}]`, message: 'Each career goal must be a string' });
+        }
+      });
+    }
+  }
+
+  if (errors.length > 0) return sendValidationError(res, errors);
+  next();
+};
+
+module.exports = {
+  validateRegister,
+  validateLogin,
+  validateProfileUpdate,
+  validateAssessment,
+};
+

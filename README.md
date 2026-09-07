@@ -1,135 +1,138 @@
-# Project: CareerPath AI
-> **Discover Your Career. Build Your Skills.**
+# CareerPath AI — Discover Your Career. Build Your Skills.
 
-An immersive, AI-powered 3D interactive web platform that analyzes students’ skills, interests, academic backgrounds, and career goals to recommend highly suitable career paths, identify exact skill gaps, and generate actionable, personalized learning roadmaps.
+> **Hack2Ignite 2026–27 · Round 1 MVP**  
+> Domain: EduTech / AI for Good · Team: **404 Brain Not Found**
 
-## 📖 1. Executive Summary
-**CareerPath AI** is an EduTech platform conceptualized for the **Hack2Ignite 2026–27** hackathon. It bridges the gap between academic learning and industry expectations by providing students with a clear, data-driven, and visually interactive (3D) roadmap to their ideal careers.
+An immersive, AI-powered 3D interactive web platform that analyzes students’ skills, interests, academic backgrounds, and career goals to recommend highly suitable career paths, identify exact skill gaps, and generate personalized learning roadmaps.
 
-## 🚨 2. The Problem Statement
-Millions of students graduate every year without a clear understanding of what industry roles they actually qualify for. Problems include:
-*   **Information Overload:** Generic advice doesn't account for a student's unique starting point.
-*   **The Skill Gap:** Students lack visibility into *exactly* which technologies they are missing for their desired jobs.
-*   **Lack of Structure:** Without a week-by-week plan, self-teaching leads to burnout and tutorial hell.
-*   **Low Engagement:** Existing career portals are boring, text-heavy forms that fail to engage modern digital-native students.
+---
 
-## 💡 3. The Solution
-CareerPath AI solves this through a 4-step pipeline:
-1.  **Assess:** Captures detailed user profiles (academics, current skills, proficiency, interests).
-2.  **Analyze (Engine):** Uses a weighted custom algorithm to cross-reference the user's profile with real-world industry requirements.
-3.  **Visualize (3D):** Transcends traditional UI by rendering careers, skills, and progress in an interactive 3D universe using WebGL/Three.js.
-4.  **Execute (Roadmap):** Generates actionable, time-boxed learning roadmaps (4, 8, or 12 weeks) directly targeting the user's missing skills, complete with curated free resources.
-
-## 🌟 4. Key Features (Detailed)
-
-### 4.1. Core MVP Features
-*   **3D Interactive Career Universe:** A WebGL-powered landing page representing careers as connected constellation nodes.
-*   **Intelligent Career Matching Engine:** A deterministic backend scoring matrix evaluating skill proficiency, interest alignment, and education level.
-*   **Dynamic Skill-Gap Analysis:** Visually compares user strengths against role requirements (Green = Mastered, Amber = Missing).
-*   **Personalized Roadmap Generator:** Translates missing skills into a week-by-week curriculum.
-*   **Task Management & Progress Tracking:** Interactive dashboards linking directly to modern learning resources (MDN, YouTube, FreeCodeCamp).
-*   **Secure Authentication:** JWT-based login mechanism with hashed passwords utilizing bcrypt.
-
-### 4.2. Optional & Future Scope
-*   **Gemini AI Chatbot:** Context-aware assistant to answer specific career queries.
-*   **Resume/GitHub Parsing:** Automated skill extraction to bypass manual form entry.
-*   **Admin Dashboard:** GUI for adding new careers and updating skill definitions.
-
-## 💻 5. Technology Stack
-
-| Domain | Technology | Justification |
-| :--- | :--- | :--- |
-| **Frontend UI** | HTML5, CSS3, Vanilla JS, Bootstrap 5 | Rapid prototyping without build-step overhead for a 48hr hackathon. |
-| **Frontend 3D** | Three.js, WebGL, GSAP | Lightweight 3D rendering and cinematic animations directly in the browser. |
-| **Backend API** | Node.js, Express.js | Non-blocking, fast execution, uniform language (JS) across the stack. |
-| **Database** | MongoDB Atlas | Flexible schema design, perfect for evolving user profiles and nested roadmaps. |
-| **Authentication**| JWT (JSON Web Tokens), bcrypt | Stateless, scalable security. |
-| **Deployment** | Vercel (Front), Render (Back) | Reliable, fast CI/CD pipelines with generous free tiers. |
-
-## 🏗️ 6. Comprehensive Project Structure
-
-```text
-careerpath-ai/
-├── backend/
-│   ├── config/
-│   │   └── db.js                 # MongoDB connection logic
-│   ├── controllers/
-│   │   ├── authController.js     # Login/Register logic
-│   │   ├── profileController.js  # User profile CRUD
-│   │   ├── careerController.js   # Matching algorithm logic
-│   │   └── roadmapController.js  # Generation & task tracking
-│   ├── middlewares/
-│   │   ├── authMiddleware.js     # JWT verification shield
-│   │   └── errorMiddleware.js    # Global error handler
-│   ├── models/
-│   │   ├── User.js               # User + linked skills schema
-│   │   ├── Career.js             # Roles and required skills
-│   │   └── Roadmap.js            # User-specific generated plans
-│   ├── routes/
-│   │   ├── authRoutes.js         # /api/auth endpoints
-│   │   ├── profileRoutes.js      # /api/profile endpoints
-│   │   ├── careerRoutes.js       # /api/careers endpoints
-│   │   └── roadmapRoutes.js      # /api/roadmaps endpoints
-│   ├── .env.example              # Template for environment vars
-│   ├── package.json              # Backend dependencies
-│   └── server.js                 # Express bootstrap & listen
-├── frontend/
-│   ├── assets/
-│   │   ├── models/               # GLTF/GLB files (if any)
-│   │   └── textures/             # 3D material textures
-│   ├── css/
-│   │   ├── main.css              # Global styles, variables, reset
-│   │   └── components.css        # Dashboard/Cards glassmorphism
-│   ├── js/
-│   │   ├── api.js                # Fetch wrappers for API calls
-│   │   ├── auth.js               # Frontend login/register handling
-│   │   ├── dashboard.js          # DOM manipulation for progress
-│   │   └── three-scenes/
-│   │       ├── universe.js       # Landing page 3D logic
-│   │       ├── skillOrbit.js     # Career gap 3D logic
-│   │       └── roadmapPath.js    # 3D progression logic
-│   ├── index.html                # Landing page
-│   ├── login.html                # Auth page
-│   ├── dashboard.html            # Main user portal
-│   └── roadmap.html              # Task execution view
-├── docs/                         # Extensive Architecture Docs
-└── README.md                     # This file
-```
-
-## ⚙️ 7. Installation & Setup Guide
-
-### Prerequisites
-*   Node.js (v18 or higher)
-*   Git
-*   MongoDB Atlas Account (Free Tier)
-*   VSCode (Recommended with Live Server extension)
-
-### Step 1: Clone & Setup Backend
-1. Clone the repository: `git clone <repo-url>`
-2. Navigate to backend: `cd backend`
-3. Install dependencies: `npm install`
-4. Environment Setup: Create a `.env` file in the `backend/` directory:
-    ```env
-    PORT=5000
-    MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/careerpath?retryWrites=true&w=majority
-    JWT_SECRET=your_super_secret_jwt_key_here
-    NODE_ENV=development
-    ```
-5. Start the backend: `npm run dev` (Runs on http://localhost:5000)
-
-### Step 2: Setup Frontend
-1. Open a new terminal and navigate to frontend: `cd frontend`
-2. Update API Base URL: Ensure `frontend/js/api.js` points to `http://localhost:5000/api` during local development.
-3. Serve the frontend: Use VSCode "Live Server" on `index.html`, or run a basic static server:
-    ```bash
-    npx serve .
-    ```
-
-## 👨‍💻 8. The Team (Hack2Ignite)
+## 👥 The Team (404 Brain Not Found)
 
 | Member | Focus Area | Responsibilities |
 | :--- | :--- | :--- |
-| **Parth Patil** | Lead & Backend | Architecture, Node/Express routing, MongoDB aggregation, Matching Engine algorithm, Render Deployment. |
-| **Suyog Pawar** | Frontend & API | HTML/CSS structuring, DOM manipulation, connecting Vercel to GitHub, API fetch integration. |
-| **Asmita Lokhande** | UI/UX & 3D Web | Glassmorphism design system, Figma prototyping, Three.js scengraph mapping, animations. |
-| **Aditi Vispute** | Data & Documentation| Curating career maps, skill matrices, QA testing, demo prep, presentation structure. |
+| **Parth Patil** | Team Leader & Backend | System architecture, Express REST API, MongoDB models, Recommendation Engine algorithm |
+| **Suyog Pawar** | Frontend & Integration | HTML5/CSS3/Bootstrap structuring, DOM manipulation, client API integration |
+| **Asmita Lokhande** | UI/UX & Web Aesthetics | Glassmorphism design system, interactive states, Three.js 3D constellation concept |
+| **Aditi Vispute** | Data & Documentation | Curating career skill matrices, seed data standardization, testing & validation |
+
+---
+
+## 🚀 Completed Milestones
+
+- ✅ **Step 1 — Foundation & Monorepo Architecture**: Clean structure, responsive landing page, design tokens, Express health check.
+- ✅ **Step 2 — Authentication & Profile Security**: MongoDB connection, User model, JWT protection middleware, bcrypt hashing, `/api/auth/register`, `/api/auth/login`, `/api/users/me`.
+- ✅ **Step 3 — Student Assessment & Recommendation Engine**:
+  - `Skill` and `Career` Mongoose models with indexes.
+  - Standardized seed dataset: **35+ skills** and **5 industry careers**.
+  - CLI database seed: `npm run seed`.
+  - Deterministic mathematical recommendation engine: $(60\% \text{ Skills} + 25\% \text{ Interests} + 15\% \text{ Education})$.
+  - Skill gap categorization: **Matched** (Green), **Needs Upgrade** (Amber), **Missing** (Red).
+  - Deterministic natural language explanations without external AI dependencies.
+  - End-to-end frontend: `assessment.html`, `recommendations.html`, `login.html`, `register.html`.
+
+---
+
+## 🧠 Recommendation Engine Algorithm
+
+The recommendation engine is 100% deterministic and runs on the backend:
+
+$$\text{Career Match Score} = (\text{Skill Match} \times 0.60) + (\text{Interest Match} \times 0.25) + (\text{Education Match} \times 0.15)$$
+
+1. **Skill Match (60% Weight):** Evaluates importance weights (High=3, Med=2, Low=1) and proficiency levels (Beg=1, Int=2, Adv=3).
+2. **Interest Match (25% Weight):** Calculates overlap between student's chosen domains and career interest tags.
+3. **Education Match (15% Weight):** Compares degree/major with career educational preferences (100 for match, 50 neutral fallback).
+4. **Skill-Gap Analysis:** Automatically categorizes every required career skill into:
+   - 🟢 **Matched:** User meets or exceeds required proficiency level.
+   - 🟡 **Needs Upgrade (Weak):** User has the skill, but requires a higher proficiency level.
+   - 🔴 **Missing:** Core skill user has not yet learned.
+
+---
+
+## 📦 Standardized Initial Datasets
+
+### 5 Industry Careers
+1. **Front-End Developer** (`front-end-developer`): HTML, CSS, JavaScript, Responsive Design, Bootstrap, Git, GitHub
+2. **Full-Stack Developer** (`full-stack-developer`): HTML, CSS, JavaScript, Node.js, Express.js, MongoDB, REST APIs, Authentication
+3. **Data Analyst** (`data-analyst`): Excel, SQL, Statistics, Power BI, Data Visualization, Data Cleaning, Problem Solving
+4. **UI/UX Designer** (`ui-ux-designer`): Figma, Wireframing, Prototyping, User Research, Visual Design, Communication
+5. **Cybersecurity Analyst** (`cybersecurity-analyst`): Networking, Linux, Cybersecurity Fundamentals, OWASP Basics, Ethical Hacking, Problem Solving
+
+### 35+ Standardized Skills
+Organized across **Frontend, Backend, Database, Data, Design, Security, Cloud, Soft Skills, and Tools**.
+
+---
+
+## 📁 Repository Structure
+
+```
+demo/
+├── server/                          ← Backend (Node.js + Express.js CommonJS)
+│   ├── config/db.js                 ← MongoDB Atlas / Local connection
+│   ├── models/
+│   │   ├── User.js                  ← User account & profile schema
+│   │   ├── Skill.js                 ← Standardized skills schema
+│   │   └── Career.js                ← Career requirements schema
+│   ├── data/
+│   │   ├── skillsData.js            ← 35+ curated skills
+│   │   ├── careersData.js           ← 5 target career definitions
+│   │   └── seedData.js              ← Seed data aggregation
+│   ├── seed.js                      ← CLI seed script (npm run seed)
+│   ├── services/
+│   │   └── recommendationService.js ← Scoring & skill-gap engine
+│   ├── controllers/                 ← Auth, User, Career, Assessment, Recommendation
+│   ├── routes/                      ← Express routers
+│   ├── middleware/                  ← JWT protect, input validation, error handling
+│   ├── server.js                    ← App bootstrap & listening
+│   └── README.md                    ← Backend API documentation
+├── client/                          ← Frontend (HTML5, Vanilla CSS, JS, Bootstrap 5)
+│   ├── index.html                   ← Interactive landing page
+│   ├── login.html                   ← User login portal
+│   ├── register.html                ← New student registration
+│   ├── assessment.html              ← Interactive skill & interest assessment form
+│   ├── recommendations.html         ← Top 3 recommendations & skill-gap analysis
+│   ├── css/style.css                ← Glassmorphism styling & design system
+│   └── js/
+│       ├── config.js                ← API base URL & settings
+│       ├── api.js                   ← Fetch helper with JWT auth handling
+│       ├── auth.js                  ← Auth session & route guards
+│       ├── login.js                 ← Login form controller
+│       ├── register.js              ← Registration controller
+│       ├── assessment.js            ← Assessment form controller
+│       ├── recommendations.js       ← Recommendations UI controller
+│       └── main.js                  ← Landing page animations & nav logic
+└── docs/                            ← PRD, TRD, App Flow, UI/UX, Schemas
+```
+
+---
+
+## ⚙️ Local Setup & How to Run
+
+### 1. Backend Server
+```powershell
+cd server
+npm install
+npm run seed       # Seeds 35+ skills and 5 careers into MongoDB
+npm run dev        # Starts Express on http://localhost:5000
+```
+
+### 2. Frontend Client
+```powershell
+cd client
+python -m http.server 5500
+# Or right-click client/index.html in VS Code → Open with Live Server
+```
+
+Open browser at: **[http://localhost:5500](http://localhost:5500)**
+
+---
+
+## 🧪 Postman / API Verification Sequence
+
+1. `GET http://localhost:5000/api/health` → `200 OK`
+2. `npm run seed` → 35 skills & 5 careers populated
+3. `GET http://localhost:5000/api/careers` → `200 OK`
+4. `POST http://localhost:5000/api/auth/register` (or `/login`) → Returns JWT
+5. `PUT http://localhost:5000/api/assessment` with Bearer token → Profile updated (`profileCompleted: true`)
+6. `POST http://localhost:5000/api/recommendations/generate` with Bearer token → Top 3 ranked recommendations
+7. `GET http://localhost:5000/api/careers/front-end-developer` → `200 OK` with populated skills
