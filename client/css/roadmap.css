@@ -1,0 +1,215 @@
+/* ============================================================
+   roadmap.css — Learning Roadmap Page Stylesheet
+   CareerPath AI (Step 4)
+   ============================================================ */
+
+/* Top Roadmap Summary Header */
+.roadmap-header-card {
+  background: rgba(17, 24, 39, 0.95);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-header-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #22d3ee, #7c3aed, #10b981);
+}
+
+/* 3D Roadmap Milestone Path Canvas Container */
+.roadmap-path-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+#roadmap-path {
+  cursor: grab;
+}
+
+#roadmap-path:active {
+  cursor: grabbing;
+}
+
+/* Timeline Layout */
+.roadmap-timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.roadmap-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 36px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.4), rgba(124, 58, 237, 0.2));
+  z-index: 1;
+}
+
+/* Week Cards */
+.week-card {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: 2;
+}
+
+.week-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.week-card.active-week {
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.15), 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.week-card.highlight-week {
+  animation: pulseHighlight 1.5s ease;
+}
+
+@keyframes pulseHighlight {
+  0% { box-shadow: 0 0 0 rgba(34, 211, 238, 0.8); }
+  50% { box-shadow: 0 0 45px rgba(34, 211, 238, 0.7); transform: scale(1.01); }
+  100% { box-shadow: 0 0 0 rgba(34, 211, 238, 0); }
+}
+
+.week-badge-pill {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: #1e293b;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.active-week .week-badge-pill {
+  background: #22d3ee;
+  color: #0b1020;
+  border-color: #38bdf8;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+}
+
+.completed-week .week-badge-pill {
+  background: #10b981;
+  color: #fff;
+  border-color: #34d399;
+}
+
+/* Task Item */
+.task-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.task-item.is-completed {
+  opacity: 0.65;
+  background: rgba(16, 185, 129, 0.04);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.task-item.is-completed .task-title {
+  text-decoration: line-through;
+  color: var(--cp-text-muted);
+}
+
+/* Task Custom Checkbox */
+.task-checkbox-wrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.task-checkbox-input {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  accent-color: var(--cp-accent);
+}
+
+/* Task Type Badges */
+.badge-type-learn {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-type-practice {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-type-project {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.badge-type-assessment {
+  background: rgba(34, 211, 238, 0.15);
+  color: #22d3ee;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+/* Priority Badges */
+.badge-priority-high {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-priority-medium {
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge-priority-low {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Resource Link Button */
+.resource-link-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.08);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.resource-link-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  color: #fff;
+  border-color: #38bdf8;
+}

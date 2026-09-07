@@ -18,13 +18,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   const incompleteState = document.getElementById('incompleteProfileState');
   const container = document.getElementById('recommendationsContainer');
   const alertContainer = document.getElementById('alertContainer');
-  const step4ModalEl = document.getElementById('step4Modal');
+  const roadmapModalEl = document.getElementById('roadmapDurationModal');
   const modalCareerTitle = document.getElementById('modalCareerTitle');
+  const btnConfirmGenerate = document.getElementById('btnConfirmGenerate');
+  const skillOrbitTitle = document.getElementById('skillOrbitTitle');
 
-  let step4Modal = null;
-  if (step4ModalEl && typeof bootstrap !== 'undefined') {
-    step4Modal = new bootstrap.Modal(step4ModalEl);
+  let roadmapModal = null;
+  if (roadmapModalEl && typeof bootstrap !== 'undefined') {
+    roadmapModal = new bootstrap.Modal(roadmapModalEl);
   }
+
+  let selectedCareerSlug = null;
+  let selectedCareerTitle = null;
+
+  // Duration option selection highlighting
+  document.querySelectorAll('input[name="durationWeeks"]').forEach((radio) => {
+    radio.addEventListener('change', (e) => {
+      document.querySelectorAll('.duration-option').forEach((el) => el.classList.remove('active-option', 'border-info'));
+      const parentLabel = e.target.closest('.duration-option');
+      if (parentLabel) {
+        parentLabel.classList.add('active-option', 'border-info');
+      }
+    });
+  });
 
   const showAlert = (message, type = 'danger') => {
     alertContainer.innerHTML = `
@@ -52,6 +68,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         renderRecommendations(recommendations, response.data.profileSummary);
+
+        // Mount 3D Skill Orbit for top recommendation
+        const topRec = recommendations[0];
+        if (topRec && window.initSkillOrbit) {
+          if (skillOrbitTitle) {
+            skillOrbitTitle.textContent = `${topRec.career.title} — Planetary Skill Orbit`;
+          }
+          window.initSkillOrbit('skill-orbit', {
+            careerTitle: topRec.career.title,
+            matchedSkills: topRec.matchedSkills,
+            weakSkills: topRec.weakSkills,
+            missingSkills: topRec.missingSkills,
+          });
+        }
       } else {
         showAlert(response.message || 'Unable to generate recommendations.');
       }
@@ -259,6 +289,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             type="button"
             class="btn ${isTopRank ? 'cp-btn-primary' : 'cp-btn-outline'} btn-sm px-4 py-2 fw-semibold choose-career-btn"
             data-career-title="${escapeHtml(career.title)}"
+            data-career-slug="${escapeHtml(career.slug)}"
           >
             <span>Choose This Career</span>
             <i class="bi bi-arrow-right ms-1"></i>
@@ -269,19 +300,60 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Bind Choose Career button click
       const chooseBtn = card.querySelector('.choose-career-btn');
       chooseBtn.addEventListener('click', () => {
-        const title = chooseBtn.getAttribute('data-career-title');
-        if (modalCareerTitle) modalCareerTitle.textContent = title;
+        selectedCareerTitle = chooseBtn.getAttribute('data-career-title');
+        selectedCareerSlug = chooseBtn.getAttribute('data-career-slug');
+        if (modalCareerTitle) modalCareerTitle.textContent = selectedCareerTitle;
 
-        if (step4Modal) {
-          step4Modal.show();
-        } else {
-          alert('Roadmap generation will be available in Step 4.');
+        if (roadmapModal) {
+          roadmapModal.show();
         }
       });
 
       container.appendChild(card);
     });
   };
+
+  // Handle roadmap generation confirmation
+  if (btnConfirmGenerate) {
+    btnConfirmGenerate.addEventListener('click', async () => {
+      if (!selectedCareerSlug) return;
+
+      const selectedDurationRadio = document.querySelector('input[name="durationWeeks"]:checked');
+      const durationWeeks = selectedDurationRadio ? parseInt(selectedDurationRadio.value, 10) : 8;
+
+      const btnText = btnConfirmGenerate.querySelector('.btn-text');
+      const spinner = btnConfirmGenerate.querySelector('.spinner-border');
+
+      try {
+        btnConfirmGenerate.disabled = true;
+        if (btnText) btnText.textContent = 'Generating Roadmap...';
+        if (spinner) spinner.classList.remove('d-none');
+
+        const res = await window.API.post(
+          '/roadmaps/generate',
+          { careerSlug: selectedCareerSlug, durationWeeks },
+          { auth: true }
+        );
+
+        if (res.success) {
+          if (roadmapModal) roadmapModal.hide();
+          showAlert('Personalized roadmap created successfully! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = 'roadmap.html';
+          }, 600);
+        } else {
+          showAlert(res.message || 'Failed to generate roadmap.', 'danger');
+        }
+      } catch (err) {
+        console.error('Roadmap generation error:', err);
+        showAlert(err.message || 'An error occurred while generating roadmap.', 'danger');
+      } finally {
+        btnConfirmGenerate.disabled = false;
+        if (btnText) btnText.innerHTML = '<i class="bi bi-lightning-charge-fill me-1"></i> Generate Roadmap';
+        if (spinner) spinner.classList.add('d-none');
+      }
+    });
+  }
 
   // Safe string escaper
   function escapeHtml(str) {

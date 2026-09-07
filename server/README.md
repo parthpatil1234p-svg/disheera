@@ -1,6 +1,6 @@
-# CareerPath AI — Backend Server (Step 3)
+# CareerPath AI — Backend Server (Step 4)
 
-> Node.js + Express.js REST API · MongoDB Atlas / Local · JWT Authentication · Deterministic Recommendation Engine
+> Node.js + Express.js REST API · MongoDB Atlas / Local · JWT Authentication · Deterministic Recommendation Engine · Personalized Roadmaps · Student Dashboard
 
 ---
 
@@ -18,28 +18,36 @@ server/
 ├── models/
 │   ├── User.js                      ← User schema with subdocuments for skills & education
 │   ├── Skill.js                     ← Standardized skills with categories and indexes
-│   └── Career.js                    ← Career catalog with populated skill references
+│   ├── Career.js                    ← Career catalog with populated skill references
+│   ├── Roadmap.js                   ← Personalized learning roadmap (duration, status, progress)
+│   └── RoadmapTask.js               ← Actionable tasks with weekNumber, priority, resource links
 ├── controllers/
 │   ├── authController.js            ← Register & login controllers
 │   ├── userController.js            ← User profile read & update controllers
 │   ├── careerController.js          ← Catalog querying and slug lookup
 │   ├── assessmentController.js      ← Profile assessment submission controller
-│   └── recommendationController.js  ← Recommendation generation controller
+│   ├── recommendationController.js  ← Recommendation generation controller
+│   ├── roadmapController.js         ← Roadmap generation, active query, task toggling & archiving
+│   └── dashboardController.js       ← Unified student dashboard telemetry
 ├── routes/
 │   ├── authRoutes.js                ← /api/auth (register, login)
 │   ├── userRoutes.js                ← /api/users (/me)
 │   ├── careerRoutes.js              ← /api/careers (list, :slug)
-│   ├── assessmentRoutes.js          ← /api/assessment (PUT)
-│   └── recommendationRoutes.js      ← /api/recommendations (/generate)
+│   ├── assessmentRoutes.js          ← /api/assessment (PUT, POST)
+│   ├── recommendationRoutes.js      ← /api/recommendations (/generate)
+│   ├── roadmapRoutes.js             ← /api/roadmaps (generate, current, tasks/:taskId/toggle)
+│   └── dashboardRoutes.js           ← /api/dashboard (get unified dashboard)
 ├── services/
-│   └── recommendationService.js     ← Deterministic mathematical scoring engine
+│   ├── recommendationService.js     ← Deterministic mathematical scoring engine
+│   └── roadmapService.js            ← Skill-gap prioritized curriculum generator
 ├── middleware/
 │   ├── authMiddleware.js            ← JWT protect & role authorize guards
-│   ├── validateRequest.js           ← Register, login, profile, and assessment validators
+│   ├── validateRequest.js           ← Request payload validators (roadmap, task, assessment, auth)
 │   └── errorMiddleware.js           ← Centralized error handler
 ├── data/
 │   ├── skillsData.js                ← 35+ standardized skills across 8 categories
 │   ├── careersData.js               ← 5 target industry career profiles
+│   ├── roadmapTemplates.js          ← Curated 4, 8, 12-week curricula for all 5 careers
 │   └── seedData.js                  ← Aggregated seed datasets
 └── utils/
     └── generateToken.js             ← JWT token signing utility
@@ -271,7 +279,68 @@ Example response:
 
 ---
 
-## 🧪 Postman Testing Sequence
+## 🗺️ Step 4 Roadmap & Dashboard Endpoints
+
+### 1. Generate Learning Roadmap
+- **Method:** `POST`
+- **URL:** `/api/roadmaps/generate`
+- **Auth:** `Bearer <token>`
+- **Request Body:**
+```json
+{
+  "careerSlug": "front-end-developer",
+  "durationWeeks": 8
+}
+```
+- **Validation Rules:**
+  - `careerSlug`: non-empty string matching one of the user's top 3 recommendations
+  - `durationWeeks`: integer matching `4`, `8`, or `12`
+  - User must have completed assessment profile
+  - Existing active roadmap is automatically archived
+- **Response `201 Created`:**
+```json
+{
+  "success": true,
+  "message": "Personalized roadmap generated successfully",
+  "data": {
+    "roadmap": {
+      "id": "67cc5...",
+      "career": { "title": "Front-End Developer", "slug": "front-end-developer" },
+      "durationWeeks": 8,
+      "status": "active",
+      "totalTasks": 15,
+      "completedTasks": 0,
+      "progressPercentage": 0
+    },
+    "weeks": [ ... ]
+  }
+}
+```
+
+### 2. Get Current Active Roadmap
+- **Method:** `GET`
+- **URL:** `/api/roadmaps/current`
+- **Auth:** `Bearer <token>`
+- **Response `200 OK`:**
+Returns active roadmap metadata, flat `tasks` array, and grouped `weeks` array with curated external resources.
+
+### 3. Toggle Task Progress
+- **Method:** `PATCH`
+- **URL:** `/api/roadmaps/tasks/:taskId/toggle`
+- **Auth:** `Bearer <token>`
+- **Response `200 OK`:**
+Toggles completed status, sets `completedAt`, and recalculates roadmap completion percentage.
+
+### 4. Student Unified Dashboard
+- **Method:** `GET`
+- **URL:** `/api/dashboard`
+- **Auth:** `Bearer <token>`
+- **Response `200 OK`:**
+Returns user profile, active roadmap progress, first 5 upcoming incomplete tasks, and dynamic `nextAction` prompt.
+
+---
+
+## 🧪 Postman & Integration Testing Sequence
 
 Follow this order to verify all endpoints:
 
@@ -286,28 +355,32 @@ Follow this order to verify all endpoints:
 
 4. **Register or Login**  
    `POST http://localhost:5000/api/auth/register` (or `/login`)  
-   Body:
-   ```json
-   {
-     "name": "Parth Patil",
-     "email": "parth@example.com",
-     "password": "password123"
-   }
-   ```
-   Save the returned `token`.
+   Save returned `token`.
 
 5. **Submit Assessment**  
-   `PUT http://localhost:5000/api/assessment`  
-   Header: `Authorization: Bearer <YOUR_TOKEN>`  
-   Body: (Use the payload from Section 3 above) → Expect `200 OK` (`profileCompleted: true`)
+   `PUT /api/assessment` (or `POST /api/assessment`)  
+   Header: `Authorization: Bearer <token>`
 
 6. **Generate Recommendations**  
    `POST http://localhost:5000/api/recommendations/generate`  
-   Header: `Authorization: Bearer <YOUR_TOKEN>`  
-   Expect `200 OK` with Top 3 ranked recommendations and skill gap breakdown.
+   Header: `Authorization: Bearer <token>`
 
-7. **Inspect Career Slug**  
-   `GET http://localhost:5000/api/careers/front-end-developer` → Expect `200 OK`
+7. **Generate Roadmap**  
+   `POST http://localhost:5000/api/roadmaps/generate`  
+   Header: `Authorization: Bearer <token>`  
+   Body: `{ "careerSlug": "front-end-developer", "durationWeeks": 8 }`
+
+8. **Fetch Active Roadmap**  
+   `GET http://localhost:5000/api/roadmaps/current`  
+   Header: `Authorization: Bearer <token>`
+
+9. **Toggle Task Progress**  
+   `PATCH http://localhost:5000/api/roadmaps/tasks/<TASK_ID>/toggle`  
+   Header: `Authorization: Bearer <token>`
+
+10. **Fetch Dashboard**  
+    `GET http://localhost:5000/api/dashboard`  
+    Header: `Authorization: Bearer <token>`
 
 ---
 

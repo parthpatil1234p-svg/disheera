@@ -101,6 +101,10 @@ const API = {
     return this.request(endpoint, { method: 'PUT', body, auth });
   },
 
+  patch(endpoint, body, { auth = false } = {}) {
+    return this.request(endpoint, { method: 'PATCH', body, auth });
+  },
+
   delete(endpoint, { auth = false } = {}) {
     return this.request(endpoint, { method: 'DELETE', auth });
   },

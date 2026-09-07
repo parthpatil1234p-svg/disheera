@@ -176,6 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initCTAPulse();
   initMobileNavClose();
 
+  // Initialize 3D Career Universe constellation
+  if (typeof window.initCareerUniverse === 'function') {
+    window.initCareerUniverse('careerUniverse');
+  }
+
   console.log(
     '%cCareerPath AI 🚀',
     'color: #22D3EE; font-size: 18px; font-weight: bold;'

@@ -92,10 +92,11 @@ const Auth = {
 
     if (this.isAuthenticated() && user) {
       authActions.innerHTML = `
-        <div class="d-flex align-items-center gap-3">
-          <span class="text-light small d-none d-md-inline">
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-light small d-none d-md-inline me-2">
             <i class="bi bi-person-circle me-1 text-info"></i> ${escapeHtml(user.name || 'Student')}
           </span>
+          <a href="dashboard.html" class="btn btn-outline-info btn-sm px-3">Dashboard</a>
           <a href="assessment.html" class="btn cp-btn-outline btn-sm px-3">Assessment</a>
           <button id="logoutBtn" class="btn btn-outline-danger btn-sm px-3" onclick="Auth.logout()">
             <i class="bi bi-box-arrow-right me-1"></i> Logout

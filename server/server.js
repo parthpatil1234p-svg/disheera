@@ -28,6 +28,8 @@ const userRoutes = require('./routes/userRoutes');
 const careerRoutes = require('./routes/careerRoutes');
 const assessmentRoutes = require('./routes/assessmentRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
+const roadmapRoutes = require('./routes/roadmapRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
 
 // ── 2. Connect to MongoDB Atlas ───────────────────────────────
@@ -103,6 +105,12 @@ app.use('/api/assessment', assessmentRoutes);
 // Recommendation engine & skill-gap analysis (Step 3)
 app.use('/api/recommendations', recommendationRoutes);
 
+// Roadmap generation, tasks & progress (Step 4)
+app.use('/api/roadmaps', roadmapRoutes);
+
+// Unified student dashboard (Step 4)
+app.use('/api/dashboard', dashboardRoutes);
+
 // ── 404 Handler ───────────────────────────────────────────────
 app.use((req, res) => {
   res.status(404).json({
@@ -128,6 +136,8 @@ app.listen(PORT, () => {
   console.log(`💼 Careers routes    : http://localhost:${PORT}/api/careers`);
   console.log(`📝 Assessment route  : http://localhost:${PORT}/api/assessment`);
   console.log(`🎯 Recommendations   : http://localhost:${PORT}/api/recommendations/generate`);
+  console.log(`🗺️  Roadmap routes    : http://localhost:${PORT}/api/roadmaps`);
+  console.log(`📊 Dashboard route   : http://localhost:${PORT}/api/dashboard`);
   console.log(`🌱 Environment       : ${process.env.NODE_ENV || 'development'}`);
   console.log('👥 Team              : 404 Brain Not Found · Hack2Ignite 2026–27');
   console.log('');

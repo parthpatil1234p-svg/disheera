@@ -30,6 +30,18 @@ An immersive, AI-powered 3D interactive web platform that analyzes students’ s
   - Skill gap categorization: **Matched** (Green), **Needs Upgrade** (Amber), **Missing** (Red).
   - Deterministic natural language explanations without external AI dependencies.
   - End-to-end frontend: `assessment.html`, `recommendations.html`, `login.html`, `register.html`.
+- ✅ **Step 4 — Personalized Roadmaps, Task Tracking, Student Dashboard & 3D Experiences**:
+  - `Roadmap` and `RoadmapTask` MongoDB models with duration (4, 8, 12 weeks), status (`active`, `completed`, `archived`), and progress calculation.
+  - Curated 4, 8, 12-week curricula for all 5 careers with public tutorial and documentation links.
+  - Missing and weak skills prioritized first in weekly milestones.
+  - Full task toggling via `PATCH /api/roadmaps/tasks/:taskId/toggle` with atomic progress recalculation.
+  - Unified student dashboard via `GET /api/dashboard` with user telemetry and upcoming tasks.
+  - **Four Interactive Three.js + GSAP 3D Experiences** (with graceful 2D fallbacks):
+    1. **Career Universe** (`three-career-universe.js`): 3D celestial constellation on landing page hero.
+    2. **Skill Orbit** (`three-skill-orbit.js`): Planetary orbit visualization of Matched, Upgrade Needed, and Missing skills on recommendations page.
+    3. **Roadmap Milestone Path** (`three-roadmap-path.js`): Interactive 3D stepping-stone milestone trail on roadmap page.
+    4. **Progress Orb** (`three-progress.js`): Real-time holographic energy sphere on student dashboard.
+  - Complete frontend pages: `roadmap.html` and `dashboard.html`.
 
 ---
 

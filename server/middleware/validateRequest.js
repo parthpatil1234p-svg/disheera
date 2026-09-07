@@ -18,6 +18,7 @@
  */
 
 // ── Helpers ────────────────────────────────────────────────────
+const mongoose = require('mongoose');
 
 /** Basic email format check */
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -243,10 +244,62 @@ const validateAssessment = (req, res, next) => {
   next();
 };
 
+// ── validateRoadmapGeneration ──────────────────────────────────
+/**
+ * Validation for POST /api/roadmaps/generate
+ *
+ * Rules:
+ *  - careerSlug: required string, max 100 chars
+ *  - durationWeeks: required integer and must be 4, 8, or 12
+ */
+const validateRoadmapGeneration = (req, res, next) => {
+  const { careerSlug, durationWeeks } = req.body;
+  const errors = [];
+
+  if (!careerSlug || typeof careerSlug !== 'string' || careerSlug.trim() === '') {
+    errors.push({ field: 'careerSlug', message: 'Career slug is required' });
+  } else if (careerSlug.trim().length > 100) {
+    errors.push({ field: 'careerSlug', message: 'Career slug cannot exceed 100 characters' });
+  }
+
+  const validDurations = [4, 8, 12];
+  const parsedDuration = Number(durationWeeks);
+
+  if (
+    durationWeeks === undefined ||
+    isNaN(parsedDuration) ||
+    !validDurations.includes(parsedDuration)
+  ) {
+    errors.push({ field: 'durationWeeks', message: 'Duration must be 4, 8, or 12 weeks' });
+  }
+
+  if (errors.length > 0) return sendValidationError(res, errors);
+  next();
+};
+
+// ── validateTaskId ─────────────────────────────────────────────
+/**
+ * Validation for routes containing :taskId parameter
+ */
+const validateTaskId = (req, res, next) => {
+  const { taskId } = req.params;
+
+  if (!taskId || !mongoose.Types.ObjectId.isValid(taskId)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid task ID format',
+    });
+  }
+
+  next();
+};
+
 module.exports = {
   validateRegister,
   validateLogin,
   validateProfileUpdate,
   validateAssessment,
+  validateRoadmapGeneration,
+  validateTaskId,
 };
 

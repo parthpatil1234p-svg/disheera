@@ -14,5 +14,6 @@ const { validateAssessment } = require('../middleware/validateRequest');
 const { updateAssessment } = require('../controllers/assessmentController');
 
 router.put('/', protect, validateAssessment, updateAssessment);
+router.post('/', protect, validateAssessment, updateAssessment);
 
 module.exports = router;

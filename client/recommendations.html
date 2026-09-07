@@ -46,6 +46,9 @@
 
         <!-- Auth Actions -->
         <div class="ms-auto d-flex align-items-center gap-2">
+          <a href="dashboard.html" class="btn btn-outline-info btn-sm px-3">
+            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+          </a>
           <a href="assessment.html" class="btn cp-btn-outline btn-sm px-3">
             <i class="bi bi-pencil-square me-1"></i> Edit Assessment
           </a>
@@ -60,7 +63,7 @@
     <main class="container pt-5 mt-5 pb-5">
       
       <!-- Header Banner -->
-      <div class="row align-items-center mb-5">
+      <div class="row align-items-center mb-4">
         <div class="col-lg-8">
           <div class="hackathon-badge mb-3 d-inline-flex align-items-center">
             <i class="bi bi-bullseye text-info me-2"></i>
@@ -80,26 +83,34 @@
         </div>
       </div>
 
-      <!-- Static 3D Career Universe Placeholder Banner (Non-interactive placeholder) -->
+      <!-- 3D Skill Orbit Visualization Container -->
       <div class="row mb-5">
         <div class="col-12">
-          <div class="career-3d-placeholder p-4 rounded-4 glass-card d-flex align-items-center justify-content-between position-relative overflow-hidden">
-            <div class="placeholder-content position-relative" style="z-index: 2; max-width: 600px;">
-              <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-2 py-1 small mb-2">
-                <i class="bi bi-cube me-1"></i> 3D Career Constellation Preview
-              </span>
-              <h2 class="h5 text-white fw-bold mb-1">Interactive 3D Skill Graph & Universe</h2>
-              <p class="text-secondary small mb-0">
-                Visualizing career trajectory nodes and planetary skill orbits. Complete Three.js interactive canvas activates in upcoming development milestones.
-              </p>
+          <div class="skill-orbit-card p-4 rounded-4 glass-card position-relative overflow-hidden border border-info border-opacity-25 shadow-lg">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3 position-relative" style="z-index: 2;">
+              <div>
+                <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-2 py-1 small mb-1">
+                  <i class="bi bi-disc me-1"></i> Interactive 3D Skill Orbit
+                </span>
+                <h2 class="h5 text-white fw-bold mb-0" id="skillOrbitTitle">Top Match Planetary Skill Graph</h2>
+              </div>
+              <div class="d-flex align-items-center gap-3 mt-2 mt-md-0 small text-secondary">
+                <span><i class="bi bi-circle-fill text-success me-1"></i> Matched</span>
+                <span><i class="bi bi-circle-fill text-warning me-1"></i> Needs Upgrade</span>
+                <span><i class="bi bi-circle-fill text-danger me-1"></i> Missing</span>
+                <span class="badge bg-dark border border-secondary text-secondary d-none d-sm-inline-block">Drag to rotate • Scroll to zoom</span>
+              </div>
             </div>
-            <div class="placeholder-art d-none d-md-flex align-items-center gap-3 pe-4" style="z-index: 2;">
-              <div class="planet-orb orb-1"></div>
-              <div class="planet-orb orb-2"></div>
-              <div class="planet-orb orb-3"></div>
+            
+            <!-- Three.js Canvas Container -->
+            <div id="skill-orbit" style="width: 100%; height: 320px; border-radius: 12px; background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.9), rgba(11, 16, 32, 0.95)); position: relative; overflow: hidden;">
+              <!-- 2D Fallback shown if WebGL not supported -->
+              <div id="skill-orbit-fallback" class="d-none w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                <i class="bi bi-diagram-3 text-info display-4 mb-2"></i>
+                <p class="text-white fw-semibold mb-1">3D Skill Galaxy</p>
+                <p class="text-secondary small mb-0">WebGL is unavailable in this browser. Review the skill gap breakdown below.</p>
+              </div>
             </div>
-            <!-- Glow background overlay -->
-            <div class="placeholder-glow"></div>
           </div>
         </div>
       </div>
@@ -137,30 +148,73 @@
 
     </main>
 
-    <!-- Modal for Step 4 Roadmap Alert Notification -->
-    <div class="modal fade" id="step4Modal" tabindex="-1" aria-labelledby="step4ModalLabel" aria-hidden="true">
+    <!-- Modal for Step 4 Roadmap Generation Duration Selection -->
+    <div class="modal fade" id="roadmapDurationModal" tabindex="-1" aria-labelledby="roadmapModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content glass-card border-info border-opacity-50 text-light">
           <div class="modal-header border-secondary border-opacity-25">
-            <h2 class="modal-title h5 d-flex align-items-center gap-2" id="step4ModalLabel">
-              <i class="bi bi-signpost-split-fill text-info"></i> Career Chosen
+            <h2 class="modal-title h5 d-flex align-items-center gap-2" id="roadmapModalLabel">
+              <i class="bi bi-map-fill text-info"></i> Generate Learning Roadmap
             </h2>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body py-4 text-center">
-            <div class="mb-3">
-              <i class="bi bi-compass text-info display-4"></i>
+          <div class="modal-body py-4">
+            <div class="text-center mb-3">
+              <div class="badge bg-info bg-opacity-10 border border-info border-opacity-25 text-info px-3 py-1 mb-2">
+                Selected Career Goal
+              </div>
+              <h3 class="h4 text-white fw-bold mb-1" id="modalCareerTitle">Front-End Developer</h3>
+              <p class="text-secondary small mb-0">Select your preferred learning timeline and intensity.</p>
             </div>
-            <h3 class="h5 text-white fw-bold mb-2" id="modalCareerTitle">Front-End Developer</h3>
-            <p class="text-secondary small mb-3">
-              Roadmap generation will be available in Step 4.
-            </p>
-            <div class="alert alert-info bg-opacity-10 border-info border-opacity-25 text-info small text-start mb-0">
-              <i class="bi bi-info-circle me-1"></i> In Step 4, our system will automatically turn your missing & weak skills into a time-boxed, 8-week structured curriculum with curated learning resources!
+
+            <div class="duration-options d-flex flex-column gap-2 mb-4">
+              <!-- 4 Weeks -->
+              <label class="duration-option p-3 rounded-3 border border-secondary border-opacity-25 d-flex align-items-center justify-content-between cursor-pointer">
+                <div class="d-flex align-items-center gap-3">
+                  <input type="radio" name="durationWeeks" value="4" class="form-check-input mt-0" />
+                  <div>
+                    <div class="fw-bold text-white">4 Weeks <span class="badge bg-warning bg-opacity-25 text-warning small ms-1">Fast-track</span></div>
+                    <div class="text-secondary small">Intensive crash-course (~10-14 hrs/week)</div>
+                  </div>
+                </div>
+                <span class="text-secondary small">Fastest</span>
+              </label>
+
+              <!-- 8 Weeks (Default) -->
+              <label class="duration-option active-option p-3 rounded-3 border border-info d-flex align-items-center justify-content-between cursor-pointer">
+                <div class="d-flex align-items-center gap-3">
+                  <input type="radio" name="durationWeeks" value="8" checked class="form-check-input mt-0" />
+                  <div>
+                    <div class="fw-bold text-white">8 Weeks <span class="badge bg-info bg-opacity-25 text-info small ms-1">Recommended</span></div>
+                    <div class="text-secondary small">Balanced pace (~6-8 hrs/week) with projects</div>
+                  </div>
+                </div>
+                <span class="text-info small fw-bold">Popular</span>
+              </label>
+
+              <!-- 12 Weeks -->
+              <label class="duration-option p-3 rounded-3 border border-secondary border-opacity-25 d-flex align-items-center justify-content-between cursor-pointer">
+                <div class="d-flex align-items-center gap-3">
+                  <input type="radio" name="durationWeeks" value="12" class="form-check-input mt-0" />
+                  <div>
+                    <div class="fw-bold text-white">12 Weeks <span class="badge bg-secondary small ms-1">Deep Dive</span></div>
+                    <div class="text-secondary small">Comprehensive mastery (~4-6 hrs/week)</div>
+                  </div>
+                </div>
+                <span class="text-secondary small">Thorough</span>
+              </label>
+            </div>
+
+            <div class="alert alert-info bg-opacity-10 border-info border-opacity-25 text-info small mb-0">
+              <i class="bi bi-stars me-1"></i> We prioritize your missing and weak skills first, populating weekly modules with official tutorials, hands-on practice, and a capstone project.
             </div>
           </div>
           <div class="modal-footer border-secondary border-opacity-25">
-            <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" id="btnConfirmGenerate" class="btn cp-btn-primary btn-sm px-4 fw-semibold">
+              <span class="btn-text"><i class="bi bi-lightning-charge-fill me-1"></i> Generate Roadmap</span>
+              <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+            </button>
           </div>
         </div>
       </div>
@@ -168,9 +222,12 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/three-skill-orbit.js"></script>
     <script src="js/recommendations.js"></script>
   </body>
 </html>
