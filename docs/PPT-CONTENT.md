@@ -1,15 +1,16 @@
-# CareerPath AI — Complete 10-Slide Presentation Deck
+# Pitch Deck Content Specification (10 Slides) — CareerPath AI
 
+> **Status:** Slide Deck Content / To be updated with final presentation assets  
 > **Hack2Ignite 2026–27 · Round 1 Evaluation**  
-> Team: **404 Brain Not Found** · Domain: **EduTech / AI for Good**
+> **Team:** 404 Brain Not Found · Domain: **EduTech / AI for Good**
 
 ---
 
 ## 🖥️ Slide 1: Title Slide
-- **Slide Title:** CareerPath AI
+- **Title:** CareerPath AI
 - **Subtitle:** AI Career Guidance & Skill Roadmap Platform
 - **Tagline:** *Discover Your Career. Build Your Skills.*
-- **Competition:** Hack2Ignite 2026–27 (Round 1 MVP)
+- **Event:** Hack2Ignite 2026–27 (Round 1 Qualifier)
 - **Domain:** EduTech / AI for Good
 - **Team Name:** 404 Brain Not Found
 - **Team Members:**
@@ -17,137 +18,136 @@
   - **Suyog Pawar** — Frontend & UI Integration Engineer
   - **Asmita Lokhande** — UI/UX & 3D Interactive Designer
   - **Aditi Vispute** — Data Structuring & QA Specialist
-- **Suggested Layout / Visual:** Dark navy background with cyan/purple gradient branding, glowing 3D constellation graphic on the right, and structured team credentials box.
-- **Speaker Notes:** *"Welcome judges! Today we present CareerPath AI—an interactive, AI-driven guidance platform designed to eliminate career indecision for higher-education students."*
-- **Recommended Time:** 20 Seconds
+- **Visual Suggestion:** Dark navy glassmorphism theme with subtle cyan/purple accent lighting; 3D constellation motif.
+- **Speaker:** Parth Patil
+- **Duration:** 20 Seconds
 
 ---
 
 ## ⚠️ Slide 2: Problem Statement
-- **Slide Title:** The Higher-Education Career Paradox
-- **Bullet Points:**
-  - **70%+ Undergraduates Face Analysis Paralysis:** Overwhelmed by fragmented industry roles and rapidly shifting tech requirements.
-  - **The Curriculum-Industry Disconnect:** University degrees teach foundational theory, but fail to clearly identify individual skill deficits.
-  - **The Generic Course Avalanche:** Traditional EdTech platforms push 40-hour generic courses without diagnosing what students *actually* already know.
-  - **Lack of Actionable Roadmaps:** Students are told *what* careers exist, but never given a tailored, week-by-week execution plan.
-- **Suggested Layout / Visual:** 3-column comparative infographic contrasting "Student Confusion" with "EdTech Information Overload".
-- **Speaker Notes:** *"Students don't lack ambition—they lack clarity. Existing solutions give either high-level career surveys or thousand-dollar course bundles without diagnosing what the student is actually missing."*
-- **Recommended Time:** 25 Seconds
+- **Title:** The Higher-Education Career Paradox
+- **Key Points:**
+  - **70%+ Undergraduates Face Analysis Paralysis:** Overwhelmed by rapidly evolving industry roles and fragmented job descriptions.
+  - **Degree-Industry Disconnect:** Academic curricula focus on theory, leaving students blind to practical tech stack requirements.
+  - **The Generic Course Avalanche:** Traditional portals push 40-hour generic courses without diagnosing existing proficiencies.
+  - **Lack of Time-Boxed Roadmaps:** Students know *what* careers exist, but not *how* to prepare week by week.
+- **Visual Suggestion:** 3-column infographic contrasting student confusion with fragmented course catalogs.
+- **Speaker:** Parth Patil
+- **Duration:** 25 Seconds
 
 ---
 
 ## 🎯 Slide 3: Target Users & Pain Points
-- **Slide Title:** Who We Are Building For
-- **Target User Personas:**
-  - **Undergraduate Tech Students (BCA, B.Tech, BSc CS):** Needing guidance to select their first specialized career path.
-  - **Career Changers & Transitioning Self-Learners:** Possessing scattered skills and needing a targeted bridge to become job-ready.
-- **Critical Pain Points Addressed:**
+- **Title:** Who We Are Building For
+- **Target Personas:**
+  - **Undergraduate Tech Students (BCA, B.Tech, BSc CS):** Needing guidance to choose and prepare for their first specialized tech role.
+  - **Career Changers & Transitioning Self-Learners:** Possessing scattered knowledge and needing an actionable bridge to become hireable.
+- **Core Pain Points Solved:**
   - *"Which career best matches my current foundation?"*
-  - *"What are my exact missing skills vs. skills I already know?"*
-  - *"How can I structure my self-study over 4, 8, or 12 weeks to get hired?"*
-- **Suggested Layout / Visual:** Split persona cards with photo badges and quote bubbles summarizing real student pain points.
-- **Speaker Notes:** *"Our target users are motivated students who know basic programming but struggle to bridge the gap into specialized, hireable roles."*
-- **Recommended Time:** 20 Seconds
+  - *"What are my exact missing skills vs. skills I already have?"*
+  - *"How do I structure my self-study over 4, 8, or 12 weeks to get hired?"*
+- **Visual Suggestion:** Persona comparison cards with student quotes and pain-point callouts.
+- **Speaker:** Parth Patil
+- **Duration:** 20 Seconds
 
 ---
 
 ## 💡 Slide 4: Proposed Solution
-- **Slide Title:** The CareerPath AI Solution
+- **Title:** The CareerPath AI Solution
 - **Core Pillars:**
-  - **1. Holistic Assessment:** Evaluates degrees, domains of interest, and granular skill proficiencies.
-  - **2. Deterministic AI Scoring:** Ranks top 3 career fits with mathematically verifiable score transparency.
-  - **3. Precise Skill-Gap Matrix:** Automatically classifies requirements into Matched, Needs Upgrade, and Missing skills.
-  - **4. Time-Boxed Personalized Roadmaps:** Builds week-by-week curricula (4, 8, or 12 weeks) that schedule missing skills first with free curated resources.
-  - **5. Interactive 3D Gamification:** Four purposeful WebGL visualizers that boost engagement and track personal growth.
-- **Suggested Layout / Visual:** 5-step horizontal flow diagram showing inputs transforming into roadmap outputs.
-- **Speaker Notes:** *"CareerPath AI operates as a personalized career advisor, skill auditor, and curriculum planner all in one intuitive platform."*
-- **Recommended Time:** 25 Seconds
+  - **1. Objective Profiling:** Multi-step evaluation of degree, domain interests, and granular skill proficiencies.
+  - **2. Deterministic AI Scoring:** Transparent, explainable career matching without black-box hallucinations.
+  - **3. Precision Skill-Gap Analysis:** Categorizes skills into Matched (Green), Needs Upgrade (Amber), and Missing (Red).
+  - **4. Time-Boxed Personalized Roadmaps:** Dynamic 4, 8, or 12-week curricula with free curated resources.
+  - **5. Interactive 3D Visuals:** Immersive Three.js experiences that clarify user progress with 100% 2D fallbacks.
+- **Visual Suggestion:** Solution workflow diagram linking Assessment → Scoring → Gap Analysis → Roadmap.
+- **Speaker:** Suyog Pawar
+- **Duration:** 25 Seconds
 
 ---
 
-## 🗺️ Slide 5: User Journey & Application Flow
-- **Slide Title:** Seamless 5-Stage Student Journey
-- **Flow Stages:**
-  - **Stage 1 (Discover):** Student explores 3D Career Universe and registers securely.
-  - **Stage 2 (Assess):** Student inputs education, interests, and rates current technical skills (Beginner/Intermediate/Advanced).
-  - **Stage 3 (Recommend):** Instant generation of Top 3 career matches with natural-language rationales and gap analyses.
-  - **Stage 4 (Plan):** Student chooses their career and selects preferred roadmap duration (4, 8, or 12 weeks).
-  - **Stage 5 (Execute & Track):** Student checks off completed tasks on their 3D Milestone Path and monitors real-time telemetry on the Dashboard.
-- **Suggested Layout / Visual:** Elegant stepped chevron roadmap with icons for each stage.
-- **Speaker Notes:** *"From initial onboarding to checking off milestone projects, the user journey is friction-free, goal-oriented, and rewarding."*
-- **Recommended Time:** 25 Seconds
+## 🔄 Slide 5: User Journey & Application Flow
+- **Title:** Seamless Student User Flow
+- **Key Steps:**
+  - **Onboarding & Auth:** Quick registration; immediate JWT session initialization.
+  - **Assessment:** Input education, domain interests, and current technical skills.
+  - **Recommendations:** View top 3 careers with match scores and 3D Skill Orbit.
+  - **Roadmap Synthesis:** Choose career and duration (4, 8, or 12 weeks).
+  - **Execution & Telemetry:** Check off tasks; observe dynamic progress updates on dashboard.
+- **Visual Suggestion:** Horizontal chevron user journey pipeline with screenshot placeholders:  
+  *(Placeholder: Screenshots to be added after implementation)*
+- **Speaker:** Suyog Pawar
+- **Duration:** 25 Seconds
 
 ---
 
-## ⚙️ Slide 6: Core Features & Capabilities
-- **Slide Title:** Key Platform Capabilities
-- **Key Modules:**
-  - **Multi-Role Career Directory:** 5 core tech careers (`Front-End`, `Full-Stack`, `Data Analyst`, `UI/UX Designer`, `Cybersecurity Analyst`).
-  - **Standardized Skills Catalog:** 35+ industry skills mapped across 8 functional domains.
-  - **Dynamic Gap Classification:** Green (Matched), Amber (Needs Upgrade), Red (Missing).
-  - **Curated Open-Source Learning:** Verified, high-quality links to MDN, freeCodeCamp, and W3Schools—100% free for students.
-  - **Atomic Progress Recalculation:** Instant recalculation of completion percentage upon checking off milestone tasks.
-- **Suggested Layout / Visual:** 2x3 grid of feature cards featuring custom badge iconography and clean micro-interactions.
-- **Speaker Notes:** *"Every feature is engineered for practical utility, ensuring students can execute their roadmaps without spending a single rupee."*
-- **Recommended Time:** 25 Seconds
+## 🌟 Slide 6: Core Features & Architecture
+- **Title:** Platform Capabilities & Tech Stack
+- **Key Capabilities:**
+  - Standardized catalog of 35+ skills across 8 categories and 5 industry career profiles.
+  - Atomic task progress toggling with persistent database synchronization.
+  - Unified student dashboard with live progress and next recommended actions.
+- **Stack Summary:**
+  - **Frontend:** HTML5, CSS3, JavaScript (ES6+), Bootstrap 5, Three.js, GSAP.
+  - **Backend:** Node.js, Express.js (CommonJS), Mongoose.
+  - **Database & Cloud:** MongoDB Atlas (M0), Vercel (Frontend), Render (Backend).
+- **Visual Suggestion:** Tech stack logo grid alongside system feature breakdown table.
+- **Speaker:** Suyog Pawar
+- **Duration:** 25 Seconds
 
 ---
 
-## 🧠 Slide 7: AI Recommendation Engine & Formula
-- **Slide Title:** Transparent, Deterministic AI Intelligence
-- **Scoring Formula:**
+## 🧮 Slide 7: AI Recommendation Engine & Formula
+- **Title:** Deterministic Career Scoring Engine
+- **Formula:**
   $$\text{Career Match Score} = (\text{Skill Match} \times 0.60) + (\text{Interest Match} \times 0.25) + (\text{Education Match} \times 0.15)$$
-- **Why Weighted Multi-Factor Matching?**
-  - **Skills (60% Weight):** Evaluates importance weights (High=3, Med=2, Low=1) multiplied by proficiency (Beg=1, Int=2, Adv=3).
-  - **Interests (25% Weight):** Calculates alignment between student passion and industry specializations.
-  - **Education (15% Weight):** Validates academic degree relevance while keeping opportunities open for self-taught students.
-  - **Zero Black-Box Bias:** 100% reproducible, explainable, and hallucination-free.
-- **Suggested Layout / Visual:** Large formula callout box flanked by a donut chart showing the 60/25/15 weight distribution.
-- **Speaker Notes:** *"Unlike generative LLMs that invent unverified prerequisites, our algorithm is transparent, mathematically grounded, and instant."*
-- **Recommended Time:** 30 Seconds
+- **Why Deterministic Scoring?**
+  - **Transparent & Explainable:** Students and mentors can audit exactly why a score was awarded.
+  - **Zero Hallucinations:** Prevents arbitrary or fabricated career recommendations.
+  - **Zero Operational Cost:** Ultra-fast sub-50ms execution without third-party API dependencies.
+- **Visual Suggestion:** Interactive pie chart or weighted bar graph showing the 60% / 25% / 15% breakdown.
+- **Speaker:** Parth Patil
+- **Duration:** 25 Seconds
 
 ---
 
-## 🏛️ Slide 8: Technology Architecture & Stack
-- **Slide Title:** High-Performance Monorepo Architecture
-- **Architecture Layers:**
-  - **Frontend:** HTML5, Vanilla CSS3 (Custom Design System), JavaScript (ES6+), Bootstrap 5 — Hosted on **Vercel**.
-  - **3D Visualization:** Three.js (r128) + GSAP Animation Engine with 2D Progressive Enhancement.
-  - **Backend API:** Node.js + Express.js REST API (CommonJS) — Hosted on **Render Web Service**.
-  - **Database:** MongoDB Atlas (M0 Free Tier) with Mongoose schemas and compound index optimization.
-  - **Security Layer:** BCrypt password salting (10 rounds), stateless JWT auth, Helmet HTTP headers, CORS origin filtering, and Express rate-limiting.
-- **Suggested Layout / Visual:** Layered system architecture diagram with protocol connectors (HTTPS / JSON / TLS).
-- **Speaker Notes:** *"Our technology stack is lean, lightweight, and completely free to host, ensuring zero operational costs for Round 1."*
-- **Recommended Time:** 25 Seconds
+## 🏗️ Slide 8: Technical Architecture
+- **Title:** Robust, Scalable Cloud Architecture
+- **Architecture Highlights:**
+  - **Decoupled Frontend:** Multi-page static web app hosted on Vercel with security headers and clean URLs.
+  - **Hardened REST API:** Express service on Render with `helmet`, `cors`, and `express-rate-limit`.
+  - **Encrypted Database:** MongoDB Atlas M0 Free Tier with TLS in-transit encryption.
+- **Visual Suggestion:** Mermaid architecture diagram (Browser → Vercel → Render → MongoDB Atlas).  
+  *(Placeholder: Architecture diagram to be added from `docs/TRD.md`)*
+- **Speaker:** Parth Patil
+- **Duration:** 20 Seconds
 
 ---
 
-## 🎨 Slide 9: 3D UI/UX Innovation & Demo Showcase
-- **Slide Title:** Purposeful 3D Gamification
-- **The Four 3D Visualizer Modules:**
-  1. **🌌 Career Universe (`index.html`):** Celestial interactive constellation representing the tech ecosystem.
-  2. **🪐 Skill Orbit (`recommendations.html`):** Planetary gravitational orbit showing distance to career readiness.
-  3. **🛤️ Roadmap Milestone Path (`roadmap.html`):** Stepping-stone cybernetic trail linking weekly curriculum goals.
-  4. **🔮 Progress Orb (`dashboard.html`):** Real-time holographic energy sphere shifting color and rotation speed with progress.
-- **Progressive Enhancement Guarantee:** Automatic WebGL detection displays responsive 2D layouts if hardware acceleration is unavailable.
-- **Suggested Layout / Visual:** 2x2 grid showing UI screenshot previews of the 4 Three.js WebGL scenes.
-- **Speaker Notes:** *"3D is not decoration here—it provides spatial intuition and psychological momentum to celebrate student progress."*
-- **Recommended Time:** 30 Seconds
+## 🌌 Slide 9: 3D UI/UX Innovation & Aesthetics
+- **Title:** Purposeful 3D Data Storytelling
+- **Four Meaningful Experiences:**
+  - **Career Universe (Landing):** Celestial constellation representing infinite possibilities.
+  - **Skill Orbit (Recommendations):** Planetary orbits showing matched, weak, and missing skills.
+  - **Roadmap Path (Roadmap):** 3D stepping-stone trail of weekly milestones.
+  - **Progress Orb (Dashboard):** Holographic sphere pulsing with student energy and growth.
+- **Progressive Enhancement:** 100% functional 2D card fallbacks if WebGL is unsupported.
+- **Visual Suggestion:** 4-panel collage of 3D canvas visuals alongside their 2D fallbacks:  
+  *(Placeholder: Screenshots to be added after implementation)*
+- **Speaker:** Asmita Lokhande
+- **Duration:** 30 Seconds
 
 ---
 
-## 🚀 Slide 10: Social Impact & Future Roadmap
-- **Slide Title:** Democratizing Career Readiness
-- **Measurable Impact:**
-  - **Free & Accessible:** Eliminates expensive $500+ career counseling barriers for college students.
-  - **Reduces Drop-Out & Career Mismatch:** Grounded recommendations prevent students from pursuing unsuitable specializations.
-- **Post-Hackathon Growth Roadmap:**
-  - **Phase 2:** Expand catalog from 5 to 50 careers (AI Engineering, Cloud DevOps, Product Management).
-  - **Phase 3:** Live job market telemetry integration (LinkedIn / Indeed demand trend APIs).
-  - **Phase 4:** GitHub repository analyzer & automated portfolio code reviews.
-- **Closing Note:**
-  - *Thank You Judges & Hack2Ignite Team!*
-  - **Team 404 Brain Not Found** · Parth Patil, Suyog Pawar, Asmita Lokhande, Aditi Vispute
-- **Suggested Layout / Visual:** Future milestone roadmap timeline on top, prominent team contact credentials below.
-- **Speaker Notes:** *"CareerPath AI democratizes high-quality career guidance for every student. Thank you for your time—we look forward to your questions!"*
-- **Recommended Time:** 25 Seconds
+## 🚀 Slide 10: Social Impact, Future Scope & Conclusion
+- **Title:** Empowering the Next Generation of Tech Talent
+- **Social Impact:**
+  - Democratizing career counseling for underserved students who lack access to private mentors.
+  - Bridging the academic divide by aligning self-study directly with industry requirements.
+- **Post-Hackathon Roadmap:**
+  - Resume PDF parsing and automated GitHub profile skill extraction.
+  - Gemini-powered context-grounded learning mentors.
+  - Peer study groups and corporate hiring partner integration.
+- **Thank You:** Questions & Discussion.
+- **Speaker:** Aditi Vispute
+- **Duration:** 25 Seconds

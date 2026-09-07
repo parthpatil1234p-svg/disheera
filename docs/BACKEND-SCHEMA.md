@@ -1,113 +1,127 @@
-# Comprehensive Backend Schema & API Reference
+# Backend Schema & Data Dictionary — CareerPath AI
 
-**Database:** MongoDB Atlas (Mongoose ODM)  
-**Architecture:** Node.js / Express.js REST API
+> **Status:** Draft / To be validated during qualifier  
+> **Hack2Ignite 2026–27 · Round 1 MVP**  
+> **Domain:** EduTech / AI for Good  
+> **Team:** 404 Brain Not Found  
+> **Primary Author:** Parth Patil (Backend Architect)
 
-## 1. Mongoose Schemas (Detailed)
-
-### `User` Model
-```javascript
-const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
-  email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, required: true, select: false }, // Hidden by default
-  role: { type: String, enum: ['student', 'admin'], default: 'student' },
-  
-  // Profile specific
-  academicInfo: {
-    course: { type: String, default: '' },
-    branch: { type: String, default: '' },
-    year: { type: Number, default: 1 }
-  },
-  interests: [{ type: String }],
-  
-  // Array of Subdocuments
-  skills: [{
-    skillId: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' },
-    proficiency: { type: Number, enum: [1, 2, 3], required: true } // 1:Beg, 2:Int, 3:Adv
-  }]
-}, { timestamps: true });
-```
-
-### `Skill` Model
-```javascript
-const SkillSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true }, // e.g., "React", "Python"
-  category: { type: String, required: true }, // e.g., "Frontend", "Backend", "Soft Skills"
-  iconUrl: { type: String, default: '' } // Optional for UI mapping
-});
-```
-
-### `Career` Model
-```javascript
-const CareerSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  tags: [{ type: String }], // Used for interest matching
-  
-  requiredSkills: [{
-    skillId: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' },
-    importance: { type: Number, enum: [1, 2, 3], required: true }, // 1:Low, 2:Med, 3:High
-    minProficiency: { type: Number, enum: [1, 2, 3], required: true }
-  }]
-});
-```
-
-### `Roadmap` & `RoadmapTask` Model
-```javascript
-const RoadmapSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  careerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Career', required: true },
-  targetWeeks: { type: Number, required: true },
-  progressPercentage: { type: Number, default: 0 }
-}, { timestamps: true });
-
-const RoadmapTaskSchema = new mongoose.Schema({
-  roadmapId: { type: mongoose.Schema.Types.ObjectId, ref: 'Roadmap', required: true },
-  weekNumber: { type: Number, required: true },
-  skillId: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill' },
-  title: { type: String, required: true }, // e.g., "Learn React Hooks"
-  resources: [{
-    type: { type: String, enum: ['video', 'article', 'course'] },
-    title: { type: String },
-    url: { type: String }
-  }],
-  isCompleted: { type: Boolean, default: false }
-});
-```
+This document defines the complete MongoDB document schemas, relationships, indexing strategies, and API response structures for CareerPath AI.
 
 ---
 
-## 2. API Endpoints Dictionary
+## 1. Database Overview
 
-*All protected routes require standard HTTP header: `Authorization: Bearer <token>`*
+- **Engine:** MongoDB (Atlas M0 Free Tier / Local Community Edition).
+- **Driver / ODM:** Mongoose 8.x.
+- **Connection Strategy:** Singleton client pattern with TLS encryption and automatic retry logic in `server/config/db.js`.
 
-### Auth Routes
-| Method | Endpoint | Description | Payload Body (JSON) | Returns (JSON) |
+---
+
+## 2. Mongoose Schemas & Data Models
+
+### 2.1 User Model (`User.js`)
+Represents registered student accounts and their dynamic assessment profile.
+
+| Field | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **POST** | `/api/auth/register` | Create a new student account | `{ name, email, password }` | `{ msg: "Success", token: "jwt..." }` |
-| **POST** | `/api/auth/login` | Log in and get token | `{ email, password }` | `{ msg: "Success", token: "jwt..." }` |
+| `name` | String | Yes | — | Student's full name |
+| `email` | String | Yes | — | Unique, lowercase email (Indexed) |
+| `password` | String | Yes | — | Salted bcrypt password hash (min 6 chars) |
+| `education` | Object | No | `{}` | Subdocument: `{ degree, fieldOfStudy, graduationYear }` |
+| `interests` | [String] | No | `[]` | Array of chosen domain interest tags |
+| `skills` | [Object] | No | `[]` | Array of `{ name, proficiency: 'beginner'\|'intermediate'\|'advanced' }` |
+| `careerGoals` | String | No | `""` | Free-text student career aspirations |
+| `profileCompleted` | Boolean | No | `false` | Flag indicating assessment submission |
+| `timestamps` | Date | Auto | `now` | `createdAt` and `updatedAt` |
 
-### Profile & Setup Routes
-| Method | Endpoint | Description | Payload Body (JSON) | Returns (JSON) |
-| :--- | :--- | :--- | :--- | :--- |
-| **GET**  | `/api/profile/me` | Fetch logged-in user profile | `None` (Use Token) | `{ user: { ...profileData } }` |
-| **PUT**  | `/api/profile/setup` | Save onboarding data (academics, skills, interests) | `{ academicInfo: {}, interests: [], skills: [{skillId, proficiency}] }` | `{ msg: "Profile updated" }` |
+---
 
-### Career & Engine Routes
-| Method | Endpoint | Description | Payload Body (JSON) | Returns (JSON) |
-| :--- | :--- | :--- | :--- | :--- |
-| **GET**  | `/api/careers/recommendations` | Execute Algorithm. Return Top 3 careers. | `None` (Runs against Token data) | `[{ career: {}, matchScore: 89, gaps: [] }, ... ]` |
-| **GET**  | `/api/careers/:id` | Get specific career detail | `None` | `{ career: {}, required: [], optional: [] }` |
+### 2.2 Skill Model (`Skill.js`)
+Catalog of standardized technical and professional skills.
 
-### Roadmap Routes
-| Method | Endpoint | Description | Payload Body (JSON) | Returns (JSON) |
-| :--- | :--- | :--- | :--- | :--- |
-| **POST** | `/api/roadmaps/generate` | Build tasks based on gaps | `{ careerId, targetWeeks: 8 }` | `{ roadmapId: "xyz123" }` |
-| **GET**  | `/api/roadmaps/:id` | Fetch roadmap and populated tasks | `None` | `{ roadmap: {}, tasks: [ {Week1}, {Week2} ] }` |
-| **PUT**  | `/api/roadmaps/tasks/:taskId` | Toggle completion status | `{ isCompleted: true }` | `{ newProgressPercentage: 25 }` |
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `name` | String | Yes | Display name of the skill (e.g., "JavaScript") |
+| `slug` | String | Yes | URL-friendly unique identifier (e.g., "javascript") (Indexed) |
+| `category` | String | Yes | Category: Frontend, Backend, Database, Cloud, Security, Data, Design, Soft Skills |
+| `description` | String | No | Brief explanation of the skill |
 
-## 3. Database Indexes for Performance
-To ensure NFR-1 (Sub 800ms matching):
-*   Create Index on `User.email` (Unique).
-*   Create Compound Index on `RoadmapTask({ roadmapId: 1, weekNumber: 1 })` since tasks will always be queried and sorted by week per roadmap.
+---
+
+### 2.3 Career Model (`Career.js`)
+Standardized industry tech roles and their prerequisite skill vectors.
+
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `title` | String | Yes | Career title (e.g., "Front-End Developer") |
+| `slug` | String | Yes | Unique identifier (e.g., "front-end-developer") (Indexed) |
+| `description` | String | Yes | Industry role summary |
+| `requiredSkills` | [Object] | Yes | Array of `{ skill: ObjectId(ref Skill), importance: 'high'\|'medium'\|'low', minimumProficiency: 'beginner'\|'intermediate'\|'advanced' }` |
+| `preferredEducation` | [String] | No | Target degrees (e.g., BCA, B.Tech, BSc CS) |
+| `industryInterestTags`| [String] | Yes | Related domain tags (e.g., ["Web Development", "UI/UX"]) |
+
+---
+
+### 2.4 Roadmap Model (`Roadmap.js`)
+Time-boxed learning curriculum customized to student skill gaps.
+
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `user` | ObjectId | Yes | Reference to User document (Indexed) |
+| `career` | ObjectId | Yes | Reference to Career document |
+| `durationWeeks` | Number | Yes | Chosen timeline: 4, 8, or 12 weeks |
+| `status` | String | Yes | Status: `active`, `completed`, or `archived` |
+| `progressPercentage`| Number | No (0) | Dynamically calculated completion percentage |
+| `totalTasks` | Number | No (0) | Total actionable tasks in roadmap |
+| `completedTasks` | Number | No (0) | Total tasks marked complete |
+
+---
+
+### 2.5 RoadmapTask Model (`RoadmapTask.js`)
+Granular, actionable weekly learning tasks.
+
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `roadmap` | ObjectId | Yes | Reference to Roadmap document (Indexed) |
+| `user` | ObjectId | Yes | Reference to User document (Indexed) |
+| `weekNumber` | Number | Yes | Week milestone number (1 to 12) |
+| `title` | String | Yes | Task title (e.g., "Master CSS Grid & Flexbox") |
+| `description` | String | No | Detailed learning objectives and practice exercises |
+| `skillTag` | String | Yes | Associated skill name |
+| `priority` | String | Yes | `high`, `medium`, or `low` |
+| `resources` | [Object] | No | Array of `{ title, url, type: 'documentation'\|'tutorial'\|'project' }` |
+| `completed` | Boolean | Yes (false) | Task completion state |
+| `completedAt` | Date | No | Timestamp of completion |
+
+---
+
+## 3. Database Indexing Strategy
+
+- `User.email`: Unique index for $O(1)$ credential lookups.
+- `Skill.slug`: Unique index for fast relationship resolution.
+- `Career.slug`: Unique index for catalog routing.
+- `Roadmap.user + status`: Compound index for querying a student's active roadmap.
+- `RoadmapTask.roadmap + weekNumber`: Compound index for milestone ordering.
+
+---
+
+## 4. API Conventions & Standard Payloads
+
+### Standard Success Response (`200 OK` / `201 Created`)
+```json
+{
+  "success": true,
+  "message": "Career recommendations generated successfully",
+  "data": { ... }
+}
+```
+
+### Standard Error Response (`400 Bad Request` / `401 Unauthorized` / `404 Not Found`)
+```json
+{
+  "success": false,
+  "message": "Please select a career from your top recommendations",
+  "errors": []
+}
+```

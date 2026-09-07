@@ -1,66 +1,115 @@
-# Product Requirements Document (PRD)
+# Product Requirements Document (PRD) — CareerPath AI
 
-## 1. Product Vision
-To democratize high-quality, data-driven career guidance by transforming the intimidating process of skill acquisition into an engaging, visual, and highly structured journey.
+> **Status:** Draft / To be validated during qualifier  
+> **Hack2Ignite 2026–27 · Round 1 MVP**  
+> **Domain:** EduTech / AI for Good  
+> **Team:** 404 Brain Not Found  
+> **Primary Author:** Parth Patil (with contributions from Team)
 
-## 2. User Personas
+---
 
-### Persona 1: "The Confused Fresher" (Rohan)
-*   **Profile:** 3rd Year B.Tech IT student. Knows a bit of C++, basic HTML, but no specialized skills.
-*   **Pain Point:** Hears about Data Science, MERN stack, and Cloud, but doesn't know which fits him or where to start.
-*   **Goal:** Needs the system to tell him what he's actually capable of based on his current traits and give him a strict 12-week plan to land an internship.
+## 1. Executive Summary & Product Vision
 
-### Persona 2: "The Skill Switcher" (Priya)
-*   **Profile:** BCA Graduate currently doing data entry. Wants to become a UI/UX Designer.
-*   **Pain Point:** She knows what she wants to do, but doesn't know what skills she's missing to get an entry-level job.
-*   **Goal:** Needs a skill-gap analysis to identify exact tools (Figma, Adobe XD) and a 4-week fast-track roadmap to build a portfolio.
+**CareerPath AI** is an intelligent, immersive career navigation and skill development platform designed to empower undergraduate students and aspiring technologists to make informed, data-backed career decisions. 
 
-## 3. Detailed Functional Requirements (MVP)
+Our vision is to replace generic, subjective career counseling questionnaires with an **objective, deterministic skill-matching engine** paired with an **interactive 3D learning experience**. By mapping students' existing skills directly against target industry roles, CareerPath AI reveals exact skill gaps and synthesizes personalized, time-boxed learning roadmaps that guide students from academic theory to job-ready execution.
 
-### Authentication & Authorization (FR-1)
-*   **FR-1.1:** System must allow users to register using Email, Full Name, and Password.
-*   **FR-1.2:** System must enforce password complexity (min 8 chars).
-*   **FR-1.3:** System must authenticate via JWT for all backend data requests.
-*   **FR-1.4:** System must maintain session state on the frontend until manual logout or token expiry (24h).
+---
 
-### Data Ingestion / Profile Setup (FR-2)
-*   **FR-2.1:** System must capture academic details (Degree, Branch, Year).
-*   **FR-2.2:** System must capture user's existing skills from a predefined database list.
-*   **FR-2.3:** User must rate their skill proficiency (1=Beginner, 2=Intermediate, 3=Advanced).
-*   **FR-2.4:** System must capture 3-5 core career interests via a UI selection grid.
+## 2. Problem Statement
 
-### Career Recommendation Engine (FR-3)
-*   **FR-3.1:** System must process user input against the Career models in the DB.
-*   **FR-3.2:** System must calculate a "Career Match Score" (out of 100%) for every available career.
-*   **FR-3.3:** System must return the top 3 highest-scoring careers to the user dashboard.
+Undergraduate tech students face three primary structural hurdles:
+1. **Degree-Industry Disconnect:** Universities focus heavily on foundational theory, leaving students uncertain about which tools, frameworks, and workflows modern employers demand.
+2. **Subjective Advice & Analysis Paralysis:** Career tests often give high-level personality classifications rather than actionable technical skill evaluations.
+3. **The Generic Course Avalanche:** Students who seek out online courses are inundated with massive 50-hour generic courses without knowing what they actually need to learn versus what they already know.
 
-### Skill-Gap Analysis (FR-4)
-*   **FR-4.1:** For a selected career, system must compare required skills against user's skills.
-*   **FR-4.2:** System must output a "Strengths" array (skills matched or exceeded).
-*   **FR-4.3:** System must output a "Missing Skills" array (skills absent, or proficiency too low).
+---
 
-### Roadmap Generation & Tracking (FR-5)
-*   **FR-5.1:** User must be able to select a duration (4, 8, 12 weeks).
-*   **FR-5.2:** System must distribute "Missing Skills" across the selected weeks as actionable Tasks.
-*   **FR-5.3:** System must provide minimum 1 free resource link per task.
-*   **FR-5.4:** User must be able to mark tasks as `isCompleted: true`.
-*   **FR-5.5:** System must recalculate overall progress percentage on every task update.
+## 3. Goals & Non-Goals
 
-### 3D Visualization / UI (FR-6)
-*   **FR-6.1:** Web application must feature a WebGL canvas background rendering interactive elements.
-*   **FR-6.2:** Careers must be represented as 3D interactive nodes that accept click events.
-*   **FR-6.3:** Progress must be visually represented linearly in a 3D space.
+### Project Goals (Hackathon MVP)
+- Provide a responsive, accessible multi-page web platform with dark glassmorphism aesthetics.
+- Deliver a 100% deterministic, explainable career recommendation engine:
+  $$\text{Career Match Score} = (\text{Skill Match} \times 0.60) + (\text{Interest Match} \times 0.25) + (\text{Education Match} \times 0.15)$$
+- Provide granular skill-gap analysis (Matched, Needs Upgrade, Missing) for top 3 career matches.
+- Generate personalized 4, 8, or 12-week learning roadmaps with week-by-week actionable tasks.
+- Track task completion dynamically with persistent progress calculation on a student dashboard.
+- Deliver engaging 3D visual experiences (Career Universe, Skill Orbit, Roadmap Path, Progress Orb) with guaranteed 2D fallbacks.
 
-## 4. Non-Functional Requirements (NFR)
+### Non-Goals (Out of Scope for 48-Hour Qualifier)
+- Integrating opaque external LLM chatbots (e.g., live ungrounded chat prompts).
+- Automated resume PDF parsing or GitHub scraping.
+- Native mobile application builds (iOS / Android binaries).
+- Payment gateways, course sales, or premium subscriptions.
+- Blockchain certification or web3 credentialing.
 
-*   **NFR-1 (Performance):** The backend Recommendation Engine must process the match score and return Top 3 careers in under 800ms.
-*   **NFR-2 (Performance):** Three.js scenes must maintain 60 FPS on standard desktop hardware and fallback or reduce geometry on mobile devices to prevent thermal throttling.
-*   **NFR-3 (Security):** Passwords must never be stored in plain text. JWT tokens must not store sensitive PII in the payload. Backend must validate all incoming POST/PUT bodies.
-*   **NFR-4 (Usability):** The web app must be fully responsive. 3D elements on mobile must support touch/swipe inputs (OrbitControls touch handling).
-*   **NFR-5 (Availability):** MongoDB connections must include retry logic to handle serverless cold starts.
+---
 
-## 5. Success Metrics for Hack2Ignite
-1.  **Fully Functional MVP Showcase:** Zero fatal crashes during the live presentation.
-2.  **Engine Accuracy:** The recommendation engine logically outputs expected careers based on obvious input sets (e.g., Inputting JS/HTML/CSS should output Web Dev).
-3.  **Wow Factor:** Smooth 3D animations that clearly differentiate this project from standard CRUD forms.
-4.  **Completion:** The flow from Registration -> Top 3 -> Roadmap generation works seamlessly end-to-end.
+## 4. Target User Personas
+
+### Persona 1: Rohan — The Confused Computer Science Fresher
+- **Demographics:** 20 years old, 3rd year BCA / B.Tech CSE student.
+- **Background:** Knows basic C++, HTML, and CSS from university coursework, but has no portfolio projects.
+- **Pain Point:** Intimidated by the sheer variety of job descriptions (DevOps, Full-Stack, Cloud, AI). Does not know if he knows enough to apply for internships or what to learn next.
+- **Goal:** Wants an objective evaluation of his current foundation, a clear recommendation on what role suits him best, and a step-by-step roadmap to become internship-ready.
+
+### Persona 2: Priya — The Transitioning Skill Switcher
+- **Demographics:** 22 years old, Non-CS graduate (Commerce / Statistics) learning to code independently.
+- **Background:** Self-taught in Python and Excel; interested in data-oriented roles.
+- **Pain Point:** Has scattered knowledge from YouTube tutorials with significant blind spots in SQL, visualization, and data storytelling.
+- **Goal:** Wants to identify her exact missing skills for a Data Analyst career and follow a structured 8-week curriculum with curated resources.
+
+---
+
+## 5. Feature Scope: MVP vs. Future Horizon
+
+| Category | MVP Scope (Hack2Ignite Round 1) | Future Scope (Post-Qualifier) |
+| :--- | :--- | :--- |
+| **Authentication** | Custom JWT auth, bcrypt hashing, protected routes | OAuth2 (Google/GitHub login), 2FA |
+| **Assessment** | Education degree, domain interests, skills + proficiencies | Resume PDF upload parsing, GitHub repo skills extraction |
+| **Recommendation** | Deterministic 60/25/15 weighted formula across 5 careers | Machine learning clustering over 100+ industry job specs |
+| **Skill Gap** | Matched (Green), Needs Upgrade (Amber), Missing (Red) | Interactive skill assessment quizzes for validated badges |
+| **Roadmap** | 4, 8, 12-week curricula with week-by-week task checklists | Dynamic calendar sync (Google Calendar / Outlook) |
+| **Progress** | Checkbox task toggle with persistent completion % | Portfolio project code evaluation & peer review hub |
+| **Visuals** | Three.js Constellations, Orbits, Paths & Orbs with 2D fallbacks | WebXR immersive VR workspace & career simulator |
+
+---
+
+## 6. Functional Requirements
+
+1. **User Management:**
+   - User registration (`name`, `email`, `password` with min 6 characters).
+   - User login issuing signed JWT tokens.
+   - User profile endpoint (`GET /api/users/me`) returning current assessment state.
+2. **Assessment Capture:**
+   - Education details (degree, field of study, graduation year).
+   - Domain interests (minimum 1, maximum 5).
+   - Skills selection with explicit proficiency levels (`beginner`, `intermediate`, `advanced`).
+3. **Recommendation Engine:**
+   - Calculate match scores for all 5 seeded careers: Front-End Developer, Full-Stack Developer, Data Analyst, UI/UX Designer, Cybersecurity Analyst.
+   - Return top 3 ranked recommendations with percentage scores.
+   - Partition required career skills into Matched, Needs Upgrade, and Missing.
+4. **Roadmap & Task Execution:**
+   - Generate structured 4, 8, or 12-week roadmap for a selected recommended career.
+   - Prioritize missing and weak skills in early weeks.
+   - Allow students to toggle task completion with immediate progress recalculation.
+5. **Dashboard Telemetry:**
+   - Display active career goal, overall progress percentage, first 5 upcoming tasks, and dynamic next-action guidance.
+
+---
+
+## 7. Non-Functional Requirements
+
+- **Performance:** Recommendation generation and roadmap synthesis must complete in under 200 milliseconds.
+- **Reliability:** All pages must function cleanly even if Three.js/WebGL fails (100% functional 2D fallback).
+- **Security:** Zero plaintext passwords, sanitized MongoDB query inputs, and hardened HTTP headers (`helmet`).
+- **Responsiveness:** Fluid layout adaptability across desktop (1920px) down to mobile screens (375px).
+
+---
+
+## 8. Success Metrics (Hackathon Evaluation)
+
+- **Execution Stability:** 0 unhandled exceptions during judge live demo.
+- **Algorithmic Accuracy:** Career recommendations logically align with input skills and domain interests.
+- **User Experience:** Seamless end-to-end user journey from assessment to active task tracking within 3 minutes.
+- **Visual Distinction:** Memorable, performant 3D WebGL components that clarify user data rather than serving as visual clutter.

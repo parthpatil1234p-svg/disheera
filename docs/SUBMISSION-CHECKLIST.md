@@ -1,211 +1,125 @@
-# CareerPath AI — Hack2Ignite 2026–27 Submission Checklist
+# Hack2Ignite 2026–27 — Official Submission Checklist
 
-> **Hack2Ignite 2026–27 · Round 1 Submission Verification Matrix**  
-> Project: **CareerPath AI — Discover Your Career. Build Your Skills.**  
-> Track / Domain: **EduTech / AI for Good**  
-> Team: **404 Brain Not Found**  
-> Team Members: **Parth Patil (Team Lead), Suyog Pawar, Asmita Lokhande, Aditi Vispute**
-
----
-
-## 📋 Comprehensive Submission Checklist
-
-This checklist acts as the final gatekeeping protocol before final project submission. Check off every item prior to deadline cutoff.
+> **Status:** Submission Verification Protocol / All items begin unchecked  
+> **Project:** CareerPath AI — Discover Your Career. Build Your Skills.  
+> **Domain:** EduTech / AI for Good  
+> **Team:** 404 Brain Not Found (Parth Patil, Suyog Pawar, Asmita Lokhande, Aditi Vispute)
 
 ---
 
-### 1. 📁 Repository & Codebase Integrity
+## 📋 Comprehensive Pre-Submission Verification Matrix
 
-- [ ] **Repository Structure**: Clean monorepo directory layout (`client/`, `server/`, `docs/`, `postman/`).
-- [ ] **Clean Working Tree**: No dangling temporary scripts, scratch logs, or unnecessary binary dumps.
-- [ ] **`.gitignore` Active & Verified**:
-  - `server/.env` and `.env` are strictly excluded from git tracking.
-  - `node_modules/` is excluded.
-  - No secret keys, credentials, or MongoDB connection strings exist in git history.
-- [ ] **Package Files Valid**:
-  - `server/package.json` contains working `start`, `dev`, and `seed` scripts.
-  - Dependencies are explicitly locked and installable via `npm install`.
-- [ ] **License & Attribution**:
-  - Open-source MIT license declared in repository root.
-  - All third-party libraries (Bootstrap, Three.js, GSAP) properly credited in documentation.
-  - No uncredited or copyrighted assets present in codebase.
+Verify and check off every item prior to final submission.
 
 ---
 
-### 2. 🔐 Security & Secrets Audit
-
-- [ ] **No Real Secrets Committed**:
-  - `.env.example` contains only sanitized dummy values (`mongodb+srv://<username>:<password>@...`).
-  - Render blueprint `render.yaml` specifies `sync: false` for all sensitive credentials.
-- [ ] **JWT Security**:
-  - Tokens expire after a reasonable window (`7d`).
-  - Secret key is loaded via `process.env.JWT_SECRET` with no hardcoded fallback in production.
-- [ ] **CORS Hardening**:
-  - Express backend restricts CORS origins to trusted domains (`CLIENT_URL` and `localhost`).
-  - OPTIONS preflight requests handled cleanly.
-- [ ] **Database Connection Security**:
-  - MongoDB user privileges scoped strictly to the `careerpath-ai` database.
-  - Passwords with special characters are URL-encoded in the connection URI.
+### 1. 📁 Repository & Project Readiness
+- [ ] Working tree is clean (`git status` shows no untracked or unstaged files).
+- [ ] Directory layout matches the standard structure (`client/`, `server/`, `docs/`, `postman/`, `assets/`, `presentation/`).
+- [ ] Root `package.json` contains helper scripts (`server:install`, `server:dev`, `server:seed`).
+- [ ] MIT `LICENSE` file is present and credited to Team 404 Brain Not Found.
+- [ ] No extraneous build artifacts, `.DS_Store`, or OS caches exist in repository.
 
 ---
 
-### 3. ☁️ Cloud Deployments & Hosting
-
-#### Backend (Render)
-- [ ] **Render Web Service Created**:
-  - Root directory set to `server`.
-  - Build command set to `npm install`.
-  - Start command set to `npm start`.
-- [ ] **Environment Variables Injected on Render Dashboard**:
-  - `NODE_ENV=production`
-  - `PORT=5000` (or Render default)
-  - `MONGODB_URI=<your-atlas-connection-string>`
-  - `JWT_SECRET=<your-long-random-secret>`
-  - `CLIENT_URL=https://<your-vercel-frontend-domain>.vercel.app`
-- [ ] **Live Health Checks Verified**:
-  - `GET https://YOUR-RENDER-SERVICE.onrender.com/api/health` returns HTTP 200 `{ "status": "UP" }`.
-  - `GET https://YOUR-RENDER-SERVICE.onrender.com/api/version` returns version `1.0.0` and `environment: "production"`.
-
-#### Frontend (Vercel)
-- [ ] **Vercel Project Configured**:
-  - Root directory set to `client`.
-  - Framework preset: `Other`.
-  - Multi-page configuration verified (`vercel.json` with security headers and clean URLs).
-- [ ] **Production API URL Configured**:
-  - `client/js/config.js` points to deployed Render backend URL (`https://YOUR-RENDER-SERVICE.onrender.com/api`).
-  - Tested that HTTPS is strictly enforced.
-- [ ] **Custom 404 Page**:
-  - `client/404.html` deployed and accessible upon navigation to unknown routes.
+### 2. 📜 GitHub Commit History & Integrity
+- [ ] Commit messages follow the Conventional Commits format (`feat`, `fix`, `docs`, `chore`).
+- [ ] No fake or bot-generated commits exist in history.
+- [ ] Commit timestamps reflect genuine development progression during the hackathon.
+- [ ] All team members have contributed commits reflecting their respective roles.
 
 ---
 
-### 4. 🗄️ Database & Seed Verification
-
-- [ ] **MongoDB Atlas Cluster Online**:
-  - Free M0 cluster provisioned in closest geographical region.
-  - Network access whitelist active (`0.0.0.0/0` enabled for demo availability).
-- [ ] **Seed Executed Against Cloud Database**:
-  - `npm run seed` executed successfully.
-  - Minimum **35 standardized skills** populated across 8 categories.
-  - Minimum **5 industry careers** populated with required skill references:
-    1. Front-End Developer
-    2. Full-Stack Developer
-    3. Data Analyst
-    4. UI/UX Designer
-    5. Cybersecurity Analyst
-- [ ] **Indexes Active**: Unique indexes on `User.email`, `Skill.slug`, and `Career.slug`.
+### 3. 🔐 Security & Secrets Audit
+- [ ] Root `.gitignore` actively ignores `.env`, `server/.env`, and `client/.env`.
+- [ ] No real MongoDB Atlas connection strings or database credentials are committed.
+- [ ] `JWT_SECRET` is set via environment variables with no hardcoded fallback in production.
+- [ ] `render.yaml` sets `sync: false` on sensitive environment variables.
+- [ ] No third-party API keys or personal access tokens exist in cleartext.
 
 ---
 
-### 5. 🔄 End-to-End User Flow Smoke Test
-
-- [ ] **Account Creation**:
-  - Register new student account via `register.html`.
-  - Verify automatic JWT storage in `localStorage` and redirect to assessment.
-- [ ] **Student Assessment**:
-  - Fill out education details, domain interests, and skills with proficiencies on `assessment.html`.
-  - Submit assessment and verify profile update (`profileCompleted: true`).
-- [ ] **AI Recommendation Generation**:
-  - Generate recommendations on `recommendations.html`.
-  - Verify top 3 matched careers appear with calculated match percentage scores.
-  - Confirm skill gap breakdown displays Matched (green), Upgrade Needed (amber), and Missing (red) badges.
-- [ ] **Roadmap Generation**:
-  - Select career and choose 4, 8, or 12-week roadmap duration on `roadmap.html`.
-  - Confirm weekly curriculum milestones render with curated resource links.
-- [ ] **Task Toggle & Progress Persistence**:
-  - Check off a milestone task.
-  - Refresh page; confirm task remains completed and progress bar updates accurately.
-- [ ] **Student Dashboard**:
-  - Navigate to `dashboard.html`.
-  - Verify current career goal, overall progress percentage, and upcoming weekly tasks reflect live state.
-- [ ] **Session & Logout**:
-  - Click logout; confirm token is cleared and user is redirected to `login.html`.
-  - Attempting to visit `dashboard.html` while logged out properly redirects back to `login.html`.
+### 4. 📐 Code Quality & Standards
+- [ ] Backend syntax check passes cleanly: `node -c server/server.js`.
+- [ ] Frontend code contains zero broken script imports or syntax errors.
+- [ ] API URLs are resolved dynamically via `client/js/config.js` without hardcoded localhost references.
+- [ ] Centralized error handler catches and formats unhandled exceptions cleanly.
 
 ---
 
-### 6. 🌐 3D Experience & Graceful Fallbacks
-
-- [ ] **Career Universe (Landing)**: Three.js celestial constellation animates smoothly on desktop Chrome/Edge.
-- [ ] **Skill Orbit (Recommendations)**: Planetary skill orbit renders concentric orbital tracks.
-- [ ] **Roadmap Path (Roadmap)**: 3D stepping-stone path highlights current milestone.
-- [ ] **Progress Orb (Dashboard)**: Pulsing holographic sphere animates in dashboard hero.
-- [ ] **WebGL Disabled / Fallback Validation**:
-  - Test pages with WebGL disabled or simulated failure.
-  - Confirm pages render clean 2D HTML/CSS fallback cards without broken layouts or runtime crashes.
-- [ ] **Mobile Responsiveness**:
-  - Test layouts on mobile viewport (375px–430px).
-  - Confirm hamburger menus, responsive cards, and touch interactions operate smoothly.
+### 5. ☁️ Backend & Frontend Deployment
+- [ ] MongoDB Atlas M0 cluster is provisioned and network access is configured.
+- [ ] Database seed script (`npm run seed`) has been executed against the active database.
+- [ ] Render Web Service is deployed and `/api/health` returns HTTP 200.
+- [ ] Vercel frontend is deployed and accessible via public HTTPS URL.
+- [ ] Backend `CLIENT_URL` is synchronized with the live Vercel domain to permit CORS.
 
 ---
 
-### 7. 🧪 Testing & Postman Collection Verification
-
-- [ ] **Postman Collection Importable**:
-  - `postman/CareerPath-AI.postman_collection.json` imports into Postman without syntax errors.
-  - Collection variables (`baseUrl`, `token`, `taskId`) resolve properly.
-- [ ] **Authentication Token Auto-Capture**:
-  - Register/Login requests automatically set `{{token}}` in test scripts.
-- [ ] **14 Endpoints Covered**:
-  - Health & Version
-  - Auth (Register, Login)
-  - User Profile (`GET /api/users/me`)
-  - Assessment (`PUT /api/assessment`)
-  - Careers (`GET /api/careers`, `GET /api/careers/:slug`)
-  - Recommendations (`POST /api/recommendations/generate`)
-  - Roadmaps (`POST /api/roadmaps/generate`, `GET /api/roadmaps/current`, `PATCH /tasks/:taskId/toggle`, `DELETE /current`)
-  - Dashboard (`GET /api/dashboard`)
-- [ ] **Documentation Match**: `docs/TESTING.md` includes test cases with status noted as "To be verified".
+### 6. 🧪 Testing & Verification Suite
+- [ ] All 19 manual test cases in `docs/TESTING.md` have been reviewed.
+- [ ] Postman collection in `postman/` imports cleanly and collection variables resolve properly.
+- [ ] Automated JWT token capture scripts in Postman execute successfully.
+- [ ] Authentication, assessment submission, recommendation scoring, and task toggles verified.
 
 ---
 
-### 8. 🎤 Presentation, Demo & Video Preparedness
-
-- [ ] **Demo Account Pre-Created**:
-  - Dedicated demo user account registered and seeded with representative profile data.
-  - Credentials verified: `demo.student@careerpath.ai` / `DemoStudent2026!`.
-- [ ] **Slide Deck Ready (`docs/PPT-CONTENT.md`)**:
-  - 10 slides complete with problem, solution, formula, architecture, 3D innovation, and roadmap.
-  - Speaker division assigned to all 4 team members.
-  - Presentation export format (PDF/PowerPoint) ready on local drive and cloud backup.
-- [ ] **Demo Script Rehearsed (`docs/DEMO-SCRIPT.md`)**:
-  - Rehearsed 3–4 minute timing strictly adhering to schedule.
-  - Judge Q&A rebuttals reviewed by all speakers.
-- [ ] **Screenshots & Screen Recording Captured**:
-  - High-resolution screenshots of Landing, Assessment, Recommendations, Roadmap, and Dashboard saved locally.
-  - 1080p demo walkthrough video recorded as backup in case of internet instability during presentation.
+### 7. 📱 UI, Mobile Responsiveness & 3D Fallbacks
+- [ ] Glassmorphism UI renders correctly across desktop viewports (1200px+).
+- [ ] Mobile responsive layout tested (< 576px) with clean navigation collapse.
+- [ ] Three.js 3D modules (Career Universe, Skill Orbit, Roadmap Path, Progress Orb) animate smoothly.
+- [ ] WebGL fallback verified: 2D HTML/CSS cards display if hardware acceleration is disabled.
 
 ---
 
-### 9. 🛡️ Emergency Contingency Plan (If Cloud Fails)
-
-In the event of Render cold starts, database network timeouts, or conference Wi-Fi failures during judging:
-
-| Issue | Contingency Action |
-| :--- | :--- |
-| **Render backend spinning down (cold start)** | Run a warm-up ping (`curl https://YOUR-RENDER-SERVICE.onrender.com/api/health`) 5 minutes before demo time. |
-| **Conference Wi-Fi latency / drop** | Immediately switch to Localhost Demo: run `npm run dev` in `server/` and `python -m http.server 5500` in `client/`. |
-| **MongoDB Atlas connection timeout** | Switch `server/.env` to local MongoDB (`mongodb://localhost:27017/careerpath-ai`) and run `npm run seed`. |
-| **Browser WebGL driver crash** | CareerPath AI automatically detects WebGL unavailability and shows clean 2D UI cards. Continue demo seamlessly. |
-| **Total display or projector failure** | Present from offline PPT PDF on tablet and walk through pre-recorded 3-minute MP4 demo video. |
+### 8. 📚 Documentation & Attribution
+- [ ] Main `README.md` includes status notice: "Hackathon MVP — Development in progress".
+- [ ] All documentation files in `docs/` (`PRD.md`, `TRD.md`, `APP-FLOW.md`, `UI-UX-DESIGN.md`, `BACKEND-SCHEMA.md`, `IMPLEMENTATION-PLAN.md`, `API.md`, `DEPLOYMENT.md`, `TESTING.md`, `DEMO-SCRIPT.md`, `PPT-CONTENT.md`, `SUBMISSION-CHECKLIST.md`) are complete and valid.
+- [ ] `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, and `CHANGELOG.md` are present in root.
+- [ ] Open-source libraries (Bootstrap, Three.js, GSAP, Mongoose) are properly credited.
 
 ---
 
-### 10. ⏱️ Final 30-Minute Countdown Checklist
+### 9. 🎤 Presentation, Demo & Video
+- [ ] 10-slide presentation deck prepared according to `docs/PPT-CONTENT.md`.
+- [ ] Slide deck exported as PDF/PPTX and saved in `presentation/`.
+- [ ] 3–4 minute demo script rehearsed with team speaker division.
+- [ ] Dedicated demo user account registered and seeded with representative assessment data.
+- [ ] Backup MP4 demo walkthrough video recorded in case of internet instability.
 
-Execute this checklist exactly 30 minutes before official portal submission:
+---
 
-```
-[ ] T-30 min: Perform git status. Ensure working directory is completely clean.
-[ ] T-25 min: Verify both Vercel frontend URL and Render backend health endpoint in incognito window.
-[ ] T-20 min: Perform one complete live walkthrough on production using the demo account.
-[ ] T-15 min: Double-check Hack2Ignite registration details:
-              - Team Name: 404 Brain Not Found
-              - Team Lead: Parth Patil
-              - Team Members: Suyog Pawar, Asmita Lokhande, Aditi Vispute
-              - Track: EduTech / AI for Good
-              - Project Title: CareerPath AI
-[ ] T-10 min: Verify submission form URLs (GitHub repo, live app link, video link, PPT link).
-[ ] T-05 min: Click Submit on portal.
-[ ] T-00 min: Download submission confirmation / take confirmation screenshot.
+### 10. 👥 Team & Registration Verification
+- [ ] Team Name verified: **404 Brain Not Found**.
+- [ ] Team Lead verified: **Parth Patil**.
+- [ ] Team Members verified: **Suyog Pawar, Asmita Lokhande, Aditi Vispute**.
+- [ ] Hackathon Track verified: **EduTech / AI for Good**.
+- [ ] Project Title verified: **CareerPath AI**.
+
+---
+
+### 11. 📑 Hackathon Rulebook & Submission Form Review
+- [ ] Official Hack2Ignite 2026–27 qualifier rulebook reviewed for any specific constraints.
+- [ ] Submission form links verified: GitHub repository URL, live application URL, demo video link, presentation deck link.
+- [ ] Public access permissions on GitHub repository confirmed (or added evaluators if private).
+
+---
+
+### 12. 🛡️ Emergency Contingency Plan
+- [ ] Local environment ready as immediate backup (`npm run dev` and `python -m http.server 5500`).
+- [ ] Postman collection ready to demonstrate live API functionality if frontend fails.
+- [ ] Offline presentation PDF and demo video accessible locally.
+
+---
+
+### 13. ⏱️ Final 30-Minute Countdown Checklist
+
+```text
+[ ] T-30 min: Perform git status. Confirm working tree is 100% clean.
+[ ] T-25 min: Verify Vercel frontend and Render /api/health endpoint in a clean incognito browser.
+[ ] T-20 min: Execute one end-to-end user journey test on production using demo credentials.
+[ ] T-15 min: Double-check team details and project links on submission portal form.
+[ ] T-10 min: Preview final presentation slide deck and backup video file.
+[ ] T-05 min: Click Submit on the official hackathon portal.
+[ ] T-00 min: Save submission receipt and take confirmation screenshot.
 ```

@@ -1,204 +1,159 @@
-# CareerPath AI — Production Deployment Guide
+# Cloud Deployment Manual — CareerPath AI
 
+> **Status:** Deployment Guide / To be validated during qualifier  
 > **Hack2Ignite 2026–27 · Round 1 MVP**  
-> Team: **404 Brain Not Found** · Domain: **EduTech / AI for Good**
+> **Domain:** EduTech / AI for Good  
+> **Team:** 404 Brain Not Found
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ Deployment Architecture Overview
 
 ```mermaid
 flowchart LR
-    subgraph ClientLayer ["Frontend (Vercel)"]
-        A["Browser Client\n(HTML5 / CSS3 / JS)"] --> B["Three.js / GSAP\n3D Experiences"]
-        A --> C["api.js\nFetch Client"]
+    subgraph ClientLayer ["Frontend Client (Vercel)"]
+        Browser["Student Browser"] --> StaticAssets["HTML5 / CSS3 / Vanilla JS"]
+        StaticAssets --> ThreeJS["Three.js 3D Canvas"]
+        StaticAssets --> Config["js/config.js (API Base URL)"]
     end
 
-    subgraph BackendLayer ["Backend (Render Web Service)"]
-        D["Express.js Server\n(CommonJS)"]
-        E["JWT Auth &\nRate Limiting"]
-        F["Deterministic\nRecommendation Engine"]
-        G["Roadmap Generator\n& Task Tracker"]
-        D --> E
-        D --> F
-        D --> G
+    subgraph BackendLayer ["Backend API (Render Web Service)"]
+        Express["Express.js Server (Node.js)"]
+        AuthMid["JWT Auth & Security Headers"]
+        RecService["Recommendation & Roadmap Engine"]
+        Express --> AuthMid
+        AuthMid --> RecService
     end
 
-    subgraph DatabaseLayer ["Database (MongoDB Atlas)"]
-        H[("MongoDB Atlas M0\nFree Tier")]
+    subgraph DatabaseLayer ["Database (MongoDB Atlas M0)"]
+        AtlasCluster[("MongoDB Atlas M0 Free Tier\nTLS Encrypted In-Transit")]
     end
 
-    C -- "HTTPS / JSON\nBearer Token" --> D
-    G -- "Mongoose ODM\nTLS Connection" --> H
-    F -- "Cached Seed Data" --> H
+    Config -- "HTTPS / JSON Payload\nBearer Token" --> Express
+    RecService -- "Mongoose Driver\nTLS Connection" --> AtlasCluster
 ```
-
----
-
-## 📋 Environment Variables Reference
-
-| Variable Name | Location | Purpose | Example Placeholder |
-| :--- | :--- | :--- | :--- |
-| `PORT` | Render / Local `.env` | HTTP Port for Express Server | `5000` (Local) / `10000` (Render) |
-| `NODE_ENV` | Render / Local `.env` | Runtime mode (`development` or `production`) | `production` |
-| `MONGODB_URI` | Render / Local `.env` | Connection string to MongoDB cluster | `mongodb+srv://<dbuser>:<dbpassword>@<cluster-name>.mongodb.net/careerpath-ai?retryWrites=true&w=majority` |
-| `JWT_SECRET` | Render / Local `.env` | Secret key used to sign and verify JWTs | `replace_with_a_long_random_64char_string` |
-| `JWT_EXPIRES_IN`| Render / Local `.env` | Validity period of authentication token | `7d` |
-| `CLIENT_URL` | Render / Local `.env` | Allowed CORS origin for browser requests | `https://your-careerpath-app.vercel.app` (Production) / `http://localhost:5500` (Local) |
-
-> ⚠️ **Security Warning:** Never commit `.env` or paste real credentials into source code. Always use Render Dashboard and local `.env` (ignored by Git).
 
 ---
 
 ## 🔄 Deployment Order & Step-by-Step Procedure
 
-To avoid connection failures, follow this sequence:
+To avoid connection failures, execute deployment strictly in this sequence:
 
-```
+```text
 Step 1: MongoDB Atlas Cluster  ──►  Step 2: Render Backend Web Service
               │                                      │
               ▼                                      ▼
-Step 4: Vercel CLIENT_URL Sync ◄──  Step 3: Vercel Frontend Deployment
+Step 3: Update Frontend Config ──►  Step 4: Vercel Frontend Deployment
+              │                                      │
+              ▼                                      ▼
+Step 5: Sync Backend CORS      ──►  Step 6: Production Smoke Testing
 ```
 
 ---
 
-### Phase 1: MongoDB Atlas Setup
+## 📋 Environment Variables Reference Table
 
-1. Log into [MongoDB Atlas](https://cloud.mongodb.com).
-2. Create a new project named `Hack2Ignite-2026`.
-3. Create a **Shared Free Cluster (M0)** (AWS or Google Cloud region closest to your users, e.g. `ap-south-1` Mumbai or `us-east-1`).
-4. **Database Access:**
-   - Add a database user with username (e.g. `careerpath_admin`) and a strong, randomly generated password.
-   - Assign the built-in role: `Read and write to any database`.
-5. **Network Access:**
-   - Add an IP Access List Entry: `0.0.0.0/0` (Allow access from anywhere, necessary for Render dynamic outbound IPs).
-   - Add a description: `Render free tier dynamic egress`.
-6. **Connection String:**
-   - Click **Connect** → **Drivers** → Node.js.
-   - Copy the SRV URI:
-     `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/careerpath-ai?retryWrites=true&w=majority`
-7. **Local Seed Verification:**
-   - Update `server/.env` with your new Atlas URI.
-   - Run in your terminal:
-     ```powershell
-     cd server
-     npm run seed
-     ```
-   - Confirm output: `✅ Successfully seeded 35 skills!` and `✅ Successfully seeded 5 careers!`.
+| Variable Name | Hosting Service | Purpose | Example Placeholder |
+| :--- | :--- | :--- | :--- |
+| `PORT` | Render / Local `.env` | HTTP listening port | `5000` (Local) / `10000` (Render) |
+| `NODE_ENV` | Render / Local `.env` | Runtime environment | `production` |
+| `MONGODB_URI` | Render / Local `.env` | MongoDB Atlas TLS connection string | `mongodb+srv://<dbuser>:<dbpassword>@<cluster>.mongodb.net/careerpath-ai?retryWrites=true&w=majority` |
+| `JWT_SECRET` | Render / Local `.env` | Secret key for signing and verifying JWTs | `replace_with_a_long_random_64char_string` |
+| `JWT_EXPIRES_IN`| Render / Local `.env` | Token validity window | `7d` |
+| `CLIENT_URL` | Render / Local `.env` | Authorized frontend origin for CORS | `https://YOUR-APP.vercel.app` (Production) / `http://localhost:5500` (Local) |
 
 ---
 
-### Phase 2: Render Backend Deployment
+## 🛠️ Step-by-Step Hosting Instructions
 
-1. Push your latest code to your GitHub repository.
-2. Log into [Render Dashboard](https://dashboard.render.com).
-3. Click **New +** → **Web Service**.
-4. Connect your GitHub repository.
-5. Configure the service settings:
-   - **Name:** `careerpath-ai-api` (or custom unique name)
-   - **Region:** Oregon (USA) or closest region
-   - **Branch:** `master` (or `main`)
+### Step 1 — MongoDB Atlas Free Tier Setup
+1. Log in to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a free **M0** cluster.
+2. In **Database Access**, create a user with read/write privileges (e.g., `careerpath_admin`).
+3. In **Network Access**, add `0.0.0.0/0` (allow access from anywhere for hackathon demo purposes).
+4. Copy the connection string:
+   `mongodb+srv://<username>:<password>@<cluster-url>/careerpath-ai?retryWrites=true&w=majority`
+5. Seed cloud database locally before first run:
+   ```bash
+   MONGODB_URI="mongodb+srv://<username>:<password>@<cluster-url>/careerpath-ai?retryWrites=true&w=majority" node server/seed.js
+   ```
+
+---
+
+### Step 2 — Backend Deployment on Render
+1. Push repository to GitHub.
+2. In [Render Dashboard](https://dashboard.render.com/), select **New → Web Service**.
+3. Connect your GitHub repository.
+4. Set service properties:
    - **Root Directory:** `server`
    - **Runtime:** `Node`
    - **Build Command:** `npm install`
    - **Start Command:** `npm start`
-   - **Instance Type:** `Free`
-6. Under **Environment Variables**, add:
-   - `NODE_ENV` = `production`
-   - `MONGODB_URI` = `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/careerpath-ai?retryWrites=true&w=majority`
-   - `JWT_SECRET` = `<your-secure-random-jwt-secret>`
-   - `JWT_EXPIRES_IN` = `7d`
-   - `CLIENT_URL` = `http://localhost:5500` *(temporarily set to localhost, will be updated with Vercel URL in Phase 4)*
-7. Click **Create Web Service**.
-8. Wait for build and deploy to complete.
-9. Verify deployment in browser:
-   - Visit: `https://<YOUR-RENDER-SERVICE>.onrender.com/api/health`
-   - Expect:
-     ```json
-     {
-       "success": true,
-       "message": "CareerPath AI Server is running ✅",
-       "version": "1.0.0",
-       "team": "404 Brain Not Found"
-     }
-     ```
-   - Visit: `https://<YOUR-RENDER-SERVICE>.onrender.com/api/version`
-   - Expect:
-     ```json
-     {
-       "success": true,
-       "message": "CareerPath AI API",
-       "data": { "version": "1.0.0", "environment": "production" }
-     }
-     ```
+5. Add the environment variables securely on the Render dashboard:
+   - `NODE_ENV=production`
+   - `MONGODB_URI=<your-atlas-uri>`
+   - `JWT_SECRET=<your-jwt-secret>`
+   - `JWT_EXPIRES_IN=7d`
+   - `CLIENT_URL=https://YOUR-APP.vercel.app` (placeholder until Step 4)
+6. Deploy and copy your backend URL: `https://YOUR-RENDER-SERVICE.onrender.com`.
+7. Verify health: `GET https://YOUR-RENDER-SERVICE.onrender.com/api/health`.
 
 ---
 
-### Phase 3: Vercel Frontend Deployment
+### Step 3 — Update Frontend Configuration
+In `client/js/config.js`, replace the production placeholder with your real Render URL:
+```javascript
+const PRODUCTION_API_URL = 'https://YOUR-RENDER-SERVICE.onrender.com/api';
+```
 
-1. Open [`client/js/config.js`](file:///c:/Users/PARTH/OneDrive/Documents/hackethon/Hack%202%20ignite/demo/client/js/config.js).
-2. Update the `PRODUCTION_API_URL` placeholder:
-   ```javascript
-   const PRODUCTION_API_URL = 'https://<YOUR-RENDER-SERVICE>.onrender.com/api';
-   ```
-3. Commit and push changes to GitHub:
-   ```powershell
-   git add client/js/config.js
-   git commit -m "chore: point client production config to deployed Render API"
-   git push origin master
-   ```
-4. Log into [Vercel](https://vercel.com).
-5. Click **Add New...** → **Project** → Import your GitHub repository.
-6. Configure project:
-   - **Project Name:** `careerpath-ai`
+---
+
+### Step 4 — Frontend Deployment on Vercel
+1. In [Vercel Dashboard](https://vercel.com/dashboard), click **Add New → Project**.
+2. Select your repository.
+3. Configure project settings:
+   - **Root Directory:** `client`
    - **Framework Preset:** `Other`
-   - **Root Directory:** Edit → select `client`
-   - **Build and Output Settings:** Leave default (no build command required for vanilla HTML/CSS/JS)
-7. Click **Deploy**.
-8. Copy your live Vercel URL: `https://<YOUR-VERCEL-APP>.vercel.app`.
+   - **Build Command:** *(Leave empty)*
+   - **Output Directory:** *(Leave empty / client root)*
+4. Click **Deploy**.
+5. Copy your deployed production URL: `https://YOUR-APP.vercel.app`.
 
 ---
 
-### Phase 4: CORS Synchronization & Final Polish
-
-1. Return to the [Render Dashboard](https://dashboard.render.com).
-2. Open your `careerpath-ai-api` Web Service → **Environment**.
-3. Update `CLIENT_URL`:
-   - Change from `http://localhost:5500` to `https://<YOUR-VERCEL-APP>.vercel.app`.
-4. Click **Save Changes** (Render will automatically redeploy the service with new CORS settings).
-5. Verify in browser: Open your Vercel URL, open DevTools (F12) → Console, and verify there are **no CORS errors** during login or assessment submission.
+### Step 5 — Synchronize Backend CORS
+1. In the Render Dashboard, update `CLIENT_URL` to match your exact Vercel URL: `https://YOUR-APP.vercel.app`.
+2. Trigger a manual deploy in Render to apply the updated origin.
 
 ---
 
-## 🛠️ Production Troubleshooting & Cold-Start Mitigation
+## ❄️ Render Cold-Start Mitigation (Demo Preparation)
 
-### 1. Render Free-Tier Cold Starts
-- **Behavior:** Render free web services spin down after 15 minutes of inactivity. The first request after idle can take **30–50 seconds** to respond.
-- **Hackathon Demo Mitigation:**
-  - 5 minutes before your live presentation, open the health check endpoint: `https://<YOUR-RENDER-SERVICE>.onrender.com/api/health` in your browser.
-  - This immediately wakes up the Node.js process and warms up the MongoDB connection pool so the demo responds instantly.
-
-### 2. CORS `No 'Access-Control-Allow-Origin' header is present`
-- **Root Cause:** The browser origin requesting data does not match `CLIENT_URL` configured on Render.
-- **Remedy:** Check Render environment variables → ensure `CLIENT_URL` matches your exact Vercel domain without a trailing slash (e.g. `https://careerpath-ai.vercel.app`, not `https://careerpath-ai.vercel.app/`).
-
-### 3. MongoDB Authentication Failure (`bad auth : Authentication failed`)
-- **Root Cause:** Password contains special characters like `@`, `#`, `:`, `%` that break connection string URI parsing.
-- **Remedy:** URL-encode the password (e.g. `@` becomes `%40`), or use an alphanumeric-only password for the database user.
+Render free-tier web services spin down after 15 minutes of inactivity. To prevent delays during live evaluation:
+1. **Warm-Up Ping:** 5 minutes before your demo, send a GET request to wake the instance:
+   ```bash
+   curl https://YOUR-RENDER-SERVICE.onrender.com/api/health
+   ```
+2. Wait 30–60 seconds for the initial cold-start spinup to complete.
 
 ---
 
-## 🛡️ Emergency Rollback & Presentation Backup Plan
+## 🛡️ Emergency Rollback & Contingency Plan
 
-If live cloud services experience unexpected downtime during the hackathon judging:
+If cloud hosting experiences latency, network drops, or DNS errors during presentation:
 
-1. **Localhost Fallback (Instant Zero-Risk Demo):**
-   - Keep local services running in the background:
-     - Express API: `http://localhost:5000` (`npm run dev` in `server/`)
-     - Frontend client: `http://localhost:5500` (`python -m http.server 5500` in `client/`)
-   - The frontend automatically detects `localhost` hostname in `config.js` and routes all requests locally.
-2. **Offline WebGL Fallback:**
-   - Every 3D canvas container in CareerPath AI (`#careerUniverse`, `#skill-orbit`, `#roadmap-path`, `#progress-orb`) includes automatic WebGL feature detection. If hardware acceleration fails, graceful 2D fallback interfaces render automatically.
-3. **API Proof:**
-   - Import `postman/CareerPath-AI.postman_collection.json` into Postman to demonstrate all endpoints live if the web UI is inaccessible.
+1. **Localhost Demo Failover:**
+   - Run backend locally: `npm run dev` in `server/` (`http://localhost:5000`).
+   - Serve frontend locally: `python -m http.server 5500` in `client/` (`http://localhost:5500`).
+   - `client/js/config.js` automatically detects `localhost` and routes API requests locally without configuration edits.
+2. **Postman API Proof:** Import `postman/CareerPath-AI.postman_collection.json` and demonstrate live endpoint responses.
+3. **Offline Demo Recording:** Play pre-recorded 1080p MP4 walkthrough video stored in `assets/demo/`.
+
+---
+
+## 🔒 Production Security Checklist
+
+- [ ] All database passwords use URL-encoding for special characters.
+- [ ] No real secrets or `.env` files are tracked by Git.
+- [ ] Render blueprint `render.yaml` sets `sync: false` on sensitive variables.
+- [ ] Vercel sets `X-Content-Type-Options: nosniff` and `X-Frame-Options: DENY`.
+- [ ] CORS is restricted to the specific Vercel production origin.

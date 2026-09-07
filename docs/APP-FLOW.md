@@ -1,115 +1,125 @@
-# Application Flow (Detailed)
+# Application User Flow Diagrams — CareerPath AI
 
-This document visualizes the exact state transitions for the user. It is critical for the Frontend and Backend teams to understand these flows to ensure API continuity.
+> **Status:** Proposed Application Flow / To be validated during qualifier  
+> **Hack2Ignite 2026–27 · Team 404 Brain Not Found**  
+> *Discover Your Career. Build Your Skills.*
+
+This document visually illustrates the four primary user flows within CareerPath AI using Mermaid diagrams.
 
 ---
 
 ## 1. Authentication & Session Flow
 
-**Scenario:** A returning user logs in, or a new user registers.
-**Edge Cases Handled:** Invalid credentials, duplicate email registration, expired tokens.
-
 ```mermaid
 sequenceDiagram
-    actor User
-    participant Browser
-    participant API (Express)
-    participant Auth Middleware
-    participant Database (Mongo)
+    autonumber
+    actor Student as Student
+    participant Browser as Browser Client
+    participant API as Express Auth API (/api/auth)
+    participant DB as MongoDB Atlas (Users)
 
-    User->>Browser: Enter Email & Password
-    Browser->>API (Express): POST /api/auth/login {email, pass}
-    API (Express)->>Database (Mongo): Find user by Email
-    alt User Not Found
-        Database (Mongo)-->>API (Express): null
-        API (Express)-->>Browser: 404 User Not Found
-    else User Found
-        API (Express)->>API (Express): bcrypt.compare(pass, hash)
-        alt Password Mismatch
-            API (Express)-->>Browser: 401 Unauthorized
-        else Password Valid
-            API (Express)->>API (Express): jwt.sign({id}, secret, {expiresIn: '24h'})
-            API (Express)-->>Browser: 200 OK + {token, user_id}
-            Browser->>Browser: localStorage.setItem('token')
-            Browser-->>User: Redirect to /dashboard.html
-        end
+    Student->>Browser: Opens login.html or register.html
+    Student->>Browser: Enters Credentials (Email & Password)
+    Browser->>API: POST /api/auth/login (or /register)
+    API->>DB: Query User by Email
+    alt User Not Found or Password Invalid
+        API-->>Browser: 401 Unauthorized / 409 Conflict
+        Browser-->>Student: Displays Error Banner
+    else Credentials Validated
+        API->>API: Generate Signed JWT Token (7d expiry)
+        API-->>Browser: 200 OK with { user, token }
+        Browser->>Browser: Save token & user in localStorage
+        Browser-->>Student: Redirect to assessment.html or dashboard.html
     end
 ```
 
 ---
 
-## 2. Onboarding & Intelligent Matching Flow
-
-**Scenario:** A freshly registered user fills out their profile. The system calculates their path immediately.
+## 2. Onboarding & Student Assessment Flow
 
 ```mermaid
 flowchart TD
-    Start[User Hits Onboarding Page] --> Form1[Fill Academic Details]
-    Form1 --> Form2[Select Existing Skills & Proficiency]
-    Form2 --> Form3[Select Domain Interests]
-    Form3 --> Submit[Click 'Analyze My Profile']
+    Start(["Student Logs In"]) --> CheckProfile{"Profile Completed?"}
     
-    Submit --> API[POST /api/profile/evaluate]
+    CheckProfile -- "No" --> AssessmentPage["Navigate to assessment.html"]
+    CheckProfile -- "Yes" --> DashboardPage["Navigate to dashboard.html"]
+
+    subgraph AssessmentForm ["Interactive Assessment Form"]
+        Step1["1. Select Education Level & Degree"]
+        Step2["2. Select 1 to 5 Areas of Interest"]
+        Step3["3. Choose Current Skills & Proficiencies\n(Beginner / Intermediate / Advanced)"]
+        Step4["4. Enter Optional Career Aspirations"]
+        Step1 --> Step2 --> Step3 --> Step4
+    end
+
+    AssessmentPage --> AssessmentForm
+    Step4 --> SubmitAssessment["Click 'Submit Assessment'"]
+    SubmitAssessment --> APIPut["PUT /api/assessment\n(Bearer JWT Attached)"]
+    APIPut --> ValidateInput{"Valid Education,\nInterests & Skills?"}
     
-    API --> Engine[Career Matching Engine Runs]
-    Engine --> FetchC[Fetch All Careers & Requirements from DB]
-    FetchC --> Compute[Compute Formulas for each Career]
-    Compute --> Sort[Sort by Highest Match Score]
-    Sort --> Slice[Extract Top 3 Matches]
-    
-    Slice --> Return[Return JSON Array to Frontend]
-    Return --> 3D[Three.js Renders Top 3 Careers as 3D Orbits]
-    3D --> End[User explores recommendations]
+    ValidateInput -- "No (Validation Error)" --> ShowErrors["Show field-level errors on form"]
+    ValidateInput -- "Yes" --> SaveDB[("Update User Document\nSet profileCompleted = true")]
+    SaveDB --> RedirectRecs["Redirect to recommendations.html"]
 ```
 
 ---
 
-## 3. Skill-Gap and Roadmap Generation Flow
+## 3. Career Recommendation & Skill-Gap Analysis Flow
 
-**Scenario:** The user selects one of the recommended careers and commits to a roadmap.
+```mermaid
+flowchart TD
+    RecEntry(["Student Enters recommendations.html"]) --> FetchRecs["POST /api/recommendations/generate\n(Authorization: Bearer JWT)"]
+    
+    subgraph ScoringEngine ["Deterministic Scoring Engine (recommendationService.js)"]
+        LoadCareers["Fetch 5 Industry Career Profiles & Skills"]
+        ScoreSkills["1. Calculate Skill Match (60% Weight)\nWeighted by importance & proficiency"]
+        ScoreInterests["2. Calculate Interest Match (25% Weight)\nJaccard index of domain tags"]
+        ScoreEducation["3. Calculate Education Match (15% Weight)\nDegree alignment evaluation"]
+        TotalScore["Compute Overall Score:\n(Skill * 0.60) + (Interest * 0.25) + (Education * 0.15)"]
+        PartitionSkills["Classify Required Career Skills:\n- Matched (Proficiency >= Required)\n- Needs Upgrade (Proficiency < Required)\n- Missing (Absent from User Profile)"]
+        SortRank["Rank Careers by Match Score\nSelect Top 3 Paths"]
+        
+        LoadCareers --> ScoreSkills --> ScoreInterests --> ScoreEducation --> TotalScore --> PartitionSkills --> SortRank
+    end
+
+    FetchRecs --> ScoringEngine
+    SortRank --> RenderCards["Render Top 3 Career Cards with Match %"]
+    SortRank --> RenderOrbits["Initialize Three.js 3D Skill Orbit\n(Planetary Matched, Weak & Missing spheres)"]
+    RenderCards --> ChooseCareer["Student selects top career & clicks 'Generate Roadmap'"]
+    ChooseCareer --> RoadmapModal["Select Duration: 4, 8, or 12 Weeks"]
+```
+
+---
+
+## 4. Personalized Roadmap & Progress Tracking Flow
 
 ```mermaid
 sequenceDiagram
-    actor User
-    participant UI (Dashboard)
-    participant Scene (Three.js)
-    participant Backend
+    autonumber
+    actor Student as Student
+    participant Browser as Browser Client
+    participant RoadmapAPI as Roadmap API (/api/roadmaps)
+    participant DashAPI as Dashboard API (/api/dashboard)
+    participant DB as MongoDB Atlas
 
-    User->>UI (Dashboard): Clicks Career Card (e.g. "Data Analyst")
-    UI (Dashboard)->>Scene (Three.js): Transition Camera to Data Analyst Node
-    UI (Dashboard)->>Backend: GET /api/careers/gap/:careerId
-    Backend-->>UI (Dashboard): Returns {strengths: [], missing: []}
-    UI (Dashboard)->>Scene (Three.js): Render Green Orbits (Owned) & Amber Orbits (Missing)
-    
-    User->>UI (Dashboard): Selects "8 Weeks" & Clicks "Build Roadmap"
-    UI (Dashboard)->>Backend: POST /api/roadmaps/generate {careerId, duration: 8}
-    Backend->>Backend: Allocate 'missing' skills across 8 weeks
-    Backend->>Database: Save Roadmap & RoadmapTasks
-    Backend-->>UI (Dashboard): Returns 201 Created {roadmapId}
-    
-    UI (Dashboard)-->>User: Redirects to /roadmap.html with 3D Path UI
-```
+    Student->>Browser: Selects Career & Duration (e.g., 8 Weeks)
+    Browser->>RoadmapAPI: POST /api/roadmaps/generate { careerSlug, durationWeeks }
+    RoadmapAPI->>DB: Archive existing active roadmaps
+    RoadmapAPI->>DB: Create new Roadmap & RoadmapTask documents (prioritize missing skills)
+    RoadmapAPI-->>Browser: 201 Created with generated milestones & resources
+    Browser-->>Student: Displays weekly milestone curriculum + Three.js Roadmap Path 3D
 
----
+    Note over Student,Browser: Student studies and finishes a milestone
+    Student->>Browser: Clicks checkbox to complete Task #1
+    Browser->>RoadmapAPI: PATCH /api/roadmaps/tasks/:taskId/toggle
+    RoadmapAPI->>DB: Toggle task status & update completedAt
+    RoadmapAPI->>DB: Recalculate Roadmap progress percentage
+    RoadmapAPI-->>Browser: 200 OK with updated progress %
+    Browser-->>Student: Live checkmark animation & progress bar update
 
-## 4. Weekly Progress Update Flow
-
-**Scenario:** The user marks a specific study resource / tutorial as completed.
-
-```mermaid
-flowchart LR
-    A[User clicks Checkbox on Task] --> B[Frontend disables checkbox visually]
-    B --> C[PUT /api/roadmaps/tasks/:id {isCompleted: true}]
-    
-    C --> D{API Validator}
-    D -- Success --> E[Update Task in DB]
-    D -- Fail --> F[Return 400/500 Error]
-    F --> G[Frontend reverts checkbox]
-    
-    E --> H[Backend recalculates overall Roadmap %]
-    H --> I[Update Roadmap doc in DB]
-    I --> J[Return New % to Frontend]
-    
-    J --> K[Update DOM Progress Bar]
-    K --> L[Update 3D Roadmap Avatar position]
+    Student->>Browser: Navigates to dashboard.html
+    Browser->>DashAPI: GET /api/dashboard
+    DashAPI->>DB: Query active roadmap, incomplete tasks & user profile
+    DashAPI-->>Browser: 200 OK with dashboard telemetry
+    Browser-->>Student: Displays active goal, upcoming tasks, next action & 3D Progress Orb
 ```

@@ -1,76 +1,85 @@
-# Exact Implementation Plan (48-Hour Qualifier Execution)
+# 48-Hour Implementation Plan — CareerPath AI
 
-This is the exact, hour-by-hour operational blueprint for the 4-person team. Success relies on parallel execution. No one waits for someone else.
-
-## PRE-HACKATHON (Before the Clock Starts)
-*   **Parth:** Ensure GitHub Repo is created, branches mapped, and Vercel/Render accounts are active.
-*   **Asmita:** Have the basic Figma style-guide (Colors, Fonts, Glassmorphism CSS variables) ready.
-*   **Aditi:** Compile a spreadsheet containing 5 Careers and ~30 mapped skills (High/Med/Low importance) to seed the database immediately.
+> **Status:** Proposed Execution Plan / To be validated during qualifier  
+> **Hack2Ignite 2026–27 · Round 1 Qualifier**  
+> **Domain:** EduTech / AI for Good  
+> **Team:** 404 Brain Not Found (Parth Patil, Suyog Pawar, Asmita Lokhande, Aditi Vispute)
 
 ---
 
-## 🟢 PHASE 1: The Foundation (Hours 0-6)
-**Goal:** Empty repo goes to a working full-stack scaffold and DB connection.
-*   **Parth (Backend):**
-    *   `npm init`, install express, mongoose, cors, dotenv, bcrypt, jsonwebtoken.
-    *   Create standard folder structure. Connect to MongoDB Atlas.
-    *   Write the Base User and Career schemas. 
-*   **Suyog (Frontend):**
-    *   Create `index.html`, import CSS variables, import Bootstrap via CDN.
-    *   Build standard Login/Registration HTML forms.
-    *   Write the basic `api.js` fetch wrappers holding the base URL and Token injection.
-*   **Asmita (UI/3D):**
-    *   Establish the Three.js boilerplate (`scene`, `camera`, `renderer`, `requestAnimationFrame`).
-    *   Get a black canvas rendering on the screen with basic ambient light.
-*   **Aditi (Data):**
-    *   Convert spreadsheet data into raw JSON arrays so Parth can seed the database immediately instead of using GUI tools.
+## 1. Hackathon Guidelines & Pre-Qualifier Boundaries
+
+- **Permitted Pre-Qualifier Preparation:** Architecture brainstorming, documentation templates, schema design, public library selection, and environment configuration templates.
+- **Prohibited Pre-Qualifier Work:** Pre-building application business logic, pre-generating fake commits, hardcoding closed evaluation credentials, or submitting third-party codebases.
+- **Commitment:** All application code will be constructed iteratively during the official 48-hour hackathon window.
 
 ---
 
-## 🟡 PHASE 2: The Core Logic (Hours 6-18)
-*(Includes sleeping/eating buffer)*
-**Goal:** Authentication works, and the Recommendation algorithm proves it works via Postman.
-*   **Parth (Backend):**
-    *   Finalize `/api/auth/login` and `/api/auth/register`.
-    *   **CRITICAL PATH:** Write the math logic for `/api/careers/recommendations`. Test edge cases (User with 0 skills, User with all skills) using Postman.
-*   **Suyog (Frontend):**
-    *   Connect HTML forms to auth APIs. Store JWT in local storage.
-    *   Build the multi-part "Profile Builder" form (Course -> Skills -> Interests). Send via PUT request to backend.
-*   **Asmita (UI/3D):**
-    *   Build the visual "Top 3 Cards" utilizing glassmorphism CSS.
-    *   In Three.js, create logic to spawn 3 glowing spheres (Careers) that respond to mouse hover (Raycasting).
+## 2. Team Member Workstreams
+
+| Team Member | Workstream | Primary Responsibilities |
+| :--- | :--- | :--- |
+| **Parth Patil** | Backend & Database Lead | Server architecture, Express APIs, Mongoose models, recommendation algorithms, Render deployment |
+| **Suyog Pawar** | Frontend & Integration Lead | HTML5/CSS/Bootstrap structuring, DOM manipulation, client API integration, Vercel deployment |
+| **Asmita Lokhande** | UI/UX & 3D WebGL Lead | Glassmorphism design tokens, Three.js constellations and orbital paths, GSAP tweens, slide deck design |
+| **Aditi Vispute** | Data, QA & Documentation Lead | Seed data standardization, manual QA testing matrix, Postman verification, demo script rehearsal |
 
 ---
 
-## 🟠 PHASE 3: Integration & Roadmaps (Hours 18-32)
-**Goal:** Frontend talks to Backend perfectly. Gaps become Roadmaps.
-*   **Parth (Backend):**
-    *   Write the Roadmap generator. Take "Missing Skills", map them to Task Objects, assign a week number, and save to DB.
-    *   Write the Task Completion toggle and Percentage recalculator API.
-*   **Suyog (Frontend):**
-    *   Render the Top 3 payload from backend into Asmita's HTML cards.
-    *   Build the Roadmap UI (Sidebar of checkboxes grouped by Week). Click checkbox -> Call Backend PUT -> Update HTML Progress Bar.
-*   **Asmita (UI/3D):**
-    *   Build the Career Drilldown Scene: One large center sphere (Career), orbiting smaller spheres (Green = Owned Skill, Amber = Missing Skill).
+## 3. Five Implementation Phases
+
+```text
+Phase 1: Foundation (Hours 00 – 08)
+  └── Monorepo setup, Express health check, MongoDB Atlas connection, User Auth, Basic HTML/CSS scaffolding.
+
+Phase 2: Core Engine & Assessment (Hours 08 – 20)
+  └── Skill & Career seed data, Student assessment UI, Deterministic recommendation engine (60/25/15), Skill-gap analysis.
+
+Phase 3: Roadmaps & Task Telemetry (Hours 20 – 32)
+  └── Roadmap & RoadmapTask schemas, dynamic curriculum generation (4/8/12 wks), task checkbox toggle, dashboard API.
+
+Phase 4: 3D Innovation & Comprehensive QA (Hours 32 – 40)
+  └── Three.js Career Universe, Skill Orbit, Roadmap Path, and Progress Orb with 2D fallbacks; full QA matrix execution.
+
+Phase 5: Presentation, Final Polish & Submission (Hours 40 – 48)
+  └── PPT deck finalization, 3–4 min demo rehearsal, Vercel/Render production synchronization, submission form verification.
+```
 
 ---
 
-## 🔴 PHASE 4: Polishing, Fallbacks, & QA (Hours 32-42)
-**Goal:** Make it bulletproof for the judges.
-*   **Parth & Suyog (Code review):**
-    *   Add Loading Spinners to API calls. 
-    *   Add graceful error alerts (e.g., "Invalid Password", "Server Error").
-    *   Ensure JWT expiry kicks user back to `/login.html` cleanly.
-*   **Asmita (Design):**
-    *   Check mobile responsiveness. Hide complex Three.js elements on screens `< 768px` if performance stutters, falling back to CSS backgrounds.
-*   **Aditi (QA):**
-    *   Run multiple test-users through the flow. Intentionally try to break things (skip form fields, try to generate roadmaps with no careers selected).
+## 4. Hour-by-Hour Timeline
+
+| Hours | Focus Area | Deliverables & Milestones | Primary Owner |
+| :--- | :--- | :--- | :--- |
+| **00:00 – 04:00** | Environment & Repo Setup | Git repository setup, `.gitignore`, Express setup, MongoDB Atlas connection | Parth & Suyog |
+| **04:00 – 08:00** | Authentication Pipeline | User registration, login, bcrypt password hashing, JWT authorization guards | Parth & Suyog |
+| **08:00 – 14:00** | Dataset & Assessment | Curate 35+ skills and 5 careers; build multi-step assessment form | Aditi & Suyog |
+| **14:00 – 20:00** | Recommendation Engine | Build recommendation algorithm ($60\% \text{ Skills} + 25\% \text{ Interests} + 15\% \text{ Education}$); skill-gap breakdown | Parth |
+| **20:00 – 26:00** | Recommendations UI | Build recommendations page; display top 3 matches with gap badges | Suyog & Asmita |
+| **26:00 – 32:00** | Roadmaps & Task Engine | Roadmap generator (4/8/12 weeks), task toggle PATCH endpoint, dashboard API | Parth & Suyog |
+| **32:00 – 36:00** | 3D WebGL Visuals | Three.js Career Universe, Skill Orbit, Roadmap Path & Progress Orb with 2D fallbacks | Asmita |
+| **36:00 – 40:00** | Quality Assurance Matrix | Execute all 19 manual test cases in `TESTING.md`; Postman collection validation | Aditi |
+| **40:00 – 44:00** | Cloud Deployment | Deploy backend to Render, frontend to Vercel; synchronize CORS and environment variables | Parth & Suyog |
+| **44:00 – 46:00** | Demo Script & Slide Deck | Finalize 10-slide deck (`PPT-CONTENT.md`) and rehearse 3–4 minute demo flow | All Team |
+| **46:00 – 48:00** | Final Code Freeze & Submit | Code freeze, execute `docs/SUBMISSION-CHECKLIST.md`, submit via official portal | Parth |
 
 ---
 
-## 🏆 PHASE 5: Presentation & Delivery (Hours 42-48)
-**Goal:** Package the code into a winning pitch.
-*   **Full Team:** Zero new code commits. Code Freeze.
-*   **Parth:** Ensure live production databases on Render/Atlas are seeded with Aditi's data, not dummy Dev data.
-*   **Suyog:** Record a 2-minute raw screen-capture video clicking through the app perfectly (Backup Demo Video).
-*   **Aditi & Asmita:** Finalize the PowerPoint/Canva presentation linking the Problem Statement to the Live Vercel URL.
+## 5. Critical Path & Code Freeze Rules
+
+1. **Critical Path Dependencies:**
+   $$\text{Database Seeds} \longrightarrow \text{Assessment Form} \longrightarrow \text{Recommendation Engine} \longrightarrow \text{Roadmap Generator}$$
+2. **Code Freeze Rule:**
+   - **T-4 Hours (Hour 44:00):** Absolute code freeze on backend and core algorithms.
+   - Only critical visual bug fixes and documentation polish are allowed between Hour 44 and Hour 48.
+
+---
+
+## 6. Communication & Emergency Contingency Protocols
+
+- **Sprint Standups:** 10-minute check-ins every 8 hours.
+- **Blocker Resolution:** If a team member is blocked for > 45 minutes, pair programming is initiated immediately.
+- **Contingency Plans:**
+  - *Cloud Outage during demo:* Immediate failover to local environment (`localhost:5000` and `localhost:5500`).
+  - *WebGL Incompatibility:* Automatic fallback to clean 2D HTML/CSS cards.
+  - *Internet failure:* Present from offline PPT PDF and pre-recorded MP4 demo video.

@@ -1,30 +1,37 @@
-# ============================================================
-# CareerPath AI — Root .gitignore
-# ============================================================
-
-# Node modules
+# Dependencies
 node_modules/
+client/node_modules/
 server/node_modules/
 
-# Environment variables — NEVER commit these
+# Environment Variables
 .env
 .env.*
 !.env.example
+client/.env
+client/.env.*
+!client/.env.example
 server/.env
 server/.env.*
 !server/.env.example
 
-# Deployment outputs & cache
-.vercel
+# Logs & Debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Build & Deployment Outputs
 dist/
 build/
+.vercel
+.render
 
-# Operating System files
-.DS_Store
-Thumbs.db
-desktop.ini
+# Code Coverage & Testing Cache
+coverage/
+.nyc_output/
 
-# IDE & Editor files
+# IDE & Editor Configuration
 .vscode/
 .idea/
 *.swp
@@ -32,9 +39,15 @@ desktop.ini
 *.sublime-project
 *.sublime-workspace
 
-# Runtime logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-logs/
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploads & Temporary Cache
+uploads/
+temp/
+tmp/
+.cache/
+*.gltf.cache
+*.bin.cache

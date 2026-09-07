@@ -1,0 +1,23 @@
+{
+  "name": "careerpath-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CareerPath AI — AI Career Guidance and Skill Roadmap Platform (Hack2Ignite 2026–27)",
+  "scripts": {
+    "server:install": "npm --prefix server install",
+    "server:dev": "npm --prefix server run dev",
+    "server:start": "npm --prefix server start",
+    "server:seed": "npm --prefix server run seed",
+    "client:serve": "echo \"Serving client on http://localhost:5500...\" && npx --yes serve client -p 5500"
+  },
+  "keywords": [
+    "careerpath",
+    "ai",
+    "career-guidance",
+    "edtech",
+    "hack2ignite",
+    "roadmap"
+  ],
+  "author": "Team 404 Brain Not Found",
+  "license": "MIT"
+}
