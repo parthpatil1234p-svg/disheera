@@ -75,6 +75,31 @@ app.use('/api', apiLimiter);
 
 // ── Routes ────────────────────────────────────────────────────
 
+// ── Root route ────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Welcome to CareerPath AI API 🚀',
+    frontendUrl: process.env.CLIENT_URL || 'http://localhost:5500',
+    version: '4.0.0',
+    team: '404 Brain Not Found',
+    endpoints: {
+      health: 'GET /api/health',
+      authRegister: 'POST /api/auth/register',
+      authLogin: 'POST /api/auth/login',
+      careersList: 'GET /api/careers',
+      careerDetail: 'GET /api/careers/:slug',
+      assessment: 'PUT /api/assessment',
+      recommendations: 'POST /api/recommendations/generate',
+      generateRoadmap: 'POST /api/roadmaps/generate',
+      currentRoadmap: 'GET /api/roadmaps/current',
+      toggleTask: 'PATCH /api/roadmaps/tasks/:taskId/toggle',
+      dashboard: 'GET /api/dashboard',
+    },
+    note: 'To use the frontend user interface, please open http://localhost:5500 in your web browser.',
+  });
+});
+
 /**
  * GET /api/health
  * Quick server health check — no auth required.
@@ -85,7 +110,7 @@ app.get('/api/health', (req, res) => {
     message: 'CareerPath AI Server is running ✅',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
-    version: '3.0.0',
+    version: '4.0.0',
     team: '404 Brain Not Found',
   });
 });
