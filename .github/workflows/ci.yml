@@ -1,0 +1,59 @@
+name: CareerPath AI CI (Root)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  verify:
+    name: Build & Pre-flight Verification
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 18.x, 20.x ]
+
+    steps:
+      - name: Check out repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: careerpath-ai/server/package.json
+
+      - name: Install Server Dependencies
+        run: |
+          cd careerpath-ai/server
+          npm install
+
+      - name: Lint & Syntax Check
+        run: |
+          cd careerpath-ai/server
+          npm run lint
+
+      - name: Run Automated Pre-flight Tests
+        run: |
+          cd careerpath-ai/server
+          npm test
+
+      - name: Verify Client Pages & Production Assets
+        run: |
+          cd careerpath-ai
+          test -f client/index.html
+          test -f client/login.html
+          test -f client/register.html
+          test -f client/assessment.html
+          test -f client/recommendations.html
+          test -f client/dashboard.html
+          test -f client/roadmap.html
+          test -f client/robots.txt
+          test -f client/sitemap.xml
+          test -f client/site.webmanifest
+          echo "All client assets and entry points verified successfully."
