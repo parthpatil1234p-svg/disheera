@@ -135,10 +135,10 @@ Built with passion and dedication for **Hack2Ignite 2026–27**:
 
 | Member | Role & Responsibility | Core Hackathon Contributions |
 | :--- | :--- | :--- |
-| **Parth Patil** | **Team Leader & Backend Architect** | REST API architecture, Mongoose schemas, 60/25/15 scoring math, roadmap generator, Render deployment, multi-API failover logic |
-| **Aditi Vispute** | **Frontend & Integration Lead** | Glassmorphic UI structuring, DOM controllers, asynchronous API client, Vercel deployment, 1-click print/PDF export stylesheet |
+| **Parth Patil** | **Team Leader & Full Stack WebDev** | End-to-end full stack architecture, REST APIs, Mongoose schemas, 60/25/15 scoring math, roadmap generator, Render deployment, multi-API failover logic |
+| **Aditi Vispute** | **Researcher, Web Explorer & Integration Lead** | Tech & domain research, web explorer & resource discovery, glassmorphic UI structuring, DOM controllers, asynchronous API client, Vercel deployment |
 | **Suyog Pawar** | **UI/UX & 3D WebGL Lead** | Three.js WebGL modules (Universe, Orbit, Path, Orb), particle physics, GSAP transitions, design system tokens, 2D fallback engine |
-| **Sanika Bodhanwar** | **QA, Data & Documentation Lead** | 45+ skill dataset standardization, career profiles curation, Postman test collections, QA testing matrix, API contract verification |
+| **Sanika Bodhanwar** | **QA, Data & Docs Lead & Presenter / Speaker** | 45+ skill dataset standardization, career profiles curation, Postman test collections, QA testing matrix, API contract verification, pitch presentation & team speaker |
 
 ---
 
@@ -398,7 +398,7 @@ Built with passion, engineering dedication, and late-night teamwork by **Team 40
 
 | <img src="https://github.com/parthpatil1234p-svg.png?size=110" width="110px;" style="border-radius:50%" alt="Parth Patil"/><br /><sub><b>Parth Patil</b></sub> | <img src="https://github.com/aditivispute25-gif.png?size=110" width="110px;" style="border-radius:50%" alt="Aditi Vispute"/><br /><sub><b>Aditi Vispute</b></sub> | <img src="https://github.com/Suyog-SP.png?size=110" width="110px;" style="border-radius:50%" alt="Suyog Pawar"/><br /><sub><b>Suyog Pawar</b></sub> | <img src="https://github.com/SanikaMB.png?size=110" width="110px;" style="border-radius:50%" alt="Sanika Bodhanwar"/><br /><sub><b>Sanika Bodhanwar</b></sub> |
 | :---: | :---: | :---: | :---: |
-| 👑 **Team Leader & Backend Architect** | 💻 **Frontend & Integration Lead** | 🎨 **UI/UX & 3D WebGL Lead** | 📊 **QA, Data & Docs Lead** |
+| 👑 **Team Leader & Full Stack WebDev** | 🔍 **Researcher, Web Explorer & Integration Lead** | 🎨 **UI/UX & 3D WebGL Lead** | 📊 **QA, Data & Docs Lead & Presenter / Speaker** |
 | [![GitHub](https://img.shields.io/badge/GitHub-parthpatil1234p--svg-181717?style=flat-square&logo=github)](https://github.com/parthpatil1234p-svg) | [![GitHub](https://img.shields.io/badge/GitHub-aditivispute25--gif-181717?style=flat-square&logo=github)](https://github.com/aditivispute25-gif) | [![GitHub](https://img.shields.io/badge/GitHub-Suyog--SP-181717?style=flat-square&logo=github)](https://github.com/Suyog-SP) | [![GitHub](https://img.shields.io/badge/GitHub-SanikaMB-181717?style=flat-square&logo=github)](https://github.com/SanikaMB) |
 
 ---
