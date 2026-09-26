@@ -323,27 +323,58 @@ In strict accordance with the **Hack2Ignite 2026–27 Official Rulebook** (*Rule
 
 ## 🚀 Future Roadmap & Upcoming Updates (Post-Hackathon Scope)
 
-CareerPath AI is engineered with an extensible modular architecture. While our current MVP delivers a verified, end-to-end guidance and milestone execution experience, we have mapped out a phased development roadmap to scale from a hackathon prototype into a production-grade educational platform:
+CareerPath AI is engineered with an extensible modular architecture. While our current MVP delivers a verified, end-to-end guidance and milestone execution experience, we have mapped out a comprehensive phased development roadmap to scale from a hackathon qualifier into an enterprise-grade EdTech & placement platform:
 
 ```
 ┌───────────────────────────┐      ┌───────────────────────────┐      ┌───────────────────────────┐
-│     Phase 1: MVP (Now)    │      │  Phase 2: Scale (Q4 2026) │      │  Phase 3: B2B (Q1-Q2 2027)│
+│     Phase 1: MVP (Now)    │      │ Phase 2: Adaptive & Audit │      │ Phase 3: Market & AI Prep │
 ├───────────────────────────┤      ├───────────────────────────┤      ├───────────────────────────┤
-│ • 60/25/15 Math Engine    │      │ • PDF Resume ATS Parser   │      │ • College TPO Dashboard   │
-│ • Tri-Color Skill Gaps    │ ───► │ • GitHub Proof-of-Work    │ ───► │ • Corporate Hiring Portal │
-│ • 4x Three.js 3D WebGL    │      │ • In-Browser Code Sandbox │      │ • AI Mock Video Interview │
-│ • Live Adzuna Market Data │      │ • Multilingual UI (i18n)  │      │ • WhatsApp Streak Nudges  │
-│ • Groq AI Mentor (<500ms) │      │ • Peer Study Circles      │      │ • Verified Certifications │
+│ • 60/25/15 Math Engine    │      │ • Adaptive Difficulty     │      │ • AI Mock Interviewer     │
+│ • Tri-Color Skill Gaps    │ ───► │ • Resume/Portfolio Audit  │ ───► │ • Live Job Deep-Links     │
+│ • 4x Three.js 3D WebGL    │      │ • In-Browser Code Runner  │      │ • Speech & Tone Scoring   │
+│ • Dual Groq/Gemini Mentor │      │ • GitHub Proof-of-Work    │      │ • WhatsApp Streak Bot     │
+│ • 1-Click Print/PDF Export│      │ • Multilingual (i18n)     │      │ • College Mentor Portal   │
 └───────────────────────────┘      └───────────────────────────┘      └───────────────────────────┘
 ```
 
 ### 📅 Phased Release Plan:
 
-| Phase | Target Timeline | Focus Area | Key Upcoming Features & Technical Upgrades |
+| Phase | Target Timeline | Focus Area | Key Upcoming Features & Technical Architecture |
 | :--- | :--- | :--- | :--- |
-| **Phase 1: MVP** *(Current)* | **September 2026** | **Core Guidance Engine (Completed ✅)** | Deterministic 60/25/15 career matching, 3D WebGL cosmos & progress orb, tri-color gap analysis, Adzuna live hiring telemetry, adaptive roadmaps with 1-click PDF print export, Groq/Gemini dual AI mentor. |
-| **Phase 2: Proof-of-Work & Accessibility** | **Q4 2026 (Oct–Dec)** | **Automated Profiling & Practice** | **1. AI Resume ATS Parser:** Upload PDF resumes to auto-extract skills into the profile via OCR & LLM parsing.<br>**2. GitHub & LeetCode Proof-of-Work:** Connect GitHub APIs to verify that milestone tasks are backed by real commits, PRs, and solved algorithms.<br>**3. In-Browser Code Runner (Judge0 CE / WebContainers):** Solve coding exercises directly inside weekly milestone tasks without local setup.<br>**4. Regional Language Localization (i18n):** Hindi, Marathi, Telugu, and Tamil translations to empower rural Tier-3 college students. |
-| **Phase 3: Institutional & B2B SaaS** | **Q1–Q2 2027** | **Campus Placement & Enterprise Hiring** | **1. University TPO Placement Portal:** Institutional dashboard for college placement cells to track batch-wide skill gaps and student roadmap progress.<br>**2. Corporate Direct-Hiring Pipeline:** Partner recruiters receive pre-vetted candidate shortlists of students with $\ge 80\%$ roadmap completion.<br>**3. AI Mock Video Interviewer:** Browser-based speech and facial confidence analysis simulating real technical & behavioral rounds.<br>**4. WhatsApp Streak Bot:** Automated daily study nudges, quiz reminders, and streak tracking via WhatsApp Business API. |
+| **Phase 1: MVP** *(Current)* | **September 2026** | **Core Guidance Engine (Completed ✅)** | Deterministic 60/25/15 career matching, 3D WebGL cosmos & progress orb, tri-color gap analysis, Adzuna live hiring telemetry, structured 4-week roadmaps with 1-click PDF print export, dual Groq/Gemini AI career mentor. |
+| **Phase 2: Adaptive Learning & Portfolio Audit** | **Q4 2026 (Oct–Dec)** | **Dynamic Calibration & Profile Intelligence** | **1. Dynamic Difficulty Adaptation (Adaptive Roadmap):** Performance-based pacing using Bayesian Knowledge Tracing. Accelerates high-performers into advanced milestones while inserting scaffolding exercises for struggling learners.<br>**2. Post-Recommendation Resume & Portfolio Gap Analyzer:** Upload PDF resumes or GitHub links to get an ATS compatibility score, missing high-impact project suggestions, and bullet-point rewrites calibrated to the recommended career.<br>**3. In-Browser Code Sandbox (Judge0 CE / WebContainers):** Hands-on coding exercises directly within milestone tasks without local environment setup.<br>**4. Regional Language Localization (i18n):** Hindi, Marathi, Telugu, and Tamil support for Tier-2/3 college inclusivity. |
+| **Phase 3: Market Telemetry & AI Speech Coach** | **Q1 2027 (Jan–Mar)** | **Real-Time Job Feeds & Interview Simulation** | **1. AI-Powered Mock Interview Module:** Interactive browser-based voice interview simulating technical and behavioral rounds (STAR method) with real-time feedback on clarity, filler words, and technical depth.<br>**2. Verified Job & Resource Links Integration:** Live job connectors (Adzuna + LinkedIn + RemoteOK) with verified deep-links matching student roadmap milestone skills, plus vetted community-rated tutorials and labs.<br>**3. WhatsApp Milestone & Streak Bot:** Automated daily study nudges, quiz reminders, and streak recovery via WhatsApp Business API. |
+| **Phase 4: Institutional SaaS & Enterprise Hiring** | **Q2 2027 (Apr–Jun)** | **College Placements & Corporate Pipelines** | **1. College Faculty & Placement Mentor Dashboard:** Role-based portal for TPOs/professors with batch-wide skill-gap heatmaps, custom roadmap assignment, and cohort placement readiness analytics.<br>**2. Corporate Pre-Vetted Direct-Hiring Pipeline:** Partner recruiters receive pre-screened candidate pools of students with verified $\ge 80\%$ roadmap completion. |
+
+---
+
+### 🔍 Deep Dive: High-Impact Upcoming Features
+
+#### 1. 🎙️ AI-Powered Mock Interview Module (`/interview`)
+- **Real-Time Speech & Text Interaction:** Uses the Web Speech API (STT & TTS) alongside Groq Llama 3 for sub-500ms conversational interview simulation.
+- **Behavioral & Technical Question Banks:** Tailors questions to the student's selected career (e.g., system design for Cloud Engineers, DSA for Full-Stack Developers, data storytelling for Data Scientists).
+- **Post-Session Performance Scorecard:** Generates comprehensive metrics on technical correctness, STAR-format adherence, speech pacing, and filler word frequency.
+
+#### 2. 📄 Resume & Portfolio Gap Analysis (`/resume-audit`)
+- **Direct Career-Aligned Audit:** Compares uploaded PDF resumes against industry requirements for the user's top-matched career.
+- **Project Recommender:** Suggests specific open-source or portfolio projects needed to bridge remaining high-priority gaps (e.g., *"Build a Redis pub/sub caching layer to increase your Backend Engineer match from 72% to 90%"*).
+- **ATS Bullet-Point Optimizer:** Re-phrases weak resume bullets into quantified impact statements using the Google XYZ formula (*"Accomplished [X] as measured by [Y], by doing [Z]"*).
+
+#### 3. 🎓 College Faculty & Placement Mentor Dashboard (`/mentor-portal`)
+- **Batch Skill-Gap Heatmaps:** Empowers university Training & Placement Officers (TPOs) to view aggregate skill deficiencies across entire classes or branches (e.g., *"62% of 3rd-year IT students lack Docker experience"*).
+- **Curriculum & Roadmap Intervention:** Mentors can assign custom roadmaps, track batch milestone velocity, and trigger targeted preparatory bootcamps.
+- **Placement Readiness Index (PRI):** Provides an objective, exportable benchmark for student employability and placement eligibility.
+
+#### 4. 📈 Verified Job & Resource Links with Market-Trend Integration (`/market-pulse`)
+- **Direct Job Applications:** Deep-links students to active, verified entry-level and internship job postings filtered by their acquired milestone skills.
+- **Vetted Learning Pathways:** Every roadmap task links directly to verified free resources—official documentation, interactive katas (e.g., Exercism, freeCodeCamp), and top-rated open-access video tutorials.
+- **12-Hour Cached Aggregator:** Eliminates stale job listings through resilient Redis caching and automated dead-link pruning.
+
+#### 5. 🧠 Dynamic Adaptive Roadmap Engine with Performance Calibration (`/adaptive-roadmap`)
+- **Bayesian Knowledge Tracing:** Dynamically evaluates student comprehension through weekly 3-question milestone quizzes and task completion timing.
+- **Self-Healing Roadmaps:**
+  - *Fast Track:* Students scoring $\ge 90\%$ on quizzes skip redundant basics and unlock advanced architecture concepts (e.g., GraphQL, Microservices, CI/CD).
+  - *Remediation Mode:* Students flagging difficulties receive scaffolded mini-tasks and prerequisite refreshers before progressing.
 
 ---
 
