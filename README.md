@@ -86,7 +86,7 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 | 📝 3. Multi-Step Student Profiling | 🎯 4. Explainable Career Recommendations |
 | :---: | :---: |
 | <img src="careerpath-ai/assets/screenshots/09_assessment_step1_academics.png" width="460" alt="Assessment" /> | <img src="careerpath-ai/assets/screenshots/14_recommendations_top_card.png" width="460" alt="Recommendations" /> |
-| *3-Step Academic, Interest & 45+ Skill evaluation wizard* | *Deterministic 60/25/15 match score & tri-color skill gaps* |
+| *3-Step Academic, Interest & 76+ Skill evaluation wizard* | *Deterministic 60/25/15 match score & tri-color skill gaps* |
 
 | 🗺️ 5. Adaptive Milestone Roadmap | 💼 6. Live Market Telemetry & CTC |
 | :---: | :---: |
@@ -138,7 +138,7 @@ Built with passion and dedication for **Hack2Ignite 2026–27**:
 | **Parth Patil** | **Team Leader & Full Stack WebDev** | End-to-end full stack architecture, REST APIs, Mongoose schemas, 60/25/15 scoring math, roadmap generator, Render deployment, multi-API failover logic |
 | **Aditi Vispute** | **Researcher, Web Explorer & Integration Lead** | Tech & domain research, web explorer & resource discovery, glassmorphic UI structuring, DOM controllers, asynchronous API client, Vercel deployment |
 | **Suyog Pawar** | **UI/UX & 3D WebGL Lead** | Three.js WebGL modules (Universe, Orbit, Path, Orb), particle physics, GSAP transitions, design system tokens, 2D fallback engine |
-| **Sanika Bodhnawar** | **QA, Data & Docs Lead & Presenter / Speaker** | 45+ skill dataset standardization, career profiles curation, Postman test collections, QA testing matrix, API contract verification, pitch presentation & team speaker |
+| **Sanika Bodhnawar** | **QA, Data & Docs Lead & Presenter / Speaker** | 76+ skill dataset standardization, 15 tech career profiles curation, Postman test collections, QA testing matrix, API contract verification, pitch presentation & team speaker |
 
 ---
 
@@ -146,13 +146,37 @@ Built with passion and dedication for **Hack2Ignite 2026–27**:
 
 | Evaluation Criterion | Typical Hackathon Project | CareerPath AI (Our Advantage) |
 | :--- | :--- | :--- |
-| **Recommendation Engine** | Slow, non-deterministic ChatGPT prompts that hallucinate different answers each time | **Deterministic 60/25/15 Mathematical Model:** 100% explainable, instant (<50ms), and mathematically consistent |
-| **Skill Gap Analysis** | Generic text advice (*"Learn JavaScript"*) | **Tri-Color Classification:** 🟢 Matched, 🟡 Upgrade Needed, 🔴 Missing Prerequisite |
-| **Execution Roadmap** | Static text bullet points | **Adaptive Milestone Roadmap:** 4, 8, or 12 weeks with interactive checkboxes, curated docs, and atomic progress tracking |
+| **Recommendation Engine** | Slow, non-deterministic ChatGPT prompts that hallucinate different answers each time | **Deterministic 60/25/15 Mathematical Model:** 100% explainable, instant (<50ms), evaluating across 15 high-demand tech roles |
+| **Skill Gap Analysis** | Generic text advice (*"Learn JavaScript"*) | **Tri-Color Classification across 76+ Skills:** 🟢 Matched, 🟡 Upgrade Needed, 🔴 Missing Prerequisite |
+| **Execution Roadmap** | Static text bullet points | **Adaptive Milestone Roadmap:** 4, 8, or 12 weeks with dynamic skill-gap prioritization, interactive checkboxes, curated docs, and atomic progress tracking |
 | **User Experience** | Plain Bootstrap forms | **Four 3D WebGL Experiences (Three.js):** Universe, Orbit, Path, and Orb + **Universal 2D Fallback Guarantee** |
 | **Market Relevance** | Outdated or simulated static data | **Live Telemetry:** Adzuna Developer API streaming active Indian tech jobs & verified ₹ CTC ranges |
 | **AI Mentorship** | Single API with high latency | **Dual-Engine AI Mentor:** Groq Llama 3.3 (<500ms) + Gemini failover + offline rule engine |
 | **Production Readiness** | Localhost only | **Live Global Deployment:** Vercel CDN + Render Service + MongoDB Atlas + Cloudinary |
+
+---
+
+## 💼 Supported Tech Roles & 76+ Standardized Skills Ecosystem
+
+CareerPath AI dynamically evaluates, visualizes, and roadmaps **15 high-demand tech roles** mapped across **76 standardized industry skills**:
+
+| # | Role Title | Category | Slug | Primary Key Skills |
+| :---: | :--- | :---: | :--- | :--- |
+| 1 | 💻 **Front-End Developer** | Development | `front-end-developer` | HTML, CSS, JavaScript, React, Tailwind CSS, Responsive Design, TypeScript |
+| 2 | ⚡ **Full-Stack Developer** | Development | `full-stack-developer` | JavaScript, React, Node.js, Express, MongoDB, REST APIs, Next.js, Docker |
+| 3 | 📊 **Data Analyst** | Data | `data-analyst` | SQL, Python, Excel, Statistics, Power BI, Data Visualization, Data Cleaning |
+| 4 | 🎨 **UI/UX Designer** | Design | `ui-ux-designer` | Figma, Wireframing, Prototyping, Visual Design, User Research, Design Systems |
+| 5 | 🛡️ **Cybersecurity Analyst** | Security | `cybersecurity-analyst` | Networking, Linux, Cybersecurity Fundamentals, OWASP Basics, Ethical Hacking |
+| 6 | 🤖 **AI / Machine Learning Engineer** | AI & Data | `ai-ml-engineer` | Python, PyTorch, TensorFlow, Scikit-Learn, Generative AI, LangChain, Deep Learning |
+| 7 | ☁️ **DevOps & Cloud Engineer** | Cloud | `devops-cloud-engineer` | AWS, Docker, Kubernetes, Linux, Terraform, CI/CD GitHub Actions, Networking |
+| 8 | 📱 **Mobile App Developer** | Mobile | `mobile-app-developer` | Flutter, Dart, React Native, JavaScript, Firebase, REST APIs, UI/UX |
+| 9 | ⚙️ **Backend Engineer** | Development | `backend-engineer` | Java, Spring Boot, Node.js, PostgreSQL, MongoDB, Redis, REST APIs, Kafka |
+| 10 | 🧠 **Data Scientist** | Data | `data-scientist` | Python, SQL, Statistics, Scikit-Learn, Pandas, Deep Learning, Data Visualization |
+| 11 | 🧪 **QA Automation Engineer** | Testing | `qa-automation-engineer` | Cypress, Playwright, Selenium, Postman, JavaScript, CI/CD, Python |
+| 12 | 🎮 **Game Developer** | Gaming | `game-developer` | Unity, C#, Unreal Engine 5, C++, Visual Design, 3D Mathematics |
+| 13 | 🔗 **Blockchain & Web3 Developer** | Web3 | `blockchain-web3-developer` | Solidity, Smart Contracts, Web3.js, JavaScript, Node.js, REST APIs |
+| 14 | 🚨 **Cloud Security & DevSecOps** | Security | `cloud-security-engineer` | Cybersecurity Fundamentals, Linux, Networking, AWS, Docker, OWASP, CI/CD |
+| 15 | 📋 **Technical Product Manager** | Product | `technical-product-manager` | Product Management, Agile & Scrum, User Stories, User Research, Communication |
 
 ---
 
@@ -219,7 +243,7 @@ The backend follows a clean, resource-oriented RESTful architecture with statele
 | :---: | :--- | :---: | :--- |
 | `POST` | `/api/auth/register` | Public | Instant 1-click evaluator registration; issues 7-day stateless JWT token |
 | `POST` | `/api/auth/login` | Public | Authenticates credentials with 10-round salted `bcryptjs` hashing |
-| `POST` | `/api/assessment` | Protected | Saves 3-step student profile (Degree, Interests, 45+ Skills & Proficiencies) |
+| `POST` | `/api/assessment` | Protected | Saves 3-step student profile (Degree, Interests, 76+ Skills & Proficiencies) |
 | `POST` | `/api/recommendations/generate` | Protected | Runs deterministic 60/25/15 match engine & tri-color skill-gap decomposition |
 | `POST` | `/api/roadmaps/generate` | Protected | Synthesizes personalized 4, 8, or 12-week prioritized milestone roadmaps |
 | `PATCH`| `/api/roadmaps/tasks/:id/toggle` | Protected | Atomic server-side task checkbox completion & real-time % recalculation |
@@ -252,7 +276,7 @@ CareerPath AI/
 │   │
 │   ├── server/                              ← Backend REST API service (deployed on Render)
 │   │   ├── server.js                        ← Express application entry point & middleware
-│   │   ├── seed.js                          ← Database seeder (45+ skills, 5 comprehensive careers)
+│   │   ├── seed.js                          ← Database seeder (76+ skills, 15 high-demand tech careers)
 │   │   ├── models/                          ← Mongoose schemas (User, Skill, Career, Roadmap, Task)
 │   │   ├── controllers/                     ← Route controllers & mathematical scoring engine
 │   │   ├── routes/                          ← Express REST route endpoints
@@ -294,7 +318,7 @@ If you prefer testing locally on your development machine:
 cd careerpath-ai/server
 npm install
 cp .env.example .env     # Pre-configured with demo defaults
-npm run seed             # Seeds 45+ skills and career profiles into MongoDB
+npm run seed             # Seeds 76+ skills and 15 career profiles into MongoDB
 npm run dev              # Starts Express server on http://localhost:5000
 ```
 
