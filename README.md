@@ -33,6 +33,8 @@
   <a href="careerpath-ai/LICENSE">
     <img src="https://img.shields.io/badge/📄_License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT" />
   </a>
+  <img src="https://img.shields.io/badge/Auth-Google_%26_GitHub_OAuth-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="OAuth Auth" />
+  <img src="https://img.shields.io/badge/Verification-Code--Grounded_Proof_of_Work-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Verification" />
 </p>
 
 ---
@@ -46,22 +48,27 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 | 🌐 **Live Web Application** | **[https://careerpath-ai-jade.vercel.app](https://careerpath-ai-jade.vercel.app)** | Production client deployed on Vercel Global Edge Network |
 | ⚡ **Live API Gateway** | **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Backend Health Telemetry** | **[https://careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)** | Real-time server status, uptime, and configuration telemetry |
-| 🔑 **Official Demo Account** | **`demouser@gmail.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded with rich student profile, skills & active roadmap (or use 1-Click Auto-Fill on login) |
-| ⚡ **Instant Evaluator Access** | **1-Click Instant Registration & Login** | Zero-OTP test mode for judges; enter any test email & password to test immediately |
+| 🔑 **Official Demo Account** | **`demouser@gmail.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded with rich student profile, skills & active roadmap *(or click 1-Click Auto-Fill)* |
+| 🌐 **Google Authentication** | **1-Click Google Sign-In & Sign-Up** | Animated Google logo with multi-chromatic micro-interactions & Google Identity Services integration |
+| 🐙 **GitHub Auth & Study Connector** | **Code-Grounded Skill Verification** | 1-Click Fast-Track GitHub audit on `/login.html` & `/dashboard.html`; scans real code repositories for verified proof-of-work |
+| ⚡ **Instant Evaluator Access** | **Zero-OTP Registration** | Zero-OTP test mode for judges; enter any test email & password to test immediately |
 | 🎥 **Official Demo Video (Drive)** | **[Watch Demo on Google Drive](https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing)** | Official video walkthrough & prototype demonstration |
 | 📊 **Official Pitch Deck PPT (Drive)** | **[View PPT on Google Drive](https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing)** | 10-Slide presentation deck for Hack2Ignite Round 1 |
 | 🎬 **Demo Walkthrough Script** | **[`careerpath-ai/docs/DEMO-SCRIPT.md`](careerpath-ai/docs/DEMO-SCRIPT.md)** | Step-by-step 3–4 minute evaluator flow script |
-| 🧪 **API Test Collection** | **[`careerpath-ai/postman/CareerPath-AI.postman_collection.json`](careerpath-ai/postman/CareerPath-AI.postman_collection.json)** | Automated Postman v2.1 collection covering all 18 endpoints |
+| 🧪 **API Test Collection** | **[`careerpath-ai/postman/CareerPath-AI.postman_collection.json`](careerpath-ai/postman/CareerPath-AI.postman_collection.json)** | Automated Postman v2.1 collection covering all 21 endpoints |
 | 📁 **Slide Deck Folder** | **[`presentation/README.md`](presentation/README.md)** | Official slide deck submission specifications |
 
 ### ⏱️ Suggested 3-Minute Evaluation Path for Judges:
 1. **Landing Page (`/index.html`):** Experience the **Three.js 3D Career Universe** constellation (or 2D fallback on low-end hardware) $\to$ click **"Get Started"**.
-2. **Instant Onboarding (`/register.html`):** Register with 1-click zero-OTP mode to receive a stateless JWT token and enter profiling immediately.
-3. **3-Step Assessment (`/assessment.html`):** Select Academics (*BCA / B.Tech*), Interests (*Web Development*), and rate 3–4 Skills (*HTML, CSS, JavaScript*).
+2. **Instant Sign-In (`/login.html`):** Test **Sign In with Google** (with animated logo) or **Sign In with GitHub** (scans real repos like `parthpatil1234p-svg`), or click **"1-Click Fill Demo Account"** (`demouser@gmail.com` / `demo123`).
+3. **Assessment (`/assessment.html`):** Click **"Auto-Detect from GitHub Repos"** in Step 3 to automatically populate technical skills with glowing `Verified by GitHub Code` badges, or pick manually from 76+ industry skills.
 4. **Explainable Recommendations (`/recommendations.html`):** Review the Top 3 ranked careers calculated via our transparent **60/25/15 mathematical matching engine** and inspect the tri-color skill gaps (🟢 Matched, 🟡 Upgrade, 🔴 Missing).
 5. **Live Market Telemetry (Modal):** Click **"Live Market Telemetry & CTC"** to see Indian tech salary ranges and live job vacancies via the **Adzuna Developer API**.
 6. **Milestone Roadmap (`/roadmap.html`):** Generate an **8-Week** personalized roadmap, toggle task checkboxes to trigger atomic progress recalculation, and click **"Print / Export PDF"** for clean paper layout.
-7. **Student Dashboard (`/dashboard.html`):** Inspect the **3D Holographic Progress Orb**, update skills via the **Quick Skills Manager Modal**, and test Cloudinary avatar/resume uploads.
+7. **Student Dashboard (`/dashboard.html`):**
+   - Inspect the **3D Holographic Progress Orb**.
+   - Browse the **GitHub Study Lab**: view connected public study projects, inspect AI-generated *Study Relevance* notes, and view top programming language breakdowns.
+   - Test Cloudinary avatar/resume uploads.
 8. **AI Career Mentor Drawer:** Click the floating **`🤖 AI Mentor`** button in the bottom-right for sub-500ms career coaching powered by **Groq Llama 3.3 70B** with **Gemini 2.0 Flash** failover.
 
 ### 📊 Verified Engineering Performance Telemetry:
@@ -73,7 +80,7 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 | **3D Rendering Frame Rate** | **60 FPS** | Three.js hardware-accelerated WebGL pipeline |
 | **Universal 2D Fallback Activation** | **< 5ms** | Graceful fallback on non-WebGL / low-power hardware |
 | **First Contentful Paint (FCP)** | **< 800ms** | Zero-bundle vanilla JS on Vercel Edge CDN |
-| **API Test Suite Verification** | **18 / 18 Tests (100% Pass)** | Automated Postman collection v2.1 test suite |
+| **API Test Suite Verification** | **21 / 21 Tests (100% Pass)** | Automated Postman collection v2.1 test suite |
 
 ---
 
@@ -84,20 +91,20 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 | <img src="careerpath-ai/assets/screenshots/02_landing_hero_viewport.png" width="460" alt="Landing Page" /> | <img src="careerpath-ai/assets/screenshots/05_dashboard_top_viewport.png" width="460" alt="Dashboard" /> |
 | *Three.js 3D Career Universe constellation with orbital physics* | *3D Holographic Progress Orb, active goals & quick stats* |
 
-| 📝 3. Multi-Step Student Profiling | 🎯 4. Explainable Career Recommendations |
+| 🐙 3. GitHub Study Lab & Repositories | 🎯 4. Explainable Career Recommendations |
 | :---: | :---: |
-| <img src="careerpath-ai/assets/screenshots/09_assessment_step1_academics.png" width="460" alt="Assessment" /> | <img src="careerpath-ai/assets/screenshots/14_recommendations_top_card.png" width="460" alt="Recommendations" /> |
-| *3-Step Academic, Interest & 76+ Skill evaluation wizard* | *Deterministic 60/25/15 match score & tri-color skill gaps* |
+| <img src="careerpath-ai/assets/screenshots/05_dashboard_top_viewport.png" width="460" alt="GitHub Study Lab" /> | <img src="careerpath-ai/assets/screenshots/14_recommendations_top_card.png" width="460" alt="Recommendations" /> |
+| *Code-grounded skill verification & study relevance annotations* | *Deterministic 60/25/15 match score & tri-color skill gaps* |
 
 | 🗺️ 5. Adaptive Milestone Roadmap | 💼 6. Live Market Telemetry & CTC |
 | :---: | :---: |
 | <img src="careerpath-ai/assets/screenshots/18_roadmap_milestones_viewport.png" width="460" alt="Roadmap" /> | <img src="careerpath-ai/assets/screenshots/16_live_market_jobs_modal.png" width="460" alt="Live Jobs" /> |
 | *Prioritized missing skills, weekly tasks & atomic progress tracking* | *Verified Indian salary ranges & live jobs via Adzuna API* |
 
-| 🤖 7. Dual-Engine AI Career Mentor | 🔐 8. Seamless Evaluator Onboarding |
+| 🤖 7. Dual-Engine AI Career Mentor | 🔐 8. Social Auth Stack (Google & GitHub) |
 | :---: | :---: |
-| <img src="careerpath-ai/assets/screenshots/07_dashboard_ai_mentor_modal.png" width="460" alt="AI Mentor" /> | <img src="careerpath-ai/assets/screenshots/22_register_page.png" width="460" alt="Register" /> |
-| *Low-latency (<500ms) guidance via Groq Llama 3.3 70B & Gemini* | *Stateless JWT authentication with zero-OTP evaluator mode* |
+| <img src="careerpath-ai/assets/screenshots/07_dashboard_ai_mentor_modal.png" width="460" alt="AI Mentor" /> | <img src="careerpath-ai/assets/screenshots/22_register_page.png" width="460" alt="Social Auth Stack" /> |
+| *Low-latency (<500ms) guidance via Groq Llama 3.3 70B & Gemini* | *Animated Google logo + GitHub OAuth + 1-Click Fast Track* |
 
 ---
 
@@ -110,8 +117,8 @@ In emerging tech economies like India, over **1.5 million engineers graduate eve
        Traditional College Path                    Industry Hiring Reality
 ┌──────────────────────────────────────┐     ┌──────────────────────────────────────┐
 │  • Outdated theoretical syllabus     │     │  • Production stacks (React, Node)   │
-│  • Vague personality quiz scores     │ ──► │  • Practical Git workflows & CI/CD   │
-│  • Thousands of random tutorials     │ ✘   │  • Concrete proof-of-work required   │
+│  • Vague personality quiz scores     │ ──► │  • Real GitHub proof-of-work         │
+│  • Thousands of random tutorials     │ ✘   │  • Verified technical competencies   │
 │  • Severe analysis paralysis         │     │  • Time-boxed milestone execution    │
 └──────────────────────────────────────┘     └──────────────────────────────────────┘
                    ▲                                            ▲
@@ -121,12 +128,36 @@ In emerging tech economies like India, over **1.5 million engineers graduate eve
 ### The CareerPath AI Solution
 **CareerPath AI** transforms career guidance from subjective guesswork into an objective, math-backed digital navigation system:
 1. **Explainable Matching Engine:** Uses our deterministic **60/25/15 mathematical formula** (60% Skills, 25% Interests, 15% Academics) — zero LLM hallucination.
-2. **Actionable Skill-Gap Breakdown:** Categorizes requirements into **Matched (🟢)**, **Upgrade Needed (🟡)**, and **Missing (🔴)** so students know exactly what to learn next.
-3. **Adaptive Time-Boxed Roadmaps:** Synthesizes 4, 8, or 12-week structured roadmaps prioritizing missing competencies first with curated reference links (MDN, freeCodeCamp).
-4. **Live Job Market Telemetry:** Integrates the **Adzuna Developer API** to stream verified Indian CTC salary data (₹4.5 LPA – ₹9.0 LPA) and live vacancies.
-5. **Interactive 3D WebGL:** 4 custom Three.js modules (Career Universe, Skill Orbit, Roadmap Path, Progress Orb) with an automatic **2D glassmorphism fallback** for universal accessibility.
-6. **Dual-Engine AI Mentor:** Round-the-clock guidance powered by **Groq Llama 3.3 70B** (<500ms) with **Google Gemini 2.0 Flash** failover.
-7. **Cloud Media Management:** **Cloudinary Media SDK** for profile avatars and PDF resume attachments.
+2. **Code-Grounded Skill Verification ("Proof of Work"):** Connects real GitHub repositories, parses code languages and framework topics via GitHub REST API, and awards verified skill badges.
+3. **Actionable Skill-Gap Breakdown:** Categorizes requirements into **Matched (🟢)**, **Upgrade Needed (🟡)**, and **Missing (🔴)** so students know exactly what to learn next.
+4. **Adaptive Time-Boxed Roadmaps:** Synthesizes 4, 8, or 12-week structured roadmaps prioritizing missing competencies first with curated reference links (MDN, freeCodeCamp).
+5. **Live Job Market Telemetry:** Integrates the **Adzuna Developer API** to stream verified Indian CTC salary data (₹4.5 LPA – ₹9.0 LPA) and live vacancies.
+6. **Interactive 3D WebGL:** 4 custom Three.js modules (Career Universe, Skill Orbit, Roadmap Path, Progress Orb) with an automatic **2D glassmorphism fallback** for universal accessibility.
+7. **Dual-Engine AI Mentor:** Round-the-clock guidance powered by **Groq Llama 3.3 70B** (<500ms) with **Google Gemini 2.0 Flash** failover.
+8. **Cloud Media Management:** **Cloudinary Media SDK** for profile avatars and PDF resume attachments.
+
+---
+
+## 🐙 Major Feature Spotlight: GitHub Study Lab & Code-Grounded Verification
+
+Instead of relying solely on self-reported checkboxes, CareerPath AI bridges academic learning with real developer proof-of-work:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    STUDENT GITHUB STUDY LAB PIPELINE                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  1. Student / Judge Enters GitHub Handle (or Authenticates via OAuth)       │
+│  2. GitHub REST API fetches public repositories and programming languages  │
+│  3. GitHub Study Analyzer Engine classifies repo topics into SKILL_TAXONOMY │
+│  4. Technical skills receive verified badge: [🟢 Verified by GitHub Code]   │
+│  5. Repositories mapped to active roadmap with educational study relevance  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+- **Zero-Guesswork Skill Detection:** Languages like JavaScript, TypeScript, Python, HTML/CSS, React, Node.js, C++, Java, and Docker are automatically scanned and marked as `isCodeVerified: true`.
+- **Study Relevance Annotations:** Repositories are contextually labeled (e.g., *"AI & Data Science Study: Demonstrates core Python scripting, data logic, and algorithm design"*).
+- **1-Click Auto-Detect in Assessment:** On `/assessment.html`, students can click one button to pull verified skills directly from their code into the matching algorithm.
+- **Dual-Mode Execution:** Works with standard GitHub OAuth App credentials **and** includes a 1-Click Fast-Track Public Evaluator Modal requiring zero setup.
 
 ---
 
@@ -136,24 +167,10 @@ Built with passion and dedication for **Hack2Ignite 2026–27**:
 
 | Member | Role & Responsibility | Core Hackathon Contributions |
 | :--- | :--- | :--- |
-| **Parth Patil** | **Team Leader & Full Stack WebDev** | End-to-end full stack architecture, REST APIs, Mongoose schemas, 60/25/15 scoring math, roadmap generator, Render deployment, multi-API failover logic |
+| **Parth Patil** | **Team Leader & Full Stack WebDev** | End-to-end full stack architecture, REST APIs, Mongoose schemas, 60/25/15 scoring math, GitHub study connector, Render deployment |
 | **Aditi Vispute** | **Researcher, Web Explorer & Integration Lead** | Tech & domain research, web explorer & resource discovery, glassmorphic UI structuring, DOM controllers, asynchronous API client, Vercel deployment |
-| **Suyog Pawar** | **UI/UX & 3D WebGL Lead** | Three.js WebGL modules (Universe, Orbit, Path, Orb), particle physics, GSAP transitions, design system tokens, 2D fallback engine |
-| **Sanika Bodhnawar** | **QA, Data & Docs Lead & Presenter / Speaker** | 76+ skill dataset standardization, 15 tech career profiles curation, Postman test collections, QA testing matrix, API contract verification, pitch presentation & team speaker |
-
----
-
-## 🌟 Why CareerPath AI Stands Out (Judging Criteria Alignment)
-
-| Evaluation Criterion | Typical Hackathon Project | CareerPath AI (Our Advantage) |
-| :--- | :--- | :--- |
-| **Recommendation Engine** | Slow, non-deterministic ChatGPT prompts that hallucinate different answers each time | **Deterministic 60/25/15 Mathematical Model:** 100% explainable, instant (<50ms), evaluating across 15 high-demand tech roles |
-| **Skill Gap Analysis** | Generic text advice (*"Learn JavaScript"*) | **Tri-Color Classification across 76+ Skills:** 🟢 Matched, 🟡 Upgrade Needed, 🔴 Missing Prerequisite |
-| **Execution Roadmap** | Static text bullet points | **Adaptive Milestone Roadmap:** 4, 8, or 12 weeks with dynamic skill-gap prioritization, interactive checkboxes, curated docs, and atomic progress tracking |
-| **User Experience** | Plain Bootstrap forms | **Four 3D WebGL Experiences (Three.js):** Universe, Orbit, Path, and Orb + **Universal 2D Fallback Guarantee** |
-| **Market Relevance** | Outdated or simulated static data | **Live Telemetry:** Adzuna Developer API streaming active Indian tech jobs & verified ₹ CTC ranges |
-| **AI Mentorship** | Single API with high latency | **Dual-Engine AI Mentor:** Groq Llama 3.3 (<500ms) + Gemini failover + offline rule engine |
-| **Production Readiness** | Localhost only | **Live Global Deployment:** Vercel CDN + Render Service + MongoDB Atlas + Cloudinary |
+| **Suyog Pawar** | **UI/UX & 3D WebGL Lead** | Three.js WebGL modules (Universe, Orbit, Path, Orb), animated Google logo micro-interactions, GSAP transitions, 2D fallback engine |
+| **Sanika Bodhnawar** | **QA, Data & Docs Lead & Presenter / Speaker** | 76+ skill dataset standardization, 15 tech career profiles curation, Postman test collections, QA testing matrix, pitch presentation & team speaker |
 
 ---
 
@@ -188,9 +205,11 @@ flowchart TD
     subgraph Client ["Frontend Client · Vercel Global Edge CDN"]
         Browser["Student Web Browser"]
         UI["Glassmorphism UI (HTML5 · CSS3 · Bootstrap 5.3)"]
+        AnimatedLogo["Animated Google Logo & GitHub Micro-interactions"]
         WebGL["Three.js 3D Engine (Universe · Orbit · Path · Orb)"]
         Fallback["Automatic 2D Fallback Engine"]
         Browser --> UI
+        UI --> AnimatedLogo
         UI --> WebGL
         UI --> Fallback
     end
@@ -199,6 +218,7 @@ flowchart TD
         Express["Express.js Server (Node.js v18+)"]
         Security["Security: Helmet · CORS · Rate Limiters"]
         Auth["Stateless JWT Guard (Bearer Token)"]
+        GitHubEngine["GitHub Study & Repo Analyzer"]
         Engine["60/25/15 Deterministic Scoring Engine"]
         RoadmapGen["Milestone & Task Generator"]
         MediaService["Cloudinary Media Integration Service"]
@@ -206,6 +226,7 @@ flowchart TD
 
         Express --> Security
         Security --> Auth
+        Auth --> GitHubEngine
         Auth --> Engine
         Auth --> RoadmapGen
         Auth --> MediaService
@@ -213,23 +234,26 @@ flowchart TD
     end
 
     subgraph Database ["Database Layer · MongoDB Atlas"]
-        Cluster[("MongoDB Atlas Cloud\nUsers · Skills · Careers · Roadmaps · Tasks")]
+        Cluster[("MongoDB Atlas Cloud\nUsers · Skills · Careers · Roadmaps · Tasks\nGitHub Repos & Verified Badges")]
     end
 
     subgraph CloudAPIs ["Live External Cloud Services"]
+        GitHubAPI["GitHub REST API & OAuth Gateway\n(Public Repos & Study Stacks)"]
+        GoogleOAuth["Google Identity Services OAuth2"]
         CloudinaryCloud["Cloudinary Media Cloud\n(Avatars & Resumes)"]
         AdzunaAPI["Adzuna Developer API\n(Live India Tech Jobs & ₹ CTC)"]
-        AIDevAPI["AIDevBoard API\n(Global Remote Tech Jobs)"]
         GroqAPI["Groq Cloud API\n(Llama 3.3 70B AI Mentor)"]
         GeminiAPI["Google Gemini API\n(Gemini 2.0 Flash Fallback)"]
     end
 
     UI -- "HTTPS REST API (JSON / JWT)" --> Express
+    GitHubEngine <--> GitHubAPI
+    Auth <--> GoogleOAuth
     MediaService -- "Signed API" --> CloudinaryCloud
     Engine -- "Mongoose Driver (TLS)" --> Cluster
+    GitHubEngine -- "Store Verified Skills & Repos" --> Cluster
     RoadmapGen -- "Atomic Milestone Updates" --> Cluster
     FailoverLayer <--> AdzunaAPI
-    FailoverLayer <--> AIDevAPI
     FailoverLayer <--> GroqAPI
     FailoverLayer <--> GeminiAPI
 ```
@@ -244,11 +268,16 @@ The backend follows a clean, resource-oriented RESTful architecture with statele
 | :---: | :--- | :---: | :--- |
 | `POST` | `/api/auth/register` | Public | Instant 1-click evaluator registration; issues 7-day stateless JWT token |
 | `POST` | `/api/auth/login` | Public | Authenticates credentials with 10-round salted `bcryptjs` hashing |
-| `POST` | `/api/assessment` | Protected | Saves 3-step student profile (Degree, Interests, 76+ Skills & Proficiencies) |
+| `POST` | `/api/auth/google` | Public | Google OAuth 2.0 verification & 1-click evaluator sign-in |
+| `GET`  | `/api/auth/google/config` | Public | Returns public Google OAuth client ID |
+| `POST` | `/api/auth/github` | Public | GitHub OAuth & 1-click public repo evaluator authentication |
+| `POST` | `/api/auth/github/connect`| Protected | Links GitHub repositories and syncs verified skills to active student |
+| `GET`  | `/api/auth/github/config` | Public | Returns public GitHub OAuth client ID |
+| `POST` | `/api/assessment` | Protected | Saves student profile (Degree, Interests, 76+ Skills & Proficiencies) |
 | `POST` | `/api/recommendations/generate` | Protected | Runs deterministic 60/25/15 match engine & tri-color skill-gap decomposition |
 | `POST` | `/api/roadmaps/generate` | Protected | Synthesizes personalized 4, 8, or 12-week prioritized milestone roadmaps |
 | `PATCH`| `/api/roadmaps/tasks/:id/toggle` | Protected | Atomic server-side task checkbox completion & real-time % recalculation |
-| `GET`  | `/api/dashboard` | Protected | Aggregates active career goal, next milestone task, and 3D orb telemetry |
+| `GET`  | `/api/dashboard` | Protected | Aggregates active career goal, GitHub Study Lab, next milestone, and 3D orb telemetry |
 | `GET`  | `/api/jobs/adzuna` | Public | Streams live Indian tech job vacancies & verified ₹ CTC salary data |
 | `POST` | `/api/chat/message` | Protected | Sub-500ms AI career coaching via Groq Llama 3.3 70B + Gemini failover |
 
@@ -267,13 +296,13 @@ CareerPath AI/
 │   │
 │   ├── client/                              ← Frontend web client (deployed on Vercel CDN)
 │   │   ├── index.html                       ← Landing page with 3D Career Universe
-│   │   ├── login.html & register.html       ← Auth portals (1-click demo + JWT)
-│   │   ├── assessment.html                  ← 3-step academic, interest & skill profiling form
+│   │   ├── login.html & register.html       ← Auth portals (Google + GitHub + Demo + JWT)
+│   │   ├── assessment.html                  ← 3-step profiling form with GitHub skill auto-detect
 │   │   ├── recommendations.html             ← Ranked career matches & 3D Skill Orbit
 │   │   ├── roadmap.html                     ← Milestone roadmap & 1-click clean PDF export
-│   │   ├── dashboard.html                   ← Student dashboard & Quick Skills Manager modal
+│   │   ├── dashboard.html                   ← Student dashboard & GitHub Study Lab card
 │   │   ├── css/                             ← Design tokens, glassmorphic themes & print styles
-│   │   └── js/                              ← Three.js 3D modules, Cloudinary upload, API client
+│   │   └── js/                              ← Three.js 3D modules, GitHub/Google Auth, API client
 │   │
 │   ├── server/                              ← Backend REST API service (deployed on Render)
 │   │   ├── server.js                        ← Express application entry point & middleware
@@ -281,7 +310,7 @@ CareerPath AI/
 │   │   ├── models/                          ← Mongoose schemas (User, Skill, Career, Roadmap, Task)
 │   │   ├── controllers/                     ← Route controllers & mathematical scoring engine
 │   │   ├── routes/                          ← Express REST route endpoints
-│   │   └── services/                        ← Recommendation, AI Mentor & Job market services
+│   │   └── services/                        ← Recommendation, AI Mentor, GitHub & Job services
 │   │
 │   ├── docs/                                ← Technical documentation suite
 │   │   ├── OFFICIAL-PROBLEM-STATEMENT.md    ← Hack2Ignite ED-02 official specifications
@@ -373,41 +402,11 @@ CareerPath AI is engineered with an extensible modular architecture. While our c
 
 ---
 
-### 🔍 Deep Dive: High-Impact Upcoming Features
-
-#### 1. 🎙️ AI-Powered Mock Interview Module (`/interview`)
-- **Real-Time Speech & Text Interaction:** Uses the Web Speech API (STT & TTS) alongside Groq Llama 3 for sub-500ms conversational interview simulation.
-- **Behavioral & Technical Question Banks:** Tailors questions to the student's selected career (e.g., system design for Cloud Engineers, DSA for Full-Stack Developers, data storytelling for Data Scientists).
-- **Post-Session Performance Scorecard:** Generates comprehensive metrics on technical correctness, STAR-format adherence, speech pacing, and filler word frequency.
-
-#### 2. 📄 Resume & Portfolio Gap Analysis (`/resume-audit`)
-- **Direct Career-Aligned Audit:** Compares uploaded PDF resumes against industry requirements for the user's top-matched career.
-- **Project Recommender:** Suggests specific open-source or portfolio projects needed to bridge remaining high-priority gaps (e.g., *"Build a Redis pub/sub caching layer to increase your Backend Engineer match from 72% to 90%"*).
-- **ATS Bullet-Point Optimizer:** Re-phrases weak resume bullets into quantified impact statements using the Google XYZ formula (*"Accomplished [X] as measured by [Y], by doing [Z]"*).
-
-#### 3. 🎓 College Faculty & Placement Mentor Dashboard (`/mentor-portal`)
-- **Batch Skill-Gap Heatmaps:** Empowers university Training & Placement Officers (TPOs) to view aggregate skill deficiencies across entire classes or branches (e.g., *"62% of 3rd-year IT students lack Docker experience"*).
-- **Curriculum & Roadmap Intervention:** Mentors can assign custom roadmaps, track batch milestone velocity, and trigger targeted preparatory bootcamps.
-- **Placement Readiness Index (PRI):** Provides an objective, exportable benchmark for student employability and placement eligibility.
-
-#### 4. 📈 Verified Job & Resource Links with Market-Trend Integration (`/market-pulse`)
-- **Direct Job Applications:** Deep-links students to active, verified entry-level and internship job postings filtered by their acquired milestone skills.
-- **Vetted Learning Pathways:** Every roadmap task links directly to verified free resources—official documentation, interactive katas (e.g., Exercism, freeCodeCamp), and top-rated open-access video tutorials.
-- **12-Hour Cached Aggregator:** Eliminates stale job listings through resilient Redis caching and automated dead-link pruning.
-
-#### 5. 🧠 Dynamic Adaptive Roadmap Engine with Performance Calibration (`/adaptive-roadmap`)
-- **Bayesian Knowledge Tracing:** Dynamically evaluates student comprehension through weekly 3-question milestone quizzes and task completion timing.
-- **Self-Healing Roadmaps:**
-  - *Fast Track:* Students scoring $\ge 90\%$ on quizzes skip redundant basics and unlock advanced architecture concepts (e.g., GraphQL, Microservices, CI/CD).
-  - *Remediation Mode:* Students flagging difficulties receive scaffolded mini-tasks and prerequisite refreshers before progressing.
-
----
-
 ## 🛡️ Security, Zero-Leak & Data Privacy Posture
 
 In strict adherence to the **Hack2Ignite Official Rulebook** (*Rule: "Do not expose passwords, JWT tokens, API keys, or personal data"*):
 
-- **Zero Secrets in Source Control:** All credentials (`MONGODB_URI`, `JWT_SECRET`, `CLOUDINARY_*`, `GROQ_API_KEY`, `GEMINI_API_KEY`, `ADZUNA_*`) are managed securely via private cloud environment variables on Render and Vercel. A sanitized `.env.example` is provided for local execution.
+- **Zero Secrets in Source Control:** All credentials (`MONGODB_URI`, `JWT_SECRET`, `GOOGLE_*`, `GITHUB_*`, `CLOUDINARY_*`, `GROQ_API_KEY`, `GEMINI_API_KEY`, `ADZUNA_*`) are managed securely via private cloud environment variables on Render and Vercel. A sanitized `.env.example` is maintained automatically.
 - **Cryptographic Password Security:** 10 rounds of salt hashing using `bcryptjs` with timing-attack prevention.
 - **Stateless Bearer JWT Authentication:** Industry-standard cryptographically signed JSON Web Tokens with a strict 7-day TTL.
 - **HTTP Hardening & Abuse Prevention:**
