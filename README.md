@@ -46,7 +46,8 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 | 🌐 **Live Web Application** | **[https://careerpath-ai-jade.vercel.app](https://careerpath-ai-jade.vercel.app)** | Production client deployed on Vercel Global Edge Network |
 | ⚡ **Live API Gateway** | **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Backend Health Telemetry** | **[https://careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)** | Real-time server status, uptime, and configuration telemetry |
-| 🔑 **Instant Evaluator Access** | **1-Click Instant Registration & Login** | Zero-OTP test mode for judges; enter any test email & password to test immediately |
+| 🔑 **Official Demo Account** | **`demouser@gmail.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded with rich student profile, skills & active roadmap (or use 1-Click Auto-Fill on login) |
+| ⚡ **Instant Evaluator Access** | **1-Click Instant Registration & Login** | Zero-OTP test mode for judges; enter any test email & password to test immediately |
 | 🎥 **Official Demo Video (Drive)** | **[Watch Demo on Google Drive](https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing)** | Official video walkthrough & prototype demonstration |
 | 📊 **Official Pitch Deck PPT (Drive)** | **[View PPT on Google Drive](https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing)** | 10-Slide presentation deck for Hack2Ignite Round 1 |
 | 🎬 **Demo Walkthrough Script** | **[`careerpath-ai/docs/DEMO-SCRIPT.md`](careerpath-ai/docs/DEMO-SCRIPT.md)** | Step-by-step 3–4 minute evaluator flow script |
