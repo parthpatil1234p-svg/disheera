@@ -101,7 +101,7 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 
 | 🐙 3. GitHub Study Lab & Repositories | 🎯 4. Explainable Career Recommendations |
 | :---: | :---: |
-| <img src="careerpath-ai/assets/screenshots/05_dashboard_top_viewport.png" width="460" alt="GitHub Study Lab" /> | <img src="careerpath-ai/assets/screenshots/14_recommendations_top_card.png" width="460" alt="Recommendations" /> |
+| <img src="careerpath-ai/assets/screenshots/06_dashboard_skills_and_tasks.png" width="460" alt="GitHub Study Lab & Skills" /> | <img src="careerpath-ai/assets/screenshots/14_recommendations_top_card.png" width="460" alt="Recommendations" /> |
 | *Code-grounded skill verification & study relevance annotations* | *Deterministic 60/25/15 match score & tri-color skill gaps* |
 
 | 🗺️ 5. Adaptive Milestone Roadmap | 💼 6. Live Market Telemetry & CTC |
@@ -113,6 +113,11 @@ Welcome, Hack2Ignite Evaluators! We have eliminated all testing friction so you 
 | :---: | :---: |
 | <img src="careerpath-ai/assets/screenshots/07_dashboard_ai_mentor_modal.png" width="460" alt="AI Mentor" /> | <img src="careerpath-ai/assets/screenshots/22_register_page.png" width="460" alt="Social Auth" /> |
 | *Low-latency (<300ms) guidance via Groq Llama 3.3 70B & Gemini* | *Animated Google logo + GitHub OAuth + 1-Click Fast Track* |
+
+| 🧠 9. Adaptive Reality-Check Quiz | 🔑 10. Multi-Provider AI Engine (BYOK) |
+| :---: | :---: |
+| <img src="careerpath-ai/assets/screenshots/23_quiz_question_stepper.png" width="460" alt="Adaptive Quiz Engine" /> | <img src="careerpath-ai/assets/screenshots/24_quiz_byok_provider_modal.png" width="460" alt="Multi-Provider BYOK Engine" /> |
+| *Adaptive technical quizzes testing real concept retention & mastery* | *BYOK modal for Gemini, Groq, Ollama & DeepSeek custom keys* |
 
 ---
 
