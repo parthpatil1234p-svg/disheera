@@ -28,3 +28,6 @@ Thumbs.db
 .cache/
 dist/
 build/
+.agents/
+.codex/
+

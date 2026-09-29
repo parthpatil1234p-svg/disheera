@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 100" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="fullBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070913" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+
+    <!-- Ring Gradient -->
+    <linearGradient id="fullRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#A855F7" />
+    </linearGradient>
+
+    <!-- Arrow Gradients -->
+    <linearGradient id="fullArrowLeft" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <linearGradient id="fullArrowRight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#9333EA" />
+    </linearGradient>
+
+    <!-- Glowing Pill Badge Gradient -->
+    <linearGradient id="fullAiPillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="fullNeonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Left: Official Logo Mark (80x80) -->
+  <g transform="translate(10, 10)">
+    <!-- Dark Rounded Squircle Base -->
+    <rect x="0" y="0" width="80" height="80" rx="20" fill="url(#fullBgGrad)" stroke="rgba(0, 242, 254, 0.3)" stroke-width="1.2" />
+
+    <!-- Broken Ring -->
+    <path d="M 45 12 A 28 28 0 0 0 21 58" fill="none" stroke="url(#fullRingGrad)" stroke-width="3.5" stroke-linecap="round" filter="url(#fullNeonGlow)" />
+    <path d="M 27 63 A 28 28 0 0 0 59 30" fill="none" stroke="url(#fullRingGrad)" stroke-width="3.5" stroke-linecap="round" filter="url(#fullNeonGlow)" />
+
+    <!-- Sweeping Trail -->
+    <path d="M 19 53 C 26 38, 38 26, 60 14" fill="none" stroke="url(#fullRingGrad)" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+
+    <!-- 3 Nodes -->
+    <circle cx="19" cy="53" r="3.2" fill="#00F2FE" filter="url(#fullNeonGlow)" />
+    <circle cx="38" cy="34" r="3" fill="#3B82F6" />
+    <circle cx="60" cy="14" r="3.2" fill="#A855F7" filter="url(#fullNeonGlow)" />
+
+    <!-- Arrowhead Cursor -->
+    <g filter="url(#fullNeonGlow)">
+      <path d="M 65 17 L 31 46 L 45 42 L 50 57 Z" fill="url(#fullArrowLeft)" />
+      <path d="M 65 17 L 45 42 L 50 57 Z" fill="url(#fullArrowRight)" opacity="0.9" />
+    </g>
+  </g>
+
+  <!-- Right: Wordmark Typography -->
+  <g transform="translate(108, 0)">
+    <!-- "CareerPath" -->
+    <text x="0" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="42" font-weight="800" fill="#0F172A" letter-spacing="-1">
+      Career<tspan fill="#2563EB">Path</tspan>
+    </text>
+
+    <!-- "AI" Glowing Pill Badge -->
+    <rect x="250" y="27" width="58" height="34" rx="8" fill="url(#fullAiPillGrad)" />
+    <text x="279" y="51" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+      AI
+    </text>
+
+    <!-- Subtitle -->
+    <text x="2" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="12" font-weight="600" fill="#64748B" letter-spacing="2.5">
+      CAREER ATLAS &amp; SKILL ROADMAPS
+    </text>
+  </g>
+</svg>
