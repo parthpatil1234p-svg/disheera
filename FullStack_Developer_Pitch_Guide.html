@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>CareerPath AI — Full Stack Developer Pitch & Judge Q&A Guide</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #1a1a24;
+      background: #f8fafc;
+      line-height: 1.55;
+      font-size: 10.5pt;
+      margin: 0;
+      padding: 0;
+    }
+    .print-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #1E1B4B;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .print-btn {
+      background: #14B8A6;
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      font-size: 11pt;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .print-btn:hover {
+      background: #0D9488;
+    }
+    .content-wrapper {
+      max-width: 900px;
+      margin: 24px auto;
+      background: #ffffff;
+      padding: 32px 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    @media print {
+      body { background: #ffffff; }
+      .print-bar { display: none !important; }
+      .content-wrapper { max-width: 100%; margin: 0; padding: 0; box-shadow: none; }
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #2A1158 0%, #4C1D95 100%);
+      color: #ffffff;
+      padding: 18px 24px;
+      border-radius: 8px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 12px rgba(42, 17, 88, 0.15);
+    }
+    .header-banner h1 {
+      margin: 0 0 6px 0;
+      font-size: 20pt;
+      letter-spacing: -0.5px;
+      font-weight: 700;
+    }
+    .header-banner .meta {
+      font-size: 9.5pt;
+      opacity: 0.9;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-gold { background: #F59E0B; color: #1E1B4B; }
+    .badge-teal { background: #14B8A6; color: #ffffff; }
+    .badge-purple { background: #8B5CF6; color: #ffffff; }
+
+    h2 {
+      color: #3B1A6E;
+      font-size: 13pt;
+      border-bottom: 2px solid #E9D5FF;
+      padding-bottom: 4px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+    }
+    h3 {
+      color: #1E1B4B;
+      font-size: 11pt;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+    }
+    p {
+      margin: 0 0 8px 0;
+    }
+    ul, ol {
+      margin: 0 0 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    .dialogue-box {
+      background: #FAF5FF;
+      border-left: 4px solid #7C3AED;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 10px 0;
+      font-style: italic;
+      color: #2E1065;
+      font-size: 10pt;
+    }
+    .card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .formula-box {
+      background: #F1F5F9;
+      border: 1px dashed #64748B;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 9.5pt;
+      margin: 8px 0;
+      color: #0F172A;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #CBD5E1;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    th {
+      background: #F1F5F9;
+      color: #1E293B;
+      font-weight: 600;
+    }
+    .qa-box {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    .qa-q {
+      font-weight: 700;
+      color: #B91C1C;
+      font-size: 10pt;
+      margin-bottom: 2px;
+    }
+    .qa-a {
+      background: #F0FDF4;
+      border-left: 3px solid #16A34A;
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+      color: #14532D;
+      font-size: 9.5pt;
+    }
+    .code-snippet {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: #1E1B4B;
+      color: #E2E8F0;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 9pt;
+      overflow-x: auto;
+      margin: 6px 0;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOATING PRINT / SAVE TO PDF BAR -->
+  <div class="print-bar">
+    <div>
+      <span style="font-weight: 700; font-size: 11pt; color: #F59E0B;">⚡ Hack2Ignite 2026–27</span>
+      <span style="opacity: 0.8; margin-left: 10px;">Full Stack Pitching & Judge Defense Guide</span>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ Save as PDF / Print
+    </button>
+  </div>
+
+  <div class="content-wrapper">
+
+  <!-- HEADER BANNER -->
+  <div class="header-banner">
+    <h1>CareerPath AI — Full Stack Developer Pitching Guide</h1>
+    <div class="meta">
+      <span><strong>Team:</strong> 404 Brain Not Found</span>
+      <span><strong>Problem ID:</strong> ED-02 (EduTech Track)</span>
+      <span><strong>Presenter:</strong> Parth Patil (Lead & Full Stack)</span>
+      <span class="badge badge-gold">Hack2Ignite 2026–27</span>
+      <span class="badge badge-teal">GHRISTU Pune</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <h2>🎤 1. 30-Second Killer Opening Pitch (Aapka Pehla Dialogue)</h2>
+  <p>Jab judges aapse intro ya project summary mangein, confident aawaaz mein yeh boliye:</p>
+  <div class="dialogue-box">
+    "Good morning respected judges! Main <strong>Parth Patil</strong>, Team Lead aur Full Stack Web Developer hoon CareerPath AI ka.<br><br>
+    India mein har saal 15 lakh engineers graduate hote hain, lekin 80% employable nahi hote kyunki unke paas honest skill gap analysis aur concrete weekly execution roadmap nahi hota.<br><br>
+    Maine is platform ka poora <strong>decoupled full-stack architecture</strong> design kiya hai — jisme Vanilla JS aur Three.js 3D WebGL frontend par hai, Node.js/Express REST API backend par, MongoDB Atlas cloud database, aur Groq LPU + Gemini Flash ka sub-300ms multi-model AI pipeline hai. Chaliye main aapko iska core architecture aur live prototype flow dikhata hoon."
+  </div>
+
+  <!-- SECTION 2 -->
+  <h2>🏛️ 2. Full-Stack Architecture Deep Dive (Judges ko Kaise Samjhana Hai)</h2>
+
+  <div class="card">
+    <h3>A) Frontend Layer (Fast & Accessible)</h3>
+    <ul>
+      <li><strong>Tech Stack:</strong> Vanilla JavaScript (ES6+), Semantic HTML5, CSS Grid / Flexbox.</li>
+      <li><strong>Why No React?</strong> Budget 4G networks aur low-spec college laptops par React bundle size (~300KB+) FCP slow karta hai. Hamara lightweight bundle sirf <strong>~45KB</strong> hai aur page <strong>&lt;800ms mein render</strong> ho jata hai.</li>
+      <li><strong>Visual Engine:</strong> <strong>Three.js (r128) WebGL 3D Career Constellation</strong> 60 FPS par run karta hai, aur low-power devices ke liye <strong>instant 2D SVG circular percentage gauge fallback</strong> diya gaya hai.</li>
+      <li><strong>Hosting:</strong> Vercel Global Edge CDN (<a href="https://careerpath-ai-jade.vercel.app">careerpath-ai-jade.vercel.app</a>).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>B) Backend Layer & Production Security</h3>
+    <ul>
+      <li><strong>Runtime & Framework:</strong> Node.js + Express.js REST API (Hosted on Render Cloud).</li>
+      <li><strong>Enterprise Security Suite:</strong>
+        <ul>
+          <li><strong>Helmet.js:</strong> OWASP security HTTP headers enforce karta hai.</li>
+          <li><strong>Express-Rate-Limit:</strong> Brute-force & DDoS attack protection (auth par strict 50 req/15min).</li>
+          <li><strong>Stateless JWT Auth:</strong> Password <code>bcryptjs</code> se salted hash hota hai; plain text password database mein kabhi store nahi hota.</li>
+          <li><strong>Binary Magic-Byte Inspection:</strong> Resume upload mein file extension ke bajaye binary buffer ke hex header magic-bytes check hote hain (<code>%PDF</code> for PDF, <code>PK..</code> for DOCX) taaki malicious scripts block ho sakein.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>C) Database & Cloud Storage</h3>
+    <ul>
+      <li><strong>MongoDB Atlas:</strong> Multi-region cloud cluster with normalized Mongoose schemas (User, Roadmap, RoadmapTask, Attempt, Career).</li>
+      <li><strong>Cloudinary API:</strong> Secure cloud storage for student resumes and avatar assets with transactional lifecycle cleanup.</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3 -->
+  <h2>🔥 3. Teen (3) "Hero" Engineering Features Jinhe Zaroor Brag Karein</h2>
+
+  <div class="card">
+    <h3>1. The 60/25/15 Mathematical Match Engine (Zero Black-Box AI Bias)</h3>
+    <p>Judges ko batayein ki humne career recommendations ke liye LLM prompt par guesswork nahi kiya, balki strict in-memory deterministic mathematics use ki hai:</p>
+    <div class="formula-box">
+      Career Match Score = (Skill Fit × 0.60) + (Interest Overlap × 0.25) + (Academic Calibration × 0.15)
+    </div>
+    <p><strong>4-Tier Skill Passport Confidence Multiplier ($C_i$):</strong></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Verification Tier</th>
+          <th>Multiplier</th>
+          <th>Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tier 0: Self-Rated</strong></td>
+          <td><code>0.70x</code></td>
+          <td>Unverified claims par 30% discount self-reporting bias ke liye</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 1: Quiz-Verified</strong></td>
+          <td><code>0.85x</code></td>
+          <td>Groq LPU dynamic micro-quiz pass karne par</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 2: Code-Verified</strong></td>
+          <td><code>1.00x</code></td>
+          <td>GitHub public repository AST code sync se full credit</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 3: Interview-Verified</strong></td>
+          <td><code>1.05x</code></td>
+          <td>Spoken technical interview pass karne par bonus credit</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>2. Hardened Single Active Route (MongoDB Partial Unique Index)</h3>
+    <p>Online learners 5 courses mein ek saath enroll hokar "Tutorial Hopping" karte hain. Humne database level par race conditions aur duplicate routes rokne ke liye invariant lagaya:</p>
+    <div class="code-snippet">
+RoadmapSchema.index(
+  { user: 1 },
+  { unique: true, partialFilterExpression: { status: 'active' } }
+);
+    </div>
+    <p><em>"Lock Enrolling, Never Browsing"</em>: Student ek waqt mein sirf 1 active route par focused rehta hai, lekin explore sabhi ko kar sakta hai.</p>
+  </div>
+
+  <div class="card">
+    <h3>3. Two-Factor Skill Verification (Anti-Cheat Moat)</h3>
+    <ul>
+      <li><strong>Factor 1 (Code Telemetry):</strong> Zero-prompt GitHub OAuth session sync — student ke repositories, language distributions aur commits scan karke <code>[✓ Code Verified]</code> badge deta hai.</li>
+      <li><strong>Factor 2 (Dynamic AI Micro-Quiz):</strong> Groq LPU (Llama 3.3 70B) se real-time 5 technical questions synthesize hote hain &lt;300ms mein. Pass hone par <code>[✓ Quiz Verified]</code> badge milta hai.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4 -->
+  <h2>💻 4. Live Demo Walkthrough (Screen Share Script)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Step</th>
+        <th>URL / Action</th>
+        <th>Screen Share par Kya Bolna Hai</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Instant Login</strong></td>
+        <td><code>/login.html</code></td>
+        <td>"Evaluator convenience ke liye humne '1-Click Fill Demo Account' diya hai jo instant secure JWT token generate karta hai."</td>
+      </tr>
+      <tr>
+        <td><strong>2. Assessment</strong></td>
+        <td><code>/assessment.html</code></td>
+        <td>"Step 3 mein 'Auto-Detect Skills' click karte hi bina kisi popup ke GitHub session repos scan hokar Code Verified badges dete hain."</td>
+      </tr>
+      <tr>
+        <td><strong>3. Recommendations</strong></td>
+        <td><code>/recommendations.html</code></td>
+        <td>"Top 3 ranked careers 60/25/15 formula se aate hain. 'Live Jobs' click karne par Adzuna API se real-time Indian CTC (₹ LPA) load hoti hai."</td>
+      </tr>
+      <tr>
+        <td><strong>4. Active Roadmap</strong></td>
+        <td><code>/roadmap.html</code></td>
+        <td>"Milestone task check karne par atomic server-side % recalculation hota hai. Niche hamara 4-Rule Industry Job Ready Certification Card hai."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 5 -->
+  <h2>🥊 5. Judges ke Tough Cross-Questions & Bulletproof Answers</h2>
+
+  <div class="qa-box">
+    <div class="qa-q">Q1: "Agar Groq ya Gemini API down ho gayi toh tumhara system crash ho jayega?"</div>
+    <div class="qa-a">
+      <strong>Aapka Answer:</strong> "Nahi sir! Humne <strong>Multi-Tier Autonomous Failover</strong> banaya hai. Request pehle Groq LPU par jaati hai (&lt;300ms). Timeout hone par automatically Google Gemini 2.5 Flash failover activate hota hai. Aur agar internet disconnect ho jaye, toh backend mein <strong>860+ lines ka offline curated question bank</strong> hai jo local memory se serve hota hai. System 99.9% crash-proof hai."
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-q">Q2: "React ya Next.js kyun use nahi kiya? Vanilla JS kyun?"</div>
+    <div class="qa-a">
+      <strong>Aapka Answer:</strong> "Sir, engineering college ke Tier-2/Tier-3 students budget 4G networks aur low-spec smartphones use karte hain. React bundle size 300KB+ hota hai jisse FCP slow hota hai. Humne clean Vanilla ES6+ aur CSS Grid use kiya jisse bundle size sirf ~45KB hai aur page <strong>&lt;800ms mein render</strong> ho jata hai bina virtual DOM overhead ke."
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-q">Q3: "Student agar fake GitHub repo link kar de toh?"</div>
+    <div class="qa-a">
+      <strong>Aapka Answer:</strong> "Sir, isiliye hamara <strong>Two-Factor Verification</strong> hai. Factor 1 GitHub code check karta hai, lekin student ko Factor 2 yaani <strong>Groq AI dynamic micro-quiz</strong> bhi pass karna padta hai jisme randomized deep conceptual questions aate hain. Bina quiz pass kiye Canonical Evidence Ledger resume unlock nahi karta."
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-q">Q4: "Aapka business model kya hai? Students se paise loge?"</div>
+    <div class="qa-a">
+      <strong>Aapka Answer:</strong> "Nahi sir, students ke liye platform <strong>100% Free Always</strong> hai. Hamara model B2B2C hai: (1) Colleges/TPOs ko Placement SaaS license dete hain batch skill gap heatmaps aur NAAC/NIRF data ke liye. (2) Corporate recruiters ko Recruiter Talent Pass dete hain verified candidate pipeline ke liye jisse unka screening cost 60% kam hota hai."
+    </div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-q">Q5: "Job Ready Certificate fake ho sakta hai kya?"</div>
+    <div class="qa-a">
+      <strong>Aapka Answer:</strong> "Nahi sir! Certificate tabhi unlock hota hai jab student 4 objective industry rules clear kare: Readiness Score ≥70%, Verified Skills ≥4, Roadmap Progress ≥80%, aur Zero Expired Skills. Certificate ke sath ek public verification URL (<code>/verify-cert.html?id=...</code>) hoti hai jisse employer online verify kar sakta hai."
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <h2>📌 6. Quick Telemetry Cheat Sheet for Judges</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Metric / Component</th>
+        <th>Measured Performance Benchmark</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Recommendation Engine Latency</strong></td>
+        <td><code>&lt; 50ms</code> in-memory deterministic calculation</td>
+      </tr>
+      <tr>
+        <td><strong>AI Micro-Quiz & Mentor Latency</strong></td>
+        <td><code>&lt; 300ms</code> powered by Groq LPU (Llama 3.3 70B)</td>
+      </tr>
+      <tr>
+        <td><strong>First Contentful Paint (FCP)</strong></td>
+        <td><code>&lt; 800ms</code> on Vercel Global Edge CDN</td>
+      </tr>
+      <tr>
+        <td><strong>Test Suite Coverage</strong></td>
+        <td><code>18 / 18</code> automated integration test assertions passing</td>
+      </tr>
+      <tr>
+        <td><strong>Production Web App URL</strong></td>
+        <td><a href="https://careerpath-ai-jade.vercel.app">https://careerpath-ai-jade.vercel.app</a></td>
+      </tr>
+      <tr>
+        <td><strong>Production API Health Check</strong></td>
+        <td><a href="https://careerpath-ai-bdbt.onrender.com/api/health">https://careerpath-ai-bdbt.onrender.com/api/health</a></td>
+      </tr>
+      <tr>
+        <td><strong>Demo Video (Google Drive)</strong></td>
+        <td><a href="https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing">Watch Video Walkthrough</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  </div> <!-- end content-wrapper -->
+
+</body>
+</html>
