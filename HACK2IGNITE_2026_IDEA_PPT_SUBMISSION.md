@@ -3,7 +3,7 @@
 > **Team Name:** 404 Brain Not Found  
 > **Problem Statement ID:** ED-02 (EduTech Track)  
 > **Idea Title:** CareerPath AI — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
-> **Format:** Strict 6-Slide Maximum · Official Headings & Pointers Preserved · Unique Circular Flowcharts, Formulas & Benchmark Metrics Included
+> **Format:** Strict 6-Slide Maximum · Official Headings & Pointers Preserved · Unique Multi-Paradigm Visuals: Metro Subway Transit Line, Hexagonal Ports & Adapters, DNA Helix, 4-Pillar Temple & Circular Orbits Included
 
 ---
 
@@ -48,111 +48,82 @@
 
 ### • Detailed explanation of the proposed solution:
 
-#### 🌐 CIRCULAR SOLUTION ORBIT (System Overview)
+#### 🚇 THE CAREER GPS SUBWAY TRANSIT LINE (Unique Metro Flowchart)
+*A student's journey from college freshman confusion to corporate job-readiness, mapped as a disciplined Metro Transit Network with express junctions and zero derailment:*
+
 ```mermaid
-flowchart TD
-    classDef hub fill:#3B1A6E,stroke:#A855F7,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef profile fill:#0284C7,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
-    classDef verify fill:#16A34A,stroke:#4ADE80,stroke-width:2px,color:#FFFFFF;
-    classDef math fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
-    classDef roadmap fill:#2563EB,stroke:#60A5FA,stroke-width:2px,color:#FFFFFF;
-    classDef recruiter fill:#9333EA,stroke:#C084FC,stroke-width:2px,color:#FFFFFF;
-    classDef mentor fill:#EA580C,stroke:#FB923C,stroke-width:2px,color:#FFFFFF;
+flowchart LR
+    classDef purpleLine fill:#3B1A6E,stroke:#A855F7,stroke-width:3px,color:#FFFFFF,font-weight:bold;
+    classDef goldLine fill:#D97706,stroke:#FCD34D,stroke-width:3px,color:#FFFFFF,font-weight:bold;
+    classDef greenLine fill:#16A34A,stroke:#4ADE80,stroke-width:3px,color:#FFFFFF,font-weight:bold;
+    classDef junction fill:#BE185D,stroke:#F472B6,stroke-width:3px,color:#FFFFFF,font-weight:bold;
+    classDef terminal fill:#059669,stroke:#34D399,stroke-width:4px,color:#FFFFFF,font-weight:bold;
 
-    HUB((💎 CareerPath AI<br/>Core Hub)):::hub
-    S1((🎯 1. Student<br/>Profiling)):::profile
-    S2((🔒 2. Two-Factor<br/>Verification)):::verify
-    S3((📊 3. 60/25/15<br/>Match Engine)):::math
-    S4((🗺️ 4. Adaptive<br/>Roadmap)):::roadmap
-    S5((💼 5. Recruiter<br/>Talent Radar)):::recruiter
-    S6((🤖 6. AI Career<br/>Mentor)):::mentor
+    ST1([🚉 Station 1: Campus Junction<br/>Academics &amp; 76+ Skills]):::purpleLine
+    ST2([🚉 Station 2: Proof Terminal<br/>GitHub AST &amp; Groq Quiz]):::purpleLine
+    JUNCTION{{🔀 Central Interchange<br/>60/25/15 Deterministic Math}}:::junction
+    ST3([🚉 Station 3: Diagnostic Hub<br/>Tri-Color Gap Matrix]):::goldLine
+    ST4([🚉 Station 4: Milestone Track<br/>Dual Roadmaps &amp; Anti-Scrub]):::goldLine
+    TERMINAL{{🏁 Grand Terminal: Placement<br/>Recruiter Radar &amp; Job Ready}}:::terminal
 
-    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S1
-    S1 -.-> HUB
-    S2 -.-> HUB
-    S3 -.-> HUB
-    S4 -.-> HUB
-    S5 -.-> HUB
-    S6 -.-> HUB
+    ST1 ==>|Purple Line: Verification Express| ST2
+    ST2 ==>|Zero-Prompt Auth Token| JUNCTION
+    JUNCTION ==>|Gold Line: Execution Route| ST3
+    ST3 ==>|Targeted Milestones| ST4
+    ST4 ==>|Green Line: Industry Gateway| TERMINAL
+
+    subgraph LEGEND [🚇 TRANSIT METRO LINES]
+        L1[🟣 Line 1: Identity &amp; Two-Factor Proof]
+        L2[🟡 Line 2: Disciplined 8-Week Execution]
+        L3[🟢 Line 3: Recruiter Radar Placement]
+    end
 ```
 
 ```
-                              ╭──────────────╮
-                         ╭────│  🎯 STUDENT   │────╮
-                        │    │   PROFILING    │    │
-                        │    ╰───────┬────────╯    │
-                        │            │             │
-               ╭────────┴───╮       │       ╭─────┴────────╮
-               │ 🤖 AI CAREER│       │       │ 🔒 TWO-FACTOR │
-               │   MENTOR    │       │       │ VERIFICATION  │
-               │  (Groq LPU) │       │       │ GitHub + Quiz │
-               ╰────────┬───╯       │       ╰─────┬────────╯
-                        │    ╭──────┴───────╮     │
-                        │    │  💎 CAREER    │     │
-                        │    │  PATH  AI     │     │
-                        │    │   CORE HUB    │     │
-                        │    ╰──────┬───────╯     │
-               ╭────────┴───╮       │       ╭─────┴────────╮
-               │ 💼 RECRUITER│       │       │ 📊 60/25/15   │
-               │   TALENT    │       │       │  MATH ENGINE  │
-               │    RADAR    │       │       │  (Zero Bias)  │
-               ╰────────┬───╯       │       ╰─────┬────────╯
-                        │    ╭──────┴───────╮     │
-                        ╰────│ 🗺️ ADAPTIVE  │─────╯
-                             │   ROADMAP    │
-                             ╰──────────────╯
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+ 🚇 CAREERPATH AI METRO TRANSIT LINE (The "Career GPS" Route Map)
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+ [CAMPUS JUNCTION] ═══════●════════ [PROOF TERMINAL] ═══════●════════ [ALGORITHMIC INTERCHANGE]
+  Student Profiling                 Two-Factor Verification           60/25/15 Deterministic Math
+  Academics & 76+ Skills            GitHub AST + Groq Quiz            Zero Black-Box Bias (<50ms)
+                                                                                  ║
+                                                                                  ║ Transfer Junction
+                                                                                  ▼
+ [JOB-READY TERMINAL] ◄════●════════ [MILESTONE CENTRAL] ◄══●════════ [GAP DIAGNOSIS HUB]
+  Corporate Recruiter Radar         Anti-Scrub Video Track            Tri-Color Matrix
+  96% Match + Verified Hire         Weekly PDF Study Guides           🟢 Ready 🟡 Upgrade 🔴 Missing
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
 
 * **Two-Factor Skill Verification (The Credential Moat):**
   * **Factor 1 (Code-Grounded GitHub AST Telemetry):** Authenticated zero-prompt sync (`POST /api/auth/github/sync`) scans public repositories, language AST distributions, and commit frequency to award `[✓ Code Verified]` badges.
   * **Factor 2 (Dynamic AI Reality-Check Micro-Quiz):** Real-time 5-question technical quiz generated on Groq LPU (Llama 3.3 70B, <300ms) with instant pedagogical explanations to award `[✓ Quiz Verified]` badges.
 
-#### 🟣 SCORING ENGINE — Explainable 60/25/15 Mathematical Ring
-```mermaid
-flowchart TD
-    classDef center fill:#3B1A6E,stroke:#A855F7,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef skill fill:#0284C7,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
-    classDef interest fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
-    classDef academic fill:#16A34A,stroke:#4ADE80,stroke-width:2px,color:#FFFFFF;
-
-    CENTER((🏆 CAREER FIT SCORE<br/>0.60·S + 0.25·I + 0.15·A<br/>100% Deterministic Math)):::center
-    C1((🔵 60% SKILL DEPTH<br/>S = Σ Wᵢ · Lᵢ · Cᵢ<br/>Confidence: 0.70x to 1.05x)):::skill
-    C2((🟡 25% INTEREST FIT<br/>Jaccard: |I ∩ D| / |I ∪ D|<br/>Domain Curiosity Badges)):::interest
-    C3((🟢 15% ACADEMIC FIT<br/>Degree, Branch & Semester<br/>Cutoff Qualification Gate)):::academic
-
-    C1 ==> CENTER
-    C2 ==> CENTER
-    C3 ==> CENTER
-    C1 --- C2 --- C3 --- C1
+#### 🧬 THE TWO-FACTOR SKILL DNA HELIX (Bonding Code & Cognitive Proof)
+```
+      STRAND A (Code Telemetry)                       STRAND B (Cognitive Proof)
+    ╭───────────────────────────╮                   ╭───────────────────────────╮
+    │  Public GitHub Repo Sync  │═══════════════════│  Groq LPU Llama 3.3 Quiz  │
+    │  AST Language Parser      │    [BOND 1]       │  5 Dynamic Debug Questions│
+    ╰─────────────┬─────────────╯   Code & Theory   ╰─────────────┬─────────────╯
+                  │                 Reinforcement                 │
+                  ▼                                               ▼
+    ╭───────────────────────────╮                   ╭───────────────────────────╮
+    │  Commit Frequency & Diffs │═══════════════════│  Pedagogical AI Feedback  │
+    │  Production Proof-of-Work │    [BOND 2]       │  Adaptive Sub-300ms Tutor │
+    ╰─────────────┬─────────────╯   Tamper-Proof    ╰─────────────┬─────────────╯
+                  │                 Credibility                   │
+                  └───────────────────────┬───────────────────────┘
+                                          ▼
+                      ╔═══════════════════════════════════════╗
+                      ║  💎 CANONICAL EVIDENCE LEDGER BADGE   ║
+                      ║  [✓ Code Verified] + [✓ Quiz Verified]║
+                      ╚═══════════════════════════════════════╝
 ```
 
-```
-                        ╭───────────────────────╮
-                   ╭────│    CAREER FIT SCORE    │────╮
-                   │    │ = 0.60×S + 0.25×I +   │    │
-                   │    │       0.15×A           │    │
-                   │    ╰───────────┬───────────╯    │
-                   │                │                 │
-          ╭────────┴────────╮       │       ╭────────┴────────╮
-          │  🔵 60% SKILL    │       │       │  🟢 15% ACADEMIC │
-          │     DEPTH        │       │       │      FIT         │
-          │                  │       │       │                  │
-          │ S = Σ(Wᵢ×Lᵢ×Cᵢ) │       │       │ Degree, Branch   │
-          │ Confidence:      │       │       │ & Semester Match │
-          │ Self  → 0.70x    │       │       │ Explicit Cutoff  │
-          │ Quiz  → 0.85x    │       │       │ Gates Applied    │
-          │ Code  → 1.00x    │       │       │                  │
-          │ Voice → 1.05x    │       │       │                  │
-          ╰────────┬────────╯       │       ╰────────┬────────╯
-                   │       ╭────────┴────────╮       │
-                   ╰───────│  🟡 25% INTEREST │───────╯
-                           │     OVERLAP      │
-                           │                  │
-                           │ Jaccard Index:   │
-                           │ |I∩D| / |I∪D|   │
-                           │ Curiosity Badges │
-                           ╰──────────────────╯
-```
+* **Explainable 60/25/15 Mathematical Scoring Formula (Zero Black-Box Bias):**
+  $$\text{Score} = (0.60 \times S_{\text{norm}}) + (0.25 \times I_{\text{norm}}) + (0.15 \times A_{\text{norm}})$$
+  * With 4-Tier confidence multipliers ($C_i$): Self-Rated (0.70x), Dynamic Quiz (0.85x), GitHub Code AST (1.00x), and AI Mock Voice Interview (1.05x).
 
 * **Dual Concurrent Roadmaps & Course Synergy Architecture:**
   * Enrolls up to 2 parallel career tracks ($\le 2$) validated by a 3-level domain synergy engine.
@@ -162,52 +133,20 @@ flowchart TD
 
 ### • How it addresses the problem:
 
-#### 🔴🟡🟢 TRI-COLOR SKILL GAP DIAGNOSIS RING
+#### 🚥 TRI-COLOR SKILL GAP TRAFFIC SYSTEM
 ```mermaid
 flowchart TD
-    classDef input fill:#3B1A6E,stroke:#A855F7,stroke-width:2px,color:#FFFFFF,font-weight:bold;
-    classDef matched fill:#16A34A,stroke:#4ADE80,stroke-width:2px,color:#FFFFFF;
-    classDef upgrade fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
-    classDef missing fill:#DC2626,stroke:#F87171,stroke-width:2px,color:#FFFFFF;
+    classDef input fill:#1E1B4B,stroke:#8B5CF6,stroke-width:2px,color:#FFFFFF;
+    classDef ready fill:#16A34A,stroke:#4ADE80,stroke-width:2px,color:#FFFFFF,font-weight:bold;
+    classDef upgrade fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF,font-weight:bold;
+    classDef missing fill:#DC2626,stroke:#F87171,stroke-width:2px,color:#FFFFFF,font-weight:bold;
 
-    CENTER((🎯 TWO-FACTOR<br/>VERIFICATION<br/>ENGINE)):::input
-    G1((🟢 MATCHED SKILLS<br/>HTML, CSS, JS, React<br/>✓ Code & Quiz Verified)):::matched
-    G2((🟡 UPGRADE SKILLS<br/>TypeScript, Git, SQL<br/>⚡ Targeted Practice)):::upgrade
-    G3((🔴 MISSING SKILLS<br/>Docker, CI/CD, K8s<br/>🔥 Converted to Roadmap)):::missing
+    RAW[/Student Claimed Profile: 76+ Standardized Skills/]:::input
+    RAW ==> ENGINE{Two-Factor Verification Engine}
 
-    CENTER ==> G1
-    CENTER ==> G2
-    CENTER ==> G3
-    G1 -.-> G2 -.-> G3 -.-> G1
-```
-
-```
-                         ╭─────────────────╮
-                    ╭────│  📋 STUDENT'S    │────╮
-                    │    │  CLAIMED SKILLS  │    │
-                    │    ╰────────┬────────╯    │
-                    │             │              │
-          ╭─────────┴──╮         │         ╭────┴─────────╮
-          │ 🔴 MISSING  │         │         │ 🟢 MATCHED   │
-          │   SKILLS    │         │         │   SKILLS     │
-          │             │         ▼         │              │
-          │ Docker      │  ╭────────────╮  │ HTML, CSS    │
-          │ CI/CD       │  │  TWO-FACTOR │  │ JavaScript   │
-          │ Kubernetes  │  │ VERIFICATION│  │ React        │
-          │             │  │   ENGINE    │  │              │
-          │ ► Converted │  ╰────────────╯  │ ► Verified   │
-          │   to Weekly │         │         │   & Job-Ready│
-          │   Roadmap   │         │         │   Badges ✓   │
-          ╰─────────┬──╯         │         ╰────┬─────────╯
-                    │    ╭───────┴───────╮      │
-                    ╰────│ 🟡 UPGRADE    │──────╯
-                         │   SKILLS      │
-                         │               │
-                         │ React, Git    │
-                         │ TypeScript    │
-                         │ ► Targeted    │
-                         │   Practice    │
-                         ╰───────────────╯
+    ENGINE ==>|Code AST + Quiz Confirmed| GREEN[\🟢 GREEN: MATCHED SKILLS<br/>HTML, CSS, JS, React — Direct Job Ready/]:::ready
+    ENGINE ==>|Partial Proof / Low Confidence| YELLOW[\🟡 YELLOW: UPGRADE SKILLS<br/>TypeScript, Git, SQL — Targeted Practice/]:::upgrade
+    ENGINE ==>|Zero Evidence / Industry Required| RED[\🔴 RED: MISSING BOTTLENECK<br/>Docker, CI/CD, K8s — Weekly Roadmaps/]:::missing
 ```
 
 * **Halts Resume Inflation:** **Canonical Skill Evidence Ledger** (`/api/skills/evidence`) locks resume upload until skills have verifiable proof-of-work.
@@ -226,126 +165,89 @@ flowchart TD
 
 ### • Technologies to be used (e.g. programming languages, frameworks, hardware):
 
-#### 🔷 TECH STACK ORBITAL RING — Production Architecture
+#### ⬢ HEXAGONAL PORTS & ADAPTERS ARCHITECTURE (Clean Decoupled Systems)
+*Senior engineering pattern: The core domain logic is strictly isolated from external databases, AI providers, and web frameworks through modular interfaces:*
+
 ```mermaid
 flowchart TD
-    classDef core fill:#3B1A6E,stroke:#A855F7,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef fe fill:#0284C7,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
-    classDef be fill:#16A34A,stroke:#4ADE80,stroke-width:2px,color:#FFFFFF;
-    classDef db fill:#9333EA,stroke:#C084FC,stroke-width:2px,color:#FFFFFF;
-    classDef ai fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
+    classDef domain fill:#3B1A6E,stroke:#A855F7,stroke-width:4px,color:#FFFFFF,font-weight:bold;
+    classDef port fill:#1E1B4B,stroke:#60A5FA,stroke-width:2px,color:#FFFFFF;
+    classDef adapter fill:#047857,stroke:#34D399,stroke-width:2px,color:#FFFFFF;
 
-    CORE((💎 CAREERPATH AI<br/>PRODUCTION<br/>RUNTIME)):::core
-    T1((🌐 FRONTEND<br/>Vanilla JS ES6+<br/>Three.js 3D WebGL<br/>Vercel Edge &lt;800ms)):::fe
-    T2((⚡ BACKEND<br/>Node.js + Express<br/>Helmet + JWT Auth<br/>Render 99.9% Up)):::be
-    T3((🗄️ DATABASE<br/>MongoDB Atlas<br/>Partial Unique Index<br/>Cloudinary CDN)):::db
-    T4((🤖 AI &amp; APIS<br/>Groq LPU &lt;300ms<br/>Gemini 2.5 Flash<br/>Adzuna Jobs API)):::ai
+    subgraph DRIVING_PORTS [Inbound / Driving Adapters]
+        A_WEB[🌐 Vercel Edge Web CDN<br/>Vanilla JS &amp; Three.js 3D]:::adapter
+        A_AUTH[🔑 Stateless JWT Guard<br/>Helmet.js &amp; Rate-Limiting]:::adapter
+        A_RBAC[🛡️ Portal Isolation Router<br/>Student vs Recruiter 403]:::adapter
+    end
 
-    CORE === T1
-    CORE === T2
-    CORE === T3
-    CORE === T4
-    T1 -.-> T2 -.-> T3 -.-> T4 -.-> T1
+    subgraph CORE_HEXAGON [⬡ CORE DOMAIN HEXAGON]
+        P_IN{Inbound Port: Profiler &amp; Auth}:::port
+        DOMAIN{{💎 CAREERPATH AI DOMAIN<br/>• 60/25/15 Deterministic Math Engine<br/>• 4-Tier Confidence Multipliers (Ci)<br/>• 4-Rule Job Ready Cert Evaluator<br/>• Dual Route Synergy Engine}}:::domain
+        P_OUT{Outbound Port: Telemetry &amp; State}:::port
+    end
+
+    subgraph DRIVEN_PORTS [Outbound / Driven Adapters]
+        A_AI[🤖 Groq LPU Llama 3.3 &lt;300ms<br/>Gemini 2.5 Flash Failover]:::adapter
+        A_DB[(🗄️ MongoDB Atlas Cluster<br/>Compound Partial Indexes)]:::adapter
+        A_JOBS[💼 Adzuna Live Jobs API<br/>Real-Time Indian ₹ CTC]:::adapter
+        A_MEDIA[📄 Cloudinary CDN Engine<br/>Binary Magic-Byte Inspection]:::adapter
+    end
+
+    A_WEB ==> P_IN
+    A_AUTH ==> P_IN
+    A_RBAC ==> P_IN
+    P_IN ==> DOMAIN
+    DOMAIN ==> P_OUT
+    P_OUT ==> A_AI
+    P_OUT ==> A_DB
+    P_OUT ==> A_JOBS
+    P_OUT ==> A_MEDIA
 ```
 
 ```
-                            ╭──────────────────╮
-                       ╭────│  🌐 FRONTEND      │────╮
-                       │    │ Vanilla JS (ES6+) │    │
-                       │    │ Three.js 3D WebGL │    │
-                       │    │ Vercel Edge CDN   │    │
-                       │    │ FCP <800ms ~45KB  │    │
-                       │    ╰────────┬─────────╯    │
-                       │             │               │
-             ╭─────────┴───╮         │         ╭─────┴─────────╮
-             │ 🤖 AI & APIs │         │         │ ⚡ BACKEND     │
-             │              │         │         │               │
-             │ Groq LPU     │         ▼         │ Node.js       │
-             │ Llama 3.3    │  ╭────────────╮   │ Express.js    │
-             │ <300ms       │  │ 💎 CAREER   │   │ Helmet.js     │
-             │              │  │  PATH AI    │   │ JWT Auth      │
-             │ Gemini 2.5   │  │  RUNTIME    │   │ Rate-Limit    │
-             │ Flash Backup │  ╰────────────╯   │ RBAC Guards   │
-             │              │         │         │               │
-             │ Adzuna Jobs  │         │         │ Render Cloud  │
-             │ YouTube API  │         │         │ 99.9% Uptime  │
-             ╰─────────┬───╯         │         ╰─────┬─────────╯
-                       │    ╭────────┴─────────╮     │
-                       ╰────│  🗄️ DATABASE      │─────╯
-                            │ MongoDB Atlas    │
-                            │ Mongoose ODM     │
-                            │ Partial Unique   │
-                            │ Index Invariants │
-                            │ Cloudinary CDN   │
-                            │ pdf-parse Engine │
-                            ╰──────────────────╯
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+ ⬡ HEXAGONAL PORTS & ADAPTERS (Architectural Clean Separation)
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+  [INBOUND ADAPTERS]           [CORE DOMAIN HEXAGON]                   [OUTBOUND ADAPTERS]
+  ┌───────────────────────┐   ┌─────────────────────────────────────┐   ┌───────────────────────────┐
+  │ 🌐 Vercel Global Edge │──►│ ⬡ INBOUND PORT: Request Validator   │──►│ 🤖 Groq LPU Llama 3.3     │
+  │    Vanilla JS + 3D    │   │   JWT Auth & Rate-Limit Guard       │   │    Sub-300ms Micro-Quiz   │
+  ├───────────────────────┤   ├─────────────────────────────────────┤   ├───────────────────────────┤
+  │ 🛡️ Strict RBAC Portal │──►│ 💎 DETERMINISTIC CORE LOGIC         │──►│ 🗄️ MongoDB Atlas          │
+  │    Student/Recruiter  │   │   • 60/25/15 Math Engine (<50ms)    │   │    Partial Unique Indexes │
+  ├───────────────────────┤   │   • 4-Tier Confidence Weights       │   ├───────────────────────────┤
+  │ ⚡ Express.js Server  │──►│   • 4-Rule Job Ready State Machine  │──►│ 💼 Adzuna Jobs API        │
+  │    Render Cloud       │   ├─────────────────────────────────────┤   │    Live Indian CTC & Demand│
+  └───────────────────────┘   │ ⬡ OUTBOUND PORT: Provider Gateway   │   ├───────────────────────────┤
+                              │   Multi-Tier Failover Engine        │──►│ 📄 Cloudinary + pdf-parse │
+                              └─────────────────────────────────────┘   │    Magic-Byte Buffer Check│
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
 
 ### • Methodology and process for implementation (Flow Charts / Images / working prototype):
 
-#### 🟣 CIRCULAR PIPELINE — End-to-End 8-Stage System Orbit
-```mermaid
-flowchart TD
-    classDef stage fill:#1E1B4B,stroke:#8B5CF6,stroke-width:2px,color:#FFFFFF;
-    classDef center fill:#3B1A6E,stroke:#F59E0B,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-
-    CENTER((💎 CAREERPATH AI<br/>CONTINUOUS PROGRESSION<br/>ORBIT)):::center
-
-    P1((① Profile<br/>Academics &amp; 76+ Skills)):::stage
-    P2((② Verify<br/>GitHub AST + Groq Quiz)):::stage
-    P3((③ Match<br/>60/25/15 Engine &lt;50ms)):::stage
-    P4((④ Gap Matrix<br/>Tri-Color Classification)):::stage
-    P5((⑤ Roadmap<br/>Anti-Scrub Video Track)):::stage
-    P6((⑥ Resume ATS<br/>Magic-Byte PDF Parser)):::stage
-    P7((⑦ Recruiter Radar<br/>Corporate Match 96%)):::stage
-    P8((⑧ Job Ready<br/>4-Rule Cert &amp; QR Verify)):::stage
-
-    P1 ==> P2 ==> P3 ==> P4 ==> P5 ==> P6 ==> P7 ==> P8 ==> P1
-    P1 -.-> CENTER
-    P3 -.-> CENTER
-    P5 -.-> CENTER
-    P7 -.-> CENTER
+#### 🏗️ THE ISOMETRIC 4-TIER TECH SANDWICH
 ```
-
-```
-                                 ① PROFILE
-                              ╭────────────╮
-                         ╭────│ Academics   │────╮
-                         │    │ 76+ Skills  │    │
-                         │    │ Interests   │    │
-                         │    ╰─────┬──────╯    │
-                    ⑧ JOB │         │            │ ② VERIFY
-                   READY  │         │            │
-              ╭───────────┴╮        │        ╭───┴──────────╮
-              │ Readiness   │        │        │ GitHub AST   │
-              │ Index 0-100 │        │        │ Sync + Groq  │
-              │ 4-Rule Cert │        │        │ AI Micro-Quiz│
-              ╰───────┬────╯        │        ╰───┬──────────╯
-                      │      ╭──────┴──────╮     │
-                      │      │  💎 CAREER   │     │
-                      │      │   PATH AI    │     │
-                      │      │    ENGINE    │     │
-                      │      ╰──────┬──────╯     │
-              ╭───────┴────╮        │        ╭───┴──────────╮
-              │ ⑦ RECRUITER │        │        │ ③ 60/25/15   │
-              │   TALENT    │        │        │ MATCH ENGINE │
-              │    RADAR    │        │        │ <50ms Math   │
-              ╰───────┬────╯        │        ╰───┬──────────╯
-                      │      ╭──────┴──────╮     │
-                 ⑥ AI │      │             │     │ ④ GAP
-                RESUME├──────│             │─────┤ MATRIX
-                 ATS  │      ╰─────────────╯     │
-              ╭───────┴────╮                 ╭───┴──────────╮
-              │ Magic-Byte  │                 │ 🟢 Matched   │
-              │ PDF Parser  │                 │ 🟡 Upgrade   │
-              │ Cloudinary  │                 │ 🔴 Missing   │
-              ╰───────┬────╯                 ╰───┬──────────╯
-                      │    ╭───────────────╮     │
-                      ╰────│ ⑤ ADAPTIVE    │─────╯
-                           │   ROADMAP     │
-                           │ Anti-Scrub    │
-                           │ Video Chamber │
-                           ╰───────────────╯
+ ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ LAYER 4: CLIENT-EDGE EXPERIENCE (<800ms FCP · 60 FPS)                                                 │
+ │ Vanilla JavaScript (ES6+), Semantic HTML5, CSS Grid, Three.js 3D WebGL + Accessible 2D SVG Meter     │
+ └──────────────────────────────────────────────────┬────────────────────────────────────────────────────┘
+                                                    │ REST API / Stateless Bearer JWT
+ ┌──────────────────────────────────────────────────▼────────────────────────────────────────────────────┐
+ │ LAYER 3: HARDENED GATEWAY & SECURITY PERIMETER (Render Cloud · 99.9% Uptime)                         │
+ │ Express.js REST API, Helmet.js Headers, Rate Limiter (50 req/15min), Strict Portal Isolation RBAC     │
+ └──────────────────────────────────────────────────┬────────────────────────────────────────────────────┘
+                                                    │ In-Memory Mathematical Execution (<50ms)
+ ┌──────────────────────────────────────────────────▼────────────────────────────────────────────────────┐
+ │ LAYER 2: MULTI-MODEL INTELLIGENCE & TELEMETRY ENGINE                                                  │
+ │ Primary: Groq LPU (Llama 3.3 70B, <300ms) ──► Failover: Gemini 2.5 Flash ──► 860-Line Offline Bank    │
+ │ External Telemetry: Adzuna Developer Jobs API (Live Indian ₹ CTC) + GitHub Public AST Code Scanner   │
+ └──────────────────────────────────────────────────┬────────────────────────────────────────────────────┘
+                                                    │ Mongoose Partial Unique Compound Indexes
+ ┌──────────────────────────────────────────────────▼────────────────────────────────────────────────────┐
+ │ LAYER 1: DATA PERSISTENCE & BINARY INTEGRITY LAYER                                                    │
+ │ MongoDB Atlas (Single Active Route: { user: 1, status: 'active' }), Cloudinary API, Magic Bytes      │
+ └───────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### • Architecture Innovations & Test Evidence:
@@ -363,130 +265,55 @@ flowchart TD
 
 ### • Analysis of the feasibility of the idea:
 
-#### 🟢 FEASIBILITY WHEEL — Technical, Economic & Security Pillars
-```mermaid
-flowchart TD
-    classDef center fill:#16A34A,stroke:#4ADE80,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef tech fill:#0284C7,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
-    classDef econ fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
-    classDef sec fill:#9333EA,stroke:#C084FC,stroke-width:2px,color:#FFFFFF;
-    classDef scale fill:#2563EB,stroke:#60A5FA,stroke-width:2px,color:#FFFFFF;
-
-    CENTER((✅ PRODUCTION<br/>FEASIBLE &amp;<br/>VIABLE)):::center
-    P1((🏗️ TECHNICAL<br/>&lt;50ms Math<br/>&lt;300ms Groq LPU<br/>99.9% Uptime)):::tech
-    P2((💰 ECONOMIC<br/>&lt;$15/mo Cloud<br/>100% Free Students<br/>TPO SaaS ₹1.5L-3.5L)):::econ
-    P3((🔒 SECURITY<br/>Magic-Byte Check<br/>HMAC Tamper Proof<br/>Canonical Ledger)):::sec
-    P4((📈 SCALABILITY<br/>10K+ Students<br/>Stateless JWT<br/>Connection Pooling)):::scale
-
-    CENTER === P1
-    CENTER === P2
-    CENTER === P3
-    CENTER === P4
-    P1 -.-> P2 -.-> P3 -.-> P4 -.-> P1
+#### 🍱 MODERN BENTO GRID — Unit Economics & Operational Feasibility
 ```
-
-```
-                           ╭──────────────────╮
-                      ╭────│  🏗️ TECHNICAL     │────╮
-                      │    │  FEASIBILITY      │    │
-                      │    │                   │    │
-                      │    │ • <50ms Math Calc  │    │
-                      │    │ • <300ms Groq LPU  │    │
-                      │    │ • <800ms FCP       │    │
-                      │    │ • 99.9% Uptime     │    │
-                      │    │ • Zero Install     │    │
-                      │    ╰────────┬─────────╯    │
-                      │             │               │
-            ╭─────────┴───╮         │         ╭─────┴──────────╮
-            │ 🔒 SECURITY  │         │         │ 💰 ECONOMIC    │
-            │   INTEGRITY  │         ▼         │   VIABILITY    │
-            │              │  ╭────────────╮   │                │
-            │ Magic-Byte   │  │ ✅ FULLY   │   │ Cloud Infra    │
-            │ Binary Check │  │ FEASIBLE   │   │ <$15/month     │
-            │              │  │ & VIABLE   │   │                │
-            │ HMAC Tamper  │  ╰────────────╯   │ 100% Free      │
-            │ Proof Certs  │         │         │ for Students   │
-            │              │         │         │                │
-            │ Canonical    │         │         │ TPO SaaS:      │
-            │ Evidence     │         │         │ ₹1.5L–₹3.5L/yr│
-            │ Ledger       │         │         │                │
-            ╰─────────┬───╯         │         │ Recruiter Pass:│
-                      │    ╭────────┴────╮    │ ₹24,999/month  │
-                      ╰────│ 📈 SCALE     │───╰────────────────╯
-                           │  READINESS   │
-                           │              │
-                           │ 10K+ Students│
-                           │ Horizontal   │
-                           │ Auto-Scale   │
-                           ╰──────────────╯
+ ┌──────────────────────────────────────┬────────────────────────────────────────────────────────┐
+ │ 🏗️ TECHNICAL FEASIBILITY             │ 💰 UNIT ECONOMICS & HOSTING COSTS                      │
+ │ • In-memory 60/25/15 math executes   │ • Vercel Edge Static Tier:       ₹0 / month            │
+ │   in <50ms (zero CPU bottleneck)     │ • Render Cloud Web Service:      ₹0 (Free Tier)        │
+ │ • Groq LPU inference latency: <300ms │ • MongoDB Atlas Shared Cluster:  ₹0 (512MB RAM)        │
+ │ • 99.9% uptime with 3-tier failover  │ • Groq LPU + Gemini 2.5 API:     <$15 / month          │
+ │ • Runs seamlessly on budget 4G labs  │ ────────────────────────────────────────────────────── │
+ │   with lightweight ~45KB bundle      │ 💎 Total Baseline Operational Cost: <$15 / Month       │
+ ├──────────────────────────────────────┴────────────────────────────────────────────────────────┤
+ │ 📈 B2B2C COMMERCIAL VIABILITY & MONETIZATION FLYWHEEL                                          │
+ │ ┌───────────────────────────────────┬────────────────────────────────────────────────────────┐│
+ │ │ 🎓 Student Access (Viral Adoption) │ 100% FREE ALWAYS — Zero barrier for 1.5M+ engineers    ││
+ │ ├───────────────────────────────────┼────────────────────────────────────────────────────────┤│
+ │ │ 🏛️ College TPO SaaS License        │ ₹1.5L – ₹3.5L / year per college (NAAC/NIRF Analytics) ││
+ │ ├───────────────────────────────────┼────────────────────────────────────────────────────────┤│
+ │ │ 🏢 Recruiter Talent Pass          │ ₹24,999 / month (Pre-screened verified talent pipeline)││
+ │ └───────────────────────────────────┴────────────────────────────────────────────────────────┘│
+ └───────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### • Potential challenges and risks & Strategies for overcoming these challenges:
 
-#### 🛡️ RISK-SHIELD CIRCULAR ORBIT
+#### 🏰 THE 4-LAYER DEFENSIVE SECURITY FORTRESS (Risk Mitigation Matrix)
 ```mermaid
-flowchart LR
-    classDef risk fill:#DC2626,stroke:#F87171,stroke-width:2px,color:#FFFFFF;
-    classDef shield fill:#16A34A,stroke:#4ADE80,stroke-width:2px,color:#FFFFFF;
+flowchart TD
+    classDef ring1 fill:#BE185D,stroke:#F472B6,stroke-width:2px,color:#FFFFFF;
+    classDef ring2 fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
+    classDef ring3 fill:#2563EB,stroke:#60A5FA,stroke-width:2px,color:#FFFFFF;
+    classDef core fill:#059669,stroke:#34D399,stroke-width:3px,color:#FFFFFF,font-weight:bold;
 
-    subgraph RISKS [⚠️ CHALLENGES]
-        R1((⚠️ API Outage<br/>Latency Spikes)):::risk
-        R2((⚠️ Low-Spec PC<br/>Tier-3 Labs)):::risk
-        R3((⚠️ AI Drift<br/>Hallucination)):::risk
-        R4((⚠️ Fake Corp<br/>Scam Recruiters)):::risk
-    end
+    WALL1[/OUTER PERIMETER: Network &amp; DDoS Shield<br/>Express-Rate-Limit 50req/15min + Helmet OWASP Security Headers/]:::ring1
+    WALL2[/LAYER 2: Binary Magic-Byte Inspection Wall<br/>Checks Hex Buffers %PDF- and PK.. — Blocks Renamed .exe Malware/]:::ring2
+    WALL3[/LAYER 3: Authentication &amp; RBAC Bastion<br/>Stateless JWT Tokens + Strict Portal Isolation 403 Guards/]:::ring3
+    CORE{{💎 INNER CITADEL: Database Concurrency Invariant<br/>MongoDB Partial Unique Index: user: 1, status: active<br/>Zero Race Conditions · Zero Tutorial Hopping}}:::core
 
-    subgraph SHIELDS [🛡️ OUR MITIGATION SHIELDS]
-        S1((🛡️ 3-Tier Failover<br/>Groq → Gemini → Offline Bank)):::shield
-        S2((🛡️ Adaptive Render<br/>WebGL → 2D SVG Gauge)):::shield
-        S3((🛡️ Deterministic Math<br/>0% Generative Drift)):::shield
-        S4((🛡️ 4-Step Gate<br/>Blacklist → MX → HTTP → OTP)):::shield
-    end
-
-    R1 ==> S1
-    R2 ==> S2
-    R3 ==> S3
-    R4 ==> S4
+    WALL1 ==> WALL2 ==> WALL3 ==> CORE
 ```
 
 ```
-         ╭───────────────────────────────────────────────────────────╮
-         │                    🛡️ RISK SHIELD RING                   │
-         ╰───────────────────────────────────────────────────────────╯
-
-     ⚠️ RISK 1                                            🛡️ SHIELD 1
-  ╭──────────────╮                                    ╭──────────────╮
-  │ External API │ ─────── MITIGATED BY ──────────►  │ 3-Tier Auto  │
-  │ Outages or   │                                    │ Failover:    │
-  │ Rate Limits  │                                    │ Groq → Gemini│
-  ╰──────────────╯                                    │ → 860-Line   │
-                                                      │ Offline Bank │
-                                                      ╰──────────────╯
-
-     ⚠️ RISK 2                                            🛡️ SHIELD 2
-  ╭──────────────╮                                    ╭──────────────╮
-  │ Low-Spec     │ ─────── MITIGATED BY ──────────►  │ Adaptive     │
-  │ Tier-3 Lab   │                                    │ Rendering:   │
-  │ Hardware     │                                    │ WebGL Auto → │
-  ╰──────────────╯                                    │ 2D SVG Gauge │
-                                                      ╰──────────────╯
-
-     ⚠️ RISK 3                                            🛡️ SHIELD 3
-  ╭──────────────╮                                    ╭──────────────╮
-  │ AI Halluc-   │ ─────── MITIGATED BY ──────────►  │ Deterministic│
-  │ ination in   │                                    │ Math Anchor: │
-  │ Scoring      │                                    │ 0% Generative│
-  ╰──────────────╯                                    │ Drift        │
-                                                      ╰──────────────╯
-
-     ⚠️ RISK 4                                            🛡️ SHIELD 4
-  ╭──────────────╮                                    ╭──────────────╮
-  │ Fraudulent   │ ─────── MITIGATED BY ──────────►  │ 4-Step Corp  │
-  │ Recruiter    │                                    │ Verification:│
-  │ Accounts     │                                    │ Blacklist →  │
-  ╰──────────────╯                                    │ DNS MX → HTTP│
-                                                      │ → Domain OTP │
-                                                      ╰──────────────╯
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+ 🏰 4-LAYER RISK MITIGATION FORTRESS
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+  PERIMETER 1: [ API OUTAGES & LATENCY ] ────────► 3-Tier Multi-Model Failover: Groq ➔ Gemini ➔ Offline Bank
+  PERIMETER 2: [ HARDWARE FRAGMENTATION ] ───────► Adaptive Rendering: WebGL 3D ➔ 2D SVG Gauge Fallback
+  PERIMETER 3: [ GENERATIVE DRIFT ] ─────────────► Deterministic Math Anchor: 0% Generative Drift (<50ms)
+  PERIMETER 4: [ FRAUDULENT RECRUITERS ] ────────► 4-Step Gate: Webmail Blacklist ➔ DNS MX ➔ HTTP ➔ OTP
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
 
 ---
@@ -495,141 +322,73 @@ flowchart LR
 
 ### • Potential impact on the target audience:
 
-**🎯 IMPACT DASHBOARD — Quantified Key Outcomes:**
+#### 🏛️ THE 4-PILLAR TEMPLE OF INDUSTRY JOB READINESS
+*A student cannot graduate to "Job Ready" through passive video viewing; they must satisfy all 4 structural pillars:*
+
 ```
-    ╭──────────────────╮    ╭──────────────────╮    ╭──────────────────╮
-    │                  │    │                  │    │                  │
-    │    🎯  8 5 %     │    │    ⚡  3  x      │    │    💼  6 0 %     │
-    │                  │    │                  │    │                  │
-    │   Reduction in   │    │  Higher Milestone│    │   Cut in Corp    │
-    │ Career Confusion │    │  Completion Rate │    │ Screening Cost   │
-    │  in <5 Minutes   │    │  vs Fragmented   │    │  Pre-Assessed    │
-    │                  │    │  Tutorial Chaos  │    │  Talent Pipeline │
-    ╰──────────────────╯    ╰──────────────────╯    ╰──────────────────╯
+                   ╔════════════════════════════════════════════════════════════════════════╗
+                   ║      🏛️ 4-RULE INDUSTRY JOB READY CERTIFICATION GATEWAY                ║
+                   ║      JobReady = (Score ≥ 70%) ∧ (Skills ≥ 4) ∧ (Progress ≥ 80%)        ║
+                   ╚══════════════════════════════════╦═════════════════════════════════════╝
+                                                      ║
+            ┌─────────────────────┬───────────────────┴─────────────────┬─────────────────────┐
+            │                     │                                     │                     │
+            ▼                     ▼                                     ▼                     ▼
+     ╭─────────────╮       ╭─────────────╮                       ╭─────────────╮       ╭─────────────╮
+     │  PILLAR 1   │       │  PILLAR 2   │                       │  PILLAR 3   │       │  PILLAR 4   │
+     │             │       │             │                       │             │       │             │
+     │ Career Fit  │       │ Role-Skills │                       │ Roadmap     │       │ Expired     │
+     │ Score ≥ 70% │       │ Verified ≥4 │                       │ Progress≥80%│       │ Skills = 0  │
+     │             │       │             │                       │             │       │             │
+     │ In-memory   │       │ Code AST +  │                       │ Milestone   │       │ <90 Days    │
+     │ Math Match  │       │ Groq Quiz   │                       │ Completion  │       │ Retention   │
+     │   (60/25/15)│       │   Badges    │                       │  Discipline │       │   Currency  │
+     │      ║      │       │      ║      │                       │      ║      │       │      ║      │
+     ╰──────╫──────╯       ╰──────╫──────╯                       ╰──────╫──────╯       ╰──────╫──────╯
+            ║                     ║                                     ║                     ║
+    ════════╩═════════════════════╩═════════════════════════════════════╩═════════════════════╩════════
+     FOUNDATION: Cryptographic HMAC Tamper-Proof Digital Credential URL (/verify-cert.html?id=...)
+    ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ```
 
-#### 🏆 JOB READY CERTIFICATION — 4-Rule Qualification Wheel
+#### 📊 COMPOSITE READINESS INDEX FORMULA
 ```mermaid
-flowchart TD
-    classDef center fill:#D97706,stroke:#FCD34D,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef rule fill:#3B1A6E,stroke:#8B5CF6,stroke-width:2px,color:#FFFFFF;
+flowchart LR
+    classDef weight fill:#1E1B4B,stroke:#8B5CF6,stroke-width:2px,color:#FFFFFF,font-weight:bold;
+    classDef score fill:#059669,stroke:#34D399,stroke-width:3px,color:#FFFFFF,font-weight:bold;
 
-    CENTER((🏆 INDUSTRY<br/>JOB READY<br/>CERTIFICATION<br/>ALL 4 Must Pass)):::center
+    W1[🔵 35%<br/>Verified Skills]:::weight
+    W2[🟢 30%<br/>Roadmap Tasks]:::weight
+    W3[🟡 15%<br/>Resume ATS]:::weight
+    W4[🟣 20%<br/>Mock Interview]:::weight
 
-    R1((RULE 1<br/>Readiness Score<br/>≥ 70% Math Grounded)):::rule
-    R2((RULE 2<br/>Two-Factor Verified<br/>Skills ≥ 4)):::rule
-    R3((RULE 3<br/>Roadmap Task<br/>Progress ≥ 80%)):::rule
-    R4((RULE 4<br/>Expired Skills = 0<br/>&lt;90 Days Fresh)):::rule
+    TOTAL{{🏆 HOLISTIC READINESS INDEX<br/>0% to 100% Dynamic Gauge}}:::score
 
-    R1 ==> CENTER
-    R2 ==> CENTER
-    R3 ==> CENTER
-    R4 ==> CENTER
-    R1 --- R2 --- R3 --- R4 --- R1
+    W1 ==> TOTAL
+    W2 ==> TOTAL
+    W3 ==> TOTAL
+    W4 ==> TOTAL
 ```
 
+* **Quantified Key Metrics:**
 ```
-                           ╭──────────────────╮
-                      ╭────│  🏆 INDUSTRY      │────╮
-                      │    │  JOB READY        │    │
-                      │    │  CERTIFICATE      │    │
-                      │    │  (Unlocked Only   │    │
-                      │    │   When ALL 4 Pass)│    │
-                      │    ╰────────┬─────────╯    │
-                      │             │               │
-            ╭─────────┴───╮         │         ╭─────┴──────────╮
-            │ RULE 4       │         │         │ RULE 1         │
-            │              │         │         │                │
-            │ ExpiredSkills│         ▼         │ FitScore       │
-            │    = 0       │  ╭────────────╮   │   ≥ 70%        │
-            │              │  │  TAMPER-   │   │                │
-            │ No stale     │  │  PROOF     │   │ Deterministic  │
-            │ credentials  │  │  VERIFY    │   │ 60/25/15 Math  │
-            │ older than   │  │  URL       │   │ Grounded Score │
-            │ 90 days      │  ╰────────────╯   │                │
-            ╰─────────┬───╯         │         ╰─────┬──────────╯
-                      │    ╭────────┴────────╮      │
-                      │    │ RULE 3          │      │
-            ╭─────────┴──╮│                  │╭─────┴──────────╮
-            │ RULE 2      ││ RoadmapProgress ││                │
-            │             ││    ≥ 80%        ││                │
-            │ Verified    │╰─────────────────╯│                │
-            │ Skills ≥ 4  │                   │                │
-            │ (Two-Factor)│                   │                │
-            ╰─────────────╯                   ╰────────────────╯
-```
-
-**📊 READINESS INDEX FORMULA (Composite 0–100%):**
-```
-  ╭──────────────╮   ╭──────────────╮   ╭──────────────╮   ╭──────────────╮
-  │  🔵 35%       │   │  🟢 30%       │   │  🟡 15%       │   │  🟣 20%       │
-  │  Verified     │ + │  Roadmap Task │ + │  Resume ATS  │ + │  AI Mock     │
-  │  Skills       │   │  Progress     │   │  Score       │   │  Interview   │
-  ╰──────┬───────╯   ╰──────┬───────╯   ╰──────┬───────╯   ╰──────┬───────╯
-         └──────────────────┬┴──────────────────┘                  │
-                            └───────────────────┬──────────────────┘
-                                                ▼
-                                  ╭──────────────────────╮
-                                  │  HOLISTIC READINESS   │
-                                  │  INDEX (0% → 100%)    │
-                                  │  Verifiable Digital   │
-                                  │  Credential Unlock    │
-                                  ╰──────────────────────╯
+ ┌────────────────────────────┐  ┌────────────────────────────┐  ┌────────────────────────────┐
+ │           🎯 85%           │  │            ⚡ 3x            │  │           💼 60%           │
+ │   Reduction in Career      │  │    Higher Milestone        │  │     Cut in Corporate       │
+ │   Confusion in <5 Minutes  │  │    Completion Rate         │  │     Screening Overhead     │
+ └────────────────────────────┘  └────────────────────────────┘  └────────────────────────────┘
 ```
 
 ### • Benefits of the solution (social, economic, environmental):
-
-#### 🌍 TRIPLE-IMPACT BENEFIT RING
-```mermaid
-flowchart TD
-    classDef center fill:#16A34A,stroke:#4ADE80,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef social fill:#0284C7,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
-    classDef econ fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#FFFFFF;
-    classDef env fill:#10B981,stroke:#6EE7B7,stroke-width:2px,color:#FFFFFF;
-
-    CENTER((🌍 TRIPLE BOTTOM<br/>LINE IMPACT<br/>100% Free for Students)):::center
-
-    B1((🤝 SOCIAL<br/>Democratizes guidance<br/>for 65%+ colleges<br/>Cuts dropout depression)):::social
-    B2((💰 ECONOMIC<br/>Boosts CTC ₹3.5L → ₹14L+<br/>Cuts recruiter cost 60%<br/>College TPO SaaS)):::econ
-    B3((🌱 ENVIRONMENTAL<br/>100% Digital paperless<br/>1-Click PDF export<br/>Serverless green cloud)):::env
-
-    CENTER === B1
-    CENTER === B2
-    CENTER === B3
-    B1 -.-> B2 -.-> B3 -.-> B1
-```
-
-```
-                            ╭──────────────────╮
-                       ╭────│  🌱 ENVIRONMENTAL │────╮
-                       │    │                   │    │
-                       │    │ 100% Digital &    │    │
-                       │    │ Paperless Roadmap │    │
-                       │    │ 1-Click PDF Export│    │
-                       │    │ Serverless Cloud  │    │
-                       │    │ Near-Zero Carbon  │    │
-                       │    ╰────────┬─────────╯    │
-                       │             │               │
-             ╭─────────┴───╮         │         ╭─────┴──────────╮
-             │ 🤝 SOCIAL    │         │         │ 💰 ECONOMIC    │
-             │              │         ▼         │                │
-             │ Democratizes │  ╭────────────╮   │ Boosts CTC     │
-             │ career guide │  │  🌍 TRIPLE │   │ from ₹3.5 LPA  │
-             │ for 65%+     │  │   BOTTOM   │   │ to ₹8–₹14+ LPA│
-             │ colleges w/o │  │    LINE    │   │                │
-             │ counselors   │  │   IMPACT   │   │ Saves recruiter│
-             │              │  ╰────────────╯   │ screening cost │
-             │ Reduces      │         │         │ by 60%         │
-             │ placement    │         │         │                │
-             │ anxiety &    │         │         │ College TPO    │
-             │ dropouts     │         │         │ SaaS Revenue   │
-             ╰──────────────╯         │         ╰────────────────╯
-                                      │
-                              ╭───────┴───────╮
-                              │ FREE ALWAYS   │
-                              │ FOR STUDENTS  │
-                              ╰───────────────╯
-```
+* **Social Benefits:**
+  * **Democratizing Career Guidance:** Over 65% of Indian technical colleges lack dedicated career counselors; CareerPath AI gives every student high-precision, individualized career mentoring for free.
+  * Drastically reduces final-year placement anxiety, career mismatch depression, and engineering dropouts.
+* **Economic Benefits:**
+  * Bridges the national graduate-industry gap, elevating starting CTC packages from ₹3.5 LPA to ₹8–₹14+ LPA.
+  * Connects recruiters directly to pre-assessed candidates, slashing recruitment agency spending by 60%.
+* **Environmental & Sustainable Benefits:**
+  * 100% digital, paperless roadmap tracking with 1-click clean PDF export.
+  * Serverless cloud architecture with optimized static asset caching and negligible carbon footprint.
 
 ---
 
@@ -637,55 +396,34 @@ flowchart TD
 
 ### • Details / Links of the reference and research work:
 
-#### 📚 4-PILLAR RESEARCH FOUNDATION RING
+#### 📊 THE EMPIRICAL RESEARCH MATRIX (4 Interlocking Evidence Vectors)
 ```mermaid
 flowchart TD
-    classDef center fill:#3B1A6E,stroke:#A855F7,stroke-width:3px,color:#FFFFFF,font-weight:bold;
-    classDef node fill:#1E1B4B,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
+    classDef vector fill:#1E1B4B,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
+    classDef core fill:#3B1A6E,stroke:#F59E0B,stroke-width:3px,color:#FFFFFF,font-weight:bold;
 
-    CENTER((🔬 CAREERPATH AI<br/>EMPIRICAL RESEARCH<br/>CORE)):::center
+    CORE{{🔬 CAREERPATH AI EMPIRICAL BENCHMARKS<br/>Grounding Student Success in Real-World Data}}:::core
 
-    R1((1⃣ EMPLOYABILITY<br/>Aspiring Minds / SHL<br/>&lt;20% Indian engineers<br/>ready without retraining)):::node
-    R2((2⃣ EXPLAINABLE AI<br/>XAI-Ed Research<br/>Transparent math yields<br/>4x higher student trust)):::node
-    R3((3⃣ LIVE TELEMETRY<br/>Adzuna Developer API<br/>Real-time ₹3.5L-14L+ CTC<br/>&amp; Indian tech vacancies)):::node
-    R4((4⃣ GLOBAL STANDARDS<br/>roadmap.sh, MDN<br/>Google web.dev, IEEE CS<br/>Standard milestones)):::node
+    V1[1⃣ NATIONAL EMPLOYABILITY CRISIS<br/>• Aspiring Minds &amp; SHL India Studies<br/>• &lt;20% Indian engineers ready for product roles<br/>• Proves urgent need for code-grounded proof]:::vector
+    V2[2⃣ EXPLAINABLE AI IN EDTECH XAI-Ed<br/>• International Journal of AI in Education<br/>• Deterministic math achieves 4x higher trust<br/>• Proves superiority over black-box LLM guessing]:::vector
+    V3[3⃣ REAL-TIME LABOR TELEMETRY<br/>• Adzuna Developer Jobs API<br/>• Real-time salary percentiles ₹3.5L-₹14L+<br/>• Live active vacancy demand across Indian metros]:::vector
+    V4[4⃣ GLOBAL ENGINEERING STANDARDS<br/>• roadmap.sh Community Milestones<br/>• IEEE Computer Society Curricula<br/>• MDN Web Docs &amp; Google web.dev standards]:::vector
 
-    CENTER === R1
-    CENTER === R2
-    CENTER === R3
-    CENTER === R4
-    R1 -.-> R2 -.-> R3 -.-> R4 -.-> R1
+    V1 ==> CORE
+    V2 ==> CORE
+    V3 ==> CORE
+    V4 ==> CORE
 ```
 
 ```
-                            ╭──────────────────────╮
-                       ╭────│  1⃣ EMPLOYABILITY     │────╮
-                       │    │     REPORTS           │    │
-                       │    │                       │    │
-                       │    │ Aspiring Minds / SHL  │    │
-                       │    │ <20% Indian engineers │    │
-                       │    │ directly job-ready    │    │
-                       │    ╰──────────┬───────────╯    │
-                       │               │                 │
-             ╭─────────┴────╮          │          ╭──────┴──────────╮
-             │ 4⃣ GLOBAL     │          │          │ 2⃣ EXPLAINABLE  │
-             │  CURRICULA    │          │          │  AI IN EDTECH   │
-             │               │          ▼          │                 │
-             │ roadmap.sh    │  ╭──────────────╮   │ XAI-Ed Research │
-             │ MDN Web Docs  │  │ 🔬 CAREERPATH│   │ Transparent Math│
-             │ Google web.dev│  │  AI EMPIRICAL│   │ = 4x Higher     │
-             │ IEEE Computer │  │     CORE     │   │ Student Trust   │
-             │ Society       │  ╰──────────────╯   │ vs Black-Box AI │
-             ╰─────────┬────╯          │          ╰──────┬──────────╯
-                       │     ╭─────────┴──────────╮      │
-                       ╰─────│ 3⃣ LIVE LABOR       │──────╯
-                             │  MARKET TELEMETRY   │
-                             │                     │
-                             │ Adzuna Developer API │
-                             │ Real-time ₹3.5L–14L+│
-                             │ CTC & Hiring Demand │
-                             │ developer.adzuna.com│
-                             ╰─────────────────────╯
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+ 🔬 4 INTERLOCKING RESEARCH PILLARS
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
+  [1. EMPLOYABILITY REPORTS] ─────────► Aspiring Minds / SHL: <20% graduates directly hireable
+  [2. EXPLAINABLE AI (XAI-Ed)] ───────► Research: Transparent math yields 4x higher learner trust
+  [3. LABOR MARKET TELEMETRY] ────────► Adzuna Developer API: Real-time ₹3.5L–₹14L+ CTC & Vacancies
+  [4. STANDARDIZED CURRICULA] ────────► roadmap.sh, IEEE Computer Society, MDN Web Docs, Google web.dev
+ ══════════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
 
 ### • Live Verification Gateways & Official References:

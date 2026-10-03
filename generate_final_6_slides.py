@@ -107,10 +107,10 @@ add_box(s1, 6.7, 1.2, 6.0, 5.8)
 add_text(s1, "• Team members & Roles (Verified via README.md):", 6.9, 1.4, 5.6, 0.4, size=15, bold=True, color=PURPLE_HEADER)
 
 members = [
-    ("👑 Parth Patil", "Team Leader & Full Stack WebDev", "Backend Architecture, 60/25/15 Engine, Security"),
-    ("🔍 Aditi Vispute", "Researcher, Web Explorer & Integration Lead", "Frontend Integration, Assessment Profiler, QA"),
-    ("🎨 Suyog Pawar", "UI/UX & Frontend Systems Lead", "Three.js 3D WebGL, Dashboard UI, Responsive Design"),
-    ("📊 Sanika Bodhnawar", "QA, Data & Docs Lead & Presenter / Speaker", "Technical Documentation, Rubrics, Presentation Lead")
+    ("👑 Parth Patil", "Team Leader & Backend Dev", "Backend Architecture, 60/25/15 Engine, Security & APIs"),
+    ("🎨 Aditi Vispute", "UI/UX Designer & Frontend Dev", "UI/UX Design, Three.js 3D WebGL, Responsive Bento Layout"),
+    ("📊 Suyog Pawar", "Docs Handler", "Technical Documentation, Project Feasibility & Submission Data"),
+    ("🔍 Sanika Bodhnawar", "Researcher & Integration Lead", "Skill Taxonomies, Market Benchmarking & Research References")
 ]
 for i, (name, role, desc) in enumerate(members):
     y = 1.95 + (i * 1.15)
@@ -187,7 +187,7 @@ add_box(s3, 0.8, 4.5, 11.73, 1.2, bg_color=RGBColor(0xFF, 0xFF, 0xFF), border_co
 add_text(s3, "[ 1. Student Profiling ] ──► [ 2. Two-Factor Verification ] ──► [ 3. 60/25/15 Match Engine ] ──► [ 4. Tri-Color Gap Matrix ]\n(Academics & 45+ Skills)       (GitHub Sync + Groq Quiz)        (Deterministic Math <50ms)        (🟢 Ready 🟡 Upgr 🔴 Miss)", 0.9, 4.6, 11.5, 0.5, size=9.5, bold=False, color=DARK_TEXT, align=PP_ALIGN.CENTER)
 add_text(s3, "▼\n[ 8. Job Readiness Index (0-100%) ] ◄── [ 7. AI Mock Interview ] ◄── [ 6. AI Resume ATS ] ◄── [ 5. 4/8/12-Wk Roadmap ]", 0.9, 5.15, 11.5, 0.45, size=9.5, bold=True, color=TEAL_ACCENT, align=PP_ALIGN.CENTER)
 
-add_text(s3, "• Working Prototype Status: 100% production-ready and live at https://careerpath-ai-jade.vercel.app\n• Performance Benchmarks: <50ms matching calculation, <300ms AI inference, 18/18 automated test suites passing.", 0.8, 5.85, 11.7, 0.6, size=10, bold=False, color=MUTED_TEXT)
+add_text(s3, "• Working Prototype Status: 100% production-ready and live at https://careerpath-ai-jade.vercel.app\n• Performance Benchmarks: <50ms matching calculation, <300ms AI inference, 26/26 Portal Isolation RBAC tests passing & 6/6 Recruiter Verification tests passing (100%).", 0.8, 5.85, 11.7, 0.6, size=10, bold=False, color=MUTED_TEXT)
 
 # ─────────────────────────────────────────────────────────────
 # SLIDE 4: FEASIBILITY AND VIABILITY
