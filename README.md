@@ -1,6 +1,6 @@
-# 🚀 CareerPath AI — Autonomous Career Guidance & Talent Intelligence Platform
+# 🚀 CareerPath AI: Autonomous Career Guidance & Talent Intelligence Platform
 
-> **Empowering Students with Verified Skill Mastery · Equipping Universities with Campus OS Telemetry · Delivering Job-Ready Talent to Modern Tech Employers**  
+> **Verified skill roadmaps for students, placement telemetry for universities, and verified candidates for tech recruiters**  
 > **Company:** CareerPath AI Technologies Inc.  
 > **Category:** B2B2C EdTech & Enterprise Talent Operating System  
 > **Tagline:** *Discover Your Path. Prove Your Skills. Land Your Dream Role.*  
@@ -139,7 +139,7 @@
     - [18.3 Production Deployment Topology (Vercel Frontend & Render REST API)](#183-production-deployment-topology-vercel-frontend--render-rest-api)
     - [18.4 Mobile Core Web Vitals 90+ Score & Zero-Waterfall Performance Engineering](#184-mobile-core-web-vitals-90-score--zero-waterfall-performance-engineering)
 19. [🤖 AI Governance, Ethics & Transparency Charter](#-19-ai-governance-ethics--transparency-charter)
-20. [👥 Leadership & Engineering Team — CareerPath AI](#-20-leadership--engineering-team--careerpath-ai)
+20. [👥 Leadership & Engineering Team: CareerPath AI](#-20-leadership--engineering-team-careerpath-ai)
 
 ---
 
@@ -196,14 +196,14 @@ CareerPath AI is an enterprise-grade Autonomous Career Guidance & Talent Intelli
 ### ⏱️ Recommended 3-Minute Platform Tour Walkthrough:
 1. **Landing (`/index.html`):** Experience the streamlined **Floating Notch Island Navigation** (`Platform`, `Solutions`, `For Recruiters`, `Pricing`), explore the interactive **Skill Showcase ("Build with skills employers use")** with 8 live technology guides (React, JS, Python, Node, Figma, SQL, AWS, Git), and review the high-tech live status pill (`AUTONOMOUS CAREER NAVIGATION PLATFORM`). Click **"Start Free"** or **"Start Free Assessment"**.
 2. **Instant Sign-In (`/login.html`):** Click **"⚡ 1-Click Fill Demo Account"** (`demouser@gmail.com` / `demo123`) or Sign In with Google / GitHub.
-3. **Assessment (`/assessment.html`):** Click **"Auto-Detect Skills"** in Step 3 — repositories synchronize instantly via auth session, awarding glowing `[✓ Code Verified]` badges.
+3. **Assessment (`/assessment.html`):** Click **"Auto-Detect Skills"** in Step 3. Repositories synchronize through the active session, awarding `[✓ Code Verified]` badges.
 4. **Adaptive Reality-Check Quiz (`/quiz.html`):** Test the 5-question micro-assessment powered by Groq Llama 3.3 70B (<300ms) with instant pedagogical feedback. Once completed, verification is permanently saved.
 5. **Explainable Recommendations (`/recommendations.html`):**
    - View Top matched careers calculated via our transparent **60/25/15 mathematical matching engine** scoped to the student's declared **Primary Stream**.
    - Test **Dual Concurrent Enrolment & Course Synergy**: Students can enroll in up to 2 complementary courses (e.g. *Full-Stack Developer* + *DevOps & Cloud Engineer*). Attempting to enroll in an unrelated field is intelligently guarded.
    - Explore the **Multi-Site Job Market Hub** directly from the recommendations page: 1-click search launchers for LinkedIn, Naukri, Indeed, Wellfound, Internshala, and Google for Jobs.
 6. **Adaptive Roadmap & Dual Track Switchers (`/roadmap.html`):**
-   - Switch seamlessly between Active Track 1 and Active Track 2 using the header pill selector.
+   - Switch between Active Track 1 and Active Track 2 using the header pill selector.
    - Inspect milestone tasks and check off an item to observe real-time atomic progress recalculation.
    - Inspect the **`🔥 4-Rule Industry Job Ready Certification`** card with dynamic status tracking.
    - View the safe route abandonment modal (non-destructive with 7-day cooldown alert).
@@ -256,7 +256,7 @@ The systemic breakdown occurs at four distinct bottlenecks:
 
 ### The CareerPath AI Solution & Platform Moat
 **CareerPath AI** transforms career guidance from subjective guesswork into an objective, math-backed digital operating system:
-- **100% Explainable Recommendations:** Driven by a transparent 60/25/15 mathematical matrix — never black-box prompts.
+- **100% Explainable Recommendations:** Driven by a transparent 60/25/15 mathematical matrix, without black-box prompt guessing.
 - **Two-Factor Skill Verification Moat:** GitHub session analysis and sub-300ms Groq LPU micro-quizzes validate real competence.
 - **Dual Concurrent Active Roadmaps:** Database-level partial unique index prevents multi-route hopping, enforcing discipline while allowing open exploration.
 - **4-Rule Job Ready Engine:** Industry-calibrated benchmark verifying skills, retention, and roadmap completion.
@@ -276,9 +276,9 @@ The overall Career Match Score is computed using an objective weighted linear mo
 $$\text{Career Match Score} = (\text{Skill Match Score} \times 0.60) + (\text{Interest Match Score} \times 0.25) + (\text{Education Match Score} \times 0.15)$$
 
 Where:
-- **Skill Match Score ($S$ — 60% Weight):** Represents the student's technical capability against the career's curriculum.
-- **Interest Match Score ($I$ — 25% Weight):** Measures alignment between student passions and role domain tags.
-- **Education Match Score ($E$ — 15% Weight):** Measures academic branch and degree fit.
+- **Skill Match Score ($S$, 60% Weight):** Measures the student's technical capability against career curriculum requirements.
+- **Interest Match Score ($I$, 25% Weight):** Measures alignment between student interests and role domain tags.
+- **Education Match Score ($E$, 15% Weight):** Measures academic branch and degree fit.
 
 ```
                       CAREER MATCH SCORE (0 - 100%)
@@ -540,7 +540,7 @@ Students are not locked into a career indefinitely, but abandonment is treated w
   - For related courses when 1 track is active: `[+ Enroll as 2nd Track (Synergy)]`.
   - When 2 tracks are active: `[🔒 Locked (Max 2 Active Routes)]`.
   - For unrelated courses: `[🔒 Locked (Unrelated Track)]`.
-- **High-Contrast Slate Aesthetics (`.cp-btn-locked`):** Uses `#475569` text on a `#F1F5F9` slate background with `#CBD5E1` border—100% WCAG AA compliant.
+- **High-Contrast Slate Aesthetics (`.cp-btn-locked`):** Uses `#475569` text on a `#F1F5F9` slate background with `#CBD5E1` border (100% WCAG AA compliant).
 
 ### 5.6 AI-Monitored Video Dedication & Anti-Slacking Learning Chamber
 To eliminate passive video watching, skipping, scrubbing to the end, background tab idling, and trivial checkbox clicking, CareerPath AI features a specialized in-app **Focus Learning Chamber**:
@@ -560,7 +560,7 @@ To eliminate passive video watching, skipping, scrubbing to the end, background 
 │      • Playback rate capped at 1.5x (prevents unintelligible speed-running).     │
 │                                                                                  │
 │   3. MID-VIDEO AI CONCEPT PULSE (50% Checkpoint)                                 │
-│      • Video seamlessly pauses at 50% timestamp.                                 │
+│      • Video automatically pauses at 50% timestamp.                              │
 │      • Interactive single-concept question dynamically generated from topic.     │
 │      • Must answer correctly to resume the second half of the lesson.            │
 │                                                                                  │
@@ -623,7 +623,7 @@ Beyond binary certification, the **10-Step Career GPS Engine** calculates a real
 - **Live Readiness Gauge:** Visible on the dashboard and roadmap with immediate breakdown of what actions increase the score.
 
 ### 6.3 1-Click "Bridge the Gap" Roadmap Injection
-When browsing matched job postings with missing prerequisites, the student clicks **"⚡ Bridge the Gap"** (`POST /api/jobs/bridge-gap`). The engine automatically synthesizes tailored micro-learning tasks and dynamically injects them into the student's current active roadmap week—transforming job rejection anxiety into an immediate 7-day action plan.
+When browsing matched job postings with missing prerequisites, the student clicks **"⚡ Bridge the Gap"** (`POST /api/jobs/bridge-gap`). The engine identifies missing competencies and adds targeted study tasks to the student's active roadmap week, turning skill gaps into a structured 7-day plan.
 
 ### 6.4 4-Criteria Job-Ready Benchmark Scorecard (Emerald Matrix & 180-Day Freshness)
 To establish high-contrast objective feedback, `/dashboard.html` renders the 4 certification standards as a standalone **Emerald Scorecard Matrix** (`#FFFFFF` cards with `#22C55E` borders, `#F0FDF4` card container, `#16A34A` status badges, and bold metric displays):
@@ -816,12 +816,12 @@ Implemented in `server/services/jobBoardService.js`, the platform constructs par
 
 | Portal | Brand Color | Target Domain | Query Structure & Purpose |
 | :--- | :--- | :--- | :--- |
-| **LinkedIn Jobs** | `#0077B5` | `linkedin.com/jobs` | `?keywords={title}+{skills}&location={city}` — Direct enterprise postings |
-| **Naukri.com** | `#4A90E2` | `naukri.com` | `/{role}-jobs-in-{city}?k={title}` — India's largest corporate tech board |
-| **Indeed India** | `#2164F3` | `in.indeed.com` | `?q={title}&l={city}` — Mass volume & startup postings |
-| **Wellfound (AngelList)** | `#000000` | `wellfound.com/jobs` | `?role={role}` — High-growth Web3 & AI startup hiring |
-| **Internshala** | `#1295C9` | `internshala.com` | `/{role}-internship` — Student internships & fresh graduate entry roles |
-| **Google for Jobs** | `#EA4335` | `google.com/search` | `?q={title}+jobs+in+{city}&ibp=htl;jobs` — Aggregated search across 100+ boards |
+| **LinkedIn Jobs** | `#0077B5` | `linkedin.com/jobs` | `?keywords={title}+{skills}&location={city}`: Direct enterprise postings |
+| **Naukri.com** | `#4A90E2` | `naukri.com` | `/{role}-jobs-in-{city}?k={title}`: India's largest corporate tech board |
+| **Indeed India** | `#2164F3` | `in.indeed.com` | `?q={title}&l={city}`: Mass volume & startup postings |
+| **Wellfound (AngelList)** | `#000000` | `wellfound.com/jobs` | `?role={role}`: High-growth Web3 & AI startup hiring |
+| **Internshala** | `#1295C9` | `internshala.com` | `/{role}-internship`: Student internships & fresh graduate entry roles |
+| **Google for Jobs** | `#EA4335` | `google.com/search` | `?q={title}+jobs+in+{city}&ibp=htl;jobs`: Aggregated search across 100+ boards |
 
 The engine is exposed via `GET /api/jobs/portal-links?title=Full+Stack+Developer&location=Bengaluru&skills=React,Node.js`.
 
@@ -878,7 +878,7 @@ The system highlights each word dynamically as it speaks, simulating human eye-c
 ### 10.2 Real-Time Microphone Speech-to-Text Recording
 - Click **"Start Recording"** to stream audio from the browser microphone.
 - An animated CSS pulse & canvas frequency waveform confirms live audio capture.
-- Words transcribe in real-time onto an editable draft notepad—allowing students to review or supplement their verbal answer before submission.
+- Words transcribe in real time onto an editable draft notepad, allowing students to review or edit their answers before submission.
 
 ### 10.3 3-Pillar Answer Correctness & Feedback Evaluation Rubric
 How does CareerPath AI determine whether an answer is correct? Rather than relying on simple keyword matching or unpredictable LLM guesswork, `server/controllers/interviewController.js` and `readinessService.js` evaluate answers across **3 objective pedagogical pillars**:
@@ -1026,7 +1026,7 @@ To guarantee absolute professional boundaries between hiring companies and stude
    - If a recruiter account enters any student-only page, they are instantly redirected via `window.location.replace('recruiter-dashboard.html')` with an explanatory session flash notification (`consumePortalAlert()`).
    - If a student account attempts to access the recruiter hub, they are instantly redirected to `dashboard.html`.
 3. **Dual Access Demo Sandbox Privilege:**
-   - The platform demonstration account (`demouser@gmail.com`) and administrative accounts are configured with dual sandbox bypass privileges, enabling prospective enterprise clients, university partners, investors, and stakeholders to seamlessly inspect both student workflows and recruiter applicant radars without having to repeatedly switch sessions or register multiple emails.
+   - The platform demonstration account (`demouser@gmail.com`) and administrative accounts have dual sandbox roles, allowing evaluators, university partners, and recruiters to inspect both student workflows and applicant radars without switching logins.
 4. **Server-Side Authorization Enforcers (`authMiddleware.js`):**
    - `requireStudent`: Inspects `req.user.role`. Rejects corporate recruiters with `403 RECRUITER_ACCESS_DENIED`.
    - `requireRecruiter`: Enforces `user.role === 'recruiter' || user.canPostJobs`. Rejects students with `403 STUDENT_ACCESS_DENIED`.
@@ -1118,7 +1118,7 @@ To eliminate candidate drop-off and bridge the mobile communication barrier acro
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│               CAREERPATH AI — MULTI-PROVIDER WHATSAPP AUTOMATION ARCHITECTURE          │
+│               CAREERPATH AI : MULTI-PROVIDER WHATSAPP AUTOMATION ARCHITECTURE          │
 ├──────────────────────────┬─────────────────────────────┬───────────────────────────────┤
 │ 1. HIGH-SPEED OTP & GATE │ 2. DYNAMIC PDF COMPILER     │ 3. 24x7 AI CAREER ASSISTANT   │
 ├──────────────────────────┼─────────────────────────────┼───────────────────────────────┤
@@ -1191,7 +1191,7 @@ For older student accounts created prior to mandatory dual verification:
    - `POST /api/users/link-phone/send-otp`: Generates 6-digit WhatsApp OTP, stores in `user.verificationOtp`, dispatches via `whatsappService`.
    - `POST /api/users/link-phone/verify-otp`: Validates OTP against stored hash, links `user.phone`, clears pending verification, and unlocks the student portal.
 4. **Safe Admin & Evaluation Exemptions:**
-   - Hackathon judges, evaluation accounts (`demouser@gmail.com`, `kajimew275@blobapps.com`, admin role), and corporate recruiters are completely exempted to ensure seamless, uninterrupted portal auditing.
+   - Evaluation accounts (`demouser@gmail.com`, `kajimew275@blobapps.com`, admin role) and corporate recruiters are exempt to allow uninterrupted testing.
 
 ### 12.7 Autonomous n8n Workflow Integration (Job Alerts & Candidate Telemetry)
 CareerPath AI includes a production-ready **n8n Workflow Blueprint (`CareerPath_AI_Job_Alerts_n8n.json`)** to automate outbound student and recruiter touchpoints:
@@ -1468,7 +1468,7 @@ CareerPath AI is built on a **sustainable B2B2C Talent & Telemetry Flywheel** th
 ```
 
 ### 16.1 100% Free Student Model & B2B Recruiter Radar Monetization
-1. **Free for Students, Always (₹0):** Eliminates all user friction, maximizes campus virality, and democratizes career advancement without economic barriers. 100% of core student features—3D Universe, 4-step diagnostic assessment, personalized roadmaps, proctored exams, cryptographic verification, and resume tools—are free forever.
+1. **Free for Students, Always (₹0):** Open to all students at zero cost, removing financial barriers for candidates from tier-2 and tier-3 colleges. Core student features (diagnostic assessment, personalized roadmaps, proctored milestone exams, cryptographic verification, and resume tools) remain free forever.
 2. **Corporate Recruiter Talent Radar:** Corporate employers subscribe to monthly tiers (₹24,999/mo to ₹59,999/mo) or pay-as-you-go candidate unlocks to discover pre-assessed, proof-of-work candidates with tamper-proof score ledgers and GitHub verification.
 3. **Verified Opening Postings:** Corporate employers post target tech jobs with enforced skill prerequisites and time-delimited application deadlines, reducing employer screening cost-per-hire (CAC) by 60%.
 
@@ -1557,7 +1557,7 @@ node tests/portal_isolation_rbac_test.js
 #### 📱 WhatsApp Automation Suite Verification (18/18 Tests Passing · 100%):
 ```text
 ============================================================
-🧪 CareerPath AI — WhatsApp Automation Suite Verification
+🧪 CareerPath AI: WhatsApp Automation Suite Verification
 ============================================================
 
 ▶ SUITE 1: Phone Number Formatting & E.164 Normalization (4 Tests)
@@ -1798,7 +1798,7 @@ CareerPath AI is committed to ethical, transparent, and explainable artificial i
 
 ---
 
-## 👥 20. Leadership & Engineering Team — CareerPath AI
+## 👥 20. Leadership & Engineering Team: CareerPath AI
 
 CareerPath AI was founded by an engineering-first team dedicated to solving the $50B global technical employability gap through rigorous mathematics, software craftsmanship, and human-centered design:
 
@@ -1810,5 +1810,5 @@ CareerPath AI was founded by an engineering-first team dedicated to solving the 
 - **Headquarters & Engineering:** Pune & Nashik, Maharashtra, India.
 - **Official Enterprise Domain:** **[https://careerpath.is-local.org](https://careerpath.is-local.org)**
 - **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@careerpath.is-local.org) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
-- **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE) — free for educational and non-commercial institutional research.
+- **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE), free for educational and non-commercial institutional research.
 - **Copyright:** © 2026–2027 CareerPath AI Technologies Inc. All rights reserved.
