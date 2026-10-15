@@ -61,6 +61,10 @@
   <img src="https://img.shields.io/badge/WhatsApp_Tests-18%2F18_Passing_(100%25)-25D366?style=flat-square" alt="WhatsApp Tests" />
   <img src="https://img.shields.io/badge/n8n_Integration-Autonomous_Job_Alerts-FF6D5A?style=flat-square&logo=n8n&logoColor=white" alt="n8n Job Alerts" />
   <img src="https://img.shields.io/badge/Domain_Email-parthpatil@careerpath.is--local.org-4285F4?style=flat-square&logo=gmail&logoColor=white" alt="Custom Domain Email" />
+  <img src="https://img.shields.io/badge/Statutory_Compliance-MeitY_DPDP_Act_2023_(Gazette_No._22)-10B981?style=flat-square&logo=gov.uk&logoColor=white" alt="MeitY DPDP Act 2023" />
+  <img src="https://img.shields.io/badge/Grievance_Redressal-DPDP_s.8(10)_Officer_Appointed-0ea5e9?style=flat-square" alt="DPDP Grievance Officer" />
+  <img src="https://img.shields.io/badge/Support_Desk-WhatsApp_%2B91_74990_85045_(Chat_Only)-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp Support Desk" />
+  <img src="https://img.shields.io/badge/Legal_Portal-Privacy_%7C_Terms_%7C_Security_%7C_Support-7c3aed?style=flat-square" alt="Legal & Trust Suite" />
 </p>
 
 ---
@@ -123,6 +127,8 @@
     - [12.5 24x7 WhatsApp AI Career Assistant Webhook (`/api/whatsapp/webhook`)](#125-24x7-whatsapp-ai-career-assistant-webhook)
     - [12.6 Strict WhatsApp Phone Link Gate for Existing Students (Option A Compulsory Backdrop Modal)](#126-strict-whatsapp-phone-link-gate-for-existing-students)
     - [12.7 Autonomous n8n Workflow Integration (Job Alerts & Candidate Telemetry)](#127-autonomous-n8n-workflow-integration-job-alerts--candidate-telemetry)
+    - [12.8 Instant Text-Only Messaging Engine & Voice Feature Deprecation](#128-instant-text-only-messaging-engine--voice-feature-deprecation)
+    - [12.9 24x7 WhatsApp Support Desk & Counselor Relay (+91 74990 85045)](#129-24x7-whatsapp-support-desk--counselor-relay-91-74990-85045)
 13. [🎓 16:9 Landscape Widescreen Certificate & Milestone Proctoring](#-13-169-landscape-widescreen-certificate--milestone-proctoring)
     - [13.1 Cinematic 16:9 Landscape Certificate of Appreciation (1120px by 630px, Navy & Gold Waves)](#131-cinematic-169-landscape-certificate-of-appreciation)
     - [13.2 3D Rosette Medallion, Dynamic QR Code & Public Authenticity Verification (`verify.html?certId=...`)](#132-3d-rosette-medallion-dynamic-qr-code--public-authenticity-verification)
@@ -132,7 +138,11 @@
 16. [💰 Business Model & B2B2C Talent & Telemetry Flywheel](#-16-business-model--b2b2c-talent--telemetry-flywheel)
     - [16.1 100% Free Student Model & B2B Recruiter Radar Monetization](#161-100-free-student-model--b2b-recruiter-radar-monetization)
     - [16.2 College Placement Cell (TPO) Campus OS & NAAC/NIRF Accreditation Framework](#162-college-placement-cell-tpo-campus-os--naacnirf-accreditation-framework)
-17. [🔒 Security, Guardrails & Anti-Abuse Protocols](#-17-security-guardrails--anti-abuse-protocols)
+17. [🔒 Security, Statutory Governance & MeitY DPDP Act 2023 Compliance](#-17-security-statutory-governance--meity-dpdp-act-2023-compliance)
+    - [17.1 Technical Guardrails, CSP, Magic Bytes & CORS](#171-technical-guardrails-csp-magic-bytes--cors)
+    - [17.2 MeitY DPDP Act 2023 Statutory Alignment (Gazette No. 22 of 2023)](#172-meity-dpdp-act-2023-statutory-alignment-gazette-no-22-of-2023)
+    - [17.3 Designated Grievance Officer & Redressal Architecture (DPDP s. 8(10))](#173-designated-grievance-officer--redressal-architecture-dpdp-s-810)
+    - [17.4 Production Legal & Governance Portal Suite (privacy.html, terms.html, security.html, support.html)](#174-production-legal--governance-portal-suite)
 18. [⚡ Local Quickstart & Automated Test Suites](#-18-local-quickstart--automated-test-suites)
     - [18.1 Installation & Environment Setup](#181-installation--environment-setup)
     - [18.2 Automated Test & Verification Commands](#182-automated-test--verification-commands)
@@ -154,6 +164,10 @@ CareerPath AI is an enterprise-grade Autonomous Career Guidance & Talent Intelli
 | ⚡ **Live API Gateway** | **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Live Health Check** | **[https://careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)** | Real-time server telemetry, database connection & uptime monitor |
 | 📧 **Official Support & Inquiries** | **`parthpatil@careerpath.is-local.org`** | Dedicated enterprise & university partner communication channel |
+| 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20CareerPath%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
+| 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://careerpath-ai-jade.vercel.app/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@careerpath.is-local.org` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
+| ⚖️ **Statutory DPDP Act 2023 Alignment** | **[Gazette No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)** | Full statutory compliance across notice (s. 5), consent (s. 6), breach notification (s. 8(6)), and data principal rights |
+| 📜 **Legal & Governance Suite** | **[`privacy.html`](https://careerpath-ai-jade.vercel.app/privacy.html) · [`terms.html`](https://careerpath-ai-jade.vercel.app/terms.html) · [`security.html`](https://careerpath-ai-jade.vercel.app/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
 | 🔑 **Student Sandbox Account** | **`demouser@gmail.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded with student profile, verified skills & active roadmap *(Dual Sandbox Access enabled)* |
 | 🏢 **Enterprise Recruiter Sandbox** | **`recruiter@razorpay.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded Razorpay verified company, active job posting & candidate applicant radar *(or click 1-Click Demo Recruiter on `/login.html`)* |
 | 🛡️ **Portal Isolation & RBAC** | **Strict Student vs Recruiter Guard** | Dedicated page catalogs, instant client pre-render redirect traps, and backend `requireStudent` / `requireRecruiter` RBAC |
@@ -798,8 +812,8 @@ To drive long-term habit formation, prevent student abandonment, and ensure data
    - Scans all enrolled students with active roadmaps (`status: 'active'`).
    - If the student has not completed any task for $\ge 3$ days, the engine triggers an automated motivational streak alert:
    - *"Don't break your momentum! Week 2 complete karne me sirf 2 tasks bache hain."*
-2. **On-Demand Automated Testing & Admin Trigger (`POST /api/roadmaps/nudge/test`):**
-   - Allows platform administrators, educators, and enterprise partners to test the streak nudge delivery on-demand with zero waiting.
+2. **On-Demand Automated Testing & Verification Trigger (`POST /api/roadmaps/nudge/test`):**
+   - Allows evaluators, educators, and enterprise partners to test the streak nudge delivery on-demand with zero waiting.
    - Live in the UI: On `roadmap.html`, clicking **`[Streak Alert Email]`** immediately calculates remaining tasks and dispatches a live test email directly to the student's registered inbox.
 3. **Execution Guardrails:**
    - Runs as an active background worker on persistent servers (Render / Local).
@@ -1006,7 +1020,7 @@ To guarantee absolute professional boundaries between hiring companies and stude
 │   • Executes on script load BEFORE HTML/DOM renders                                              │
 │   • Recruiter on student page ──► Instant redirect to recruiter-dashboard.html + warning flash    │
 │   • Student on recruiter page ──► Instant redirect to dashboard.html + warning flash             │
-│   • Dual evaluation access for demouser@gmail.com / admin accounts preserved                     │
+│   • Dual evaluation access for authorized demo sandbox accounts preserved                        │
 │                                                                                                  │
 │   TIER 2: SERVER-SIDE RBAC MIDDLEWARE (authMiddleware.js)                                        │
 │   • requireStudent: Rejects recruiters attempting student actions with HTTP 403                  │
@@ -1026,7 +1040,7 @@ To guarantee absolute professional boundaries between hiring companies and stude
    - If a recruiter account enters any student-only page, they are instantly redirected via `window.location.replace('recruiter-dashboard.html')` with an explanatory session flash notification (`consumePortalAlert()`).
    - If a student account attempts to access the recruiter hub, they are instantly redirected to `dashboard.html`.
 3. **Dual Access Demo Sandbox Privilege:**
-   - The platform demonstration account (`demouser@gmail.com`) and administrative accounts have dual sandbox roles, allowing evaluators, university partners, and recruiters to inspect both student workflows and applicant radars without switching logins.
+   - The platform demonstration account (`demouser@gmail.com`) has dual sandbox access, allowing evaluators, university partners, and recruiters to inspect both student workflows and applicant radars without switching logins.
 4. **Server-Side Authorization Enforcers (`authMiddleware.js`):**
    - `requireStudent`: Inspects `req.user.role`. Rejects corporate recruiters with `403 RECRUITER_ACCESS_DENIED`.
    - `requireRecruiter`: Enforces `user.role === 'recruiter' || user.canPostJobs`. Rejects students with `403 STUDENT_ACCESS_DENIED`.
@@ -1190,8 +1204,8 @@ For older student accounts created prior to mandatory dual verification:
 3. **Protected API Endpoints:**
    - `POST /api/users/link-phone/send-otp`: Generates 6-digit WhatsApp OTP, stores in `user.verificationOtp`, dispatches via `whatsappService`.
    - `POST /api/users/link-phone/verify-otp`: Validates OTP against stored hash, links `user.phone`, clears pending verification, and unlocks the student portal.
-4. **Safe Admin & Evaluation Exemptions:**
-   - Evaluation accounts (`demouser@gmail.com`, `kajimew275@blobapps.com`, admin role) and corporate recruiters are exempt to allow uninterrupted testing.
+4. **Safe Sandbox & Evaluation Exemptions:**
+   - Authorized evaluation accounts (`demouser@gmail.com`) and corporate recruiters are exempt to allow uninterrupted testing.
 
 ### 12.7 Autonomous n8n Workflow Integration (Job Alerts & Candidate Telemetry)
 CareerPath AI includes a production-ready **n8n Workflow Blueprint (`CareerPath_AI_Job_Alerts_n8n.json`)** to automate outbound student and recruiter touchpoints:
@@ -1205,6 +1219,29 @@ CareerPath AI includes a production-ready **n8n Workflow Blueprint (`CareerPath_
    - **Rich HTML Email Dispatch:** Compiles responsive email template sent via custom domain SMTP (`parthpatil@careerpath.is-local.org`).
 4. **Execution Telemetry & Audit Logs:**
    - Tracks delivery receipts, read statuses, and application conversion metrics in an auditable workflow log.
+
+### 12.8 Instant Text-Only Messaging Engine & Voice Feature Deprecation
+To maximize message delivery speed and eliminate media bandwidth bottlenecks across mobile cellular networks in tier-2 and tier-3 colleges:
+1. **Deprecation of Edge-TTS Voice Audio Notes:**
+   - Previous experimental neural voice synthesis (audio note dispatches) was fully deprecated in favor of instantaneous, high-speed pure text delivery.
+   - Eliminates 3 to 6 second audio generation and media upload latencies, ensuring conversational interactions return within sub-500ms response windows.
+2. **Inbound Voice-Note Safety Guard:**
+   - When a user sends an inbound voice recording to the WhatsApp webhook, the engine intercepts the media envelope and responds with an instant guidance notice:
+     - *"Audio message received. Please type your career question or inquiry as text for sub-second AI mentor guidance and support ticket tracking."*
+   - Protects server compute resources while ensuring clear text transcripts for both student review and human counselor escalation.
+
+### 12.9 24x7 WhatsApp Support Desk & Counselor Relay (`+91 74990 85045`)
+To provide immediate resolution for student technical blockers, OTP issues, and admissions inquiries:
+1. **Dedicated WhatsApp Support Desk:**
+   - Operational helpline: **`+91 74990 85045`** *(WhatsApp Chat Only - Voice Calls Disabled)*.
+   - Provides direct routing for students, educators, and enterprise recruiters via 1-click link: `https://wa.me/917499085045?text=...`.
+2. **Automated Keyword Routing & Query Docketing:**
+   - Messages containing keywords such as `SUPPORT`, `HELP`, `TICKET`, or `COUNSELOR` trigger automated docket generation (`#CP-TKT-...`).
+   - Dispatches an instant docket receipt with tracking ID, estimated SLA, and direct link to the statutory Grievance Officer details.
+3. **Founder & Counselor Relay Engine:**
+   - Incoming support dockets are routed to active academic counselors and co-founder desks, enabling personalized human intervention while maintaining candidate privacy and phone number masking.
+4. **Ticket Status Lookup via WhatsApp:**
+   - Students query ticket status on WhatsApp by messaging `STATUS #CP-TKT-XXXXXX`, receiving immediate real-time progress updates directly from the database.
 
 ---
 
@@ -1394,6 +1431,9 @@ flowchart TD
 | `POST` | `/api/auth/verify-otp` | Public | Enforces simultaneous dual verification (entering BOTH valid Gmail & WhatsApp codes) |
 | `POST` | `/api/users/link-phone/send-otp` | Protected (JWT) | **Option A Strict Phone Gate:** Validates 10-digit number, checks uniqueness, sends WhatsApp OTP |
 | `POST` | `/api/users/link-phone/verify-otp` | Protected (JWT) | **Option A Strict Phone Gate:** Validates 6-digit WhatsApp code, links phone to student profile, unlocks dashboard |
+| `POST` | `/api/support/ticket` | Public | Submits support ticket or DPDP statutory grievance; generates tracking ID (`#CP-TKT-...`) with 24h SLA |
+| `GET`  | `/api/support/ticket/:ticketId` | Public | Checks resolution status, priority, and counselor notes for an existing ticket |
+| `GET`  | `/api/support/officer` | Public | Returns designated Grievance Officer credentials, postal address, and DPDP Act 2023 statutory mandate |
 | `GET`  | `/api/whatsapp/webhook` | Public | **Meta WhatsApp Handshake:** Validates `hub.mode`, `hub.verify_token`, and `hub.challenge` tokens |
 | `POST` | `/api/whatsapp/webhook` | Public | **24x7 AI Career Bot:** Inbound WhatsApp message receiver (Meta Cloud API & OpenWA bridge), dispatches AI career guidance |
 | `POST` | `/api/roadmaps/:id/send-notes` | Protected (JWT) | **PDF Study Material Dispatch:** Compiles dynamic roadmap notes via PDFKit & sends PDF directly to WhatsApp |
@@ -1497,18 +1537,93 @@ Higher education institutions face immense pressure to satisfy statutory accredi
 
 ---
 
-## 🔒 17. Security, Guardrails & Anti-Abuse Protocols
+## 🔒 17. Security, Statutory Governance & MeitY DPDP Act 2023 Compliance
 
-1. **Strict Content Security Policy & Headers:** Enforced via `helmet` across all REST responses.
+CareerPath AI is engineered to meet the highest technical security standards and complete statutory alignment with Indian data protection legislation, specifically the **Digital Personal Data Protection (DPDP) Act, 2023** ([Ministry of Electronics and Information Technology - MeitY Gazette Notification No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)) and the **Information Technology Act, 2000** (including IT Rules, 2021).
+
+### 17.1 Technical Guardrails, CSP, Magic Bytes & CORS
+1. **Strict Content Security Policy & HTTP Headers:** Enforced via `helmet` across all REST responses, disabling unauthorized framing, clickjacking, and XSS injection vectors.
 2. **CORS Isolation:** Backend strictly restricts origins to production frontend (`https://careerpath.is-local.org`, `https://careerpath-ai-jade.vercel.app`) and local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
-3. **Password Security:** Salted 10-round hashing via `bcryptjs`. Plaintext passwords are never logged or stored.
-4. **Binary Protection:** Magic-byte validation rejects malicious executables renamed as `.pdf` or `.docx`.
+3. **Password Security:** Salted 10-round hashing via `bcryptjs`. Plaintext passwords are never logged, cached, or stored.
+4. **Binary Magic-Byte Inspection:** Enforced in `server/services/resumeService.js`. Rejects malicious executables or scripts disguised as `.pdf`, `.docx`, or `.doc` files prior to buffer processing.
 5. **Rate Limiting:**
-   - Auth endpoints: Max 10 requests per 15-minute window per IP.
-   - AI endpoints: Max 30 requests per minute per IP.
-   - Abandonment endpoint: Strictly limited to 1 abandonment per 7 days per account.
+   - Auth endpoints: Maximum 10 requests per 15-minute window per IP.
+   - AI endpoints: Maximum 30 requests per minute per IP.
+   - Route Abandonment: Strictly limited to 1 abandonment per 7 days per student account.
 6. **Anti-Disposable Email Engine:** Enforced via `server/utils/disposableEmailBlocker.js` to eliminate burner addresses across 100+ domains.
 7. **Anti-Abuse WhatsApp Gate:** Enforces 10-digit uniqueness, prevents phone hijacking, and isolates student accounts with dual-token verification.
+
+### 17.2 MeitY DPDP Act 2023 Statutory Alignment (Gazette No. 22 of 2023)
+CareerPath AI acts as a **Data Fiduciary** under Section 2(i) of the DPDP Act 2023, while enrolled students and candidates are recognized as **Data Principals** under Section 2(j). The platform implements end-to-end statutory compliance across all core legislative mandates:
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│             STATUTORY DPDP ACT 2023 COMPLIANCE ARCHITECTURE (MEITY GAZETTE NO. 22)     │
+├──────────────────────────┬─────────────────────────────┬───────────────────────────────┤
+│ 1. NOTICE & CONSENT      │ 2. FIDUCIARY SAFEGUARDS     │ 3. PRINCIPAL RIGHTS & DPBI    │
+├──────────────────────────┼─────────────────────────────┼───────────────────────────────┤
+│ • Section 5: Notice      │ • Section 8(5): Encryption  │ • Section 11: Right to Access │
+│ • Section 6: Free,       │ • Section 8(6): Breach Alert│ • Section 12: Correction/Erase│
+│   Specific Consent       │ • Section 8(7): Data Wipe   │ • Section 13: Grievance Desk  │
+│ • Section 9: Child Guard │ • Section 8(10): Officer App│ • Section 29: TDSAT Appeals   │
+└──────────────────────────┴─────────────────────────────┴───────────────────────────────┘
+```
+
+1. **Section 5 (Notice & Itemized Purpose Specification):**
+   - Prior to collecting personal data, candidates receive clear, itemized notices specifying exactly what data is collected (academic branch, enrolled degree, GitHub public commits, skills) and for what distinct purpose (career guidance, skill-gap analysis, recruiter verification).
+2. **Section 6 (Granular & Conditional Consent):**
+   - Consent is free, specific, informed, unconditional, and unambiguous. Candidates maintain absolute granular control: recruiter radar visibility requires authenticated student opt-in and can be revoked at any time.
+3. **Section 8(5) (Reasonable Security Safeguards):**
+   - Enforces 256-bit TLS/SSL in transit, Supabase PostgreSQL with SSL/TLS encryption at rest, Bcryptjs password hashing, and stateless JWT session signing.
+4. **Section 8(6) (Mandatory Breach Notification):**
+   - In the unlikely event of a personal data breach, the platform maintains automated protocols to immediately notify both the **Data Protection Board of India (DPBI)** and affected Data Principals in the prescribed statutory form.
+5. **Section 8(7) (Purpose Limitation & Erasure):**
+   - Personal data is retained strictly for the duration necessary to satisfy the educational and career guidance purpose. Students can execute 1-click full account scrubbing and data erasure directly from their profile.
+6. **Section 9 (Processing of Personal Data of Children):**
+   - The platform strictly prohibits harmful tracking, behavioral profiling, or targeted commercial advertising directed toward minors.
+7. **Sections 11 to 14 (Data Principal Rights):**
+   - **Right to Access Information (Section 11):** Students may download a full summary of all personal data, verified skill passports, and application records.
+   - **Right to Correction & Erasure (Section 12):** Immediate self-serve correction of profile data and one-click permanent erasure rights.
+   - **Right of Grievance Redressal (Section 13):** Access to an expedited statutory redressal channel managed by the designated Grievance Officer.
+   - **Right to Nominate (Section 14):** Ability to designate a representative in the event of death or incapacity.
+8. **Section 15 (Duties of Data Principals):**
+   - Clear disclosure of student obligations to provide authentic academic credentials and refrain from submitting fraudulent GitHub trees or impersonating third parties.
+9. **Chapter V & Section 29 (DPBI & TDSAT Appeal Rights):**
+   - Candidates are informed of their right to escalate unresolved grievances to the **Data Protection Board of India (DPBI)** and appeal decisions before the **Telecom Disputes Settlement and Appellate Tribunal (TDSAT)** under Section 29 of the DPDP Act 2023.
+
+### 17.3 Designated Grievance Officer & Redressal Architecture (DPDP s. 8(10))
+In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, CareerPath AI has appointed a designated Grievance Redressal Officer:
+
+| Fiduciary & Grievance Metric | Statutory Designation & Contact Details |
+| :--- | :--- |
+| **Grievance Redressal Officer** | **Parth Patil** |
+| **Institutional Affiliation** | G.H. Raisoni College of Engineering and Management (GHRCEM) |
+| **Campus / Postal Location** | Gat No. 57/1, Shirsoli Road, Mohadi, Jalgaon - 425002, Maharashtra, India |
+| **Official Statutory Email** | **`parthpatil@careerpath.is-local.org`** &nbsp;•&nbsp; Alternate: `parthpatil1234p@gmail.com` |
+| **Official WhatsApp Support Desk** | **`+91 74990 85045`** *(WhatsApp Chat Only · Voice Calls Disabled)* |
+| **First Acknowledgment SLA** | Within **24 hours** of ticket receipt |
+| **Statutory Resolution SLA** | Expedited resolution within **30 days** as mandated by the DPDP Act 2023 |
+| **Direct Ticket Submission** | **[`support.html`](https://careerpath-ai-jade.vercel.app/support.html)** or via REST API `POST /api/support/ticket` |
+
+### 17.4 Production Legal & Governance Portal Suite
+CareerPath AI ships with four beautifully styled, production-ready legal and governance portals matching the platform's Apple/Linear dark-mode aesthetic:
+
+1. **Privacy Policy (`client/privacy.html`):**
+   - Comprehensive statutory privacy disclosures under DPDP Act 2023, IT Act 2000, and IT Rules 2021.
+   - Explicit BYOK (Bring Your Own Key) guarantee: User-provided Groq, OpenAI, or Gemini API keys remain strictly in browser `localStorage` and are never transmitted, logged, or stored on backend servers.
+   - GitHub AST & Telemetry Scope: Scans only public repositories and commit syntax trees. No access to private code, issues, or account secrets.
+   - Cloudinary Media Policy: Secure transactional storage with 100% non-sale guarantee of student resumes.
+2. **Terms of Service (`client/terms.html`):**
+   - Enforceable conditions of service, eligibility criteria, and anti-cheating clauses.
+   - Strict prohibition against automated script-injected quiz completions, anti-scrub video chamber bypasses, and falsified commit histories.
+   - 100% Student Intellectual Property Ownership: Students retain complete and exclusive IP ownership over their original code, software projects, and learning artifacts.
+   - Governing Law & Jurisdiction: Exclusive jurisdiction of the competent courts in Jalgaon, Maharashtra, India under the Information Technology Act, 2000.
+3. **Security Architecture & Trust (`client/security.html`):**
+   - Detailed breakdown of platform defense-in-depth: TLS 256-bit encryption, Supabase PostgreSQL network boundaries, stateless JWT authentication, and Bcryptjs password hashing.
+   - 4-Tier Recruiter Verification Gate: 60+ Webmail Blacklist, DNS MX resolution, HTTP live website probing, and corporate OTP validation.
+   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil1234p@gmail.com`.
+4. **Support & Statutory Grievance Desk (`client/support.html`):**
+   - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`+91 74990 85045`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
 
 ---
 
