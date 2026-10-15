@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)
-## CareerPath AI — Hack2Ignite 2026–27
+## CareerPath AI - Hack2Ignite 2026-27
 
 ---
 
@@ -10,7 +10,7 @@
 **One-liner:** AI-powered career recommendations + personalized learning roadmaps + code-grounded proof-of-work + adaptive reality-check quizzes, presented in an accessible, wide-screen interface.
 
 **Domain / Track:** EduTech (Educational Technology / AI for Good)  
-**Problem Statement ID:** **ED-02** — *Develop an AI-powered career guidance system for students based on skills, interests, and market trends*  
+**Problem Statement ID:** **ED-02** - *Develop an AI-powered career guidance system for students based on skills, interests, and market trends*  
 **Team:** 404 Brain Not Found  
 
 ---
@@ -18,7 +18,7 @@
 ## 2. Problem Statement
 
 Indian engineering students, especially in their early academic years, face systemic hurdles:
-1. **Career Blindness:** Lack of awareness regarding high-growth tech domains beyond the standard 3–4 generic tracks.
+1. **Career Blindness:** Lack of awareness regarding high-growth tech domains beyond the standard 3-4 generic tracks.
 2. **Credential Inflation & Self-Delusion:** Students claim advanced competencies on resumes without objective validation or hands-on proof-of-work.
 3. **No Clear Milestones:** Generic advice from YouTube or forums fails to provide concrete, week-by-week actionable tasks to reach job readiness.
 4. **Market Misalignment:** Syllabi lag behind industry hiring demands, leaving placement cells (TPOs) unable to identify skill gaps before company rejection lists arrive.
@@ -39,12 +39,12 @@ Indian engineering students, especially in their early academic years, face syst
 
 ## 4. Target Personas
 
-### Persona 1 — Rohan (The Confused Fresher)
+### Persona 1 - Rohan (The Confused Fresher)
 - **Age:** 18, 1st-year B.Tech CSE student.
 - **Problem:** Knows basic Python and HTML, but doesn't know whether to pursue full-stack, data science, or DevOps.
 - **Needs:** Clear career options mapped to his current skills, backed by an honest reality-check quiz and a step-by-step learning plan.
 
-### Persona 2 — Priya (The Skill Switcher)
+### Persona 2 - Priya (The Skill Switcher)
 - **Age:** 21, 3rd-year student pivoting to tech.
 - **Problem:** Needs an honest skill-gap analysis showing exactly what she needs to learn, without feeling overwhelmed.
 - **Needs:** Color-coded gap analysis (🟢 Matched, 🟡 Upgrade, 🔴 Missing) and an 8-week actionable roadmap.
@@ -60,13 +60,13 @@ Indian engineering students, especially in their early academic years, face syst
 | FR-1.2 | Stateless JWT token issuance valid for 24 hours | Verified |
 | FR-1.3 | Google Identity Services 1-Click OAuth sign-in / sign-up | Verified |
 | FR-1.4 | GitHub Fast-Track OAuth sign-in | Verified |
-| FR-1.5 | Instant Evaluator Demo Account auto-fill (`demouser@gmail.com` / `demo123`) | Verified |
+| FR-1.5 | Instant Evaluator Demo Account auto-fill (1-Click Passwordless Auto-Fill on `/login.html`) | Verified |
 
 ### FR-2: Student Profile & Assessment
 | ID | Requirement | Status |
 | :--- | :--- | :--- |
 | FR-2.1 | Academic input: Course (B.Tech, BCA, MCA), Branch, College, Year | Verified |
-| FR-2.2 | Interactive skill selection with proficiency ratings (1–5 scale) | Verified |
+| FR-2.2 | Interactive skill selection with proficiency ratings (1-5 scale) | Verified |
 | FR-2.3 | Domain interest tags selection (Web Dev, AI/ML, Cloud, CyberSecurity, etc.) | Verified |
 | FR-2.4 | Real-time display of verified checkmarks (`[✓ Code Verified]` and `[✓ Quiz Verified]`) | Verified |
 
@@ -143,6 +143,6 @@ Indian engineering students, especially in their early academic years, face syst
 ## 7. Business Model & Monetization Summary
 
 CareerPath AI adheres to the **"Free for Students, Always"** principle:
-- **Colleges & Universities (B2B):** Institutional Placement SaaS (TPO Portal) at ₹1.5L–₹3.5L/year for NAAC/NIRF accreditation reports, batch skill deficiency heatmaps, and at-risk student nudges.
+- **Colleges & Universities (B2B):** Institutional Placement SaaS (TPO Portal) at ₹1.5L-₹3.5L/year for NAAC/NIRF accreditation reports, batch skill deficiency heatmaps, and at-risk student nudges.
 - **Corporate Recruiters (B2B):** Verified Talent Access Pass at ₹24,999/month, reducing hiring screening costs by up to 60%.
-- **Learning Partners (B2B Marketplace):** Contextual, strictly labeled sponsored certification referrals (15–25% revenue share).
+- **Learning Partners (B2B Marketplace):** Contextual, strictly labeled sponsored certification referrals (15-25% revenue share).

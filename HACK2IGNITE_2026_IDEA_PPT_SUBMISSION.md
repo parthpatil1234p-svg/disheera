@@ -1,8 +1,8 @@
-# 🏆 HACK2IGNITE 2026 — Official Idea PPT Content (Winning Hackathon Submission)
+# 🏆 HACK2IGNITE 2026 - Official Idea PPT Content (Winning Hackathon Submission)
 > **Organizer:** G.H. Raisoni International Skill Tech University (GHRISTU), Pune & Igniters Club (Unstop)  
 > **Team Name:** 404 Brain Not Found  
 > **Problem Statement ID:** ED-02 (EduTech Track)  
-> **Idea Title:** CareerPath AI — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
+> **Idea Title:** CareerPath AI - Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
 > **Format:** Strict 6-Slide Maximum · Official Headings & Pointers Preserved · Unique Multi-Paradigm Visuals: Metro Subway Transit Line, Hexagonal Ports & Adapters, DNA Helix, 4-Pillar Temple & Circular Orbits Included
 
 ---
@@ -21,10 +21,10 @@
 ### • Team members & Verified Roles:
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│ 👑 Parth Patil      — Team Leader & Backend Dev     (Backend Architecture & APIs)      │
-│ 🎨 Aditi Vispute    — UI/UX Designer & Frontend Dev (3D Universe, Bento UI & Gauge)    │
-│ 📊 Suyog Pawar      — Docs Handler                  (Technical Specs & Feasibility)    │
-│ 🔍 Sanika Bodhnawar — Researcher & Integration Lead (Skill Taxonomies & Telemetry)     │
+│ 👑 Parth Patil      - Team Leader & Backend Dev     (Backend Architecture & APIs)      │
+│ 🎨 Aditi Vispute    - UI/UX Designer & Frontend Dev (3D Universe, Bento UI & Gauge)    │
+│ 📊 Suyog Pawar      - Docs Handler                  (Technical Specs & Feasibility)    │
+│ 🔍 Sanika Bodhnawar - Researcher & Integration Lead (Skill Taxonomies & Telemetry)     │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -33,8 +33,8 @@
 * 🌐 **Production Web Application:** `https://careerpath-ai-jade.vercel.app`
 * ⚡ **Production REST API Gateway:** `https://careerpath-ai-bdbt.onrender.com`
 * 🩺 **Backend Health & Telemetry:** `https://careerpath-ai-bdbt.onrender.com/api/health`
-* 🔑 **1-Click Demo Student:** `demouser@gmail.com` • Password: `demo123` *(Pre-seeded with verified skills & active roadmap)*
-* 🏢 **1-Click Demo Recruiter:** `recruiter@razorpay.com` • Password: `demo123` *(Pre-seeded corporate verified company & job openings)*
+* 🔑 **1-Click Demo Student:** `demouser@gmail.com` • *(Protected via 1-Click Sandbox)* *(Pre-seeded with verified skills & active roadmap)*
+* 🏢 **1-Click Demo Recruiter:** `recruiter@razorpay.com` • *(Protected via 1-Click Sandbox)* *(Pre-seeded corporate verified company & job openings)*
 * 🎬 **Official Demo Walkthrough Video:** `https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing`
 * 📊 **Official Pitch Deck Slides:** `https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing`
 * 🤖 **Official AI Usage Disclosure:** Rulebook-compliant assistive coding (LLMs utilized for boilerplate scaffolding; all math engines, MongoDB schemas, RBAC guards, and security gates are 100% team-authored).
@@ -44,7 +44,7 @@
 ## 📌 SLIDE 2: IDEA TITLE
 ### Proposed Solution (Describe your Idea/Solution/Prototype)
 
-**Idea Title:** `CareerPath AI — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`
+**Idea Title:** `CareerPath AI - Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`
 
 ### • Detailed explanation of the proposed solution:
 
@@ -144,9 +144,9 @@ flowchart TD
     RAW[/Student Claimed Profile: 76+ Standardized Skills/]:::input
     RAW ==> ENGINE{Two-Factor Verification Engine}
 
-    ENGINE ==>|Code AST + Quiz Confirmed| GREEN[\🟢 GREEN: MATCHED SKILLS<br/>HTML, CSS, JS, React — Direct Job Ready/]:::ready
-    ENGINE ==>|Partial Proof / Low Confidence| YELLOW[\🟡 YELLOW: UPGRADE SKILLS<br/>TypeScript, Git, SQL — Targeted Practice/]:::upgrade
-    ENGINE ==>|Zero Evidence / Industry Required| RED[\🔴 RED: MISSING BOTTLENECK<br/>Docker, CI/CD, K8s — Weekly Roadmaps/]:::missing
+    ENGINE ==>|Code AST + Quiz Confirmed| GREEN[\🟢 GREEN: MATCHED SKILLS<br/>HTML, CSS, JS, React - Direct Job Ready/]:::ready
+    ENGINE ==>|Partial Proof / Low Confidence| YELLOW[\🟡 YELLOW: UPGRADE SKILLS<br/>TypeScript, Git, SQL - Targeted Practice/]:::upgrade
+    ENGINE ==>|Zero Evidence / Industry Required| RED[\🔴 RED: MISSING BOTTLENECK<br/>Docker, CI/CD, K8s - Weekly Roadmaps/]:::missing
 ```
 
 * **Halts Resume Inflation:** **Canonical Skill Evidence Ledger** (`/api/skills/evidence`) locks resume upload until skills have verifiable proof-of-work.
@@ -265,7 +265,7 @@ flowchart TD
 
 ### • Analysis of the feasibility of the idea:
 
-#### 🍱 MODERN BENTO GRID — Unit Economics & Operational Feasibility
+#### 🍱 MODERN BENTO GRID - Unit Economics & Operational Feasibility
 ```
  ┌──────────────────────────────────────┬────────────────────────────────────────────────────────┐
  │ 🏗️ TECHNICAL FEASIBILITY             │ 💰 UNIT ECONOMICS & HOSTING COSTS                      │
@@ -278,9 +278,9 @@ flowchart TD
  ├──────────────────────────────────────┴────────────────────────────────────────────────────────┤
  │ 📈 B2B2C COMMERCIAL VIABILITY & MONETIZATION FLYWHEEL                                          │
  │ ┌───────────────────────────────────┬────────────────────────────────────────────────────────┐│
- │ │ 🎓 Student Access (Viral Adoption) │ 100% FREE ALWAYS — Zero barrier for 1.5M+ engineers    ││
+ │ │ 🎓 Student Access (Viral Adoption) │ 100% FREE ALWAYS - Zero barrier for 1.5M+ engineers    ││
  │ ├───────────────────────────────────┼────────────────────────────────────────────────────────┤│
- │ │ 🏛️ College TPO SaaS License        │ ₹1.5L – ₹3.5L / year per college (NAAC/NIRF Analytics) ││
+ │ │ 🏛️ College TPO SaaS License        │ ₹1.5L - ₹3.5L / year per college (NAAC/NIRF Analytics) ││
  │ ├───────────────────────────────────┼────────────────────────────────────────────────────────┤│
  │ │ 🏢 Recruiter Talent Pass          │ ₹24,999 / month (Pre-screened verified talent pipeline)││
  │ └───────────────────────────────────┴────────────────────────────────────────────────────────┘│
@@ -298,7 +298,7 @@ flowchart TD
     classDef core fill:#059669,stroke:#34D399,stroke-width:3px,color:#FFFFFF,font-weight:bold;
 
     WALL1[/OUTER PERIMETER: Network &amp; DDoS Shield<br/>Express-Rate-Limit 50req/15min + Helmet OWASP Security Headers/]:::ring1
-    WALL2[/LAYER 2: Binary Magic-Byte Inspection Wall<br/>Checks Hex Buffers %PDF- and PK.. — Blocks Renamed .exe Malware/]:::ring2
+    WALL2[/LAYER 2: Binary Magic-Byte Inspection Wall<br/>Checks Hex Buffers %PDF- and PK.. - Blocks Renamed .exe Malware/]:::ring2
     WALL3[/LAYER 3: Authentication &amp; RBAC Bastion<br/>Stateless JWT Tokens + Strict Portal Isolation 403 Guards/]:::ring3
     CORE{{💎 INNER CITADEL: Database Concurrency Invariant<br/>MongoDB Partial Unique Index: user: 1, status: active<br/>Zero Race Conditions · Zero Tutorial Hopping}}:::core
 
@@ -384,7 +384,7 @@ flowchart LR
   * **Democratizing Career Guidance:** Over 65% of Indian technical colleges lack dedicated career counselors; CareerPath AI gives every student high-precision, individualized career mentoring for free.
   * Drastically reduces final-year placement anxiety, career mismatch depression, and engineering dropouts.
 * **Economic Benefits:**
-  * Bridges the national graduate-industry gap, elevating starting CTC packages from ₹3.5 LPA to ₹8–₹14+ LPA.
+  * Bridges the national graduate-industry gap, elevating starting CTC packages from ₹3.5 LPA to ₹8-₹14+ LPA.
   * Connects recruiters directly to pre-assessed candidates, slashing recruitment agency spending by 60%.
 * **Environmental & Sustainable Benefits:**
   * 100% digital, paperless roadmap tracking with 1-click clean PDF export.
@@ -421,7 +421,7 @@ flowchart TD
  ══════════════════════════════════════════════════════════════════════════════════════════════════════════
   [1. EMPLOYABILITY REPORTS] ─────────► Aspiring Minds / SHL: <20% graduates directly hireable
   [2. EXPLAINABLE AI (XAI-Ed)] ───────► Research: Transparent math yields 4x higher learner trust
-  [3. LABOR MARKET TELEMETRY] ────────► Adzuna Developer API: Real-time ₹3.5L–₹14L+ CTC & Vacancies
+  [3. LABOR MARKET TELEMETRY] ────────► Adzuna Developer API: Real-time ₹3.5L-₹14L+ CTC & Vacancies
   [4. STANDARDIZED CURRICULA] ────────► roadmap.sh, IEEE Computer Society, MDN Web Docs, Google web.dev
  ══════════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
@@ -433,4 +433,4 @@ flowchart TD
 * 📊 **Official Pitch Deck Slides:** `https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing`
 * 🏢 **Recruiter Portal & Radar:** `https://careerpath-ai-jade.vercel.app/recruiter-dashboard.html`
 * 💼 **Live Recruiter Job Board:** `https://careerpath-ai-jade.vercel.app/jobs.html`
-* 🏆 **Hackathon Registration:** Hack 2 Ignite on Unstop — G.H. Raisoni International Skill Tech University, Pune.
+* 🏆 **Hackathon Registration:** Hack 2 Ignite on Unstop - G.H. Raisoni International Skill Tech University, Pune.

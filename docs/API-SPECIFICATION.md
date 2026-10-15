@@ -1,6 +1,6 @@
-# 🔌 CareerPath AI — REST API Reference Specification
+# 🔌 CareerPath AI - REST API Reference Specification
 
-> **🏆 Hack2Ignite 2026–27 · Official Submission**  
+> **🏆 Hack2Ignite 2026-27 · Official Submission**  
 > **Base Production URL:** `https://careerpath-ai-bdbt.onrender.com`  
 > **Base Local Development URL:** `http://localhost:5000`  
 > **Authentication:** Bearer JWT in `Authorization` header (`Bearer <token>`)  
@@ -61,7 +61,7 @@
 ```json
 {
   "email": "demouser@gmail.com",
-  "password": "demo123"
+  "password": "••••••••"
 }
 ```
 - **Response `200 OK`:**
@@ -226,7 +226,7 @@
         "interestScore": 20.0,
         "academicScore": 11.5
       },
-      "salaryRange": "₹4.5 LPA – ₹9.5 LPA",
+      "salaryRange": "₹4.5 LPA - ₹9.5 LPA",
       "skillGap": {
         "matched": ["JavaScript", "HTML", "CSS"],
         "upgradeNeeded": ["React"],
@@ -554,7 +554,7 @@
     "maxSalary": 1200000,
     "averageSalary": 780000,
     "currency": "INR",
-    "formattedRange": "₹4.5 LPA – ₹12.0 LPA"
+    "formattedRange": "₹4.5 LPA - ₹12.0 LPA"
   },
   "listings": [
     {
@@ -562,7 +562,7 @@
       "title": "Full Stack Engineer (MERN)",
       "company": "Infosys",
       "location": "Bengaluru, Karnataka",
-      "salary": "₹6.5 LPA – ₹8.5 LPA",
+      "salary": "₹6.5 LPA - ₹8.5 LPA",
       "applyUrl": "https://..."
     }
   ]
@@ -863,7 +863,7 @@
       "title": "Frontend Engineer (React / TypeScript)",
       "companyName": "Razorpay Software Ltd",
       "workplace": "hybrid",
-      "salaryRange": "₹8.0 LPA – ₹14.0 LPA",
+      "salaryRange": "₹8.0 LPA - ₹14.0 LPA",
       "matchScore": 96,
       "companyVerificationBadge": "✓ Verified Enterprise Employer",
       "hasApplied": false

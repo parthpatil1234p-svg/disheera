@@ -1600,7 +1600,7 @@ In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the I
 | **Grievance Redressal Officer** | **Parth Patil** |
 | **Institutional Affiliation** | G.H. Raisoni College of Engineering and Management (GHRCEM) |
 | **Campus / Postal Location** | Gat No. 57/1, Shirsoli Road, Mohadi, Jalgaon - 425002, Maharashtra, India |
-| **Official Statutory Email** | **`parthpatil@careerpath.is-local.org`** &nbsp;•&nbsp; Alternate: `parthpatil1234p@gmail.com` |
+| **Official Statutory Email** | **`parthpatil@careerpath.is-local.org`**  |
 | **Official WhatsApp Support Desk** | **`+91 74990 85045`** *(WhatsApp Chat Only · Voice Calls Disabled)* |
 | **First Acknowledgment SLA** | Within **24 hours** of ticket receipt |
 | **Statutory Resolution SLA** | Expedited resolution within **30 days** as mandated by the DPDP Act 2023 |
@@ -1622,7 +1622,7 @@ CareerPath AI ships with four beautifully styled, production-ready legal and gov
 3. **Security Architecture & Trust (`client/security.html`):**
    - Detailed breakdown of platform defense-in-depth: TLS 256-bit encryption, Supabase PostgreSQL network boundaries, stateless JWT authentication, and Bcryptjs password hashing.
    - 4-Tier Recruiter Verification Gate: 60+ Webmail Blacklist, DNS MX resolution, HTTP live website probing, and corporate OTP validation.
-   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil1234p@gmail.com`.
+   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil@careerpath.is-local.org`.
 4. **Support & Statutory Grievance Desk (`client/support.html`):**
    - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`+91 74990 85045`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
 

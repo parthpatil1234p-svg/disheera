@@ -1,26 +1,26 @@
-# Official Hackathon Demo Script — Golden Path Walkthrough (3-Minute Evaluator Guide)
+# Official Hackathon Demo Script - Golden Path Walkthrough (3-Minute Evaluator Guide)
 
-> **🏆 Hack2Ignite 2026–27 · Team 404 Brain Not Found**  
+> **🏆 Hack2Ignite 2026-27 · Team 404 Brain Not Found**  
 > **Problem Statement ID:** ED-02 (AI Career Guidance and Skill Roadmap Platform)  
-> **Presenter / Speaker Guide:** 3–4 Minute Live Prototype Demonstration
+> **Presenter / Speaker Guide:** 3-4 Minute Live Prototype Demonstration
 
 ---
 
 ## ⏱️ Live Demonstration Timeline & Speaking Notes
 
-### 🎬 Minute 0:00 – 0:35 · Hook & Frictionless Authentication
+### 🎬 Minute 0:00 - 0:35 · Hook & Frictionless Authentication
 - **Action:** Open landing page at `http://localhost:5500/index.html` (or [live Vercel URL](https://careerpath-ai-jade.vercel.app)).
 - **What to show:**
   1. Highlight the **CareerPath AI** headline and EduTech positioning: *"Discover Your Career. Bridge Your Skill Gaps. Build Your Future."*
   2. Point out the interactive **Three.js 3D Career Universe** constellation (and instant 2D fallback).
   3. Click **"Get Started"** to navigate to `/login.html`.
-  4. Click the purple button: **"⚡ 1-Click Fill Demo Account"** (`demouser@gmail.com` / `demo123`) and hit **Login**.
+  4. Click the purple button: **"⚡ 1-Click Fill Demo Account"** (1-Click Passwordless Auto-Fill on `/login.html`) and hit **Login**.
 - **Speaker Script:**
-  > *"Respected judges, every year over 1.5 million engineers graduate in India, but more than 80% struggle to meet industry hiring benchmarks because of generic advice and self-reported resume inflation. Today, we present CareerPath AI — an explainable, code-grounded career navigation engine."*
+  > *"Respected judges, every year over 1.5 million engineers graduate in India, but more than 80% struggle to meet industry hiring benchmarks because of generic advice and self-reported resume inflation. Today, we present CareerPath AI - an explainable, code-grounded career navigation engine."*
 
 ---
 
-### 🎬 Minute 0:35 – 1:15 · Assessment & Auth-Based GitHub Repository Sync
+### 🎬 Minute 0:35 - 1:15 · Assessment & Auth-Based GitHub Repository Sync
 - **Action:** Navigate to `/assessment.html`.
 - **What to show:**
   1. Show academic profile inputs (Course: B.Tech, Year: Third Year, Primary Stream: Tech & Engineering).
@@ -34,7 +34,7 @@
 
 ---
 
-### 🎬 Minute 1:15 – 1:55 · Adaptive Skill Reality-Check Micro-Quiz
+### 🎬 Minute 1:15 - 1:55 · Adaptive Skill Reality-Check Micro-Quiz
 - **Action:** Click **"Take Reality-Check Quiz"** or navigate to `/quiz.html`.
 - **What to show:**
   1. Show the **Provider Switcher / BYOK Modal**: point out that judges can toggle between **Groq Llama 3.3 70B** (<300ms speed), **Google Gemini 2.5 Flash**, or enter their own API key.
@@ -47,11 +47,11 @@
 
 ---
 
-### 🎬 Minute 1:55 – 2:35 · Explainable Recommendations & "Lock Enrolling, Never Browsing"
+### 🎬 Minute 1:55 - 2:35 · Explainable Recommendations & "Lock Enrolling, Never Browsing"
 - **Action:** Navigate to `/recommendations.html`.
 - **What to show:**
   1. Point out the **Top 3 Recommended Careers** (e.g., Full Stack Developer, DevOps Engineer, Data Scientist) scoped to their **Primary Stream**.
-  2. Highlight the **60/25/15 Mathematical Breakdown**: 60% Skill Match, 25% Interest Overlap, 15% Academic Alignment — zero hallucinations.
+  2. Highlight the **60/25/15 Mathematical Breakdown**: 60% Skill Match, 25% Interest Overlap, 15% Academic Alignment - zero hallucinations.
   3. Show the **Tri-Color Skill Gap Matrix**:
      - 🟢 **Matched Skills** (with verified badges)
      - 🟡 **Proficiency Upgrades**
@@ -65,7 +65,7 @@
 
 ---
 
-### 🎬 Minute 2:35 – 3:15 · Adaptive Roadmap & 4-Rule Job Ready Engine
+### 🎬 Minute 2:35 - 3:15 · Adaptive Roadmap & 4-Rule Job Ready Engine
 - **Action:** Open `/roadmap.html`.
 - **What to show:**
   1. Show week-by-week actionable tasks with verified documentation links. Check off one task to show progress recalculating atomically.
@@ -81,10 +81,10 @@
 
 ---
 
-### 🎬 Minute 3:15 – 3:45 · Student Dashboard & Single Resume per Account
+### 🎬 Minute 3:15 - 3:45 · Student Dashboard & Single Resume per Account
 - **Action:** Open `/dashboard.html`.
 - **What to show:**
-  1. Point out the **Accessible 2D SVG Percentage Progress Gauge** (0–100%).
+  1. Point out the **Accessible 2D SVG Percentage Progress Gauge** (0-100%).
   2. Demonstrate the **Single Resume per Account Manager**:
      - Show the active verified resume card with file size and upload date.
      - Highlight our binary **Magic-Byte Inspector** (`%PDF`, `PK\x03\x04`, `\xD0\xCF\x11\xE0`) preventing fake or malicious file uploads.
