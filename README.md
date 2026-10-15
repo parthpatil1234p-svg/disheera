@@ -143,6 +143,7 @@
     - [17.2 MeitY DPDP Act 2023 Statutory Alignment (Gazette No. 22 of 2023)](#172-meity-dpdp-act-2023-statutory-alignment-gazette-no-22-of-2023)
     - [17.3 Designated Grievance Officer & Redressal Architecture (DPDP s. 8(10))](#173-designated-grievance-officer--redressal-architecture-dpdp-s-810)
     - [17.4 Production Legal & Governance Portal Suite (privacy.html, terms.html, security.html, support.html)](#174-production-legal--governance-portal-suite)
+    - [17.5 Admin, Evaluator & System Credential Protection](#175-admin-evaluator--system-credential-protection)
 18. [⚡ Local Quickstart & Automated Test Suites](#-18-local-quickstart--automated-test-suites)
     - [18.1 Installation & Environment Setup](#181-installation--environment-setup)
     - [18.2 Automated Test & Verification Commands](#182-automated-test--verification-commands)
@@ -168,8 +169,8 @@ CareerPath AI is an enterprise-grade Autonomous Career Guidance & Talent Intelli
 | 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://careerpath-ai-jade.vercel.app/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@careerpath.is-local.org` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
 | ⚖️ **Statutory DPDP Act 2023 Alignment** | **[Gazette No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)** | Full statutory compliance across notice (s. 5), consent (s. 6), breach notification (s. 8(6)), and data principal rights |
 | 📜 **Legal & Governance Suite** | **[`privacy.html`](https://careerpath-ai-jade.vercel.app/privacy.html) · [`terms.html`](https://careerpath-ai-jade.vercel.app/terms.html) · [`security.html`](https://careerpath-ai-jade.vercel.app/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
-| 🔑 **Student Sandbox Account** | **`demouser@gmail.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded with student profile, verified skills & active roadmap *(Dual Sandbox Access enabled)* |
-| 🏢 **Enterprise Recruiter Sandbox** | **`recruiter@razorpay.com`** &nbsp;•&nbsp; Pass: **`demo123`** | Pre-seeded Razorpay verified company, active job posting & candidate applicant radar *(or click 1-Click Demo Recruiter on `/login.html`)* |
+| 🔑 **Student Sandbox Access** | **⚡ 1-Click Student Sandbox** &nbsp;•&nbsp; *Passwordless / Auto-Fill* | Pre-seeded with student profile, verified skills & active roadmap *(Protected via 1-Click Instant Sign-In on `/login.html` · Credentials masked for security)* |
+| 🏢 **Enterprise Recruiter Sandbox** | **⚡ 1-Click Recruiter Sandbox** &nbsp;•&nbsp; *Passwordless / Auto-Fill* | Pre-seeded Razorpay verified company, active job posting & candidate applicant radar *(Protected via 1-Click Demo Recruiter on `/login.html` · Credentials masked for security)* |
 | 🛡️ **Portal Isolation & RBAC** | **Strict Student vs Recruiter Guard** | Dedicated page catalogs, instant client pre-render redirect traps, and backend `requireStudent` / `requireRecruiter` RBAC |
 | 🧭 **Role-Smart Logo Navigation** | **Contextual Home Dispatch** | Clicking brand logo routes recruiters to `/recruiter-dashboard.html`, students to `/dashboard.html`; auto-redirects recruiters visiting `/index.html` unless `?view=public` |
 | 🛡️ **Recruiter Verification & Radar** | **[`/recruiter-dashboard.html`](https://careerpath-ai-jade.vercel.app/recruiter-dashboard.html)** | Real company domain verification, 60+ webmail blacklist, DNS MX resolution, AI trust scoring, opening creation & Applicant Radar with candidate verified badges |
@@ -209,7 +210,7 @@ CareerPath AI is an enterprise-grade Autonomous Career Guidance & Talent Intelli
 
 ### ⏱️ Recommended 3-Minute Platform Tour Walkthrough:
 1. **Landing (`/index.html`):** Experience the streamlined **Floating Notch Island Navigation** (`Platform`, `Solutions`, `For Recruiters`, `Pricing`), explore the interactive **Skill Showcase ("Build with skills employers use")** with 8 live technology guides (React, JS, Python, Node, Figma, SQL, AWS, Git), and review the high-tech live status pill (`AUTONOMOUS CAREER NAVIGATION PLATFORM`). Click **"Start Free"** or **"Start Free Assessment"**.
-2. **Instant Sign-In (`/login.html`):** Click **"⚡ 1-Click Fill Demo Account"** (`demouser@gmail.com` / `demo123`) or Sign In with Google / GitHub.
+2. **Instant Sign-In (`/login.html`):** Click **"⚡ 1-Click Fill Demo Account"** (Passwordless Sandbox Auto-Fill with pre-loaded verified student credentials; sensitive passwords masked) or Sign In with Google / GitHub.
 3. **Assessment (`/assessment.html`):** Click **"Auto-Detect Skills"** in Step 3. Repositories synchronize through the active session, awarding `[✓ Code Verified]` badges.
 4. **Adaptive Reality-Check Quiz (`/quiz.html`):** Test the 5-question micro-assessment powered by Groq Llama 3.3 70B (<300ms) with instant pedagogical feedback. Once completed, verification is permanently saved.
 5. **Explainable Recommendations (`/recommendations.html`):**
@@ -237,7 +238,7 @@ CareerPath AI is an enterprise-grade Autonomous Career Guidance & Talent Intelli
    - Submit a 1-click verified application with the student's dedicated ATS resume and proof-of-work badges.
    - Track application status in real-time under "My Submitted Applications".
 10. **Recruiter Portal & Applicant Radar (`/recruiter-dashboard.html`):**
-    - Sign in via 1-Click **"Demo Recruiter"** (`recruiter@razorpay.com` / `demo123`).
+    - Sign in via 1-Click **"Demo Recruiter"** (Passwordless Sandbox Auto-Fill with pre-verified Razorpay corporate profile; sensitive passwords masked).
     - Inspect real-time corporate validation metrics (Razorpay: 99/100 Trust Score, DNS MX active, live SSL).
     - Post new job openings with required skill criteria and mandatory verification flags.
     - Open the **Applicant Radar**: inspect candidate rankings, view `[✓ Quiz-Verified]` and `[✓ Code-Verified]` badges, and update candidate hiring stages (`Applied` ➔ `Shortlisted` ➔ `Interview Scheduled`).
@@ -580,7 +581,7 @@ To eliminate passive video watching, skipping, scrubbing to the end, background 
 │                                                                                  │
 │   4. POST-VIDEO REFLECTION & AI EVALUATION (Gemini 2.5 Flash / Groq)             │
 │      • At ≥85% watch time, reflection panel unlocks.                             │
-│      • Student writes 2–3 key takeaways; LLM evaluates relevance and depth.      │
+│      • Student writes 2-3 key takeaways; LLM evaluates relevance and depth.      │
 │      • Rejects generic buzzwords and spam; passes with score ≥60%.               │
 │                                                                                  │
 │   5. SERVER-AUTHORITATIVE TASK GATE                                              │
@@ -850,7 +851,7 @@ Every job listing card rendered in the UI features an embedded **"Search on:"** 
 Clicking any badge launches a pre-filtered query for that exact company and job title on the target platform.
 
 ### 9.4 Live Adzuna API Telemetry & ₹ CTC Salary Ranges
-- **Real-Time Indian Salary Benchmarks:** Evaluates live salary percentiles across Bengaluru, Hyderabad, Pune, Mumbai, and Delhi-NCR (e.g. ₹4.5 LPA – ₹14.0 LPA).
+- **Real-Time Indian Salary Benchmarks:** Evaluates live salary percentiles across Bengaluru, Hyderabad, Pune, Mumbai, and Delhi-NCR (e.g. ₹4.5 LPA - ₹14.0 LPA).
 - **Graceful High-Availability Fallback:** If external API quotas expire or the network is unreachable, verified baseline market telemetry automatically activates, ensuring 99.9% uptime during platform demonstrations and live enterprise evaluations.
 
 ---
@@ -908,8 +909,8 @@ How does CareerPath AI determine whether an answer is correct? Rather than relyi
 
 The composite score ($0-100\%$) maps to an industry grade:
 - **Exceptional (≥85%):** Strong hire recommendation; comprehensive depth.
-- **Proficient (70–84%):** Meets technical benchmark; minor omissions in edge cases.
-- **Developing (50–69%):** Basic conceptual grasp; requires depth in trade-offs.
+- **Proficient (70-84%):** Meets technical benchmark; minor omissions in edge cases.
+- **Developing (50-69%):** Basic conceptual grasp; requires depth in trade-offs.
 - **Needs Improvement (<50%):** Superficial answer or conceptual inaccuracies.
 
 ### 10.4 Side-by-Side Model Answer Benchmarking
@@ -1040,7 +1041,7 @@ To guarantee absolute professional boundaries between hiring companies and stude
    - If a recruiter account enters any student-only page, they are instantly redirected via `window.location.replace('recruiter-dashboard.html')` with an explanatory session flash notification (`consumePortalAlert()`).
    - If a student account attempts to access the recruiter hub, they are instantly redirected to `dashboard.html`.
 3. **Dual Access Demo Sandbox Privilege:**
-   - The platform demonstration account (`demouser@gmail.com`) has dual sandbox access, allowing evaluators, university partners, and recruiters to inspect both student workflows and applicant radars without switching logins.
+   - The pre-configured demonstration sandbox account (accessible via the 1-Click Sandbox button) has dual evaluation access, allowing evaluators, university partners, and recruiters to inspect both student workflows and applicant radars without switching logins or exposing administrative credentials.
 4. **Server-Side Authorization Enforcers (`authMiddleware.js`):**
    - `requireStudent`: Inspects `req.user.role`. Rejects corporate recruiters with `403 RECRUITER_ACCESS_DENIED`.
    - `requireRecruiter`: Enforces `user.role === 'recruiter' || user.canPostJobs`. Rejects students with `403 STUDENT_ACCESS_DENIED`.
@@ -1205,7 +1206,7 @@ For older student accounts created prior to mandatory dual verification:
    - `POST /api/users/link-phone/send-otp`: Generates 6-digit WhatsApp OTP, stores in `user.verificationOtp`, dispatches via `whatsappService`.
    - `POST /api/users/link-phone/verify-otp`: Validates OTP against stored hash, links `user.phone`, clears pending verification, and unlocks the student portal.
 4. **Safe Sandbox & Evaluation Exemptions:**
-   - Authorized evaluation accounts (`demouser@gmail.com`) and corporate recruiters are exempt to allow uninterrupted testing.
+   - Authorized evaluation sandbox accounts and corporate recruiters are exempt to allow uninterrupted testing.
 
 ### 12.7 Autonomous n8n Workflow Integration (Job Alerts & Candidate Telemetry)
 CareerPath AI includes a production-ready **n8n Workflow Blueprint (`CareerPath_AI_Job_Alerts_n8n.json`)** to automate outbound student and recruiter touchpoints:
@@ -1625,6 +1626,17 @@ CareerPath AI ships with four beautifully styled, production-ready legal and gov
 4. **Support & Statutory Grievance Desk (`client/support.html`):**
    - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`+91 74990 85045`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
 
+
+### 17.5 Admin, Evaluator & System Credential Protection
+In strict compliance with Zero-Trust Security principles and DPDP Act 2023 Section 8(5) safeguards:
+1. **Zero Secret Leakage in Documentation:**
+   - Administrative master credentials, superuser passwords, internal database connection strings, JWT secrets, and private cloud API tokens are strictly excluded from all public repositories and documentation.
+2. **Passwordless Sandbox Testing for Evaluators:**
+   - Live testing of both student and corporate recruiter flows is facilitated exclusively through safe, pre-authenticated 1-Click Sandbox buttons directly on `/login.html`. Evaluators do not need to enter or handle raw administrative credentials.
+3. **Defense-in-Depth Authentication:**
+   - Evaluator and administrative privileges are verified via cryptographically signed, stateless JSON Web Tokens (JWT) and role-based guards (`requireStudent`, `requireRecruiter`, `requireVerifiedRecruiter`).
+   - Plaintext passwords never traverse client networks unhashed; all user credentials use 10-round salted Bcryptjs hashing.
+
 ---
 
 ## ⚡ 18. Local Quickstart & Automated Test Suites
@@ -1926,4 +1938,4 @@ CareerPath AI was founded by an engineering-first team dedicated to solving the 
 - **Official Enterprise Domain:** **[https://careerpath.is-local.org](https://careerpath.is-local.org)**
 - **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@careerpath.is-local.org) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
 - **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE), free for educational and non-commercial institutional research.
-- **Copyright:** © 2026–2027 CareerPath AI Technologies Inc. All rights reserved.
+- **Copyright:** © 2026-2027 CareerPath AI Technologies Inc. All rights reserved.
