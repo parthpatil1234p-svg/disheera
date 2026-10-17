@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DheePath — Seva First Innovation Challenge (SFIC 2026) Architecture & Flow Charts</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131b2e;
+            --bg-card: #1c253b;
+            --accent-purple: #8b5cf6;
+            --accent-teal: #14b8a6;
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            padding: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border-radius: 16px;
+            border: 1px solid #3730a3;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            border: 1px solid #8b5cf6;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #a5b4fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.75rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #e2e8f0;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            background: #1e293b;
+            color: var(--text-muted);
+            border: 1px solid #334155;
+        }
+
+        /* SVG Flowchart Styling */
+        .svg-container {
+            width: 100%;
+            overflow-x: auto;
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid #1e293b;
+        }
+
+        svg {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Metro Line Grid */
+        .metro-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        @media (max-width: 1024px) {
+            .metro-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .metro-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .station-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.25rem;
+            border-top: 4px solid var(--accent-purple);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .station-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .station-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin-bottom: 0.35rem;
+        }
+
+        .station-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+
+        .station-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Comparison / Pillars Grid */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pillar-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .pillar-rule {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            background: rgba(245, 158, 11, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-text {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .banner-seva {
+            background: linear-gradient(90deg, #1e3a8a, #065f46);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-copy {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .btn-copy:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Government of India · AICTE & Ministry of Education Innovation Cell (MIC)</div>
+            <h1>SEVA FIRST INNOVATION CHALLENGE (SFIC 2026)</h1>
+            <p class="subtitle">Theme: <strong>Educated, Skilled, and Secure Bharat</strong> | Viksit Bharat @ 2047 Initiative<br>
+            Project: <strong>DheePath</strong> — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform</p>
+        </header>
+
+        <!-- CHART 1: END-TO-END IMPLEMENTATION FLOWCHART -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>📊 Chart 1: End-to-End System Methodology & Implementation Flowchart</span>
+                </div>
+                <span class="tag">Slide 3 Core Deliverable: Flow Charts / Images / Prototype</span>
+            </div>
+            
+            <p style="color: var(--text-muted); margin-bottom: 1.25rem; font-size: 0.95rem;">
+                Official end-to-end dataflow showing how Indian youth (Tier-2/3 colleges, ITIs, polytechnics) are onboarded, verified with proof-of-work, diagnosed through transparent mathematics, and connected directly to verified employment.
+            </p>
+
+            <div class="svg-container">
+                <svg viewBox="0 0 1200 480" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4c1d95" />
+                            <stop offset="100%" stop-color="#31104b" />
+                        </linearGradient>
+                        <linearGradient id="gradTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0f766e" />
+                            <stop offset="100%" stop-color="#042f2e" />
+                        </linearGradient>
+                        <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#b45309" />
+                            <stop offset="100%" stop-color="#451a03" />
+                        </linearGradient>
+                        <linearGradient id="gradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#15803d" />
+                            <stop offset="100%" stop-color="#052e16" />
+                        </linearGradient>
+                        <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#1d4ed8" />
+                            <stop offset="100%" stop-color="#172554" />
+                        </linearGradient>
+                        <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+                            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+                        </filter>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+                        </marker>
+                        <marker id="arrowGold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Background Grid Lines -->
+                    <line x1="50" y1="120" x2="1150" y2="120" stroke="#1e293b" stroke-dasharray="4"/>
+                    <line x1="50" y1="360" x2="1150" y2="360" stroke="#1e293b" stroke-dasharray="4"/>
+
+                    <!-- ROW 1: INGESTION TO GAP MATRIX -->
+                    <!-- Box 1: Student Intake -->
+                    <g filter="url(#shadow)">
+                        <rect x="50" y="60" width="230" height="110" rx="10" fill="url(#gradPurple)" stroke="#8b5cf6" stroke-width="2"/>
+                        <text x="165" y="90" fill="#c4b5fd" font-size="12" font-weight="700" text-anchor="middle">STEP 1: MASS ONBOARDING</text>
+                        <text x="165" y="112" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">Student Profile &amp; Intake</text>
+                        <text x="165" y="132" fill="#cbd5e1" font-size="11" text-anchor="middle">ITIs, Poly, Tier-2/3 Colleges</text>
+                        <text x="165" y="150" fill="#94a3b8" font-size="10" text-anchor="middle">76+ NCVET/NSQF Mapped Skills</text>
+                    </g>
+
+                    <!-- Arrow 1 to 2 -->
+                    <line x1="280" y1="115" x2="330" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Box 2: Two-Factor Verification -->
+                    <g filter="url(#shadow)">
+                        <rect x="340" y="60" width="240" height="110" rx="10" fill="url(#gradBlue)" stroke="#60a5fa" stroke-width="2"/>
+                        <text x="460" y="90" fill="#93c5fd" font-size="12" font-weight="700" text-anchor="middle">STEP 2: ZERO-DELUSION PROOF</text>
+                        <text x="460" y="112" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">Two-Factor Verification</text>
+                        <text x="460" y="132" fill="#e2e8f0" font-size="11" text-anchor="middle">Factor 1: GitHub AST Telemetry</text>
+                        <text x="460" y="150" fill="#e2e8f0" font-size="11" text-anchor="middle">Factor 2: Groq LPU Micro-Quiz (&lt;300ms)</text>
+                    </g>
+
+                    <!-- Arrow 2 to 3 -->
+                    <line x1="580" y1="115" x2="630" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Box 3: 60/25/15 Engine -->
+                    <g filter="url(#shadow)">
+                        <rect x="640" y="60" width="240" height="110" rx="10" fill="url(#gradGold)" stroke="#f59e0b" stroke-width="2"/>
+                        <text x="760" y="90" fill="#fde68a" font-size="12" font-weight="700" text-anchor="middle">STEP 3: TRANSPARENT XAI-ED</text>
+                        <text x="760" y="112" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">60/25/15 Math Engine</text>
+                        <text x="760" y="132" fill="#fef3c7" font-size="11" text-anchor="middle">(0.60·S) + (0.25·I) + (0.15·A)</text>
+                        <text x="760" y="150" fill="#fde68a" font-size="10" text-anchor="middle">Zero Black-Box Bias · &lt;50ms latency</text>
+                    </g>
+
+                    <!-- Arrow 3 to 4 -->
+                    <line x1="880" y1="115" x2="930" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Box 4: Tri-Color Gap Matrix -->
+                    <g filter="url(#shadow)">
+                        <rect x="940" y="60" width="220" height="110" rx="10" fill="url(#gradTeal)" stroke="#14b8a6" stroke-width="2"/>
+                        <text x="1050" y="90" fill="#99f6e4" font-size="12" font-weight="700" text-anchor="middle">STEP 4: DIAGNOSTIC AUDIT</text>
+                        <text x="1050" y="112" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">Tri-Color Gap Matrix</text>
+                        <text x="1050" y="132" fill="#a7f3d0" font-size="11" text-anchor="middle">🟢 Ready · 🟡 Upgrade · 🔴 Missing</text>
+                        <text x="1050" y="150" fill="#99f6e4" font-size="10" text-anchor="middle">Instant Objective Blindspot Detection</text>
+                    </g>
+
+                    <!-- VERTICAL CONNECTOR: ROW 1 TO ROW 2 -->
+                    <path d="M 1050 170 L 1050 240 L 1050 300" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowGold)"/>
+                    <rect x="990" y="215" width="120" height="26" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+                    <text x="1050" y="232" fill="#fcd34d" font-size="10" font-weight="bold" text-anchor="middle">ACTIONABLE ROUTE</text>
+
+                    <!-- ROW 2: EXECUTION TO VIKSIT BHARAT PLACEMENT (REVERSE DIRECTION) -->
+                    <!-- Box 5: Roadmap & Video Dedication -->
+                    <g filter="url(#shadow)">
+                        <rect x="940" y="310" width="220" height="110" rx="10" fill="url(#gradPurple)" stroke="#a855f7" stroke-width="2"/>
+                        <text x="1050" y="340" fill="#d8b4fe" font-size="12" font-weight="700" text-anchor="middle">STEP 5: SKILL REMEDIATION</text>
+                        <text x="1050" y="362" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">Synergized Roadmaps</text>
+                        <text x="1050" y="382" fill="#cbd5e1" font-size="11" text-anchor="middle">Anti-Scrub Video Chamber</text>
+                        <text x="1050" y="400" fill="#cbd5e1" font-size="10" text-anchor="middle">1-Click Offline PDF Study Guides</text>
+                    </g>
+
+                    <!-- Arrow 5 to 6 -->
+                    <line x1="940" y1="365" x2="890" y2="365" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Box 6: AI Mock Interview & ATS -->
+                    <g filter="url(#shadow)">
+                        <rect x="640" y="310" width="240" height="110" rx="10" fill="url(#gradBlue)" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="760" y="340" fill="#bfdbfe" font-size="12" font-weight="700" text-anchor="middle">STEP 6: INDUSTRY REHEARSAL</text>
+                        <text x="760" y="362" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">AI Resume &amp; Mock Viva</text>
+                        <text x="760" y="382" fill="#e2e8f0" font-size="11" text-anchor="middle">Magic-Byte PDF ATS Parser</text>
+                        <text x="760" y="400" fill="#bfdbfe" font-size="10" text-anchor="middle">Adaptive AI Technical Interviewer</text>
+                    </g>
+
+                    <!-- Arrow 6 to 7 -->
+                    <line x1="640" y1="365" x2="590" y2="365" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Box 7: Recruiter Radar -->
+                    <g filter="url(#shadow)">
+                        <rect x="340" y="310" width="240" height="110" rx="10" fill="url(#gradTeal)" stroke="#2dd4bf" stroke-width="2"/>
+                        <text x="460" y="340" fill="#99f6e4" font-size="12" font-weight="700" text-anchor="middle">STEP 7: CORPORATE ACCESS</text>
+                        <text x="460" y="362" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">Recruiter Talent Radar</text>
+                        <text x="460" y="382" fill="#ccfbf1" font-size="11" text-anchor="middle">Verified Corporate Domain Auth</text>
+                        <text x="460" y="400" fill="#99f6e4" font-size="10" text-anchor="middle">96% AI Match · Direct 1-Click Hire</text>
+                    </g>
+
+                    <!-- Arrow 7 to 8 -->
+                    <line x1="340" y1="365" x2="290" y2="365" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Box 8: Viksit Bharat Outcome -->
+                    <g filter="url(#shadow)">
+                        <rect x="50" y="310" width="230" height="110" rx="10" fill="url(#gradGreen)" stroke="#4ade80" stroke-width="2"/>
+                        <text x="165" y="340" fill="#bbf7d0" font-size="12" font-weight="700" text-anchor="middle">STEP 8: SEVA &amp; PUBLIC GOOD</text>
+                        <text x="165" y="362" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">Viksit Bharat Placement</text>
+                        <text x="165" y="382" fill="#dcfce7" font-size="11" text-anchor="middle">HMAC Verifiable Credential</text>
+                        <text x="165" y="400" fill="#86efac" font-size="10" font-weight="bold" text-anchor="middle">Elevating ₹3.5L to ₹8L–₹14L CTC</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="banner-seva">
+                <div>
+                    <strong>🇮🇳 Seva Alignment:</strong> Eliminates the ₹50,000+ commercial coaching barrier for Tier-2, Tier-3, and rural engineering & diploma students by delivering free, high-precision AI career guidance.
+                </div>
+            </div>
+        </div>
+
+        <!-- CHART 2: THE CAREER GPS TRANSIT METRO LINE -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>🚇 Chart 2: The "Career GPS" Subway Transit Line (Youth Mobility Route)</span>
+                </div>
+                <span class="tag">Disciplined Journey from Confusion to Placement</span>
+            </div>
+
+            <div class="metro-grid">
+                <div class="station-card" style="border-top-color: #8b5cf6;">
+                    <div class="station-num">STATION 1</div>
+                    <div class="station-name">🚉 Campus Junction</div>
+                    <div class="station-desc">Universal intake of college students & polytechnic trainees. Ingests academic records, interests, and 76+ candidate skills.</div>
+                </div>
+
+                <div class="station-card" style="border-top-color: #3b82f6;">
+                    <div class="station-num">STATION 2</div>
+                    <div class="station-name">🚉 Proof Terminal</div>
+                    <div class="station-desc">Two-Factor proof: Scans public GitHub repositories for code AST, then administers sub-300ms Groq LPU micro-quizzes.</div>
+                </div>
+
+                <div class="station-card" style="border-top-color: #f59e0b;">
+                    <div class="station-num">STATION 3</div>
+                    <div class="station-name">🔀 Central Interchange</div>
+                    <div class="station-desc">Deterministic 60/25/15 scoring engine calculates exact career fit in &lt;50ms. Zero neural black-box bias; full auditability.</div>
+                </div>
+
+                <div class="station-card" style="border-top-color: #14b8a6;">
+                    <div class="station-num">STATION 4</div>
+                    <div class="station-name">🚉 Diagnostic Hub</div>
+                    <div class="station-desc">Tri-Color Skill Gap Matrix categorizes capabilities into Green (Ready), Yellow (Upgrade), and Red (Missing Bottleneck).</div>
+                </div>
+
+                <div class="station-card" style="border-top-color: #a855f7;">
+                    <div class="station-num">STATION 5</div>
+                    <div class="station-name">🚉 Milestone Corridor</div>
+                    <div class="station-desc">Curated 4/8/12-week roadmaps. Video dedication guard prevents scrub-skipping; 1-click printable PDF study guides.</div>
+                </div>
+
+                <div class="station-card" style="border-top-color: #10b981;">
+                    <div class="station-num">STATION 6</div>
+                    <div class="station-name">🏁 Grand Terminal</div>
+                    <div class="station-desc">Corporate Recruiter Radar. Verified companies discover pre-assessed candidates with 96% AI match scoring & direct hire.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHART 3: 4-PILLAR INDUSTRY READINESS CERTIFICATION -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>🏛️ Chart 3: The 4-Pillar Temple of Industry Job Readiness</span>
+                </div>
+                <span class="tag">Strict Objective Standards for Digital Credential Issuance</span>
+            </div>
+
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                In the spirit of national standardisation, DheePath mandates that students satisfy all four objective gates before earning a verified Job-Ready digital certificate:
+                <br>
+                <code style="color: var(--accent-gold); font-size: 0.95rem;">JobReady = (Score ≥ 70%) ∧ (VerifiedSkills ≥ 4) ∧ (RoadmapProgress ≥ 80%) ∧ (ExpiredSkills = 0)</code>
+            </p>
+
+            <div class="grid-4">
+                <div class="pillar-box">
+                    <div class="pillar-icon">📐</div>
+                    <div class="pillar-title">PILLAR 1</div>
+                    <div class="pillar-rule">Score ≥ 70%</div>
+                    <div class="pillar-text">Deterministic 60/25/15 calculation combines verified skill proficiency, personal interests, and academic baseline.</div>
+                </div>
+
+                <div class="pillar-box">
+                    <div class="pillar-icon">💎</div>
+                    <div class="pillar-title">PILLAR 2</div>
+                    <div class="pillar-rule">Verified Skills ≥ 4</div>
+                    <div class="pillar-text">Must have at least 4 role-critical core skills backed by GitHub AST Code badges or Groq Quiz badges.</div>
+                </div>
+
+                <div class="pillar-box">
+                    <div class="pillar-icon">📈</div>
+                    <div class="pillar-title">PILLAR 3</div>
+                    <div class="pillar-rule">Progress ≥ 80%</div>
+                    <div class="pillar-text">Must complete minimum 80% of milestone roadmap tasks with anti-scrubbing reflection syntheses.</div>
+                </div>
+
+                <div class="pillar-box">
+                    <div class="pillar-icon">⏱️</div>
+                    <div class="pillar-title">PILLAR 4</div>
+                    <div class="pillar-rule">Expired Skills = 0</div>
+                    <div class="pillar-text">Enforces a 90-day retention half-life to ensure technical currency before entering the recruiter radar.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHART 4: THREE-PHASE NATIONAL IMPLEMENTATION ROADMAP -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>🚀 Chart 4: Three-Phase National Scalability Roadmap (SFIC Feasibility Criterion)</span>
+                </div>
+                <span class="tag">Scalable Execution Plan towards Viksit Bharat @ 2047</span>
+            </div>
+
+            <div class="svg-container">
+                <svg viewBox="0 0 1100 240" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Phase 1 -->
+                    <rect x="40" y="30" width="310" height="170" rx="10" fill="#1e1b4b" stroke="#8b5cf6" stroke-width="2"/>
+                    <rect x="40" y="30" width="310" height="35" rx="10" fill="#4c1d95"/>
+                    <text x="195" y="53" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">PHASE 1: PROTOTYPE &amp; PILOT (M1–M3)</text>
+                    <text x="60" y="90" fill="#e2e8f0" font-size="11" font-weight="600">• GHRISTU &amp; Pune Cluster Pilot (5,000+ Users)</text>
+                    <text x="60" y="115" fill="#94a3b8" font-size="11">• Core 60/25/15 Math Engine &amp; Groq LPU Quiz</text>
+                    <text x="60" y="140" fill="#94a3b8" font-size="11">• Recruiter Portal with DNS MX verification</text>
+                    <text x="60" y="165" fill="#a7f3d0" font-size="11" font-weight="600">• Status: 100% Functional &amp; Deployed Today</text>
+
+                    <!-- Arrow 1 to 2 -->
+                    <line x1="350" y1="115" x2="400" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Phase 2 -->
+                    <rect x="410" y="30" width="310" height="170" rx="10" fill="#0f2b38" stroke="#14b8a6" stroke-width="2"/>
+                    <rect x="410" y="30" width="310" height="35" rx="10" fill="#0f766e"/>
+                    <text x="565" y="53" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">PHASE 2: STATE-WIDE EXPANSION (M4–M6)</text>
+                    <text x="430" y="90" fill="#e2e8f0" font-size="11" font-weight="600">• ITIs &amp; Polytechnic Tier-2/3 Adoption</text>
+                    <text x="430" y="115" fill="#94a3b8" font-size="11">• Institutional TPO Analytics Dashboards</text>
+                    <text x="430" y="140" fill="#94a3b8" font-size="11">• Adzuna live salary telemetry for 15+ cities</text>
+                    <text x="430" y="165" fill="#99f6e4" font-size="11" font-weight="600">• Target: 50,000+ Active Students Guided</text>
+
+                    <!-- Arrow 2 to 3 -->
+                    <line x1="720" y1="115" x2="770" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+
+                    <!-- Phase 3 -->
+                    <rect x="780" y="30" width="290" height="170" rx="10" fill="#143322" stroke="#10b981" stroke-width="2"/>
+                    <rect x="780" y="30" width="290" height="35" rx="10" fill="#15803d"/>
+                    <text x="925" y="53" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">PHASE 3: NATIONAL SCALE (M7–M12)</text>
+                    <text x="800" y="90" fill="#e2e8f0" font-size="11" font-weight="600">• Integration with AICTE &amp; SWAYAM Portals</text>
+                    <text x="800" y="115" fill="#94a3b8" font-size="11">• NCVET / Skill India Digital API Sync</text>
+                    <text x="800" y="140" fill="#94a3b8" font-size="11">• Pan-India Recruiter Talent Exchange</text>
+                    <text x="800" y="165" fill="#86efac" font-size="11" font-weight="600">• Vision: 500,000+ Youth Job-Ready</text>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,11 +1,11 @@
 # Technical Requirements Document (TRD)
-## CareerPath AI — Hack2Ignite 2026–27
+## DheePath — Hack2Ignite 2026–27
 
 ---
 
 ## 1. Technical Architecture & System Overview
 
-CareerPath AI uses a decoupled full-stack architecture with a high-performance vanilla JavaScript client communicating with a Node.js/Express REST API backed by MongoDB Atlas and external intelligence APIs.
+DheePath uses a decoupled full-stack architecture with a high-performance vanilla JavaScript client communicating with a Node.js/Express REST API backed by MongoDB Atlas and external intelligence APIs.
 
 ```
 ┌─────────────────────────────────┐        HTTPS / REST        ┌───────────────────────────────────┐

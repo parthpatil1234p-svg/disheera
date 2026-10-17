@@ -1,4 +1,4 @@
-# 🔌 CareerPath AI - REST API Reference Specification
+# 🔌 DheePath - REST API Reference Specification
 
 > **🏆 Hack2Ignite 2026-27 · Official Submission**  
 > **Base Production URL:** `https://careerpath-ai-bdbt.onrender.com`  

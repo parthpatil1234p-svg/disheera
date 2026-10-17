@@ -1,8 +1,8 @@
-# CareerPath AI — External API Ecosystem & Integration Architecture
+# DheePath — External API Ecosystem & Integration Architecture
 
 > **Hack2Ignite 2026–27 · Round 1 Qualifier**  
 > **Team:** 404 Brain Not Found  
-> **Project:** CareerPath AI (EduTech / AI for Good)  
+> **Project:** DheePath (EduTech / AI for Good)  
 > **Problem Statement ID:** ED-02 (AI-Powered Career Guidance System)  
 > **Document Purpose:** Complete specification of production-integrated and phase-planned external APIs powering real-time career guidance, skill evaluation, automated code verification, and job market telemetry.
 
@@ -10,17 +10,17 @@
 
 ## 🌐 Architecture Overview & Topology
 
-CareerPath AI bridges the gap between academic education and modern industry standards through a resilient multi-API data mesh:
+DheePath bridges the gap between academic education and modern industry standards through a resilient multi-API data mesh:
 
 ```mermaid
 flowchart TD
     subgraph Client ["Frontend Client (Vercel Global Edge)"]
-        UI["CareerPath UI (Glassmorphic 90% Bento Grid)"]
+        UI["DheePath UI (Glassmorphic 90% Bento Grid)"]
         QuizUI["Adaptive Reality-Check Quiz (/quiz.html)"]
         DashUI["Student Dashboard (/dashboard.html)"]
     end
 
-    subgraph Backend ["CareerPath Core Engine (Render Cloud)"]
+    subgraph Backend ["DheePath Core Engine (Render Cloud)"]
         API_GW["Express.js API Gateway (PORT 5000)"]
         Scoring["60/25/15 Deterministic Matching Engine"]
         TaskTracker["Roadmap Task & Progress Recalculator"]
@@ -101,7 +101,7 @@ These APIs are fully implemented, tested, and operational on our production depl
 
 ### 1.4. Curated Offline Domain Question Engine (Zero-Breakage Fallback)
 - **Category:** Local Deterministic Data Engine
-- **Source:** [`server/data/quizQuestions.js`](file:///c:/Users/PARTH/OneDrive/Documents/hackethon/Hack%202%20ignite/CareerPath%20AI/careerpath-ai/server/data/quizQuestions.js) (860+ lines)
+- **Source:** [`server/data/quizQuestions.js`](file:///c:/Users/PARTH/OneDrive/Documents/hackethon/Hack%202%20ignite/DheePath%20AI/careerpath-ai/server/data/quizQuestions.js) (860+ lines)
 - **Role in Platform:**
   - Provides a deep bank of verified, expert-curated questions across Python, JavaScript, React, Node.js, SQL, Machine Learning, and DevOps.
   - Ensures seamless quiz evaluation even in offline environments, network dropouts, or absent API keys.
@@ -133,7 +133,7 @@ These APIs are fully implemented, tested, and operational on our production depl
 
 ## 🚀 2. Phase 2 Ecosystem Extensions (Planned Integrations)
 
-Curated from the open-source **Public APIs Directory** to scale CareerPath AI into a unified national talent gateway:
+Curated from the open-source **Public APIs Directory** to scale DheePath into a unified national talent gateway:
 
 | API | Category | Auth | HTTPS | CORS | Platform Feature & Implementation |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -160,6 +160,6 @@ Curated from the open-source **Public APIs Directory** to scale CareerPath AI in
 
 ## 🎤 4. Pitch & Presentation Script (Judges Q&A)
 
-### When Judges Ask: *"How does CareerPath AI verify student claims and connect to the real tech industry?"*
+### When Judges Ask: *"How does DheePath verify student claims and connect to the real tech industry?"*
 > **Answer:**  
-> *"CareerPath AI rejects the honor system of unverified resumes. We deploy a two-factor verification pipeline: First, our **Auth-Based GitHub Sync** (`POST /api/auth/github/sync`) scans real student repositories and commit histories, tagging verified competencies with code-grounded proof. Second, our **Dynamic AI Skill Verification Quiz** generates adaptive technical reality checks powered by **Groq Llama 3.3 70B** and **Gemini 2.5 Flash** with sub-300ms speed. Furthermore, live Indian tech job openings and CTC salary ranges are streamed directly via the **Adzuna Developer API**, giving students real-time market telemetry."*
+> *"DheePath rejects the honor system of unverified resumes. We deploy a two-factor verification pipeline: First, our **Auth-Based GitHub Sync** (`POST /api/auth/github/sync`) scans real student repositories and commit histories, tagging verified competencies with code-grounded proof. Second, our **Dynamic AI Skill Verification Quiz** generates adaptive technical reality checks powered by **Groq Llama 3.3 70B** and **Gemini 2.5 Flash** with sub-300ms speed. Furthermore, live Indian tech job openings and CTC salary ranges are streamed directly via the **Adzuna Developer API**, giving students real-time market telemetry."*

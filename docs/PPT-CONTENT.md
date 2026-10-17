@@ -29,7 +29,7 @@
 ---
 
 ### Slide 2: IDEA TITLE & Proposed Solution
-* **Idea Title:** CareerPath AI — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform
+* **Idea Title:** DheePath — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform
 * **Detailed Explanation of Proposed Solution:**
   * Multimodal student profiling assessing academics, domain interests, and 45+ technical skills to produce deterministic, transparent career roadmaps.
   * **Explainable 60/25/15 Mathematical Match Engine:**
@@ -117,18 +117,18 @@
 ## 🎙️ PART 2: EXPANDED 10-SLIDE PITCH DECK & SPEAKER NOTES (FOR EVALUATOR VIVA)
 
 ### Slide 1: Title & Hook
-- **Slide Title:** CareerPath AI — Discover Your Career. Bridge Your Skill Gaps. Build Your Future.
-- **Speaker Note:** *"Good morning, respected judges. Over 1.5 million engineers graduate in India every year, but more than 80% struggle to meet industry hiring benchmarks. We built CareerPath AI to replace generic advice with transparent math-backed guidance, two-factor skill verification, anti-scrubbing milestone roadmaps, and a direct recruiter talent radar."*
+- **Slide Title:** DheePath — Discover Your Career. Bridge Your Skill Gaps. Build Your Future.
+- **Speaker Note:** *"Good morning, respected judges. Over 1.5 million engineers graduate in India every year, but more than 80% struggle to meet industry hiring benchmarks. We built DheePath to replace generic advice with transparent math-backed guidance, two-factor skill verification, anti-scrubbing milestone roadmaps, and a direct recruiter talent radar."*
 
 ### Slide 2: The Core Problem & Placement Cell Blindspots
 - **Headline:** The Four Fatal Blindspots in Indian Higher Education
 - **Key Points:** Career Blindness, Resume Inflation & Self-Delusion, "Tutorial Hell" & Fragmented Learning, Placement Cell Guesswork on Spreadsheets.
 - **Speaker Note:** *"Students don't suffer from a lack of tutorials — they suffer from a lack of direction, honest feedback, disciplined milestone execution, and direct recruiter access."*
 
-### Slide 3: Our Solution — CareerPath AI
+### Slide 3: Our Solution — DheePath
 - **Headline:** Two-Factor Skill Verified Career GPS & Recruiter Talent Radar
 - **Key Pillars:** 60/25/15 Match Engine with $C_i$ weights, Two-Factor Skill Verification (GitHub AST + Groq LPU micro-quizzes), Dual Synergized Roadmaps, AI Video Dedication Guard, and Corporate Recruiter Radar.
-- **Speaker Note:** *"CareerPath AI replaces guesswork with a transparent mathematical algorithm, ensures skills are verified through real code and dynamic quizzes, and grounds learning in real Indian market salaries."*
+- **Speaker Note:** *"DheePath replaces guesswork with a transparent mathematical algorithm, ensures skills are verified through real code and dynamic quizzes, and grounds learning in real Indian market salaries."*
 
 ### Slide 4: System Architecture & Multi-Model Tech Stack
 - **Headline:** Production-Ready, Sub-300ms Multi-Model Infrastructure
@@ -152,9 +152,9 @@
 - **Speaker Note:** *"We closed the loop by building a fully operational Recruiter Portal. Corporate recruiters verify their business domain and immediately discover pre-screened, proof-of-work candidates."*
 
 ### Slide 8: Competitive Matrix
-- **Headline:** Why CareerPath AI Wins Over Existing Solutions
+- **Headline:** Why DheePath Wins Over Existing Solutions
 - **Matrix:** 60/25/15 Math vs Black-Box Quizzes; Two-Factor Verification vs Honor System; Anti-Scrubbing Roadmaps vs Video Hell; Live Adzuna Salaries vs Forum Posts; 100% Free for Students vs Expensive Paywalls.
-- **Speaker Note:** *"While legacy platforms stop at static personality quizzes, CareerPath AI delivers end-to-end execution from profiling to verified employment."*
+- **Speaker Note:** *"While legacy platforms stop at static personality quizzes, DheePath delivers end-to-end execution from profiling to verified employment."*
 
 ### Slide 9: Business Model & Monetization Strategy
 - **Headline:** Sustainable B2B2C Talent & Telemetry Flywheel
@@ -163,6 +163,6 @@
 - **Speaker Note:** *"We monetize institutions that need placement accreditation data and corporate recruiters who spend lakhs on candidate screening."*
 
 ### Slide 10: Conclusion & Q&A
-- **Headline:** CareerPath AI — The GPS for Engineering Careers
+- **Headline:** DheePath — The GPS for Engineering Careers
 - **Summary:** Solves Problem ED-02 with an explainable, code-verified, market-grounded, and recruiter-connected platform. 100% live on Vercel and Render with passing test suites.
 - **Speaker Note:** *"Thank you, judges. We are now open for your questions."*

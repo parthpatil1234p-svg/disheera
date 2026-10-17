@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सेवा फर्स्ट इनोव्हेशन चॅलेंज २०२६ — DheePath Architecture & Flowchart</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1f2937;
+            --saffron: #f97316;
+            --saffron-light: #fdba74;
+            --navy: #1e3a8a;
+            --teal: #0d9488;
+            --green: #16a34a;
+            --purple: #7c3aed;
+            --gold: #eab308;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Nirmala UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1350px;
+            margin: 0 auto;
+        }
+
+        /* Official Header Banner */
+        .govt-banner {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid var(--saffron);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .govt-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #f97316 0%, #ffffff 50%, #16a34a 100%);
+        }
+
+        .tag-row {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .badge {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--saffron-light);
+            border: 1px solid var(--saffron);
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+            border: 1px solid #3b82f6;
+        }
+
+        .badge-green {
+            background: rgba(34, 197, 94, 0.15);
+            color: #86efac;
+            border: 1px solid #22c55e;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .marathi-sub {
+            font-size: 1.3rem;
+            color: var(--saffron-light);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .organizers-list {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Section Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #ffffff;
+        }
+
+        .cat-chip {
+            background: #1f2937;
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--saffron-light);
+            border: 1px solid #4b5563;
+        }
+
+        /* SVG Flowchart Container */
+        .flowchart-svg-box {
+            background: #0d131f;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #1f2d42;
+            overflow-x: auto;
+        }
+
+        svg {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Dual Track Info */
+        .expo-details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .expo-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .expo-box {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.25rem;
+            border-left: 4px solid var(--saffron);
+        }
+
+        .expo-box h4 {
+            color: var(--saffron-light);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .expo-box p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Transit Stations */
+        .metro-stations {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 1050px) {
+            .metro-stations {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .metro-stations {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .st-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.25rem;
+            border-top: 4px solid var(--teal);
+            transition: transform 0.2s;
+        }
+
+        .st-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .st-no {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--saffron);
+            margin-bottom: 0.25rem;
+        }
+
+        .st-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .st-marathi {
+            font-size: 0.82rem;
+            color: var(--saffron-light);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .st-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .quote-box {
+            background: linear-gradient(90deg, #1e1b4b, #1e293b);
+            border-radius: 10px;
+            padding: 1.25rem 1.75rem;
+            margin-top: 1.5rem;
+            border-left: 5px solid var(--gold);
+            font-size: 0.95rem;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER WITH OFFICIAL GOVT & COMPETITION DETAILS -->
+        <div class="govt-banner">
+            <div class="tag-row">
+                <span class="badge">कौशल्य, रोजगार, उद्योजकता व नाविन्यता विभाग, महाराष्ट्र राज्य</span>
+                <span class="badge badge-blue">Ratan Tata Maharashtra State Skills University (MSSU)</span>
+                <span class="badge badge-green">Maharashtra State Innovation Society (MSInS)</span>
+            </div>
+            <h1>सेवा फर्स्ट इनोव्हेशन चॅलेंज २०२६ (SFIC Maharashtra)</h1>
+            <div class="marathi-sub">प्रकल्प: DheePath (करिअरपाथ एआय) — Two-Factor Skill Verified Career GPS & Recruiter Radar</div>
+            <p class="organizers-list">
+                <strong>क्षेत्र (Sector):</strong> उदयोन्मुख तंत्रज्ञान (Emerging Tech & AI) / कौशल्य विकास आणि रोजगार (Education & Skill Development)<br>
+                <strong>राज्यस्तरीय पोर्टल:</strong> <a href="https://www.sevainnovationchallenge.in/" style="color: #60a5fa;" target="_blank">sevainnovationchallenge.in</a> (अंतिम तारीख: १७ ऑक्टोबर २०२६) · ५ कोटी रुपयांची पारितोषिके<br>
+                <strong>जळगाव जिल्हा स्तर (Seva Sankalp Abhiyan 2026):</strong> सरदार वल्लभभाई पटेल भवन, जळगाव (१६ ऑक्टोबर २०२६ Expo & Pitching)
+            </p>
+        </div>
+
+        <!-- CHART 1: BILINGUAL MASTER PROCESS FLOWCHART -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span>📊 Chart 1: संपूर्ण कार्यप्रणाली आणि अंमलबजावणी प्रवाह (End-to-End System Methodology Flowchart)</span>
+                </div>
+                <span class="cat-chip">प्रकल्प सादरीकरण व पीपीटीसाठी मुख्य आकृती (Official Slide 3 Deliverable)</span>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.95rem;">
+                महाराष्ट्रातील शासकीय आयटीआय, तंत्रनिकेतन (Polytechnics), आणि टियर-२/३ अभियांत्रिकी महाविद्यालयांतील विद्यार्थ्यांसाठी पारदर्शक आणि मोफत करिअर मार्गदर्शन व थेट रोजगार देणारी संपूर्ण प्रणाली:
+            </p>
+
+            <div class="flowchart-svg-box">
+                <svg viewBox="0 0 1200 520" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gradOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ea580c" />
+                            <stop offset="100%" stop-color="#9a3412" />
+                        </linearGradient>
+                        <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#1d4ed8" />
+                            <stop offset="100%" stop-color="#1e1b4b" />
+                        </linearGradient>
+                        <linearGradient id="gradTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0d9488" />
+                            <stop offset="100%" stop-color="#042f2e" />
+                        </linearGradient>
+                        <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#7c3aed" />
+                            <stop offset="100%" stop-color="#4c1d95" />
+                        </linearGradient>
+                        <linearGradient id="gradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#16a34a" />
+                            <stop offset="100%" stop-color="#052e16" />
+                        </linearGradient>
+                        <filter id="shadowBox" x="-5%" y="-5%" width="110%" height="110%">
+                            <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.6"/>
+                        </filter>
+                        <marker id="arrowHead" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+                        </marker>
+                        <marker id="arrowGold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+                        </marker>
+                    </defs>
+
+                    <!-- TOP ROW: INTAKE TO AUDIT -->
+                    <!-- Step 1 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="40" y="50" width="240" height="130" rx="10" fill="url(#gradOrange)" stroke="#f97316" stroke-width="2"/>
+                        <text x="160" y="78" fill="#ffedd5" font-size="11" font-weight="700" text-anchor="middle">टप्पा १: विद्यार्थी नोंदणी व कौशल्ये</text>
+                        <text x="160" y="100" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1. Student Intake &amp; Profiling</text>
+                        <text x="160" y="122" fill="#fed7aa" font-size="11" text-anchor="middle">आयटीआय, पॉलिटेक्निक व इंजिनिअरिंग</text>
+                        <text x="160" y="142" fill="#ffffff" font-size="10" text-anchor="middle">76+ NCVET/MSSU Mapped Skills</text>
+                        <text x="160" y="162" fill="#ffedd5" font-size="9" text-anchor="middle">मोफत नोंदणी (Zero Paywall)</text>
+                    </g>
+
+                    <line x1="280" y1="115" x2="330" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+                    <!-- Step 2 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="340" y="50" width="240" height="130" rx="10" fill="url(#gradBlue)" stroke="#60a5fa" stroke-width="2"/>
+                        <text x="460" y="78" fill="#dbeafe" font-size="11" font-weight="700" text-anchor="middle">टप्पा २: द्विस्तरीय कौशल्य पडताळणी</text>
+                        <text x="460" y="100" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">2. Two-Factor Verification</text>
+                        <text x="460" y="122" fill="#93c5fd" font-size="11" text-anchor="middle">Strand A: GitHub कोड अ‍ॅनालिसिस (AST)</text>
+                        <text x="460" y="142" fill="#93c5fd" font-size="11" text-anchor="middle">Strand B: Groq AI मायक्रो-क्विझ (&lt;300ms)</text>
+                        <text x="460" y="162" fill="#bfdbfe" font-size="9" text-anchor="middle">बनावट रेझ्युमेला आळा (Zero Delusion)</text>
+                    </g>
+
+                    <line x1="580" y1="115" x2="630" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+                    <!-- Step 3 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="640" y="50" width="240" height="130" rx="10" fill="url(#gradPurple)" stroke="#a855f7" stroke-width="2"/>
+                        <text x="760" y="78" fill="#f3e8ff" font-size="11" font-weight="700" text-anchor="middle">टप्पा ३: पारदर्शक गणितीय सूत्र</text>
+                        <text x="760" y="100" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">3. 60/25/15 Math Engine</text>
+                        <text x="760" y="122" fill="#e9d5ff" font-size="11" text-anchor="middle">कौशल्ये (60%) + रुची (25%) + शिक्षण (15%)</text>
+                        <text x="760" y="142" fill="#ffffff" font-size="10" text-anchor="middle">In-Memory वेग (&lt;50ms) · Zero Bias</text>
+                        <text x="760" y="162" fill="#d8b4fe" font-size="9" text-anchor="middle">विद्यार्थ्याला गुणांचे स्पष्ट कारण दिसते</text>
+                    </g>
+
+                    <line x1="880" y1="115" x2="930" y2="115" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+                    <!-- Step 4 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="940" y="50" width="220" height="130" rx="10" fill="url(#gradTeal)" stroke="#14b8a6" stroke-width="2"/>
+                        <text x="1050" y="78" fill="#ccfbf1" font-size="11" font-weight="700" text-anchor="middle">टप्पा ४: त्रिरंगी कौशल्य तपासणी</text>
+                        <text x="1050" y="100" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">4. Tri-Color Gap Matrix</text>
+                        <text x="1050" y="122" fill="#99f6e4" font-size="11" text-anchor="middle">🟢 पूर्ण तयार (Direct Job Ready)</text>
+                        <text x="1050" y="142" fill="#fef08a" font-size="11" text-anchor="middle">🟡 सुधारणा आवश्यक (Upgrade)</text>
+                        <text x="1050" y="162" fill="#fca5a5" font-size="11" text-anchor="middle">🔴 शिकणे बाकी (Missing Skill)</text>
+                    </g>
+
+                    <!-- CONNECTOR -->
+                    <path d="M 1050 180 L 1050 250 L 1050 320" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowGold)"/>
+                    <rect x="990" y="235" width="120" height="28" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+                    <text x="1050" y="254" fill="#fde68a" font-size="10" font-weight="bold" text-anchor="middle">कृती आराखडा (Action)</text>
+
+                    <!-- BOTTOM ROW: EXECUTION TO PLACEMENT -->
+                    <!-- Step 5 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="940" y="330" width="220" height="130" rx="10" fill="url(#gradPurple)" stroke="#a855f7" stroke-width="2"/>
+                        <text x="1050" y="358" fill="#f3e8ff" font-size="11" font-weight="700" text-anchor="middle">टप्पा ५: आठवड्यांचा रोडमॅप</text>
+                        <text x="1050" y="380" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">5. Milestone Roadmaps</text>
+                        <text x="1050" y="402" fill="#e9d5ff" font-size="11" text-anchor="middle">४/८/१२ आठवड्यांचे उद्दिष्ट</text>
+                        <text x="1050" y="422" fill="#d8b4fe" font-size="10" text-anchor="middle">व्हिडिओ स्किप रोखणारी सिस्टीम</text>
+                        <text x="1050" y="442" fill="#cbd5e1" font-size="9" text-anchor="middle">1-Click ऑफलाइन PDF अभ्यास पुस्तिका</text>
+                    </g>
+
+                    <line x1="940" y1="395" x2="890" y2="395" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+                    <!-- Step 6 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="640" y="330" width="240" height="130" rx="10" fill="url(#gradBlue)" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="760" y="358" fill="#dbeafe" font-size="11" font-weight="700" text-anchor="middle">टप्पा ६: मुलाखत व रेझ्युमे सराव</text>
+                        <text x="760" y="380" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">6. AI Resume &amp; Mock Viva</text>
+                        <text x="760" y="402" fill="#93c5fd" font-size="11" text-anchor="middle">सुरक्षित Magic-Byte ATS रेझ्युमे पार्सर</text>
+                        <text x="760" y="422" fill="#93c5fd" font-size="11" text-anchor="middle">अ‍ॅडॉप्टिव्ह AI तांत्रिक मुलाखत सराव</text>
+                        <text x="760" y="442" fill="#bfdbfe" font-size="9" text-anchor="middle">ग्रामीण विद्यार्थ्यांचा आत्मविश्वास वाढवणे</text>
+                    </g>
+
+                    <line x1="640" y1="395" x2="590" y2="395" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+                    <!-- Step 7 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="340" y="330" width="240" height="130" rx="10" fill="url(#gradTeal)" stroke="#2dd4bf" stroke-width="2"/>
+                        <text x="460" y="358" fill="#ccfbf1" font-size="11" font-weight="700" text-anchor="middle">टप्पा ७: थेट कंपनी भरती रडार</text>
+                        <text x="460" y="380" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">7. Recruiter Talent Radar</text>
+                        <text x="460" y="402" fill="#99f6e4" font-size="11" text-anchor="middle">अधिकृत कॉर्पोरेट डोमेन पडताळणी (DNS MX)</text>
+                        <text x="460" y="422" fill="#99f6e4" font-size="11" text-anchor="middle">९६% AI मॅचिंग व १-क्लिक नोकरी अर्ज</text>
+                        <text x="460" y="442" fill="#a7f3d0" font-size="9" text-anchor="middle">कंपन्यांसाठी पडताळणी झालेले गुणवान तरुण</text>
+                    </g>
+
+                    <line x1="340" y1="395" x2="290" y2="395" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowHead)"/>
+
+                    <!-- Step 8 -->
+                    <g filter="url(#shadowBox)">
+                        <rect x="40" y="330" width="240" height="130" rx="10" fill="url(#gradGreen)" stroke="#4ade80" stroke-width="2"/>
+                        <text x="160" y="358" fill="#dcfce7" font-size="11" font-weight="700" text-anchor="middle">टप्पा ८: सेवा व विकसित महाराष्ट्र</text>
+                        <text x="160" y="380" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">8. Guaranteed Employment</text>
+                        <text x="160" y="402" fill="#bbf7d0" font-size="11" text-anchor="middle">HMAC सुरक्षित डिजिटल जॉब सर्टिफिकेट</text>
+                        <text x="160" y="422" fill="#86efac" font-size="11" font-weight="bold" text-anchor="middle">₹३.५ लाखांवरून ₹८ ते १४+ लाखांचे पॅकेज</text>
+                        <text x="160" y="442" fill="#ffffff" font-size="9" text-anchor="middle">विकसित भारत @ २०४७ ध्येयपूर्ती</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="quote-box">
+                <strong>🇮🇳 "सेवा" आणि सार्वजनिक हित (Public Good Value):</strong> जळगाव व महाराष्ट्रातील ग्रामीण भागातील सर्वसामान्य विद्यार्थ्याला महागड्या करिअर काउन्सिलिंग (₹20,000 - ₹50,000) ची गरज पडू नये; सर्वांना एकाच क्लिकवर जागतिक दर्जाचे व गणितीयदृष्ट्या पारदर्शक करिअर मार्गदर्शन मोफत मिळावे, हे या प्रकल्पाचे मुख्य उद्दिष्ट आहे.
+            </div>
+        </div>
+
+        <!-- CHART 2: METRO GPS LINE (MARATHI & ENGLISH) -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span>🚇 Chart 2: करिअर जीपीएस मेट्रो मार्ग (The Career GPS Subway Route)</span>
+                </div>
+                <span class="cat-chip">दिशाहीनतेकडून थेट रोजगाराकडे जाणारा शिस्तबद्ध प्रवास</span>
+            </div>
+
+            <div class="metro-stations">
+                <div class="st-card" style="border-top-color: #f97316;">
+                    <div class="st-no">स्टेशन १</div>
+                    <div class="st-title">Campus Junction</div>
+                    <div class="st-marathi">महाविद्यालयीन प्रवेश</div>
+                    <div class="st-desc">आयटीआय, पॉलिटेक्निक आणि इंजिनिअरिंग विद्यार्थ्यांचे प्रोफाइल व ७६+ प्रमाणित कौशल्ये नोंदवणे.</div>
+                </div>
+
+                <div class="st-card" style="border-top-color: #3b82f6;">
+                    <div class="st-no">स्टेशन २</div>
+                    <div class="st-title">Proof Terminal</div>
+                    <div class="st-marathi">द्विस्तरीय पुरावा</div>
+                    <div class="st-desc">GitHub कोड तपासणी आणि Groq AI चे ३०० मिलीसेकंदांचे क्विझ देऊन कौशल्य सिद्ध करणे.</div>
+                </div>
+
+                <div class="st-card" style="border-top-color: #eab308;">
+                    <div class="st-no">स्टेशन ३</div>
+                    <div class="st-title">Math Interchange</div>
+                    <div class="st-marathi">गणितीय विश्लेषण</div>
+                    <div class="st-desc">६०/२५/१५ सूत्रानुसार ५० मिलीसेकंदात योग्य करिअर शोधून देणे (शून्य मानवी पूर्वग्रह).</div>
+                </div>
+
+                <div class="st-card" style="border-top-color: #0d9488;">
+                    <div class="st-no">स्टेशन ४</div>
+                    <div class="st-title">Diagnostic Hub</div>
+                    <div class="st-marathi">कमी कौशल्यांची तपासणी</div>
+                    <div class="st-desc">हिरवा (तयार), पिवळा (सुधारणा) आणि लाल (कमतरता) असा पारदर्शक रिपोर्ट देणे.</div>
+                </div>
+
+                <div class="st-card" style="border-top-color: #7c3aed;">
+                    <div class="st-no">स्टेशन ५</div>
+                    <div class="st-title">Milestone Track</div>
+                    <div class="st-marathi">८ आठवड्यांचा रोडमॅप</div>
+                    <div class="st-desc">व्हिडिओ स्किप न करता शिस्तबद्ध अभ्यास आणि १-क्लिक डाऊनलोड होणारी PDF पुस्तिका.</div>
+                </div>
+
+                <div class="st-card" style="border-top-color: #16a34a;">
+                    <div class="st-no">स्टेशन ६</div>
+                    <div class="st-title">Recruiter Radar</div>
+                    <div class="st-marathi">थेट नोकरी आणि नियुक्ती</div>
+                    <div class="st-desc">पुणे, मुंबई व बंगळुरूच्या पडताळणी झालेल्या कंपन्यांकडून ९६% अचूकतेने थेट मुलाखत व नोकरी.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPETITION & PRESENTATION DETAILS -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span>📍 स्पर्धा तपशील आणि प्रेझेंटेशन माहिती (Competition Expo Strategy)</span>
+                </div>
+            </div>
+
+            <div class="expo-details-grid">
+                <div class="expo-box">
+                    <h4>🏛️ जळगाव जिल्हा स्तर (Jalgaon Chapter)</h4>
+                    <p><strong>कार्यक्रम:</strong> Seva Sankalp Abhiyan 2026 - National Innovation Expo<br>
+                    <strong>सादर करण्याची अंतिम तारीख:</strong> १३ ऑक्टोबर २०२६<br>
+                    <strong>प्रदर्शन व पिचिंग:</strong> १६ ऑक्टोबर २०२६ (सकाळी ९:००)<br>
+                    <strong>स्थळ:</strong> सरदार वल्लभभाई पटेल भवन, बीएसएनएल ऑफिसच्या मागे, जळगाव<br>
+                    <strong>अर्ज लिंक:</strong> <a href="https://forms.gle/11Rt8vb6NY5EEEe86" style="color: #60a5fa;" target="_blank">Google Form Link</a></p>
+                </div>
+
+                <div class="expo-box" style="border-left-color: #3b82f6;">
+                    <h4>🚀 महाराष्ट्र राज्य स्तर (State Level Challenge)</h4>
+                    <p><strong>संस्था:</strong> Ratan Tata MSSU & Maharashtra State Innovation Society<br>
+                    <strong>क्षेत्र (Sector):</strong> उदयोन्मुख तंत्रज्ञान (Emerging Tech / AI) / शिक्षण व कौशल्य विकास<br>
+                    <strong>अंतिम तारीख:</strong> १७ ऑक्टोबर २०२६ (रात्री ११:५९)<br>
+                    <strong>पारितोषिके:</strong> ५० विजेत्यांना प्रत्येकी ₹१० लाखांचे अनुदान (एकूण ५ कोटी)<br>
+                    <strong>पोर्टल:</strong> <a href="https://www.sevainnovationchallenge.in/" style="color: #60a5fa;" target="_blank">sevainnovationchallenge.in</a></p>
+                </div>
+
+                <div class="expo-box" style="border-left-color: #16a34a;">
+                    <h4>⚡ लाईव्ह प्रोटोटाइप आणि पडताळणी लिंक्स</h4>
+                    <p><strong>वेबसाइट:</strong> <a href="https://careerpath-ai-jade.vercel.app" style="color: #86efac;" target="_blank">careerpath-ai-jade.vercel.app</a><br>
+                    <strong>बॅकएंड API:</strong> careerpath-ai-bdbt.onrender.com/api/health<br>
+                    <strong>डेमो विद्यार्थी:</strong> demouser@gmail.com (पासवर्ड: demo123)<br>
+                    <strong>डेमो रिक्रूटर:</strong> recruiter@razorpay.com (पासवर्ड: demo123)<br>
+                    <strong>चाचण्या:</strong> ३२/३२ ऑटोमेटेड टेस्ट्स उत्तीर्ण (१००% कार्यक्षम)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

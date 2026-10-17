@@ -1,4 +1,4 @@
-name: CareerPath AI CI (Root)
+name: DheePath CI (Root)
 
 on:
   push:

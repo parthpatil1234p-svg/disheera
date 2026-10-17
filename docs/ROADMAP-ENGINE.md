@@ -1,4 +1,4 @@
-# 🗺️ CareerPath AI — Hardened Single Active Route & Job Ready Engine
+# 🗺️ DheePath — Hardened Single Active Route & Job Ready Engine
 
 > **🏆 Hack2Ignite 2026–27 · Technical Deep-Dive**  
 > **Problem Statement ID:** ED-02 (AI Career Guidance and Skill Roadmap Platform)  
@@ -10,7 +10,7 @@
 
 In traditional e-learning and edtech platforms, over **78% of students drop out due to "tutorial hopping"** — starting multiple simultaneous paths, jumping from roadmap to roadmap, and completing none.
 
-CareerPath AI introduces the **Hardened Single Active Career Route & Gated Progression Engine**, engineered around two fundamental behavioral principles:
+DheePath introduces the **Hardened Single Active Career Route & Gated Progression Engine**, engineered around two fundamental behavioral principles:
 1. **Focus Through Invariant Discipline:** A student is strictly constrained to **one active roadmap at any time**, enforced by a database-level partial unique index.
 2. **Lock Enrolling, Never Browsing:** Students are empowered to freely explore alternative careers, run What-If simulations, and inspect live job markets without restriction, but cannot enroll in a second route until their current one is completed or intentionally abandoned.
 
@@ -92,7 +92,7 @@ Students are not locked forever. When career goals genuinely shift, students can
 
 ## 🏆 4-Rule Industry Job Ready Certification
 
-CareerPath AI completely eliminates meaningless automated completion certificates. To earn the **Job Ready Certified** credential, four industry criteria must simultaneously be satisfied:
+DheePath completely eliminates meaningless automated completion certificates. To earn the **Job Ready Certified** credential, four industry criteria must simultaneously be satisfied:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐

@@ -1,7 +1,7 @@
 # Application Flow & Interactive User Journeys
 
 > **Hack2Ignite 2026–27 · Team 404 Brain Not Found**  
-> **Project:** CareerPath AI (ED-02)  
+> **Project:** DheePath (ED-02)  
 > **Architecture:** Decoupled Full-Stack Web Application
 
 ---

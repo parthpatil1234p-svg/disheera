@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DheePath — System Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #f8fafc;   /* slate-50 canvas */
+      --color-paper-2: #ffffff;   /* card surface */
+      --color-ink:     #0f172a;   /* slate-900 */
+      --color-muted:   #475569;   /* slate-600 */
+      --color-soft:    #64748b;   /* slate-500 */
+      --color-rule:    rgba(15, 23, 42, 0.12);
+      --color-rule-solid: #e2e8f0;
+      --color-accent:  #2563eb;   /* royal blue */
+      --color-accent-tint: rgba(37, 99, 235, 0.08);
+      --color-link:    #0284c7;   /* cyan-600 */
+      --font-sans:     'Inter', system-ui, sans-serif;
+      --font-title:    'Outfit', sans-serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .frame { max-width: 1100px; width: 100%; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: clamp(1.6rem, 2.5vw + 0.8rem, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--color-ink);
+      margin-bottom: 1.5rem;
+    }
+
+    svg { width: 100%; min-width: 960px; display: block; }
+    @media print {
+      body { padding: 0; background: #ffffff; }
+      svg { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="eyebrow">CAREERPATH AI · DECOUPLED ARCHITECTURE</div>
+    <h1>End-to-End System Architecture</h1>
+    <div class="diagram-container">
+      <svg role="img" aria-labelledby="careerpath-arch-title careerpath-arch-desc" viewBox="0 0 960 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title id="careerpath-arch-title">DheePath — System Architecture Overview</title>
+        <desc id="careerpath-arch-desc">Architecture diagram of DheePath showing the student client, backend security gateway, deterministic match engine, Supabase data layer, and AI telemetry services.</desc>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M1 1.5L8 5L1 8.5" fill="none" stroke="#475569" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+          <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M1 1.5L8 5L1 8.5" fill="none" stroke="#2563eb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+          <marker id="arrow-link" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M1 1.5L8 5L1 8.5" fill="none" stroke="#0284c7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <!-- Background Canvas -->
+        <rect width="960" height="520" fill="#f8fafc"/>
+
+        <!-- Connectors / Lines (Drawn before boxes) -->
+        <!-- Client to Gateway -->
+        <path d="M 230 160 L 360 160" stroke="#2563eb" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+        
+        <!-- Gateway to Match Engine -->
+        <path d="M 520 160 L 650 160" stroke="#2563eb" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+
+        <!-- Match Engine down to Supabase DB -->
+        <path d="M 740 200 L 740 320" stroke="#475569" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+        <!-- Gateway down to Telemetry/AI -->
+        <path d="M 440 200 L 440 320" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+
+        <!-- Telemetry across to AI Services -->
+        <path d="M 230 360 L 360 360" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+
+        <!-- Path Labels with Masks -->
+        <rect x="260" y="152" width="70" height="16" fill="#f8fafc"/>
+        <text x="295" y="164" fill="#2563eb" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="500" letter-spacing="0.06em" text-anchor="middle">HTTPS / JWT</text>
+
+        <rect x="550" y="152" width="70" height="16" fill="#f8fafc"/>
+        <text x="585" y="164" fill="#2563eb" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="500" letter-spacing="0.06em" text-anchor="middle">&lt;50MS EVAL</text>
+
+        <rect x="705" y="252" width="70" height="16" fill="#f8fafc"/>
+        <text x="740" y="264" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="400" letter-spacing="0.06em" text-anchor="middle">SQL PERSIST</text>
+
+        <rect x="405" y="252" width="70" height="16" fill="#f8fafc"/>
+        <text x="440" y="264" fill="#0284c7" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="400" letter-spacing="0.06em" text-anchor="middle">&lt;300MS INFER</text>
+
+        <!-- Node 1: Client Layer -->
+        <g id="node-client">
+          <rect x="60" y="120" width="170" height="80" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+          <rect x="72" y="132" width="48" height="14" rx="2" fill="rgba(15, 23, 42, 0.08)"/>
+          <text x="76" y="142" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="500" letter-spacing="0.1em">CLIENT</text>
+          <text x="72" y="166" fill="#0f172a" font-family="'Inter', sans-serif" font-size="13px" font-weight="600">Vercel Edge UI</text>
+          <text x="72" y="184" fill="#64748b" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">Vanilla JS + Three.js 3D</text>
+        </g>
+
+        <!-- Node 2: Gateway & RBAC -->
+        <g id="node-gateway">
+          <rect x="360" y="120" width="160" height="80" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+          <rect x="372" y="132" width="56" height="14" rx="2" fill="rgba(15, 23, 42, 0.08)"/>
+          <text x="376" y="142" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="500" letter-spacing="0.1em">GATEWAY</text>
+          <text x="372" y="166" fill="#0f172a" font-family="'Inter', sans-serif" font-size="13px" font-weight="600">Express REST API</text>
+          <text x="372" y="184" fill="#64748b" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">Helmet + RBAC Isolation</text>
+        </g>
+
+        <!-- Node 3: Core Match Engine (Focal Node) -->
+        <g id="node-engine">
+          <rect x="650" y="120" width="180" height="80" rx="6" fill="rgba(37, 99, 235, 0.08)" stroke="#2563eb" stroke-width="1.2"/>
+          <rect x="662" y="132" width="60" height="14" rx="2" fill="#2563eb"/>
+          <text x="666" y="142" fill="#ffffff" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="600" letter-spacing="0.1em">CORE DOMAIN</text>
+          <text x="662" y="166" fill="#0f172a" font-family="'Inter', sans-serif" font-size="13px" font-weight="700">60/25/15 Engine</text>
+          <text x="662" y="184" fill="#2563eb" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">Deterministic Scoring</text>
+        </g>
+
+        <!-- Node 4: External Telemetry -->
+        <g id="node-telemetry">
+          <rect x="60" y="320" width="170" height="80" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+          <rect x="72" y="332" width="58" height="14" rx="2" fill="rgba(15, 23, 42, 0.08)"/>
+          <text x="76" y="342" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="500" letter-spacing="0.1em">TELEMETRY</text>
+          <text x="72" y="366" fill="#0f172a" font-family="'Inter', sans-serif" font-size="13px" font-weight="600">Adzuna Jobs &amp; AST</text>
+          <text x="72" y="384" fill="#64748b" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">GitHub Sync + Real CTC</text>
+        </g>
+
+        <!-- Node 5: AI Micro-Quiz Engine -->
+        <g id="node-ai">
+          <rect x="360" y="320" width="160" height="80" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+          <rect x="372" y="332" width="52" height="14" rx="2" fill="rgba(2, 132, 199, 0.12)"/>
+          <text x="376" y="342" fill="#0284c7" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="600" letter-spacing="0.1em">AI ENGINE</text>
+          <text x="372" y="366" fill="#0f172a" font-family="'Inter', sans-serif" font-size="13px" font-weight="600">Groq LPU Llama 3.3</text>
+          <text x="372" y="384" fill="#64748b" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">&lt;300ms Dynamic Quiz</text>
+        </g>
+
+        <!-- Node 6: Supabase PostgreSQL -->
+        <g id="node-db">
+          <rect x="650" y="320" width="180" height="80" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+          <rect x="662" y="332" width="60" height="14" rx="2" fill="rgba(15, 23, 42, 0.08)"/>
+          <text x="666" y="342" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="8px" font-weight="500" letter-spacing="0.1em">PERSISTENCE</text>
+          <text x="662" y="366" fill="#0f172a" font-family="'Inter', sans-serif" font-size="13px" font-weight="600">Supabase Postgres</text>
+          <text x="662" y="384" fill="#64748b" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">Prisma ORM + Partial Index</text>
+        </g>
+
+        <!-- Bottom Legend Strip -->
+        <g id="legend" transform="translate(60, 470)">
+          <line x1="0" y1="0" x2="840" y2="0" stroke="#e2e8f0" stroke-width="1"/>
+          <rect x="0" y="16" width="10" height="10" rx="2" fill="rgba(37, 99, 235, 0.08)" stroke="#2563eb" stroke-width="1.2"/>
+          <text x="18" y="25" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">Focal Core Domain</text>
+
+          <rect x="160" y="16" width="10" height="10" rx="2" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+          <text x="178" y="25" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">System Services</text>
+
+          <line x1="320" y1="21" x2="340" y2="21" stroke="#2563eb" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+          <text x="348" y="25" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">Primary Flow</text>
+
+          <line x1="470" y1="21" x2="490" y2="21" stroke="#0284c7" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+          <text x="498" y="25" fill="#475569" font-family="'Geist Mono', ui-monospace, monospace" font-size="9px">External / Telemetry Link</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

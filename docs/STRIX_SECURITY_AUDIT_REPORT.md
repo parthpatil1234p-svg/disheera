@@ -1,6 +1,6 @@
 # 🛡️ Official Security Penetration Test & Audit Report
 
-> **Project:** CareerPath AI — Autonomous Career GPS & Verified Talent Operating System  
+> **Project:** DheePath — Autonomous Career GPS & Verified Talent Operating System  
 > **Hackathon:** Hack2Ignite 2026–27 (Team 404 Brain Not Found)  
 > **Evaluation Window:** October 2026  
 > **Auditing Platform:** Strix Multi-Agent Autonomous Offensive Security Platform (v1.7.0)  
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary
 
-An automated, autonomous red-team penetration test was performed against the entire **CareerPath AI** deployment surface. The assessment evaluated both live black-box deployment instances and white-box source code architecture across the frontend, API gateway, file processing pipelines, and AI integration boundaries.
+An automated, autonomous red-team penetration test was performed against the entire **DheePath** deployment surface. The assessment evaluated both live black-box deployment instances and white-box source code architecture across the frontend, API gateway, file processing pipelines, and AI integration boundaries.
 
 ### Target Surfaces Audited:
 | Component | Endpoint / URL | Hosting Provider | Scope |
@@ -39,7 +39,7 @@ An automated, autonomous red-team penetration test was performed against the ent
 
 ## 3. Defense-in-Depth Implementation
 
-Following the assessment, CareerPath AI incorporates multi-layered security controls across the API gateway:
+Following the assessment, DheePath incorporates multi-layered security controls across the API gateway:
 
 ### 1. Granular Multi-Tier Rate Limiting (`server/server.js`)
 * **General API Gateway:** `apiLimiter` enforces 1,500 requests per 15-minute window for SPA navigation.
@@ -61,6 +61,6 @@ Following the assessment, CareerPath AI incorporates multi-layered security cont
 ## 4. Certification Statement
 
 > **Verified by Strix Autonomous Security Agent:**  
-> The external penetration test concluded that CareerPath AI demonstrates enterprise-grade resilience against OWASP Top 10 threats. All audited endpoints maintained defensive stability, with **zero unhandled exceptions, zero privilege escalations, and zero remote exploits**.
+> The external penetration test concluded that DheePath demonstrates enterprise-grade resilience against OWASP Top 10 threats. All audited endpoints maintained defensive stability, with **zero unhandled exceptions, zero privilege escalations, and zero remote exploits**.
 
 *Report signed off for Hack2Ignite 2026–27 Jury Evaluation.*

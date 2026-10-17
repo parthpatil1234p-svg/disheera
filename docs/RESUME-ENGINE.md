@@ -1,4 +1,4 @@
-# 📄 CareerPath AI — Single Resume per Account & File Integrity Architecture
+# 📄 DheePath — Single Resume per Account & File Integrity Architecture
 
 > **🏆 Hack2Ignite 2026–27 · Technical Deep-Dive**  
 > **Problem Statement ID:** ED-02 (AI Career Guidance and Skill Roadmap Platform)  
@@ -12,7 +12,7 @@ In web platforms handling user resumes, two common architecture flaws undermine 
 1. **Unbounded Cloud Media Bloat:** Users repeatedly upload new resume drafts without deleting old ones, resulting in hundreds of orphaned files wasting Cloudinary storage quotas.
 2. **MIME-Type Spoofing Vulnerabilities:** Attackers rename malicious shell scripts or executables with `.pdf` extensions, bypassing basic filename checks.
 
-CareerPath AI implements a **Dedicated Single Resume per Account Architecture** featuring:
+DheePath implements a **Dedicated Single Resume per Account Architecture** featuring:
 - A dedicated 1:1 MongoDB Schema with a database-level unique index on `user`.
 - Real binary **Magic-Byte Inspection** (`%PDF`, `PK\x03\x04`, `\xD0\xCF\x11\xE0`).
 - **Transactional Cloudinary Asset Lifecycle** with zero orphaned file leakage.
