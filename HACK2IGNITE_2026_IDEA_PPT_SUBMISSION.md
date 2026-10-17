@@ -30,9 +30,9 @@
 
 ### • Project Credentials & Live Submission Gateways:
 * **Tagline:** *Discover Your Career. Bridge Your Skill Gaps. Build Your Future.*
-* 🌐 **Production Web Application:** `https://careerpath-ai-jade.vercel.app`
-* ⚡ **Production REST API Gateway:** `https://careerpath-ai-bdbt.onrender.com`
-* 🩺 **Backend Health & Telemetry:** `https://careerpath-ai-bdbt.onrender.com/api/health`
+* 🌐 **Production Web Application:** `https://disheera.site`
+* ⚡ **Production REST API Gateway:** `https://api.disheera.site`
+* 🩺 **Backend Health & Telemetry:** `https://api.disheera.site/api/health`
 * 🔑 **1-Click Demo Student:** `demouser@gmail.com` • *(Protected via 1-Click Sandbox)* *(Pre-seeded with verified skills & active roadmap)*
 * 🏢 **1-Click Demo Recruiter:** `recruiter@razorpay.com` • *(Protected via 1-Click Sandbox)* *(Pre-seeded corporate verified company & job openings)*
 * 🎬 **Official Demo Walkthrough Video:** `https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing`
@@ -427,10 +427,10 @@ flowchart TD
 ```
 
 ### • Live Verification Gateways & Official References:
-* 🌐 **Production Web Application:** `https://careerpath-ai-jade.vercel.app`
-* ⚡ **Production REST API Health:** `https://careerpath-ai-bdbt.onrender.com/api/health`
+* 🌐 **Production Web Application:** `https://disheera.site`
+* ⚡ **Production REST API Health:** `https://api.disheera.site/api/health`
 * 🎬 **Official Demo Walkthrough Video:** `https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing`
 * 📊 **Official Pitch Deck Slides:** `https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing`
-* 🏢 **Recruiter Portal & Radar:** `https://careerpath-ai-jade.vercel.app/recruiter-dashboard.html`
-* 💼 **Live Recruiter Job Board:** `https://careerpath-ai-jade.vercel.app/jobs.html`
+* 🏢 **Recruiter Portal & Radar:** `https://disheera.site/recruiter-dashboard.html`
+* 💼 **Live Recruiter Job Board:** `https://disheera.site/jobs.html`
 * 🏆 **Hackathon Registration:** Hack 2 Ignite on Unstop - G.H. Raisoni International Skill Tech University, Pune.

@@ -388,7 +388,7 @@ flowchart LR
 ## 10. Security, Guardrails & Anti-Abuse Protocols
 
 1. **Strict Content Security Policy & Headers:** Enforced via `helmet` across all REST responses.
-2. **CORS Isolation:** Backend strictly restricts origins to production frontend (`https://careerpath-ai-jade.vercel.app`) and local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
+2. **CORS Isolation:** Backend strictly restricts origins to production frontend (`https://disheera.site`) and local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
 3. **Password Security:** Salted 10-round hashing via `bcryptjs`. Plaintext passwords are never logged or stored.
 4. **Binary Protection:** Magic-byte validation rejects malicious executables renamed as `.pdf` or `.docx`.
 5. **Rate Limiting:**

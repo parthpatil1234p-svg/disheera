@@ -9,7 +9,7 @@
 ## ⏱️ Live Demonstration Timeline & Speaking Notes
 
 ### 🎬 Minute 0:00 - 0:35 · Hook & Frictionless Authentication
-- **Action:** Open landing page at `http://localhost:5500/index.html` (or [live Vercel URL](https://careerpath-ai-jade.vercel.app)).
+- **Action:** Open landing page at `http://localhost:5500/index.html` (or [live Vercel URL](https://disheera.site)).
 - **What to show:**
   1. Highlight the **DheePath** headline and EduTech positioning: *"Discover Your Career. Bridge Your Skill Gaps. Build Your Future."*
   2. Point out the interactive **Three.js 3D Career Universe** constellation (and instant 2D fallback).

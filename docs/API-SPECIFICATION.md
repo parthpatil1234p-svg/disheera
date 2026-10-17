@@ -1,7 +1,7 @@
 # 🔌 DheePath - REST API Reference Specification
 
 > **🏆 Hack2Ignite 2026-27 · Official Submission**  
-> **Base Production URL:** `https://careerpath-ai-bdbt.onrender.com`  
+> **Base Production URL:** `https://api.disheera.site`  
 > **Base Local Development URL:** `http://localhost:5000`  
 > **Authentication:** Bearer JWT in `Authorization` header (`Bearer <token>`)  
 > **Response Format:** JSON (`application/json`)  

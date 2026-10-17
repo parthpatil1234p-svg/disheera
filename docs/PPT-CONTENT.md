@@ -20,8 +20,8 @@
   * 🔍 Sanika Bodhnawar — Researcher & Integration Lead *(Skill Taxonomies, Market Benchmarking & Research References)*
 * **Tagline:** Discover Your Career. Bridge Your Skill Gaps. Build Your Future.
 * **Production Links:**
-  * Live Web App: `https://careerpath-ai-jade.vercel.app`
-  * API Gateway: `https://careerpath-ai-bdbt.onrender.com/api/health`
+  * Live Web App: `https://disheera.site`
+  * API Gateway: `https://api.disheera.site/api/health`
   * Official Demo Video: `https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing`
   * Official Pitch Deck: `https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing`
 * **Official AI Disclosure:** Assistive coding utilized for boilerplate scaffolding; all math engines, MongoDB schemas, RBAC isolation guards, and security gates are 100% original.
@@ -60,7 +60,7 @@
   * **Recruiter Corporate Verification Pipeline:** 60+ webmail provider blacklist, DNS MX resolution, live HTTP website probing, and AI trust scoring.
   * **Role-Smart Navigation & Portal Isolation:** Isolated student and recruiter catalogs with auto-redirect traps. Brand logo dynamically routes recruiters to `/recruiter-dashboard.html` and students to `/dashboard.html` (`?view=public` bypass).
 * **Working Prototype & Automated Test Proof:**
-  * 100% production-ready and live at `https://careerpath-ai-jade.vercel.app`.
+  * 100% production-ready and live at `https://disheera.site`.
   * Automated Unit & Integration Tests: **26/26 Portal Isolation RBAC tests passing (100%)**; **6/6 Recruiter Verification E2E tests passing (100%)**.
 
 ---
@@ -104,10 +104,10 @@
   3. **Live Labor Market Telemetry (Adzuna Developer API):** Real-time Indian tech job market statistics, salary distributions (₹3.5L–₹14L+), and regional hiring demand metrics (developer.adzuna.com).
   4. **Global Engineering Standards (roadmap.sh & IEEE):** Standardized milestone pathways referenced from roadmap.sh, MDN Web Docs, Google web.dev, and IEEE Computer Society.
 * **Official Working Prototype & Submission Links:**
-  * 🌐 Live Web Application: `https://careerpath-ai-jade.vercel.app`
-  * ⚡ Production REST API Health: `https://careerpath-ai-bdbt.onrender.com/api/health`
-  * 🏢 Recruiter Portal & Radar: `https://careerpath-ai-jade.vercel.app/recruiter-dashboard.html`
-  * 💼 Live Recruiter Job Board: `https://careerpath-ai-jade.vercel.app/jobs.html`
+  * 🌐 Live Web Application: `https://disheera.site`
+  * ⚡ Production REST API Health: `https://api.disheera.site/api/health`
+  * 🏢 Recruiter Portal & Radar: `https://disheera.site/recruiter-dashboard.html`
+  * 💼 Live Recruiter Job Board: `https://disheera.site/jobs.html`
   * 🎬 Official Demo Video (Google Drive): `https://drive.google.com/file/d/1LHcJTmf49UlEPERd0aUREjI87JX77K5f/view?usp=sharing`
   * 📊 Official Pitch Deck PPT (Google Drive): `https://drive.google.com/file/d/1MXabwhn7zB3OFJbjGDYu0fqdR46KCM7m/view?usp=sharing`
   * 🏆 Hackathon Portal: Hack 2 Ignite on Unstop — G.H. Raisoni International Skill Tech University, Pune.
