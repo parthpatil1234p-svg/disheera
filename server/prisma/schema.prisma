@@ -96,6 +96,7 @@ model Roadmap {
   updatedAt          DateTime      @updatedAt
 
   @@index([userId])
+  @@index([careerId])
   @@index([status])
   @@index([userId, status, createdAt(sort: Desc)], map: "idx_roadmap_user_status_created")
 }
