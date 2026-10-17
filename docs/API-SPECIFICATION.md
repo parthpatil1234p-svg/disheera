@@ -1,4 +1,4 @@
-# 🔌 DheePath - REST API Reference Specification
+# 🔌 Disheera - REST API Reference Specification
 
 > **🏆 Hack2Ignite 2026-27 · Official Submission**  
 > **Base Production URL:** `https://api.disheera.site`  

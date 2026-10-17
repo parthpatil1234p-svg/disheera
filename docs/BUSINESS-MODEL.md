@@ -1,7 +1,7 @@
-# DheePath — Business Model & Monetization Strategy
+# Disheera — Business Model & Monetization Strategy
 
 > **Domain:** EduTech / AI for Good · **Hack2Ignite 2026–27** · **Team:** 404 Brain Not Found  
-> **Key Question:** *"How does DheePath sustain itself financially without charging students?"*
+> **Key Question:** *"How does Disheera sustain itself financially without charging students?"*
 
 ---
 
@@ -10,7 +10,7 @@
 ### "Free for Students, Always"
 In the Indian higher education ecosystem, charging college students creates immediate friction, high drop-off rates, and severely limits adoption. More importantly, charging students directly contradicts the founding vision of **EduTech / AI for Good**.
 
-**DheePath operates a sustainable, high-margin B2B2C Talent & Telemetry Flywheel:**
+**Disheera operates a sustainable, high-margin B2B2C Talent & Telemetry Flywheel:**
 - **Students (B2C):** Receive 100% free career recommendations, 60/25/15 match scoring, 4/8/12-week structured roadmaps, and live market telemetry.
 - **Colleges & Universities (B2B Institutional):** Pay for our **Placement Intelligence SaaS (TPO Portal)** to boost accreditation scores (NAAC, NIRF) and eliminate spreadsheet-based placement operations.
 - **Companies & Recruiters (B2B Corporate):** Pay for **Verified Candidate Access** to pre-screened, proof-of-work talent, cutting hiring cost-per-hire by up to 60%.
@@ -18,7 +18,7 @@ In the Indian higher education ecosystem, charging college students creates imme
 
 ```
        ┌────────────────────────────────────────────────────────┐
-       │                 DHEEPATH PLATFORM                 │
+       │                 DISHEERA PLATFORM                 │
        └──────────────────────────┬─────────────────────────────┘
                                   │
           ┌───────────────────────┼───────────────────────┐
@@ -70,7 +70,7 @@ In the Indian higher education ecosystem, charging college students creates imme
 - **High Recruitment Agency Costs:** Traditional placement agencies charge between 8.33% and 15% of annual CTC (₹40,000–₹1,20,000 per fresher hire).
 - **Unreliable Self-Declarations:** Resumes list keywords like *"Docker, Kubernetes, React"*, but recruiters have no proof of hands-on ability before spending expensive engineering interview hours.
 
-### What DheePath Delivers to Recruiters
+### What Disheera Delivers to Recruiters
 1. **Verified Skill Profiles:** Candidates with transparent proof-of-work, validated GitHub commits, and milestone completion timestamps.
 2. **Deterministic Role Fit:** Filter candidates by exact 60/25/15 match score against the employer's specific technical rubric.
 3. **Weekly Milestone Audit:** Recruiters can view which roadmap projects a student completed, proving persistence and problem-solving capability.
@@ -125,7 +125,7 @@ In the Indian higher education ecosystem, charging college students creates imme
 > **Answer:** "We bypass slow institutional procurement with a bottom-up **Department Pilot (₹49,000)**. Department HODs have discretionary spending budgets for student development and NAAC readiness that do not require board-level approval. After a successful 60-day pilot demonstrates higher student engagement and clear skill heatmaps, the college upgrades to the full campus license."
 
 ### Q2: *"Why would recruiters use this over LinkedIn or Naukri?"*
-> **Answer:** "LinkedIn and Naukri are flooded with unverified resumes. Recruiters waste weeks screening out applicants who embellished their skills. DheePath gives recruiters verified candidate data grounded in actual roadmap progress, code commits, and 60/25/15 rubric matches. We deliver signal instead of noise."
+> **Answer:** "LinkedIn and Naukri are flooded with unverified resumes. Recruiters waste weeks screening out applicants who embellished their skills. Disheera gives recruiters verified candidate data grounded in actual roadmap progress, code commits, and 60/25/15 rubric matches. We deliver signal instead of noise."
 
 ### Q3: *"What stops students from gaming the self-assessment to attract recruiters?"*
 > **Answer:** "Self-assessment only seeds the student's initial roadmap. The Recruiter Portal separates the **Self-Reported Score** from the **Verified Roadmap Score**. A candidate is only tagged as 'Recruiter Ready' once they have verified milestone completions, code repositories, and weekly quiz checkpoints."

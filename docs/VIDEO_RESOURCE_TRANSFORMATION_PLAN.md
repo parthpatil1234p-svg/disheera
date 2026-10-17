@@ -1,7 +1,7 @@
 # 🎬 Video-First Roadmap Transformation & Free Resource Architecture
 
 > **Document Version:** 1.0.0 · Production Blueprint  
-> **Platform:** DheePath (Hack 2 Ignite 2026–27)  
+> **Platform:** Disheera (Hack 2 Ignite 2026–27)  
 > **Target Subsystem:** Roadmap Engine, Learning Resources & Focus Video Chamber  
 > **Status:** Approved for Implementation  
 
@@ -9,7 +9,7 @@
 
 ## 📌 1. Problem Statement: Why Text Resources Fail
 
-In traditional e-learning and early DheePath iterations:
+In traditional e-learning and early Disheera iterations:
 1. **Low Engagement & High Drop-Off:** Over 74% of beginner-to-intermediate students abandon roadmaps when directed to dry, 40-page text documentation (e.g., MDN search queries, CSS-Tricks, official language specs).
 2. **Passive vs. Active Visual Demonstration:** Complex programming concepts (such as React Hooks, Docker container orchestration, or PostgreSQL indexing) require visual architecture diagrams, live terminal execution, and step-by-step code demonstrations.
 3. **Language Barriers:** In Indian engineering colleges and regional tier-2/3 universities, students frequently struggle with dense academic English text, heavily favoring bilingual/Hinglish video explanations alongside clean English tutorials.
@@ -149,7 +149,7 @@ Where to source batch datasets to populate the initial catalog:
 
 ### 5.2 Prisma Model `RoadmapTask` Mapping
 
-In `dheepath/server/prisma/schema.prisma`:
+In `disheera/server/prisma/schema.prisma`:
 ```prisma
 model RoadmapTask {
   id                     String    @id @default(uuid())

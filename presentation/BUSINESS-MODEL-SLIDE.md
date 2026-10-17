@@ -1,6 +1,6 @@
 # Presentation Slide: Business Model & Monetization Strategy
 
-> **For Presentation Slide Deck:** `presentation/DheePath_Hack2Ignite_2026-27_404-Brain-Not-Found.pptx`  
+> **For Presentation Slide Deck:** `presentation/Disheera_Hack2Ignite_2026-27_404-Brain-Not-Found.pptx`  
 > **Slide Title:** Business Model: Sustainable B2B2C Talent & Telemetry Flywheel  
 > **Presenter:** 404 Brain Not Found (Presenter: Sanika Bodhnawar / Parth Patil)  
 > **Target Duration:** 45 seconds
@@ -12,7 +12,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 💰 BUSINESS MODEL & MONETIZATION                                        Team 404 Brain Not Found │
-│ "How DheePath Sustains Itself Financially Without Charging Students"                     │
+│ "How Disheera Sustains Itself Financially Without Charging Students"                     │
 ├─────────────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                             │
 │  [ PILLAR 1: STUDENTS ]            [ PILLAR 2: COLLEGES ]          [ PILLAR 3: COMPANIES ]  │
@@ -40,7 +40,7 @@
 ## 🗣️ Speaker Notes & Delivery Script (45 Seconds)
 
 > **[Slide Intro — 0:00 - 0:10]**  
-> *"Judges always ask how DheePath makes money if we don't charge students. Our answer is simple: **We keep our platform 100% free for students, always.** Charging students creates friction and kills viral adoption, while our mission is democratizing career guidance."*
+> *"Judges always ask how Disheera makes money if we don't charge students. Our answer is simple: **We keep our platform 100% free for students, always.** Charging students creates friction and kills viral adoption, while our mission is democratizing career guidance."*
 
 > **[B2B Pillars — 0:10 - 0:30]**  
 > *"Instead, we operate a high-margin **B2B institutional model**:  

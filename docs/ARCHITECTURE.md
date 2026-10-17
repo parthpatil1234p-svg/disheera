@@ -1,4 +1,4 @@
-# 🏛️ DheePath — Comprehensive System Architecture
+# 🏛️ Disheera — Comprehensive System Architecture
 
 > **🏆 Hack2Ignite 2026–27 · Official Submission**  
 > **Problem Statement ID:** **ED-02** — *Develop an AI-powered career guidance system for students based on skills, interests, and market trends*  
@@ -28,7 +28,7 @@
 
 ## 1. Executive Architectural Overview
 
-DheePath is engineered to bridge India's massive **academic-to-industry employability divide**. Unlike generic advice bots or static survey tools, DheePath is built on four hardened architectural tenets:
+Disheera is engineered to bridge India's massive **academic-to-industry employability divide**. Unlike generic advice bots or static survey tools, Disheera is built on four hardened architectural tenets:
 
 1. **Deterministic Over Generative:** Career recommendations are driven by a mathematical **60/25/15 scoring matrix**, never black-box LLM hallucinations.
 2. **Database-Enforced Invariants:** Core business rules (such as *one active career route per student* and *one verified resume per account*) are strictly enforced at the **MongoDB database engine level** via unique and partial unique indexes, eliminating race conditions.
@@ -134,7 +134,7 @@ flowchart TD
 In online learning, students often enroll in 5 different tracks simultaneously, completing 5% of each and mastering none. In multi-tab browsing or concurrent requests, race conditions can spawn duplicate active roadmaps, causing inconsistent progress tracking and corrupted metrics.
 
 ### 3.2 Database-Level Partial Unique Index
-To guarantee **strict single active route adherence**, DheePath implements a **MongoDB partial unique index**:
+To guarantee **strict single active route adherence**, Disheera implements a **MongoDB partial unique index**:
 
 ```javascript
 // server/models/Roadmap.js
@@ -205,7 +205,7 @@ On `/recommendations.html`:
 
 ## 4. 4-Rule Industry Job Ready Certification Engine
 
-To prevent vanity credentials, DheePath replaces superficial completion certificates with an objective **4-Rule Job Ready Engine** (`server/services/readinessService.js`):
+To prevent vanity credentials, Disheera replaces superficial completion certificates with an objective **4-Rule Job Ready Engine** (`server/services/readinessService.js`):
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -241,7 +241,7 @@ $$\text{JobReady} = (\text{Score} \ge 70) \land (\text{VerifiedCount} \ge 4) \la
 ## 5. Dedicated Single Resume per Account Architecture
 
 ### 5.1 The Invariant: 1 Student = 1 Verified Active Resume
-Legacy systems often store unindexed resume arrays on the user model, causing orphaned cloud files and stale data. DheePath isolates resumes into a dedicated collection:
+Legacy systems often store unindexed resume arrays on the user model, causing orphaned cloud files and stale data. Disheera isolates resumes into a dedicated collection:
 
 ```javascript
 // server/models/Resume.js
@@ -320,7 +320,7 @@ Cross-stream recommendations are only presented if the student explicitly enable
 
 ## 7. Two-Factor Skill Verification Moat
 
-DheePath combats self-reported resume inflation through an automated **Two-Factor Verification Pipeline**:
+Disheera combats self-reported resume inflation through an automated **Two-Factor Verification Pipeline**:
 
 ```
                               [ Student Declares Skill ]
@@ -400,7 +400,7 @@ flowchart LR
 
 ## 11. Recruiter Verification, Corporate Validation & ATS Pipeline
 
-To combat fake job postings and ensure high-integrity campus recruitment, DheePath incorporates a multi-layer corporate verification and applicant tracking engine:
+To combat fake job postings and ensure high-integrity campus recruitment, Disheera incorporates a multi-layer corporate verification and applicant tracking engine:
 
 ```
 [ Recruiter Registration ]

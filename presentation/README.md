@@ -1,23 +1,23 @@
-# Presentation Slide Deck — DheePath
+# Presentation Slide Deck — Disheera
 
 > **🏆 Hack2Ignite 2026–27 · Team 404 Brain Not Found**  
 > **Organizer:** G.H. Raisoni International Skill Tech University (GHRISTU), Pune & Igniters Club (Unstop)  
 > **Problem Statement ID:** ED-02 (EduTech Track)  
-> **Project:** DheePath — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
+> **Project:** Disheera — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
 
-This directory contains the official presentation slide deck and business model documentation for DheePath.
+This directory contains the official presentation slide deck and business model documentation for Disheera.
 
 ---
 
 ## 📌 Available Presentation Decks
 
-1. **`DheePath_Hack2Ignite_2026-27_404-Brain-Not-Found.pptx`**  
+1. **`Disheera_Hack2Ignite_2026-27_404-Brain-Not-Found.pptx`**  
    - The authoritative 6-slide PowerPoint submission deck built directly on the official GHRISTU Hack2Ignite 2026 template.
    - Preserves all official slide headings, pointer titles, logos, and widescreen 16:9 layout.
    - Contains high-density visual cards, mathematical formulations, system pipeline flowcharts, risk mitigation matrices, and test pass benchmarks.
 
 2. **Root Submission Deck:**  
-   - [`HACK2IGNITE_2026_DheePath_AI_Official.pptx`](../HACK2IGNITE_2026_DheePath_AI_Official.pptx)  
+   - [`HACK2IGNITE_2026_Disheera_AI_Official.pptx`](../HACK2IGNITE_2026_Disheera_AI_Official.pptx)  
    - Exact mirror of the official 6-slide deck for direct upload on Unstop.
 
 3. **Master Presentation Content & Viva Guide:**  

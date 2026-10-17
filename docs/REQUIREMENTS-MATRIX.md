@@ -1,7 +1,7 @@
 # Requirements Traceability Matrix (RTM)
 
 > **🏆 Hack2Ignite 2026–27 · Round 1 Qualifier**  
-> **Project:** DheePath  
+> **Project:** Disheera  
 > **Team:** 404 Brain Not Found (Parth Patil, Aditi Vispute, Suyog Pawar, Sanika Bodhnawar)  
 > **Problem Statement ID:** ED-02 (AI Career Guidance System)
 

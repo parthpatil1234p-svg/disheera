@@ -2,7 +2,7 @@
 > **Organizer:** G.H. Raisoni International Skill Tech University (GHRISTU), Pune & Igniters Club (Unstop)  
 > **Team Name:** 404 Brain Not Found  
 > **Problem Statement ID:** ED-02 (EduTech Track)  
-> **Idea Title:** DheePath - Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
+> **Idea Title:** Disheera - Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform  
 > **Format:** Strict 6-Slide Maximum · Official Headings & Pointers Preserved · Unique Multi-Paradigm Visuals: Metro Subway Transit Line, Hexagonal Ports & Adapters, DNA Helix, 4-Pillar Temple & Circular Orbits Included
 
 ---
@@ -44,7 +44,7 @@
 ## 📌 SLIDE 2: IDEA TITLE
 ### Proposed Solution (Describe your Idea/Solution/Prototype)
 
-**Idea Title:** `DheePath - Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`
+**Idea Title:** `Disheera - Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`
 
 ### • Detailed explanation of the proposed solution:
 
@@ -81,7 +81,7 @@ flowchart LR
 
 ```
  ══════════════════════════════════════════════════════════════════════════════════════════════════════════
- 🚇 DHEEPATH METRO TRANSIT LINE (The "Career GPS" Route Map)
+ 🚇 DISHEERA METRO TRANSIT LINE (The "Career GPS" Route Map)
  ══════════════════════════════════════════════════════════════════════════════════════════════════════════
  [CAMPUS JUNCTION] ═══════●════════ [PROOF TERMINAL] ═══════●════════ [ALGORITHMIC INTERCHANGE]
   Student Profiling                 Two-Factor Verification           60/25/15 Deterministic Math
@@ -182,7 +182,7 @@ flowchart TD
 
     subgraph CORE_HEXAGON [⬡ CORE DOMAIN HEXAGON]
         P_IN{Inbound Port: Profiler &amp; Auth}:::port
-        DOMAIN{{💎 DHEEPATH DOMAIN<br/>• 60/25/15 Deterministic Math Engine<br/>• 4-Tier Confidence Multipliers (Ci)<br/>• 4-Rule Job Ready Cert Evaluator<br/>• Dual Route Synergy Engine}}:::domain
+        DOMAIN{{💎 DISHEERA DOMAIN<br/>• 60/25/15 Deterministic Math Engine<br/>• 4-Tier Confidence Multipliers (Ci)<br/>• 4-Rule Job Ready Cert Evaluator<br/>• Dual Route Synergy Engine}}:::domain
         P_OUT{Outbound Port: Telemetry &amp; State}:::port
     end
 
@@ -381,7 +381,7 @@ flowchart LR
 
 ### • Benefits of the solution (social, economic, environmental):
 * **Social Benefits:**
-  * **Democratizing Career Guidance:** Over 65% of Indian technical colleges lack dedicated career counselors; DheePath gives every student high-precision, individualized career mentoring for free.
+  * **Democratizing Career Guidance:** Over 65% of Indian technical colleges lack dedicated career counselors; Disheera gives every student high-precision, individualized career mentoring for free.
   * Drastically reduces final-year placement anxiety, career mismatch depression, and engineering dropouts.
 * **Economic Benefits:**
   * Bridges the national graduate-industry gap, elevating starting CTC packages from ₹3.5 LPA to ₹8-₹14+ LPA.
@@ -402,7 +402,7 @@ flowchart TD
     classDef vector fill:#1E1B4B,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
     classDef core fill:#3B1A6E,stroke:#F59E0B,stroke-width:3px,color:#FFFFFF,font-weight:bold;
 
-    CORE{{🔬 DHEEPATH EMPIRICAL BENCHMARKS<br/>Grounding Student Success in Real-World Data}}:::core
+    CORE{{🔬 DISHEERA EMPIRICAL BENCHMARKS<br/>Grounding Student Success in Real-World Data}}:::core
 
     V1[1⃣ NATIONAL EMPLOYABILITY CRISIS<br/>• Aspiring Minds &amp; SHL India Studies<br/>• &lt;20% Indian engineers ready for product roles<br/>• Proves urgent need for code-grounded proof]:::vector
     V2[2⃣ EXPLAINABLE AI IN EDTECH XAI-Ed<br/>• International Journal of AI in Education<br/>• Deterministic math achieves 4x higher trust<br/>• Proves superiority over black-box LLM guessing]:::vector

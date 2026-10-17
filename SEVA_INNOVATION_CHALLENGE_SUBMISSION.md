@@ -4,7 +4,7 @@
 > **Theme:** *Educated, skilled, and secure Bharat* | Under the vision of **Viksit Bharat @ 2047**  
 > **Team Name:** `404 Brain Not Found`  
 > **Institution:** G.H. Raisoni College of Engineering and Management (GHRCEM), Jalgaon  
-> **Project Title:** `DheePath — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`  
+> **Project Title:** `Disheera — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`  
 > **Live Web Application:** [disheera.site](https://disheera.site)  
 > **Production REST API:** [api.disheera.site](https://api.disheera.site)  
 
@@ -97,7 +97,7 @@ flowchart LR
 ### 🚇 ASCII Subway Line
 ```
  ══════════════════════════════════════════════════════════════════════════════════════════════════════════
- 🚇 DHEEPATH METRO TRANSIT LINE (The "Career GPS" Route Map)
+ 🚇 DISHEERA METRO TRANSIT LINE (The "Career GPS" Route Map)
  ══════════════════════════════════════════════════════════════════════════════════════════════════════════
  [CAMPUS JUNCTION] ═══════●════════ [PROOF TERMINAL] ═══════●════════ [ALGORITHMIC INTERCHANGE]
   Student Profiling                 Two-Factor Verification           60/25/15 Deterministic Math
@@ -169,7 +169,7 @@ flowchart LR
 
 ```mermaid
 gantt
-    title DheePath — Phased National Implementation Roadmap
+    title Disheera — Phased National Implementation Roadmap
     dateFormat  YYYY-MM
     section Phase 1: Institutional Pilot
     GHRCEM Jalgaon & Regional Pilot (5,000+ Students)    :done, 2026-09, 2026-11
@@ -204,7 +204,7 @@ gantt
 ## 📌 6. FILES & ASSETS READY FOR PRESENTATION
 
 1. 📊 **Official PowerPoint Pitch Deck:**
-   `SEVA_INNOVATION_CHALLENGE_DheePath_AI.pptx` (Generated and ready for download/presentation)
+   `SEVA_INNOVATION_CHALLENGE_Disheera_AI.pptx` (Generated and ready for download/presentation)
 2. 🌐 **Interactive Visual SVG Chart Dashboard:**
    `presentation/SEVA_INNOVATION_CHALLENGE_CHARTS.html` (Open in any browser for high-res screenshots and live presentation)
 3. ⚙️ **Python PPTX Generator Script:**

@@ -1,7 +1,7 @@
 # UI/UX & Design Systems Specification
 
 > **🏆 Hack2Ignite 2026–27 · Team 404 Brain Not Found**  
-> **Project:** DheePath (ED-02)  
+> **Project:** Disheera (ED-02)  
 > **Design Language:** High-Contrast Futuristic Sci-Fi EdTech with Accessible 90% Bento Grid
 
 ---

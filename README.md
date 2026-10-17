@@ -1,7 +1,7 @@
-# 🚀 DheePath: Autonomous Career Guidance & Talent Intelligence Platform
+# 🚀 Disheera: Autonomous Career Guidance & Talent Intelligence Platform
 
 > **Verified skill roadmaps for students, placement telemetry for universities, and verified candidates for tech recruiters**  
-> **Company:** DheePath Technologies Inc.  
+> **Company:** Disheera Technologies Inc.  
 > **Category:** B2B2C EdTech & Enterprise Talent Operating System  
 > **Tagline:** *Discover Your Path. Prove Your Skills. Land Your Dream Role.*  
 > **Architecture:** Pure Supabase PostgreSQL (Prisma ORM) · Vercel Global Edge · Render Cloud Gateway  
@@ -150,13 +150,13 @@
     - [18.3 Production Deployment Topology (Vercel Frontend & Render REST API)](#183-production-deployment-topology-vercel-frontend--render-rest-api)
     - [18.4 Mobile Core Web Vitals 90+ Score & Zero-Waterfall Performance Engineering](#184-mobile-core-web-vitals-90-score--zero-waterfall-performance-engineering)
 19. [🤖 AI Governance, Ethics & Transparency Charter](#-19-ai-governance-ethics--transparency-charter)
-20. [👥 Leadership & Engineering Team: DheePath](#-20-leadership--engineering-team-careerpath-ai)
+20. [👥 Leadership & Engineering Team: Disheera](#-20-leadership--engineering-team-careerpath-ai)
 
 ---
 
 ## 🚀 Platform Overview & Interactive Sandbox Access
 
-DheePath is an enterprise-grade Autonomous Career Guidance & Talent Intelligence Platform. Designed to eliminate friction for university leaders, enterprise hiring teams, and prospective candidates, our live production systems feature pre-configured interactive sandbox accounts allowing end-to-end evaluation in **under 3 minutes**:
+Disheera is an enterprise-grade Autonomous Career Guidance & Talent Intelligence Platform. Designed to eliminate friction for university leaders, enterprise hiring teams, and prospective candidates, our live production systems feature pre-configured interactive sandbox accounts allowing end-to-end evaluation in **under 3 minutes**:
 
 | Resource | Target Link / Value | Production Capability & Stakeholder Notes |
 | :--- | :--- | :--- |
@@ -165,7 +165,7 @@ DheePath is an enterprise-grade Autonomous Career Guidance & Talent Intelligence
 | ⚡ **Live API Gateway** | **[https://api.disheera.site](https://api.disheera.site)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Live Health Check** | **[https://api.disheera.site/api/health](https://api.disheera.site/api/health)** | Real-time server telemetry, database connection & uptime monitor |
 | 📧 **Official Support & Inquiries** | **`parthpatil@careerpath.is-local.org`** | Dedicated enterprise & university partner communication channel |
-| 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20DheePath%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
+| 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20Disheera%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
 | 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://disheera.site/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@careerpath.is-local.org` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
 | ⚖️ **Statutory DPDP Act 2023 Alignment** | **[Gazette No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)** | Full statutory compliance across notice (s. 5), consent (s. 6), breach notification (s. 8(6)), and data principal rights |
 | 📜 **Legal & Governance Suite** | **[`privacy.html`](https://disheera.site/privacy.html) · [`terms.html`](https://disheera.site/terms.html) · [`security.html`](https://disheera.site/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
@@ -269,8 +269,8 @@ The systemic breakdown occurs at four distinct bottlenecks:
                    └──────────── The Skill-Gap Chasm ───────────┘
 ```
 
-### The DheePath Solution & Platform Moat
-**DheePath** transforms career guidance from subjective guesswork into an objective, math-backed digital operating system:
+### The Disheera Solution & Platform Moat
+**Disheera** transforms career guidance from subjective guesswork into an objective, math-backed digital operating system:
 - **100% Explainable Recommendations:** Driven by a transparent 60/25/15 mathematical matrix, without black-box prompt guessing.
 - **Two-Factor Skill Verification Moat:** GitHub session analysis and sub-300ms Groq LPU micro-quizzes validate real competence.
 - **Dual Concurrent Active Roadmaps:** Database-level partial unique index prevents multi-route hopping, enforcing discipline while allowing open exploration.
@@ -282,7 +282,7 @@ The systemic breakdown occurs at four distinct bottlenecks:
 
 ## 🧠 Explainable Career Matching Engine (100% Transparent Math)
 
-One of DheePath's most critical innovations is **Explainable AI (XAI)**. We firmly reject the practice of feeding student profiles into black-box LLMs and hoping for reasonable output. Instead, our recommendation engine (`server/services/recommendationService.js`) calculates match scores through a **deterministic mathematical scoring matrix**.
+One of Disheera's most critical innovations is **Explainable AI (XAI)**. We firmly reject the practice of feeding student profiles into black-box LLMs and hoping for reasonable output. Instead, our recommendation engine (`server/services/recommendationService.js`) calculates match scores through a **deterministic mathematical scoring matrix**.
 
 ### 3.1 The 60/25/15 Mathematical Formulation
 
@@ -326,7 +326,7 @@ $$\text{Skill Match Score} = \left(\frac{\sum WE_i}{\sum W_i}\right) \times 100$
 
 ### 3.2 4-Tier Skill Passport Confidence Multipliers
 
-To prevent unverified self-ratings from swaying recommendations unfairly, DheePath applies a **4-Tier Confidence Multiplier** ($C_i$) to every skill:
+To prevent unverified self-ratings from swaying recommendations unfairly, Disheera applies a **4-Tier Confidence Multiplier** ($C_i$) to every skill:
 
 | Passport Tier | Verification Method | Confidence Multiplier ($C_i$) | Description & Rationale |
 | :--- | :--- | :---: | :--- |
@@ -388,7 +388,7 @@ $$\text{Final Score} = 37.83 + 12.50 + 15.00 = \mathbf{65.33\%} \rightarrow \mat
 
 ### 3.4 Primary Stream Isolation (No Foreign Stream Spillover)
 
-A common flaw in generic career apps is recommending technical coding jobs to Commerce, Arts, or Business students who lack foundational technical interest. DheePath implements **Strict Primary Stream Isolation**:
+A common flaw in generic career apps is recommending technical coding jobs to Commerce, Arts, or Business students who lack foundational technical interest. Disheera implements **Strict Primary Stream Isolation**:
 1. During profile assessment, the student's declared or auto-inferred **Primary Stream** is resolved:
    - `Engineering & Tech` (B.Tech, BCA, MCA, CS, IT)
    - `Business & Management` (BBA, B.Com, MBA, Finance, Economics)
@@ -409,7 +409,7 @@ Every recommendation displays a plain-English explanation generated **without ca
 
 ## 🛡️ Two-Factor Skill Verification Moat (Defeating Resume Inflation)
 
-Self-reported resumes in India suffer from severe inflation. DheePath introduces a **Two-Factor Verification Pipeline**:
+Self-reported resumes in India suffer from severe inflation. Disheera introduces a **Two-Factor Verification Pipeline**:
 
 ```
                               [ Student Declares Skill ]
@@ -448,10 +448,10 @@ Self-reported resumes in India suffer from severe inflation. DheePath introduces
 ### 5.1 The Parallel Learning Dilemma & DB Invariant
 Online learners frequently drop out when they enroll in 5+ disparate tracks simultaneously, completing 5% of each and mastering none. However, real-world engineering often requires **complementary dual skills** (e.g. *Full-Stack Developer* paired with *DevOps & Cloud Engineer*, or *Front-End Developer* paired with *UI/UX Designer*).
 
-To balance focus with multidisciplinary synergy, DheePath transitioned from a single rigid route to a **Dual Concurrent Active Roadmaps Architecture** ($\le 2$ parallel tracks), rigorously enforced at both the database engine and service layer.
+To balance focus with multidisciplinary synergy, Disheera transitioned from a single rigid route to a **Dual Concurrent Active Roadmaps Architecture** ($\le 2$ parallel tracks), rigorously enforced at both the database engine and service layer.
 
 ### 5.2 PostgreSQL Compound Partial Unique Index (`idx_user_career_active_route`) & Prisma ORM
-To prevent duplicate enrollments in the same career track while strictly allowing up to 2 distinct active tracks, DheePath utilizes a native PostgreSQL partial unique index managed via Prisma ORM:
+To prevent duplicate enrollments in the same career track while strictly allowing up to 2 distinct active tracks, Disheera utilizes a native PostgreSQL partial unique index managed via Prisma ORM:
 
 ```sql
 -- PostgreSQL Compound Partial Unique Index (Applied via Supabase DDL Migration)
@@ -558,11 +558,11 @@ Students are not locked into a career indefinitely, but abandonment is treated w
 - **High-Contrast Slate Aesthetics (`.cp-btn-locked`):** Uses `#475569` text on a `#F1F5F9` slate background with `#CBD5E1` border (100% WCAG AA compliant).
 
 ### 5.6 AI-Monitored Video Dedication & Anti-Slacking Learning Chamber
-To eliminate passive video watching, skipping, scrubbing to the end, background tab idling, and trivial checkbox clicking, DheePath features a specialized in-app **Focus Learning Chamber**:
+To eliminate passive video watching, skipping, scrubbing to the end, background tab idling, and trivial checkbox clicking, Disheera features a specialized in-app **Focus Learning Chamber**:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
-│                   DHEEPATH DEDICATED LEARNING CHAMBER                       │
+│                   DISHEERA DEDICATED LEARNING CHAMBER                       │
 ├──────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                  │
 │   1. ACTIVE TAB / FOCUS GUARDIAN                                                │
@@ -606,7 +606,7 @@ To eliminate passive video watching, skipping, scrubbing to the end, background 
 ## 🏆 4-Rule Industry Job Ready Certification & Readiness Index Engine
 
 ### 6.1 The 4-Rule Certification Rubric
-To replace meaningless certificates of completion, DheePath evaluates students against **4 strict industry rules** (`server/services/readinessService.js`):
+To replace meaningless certificates of completion, Disheera evaluates students against **4 strict industry rules** (`server/services/readinessService.js`):
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -729,7 +729,7 @@ The primary Student Identity & Status card on `/dashboard.html` features an exec
 
 ## 🏷️ Lightcast Open Skills Taxonomy & 76+ Standardized Competencies
 
-DheePath dynamically evaluates, visualizes, and roadmaps **15 high-demand tech roles** mapped across **76 standardized industry skills** normalized against the **Lightcast Open Skills Taxonomy** standards:
+Disheera dynamically evaluates, visualizes, and roadmaps **15 high-demand tech roles** mapped across **76 standardized industry skills** normalized against the **Lightcast Open Skills Taxonomy** standards:
 
 | # | Role Title | Category | Slug | Primary Key Skills |
 | :---: | :--- | :---: | :--- | :--- |
@@ -750,7 +750,7 @@ DheePath dynamically evaluates, visualizes, and roadmaps **15 high-demand tech r
 | 15 | 📋 **Technical Product Manager** | Product | `technical-product-manager` | Product Management, Agile & Scrum, User Stories, User Research, Communication |
 
 ### 8.1 Core, Tool & Soft Skills Tri-Categorization
-Following the global **Lightcast Open Skills Taxonomy standard**, every competency in DheePath is classified into one of three structural archetypes:
+Following the global **Lightcast Open Skills Taxonomy standard**, every competency in Disheera is classified into one of three structural archetypes:
 1. **⚡ Core Specialized Skills (`type: "core"`):** Foundational conceptual competencies (e.g., *Data Structures*, *Distributed Systems*, *Algorithms*, *Relational Database Design*, *RESTful Architecture*).
 2. **🛠️ Tool & Technology Skills (`type: "tool"`):** Specific languages, frameworks, runtime environments, and vendor platforms (e.g., *React*, *PostgreSQL*, *Docker*, *AWS*, *TypeScript*, *Figma*).
 3. **👥 Soft & Workplace Competencies (`type: "soft"`):** Professional execution skills (e.g., *Agile & Scrum*, *User Stories*, *Cross-Functional Communication*, *Technical Documentation*).
@@ -785,7 +785,7 @@ To eliminate fragmentation and compute exact ATS match scores, `server/services/
   Streams active distribution of Core, Tool, and Soft competencies across all 76+ curriculum anchors.
 
 ### 8.3 Automated Background Maintenance & Streak Nudge Engine
-To drive long-term habit formation, prevent student abandonment, and ensure database health, DheePath runs a persistent background maintenance engine (`server/services/cronService.js`):
+To drive long-term habit formation, prevent student abandonment, and ensure database health, Disheera runs a persistent background maintenance engine (`server/services/cronService.js`):
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -824,7 +824,7 @@ To drive long-term habit formation, prevent student abandonment, and ensure data
 
 ## 💼 Multi-Site Job Market Hub & Direct Portal Launchers
 
-DheePath bridges classroom learning with direct hiring pipelines through a dual telemetry architecture: real-time salary analytics via the Adzuna API and zero-API-key dynamic portal deep-linking across **6 leading job platforms**.
+Disheera bridges classroom learning with direct hiring pipelines through a dual telemetry architecture: real-time salary analytics via the Adzuna API and zero-API-key dynamic portal deep-linking across **6 leading job platforms**.
 
 ### 9.1 6-Portal Deep-Link URL Resolution Engine
 Implemented in `server/services/jobBoardService.js`, the platform constructs parameterized search deep links with zero third-party API keys or scraping overhead:
@@ -858,7 +858,7 @@ Clicking any badge launches a pre-filtered query for that exact company and job 
 
 ## 🎙️ AI Voice Interactive Mock Interview Chamber (Career GPS Step 9)
 
-Mock interviews represent the highest-friction barrier for Indian engineering graduates. DheePath's **Voice Interactive Mock Interview Chamber** (`/interview.html`) delivers a realistic, low-latency, voice-first simulation directly in the browser.
+Mock interviews represent the highest-friction barrier for Indian engineering graduates. Disheera's **Voice Interactive Mock Interview Chamber** (`/interview.html`) delivers a realistic, low-latency, voice-first simulation directly in the browser.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -896,7 +896,7 @@ The system highlights each word dynamically as it speaks, simulating human eye-c
 - Words transcribe in real time onto an editable draft notepad, allowing students to review or edit their answers before submission.
 
 ### 10.3 3-Pillar Answer Correctness & Feedback Evaluation Rubric
-How does DheePath determine whether an answer is correct? Rather than relying on simple keyword matching or unpredictable LLM guesswork, `server/controllers/interviewController.js` and `readinessService.js` evaluate answers across **3 objective pedagogical pillars**:
+How does Disheera determine whether an answer is correct? Rather than relying on simple keyword matching or unpredictable LLM guesswork, `server/controllers/interviewController.js` and `readinessService.js` evaluate answers across **3 objective pedagogical pillars**:
 
 1. **Pillar 1: Technical Depth & Accuracy (40% Weight):**
    - Inspects for foundational architectural concepts, accurate terminology, core algorithmic principles, and absence of common anti-patterns.
@@ -923,7 +923,7 @@ Students, university mentors, and corporate recruiters can inspect the official 
 
 ## 🏢 Recruiter Verification, Real Company Validation & Job Posting System
 
-DheePath bridges the trust gap between ambitious students and hiring companies. Unlike traditional open job boards plagued by spam, predatory third-party staffing agencies, and fake internships, DheePath enforces **cryptographic and domain-grounded corporate authenticity** before any entity can post an opening or contact candidates.
+Disheera bridges the trust gap between ambitious students and hiring companies. Unlike traditional open job boards plagued by spam, predatory third-party staffing agencies, and fake internships, Disheera enforces **cryptographic and domain-grounded corporate authenticity** before any entity can post an opening or contact candidates.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -1004,7 +1004,7 @@ Students explore direct company openings on `/jobs.html` and `/dashboard.html`:
 - **Application Tracking:** Students monitor their application review status and recruiter notes live under the "My Submitted Applications" tab.
 
 ### 11.6 Recruiter & Student Portal Isolation & RBAC Architecture
-To guarantee absolute professional boundaries between hiring companies and students, DheePath enforces **zero-leakage Portal Isolation** at both client and server tiers:
+To guarantee absolute professional boundaries between hiring companies and students, Disheera enforces **zero-leakage Portal Isolation** at both client and server tiers:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1047,7 +1047,7 @@ To guarantee absolute professional boundaries between hiring companies and stude
    - `requireRecruiter`: Enforces `user.role === 'recruiter' || user.canPostJobs`. Rejects students with `403 STUDENT_ACCESS_DENIED`.
 
 ### 11.7 Role-Smart Brand Logo Dispatch & Landing Page Redirection Engine
-When users click the platform brand logo (`<a class="navbar-brand">`) or navigate to the root landing page (`index.html`), DheePath executes intelligent role-aware routing:
+When users click the platform brand logo (`<a class="navbar-brand">`) or navigate to the root landing page (`index.html`), Disheera executes intelligent role-aware routing:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1096,7 +1096,7 @@ When users click the platform brand logo (`<a class="navbar-brand">`) or navigat
    - Dynamically transforms hero buttons: `"Start Assessment"` becomes `"Go to Recruiter Dashboard"`, and secondary CTA becomes `"Post Job Opening"`.
 
 ### 11.8 Job Opening Deadlines, Auto-Expiry Engine & Recruiter Instant Close Controls
-To protect students from ghost job postings, stale openings, and expired recruitment drives, DheePath implements strict time-delimited opening lifecycles:
+To protect students from ghost job postings, stale openings, and expired recruitment drives, Disheera implements strict time-delimited opening lifecycles:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1129,11 +1129,11 @@ To protect students from ghost job postings, stale openings, and expired recruit
 
 ## 📱 12. Multi-Provider WhatsApp Automation & AI Learning Dispatch
 
-To eliminate candidate drop-off and bridge the mobile communication barrier across Indian technical institutions, DheePath integrates an enterprise-grade multi-provider WhatsApp Automation Suite:
+To eliminate candidate drop-off and bridge the mobile communication barrier across Indian technical institutions, Disheera integrates an enterprise-grade multi-provider WhatsApp Automation Suite:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│               DHEEPATH : MULTI-PROVIDER WHATSAPP AUTOMATION ARCHITECTURE          │
+│               DISHEERA : MULTI-PROVIDER WHATSAPP AUTOMATION ARCHITECTURE          │
 ├──────────────────────────┬─────────────────────────────┬───────────────────────────────┤
 │ 1. HIGH-SPEED OTP & GATE │ 2. DYNAMIC PDF COMPILER     │ 3. 24x7 AI CAREER ASSISTANT   │
 ├──────────────────────────┼─────────────────────────────┼───────────────────────────────┤
@@ -1145,7 +1145,7 @@ To eliminate candidate drop-off and bridge the mobile communication barrier acro
 ```
 
 ### 12.1 Multi-Provider WhatsApp Service Architecture (`server/services/whatsappService.js`)
-DheePath implements an automated tri-tier failover routing engine ensuring $99.9\%$ message dispatch reliability:
+Disheera implements an automated tri-tier failover routing engine ensuring $99.9\%$ message dispatch reliability:
 1. **Meta WhatsApp Cloud API (Production Graph API v21.0):**
    - Dispatches official transactional messages via `https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/messages` using bearer token authentication.
    - Enforces pre-approved message templates for business-initiated conversations with international delivery SLAs $<2$ seconds.
@@ -1172,7 +1172,7 @@ Registration enforces a military-grade anti-bot and verified identity moat:
    - Digit input elements use neutralized IDs (`c1Digit...` and `waDigit...`) and explicit CSS overrides (`background-image: none !important; background-size: 0px 0px !important;`) combined with a DOM `MutationObserver` to suppress invasive extension overlays (e.g. TempMail, 1Password, Bitwarden) that disrupt numerical input.
 
 ### 12.3 AI & Domain Disposable Email Identifier (`server/utils/disposableEmailBlocker.js`)
-To prevent artificial rating manipulation and preserve campus recruiter trust, DheePath enforces an aggressive disposable email filter:
+To prevent artificial rating manipulation and preserve campus recruiter trust, Disheera enforces an aggressive disposable email filter:
 - **100+ Known Burner Domain Blacklist:** Blocks services including `10minutemail.com`, `mailinator.com`, `tempmail.com`, `throwawaymail.com`, `guerrillamail.com`, `sharklasers.com`, etc.
 - **Algorithmic Burner Domain Detection:** Inspects email domain entropy, detecting randomized subdomains and disposable MX patterns.
 - Returns explicit HTTP 400 rejection: *"Temporary and disposable email addresses are not permitted. Please register with your authentic personal or university email."*
@@ -1181,7 +1181,7 @@ To prevent artificial rating manipulation and preserve campus recruiter trust, D
 When students progress through weekly roadmap milestones, the system generates custom study material on the fly:
 - **In-Memory Streaming PDF Compilation:** Built using `pdfkit` to compile valid `%PDF-1.3` binary buffers without writing temporary files to disk.
 - **Curated Educational Synthesis:**
-  - Personalized header with DheePath branding, student name, and target career track.
+  - Personalized header with Disheera branding, student name, and target career track.
   - Current milestone week curriculum summary and core conceptual milestones.
   - Curated reference documentation links, coding tips, and milestone exam preparation notes.
 - **WhatsApp Direct Document Dispatch:** Dispatched straight to the student's verified WhatsApp as a downloadable PDF (`sendDocument`).
@@ -1209,7 +1209,7 @@ For older student accounts created prior to mandatory dual verification:
    - Authorized evaluation sandbox accounts and corporate recruiters are exempt to allow uninterrupted testing.
 
 ### 12.7 Autonomous n8n Workflow Integration (Job Alerts & Candidate Telemetry)
-DheePath includes a production-ready **n8n Workflow Blueprint (`DheePath_AI_Job_Alerts_n8n.json`)** to automate outbound student and recruiter touchpoints:
+Disheera includes a production-ready **n8n Workflow Blueprint (`Disheera_AI_Job_Alerts_n8n.json`)** to automate outbound student and recruiter touchpoints:
 1. **Event-Driven Webhook Ingestion:**
    - Listens to internal application webhooks (`POST /webhook/job-alert` and `POST /webhook/candidate-shortlisted`) emitted whenever a corporate recruiter publishes a new verified job opening on `/recruiter-dashboard.html`.
 2. **Personalized Skill Match Filtering:**
@@ -1248,7 +1248,7 @@ To provide immediate resolution for student technical blockers, OTP issues, and 
 
 ## 🎓 13. 16:9 Landscape Widescreen Certificate & Milestone Proctoring
 
-DheePath issues tamper-proof, industry-standard credentials formatted specifically for widescreen displays, verified portfolios, and LinkedIn sharing:
+Disheera issues tamper-proof, industry-standard credentials formatted specifically for widescreen displays, verified portfolios, and LinkedIn sharing:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1492,11 +1492,11 @@ flowchart TD
 
 ## 💰 16. Business Model & B2B2C Talent & Telemetry Flywheel
 
-DheePath is built on a **sustainable B2B2C Talent & Telemetry Flywheel** that keeps career guidance **100% free for students, always**, while monetizing institutional and corporate demand:
+Disheera is built on a **sustainable B2B2C Talent & Telemetry Flywheel** that keeps career guidance **100% free for students, always**, while monetizing institutional and corporate demand:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        DHEEPATH B2B2C MONETIZATION                                │
+│                        DISHEERA B2B2C MONETIZATION                                │
 ├──────────────────────────┬─────────────────────────────┬───────────────────────────────┤
 │ 🎓 STUDENTS              │ 🏛️ COLLEGES / UNIVERSITIES   │ 💼 HIRING COMPANIES           │
 │ 100% FREE ALWAYS         │ PLACEMENT SAAS (CAMPUS OS)  │ VERIFIED TALENT ACCESS        │
@@ -1514,7 +1514,7 @@ DheePath is built on a **sustainable B2B2C Talent & Telemetry Flywheel** that ke
 3. **Verified Opening Postings:** Corporate employers post target tech jobs with enforced skill prerequisites and time-delimited application deadlines, reducing employer screening cost-per-hire (CAC) by 60%.
 
 ### 16.2 College Placement Cell (TPO) Campus OS & NAAC/NIRF Accreditation Framework
-Higher education institutions face immense pressure to satisfy statutory accreditation standards. DheePath's **Campus OS** provides an institutional data engine mapping student progress directly to key compliance metrics:
+Higher education institutions face immense pressure to satisfy statutory accreditation standards. Disheera's **Campus OS** provides an institutional data engine mapping student progress directly to key compliance metrics:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1540,7 +1540,7 @@ Higher education institutions face immense pressure to satisfy statutory accredi
 
 ## 🔒 17. Security, Statutory Governance & MeitY DPDP Act 2023 Compliance
 
-DheePath is engineered to meet the highest technical security standards and complete statutory alignment with Indian data protection legislation, specifically the **Digital Personal Data Protection (DPDP) Act, 2023** ([Ministry of Electronics and Information Technology - MeitY Gazette Notification No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)) and the **Information Technology Act, 2000** (including IT Rules, 2021).
+Disheera is engineered to meet the highest technical security standards and complete statutory alignment with Indian data protection legislation, specifically the **Digital Personal Data Protection (DPDP) Act, 2023** ([Ministry of Electronics and Information Technology - MeitY Gazette Notification No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)) and the **Information Technology Act, 2000** (including IT Rules, 2021).
 
 ### 17.1 Technical Guardrails, CSP, Magic Bytes & CORS
 1. **Strict Content Security Policy & HTTP Headers:** Enforced via `helmet` across all REST responses, disabling unauthorized framing, clickjacking, and XSS injection vectors.
@@ -1555,7 +1555,7 @@ DheePath is engineered to meet the highest technical security standards and comp
 7. **Anti-Abuse WhatsApp Gate:** Enforces 10-digit uniqueness, prevents phone hijacking, and isolates student accounts with dual-token verification.
 
 ### 17.2 MeitY DPDP Act 2023 Statutory Alignment (Gazette No. 22 of 2023)
-DheePath acts as a **Data Fiduciary** under Section 2(i) of the DPDP Act 2023, while enrolled students and candidates are recognized as **Data Principals** under Section 2(j). The platform implements end-to-end statutory compliance across all core legislative mandates:
+Disheera acts as a **Data Fiduciary** under Section 2(i) of the DPDP Act 2023, while enrolled students and candidates are recognized as **Data Principals** under Section 2(j). The platform implements end-to-end statutory compliance across all core legislative mandates:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1593,7 +1593,7 @@ DheePath acts as a **Data Fiduciary** under Section 2(i) of the DPDP Act 2023, w
    - Candidates are informed of their right to escalate unresolved grievances to the **Data Protection Board of India (DPBI)** and appeal decisions before the **Telecom Disputes Settlement and Appellate Tribunal (TDSAT)** under Section 29 of the DPDP Act 2023.
 
 ### 17.3 Designated Grievance Officer & Redressal Architecture (DPDP s. 8(10))
-In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, DheePath has appointed a designated Grievance Redressal Officer:
+In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, Disheera has appointed a designated Grievance Redressal Officer:
 
 | Fiduciary & Grievance Metric | Statutory Designation & Contact Details |
 | :--- | :--- |
@@ -1607,7 +1607,7 @@ In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the I
 | **Direct Ticket Submission** | **[`support.html`](https://disheera.site/support.html)** or via REST API `POST /api/support/ticket` |
 
 ### 17.4 Production Legal & Governance Portal Suite
-DheePath ships with four beautifully styled, production-ready legal and governance portals matching the platform's Apple/Linear dark-mode aesthetic:
+Disheera ships with four beautifully styled, production-ready legal and governance portals matching the platform's Apple/Linear dark-mode aesthetic:
 
 1. **Privacy Policy (`client/privacy.html`):**
    - Comprehensive statutory privacy disclosures under DPDP Act 2023, IT Act 2000, and IT Rules 2021.
@@ -1684,7 +1684,7 @@ node tests/portal_isolation_rbac_test.js
 #### 📱 WhatsApp Automation Suite Verification (18/18 Tests Passing · 100%):
 ```text
 ============================================================
-🧪 DheePath: WhatsApp Automation Suite Verification
+🧪 Disheera: WhatsApp Automation Suite Verification
 ============================================================
 
 ▶ SUITE 1: Phone Number Formatting & E.164 Normalization (4 Tests)
@@ -1808,11 +1808,11 @@ GET /api/recruiter/jobs 200
 ```
 
 ### 18.3 Production Deployment Topology (Vercel Frontend & Render REST API)
-DheePath implements a production-grade decoupled cloud deployment architecture designed for sub-second global edge delivery, resilient database failover, and zero-downtime micro-updates:
+Disheera implements a production-grade decoupled cloud deployment architecture designed for sub-second global edge delivery, resilient database failover, and zero-downtime micro-updates:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        DHEEPATH PRODUCTION TOPOLOGY                               │
+│                        DISHEERA PRODUCTION TOPOLOGY                               │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                        │
 │   🌐 FRONTEND CLIENT (Vercel Global Edge Network)                                      │
@@ -1851,7 +1851,7 @@ DheePath implements a production-grade decoupled cloud deployment architecture d
 
 ### 18.4 Mobile Core Web Vitals 90+ Score & Zero-Waterfall Performance Engineering
 
-To deliver instantaneous responsiveness across mobile 4G/5G connections throughout tier-2 and tier-3 Indian university campuses, DheePath underwent a comprehensive Core Web Vitals and PageSpeed Insights optimization, elevating mobile audit scores to **90+ (Green)**:
+To deliver instantaneous responsiveness across mobile 4G/5G connections throughout tier-2 and tier-3 Indian university campuses, Disheera underwent a comprehensive Core Web Vitals and PageSpeed Insights optimization, elevating mobile audit scores to **90+ (Green)**:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1906,7 +1906,7 @@ To deliver instantaneous responsiveness across mobile 4G/5G connections througho
 
 ## 🤖 19. AI Governance, Ethics & Transparency Charter
 
-DheePath is committed to ethical, transparent, and explainable artificial intelligence across high-stakes student career navigation and enterprise candidate assessment:
+Disheera is committed to ethical, transparent, and explainable artificial intelligence across high-stakes student career navigation and enterprise candidate assessment:
 
 1. **Deterministic Core vs. Generative Layering:**
    - **Deterministic Career Alignment:** All career match calculations, skill gap decompositions, and job-readiness rubrics are governed by our **100% transparent 60/25/15 mathematical formula**. We strictly prohibit passing raw candidate profiles to generative LLMs for black-box career determination, completely eliminating algorithmic hallucination and arbitrary bias.
@@ -1921,13 +1921,13 @@ DheePath is committed to ethical, transparent, and explainable artificial intell
    - **Auditable Candidate Telemetry:** All verification milestones (code synchronization, proctored test results, interview scores) are recorded with cryptographic timestamps in our PostgreSQL ledger.
 
 3. **Algorithmic Integrity Guarantee:**
-   - All core system architecture, deterministic mathematical scoring algorithms (60/25/15), partial unique indexing, single resume lifecycle, Express REST API controllers, Prisma ORM schemas, and client controllers were originally engineered and maintained by the **DheePath Engineering Team**.
+   - All core system architecture, deterministic mathematical scoring algorithms (60/25/15), partial unique indexing, single resume lifecycle, Express REST API controllers, Prisma ORM schemas, and client controllers were originally engineered and maintained by the **Disheera Engineering Team**.
 
 ---
 
-## 👥 20. Leadership & Engineering Team: DheePath
+## 👥 20. Leadership & Engineering Team: Disheera
 
-DheePath was founded by an engineering-first team dedicated to solving the $50B global technical employability gap through rigorous mathematics, software craftsmanship, and human-centered design:
+Disheera was founded by an engineering-first team dedicated to solving the $50B global technical employability gap through rigorous mathematics, software craftsmanship, and human-centered design:
 
 | <img src="https://github.com/parthpatil1234p-svg.png?size=110" width="110px;" style="border-radius:50%" alt="Parth Patil"/><br /><sub><b>Parth Patil</b></sub> | <img src="https://github.com/aditivispute25-gif.png?size=110" width="110px;" style="border-radius:50%" alt="Aditi Vispute"/><br /><sub><b>Aditi Vispute</b></sub> | <img src="https://github.com/Suyog-SP.png?size=110" width="110px;" style="border-radius:50%" alt="Suyog Pawar"/><br /><sub><b>Suyog Pawar</b></sub> | <img src="https://github.com/SanikaMB.png?size=110" width="110px;" style="border-radius:50%" alt="Sanika Bodhnawar"/><br /><sub><b>Sanika Bodhnawar</b></sub> |
 | :---: | :---: | :---: | :---: |
@@ -1938,4 +1938,4 @@ DheePath was founded by an engineering-first team dedicated to solving the $50B 
 - **Official Enterprise Domain:** **[https://disheera.site](https://disheera.site)**
 - **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@careerpath.is-local.org) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
 - **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE), free for educational and non-commercial institutional research.
-- **Copyright:** © 2026-2027 DheePath Technologies Inc. All rights reserved.
+- **Copyright:** © 2026-2027 Disheera Technologies Inc. All rights reserved.

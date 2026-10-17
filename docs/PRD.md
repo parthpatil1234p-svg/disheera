@@ -1,11 +1,11 @@
 # Product Requirements Document (PRD)
-## DheePath - Hack2Ignite 2026-27
+## Disheera - Hack2Ignite 2026-27
 
 ---
 
 ## 1. Product Overview
 
-**DheePath** is an intelligent, multi-model AI-driven web application designed to guide students toward their ideal tech career paths based on a multidimensional analysis of their skills, interests, academic background, and live market trends.
+**Disheera** is an intelligent, multi-model AI-driven web application designed to guide students toward their ideal tech career paths based on a multidimensional analysis of their skills, interests, academic background, and live market trends.
 
 **One-liner:** AI-powered career recommendations + personalized learning roadmaps + code-grounded proof-of-work + adaptive reality-check quizzes, presented in an accessible, wide-screen interface.
 
@@ -142,7 +142,7 @@ Indian engineering students, especially in their early academic years, face syst
 
 ## 7. Business Model & Monetization Summary
 
-DheePath adheres to the **"Free for Students, Always"** principle:
+Disheera adheres to the **"Free for Students, Always"** principle:
 - **Colleges & Universities (B2B):** Institutional Placement SaaS (TPO Portal) at ₹1.5L-₹3.5L/year for NAAC/NIRF accreditation reports, batch skill deficiency heatmaps, and at-risk student nudges.
 - **Corporate Recruiters (B2B):** Verified Talent Access Pass at ₹24,999/month, reducing hiring screening costs by up to 60%.
 - **Learning Partners (B2B Marketplace):** Contextual, strictly labeled sponsored certification referrals (15-25% revenue share).

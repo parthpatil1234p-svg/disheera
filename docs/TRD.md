@@ -1,11 +1,11 @@
 # Technical Requirements Document (TRD)
-## DheePath — Hack2Ignite 2026–27
+## Disheera — Hack2Ignite 2026–27
 
 ---
 
 ## 1. Technical Architecture & System Overview
 
-DheePath uses a decoupled full-stack architecture with a high-performance vanilla JavaScript client communicating with a Node.js/Express REST API backed by MongoDB Atlas and external intelligence APIs.
+Disheera uses a decoupled full-stack architecture with a high-performance vanilla JavaScript client communicating with a Node.js/Express REST API backed by MongoDB Atlas and external intelligence APIs.
 
 ```
 ┌─────────────────────────────────┐        HTTPS / REST        ┌───────────────────────────────────┐

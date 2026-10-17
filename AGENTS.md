@@ -1,3 +1,8 @@
+# Project Physical Location & Storage
+- **Primary Physical Project Directory**: `P:\Startup✔️\Disheera` (alias: `P:\Startup✔️\CareerPath AI`)
+- **Full-Stack Application Codebase**: `P:\Startup✔️\Disheera\careerpath-ai`
+- **Notice on C: Drive**: The legacy path `C:\Users\PARTH\OneDrive\Documents\hackethon\Hack 2 ignite\CareerPath AI` is an NTFS Directory Junction pointing to `P:\Startup✔️\CareerPath AI`. Whenever referencing or operating on the codebase, recognize that files physically reside on the `P:` drive (`P:\Startup✔️\Disheera`).
+
 <!-- graft:start -->
 ## Graft — repo context graph
 

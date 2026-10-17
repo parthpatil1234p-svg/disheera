@@ -22,5 +22,5 @@ EduTech: Build an innovative technology-driven solution in the EduTech domain ad
 
 ## Notes
 
-- DheePath (AI Career Guidance and Skill Roadmap Platform) is our team's chosen solution to address the EduTech challenge.
+- Disheera (AI Career Guidance and Skill Roadmap Platform) is our team's chosen solution to address the EduTech challenge.
 - All internal algorithm formulas (60/25/15), 3D visualizations, and specific timelines (4/8/12 weeks) are team product decisions mapped under `TEAM` and `TECH` categories in `docs/REQUIREMENTS-MATRIX.md`.
