@@ -171,19 +171,42 @@ const FALLBACK_JOBS = {
 };
 
 /**
+ * Linear-time safe slug generator to prevent polynomial regular expression backtracking (ReDoS).
+ */
+function toLinearSlug(text) {
+  if (!text || typeof text !== 'string') return 'software-engineer';
+  let slug = '';
+  let prevDash = false;
+  const bound = Math.min(text.length, 120);
+  for (let i = 0; i < bound; i++) {
+    const ch = text[i].toLowerCase();
+    if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
+      slug += ch;
+      prevDash = false;
+    } else if (!prevDash && slug.length > 0) {
+      slug += '-';
+      prevDash = true;
+    }
+  }
+  while (slug.endsWith('-')) {
+    slug = slug.slice(0, -1);
+  }
+  return slug || 'software-engineer';
+}
+
+/**
  * Generates verified public search deep-links across 6 major job platforms.
  * 100% reliable without third-party API keys or rate-limits.
  */
 function generateMultiPortalLinks(roleTitle = 'Software Engineer', location = 'India', companyName = null) {
-  const cleanRole = String(roleTitle || 'Developer')
+  const boundedRole = String(roleTitle || 'Developer').slice(0, 100);
+  const cleanRole = boundedRole
     .replace(/[^\w\s.+#/-]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim() || 'Software Engineer';
-  const cleanSlug = cleanRole
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '') || 'software-engineer';
-  const searchCompany = companyName ? String(companyName).replace(/[^\w\s.+#/-]/g, ' ').trim() : '';
+    .trim()
+    .split(/\s+/)
+    .join(' ') || 'Software Engineer';
+  const cleanSlug = toLinearSlug(cleanRole);
+  const searchCompany = companyName ? String(companyName).slice(0, 80).replace(/[^\w\s.+#/-]/g, ' ').trim() : '';
 
   const queryWithCompany = searchCompany ? `${cleanRole} ${searchCompany}` : cleanRole;
 

@@ -1052,9 +1052,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (filtered.length === 0) {
       skillsGrid.innerHTML = `
         <div class="col-12 text-center py-4 text-muted small">
-          <i class="bi bi-search me-1"></i> No matching skills found for "${escapeHtml(currentSearchQuery)}".
+          <i class="bi bi-search me-1"></i> No matching skills found for "<span class="search-term-slot"></span>".
         </div>
       `;
+      const searchSlot = skillsGrid.querySelector('.search-term-slot');
+      if (searchSlot) searchSlot.textContent = currentSearchQuery || '';
       return;
     }
 
@@ -1064,31 +1066,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const selectedObj = isSelected ? (selectedSkillsMap.get(sKey) || selectedSkillsMap.get(skill.name)) : null;
       const isCodeVerified = selectedObj?.isCodeVerified;
       const isQuizVerified = selectedObj?.isQuizVerified;
-      const isVerified = isQuizVerified || isCodeVerified;
       const currentProficiency = selectedObj ? (selectedObj.verifiedProficiency || selectedObj.proficiency || 'beginner') : 'beginner';
       const skillLogo = window.TechLogos?.getLogoImg(skill.name, { size: 16, className: 'me-1' }) || '';
-
-      let verifiedBadge = '';
-      let levelBadgeHtml = '';
-      let actionBtnHtml = '';
-
-      if (isSelected) {
-        if (isQuizVerified) {
-          verifiedBadge = `<span class="badge bg-success-subtle text-success border border-success ms-1" title="Calibrated via Reality Check Quiz (${capitalize(currentProficiency)})" style="padding: 1px 5px; font-size: 0.62rem; white-space: nowrap;"><i class="bi bi-patch-check-fill me-0.5"></i>Verified</span>`;
-          levelBadgeHtml = `<span class="badge bg-success-subtle text-success border border-success font-mono px-2 py-1 small" title="Calibrated via Reality Check Quiz (${capitalize(currentProficiency)})"><i class="bi bi-patch-check-fill me-1"></i>${capitalize(currentProficiency)}</span>`;
-          actionBtnHtml = `<button type="button" class="btn btn-outline-success btn-sm btn-grid-retest ms-1 text-nowrap" data-skill="${escapeHtml(skill.name)}" title="Verified via Quiz • Click to Retest"><i class="bi bi-arrow-repeat me-1"></i>Retest</button>`;
-        } else if (isCodeVerified) {
-          verifiedBadge = `<span class="badge-code-verified ms-1" title="Verified by real GitHub repo code" style="padding: 1px 4px; font-size: 0.62rem; white-space: nowrap;"><i class="bi bi-github me-0.5"></i>GitHub</span>`;
-          levelBadgeHtml = `<span class="badge bg-info-subtle text-info border border-info font-mono px-2 py-1 small" title="Calibrated via GitHub Repository Code"><i class="bi bi-github me-1"></i>${capitalize(currentProficiency)}</span>`;
-          actionBtnHtml = `<button type="button" class="btn btn-outline-info btn-sm btn-grid-retest ms-1 text-nowrap" data-skill="${escapeHtml(skill.name)}" title="Take quiz to verify with full confidence"><i class="bi bi-lightning-charge me-1"></i>Quiz</button>`;
-        } else {
-          levelBadgeHtml = `<span class="badge bg-warning-subtle text-warning border border-warning font-mono px-2 py-1 small animate-pulse-soft" title="Quiz required to determine knowledge level"><i class="bi bi-hourglass-split me-1"></i>Level Pending</span>`;
-          actionBtnHtml = `<button type="button" class="btn cp-btn-primary btn-sm btn-grid-take-quiz ms-1 text-nowrap animate-pulse-soft shadow-sm" data-skill="${escapeHtml(skill.name)}" title="Take 90s reality check quiz to calibrate knowledge level"><i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)</button>`;
-        }
-      } else {
-        levelBadgeHtml = `<span class="badge bg-light text-muted border font-mono px-1.5 py-0.5 small opacity-75 d-none d-sm-inline-block" style="font-size: 0.65rem;" title="Knowledge level is calibrated via 90s quiz or Git"><i class="bi bi-shield-check me-0.5"></i>Quiz-Calibrated</span>`;
-        actionBtnHtml = `<button type="button" class="btn btn-grid-take-quiz-outline btn-sm btn-grid-take-quiz ms-1 text-nowrap" data-skill="${escapeHtml(skill.name)}" title="Select and verify ${escapeHtml(skill.displayName)} with 90s quiz"><i class="bi bi-lightning-charge-fill me-1 text-warning"></i>Take Quiz</button>`;
-      }
 
       const typeBadgeHtml = (window.SkillsCatalog && typeof window.SkillsCatalog.getTypeBadge === 'function')
         ? window.SkillsCatalog.getTypeBadge(skill.type || 'specialized')
@@ -1097,37 +1076,142 @@ document.addEventListener('DOMContentLoaded', async () => {
       const col = document.createElement('div');
       col.className = 'col-12 col-lg-6';
       col.innerHTML = `
-        <div class="skill-picker-card ${isSelected ? 'active-skill' : ''}" style="cursor: pointer;">
+        <div class="skill-picker-card" style="cursor: pointer;">
           <div class="d-flex align-items-center justify-content-between gap-2 w-100">
             <div class="form-check m-0 flex-grow-1 d-flex align-items-center gap-2" style="min-width: 0;">
               <input
                 class="form-check-input skill-checkbox flex-shrink-0"
                 type="checkbox"
-                id="skill_${escapeHtml(sKey)}"
-                ${isSelected ? 'checked' : ''}
               />
-              <label class="form-check-label fw-semibold text-ink m-0 d-inline-flex align-items-center gap-1.5 skill-card-label" for="skill_${escapeHtml(sKey)}" style="min-width: 0; cursor: pointer;">
-                ${skillLogo}
+              <label class="form-check-label fw-semibold text-ink m-0 d-inline-flex align-items-center gap-1.5 skill-card-label" style="min-width: 0; cursor: pointer;">
+                <span class="skill-logo-slot"></span>
                 <span class="skill-name-text"></span>
-                ${typeBadgeHtml}
-                ${verifiedBadge}
+                <span class="skill-type-slot"></span>
+                <span class="skill-verified-slot"></span>
               </label>
             </div>
-            <div class="d-flex align-items-center gap-1.5 flex-shrink-0">
-              ${levelBadgeHtml}
-              ${actionBtnHtml}
+            <div class="d-flex align-items-center gap-1.5 flex-shrink-0 skill-action-dock">
+              <span class="skill-level-slot"></span>
+              <span class="skill-btn-slot"></span>
             </div>
           </div>
         </div>
       `;
 
+      const card = col.querySelector('.skill-picker-card');
+      if (isSelected) card.classList.add('active-skill');
+
+      const checkbox = col.querySelector('.skill-checkbox');
+      checkbox.id = `skill_${sKey}`;
+      if (isSelected) checkbox.checked = true;
+
+      const skillLabel = col.querySelector('.skill-card-label');
+      skillLabel.htmlFor = `skill_${sKey}`;
+      skillLabel.title = skill.displayName || skill.name;
+
       const skillNameSpan = col.querySelector('.skill-name-text');
       if (skillNameSpan) skillNameSpan.textContent = skill.displayName || skill.name;
-      const skillLabel = col.querySelector('.skill-card-label');
-      if (skillLabel) skillLabel.title = skill.displayName || skill.name;
 
-      const card = col.querySelector('.skill-picker-card');
-      const checkbox = col.querySelector('.skill-checkbox');
+      // Inject logo safely via DOMParser
+      const logoSlot = col.querySelector('.skill-logo-slot');
+      if (skillLogo) {
+        const logoDoc = new DOMParser().parseFromString(skillLogo, 'text/html');
+        if (logoDoc.body.firstChild) {
+          logoSlot.replaceWith(logoDoc.body.firstChild);
+        } else {
+          logoSlot.remove();
+        }
+      } else {
+        logoSlot.remove();
+      }
+
+      // Inject type badge safely via DOMParser
+      const typeSlot = col.querySelector('.skill-type-slot');
+      if (typeBadgeHtml) {
+        const typeDoc = new DOMParser().parseFromString(typeBadgeHtml, 'text/html');
+        if (typeDoc.body.firstChild) {
+          typeSlot.replaceWith(typeDoc.body.firstChild);
+        } else {
+          typeSlot.remove();
+        }
+      } else {
+        typeSlot.remove();
+      }
+
+      // Build verified badge element
+      const verifiedSlot = col.querySelector('.skill-verified-slot');
+      if (isSelected && isQuizVerified) {
+        const vBadge = document.createElement('span');
+        vBadge.className = 'badge bg-success-subtle text-success border border-success ms-1';
+        vBadge.title = `Calibrated via Reality Check Quiz (${capitalize(currentProficiency)})`;
+        vBadge.style.cssText = 'padding: 1px 5px; font-size: 0.62rem; white-space: nowrap;';
+        vBadge.innerHTML = '<i class="bi bi-patch-check-fill me-0.5"></i>Verified';
+        verifiedSlot.replaceWith(vBadge);
+      } else if (isSelected && isCodeVerified) {
+        const vBadge = document.createElement('span');
+        vBadge.className = 'badge-code-verified ms-1';
+        vBadge.title = 'Verified by real GitHub repo code';
+        vBadge.style.cssText = 'padding: 1px 4px; font-size: 0.62rem; white-space: nowrap;';
+        vBadge.innerHTML = '<i class="bi bi-github me-0.5"></i>GitHub';
+        verifiedSlot.replaceWith(vBadge);
+      } else {
+        verifiedSlot.remove();
+      }
+
+      // Build level badge element
+      const levelSlot = col.querySelector('.skill-level-slot');
+      const levelBadge = document.createElement('span');
+      if (isSelected) {
+        if (isQuizVerified) {
+          levelBadge.className = 'badge bg-success-subtle text-success border border-success font-mono px-2 py-1 small';
+          levelBadge.title = `Calibrated via Reality Check Quiz (${capitalize(currentProficiency)})`;
+          levelBadge.innerHTML = '<i class="bi bi-patch-check-fill me-1"></i><span class="lvl-text"></span>';
+          levelBadge.querySelector('.lvl-text').textContent = capitalize(currentProficiency);
+        } else if (isCodeVerified) {
+          levelBadge.className = 'badge bg-info-subtle text-info border border-info font-mono px-2 py-1 small';
+          levelBadge.title = 'Calibrated via GitHub Repository Code';
+          levelBadge.innerHTML = '<i class="bi bi-github me-1"></i><span class="lvl-text"></span>';
+          levelBadge.querySelector('.lvl-text').textContent = capitalize(currentProficiency);
+        } else {
+          levelBadge.className = 'badge bg-warning-subtle text-warning border border-warning font-mono px-2 py-1 small animate-pulse-soft';
+          levelBadge.title = 'Quiz required to determine knowledge level';
+          levelBadge.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Level Pending';
+        }
+      } else {
+        levelBadge.className = 'badge bg-light text-muted border font-mono px-1.5 py-0.5 small opacity-75 d-none d-sm-inline-block';
+        levelBadge.style.fontSize = '0.65rem';
+        levelBadge.title = 'Knowledge level is calibrated via 90s quiz or Git';
+        levelBadge.innerHTML = '<i class="bi bi-shield-check me-0.5"></i>Quiz-Calibrated';
+      }
+      levelSlot.replaceWith(levelBadge);
+
+      // Build action button element
+      const btnSlot = col.querySelector('.skill-btn-slot');
+      const actionBtn = document.createElement('button');
+      actionBtn.type = 'button';
+      actionBtn.className = 'btn btn-sm ms-1 text-nowrap';
+      actionBtn.setAttribute('data-skill', skill.name);
+
+      if (isSelected) {
+        if (isQuizVerified) {
+          actionBtn.className += ' btn-outline-success btn-grid-retest';
+          actionBtn.title = 'Verified via Quiz • Click to Retest';
+          actionBtn.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i>Retest';
+        } else if (isCodeVerified) {
+          actionBtn.className += ' btn-outline-info btn-grid-retest';
+          actionBtn.title = 'Take quiz to verify with full confidence';
+          actionBtn.innerHTML = '<i class="bi bi-lightning-charge me-1"></i>Quiz';
+        } else {
+          actionBtn.className += ' cp-btn-primary btn-grid-take-quiz animate-pulse-soft shadow-sm';
+          actionBtn.title = 'Take 90s reality check quiz to calibrate knowledge level';
+          actionBtn.innerHTML = '<i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)';
+        }
+      } else {
+        actionBtn.className += ' btn-grid-take-quiz-outline btn-grid-take-quiz';
+        actionBtn.title = `Select and verify ${skill.displayName || skill.name} with 90s quiz`;
+        actionBtn.innerHTML = '<i class="bi bi-lightning-charge-fill me-1 text-warning"></i>Take Quiz';
+      }
+      btnSlot.replaceWith(actionBtn);
 
       // Allow clicking the card anywhere (except inside button, input, label, link) to toggle skill
       card.addEventListener('click', (e) => {
@@ -1291,49 +1375,77 @@ document.addEventListener('DOMContentLoaded', async () => {
     selectedSkillsMap.forEach((skill) => {
       const pill = document.createElement('span');
       pill.className = 'badge badge-navy border d-inline-flex align-items-center gap-1 py-1 px-2 small';
-      let levelTag = '';
-      let actionTag = '';
+
+      const logoImg = window.TechLogos?.getLogoImg(skill.name, { size: 14, className: 'me-0.5' });
+      if (logoImg) {
+        const logoDoc = new DOMParser().parseFromString(logoImg, 'text/html');
+        if (logoDoc.body.firstChild) {
+          pill.appendChild(logoDoc.body.firstChild);
+        }
+      }
+
+      const pillLabel = document.createElement('span');
+      pillLabel.className = 'fw-semibold text-ink pill-skill-label';
+      pillLabel.textContent = skill.displayName || skill.name;
+      pill.appendChild(pillLabel);
+
+      const levelSpan = document.createElement('span');
+      const actionSpan = document.createElement('span');
 
       if (skill.isQuizVerified) {
         const profStr = capitalize(skill.verifiedProficiency || skill.proficiency || 'intermediate');
-        levelTag = `<span class="badge bg-success text-white font-mono small px-1.5 py-0.5" style="font-size: 0.65rem;"><i class="bi bi-patch-check-fill me-0.5"></i>${escapeHtml(profStr)}</span>`;
-        actionTag = `<span class="badge bg-success-subtle text-success border border-success ms-1 cursor-pointer retest-pill-badge" role="button" data-skill="${escapeHtml(skill.name)}" title="Verified by Quiz - Click to Retest" style="padding: 1px 5px; font-size: 0.62rem; cursor: pointer;"><i class="bi bi-arrow-repeat"></i> Retest</span>`;
+        levelSpan.className = 'badge bg-success text-white font-mono small px-1.5 py-0.5';
+        levelSpan.style.fontSize = '0.65rem';
+        levelSpan.innerHTML = '<i class="bi bi-patch-check-fill me-0.5"></i><span class="prof-label"></span>';
+        levelSpan.querySelector('.prof-label').textContent = profStr;
+
+        actionSpan.className = 'badge bg-success-subtle text-success border border-success ms-1 cursor-pointer retest-pill-badge';
+        actionSpan.setAttribute('role', 'button');
+        actionSpan.setAttribute('data-skill', skill.name);
+        actionSpan.title = 'Verified by Quiz - Click to Retest';
+        actionSpan.style.cssText = 'padding: 1px 5px; font-size: 0.62rem; cursor: pointer;';
+        actionSpan.innerHTML = '<i class="bi bi-arrow-repeat"></i> Retest';
       } else if (skill.isCodeVerified) {
         const profStr = capitalize(skill.verifiedProficiency || skill.proficiency || 'intermediate');
-        levelTag = `<span class="badge bg-info text-white font-mono small px-1.5 py-0.5" style="font-size: 0.65rem;"><i class="bi bi-github me-0.5"></i>${escapeHtml(profStr)}</span>`;
-        actionTag = `<span class="badge-code-verified ms-1 cursor-pointer retest-pill-badge" role="button" data-skill="${escapeHtml(skill.name)}" title="Verified by GitHub Repo Code - Click to Quiz" style="padding: 1px 4px; font-size: 0.62rem; cursor: pointer;"><i class="bi bi-patch-question me-0.5"></i> Quiz</span>`;
+        levelSpan.className = 'badge bg-info text-white font-mono small px-1.5 py-0.5';
+        levelSpan.style.fontSize = '0.65rem';
+        levelSpan.innerHTML = '<i class="bi bi-github me-0.5"></i><span class="prof-label"></span>';
+        levelSpan.querySelector('.prof-label').textContent = profStr;
+
+        actionSpan.className = 'badge-code-verified ms-1 cursor-pointer retest-pill-badge';
+        actionSpan.setAttribute('role', 'button');
+        actionSpan.setAttribute('data-skill', skill.name);
+        actionSpan.title = 'Verified by GitHub Repo Code - Click to Quiz';
+        actionSpan.style.cssText = 'padding: 1px 4px; font-size: 0.62rem; cursor: pointer;';
+        actionSpan.innerHTML = '<i class="bi bi-patch-question me-0.5"></i> Quiz';
       } else {
-        levelTag = `<span class="badge bg-warning-subtle text-warning border border-warning small font-mono px-1.5 py-0.5 animate-pulse-soft" style="font-size: 0.65rem;"><i class="bi bi-hourglass-split me-0.5"></i>Level Pending</span>`;
-        actionTag = `<span class="badge cp-btn-primary text-white border border-primary ms-1 cursor-pointer take-quiz-pill-badge shadow-sm" role="button" data-skill="${escapeHtml(skill.name)}" title="Take 90s reality check quiz to calibrate knowledge level" style="padding: 2px 6px; font-size: 0.65rem; cursor: pointer;"><i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)</span>`;
+        levelSpan.className = 'badge bg-warning-subtle text-warning border border-warning small font-mono px-1.5 py-0.5 animate-pulse-soft';
+        levelSpan.style.fontSize = '0.65rem';
+        levelSpan.innerHTML = '<i class="bi bi-hourglass-split me-0.5"></i>Level Pending';
+
+        actionSpan.className = 'badge cp-btn-primary text-white border border-primary ms-1 cursor-pointer take-quiz-pill-badge shadow-sm';
+        actionSpan.setAttribute('role', 'button');
+        actionSpan.setAttribute('data-skill', skill.name);
+        actionSpan.title = 'Take 90s reality check quiz to calibrate knowledge level';
+        actionSpan.style.cssText = 'padding: 2px 6px; font-size: 0.65rem; cursor: pointer;';
+        actionSpan.innerHTML = '<i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)';
       }
 
-      pill.innerHTML = `
-        ${skillLogo}
-        <span class="fw-semibold text-ink pill-skill-label"></span>
-        ${levelTag}
-        ${actionTag}
-        <i class="bi bi-x ms-1 cursor-pointer text-danger" title="Remove" style="cursor: pointer;"></i>
-      `;
-      const pillLabel = pill.querySelector('.pill-skill-label');
-      if (pillLabel) pillLabel.textContent = skill.displayName || skill.name;
+      pill.appendChild(levelSpan);
+      pill.appendChild(actionSpan);
 
-      const quizBadge = pill.querySelector('.take-quiz-pill-badge');
-      if (quizBadge) {
-        quizBadge.addEventListener('click', (e) => {
-          e.stopPropagation();
-          startSkillCheck(skill.name);
-        });
-      }
+      const closeIcon = document.createElement('i');
+      closeIcon.className = 'bi bi-x ms-1 cursor-pointer text-danger';
+      closeIcon.title = 'Remove';
+      closeIcon.style.cursor = 'pointer';
+      pill.appendChild(closeIcon);
 
-      const retestBadge = pill.querySelector('.retest-pill-badge');
-      if (retestBadge) {
-        retestBadge.addEventListener('click', (e) => {
-          e.stopPropagation();
-          startSkillCheck(skill.name);
-        });
-      }
+      actionSpan.addEventListener('click', (e) => {
+        e.stopPropagation();
+        startSkillCheck(skill.name);
+      });
 
-      pill.querySelector('.bi-x').addEventListener('click', () => {
+      closeIcon.addEventListener('click', () => {
         const sKey = (skill.name || '').toLowerCase().trim();
         selectedSkillsMap.delete(sKey);
         selectedSkillsMap.delete(skill.name);

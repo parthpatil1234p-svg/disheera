@@ -437,7 +437,9 @@
 
     if (ctx.isLoggedIn) {
       const courseStr = ctx.course ? ` (${ctx.course})` : '';
-      statusTextEl.innerHTML = `Online · 🎓 <strong>${escapeHtml(ctx.name)}</strong>${escapeHtml(courseStr)}`;
+      statusTextEl.innerHTML = 'Online · 🎓 <strong class="hdr-user-name"></strong><span class="hdr-course-name"></span>';
+      statusTextEl.querySelector('.hdr-user-name').textContent = ctx.name;
+      statusTextEl.querySelector('.hdr-course-name').textContent = courseStr;
     } else {
       statusTextEl.textContent = 'Online · 24/7 AI Career Mentor';
     }
@@ -448,11 +450,15 @@
     if (!container) return;
 
     const list = TOPIC_PROMPTS[topicKey] || TOPIC_PROMPTS.roadmap;
-    container.innerHTML = list.map(item => `
-      <button type="button" class="cp-chat-chip" data-prompt="${escapeHtml(item.prompt)}">
-        ${escapeHtml(item.label)}
-      </button>
-    `).join('');
+    container.innerHTML = '';
+    list.forEach(item => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cp-chat-chip';
+      btn.setAttribute('data-prompt', item.prompt);
+      btn.textContent = item.label;
+      container.appendChild(btn);
+    });
   }
 
   function bindEvents(trigger, drawer, dismissNudge) {
@@ -648,13 +654,13 @@
         <span class="cp-meta-badge"><i class="bi bi-patch-check-fill text-primary"></i> Academic Advisor</span>
       </div>
       <div class="cp-chat-bubble">
-        <p class="mb-2">${studentGreeting}</p>
-        <p class="mb-2">I am your dedicated <strong>AI Career & Academic Mentor</strong>. I can help you with:</p>
+        <p class="mb-2 welcome-greeting-text"></p>
+        <p class="mb-2">I am your dedicated <strong>AI Career &amp; Academic Mentor</strong>. I can help you with:</p>
         <div class="cp-welcome-features">
           <div class="cp-welcome-item"><i class="bi bi-map text-primary"></i> Weekly Roadmap milestone execution</div>
           <div class="cp-welcome-item"><i class="bi bi-cpu text-info"></i> In-demand skill gap elimination</div>
           <div class="cp-welcome-item"><i class="bi bi-file-earmark-person text-success"></i> 90+ ATS Resume bullet optimization</div>
-          <div class="cp-welcome-item"><i class="bi bi-mic text-warning"></i> Technical & HR Mock Interview prep</div>
+          <div class="cp-welcome-item"><i class="bi bi-mic text-warning"></i> Technical &amp; HR Mock Interview prep</div>
         </div>
         <p class="mt-2 mb-0 text-muted small">💡 Tap any topic above or choose a suggested question below to begin!</p>
       </div>
@@ -662,6 +668,15 @@
         <span class="cp-chat-time"><i class="bi bi-clock me-1"></i>Just now</span>
       </div>
     `;
+    const greetingP = welcomeRow.querySelector('.welcome-greeting-text');
+    if (greetingP) {
+      if (ctx.isLoggedIn) {
+        greetingP.innerHTML = 'Welcome back, <strong class="welcome-user-name"></strong>! 👋';
+        greetingP.querySelector('.welcome-user-name').textContent = ctx.name;
+      } else {
+        greetingP.textContent = 'Welcome to Disheera! 👋';
+      }
+    }
     container.appendChild(welcomeRow);
 
     // Render stored chat history
@@ -684,8 +699,6 @@
     row.className = `cp-chat-row ${role}`;
 
     if (role === 'ai') {
-      const parsedContent = parseMarkdown(text);
-
       row.innerHTML = `
         <div class="cp-msg-meta-header">
           <div class="cp-meta-avatar"><i class="bi bi-robot"></i></div>
@@ -694,7 +707,7 @@
         </div>
         <div class="cp-chat-bubble"></div>
         <div class="cp-msg-footer">
-          <span class="cp-chat-time"><i class="bi bi-clock me-1"></i>${time}</span>
+          <span class="cp-chat-time"><i class="bi bi-clock me-1"></i><span class="cp-time-text"></span></span>
           <button type="button" class="cp-msg-copy-btn" title="Copy response to clipboard">
             <i class="bi bi-clipboard"></i> <span>Copy Advice</span>
           </button>
@@ -702,14 +715,20 @@
       `;
 
       row.querySelector('.cp-engine-badge-text').textContent = engine || 'Disheera Knowledge Engine';
-      row.querySelector('.cp-chat-bubble').innerHTML = parsedContent;
+      row.querySelector('.cp-time-text').textContent = time || formatTime();
+      const bubbleEl = row.querySelector('.cp-chat-bubble');
+      const doc = new DOMParser().parseFromString(parseMarkdown(text), 'text/html');
+      bubbleEl.replaceChildren(...doc.body.childNodes);
 
       // Contextual follow-up suggestions
       const chips = generateFollowUpChips(text);
       if (chips.length > 0) {
         const chipsContainer = document.createElement('div');
         chipsContainer.className = 'cp-followup-ribbon';
-        chipsContainer.innerHTML = `<span class="cp-followup-title"><i class="bi bi-arrow-return-right"></i> Next Question:</span>`;
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'cp-followup-title';
+        titleSpan.innerHTML = '<i class="bi bi-arrow-return-right"></i> Next Question:';
+        chipsContainer.appendChild(titleSpan);
         chips.forEach(c => {
           const pillBtn = document.createElement('button');
           pillBtn.type = 'button';
@@ -730,10 +749,11 @@
         <div class="cp-chat-bubble">
           <p class="mb-0 user-bubble-text"></p>
         </div>
-        <span class="cp-chat-time text-end"><i class="bi bi-clock me-1"></i>${time}</span>
+        <span class="cp-chat-time text-end"><i class="bi bi-clock me-1"></i><span class="user-time-text"></span></span>
       `;
       row.querySelector('.user-display-name').textContent = studentCtx.name || 'You';
       row.querySelector('.user-bubble-text').textContent = text;
+      row.querySelector('.user-time-text').textContent = time || formatTime();
     }
 
     container.appendChild(row);
@@ -848,7 +868,8 @@
             }
             accumulatedText += chunk;
             if (streamBubble) {
-              streamBubble.innerHTML = parseMarkdown(accumulatedText);
+              const doc = new DOMParser().parseFromString(parseMarkdown(accumulatedText), 'text/html');
+              streamBubble.replaceChildren(...doc.body.childNodes);
               scrollToBottom();
             }
           },
@@ -858,16 +879,18 @@
             if (!streamRow) {
               appendBubbleToDOM('ai', fullText, formatTime(), true, 'Groq Cloud (<100ms)');
             } else if (streamBubble) {
-              streamBubble.innerHTML = parseMarkdown(fullText);
+              const doc = new DOMParser().parseFromString(parseMarkdown(fullText), 'text/html');
+              streamBubble.replaceChildren(...doc.body.childNodes);
               // Add footer
               const footer = document.createElement('div');
               footer.className = 'cp-msg-footer';
               footer.innerHTML = `
-                <span class="cp-chat-time"><i class="bi bi-clock me-1"></i>${formatTime()}</span>
+                <span class="cp-chat-time"><i class="bi bi-clock me-1"></i><span class="cp-time-text"></span></span>
                 <button type="button" class="cp-msg-copy-btn" title="Copy response to clipboard">
                   <i class="bi bi-clipboard"></i> <span>Copy Advice</span>
                 </button>
               `;
+              footer.querySelector('.cp-time-text').textContent = formatTime();
               streamRow.appendChild(footer);
 
               // Follow-up chips
@@ -875,10 +898,18 @@
               if (chips.length > 0) {
                 const chipsContainer = document.createElement('div');
                 chipsContainer.className = 'cp-followup-ribbon';
-                chipsContainer.innerHTML = `
-                  <span class="cp-followup-title"><i class="bi bi-arrow-return-right"></i> Next Question:</span>
-                  ${chips.map(c => `<button type="button" class="cp-followup-pill" data-prompt="${escapeHtml(c.prompt)}">${escapeHtml(c.text)}</button>`).join('')}
-                `;
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'cp-followup-title';
+                titleSpan.innerHTML = '<i class="bi bi-arrow-return-right"></i> Next Question:';
+                chipsContainer.appendChild(titleSpan);
+                chips.forEach(c => {
+                  const pillBtn = document.createElement('button');
+                  pillBtn.type = 'button';
+                  pillBtn.className = 'cp-followup-pill';
+                  pillBtn.setAttribute('data-prompt', c.prompt);
+                  pillBtn.textContent = c.text;
+                  chipsContainer.appendChild(pillBtn);
+                });
                 streamRow.appendChild(chipsContainer);
               }
             }
