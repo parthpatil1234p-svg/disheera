@@ -104,7 +104,7 @@ exports.getJobReadyCheck = async (req, res, next) => {
  */
 exports.verifyPublicCertificate = async (req, res, next) => {
   try {
-    const rawRef = req.params?.certificateId || req.params?.certId || req.body?.certificateId || req.body?.certId;
+    const rawRef = req.credentialLookupId || req.params?.code || req.body?.code || req.body?.id;
     if (!rawRef || typeof rawRef !== 'string') {
       return res.status(400).json({ success: false, message: 'Certificate verification ID is required' });
     }

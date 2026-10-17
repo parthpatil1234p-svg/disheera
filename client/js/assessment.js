@@ -1067,12 +1067,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const isCodeVerified = selectedObj?.isCodeVerified;
       const isQuizVerified = selectedObj?.isQuizVerified;
       const currentProficiency = selectedObj ? (selectedObj.verifiedProficiency || selectedObj.proficiency || 'beginner') : 'beginner';
-      const skillLogo = window.TechLogos?.getLogoImg(skill.name, { size: 16, className: 'me-1' }) || '';
-
-      const typeBadgeHtml = (window.SkillsCatalog && typeof window.SkillsCatalog.getTypeBadge === 'function')
-        ? window.SkillsCatalog.getTypeBadge(skill.type || 'specialized')
-        : '';
-
       const col = document.createElement('div');
       col.className = 'col-12 col-lg-6';
       col.innerHTML = `
@@ -1112,31 +1106,42 @@ document.addEventListener('DOMContentLoaded', async () => {
       const skillNameSpan = col.querySelector('.skill-name-text');
       if (skillNameSpan) skillNameSpan.textContent = skill.displayName || skill.name;
 
-      // Inject logo safely via DOMParser
+      // Inject logo safely via DOM element
       const logoSlot = col.querySelector('.skill-logo-slot');
-      if (skillLogo) {
-        const logoDoc = new DOMParser().parseFromString(skillLogo, 'text/html');
-        if (logoDoc.body.firstChild) {
-          logoSlot.replaceWith(logoDoc.body.firstChild);
-        } else {
-          logoSlot.remove();
-        }
+      const logoUrl = (window.TechLogos && typeof window.TechLogos.getLogoUrl === 'function')
+        ? window.TechLogos.getLogoUrl(skill.name)
+        : null;
+      if (logoUrl) {
+        const img = document.createElement('img');
+        img.src = logoUrl;
+        img.alt = skill.displayName || skill.name;
+        img.width = 16;
+        img.height = 16;
+        img.className = 'tech-brand-logo me-1';
+        img.style.cssText = 'object-fit: contain; vertical-align: middle; flex-shrink: 0;';
+        img.onerror = () => { img.remove(); };
+        logoSlot.replaceWith(img);
       } else {
         logoSlot.remove();
       }
 
-      // Inject type badge safely via DOMParser
+      // Inject type badge safely via DOM element
       const typeSlot = col.querySelector('.skill-type-slot');
-      if (typeBadgeHtml) {
-        const typeDoc = new DOMParser().parseFromString(typeBadgeHtml, 'text/html');
-        if (typeDoc.body.firstChild) {
-          typeSlot.replaceWith(typeDoc.body.firstChild);
-        } else {
-          typeSlot.remove();
-        }
+      const skillType = String(skill.type || 'specialized').toLowerCase();
+      const typeBadge = document.createElement('span');
+      typeBadge.className = 'badge rounded-pill font-mono';
+      typeBadge.style.cssText = 'font-size: 0.62rem; padding: 2px 6px;';
+      if (skillType === 'software') {
+        typeBadge.className += ' bg-primary-subtle text-primary border border-primary-subtle';
+        typeBadge.innerHTML = '<i class="bi bi-tools me-1"></i>Tool';
+      } else if (skillType === 'common') {
+        typeBadge.className += ' bg-secondary-subtle text-secondary border border-secondary-subtle';
+        typeBadge.innerHTML = '<i class="bi bi-people me-1"></i>Soft';
       } else {
-        typeSlot.remove();
+        typeBadge.className += ' bg-info-subtle text-info border border-info-subtle';
+        typeBadge.innerHTML = '<i class="bi bi-lightning-charge me-1"></i>Core';
       }
+      typeSlot.replaceWith(typeBadge);
 
       // Build verified badge element
       const verifiedSlot = col.querySelector('.skill-verified-slot');
@@ -1376,12 +1381,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       const pill = document.createElement('span');
       pill.className = 'badge badge-navy border d-inline-flex align-items-center gap-1 py-1 px-2 small';
 
-      const logoImg = window.TechLogos?.getLogoImg(skill.name, { size: 14, className: 'me-0.5' });
-      if (logoImg) {
-        const logoDoc = new DOMParser().parseFromString(logoImg, 'text/html');
-        if (logoDoc.body.firstChild) {
-          pill.appendChild(logoDoc.body.firstChild);
-        }
+      const logoUrl = (window.TechLogos && typeof window.TechLogos.getLogoUrl === 'function')
+        ? window.TechLogos.getLogoUrl(skill.name)
+        : null;
+      if (logoUrl) {
+        const logoImg = document.createElement('img');
+        logoImg.src = logoUrl;
+        logoImg.alt = skill.displayName || skill.name;
+        logoImg.width = 14;
+        logoImg.height = 14;
+        logoImg.className = 'tech-brand-logo me-0.5';
+        logoImg.style.cssText = 'object-fit: contain; vertical-align: middle; flex-shrink: 0;';
+        logoImg.onerror = () => { logoImg.remove(); };
+        pill.appendChild(logoImg);
       }
 
       const pillLabel = document.createElement('span');
