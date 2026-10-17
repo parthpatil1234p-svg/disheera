@@ -96,7 +96,6 @@ model Roadmap {
   updatedAt          DateTime      @updatedAt
 
   @@index([userId])
-  @@index([careerId])
   @@index([status])
   @@index([userId, status, createdAt(sort: Desc)], map: "idx_roadmap_user_status_created")
 }
@@ -165,8 +164,6 @@ model Career {
 
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
-
-  @@index([category])
 }
 
 // ── 5. Skill Model (Enhanced with Lightcast Open Skills Taxonomy) ──
@@ -186,9 +183,6 @@ model Skill {
   updatedAt     DateTime  @updatedAt
 
   @@index([category])
-  @@index([subcategory])
-  @@index([type])
-  @@index([active, category, displayName], map: "idx_skill_active_category_displayname")
 }
 
 // ── 6. Attempt Model ──────────────────────────────────────────
@@ -220,7 +214,6 @@ model Attempt {
 
   @@index([userId])
   @@index([type])
-  @@index([skill])
   @@index([roadmapId])
   @@index([userId, roadmapId, roadmapWeek, createdAt(sort: Desc)], map: "idx_attempt_user_roadmap_week_created")
   @@index([createdAt(sort: Desc)], map: "idx_attempt_created_at")
@@ -269,8 +262,6 @@ model Company {
 
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
-
-  @@index([isVerified])
 }
 
 // ── 9. JobOpening Model ───────────────────────────────────────
@@ -311,7 +302,6 @@ model JobOpening {
 
   @@index([recruiterId])
   @@index([companyId])
-  @@index([careerSlug])
   @@index([status])
   @@index([recruiterId, createdAt(sort: Desc)], map: "idx_jobopening_recruiter_created")
 }
@@ -342,12 +332,9 @@ model JobApplication {
   updatedAt           DateTime   @updatedAt
 
   @@unique([jobId, studentId])
-  @@index([jobId])
   @@index([studentId])
   @@index([recruiterId])
   @@index([status])
-  @@index([jobId, matchScore(sort: Desc), createdAt(sort: Desc)], map: "idx_jobapplication_job_matchscore_created")
-  @@index([studentId, createdAt(sort: Desc)], map: "idx_jobapplication_student_created")
 }
 
 // ── 11. YoutubeCache Model ────────────────────────────────────
@@ -382,7 +369,4 @@ model CampusLead {
 
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
-
-  @@index([email])
-  @@index([status])
 }
