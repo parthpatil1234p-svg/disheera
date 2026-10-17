@@ -19,7 +19,7 @@ An automated, autonomous red-team penetration test was performed against the ent
 | :--- | :--- | :--- | :--- |
 | **Frontend Web App** | `https://careerpath-ai-jade.vercel.app` | Vercel Edge Network | Full DOM, CSP, Headers, Client Routing |
 | **Backend API Gateway** | `https://careerpath-ai-bdbt.onrender.com` | Render Cloud | REST Endpoints, Auth, AI, Uploads |
-| **Source Repository** | `https://github.com/parthpatil1234p-svg/careerpath-ai` | GitHub | Codebase, Dependencies, Schemas |
+| **Source Repository** | `https://github.com/parthpatil1234p-svg/disheera` | GitHub | Codebase, Dependencies, Schemas |
 
 ---
 
