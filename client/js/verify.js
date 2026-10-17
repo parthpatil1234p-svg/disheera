@@ -5,7 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const initialCertId = (urlParams.get('certId') || urlParams.get('id') || 'CP-2026-VRF892').trim();
+  const initialCertId = (urlParams.get('certId') || urlParams.get('id') || '').trim();
 
   const searchForm = document.getElementById('verifySearchForm');
   const inputCertId = document.getElementById('inputCertId');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const successState = document.getElementById('verifySuccessState');
   const errorMessageText = document.getElementById('errorMessageText');
 
-  if (inputCertId) {
+  if (inputCertId && initialCertId) {
     inputCertId.value = initialCertId;
   }
 
@@ -30,8 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Execute verification
-  verifyCredential(initialCertId);
+  // Execute verification if ID present in URL
+  if (initialCertId) {
+    verifyCredential(initialCertId);
+  }
 
   async function verifyCredential(certId) {
     if (!certId) return;
@@ -62,32 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       console.warn('Network error reaching verification registry:', err);
-      // Fallback for offline registry resilience
-      if (certId.toUpperCase() === 'CP-2026-VRF892' || certId.toUpperCase().startsWith('CP-2026')) {
-        renderVerifiedCertificate({
-          isValid: true,
-          certificateId: certId.toUpperCase(),
-          studentName: 'Parth Patil',
-          targetRole: 'Financial Analyst & Modeler',
-          readinessScore: 94,
-          tierLabel: '🔥 JOB READY CERTIFIED',
-          certifiedAt: new Date('2026-10-01T10:00:00.000Z'),
-          breakdown: {
-            verifiedSkills: 100,
-            roadmapProgress: 100,
-            resumeScore: 92,
-            interviewScore: 90
-          },
-          verifiedSkills: ['Financial Modeling', 'DCF Valuation', 'Corporate Accounting', 'Excel & VBA', 'Python for Finance'],
-          issuer: 'Disheera Global Credential Registry',
-          authority: 'Academic Evaluation Council & Technical Industry Standards Board',
-          academicDirector: 'Dr. Rajiv Mehta',
-          leadSteward: 'Academic & Industry Certification Council',
-          tamperProofHash: 'CC44899A307E2F2C5061A29F4E8DB710294CAE081943892F3E768499B0182CDE'
-        });
-      } else {
-        renderError('Could not connect to the Disheera ledger service. Please check your network connection.');
-      }
+      renderError('Could not connect to the Disheera verification service. Please check your network connection.');
     }
   }
 

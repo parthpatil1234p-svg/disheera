@@ -212,6 +212,21 @@
       <p class="text-muted font-mono small">Compiling Verified Candidate Dossier & Ledger Hash...</p>
     </div>
 
+    <!-- Error / Not Found State -->
+    <div id="passportError" class="d-none text-center py-5">
+      <div class="mb-3 text-secondary">
+        <i class="bi bi-person-x-fill display-4 text-warning"></i>
+      </div>
+      <h3 class="fw-bold text-ink mb-2" id="passportErrorTitle">Skill Passport Not Found</h3>
+      <p class="text-muted small mx-auto mb-4" style="max-width: 520px;" id="passportErrorMessage">
+        Please sign in with your student account or provide a valid candidate reference in the URL to view verified credentials.
+      </p>
+      <div class="d-flex justify-content-center gap-2">
+        <a href="login.html" class="btn cp-btn-primary btn-sm rounded-pill px-4">Sign In</a>
+        <a href="dashboard.html" class="btn cp-btn-outline btn-sm rounded-pill px-4">Dashboard</a>
+      </div>
+    </div>
+
     <!-- Active Passport View -->
     <div id="passportContent" class="d-none">
 

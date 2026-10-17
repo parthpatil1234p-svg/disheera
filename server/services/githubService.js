@@ -210,40 +210,8 @@ const fetchGitHubData = async (username, accessToken = null) => {
     };
   }
 
-  if ((!repos || repos.length === 0) && username) {
-    // Provide realistic study repositories for demonstration / offline evaluation
-    repos = [
-      {
-        name: 'student-portfolio-web',
-        description: 'Responsive personal developer portfolio built with modern web technologies.',
-        html_url: `https://github.com/${username}/student-portfolio-web`,
-        language: 'JavaScript',
-        stargazers_count: 3,
-        forks_count: 1,
-        topics: ['javascript', 'html', 'css', 'portfolio'],
-        updated_at: new Date().toISOString(),
-      },
-      {
-        name: 'fullstack-task-tracker',
-        description: 'REST API backend with Node.js, Express, MongoDB and frontend interface.',
-        html_url: `https://github.com/${username}/fullstack-task-tracker`,
-        language: 'JavaScript',
-        stargazers_count: 5,
-        forks_count: 2,
-        topics: ['nodejs', 'express', 'mongodb', 'rest-api'],
-        updated_at: new Date(Date.now() - 3 * 86400000).toISOString(),
-      },
-      {
-        name: 'python-data-algorithms',
-        description: 'College lab coursework implementing fundamental algorithms and data structures.',
-        html_url: `https://github.com/${username}/python-data-algorithms`,
-        language: 'Python',
-        stargazers_count: 2,
-        forks_count: 0,
-        topics: ['python', 'algorithms', 'data-structures'],
-        updated_at: new Date(Date.now() - 7 * 86400000).toISOString(),
-      },
-    ];
+  if (!repos) {
+    repos = [];
   }
 
   return { profile, repos };

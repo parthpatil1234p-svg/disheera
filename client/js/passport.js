@@ -15,7 +15,7 @@
   function getTargetStudentId() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id') || params.get('studentId');
-    if (id) return id;
+    if (id) return id.trim();
 
     // Check if user is logged in
     try {
@@ -26,10 +26,11 @@
       }
     } catch (e) {}
 
-    return 'demo';
+    return null;
   }
 
   async function loadPassportData(studentId) {
+    if (!studentId) return null;
     try {
       const res = await fetch(getApiBase() + '/api/passport/' + encodeURIComponent(studentId));
       if (!res.ok) throw new Error('Passport not found or service unavailable');
@@ -302,11 +303,44 @@
     });
   }
 
+  function renderNotFound(title, message) {
+    const loading = document.getElementById('passportLoading');
+    if (loading) loading.classList.add('d-none');
+    const content = document.getElementById('passportContent');
+    if (content) content.classList.add('d-none');
+    const errorBox = document.getElementById('passportError');
+    if (errorBox) {
+      errorBox.classList.remove('d-none');
+      if (title) {
+        const titleEl = document.getElementById('passportErrorTitle');
+        if (titleEl) titleEl.textContent = title;
+      }
+      if (message) {
+        const msgEl = document.getElementById('passportErrorMessage');
+        if (msgEl) msgEl.textContent = message;
+      }
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', async () => {
     setupDownloadQr();
     setupShareButton();
     const studentId = getTargetStudentId();
+    if (!studentId) {
+      renderNotFound(
+        'No Student Passport ID Specified',
+        'Please sign in with your student account or provide a candidate credential link to view verified skills.'
+      );
+      return;
+    }
     const passport = await loadPassportData(studentId);
+    if (!passport) {
+      renderNotFound(
+        'Skill Passport Not Found',
+        'No verified credentials or evaluated portfolio records were found for the requested candidate ID.'
+      );
+      return;
+    }
     renderPassport(passport);
   });
 })();

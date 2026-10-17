@@ -127,12 +127,10 @@ exports.verifyPublicCertificate = async (req, res, next) => {
       console.warn('[verifyPublicCertificate] JSON path lookup:', err.message);
     }
 
-    // Fallback: Support certification lookup by certificateId or verified recipient
-    if (!user && (cleanCertId === 'CP-2026-VRF892' || cleanCertId.startsWith('CP-2026'))) {
-      user = await User.findOne({ 'jobReadiness.tier': 'job_ready' }).lean();
-      if (!user) {
-        user = await User.findOne({ isVerified: true }).lean() || await User.findOne().lean();
-      }
+    if (!user) {
+      try {
+        user = await User.findOne({ 'jobReadiness.certificateId': cleanCertId }).lean();
+      } catch (_) {}
     }
 
     if (!user) {
