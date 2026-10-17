@@ -806,25 +806,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         <span>Initializing Reality-Check...</span>
       `;
 
-      // Seamless Demo Auto-Auth if guest / unauthenticated
+      // Enforce authentication guard
       if (!window.Auth?.isAuthenticated?.()) {
-        try {
-          const autoRes = await window.API.post('/auth/login', {
-            email: 'demouser@gmail.com',
-            password: 'demo123'
-          });
-          if (autoRes.success && autoRes.data?.token) {
-            window.Auth.setToken(autoRes.data.token);
-            window.Auth.setCurrentUser(autoRes.data.user);
-            currentUser = autoRes.data.user;
-            userSkills = currentUser.skills || [];
-            if (window.Auth.initNav) window.Auth.initNav();
-          }
-        } catch (_) {
-          const currentUrl = encodeURIComponent(window.location.pathname + window.location.search);
-          window.location.href = `login.html?redirect=${currentUrl}`;
-          return;
-        }
+        const currentUrl = encodeURIComponent(window.location.pathname + window.location.search);
+        window.location.href = `login.html?redirect=${currentUrl}`;
+        return;
       }
 
       try {

@@ -34,32 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   };
 
-  const judgeBtn = document.getElementById('btnJudgeAutoFill');
-  if (judgeBtn) {
-    judgeBtn.addEventListener('click', () => {
-      const emailInput = document.getElementById('email');
-      const passInput = document.getElementById('password');
-      if (emailInput && passInput) {
-        emailInput.value = 'demouser@gmail.com';
-        passInput.value = 'demo123';
-        showAlert('Student Demo credentials auto-filled! Click "Sign In" to enter.', 'info');
-      }
-    });
-  }
-
-  const judgeRecruiterBtn = document.getElementById('btnJudgeRecruiterAutoFill');
-  if (judgeRecruiterBtn) {
-    judgeRecruiterBtn.addEventListener('click', () => {
-      const emailInput = document.getElementById('email');
-      const passInput = document.getElementById('password');
-      if (emailInput && passInput) {
-        emailInput.value = 'recruiter@razorpay.com';
-        passInput.value = 'demo123';
-        showAlert('🏢 Recruiter Demo credentials auto-filled! Click "Sign In" to open Recruiter Portal.', 'success');
-      }
-    });
-  }
-
   // ── Initialize Google Authentication ────────────────────────
   if (window.GoogleAuth) {
     window.GoogleAuth.init({

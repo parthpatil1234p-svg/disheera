@@ -12,11 +12,9 @@ const Roadmap = require('../models/Roadmap');
 const RoadmapTask = require('../models/RoadmapTask');
 const crypto = require('crypto');
 
-function isDemoOrAdmin(user) {
+function isAdminUser(user) {
   if (!user) return false;
-  if (user.role === 'admin' || user.isDemo) return true;
-  const email = (user.email || '').toLowerCase();
-  return email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo');
+  return Boolean(user.role === 'admin' || user.isAdmin);
 }
 
 /**
@@ -35,7 +33,7 @@ async function computeStudentReadiness(userOrUserId, activeRoadmapInput = null) 
   }
   if (!user) throw new Error('User not found');
 
-  const isAdminOrDemo = isDemoOrAdmin(user);
+  const isAdmin = isAdminUser(user);
   let activeRoadmap = activeRoadmapInput;
   if (activeRoadmap === null || activeRoadmap === undefined) {
     activeRoadmap = await Roadmap.findOne({ user: userId, status: 'active' }).populate('career').lean();
@@ -43,8 +41,8 @@ async function computeStudentReadiness(userOrUserId, activeRoadmapInput = null) 
 
   // 1. Verified Skills Score (35% weight)
   const skills = user.skills || [];
-  let verifiedSkillsScore = isAdminOrDemo ? 95 : 50; // baseline
-  if (!isAdminOrDemo && skills.length > 0) {
+  let verifiedSkillsScore = isAdmin ? 95 : 50; // baseline
+  if (!isAdmin && skills.length > 0) {
     let weightedCount = 0;
     skills.forEach(s => {
       const isCode = s.isCodeVerified || s.verificationTier === 'project_verified';
@@ -57,23 +55,23 @@ async function computeStudentReadiness(userOrUserId, activeRoadmapInput = null) 
   }
 
   // 2. Roadmap Tasks & Projects (30% weight)
-  let roadmapProgressScore = isAdminOrDemo ? 100 : 40;
-  if (!isAdminOrDemo && activeRoadmap) {
+  let roadmapProgressScore = isAdmin ? 100 : 40;
+  if (!isAdmin && activeRoadmap) {
     roadmapProgressScore = Math.min(100, Math.max(0, activeRoadmap.progressPercentage || 0));
   }
 
   // 3. Resume ATS Score (15% weight)
-  const resumeScore = isAdminOrDemo ? 92 : ((user.resumeAnalysis && typeof user.resumeAnalysis.atsScore === 'number' && user.resumeAnalysis.atsScore > 0)
+  const resumeScore = isAdmin ? 92 : ((user.resumeAnalysis && typeof user.resumeAnalysis.atsScore === 'number' && user.resumeAnalysis.atsScore > 0)
     ? user.resumeAnalysis.atsScore
     : 65); // baseline unanalyzed
 
   // 4. Mock Interview Score (20% weight)
-  const interviewScore = isAdminOrDemo ? 90 : ((user.mockInterview && typeof user.mockInterview.overallScore === 'number' && user.mockInterview.overallScore > 0)
+  const interviewScore = isAdmin ? 90 : ((user.mockInterview && typeof user.mockInterview.overallScore === 'number' && user.mockInterview.overallScore > 0)
     ? user.mockInterview.overallScore
     : 60); // baseline unconducted
 
   // Composite 0-100 Calculation
-  const compositeScore = isAdminOrDemo ? 94 : Math.min(100, Math.max(20, Math.round(
+  const compositeScore = isAdmin ? 94 : Math.min(100, Math.max(20, Math.round(
     (verifiedSkillsScore * 0.35) +
     (roadmapProgressScore * 0.30) +
     (resumeScore * 0.15) +
@@ -83,7 +81,7 @@ async function computeStudentReadiness(userOrUserId, activeRoadmapInput = null) 
   // Tier Assignment
   let tier = 'foundational';
   let tierLabel = 'Foundational Learner';
-  if (compositeScore >= 85 || isAdminOrDemo) {
+  if (compositeScore >= 85 || isAdmin) {
     tier = 'job_ready';
     tierLabel = '🔥 JOB READY CERTIFIED';
   } else if (compositeScore >= 71) {
@@ -95,8 +93,8 @@ async function computeStudentReadiness(userOrUserId, activeRoadmapInput = null) 
   }
 
   // Certificate ID preserved if previously earned
-  let certId = user.jobReadiness?.certificateId || (isAdminOrDemo ? 'CP-2026-VRF892' : '');
-  let certifiedAt = user.jobReadiness?.certifiedAt || (isAdminOrDemo ? new Date() : null);
+  let certId = user.jobReadiness?.certificateId || (isAdmin ? 'CP-2026-VRF892' : '');
+  let certifiedAt = user.jobReadiness?.certifiedAt || (isAdmin ? new Date() : null);
 
   const result = {
     readinessScore: compositeScore,
@@ -155,7 +153,7 @@ async function evaluateJobReadyCertification(userOrUserId, activeOrCompletedRoad
   }
   if (!user) throw new Error('User not found');
 
-  const isAdminOrDemo = isDemoOrAdmin(user);
+  const isAdmin = isAdminUser(user);
 
   let roadmap = activeOrCompletedRoadmap;
   if (!roadmap) {
@@ -169,7 +167,7 @@ async function evaluateJobReadyCertification(userOrUserId, activeOrCompletedRoad
   const now = new Date();
 
   // Rule 1: Readiness score >= 70%
-  const isScoreOk = isAdminOrDemo || (readiness.readinessScore >= 70);
+  const isScoreOk = isAdmin || (readiness.readinessScore >= 70);
 
   // Rule 2: At least 4 verified skills required for the role
   const career = roadmap?.career || (roadmap?.careerSnapshot ? { ...roadmap.careerSnapshot, requiredSkills: [] } : null);
@@ -185,11 +183,11 @@ async function evaluateJobReadyCertification(userOrUserId, activeOrCompletedRoad
     const notExpired = !s.refreshByDate || new Date(s.refreshByDate) > now;
     return isVerified && isRoleSkill && notExpired;
   });
-  const isSkillsCountOk = isAdminOrDemo || (verifiedRoleSkills.length >= 4);
+  const isSkillsCountOk = isAdmin || (verifiedRoleSkills.length >= 4);
 
   // Rule 3: Roadmap 80% or more complete (or completed)
   const roadmapPct = roadmap?.progressPercentage || 0;
-  const isRoadmapOk = isAdminOrDemo || (roadmapPct >= 80 || roadmap?.status === 'completed');
+  const isRoadmapOk = isAdmin || (roadmapPct >= 80 || roadmap?.status === 'completed');
 
   // Rule 4: No expired required skills
   const hasExpiredRequiredSkills = (user.skills || []).some(s => {
@@ -198,11 +196,11 @@ async function evaluateJobReadyCertification(userOrUserId, activeOrCompletedRoad
       : false;
     return isRoleSkill && s.refreshByDate && new Date(s.refreshByDate) <= now;
   });
-  const isNotExpiredOk = isAdminOrDemo || !hasExpiredRequiredSkills;
+  const isNotExpiredOk = isAdmin || !hasExpiredRequiredSkills;
 
-  const isJobReady = isAdminOrDemo || (isScoreOk && isSkillsCountOk && isRoadmapOk && isNotExpiredOk);
-  let certificateId = user.jobReadiness?.certificateId || (isAdminOrDemo ? 'CP-2026-VRF892' : '');
-  let certifiedAt = user.jobReadiness?.certifiedAt || (isAdminOrDemo ? new Date() : null);
+  const isJobReady = isAdmin || (isScoreOk && isSkillsCountOk && isRoadmapOk && isNotExpiredOk);
+  let certificateId = user.jobReadiness?.certificateId || (isAdmin ? 'CP-2026-VRF892' : '');
+  let certifiedAt = user.jobReadiness?.certifiedAt || (isAdmin ? new Date() : null);
 
   if (isJobReady) {
     if (!certificateId) {
@@ -232,11 +230,11 @@ async function evaluateJobReadyCertification(userOrUserId, activeOrCompletedRoad
     isJobReady,
     certificateId,
     certifiedAt,
-    missingCriteria: isAdminOrDemo ? [] : missingCriteria,
+    missingCriteria: isAdmin ? [] : missingCriteria,
     criteriaStatus: {
-      score: { required: 70, actual: isAdminOrDemo ? Math.max(70, readiness.readinessScore) : readiness.readinessScore, passed: true },
-      skills: { required: 4, actual: isAdminOrDemo ? Math.max(4, verifiedRoleSkills.length) : verifiedRoleSkills.length, passed: isSkillsCountOk },
-      roadmap: { required: 80, actual: isAdminOrDemo ? Math.max(80, roadmapPct || 100) : roadmapPct, passed: isRoadmapOk },
+      score: { required: 70, actual: isAdmin ? Math.max(70, readiness.readinessScore) : readiness.readinessScore, passed: true },
+      skills: { required: 4, actual: isAdmin ? Math.max(4, verifiedRoleSkills.length) : verifiedRoleSkills.length, passed: isSkillsCountOk },
+      roadmap: { required: 80, actual: isAdmin ? Math.max(80, roadmapPct || 100) : roadmapPct, passed: isRoadmapOk },
       expiration: { passed: isNotExpiredOk },
     },
     readiness,

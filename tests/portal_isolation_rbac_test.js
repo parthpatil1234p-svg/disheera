@@ -109,15 +109,15 @@ console.log('\n▶ TEST 5: requireRecruiter allows recruiter role');
   assert(res.statusCode === 200, 'Status remains 200');
 }
 
-// --- Test 6: requireRecruiter blocks demo student account (demouser@gmail.com) ---
-console.log('\n▶ TEST 6: requireRecruiter strictly blocks student demo account (demouser@gmail.com)');
+// --- Test 6: requireRecruiter blocks student account ---
+console.log('\n▶ TEST 6: requireRecruiter strictly blocks student role');
 {
-  const req = { user: { role: 'student', email: 'demouser@gmail.com' } };
+  const req = { user: { role: 'student', email: 'student@college.edu' } };
   const res = createMockRes();
   let nextCalled = false;
   requireRecruiter(req, res, () => { nextCalled = true; });
 
-  assert(!nextCalled, 'Next must NOT be called for student even if demo user email');
+  assert(!nextCalled, 'Next must NOT be called for student');
   assert(res.statusCode === 403, 'Status must be 403');
   assert(res.body && res.body.code === 'STUDENT_ACCESS_DENIED', 'Error code must be STUDENT_ACCESS_DENIED');
 }
@@ -238,9 +238,8 @@ console.log('\n▶ TEST 9: Landing Page Auto-Redirect & ?view=public Logic');
     const isPublic = (search || '').includes('view=public');
     if (isPublic) return false;
 
-    const email = (user.email || '').toLowerCase();
-    const isDemoOrAdmin = user.role === 'admin' || user.isAdmin || email === 'demouser@gmail.com';
-    if (isDemoOrAdmin) return false;
+    const isAdmin = Boolean(user.role === 'admin' || user.isAdmin);
+    if (isAdmin) return false;
 
     const isRecruiter = user.role === 'recruiter' || Boolean(user.isRecruiter) || Boolean(user.recruiterProfile?.canPostJobs);
     return isRecruiter;
@@ -264,10 +263,10 @@ console.log('\n▶ TEST 9: Landing Page Auto-Redirect & ?view=public Logic');
     'Student on index.html is NOT redirected'
   );
 
-  // Demo user visiting index.html -> Must NOT redirect (evaluation bypass)
+  // Admin user visiting index.html -> Must NOT redirect
   assert(
-    shouldRedirectFromLanding({ user: { role: 'student', email: 'demouser@gmail.com' }, search: '' }) === false,
-    'Demo user demouser@gmail.com on index.html is NOT redirected'
+    shouldRedirectFromLanding({ user: { role: 'admin', isAdmin: true, email: 'admin@disheera.site' }, search: '' }) === false,
+    'Admin user on index.html is NOT redirected'
   );
 }
 

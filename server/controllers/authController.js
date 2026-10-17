@@ -56,11 +56,8 @@ const isDisposableEmail = (emailStr) => {
 
 // ── Helper: shape the user object returned in responses ───────
 const formatUser = (user) => {
-  const email = (user.email || '').toLowerCase();
-  const isDemoStudent = email === 'demouser@gmail.com';
-  const isAdmin = user.role === 'admin' || user.isAdmin || email === 'kajimew275@blobapps.com';
+  const isAdmin = user.role === 'admin' || user.isAdmin;
   const isRecruiter = user.role === 'recruiter';
-  const isDemo = isDemoStudent || isAdmin || isRecruiter || user.isDemo;
 
   const rawRepos = user.githubRepos || [];
   const sanitizedRepos = rawRepos.map((r) => ({
@@ -87,7 +84,7 @@ const formatUser = (user) => {
     phone:                         user.phone || '',
     role:                          isRecruiter ? 'recruiter' : (isAdmin ? 'admin' : (user.role || 'student')),
     isAdmin:                       Boolean(isAdmin && !isRecruiter),
-    isDemo:                        Boolean(isDemo),
+    isDemo:                        false,
     isRecruiter:                   Boolean(isRecruiter),
     recruiterProfile:              user.recruiterProfile || null,
     authProvider:                  user.authProvider || 'local',
@@ -95,9 +92,9 @@ const formatUser = (user) => {
     education:                     user.education || {},
     interests:                     user.interests || [],
     careerGoals:                   user.careerGoals || [],
-    profileCompleted:              isDemo ? true : user.profileCompleted,
-    isVerified:                    isDemo ? true : (user.isVerified || false),
-    hasCompletedSkillVerification: isDemo ? true : Boolean(
+    profileCompleted:              Boolean(user.profileCompleted),
+    isVerified:                    Boolean(user.isVerified || false),
+    hasCompletedSkillVerification: Boolean(
       user.hasCompletedSkillVerification ||
       (Array.isArray(user.skills) && user.skills.some((s) => s.isQuizVerified || s.isCodeVerified))
     ),
@@ -542,186 +539,11 @@ const loginUser = async (req, res, next) => {
     }
 
     const normalizedEmail = email.trim().toLowerCase();
-    const isExplicitDemoEmail = normalizedEmail === 'demouser@gmail.com' || normalizedEmail === 'kajimew275@blobapps.com';
 
     // 1. Find user — include password field
     let user = await User.findOne({ email: normalizedEmail }).select('+password');
 
-    // If demo account doesn't exist yet, auto-create it with full pre-seeded profile!
-    if (!user && isExplicitDemoEmail) {
-      user = new User({
-        name: normalizedEmail === 'kajimew275@blobapps.com' ? 'Demo Admin Student' : 'Demo Student',
-        email: normalizedEmail,
-        password: password || 'demo123',
-        role: normalizedEmail === 'kajimew275@blobapps.com' ? 'admin' : 'student',
-        isVerified: true,
-        profileCompleted: true,
-        hasCompletedSkillVerification: true,
-        education: {
-          course: 'B.Tech Computer Science',
-          branch: 'Computer Science & Engineering',
-          year: 'Final Year',
-          college: 'National Institute of Technology',
-        },
-        interests: ['Web Development', 'Full-Stack Development', 'AI & Machine Learning'],
-        skills: [
-          { name: 'javascript', displayName: 'JavaScript', proficiency: 'advanced', isQuizVerified: true, isCodeVerified: true, verificationStatus: 'verified', verificationTier: 'project_verified' },
-          { name: 'node.js', displayName: 'Node.js', proficiency: 'advanced', isQuizVerified: true, isCodeVerified: true, verificationStatus: 'verified', verificationTier: 'project_verified' },
-          { name: 'react', displayName: 'React', proficiency: 'advanced', isQuizVerified: true, isCodeVerified: true, verificationStatus: 'verified', verificationTier: 'project_verified' },
-          { name: 'mongodb', displayName: 'MongoDB', proficiency: 'intermediate', isQuizVerified: true, isCodeVerified: true, verificationStatus: 'verified', verificationTier: 'quiz_verified' },
-          { name: 'python', displayName: 'Python', proficiency: 'advanced', isQuizVerified: true, isCodeVerified: true, verificationStatus: 'verified', verificationTier: 'project_verified' },
-        ],
-        jobReadiness: {
-          readinessScore: 94,
-          tier: 'job_ready',
-          tierLabel: '🔥 JOB READY CERTIFIED',
-          certificateId: 'CP-2026-DEMO',
-          certifiedAt: new Date(),
-        },
-      });
-      await user.save();
-    } else if (user && isExplicitDemoEmail) {
-      // If demo user exists, allow password match or standard demo passwords
-      const passwordMatches = await user.comparePassword(password);
-      if (!passwordMatches && (password === 'demo123' || password === '123456' || password === 'admin123')) {
-        user.password = password;
-        await user.save();
-      }
-    }
 
-    // Auto-create or login Demo Recruiter account
-    const isExplicitDemoRecruiter = normalizedEmail === 'recruiter@razorpay.com' || normalizedEmail === 'demorecruiter@razorpay.com';
-    if (!user && isExplicitDemoRecruiter) {
-      const Company = require('../models/Company');
-      let company = await Company.findOne({ domain: 'razorpay.com' });
-      if (!company) {
-        company = await Company.create({
-          name: 'Razorpay Software Pvt Ltd',
-          domain: 'razorpay.com',
-          website: 'https://razorpay.com',
-          logoUrl: 'https://www.google.com/s2/favicons?domain=razorpay.com&sz=128',
-          industry: 'Fintech & Cloud Payments',
-          companySize: '1000+',
-          isVerified: true,
-          verificationScore: 99,
-          verificationDetails: {
-            dnsValid: true,
-            websiteLive: true,
-            domainMatch: true,
-            aiSummary: 'Verified prominent fintech and payment gateway enterprise.',
-            verifiedAt: new Date(),
-          },
-          recruiters: [],
-        });
-      }
-
-      user = new User({
-        name: 'Priya Sharma (Lead Recruiter)',
-        email: normalizedEmail,
-        password: password || 'demo123',
-        role: 'recruiter',
-        isVerified: true,
-        profileCompleted: true,
-        recruiterProfile: {
-          company: company._id,
-          companyName: company.name,
-          companyDomain: company.domain,
-          title: 'Lead Technical Recruiter',
-          corporateEmail: normalizedEmail,
-          linkedinUrl: 'https://linkedin.com/in/priya-sharma-recruiter',
-          workPhone: '+91 98765 43210',
-          verificationStatus: 'verified',
-          verificationScore: 99,
-          canPostJobs: true,
-          verifiedAt: new Date(),
-        },
-      });
-      await user.save();
-
-      if (!company.recruiters.includes(user._id)) {
-        company.recruiters.push(user._id);
-        await company.save();
-      }
-
-      // Seed initial sample job openings
-      const JobOpening = require('../models/JobOpening');
-      const existingJobs = await JobOpening.countDocuments({ recruiter: user._id });
-      if (existingJobs === 0) {
-        const job1 = await JobOpening.create({
-          recruiter: user._id,
-          company: company._id,
-          companyName: company.name,
-          companyLogo: company.logoUrl,
-          companyWebsite: company.website,
-          isCompanyVerified: true,
-          title: 'Full-Stack Node.js & React Developer',
-          careerSlug: 'full-stack-developer',
-          jobType: 'full-time',
-          workplace: 'remote',
-          location: 'Bengaluru, India / Remote',
-          experienceLevel: 'fresher',
-          salaryRange: { min: 600000, max: 1100000, currency: 'INR', isDisclosed: true },
-          requiredSkills: [
-            { skillName: 'javascript', minimumProficiency: 'intermediate', requiresVerification: true },
-            { skillName: 'node.js', minimumProficiency: 'intermediate', requiresVerification: true },
-            { skillName: 'react', minimumProficiency: 'intermediate', requiresVerification: true },
-            { skillName: 'mongodb', minimumProficiency: 'beginner', requiresVerification: false },
-          ],
-          description: 'Join Razorpay as a Full-Stack Engineer working on developer APIs and scalable merchant portals. Strong foundational knowledge in asynchronous JavaScript, Node.js, and React required.',
-          status: 'active',
-        });
-
-        const job2 = await JobOpening.create({
-          recruiter: user._id,
-          company: company._id,
-          companyName: company.name,
-          companyLogo: company.logoUrl,
-          companyWebsite: company.website,
-          isCompanyVerified: true,
-          title: 'Junior AI / Machine Learning Engineer',
-          careerSlug: 'ai-ml-engineer',
-          jobType: 'full-time',
-          workplace: 'hybrid',
-          location: 'Bengaluru, India',
-          experienceLevel: 'fresher',
-          salaryRange: { min: 700000, max: 1200000, currency: 'INR', isDisclosed: true },
-          requiredSkills: [
-            { skillName: 'python', minimumProficiency: 'intermediate', requiresVerification: true },
-            { skillName: 'machine learning', minimumProficiency: 'intermediate', requiresVerification: true },
-            { skillName: 'tensorflow', minimumProficiency: 'beginner', requiresVerification: false },
-          ],
-          description: 'Build predictive payment routing and risk intelligence models. Solid Python fundamentals and algorithm proficiency required.',
-          status: 'active',
-        });
-
-        // If demo student exists, seed a sample application to job1
-        const demoStudent = await User.findOne({ email: 'demouser@gmail.com' });
-        if (demoStudent) {
-          const JobApplication = require('../models/JobApplication');
-          await JobApplication.create({
-            job: job1._id,
-            student: demoStudent._id,
-            recruiter: user._id,
-            matchScore: 95,
-            matchedSkills: ['javascript', 'node.js', 'react', 'mongodb'],
-            missingSkills: [],
-            readinessTier: '🔥 JOB READY CERTIFIED',
-            resumeUrl: demoStudent.resumeUrl || '',
-            builtResumeSnapshot: demoStudent.builtResume || {},
-            coverNote: 'Excited about Razorpay fintech scale! I completed verified assessments and roadmaps on Disheera with 94% job readiness score.',
-            status: 'shortlisted',
-          });
-          job1.applicantsCount = 1;
-          await job1.save();
-        }
-      }
-    } else if (user && isExplicitDemoRecruiter) {
-      const passwordMatches = await user.comparePassword(password);
-      if (!passwordMatches && (password === 'demo123' || password === '123456' || password === 'admin123')) {
-        user.password = password;
-        await user.save();
-      }
-    }
 
     // 2. If user not found OR password doesn't match → identical 401
     if (!user || !(await user.comparePassword(password))) {
@@ -731,10 +553,10 @@ const loginUser = async (req, res, next) => {
       });
     }
 
-    // 3. Enforce email verification (bypassed for demo/admin accounts)
-    const isDemoOrAdmin = user.role === 'admin' || user.isDemo || normalizedEmail === 'demouser@gmail.com' || normalizedEmail === 'kajimew275@blobapps.com' || normalizedEmail.includes('admin') || normalizedEmail.includes('demo');
+    // 3. Enforce email verification (admin accounts are pre-verified)
+    const isAdmin = user.role === 'admin' || user.isAdmin;
     if (!user.isVerified) {
-      if (isDemoOrAdmin) {
+      if (isAdmin) {
         user.isVerified = true;
         await user.save();
       } else {
@@ -851,7 +673,7 @@ const verifyGoogleToken = async (credential) => {
 // ── googleAuth ─────────────────────────────────────────────────
 /**
  * POST /api/auth/google
- * Body: { credential, email, name, picture, googleId, isDemoGoogle }
+ * Body: { credential, email, name, picture, googleId }
  * Handles Google OAuth Sign-In & Sign-Up seamlessly.
  */
 const googleAuth = async (req, res, next) => {

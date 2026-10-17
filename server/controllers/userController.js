@@ -413,14 +413,14 @@ const getMyResume = async (req, res, next) => {
     let verifiedCount = evidence?.verifiedCount || 0;
 
     const email = (user.email || '').toLowerCase();
-    const isDemoOrAdmin = user.role === 'admin' || user.isDemo || email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo');
-    if (isDemoOrAdmin) {
+    const isAdmin = Boolean(user.role === 'admin' || user.isAdmin);
+    if (isAdmin) {
       verifiedCount = Math.max(4, verifiedCount);
     }
 
     const resume = await Resume.findOne({ user: req.user._id });
     const hasResume = Boolean(resume?.fileLocation || user.resumeUrl);
-    const isLocked = !isDemoOrAdmin && (verifiedCount === 0 && !hasResume);
+    const isLocked = !isAdmin && (verifiedCount === 0 && !hasResume);
 
     let targetRole = user.careerGoals?.primaryTrack || 'Software Engineer';
     try {
@@ -488,15 +488,15 @@ const uploadResume = async (req, res, next) => {
     const { fileData, fileName } = req.body;
 
     const userEmail = (req.user?.email || '').toLowerCase();
-    const isDemoOrAdmin = req.user?.role === 'admin' || req.user?.isDemo || userEmail === 'demouser@gmail.com' || userEmail === 'kajimew275@blobapps.com' || userEmail.includes('admin') || userEmail.includes('demo');
+    const isAdmin = Boolean(req.user?.role === 'admin' || req.user?.isAdmin);
 
     // 1. Check existing resume
     const existingResume = await Resume.findOne({ user: req.user._id });
     const existingUser = await User.findById(req.user._id);
     const hasExistingResume = Boolean(existingResume?.fileLocation || existingUser?.resumeUrl);
 
-    // 2. Verified skill lock gate (Accounts with 0 verified skills cannot upload INITIAL resume; demo/admin bypassed)
-    if (!hasExistingResume && !isDemoOrAdmin) {
+    // 2. Verified skill lock gate (Accounts with 0 verified skills cannot upload INITIAL resume; admin bypassed)
+    if (!hasExistingResume && !isAdmin) {
       const evidence = await getSkillEvidence(req.user._id);
       if (!evidence || evidence.verifiedCount === 0) {
         return res.status(403).json({

@@ -122,7 +122,7 @@ const generateRoadmap = async (req, res, next) => {
     }).populate('career');
 
     const email = (user.email || '').toLowerCase();
-    const isDemoOrAdmin = user.role === 'admin' || user.isDemo || email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo');
+    const isAdmin = Boolean(user.role === 'admin' || user.isAdmin);
 
     // Check A: Duplicate Enrollment in same career track
     const alreadyEnrolled = activeRoadmaps.find(
@@ -148,8 +148,8 @@ const generateRoadmap = async (req, res, next) => {
 
     // Check B: Maximum 2 Active Courses Concurrency Limit
     if (activeRoadmaps.length >= 2) {
-      if (isDemoOrAdmin) {
-        // Admin / demo can rotate tracks: archive oldest active roadmap so they can test any track
+      if (isAdmin) {
+        // Admin can rotate tracks: archive oldest active roadmap so they can test any track
         const oldestActive = [...activeRoadmaps].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))[0];
         if (oldestActive) {
           oldestActive.status = 'archived';
@@ -172,7 +172,7 @@ const generateRoadmap = async (req, res, next) => {
     }
 
     // Check C: Related Course Synergy when enrolling into 2nd active course
-    if (activeRoadmaps.length === 1 && !isDemoOrAdmin) {
+    if (activeRoadmaps.length === 1 && !isAdmin) {
       const activeCareer = activeRoadmaps[0].career || activeRoadmaps[0].careerSnapshot;
       const related = isRelatedCourse(activeCareer, selectedCareer);
       if (!related) {
@@ -655,10 +655,9 @@ const abandonRoadmap = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    const email = (user.email || '').toLowerCase();
-    const isDemoOrAdmin = user.role === 'admin' || user.isDemo || email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo') || process.env.NODE_ENV !== 'production';
+    const isAdmin = Boolean(user.role === 'admin' || user.isAdmin || process.env.NODE_ENV !== 'production');
 
-    if (!isDemoOrAdmin && user.lastAbandonedRouteAt) {
+    if (!isAdmin && user.lastAbandonedRouteAt) {
       const elapsed = Date.now() - new Date(user.lastAbandonedRouteAt).getTime();
       if (elapsed < SEVEN_DAYS_MS) {
         const nextAllowed = new Date(new Date(user.lastAbandonedRouteAt).getTime() + SEVEN_DAYS_MS);
@@ -1221,8 +1220,7 @@ const verifyVideoLearningController = async (req, res, next) => {
       });
     }
 
-    const email = (req.user.email || '').toLowerCase();
-    const isDemoOrAdmin = req.user.role === 'admin' || req.user.isDemo || email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo');
+    const isAdmin = Boolean(req.user.role === 'admin' || req.user.isAdmin);
 
     // Evaluate reflection via AI / heuristic engine
     const evalResult = await evaluateVideoReflection({
@@ -1232,7 +1230,7 @@ const verifyVideoLearningController = async (req, res, next) => {
       reflectionText,
     });
 
-    if (!evalResult.passed && !isDemoOrAdmin) {
+    if (!evalResult.passed && !isAdmin) {
       return res.status(422).json({
         success: false,
         code: 'REFLECTION_NEEDS_IMPROVEMENT',

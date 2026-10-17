@@ -279,8 +279,7 @@
           if (token && raw) {
             var u = JSON.parse(raw);
             if (u && (u.role === 'recruiter' || u.isRecruiter || (u.recruiterProfile && u.recruiterProfile.canPostJobs))) {
-              var email = (u.email || '').toLowerCase();
-              if (email !== 'demouser@gmail.com' && !u.isAdmin) {
+              if (!u.isAdmin) {
                 window.location.replace('recruiter-dashboard.html');
               }
             }

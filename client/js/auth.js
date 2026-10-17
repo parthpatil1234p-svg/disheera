@@ -187,9 +187,7 @@ const Auth = {
   },
 
   isDemo() {
-    const user = this.getCurrentUser();
-    if (!user) return false;
-    return Boolean(user.isDemo || user.role === 'admin' || user.isAdmin);
+    return false;
   },
 
   /**
@@ -1105,13 +1103,8 @@ async function initStudentPhoneGate() {
   const user = window.Auth.getCurrentUser();
   if (!user) return;
 
-  // Bypass for recruiters, admins, and demo evaluation accounts
+  // Bypass for recruiters and admins
   if (window.Auth.isRecruiter() || window.Auth.isAdmin()) return;
-
-  const email = (user.email || '').toLowerCase();
-  if (email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo')) {
-    return;
-  }
 
   // If user already has a phone with >= 10 digits
   if (user.phone && String(user.phone).trim().length >= 10) {

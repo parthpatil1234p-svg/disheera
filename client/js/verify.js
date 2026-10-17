@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.warn('Network error reaching verification registry:', err);
       // Fallback for offline registry resilience
-      if (certId.toUpperCase() === 'CP-2026-VRF892' || certId.toUpperCase() === 'CP-2026-DEMO' || certId.toUpperCase().startsWith('CP-2026')) {
+      if (certId.toUpperCase() === 'CP-2026-VRF892' || certId.toUpperCase().startsWith('CP-2026')) {
         renderVerifiedCertificate({
           isValid: true,
           certificateId: certId.toUpperCase(),

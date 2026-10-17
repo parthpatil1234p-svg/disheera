@@ -16,21 +16,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // 2. Enforce Recruiter Auth Guard or Seamless Demo Recruiter Auto-Login for Guests
+  // 2. Enforce Recruiter Auth Guard
   if (!window.Auth?.isAuthenticated()) {
-    try {
-      const loginRes = await window.API.post('/auth/login', {
-        email: 'recruiter@razorpay.com',
-        password: 'demo123'
-      }, { auth: false });
-      if (loginRes.success && loginRes.data?.token) {
-        window.Auth.setToken(loginRes.data.token);
-        window.Auth.setCurrentUser(loginRes.data.user);
-      }
-    } catch {
-      window.location.href = 'login.html?redirect=recruiter-dashboard.html';
-      return;
-    }
+    window.location.href = 'login.html?redirect=recruiter-dashboard.html';
+    return;
   }
 
   // 3. Final Verification

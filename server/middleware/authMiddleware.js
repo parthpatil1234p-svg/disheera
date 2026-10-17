@@ -110,10 +110,9 @@ const requireSkillVerification = (req, res, next) => {
     });
   }
 
-  // Admin and Demo accounts have all features completely unlocked
-  const email = (req.user.email || '').toLowerCase();
-  const isDemoOrAdmin = req.user.role === 'admin' || req.user.isDemo || email === 'demouser@gmail.com' || email === 'kajimew275@blobapps.com' || email.includes('admin') || email.includes('demo');
-  if (isDemoOrAdmin) {
+  // Admin accounts have all features completely unlocked
+  const isAdmin = Boolean(req.user.role === 'admin' || req.user.isAdmin);
+  if (isAdmin) {
     return next();
   }
 
