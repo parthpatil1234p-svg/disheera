@@ -164,9 +164,9 @@ DheePath is an enterprise-grade Autonomous Career Guidance & Talent Intelligence
 | ⚡ **Vercel Global Edge Mirror** | **[https://disheera.site](https://disheera.site)** | Direct Vercel Edge CDN mirror with zero cold-start delivery |
 | ⚡ **Live API Gateway** | **[https://api.disheera.site](https://api.disheera.site)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Live Health Check** | **[https://api.disheera.site/api/health](https://api.disheera.site/api/health)** | Real-time server telemetry, database connection & uptime monitor |
-| 📧 **Official Support & Inquiries** | **`parthpatil@disheera.site`** | Dedicated enterprise & university partner communication channel |
+| 📧 **Official Support & Inquiries** | **`parthpatil@careerpath.is-local.org`** | Dedicated enterprise & university partner communication channel |
 | 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20DheePath%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
-| 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://disheera.site/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@disheera.site` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
+| 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://disheera.site/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@careerpath.is-local.org` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
 | ⚖️ **Statutory DPDP Act 2023 Alignment** | **[Gazette No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)** | Full statutory compliance across notice (s. 5), consent (s. 6), breach notification (s. 8(6)), and data principal rights |
 | 📜 **Legal & Governance Suite** | **[`privacy.html`](https://disheera.site/privacy.html) · [`terms.html`](https://disheera.site/terms.html) · [`security.html`](https://disheera.site/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
 | 🔑 **Student Sandbox Access** | **⚡ 1-Click Student Sandbox** &nbsp;•&nbsp; *Passwordless / Auto-Fill* | Pre-seeded with student profile, verified skills & active roadmap *(Protected via 1-Click Instant Sign-In on `/login.html` · Credentials masked for security)* |
@@ -1217,7 +1217,7 @@ DheePath includes a production-ready **n8n Workflow Blueprint (`DheePath_AI_Job_
    - Triggers alerts only to candidates with an AI Skill Match score $\ge 75\%$.
 3. **Multi-Channel Dispatch Orchestration:**
    - **WhatsApp Transactional Notification:** Dispatches instant alert with company logo, CTC salary range, match score, and 1-click apply deep link via Meta Cloud API or OpenWA.
-   - **Rich HTML Email Dispatch:** Compiles responsive email template sent via custom domain SMTP (`parthpatil@disheera.site`).
+   - **Rich HTML Email Dispatch:** Compiles responsive email template sent via custom domain SMTP (`parthpatil@careerpath.is-local.org`).
 4. **Execution Telemetry & Audit Logs:**
    - Tracks delivery receipts, read statuses, and application conversion metrics in an auditable workflow log.
 
@@ -1600,7 +1600,7 @@ In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the I
 | **Grievance Redressal Officer** | **Parth Patil** |
 | **Institutional Affiliation** | G.H. Raisoni College of Engineering and Management (GHRCEM) |
 | **Campus / Postal Location** | Gat No. 57/1, Shirsoli Road, Mohadi, Jalgaon - 425002, Maharashtra, India |
-| **Official Statutory Email** | **`parthpatil@disheera.site`**  |
+| **Official Statutory Email** | **`parthpatil@careerpath.is-local.org`**  |
 | **Official WhatsApp Support Desk** | **`+91 74990 85045`** *(WhatsApp Chat Only · Voice Calls Disabled)* |
 | **First Acknowledgment SLA** | Within **24 hours** of ticket receipt |
 | **Statutory Resolution SLA** | Expedited resolution within **30 days** as mandated by the DPDP Act 2023 |
@@ -1622,7 +1622,7 @@ DheePath ships with four beautifully styled, production-ready legal and governan
 3. **Security Architecture & Trust (`client/security.html`):**
    - Detailed breakdown of platform defense-in-depth: TLS 256-bit encryption, Supabase PostgreSQL network boundaries, stateless JWT authentication, and Bcryptjs password hashing.
    - 4-Tier Recruiter Verification Gate: 60+ Webmail Blacklist, DNS MX resolution, HTTP live website probing, and corporate OTP validation.
-   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil@disheera.site`.
+   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil@careerpath.is-local.org`.
 4. **Support & Statutory Grievance Desk (`client/support.html`):**
    - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`+91 74990 85045`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
 
@@ -1936,6 +1936,6 @@ DheePath was founded by an engineering-first team dedicated to solving the $50B 
 
 - **Headquarters & Engineering:** Pune & Nashik, Maharashtra, India.
 - **Official Enterprise Domain:** **[https://disheera.site](https://disheera.site)**
-- **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@disheera.site) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
+- **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@careerpath.is-local.org) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
 - **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE), free for educational and non-commercial institutional research.
 - **Copyright:** © 2026-2027 DheePath Technologies Inc. All rights reserved.
