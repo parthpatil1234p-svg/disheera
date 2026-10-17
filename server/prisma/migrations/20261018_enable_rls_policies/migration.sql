@@ -1,7 +1,11 @@
 -- ============================================================
 -- Disheera — Supabase PostgreSQL Row Level Security (RLS) Policies
 -- Enterprise Architecture · Disheera Technologies Inc.
--- Resolves Supabase Database Linter Warning: rls_enabled_no_policy (0008)
+-- Resolves Supabase Database Linter Warnings:
+-- - rls_enabled_no_policy (0008)
+-- - rls_policy_always_true (0024)
+-- - auth_rls_initplan (0003)
+-- - multiple_permissive_policies (0006)
 -- ============================================================
 
 -- ── 1. Skill Table (Public Catalog) ─────────────────────────
@@ -65,19 +69,39 @@ WITH CHECK (true);
 ALTER TABLE public."JobOpening" ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Allow public read access on JobOpening" ON public."JobOpening";
-CREATE POLICY "Allow public read access on JobOpening"
+DROP POLICY IF EXISTS "Allow recruiters to manage own JobOpening" ON public."JobOpening";
+DROP POLICY IF EXISTS "Allow read access on JobOpening" ON public."JobOpening";
+DROP POLICY IF EXISTS "Allow recruiters to insert own JobOpening" ON public."JobOpening";
+DROP POLICY IF EXISTS "Allow recruiters to update own JobOpening" ON public."JobOpening";
+DROP POLICY IF EXISTS "Allow recruiters to delete own JobOpening" ON public."JobOpening";
+
+CREATE POLICY "Allow read access on JobOpening"
 ON public."JobOpening"
 FOR SELECT
 TO anon, authenticated
-USING (status = 'active');
+USING (
+  status = 'active'
+  OR ((select auth.uid())::text) = "recruiterId"
+);
 
-DROP POLICY IF EXISTS "Allow recruiters to manage own JobOpening" ON public."JobOpening";
-CREATE POLICY "Allow recruiters to manage own JobOpening"
+CREATE POLICY "Allow recruiters to insert own JobOpening"
 ON public."JobOpening"
-FOR ALL
+FOR INSERT
 TO authenticated
-USING (auth.uid()::text = "recruiterId")
-WITH CHECK (auth.uid()::text = "recruiterId");
+WITH CHECK (((select auth.uid())::text) = "recruiterId");
+
+CREATE POLICY "Allow recruiters to update own JobOpening"
+ON public."JobOpening"
+FOR UPDATE
+TO authenticated
+USING (((select auth.uid())::text) = "recruiterId")
+WITH CHECK (((select auth.uid())::text) = "recruiterId");
+
+CREATE POLICY "Allow recruiters to delete own JobOpening"
+ON public."JobOpening"
+FOR DELETE
+TO authenticated
+USING (((select auth.uid())::text) = "recruiterId");
 
 DROP POLICY IF EXISTS "Allow service_role full management on JobOpening" ON public."JobOpening";
 CREATE POLICY "Allow service_role full management on JobOpening"
@@ -141,15 +165,15 @@ CREATE POLICY "Allow users to read own profile on User"
 ON public."User"
 FOR SELECT
 TO authenticated
-USING (auth.uid()::text = id);
+USING (((select auth.uid())::text) = id);
 
 DROP POLICY IF EXISTS "Allow users to update own profile on User" ON public."User";
 CREATE POLICY "Allow users to update own profile on User"
 ON public."User"
 FOR UPDATE
 TO authenticated
-USING (auth.uid()::text = id)
-WITH CHECK (auth.uid()::text = id);
+USING (((select auth.uid())::text) = id)
+WITH CHECK (((select auth.uid())::text) = id);
 
 DROP POLICY IF EXISTS "Allow service_role full management on User" ON public."User";
 CREATE POLICY "Allow service_role full management on User"
@@ -164,19 +188,13 @@ WITH CHECK (true);
 ALTER TABLE public."Roadmap" ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Allow users to read own Roadmap" ON public."Roadmap";
-CREATE POLICY "Allow users to read own Roadmap"
-ON public."Roadmap"
-FOR SELECT
-TO authenticated
-USING (auth.uid()::text = "userId");
-
 DROP POLICY IF EXISTS "Allow users to manage own Roadmap" ON public."Roadmap";
 CREATE POLICY "Allow users to manage own Roadmap"
 ON public."Roadmap"
 FOR ALL
 TO authenticated
-USING (auth.uid()::text = "userId")
-WITH CHECK (auth.uid()::text = "userId");
+USING (((select auth.uid())::text) = "userId")
+WITH CHECK (((select auth.uid())::text) = "userId");
 
 DROP POLICY IF EXISTS "Allow service_role full management on Roadmap" ON public."Roadmap";
 CREATE POLICY "Allow service_role full management on Roadmap"
@@ -191,18 +209,6 @@ WITH CHECK (true);
 ALTER TABLE public."RoadmapTask" ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Allow users to read own RoadmapTask" ON public."RoadmapTask";
-CREATE POLICY "Allow users to read own RoadmapTask"
-ON public."RoadmapTask"
-FOR SELECT
-TO authenticated
-USING (
-  EXISTS (
-    SELECT 1 FROM public."Roadmap" r
-    WHERE r.id = public."RoadmapTask"."roadmapId"
-      AND r."userId" = auth.uid()::text
-  )
-);
-
 DROP POLICY IF EXISTS "Allow users to manage own RoadmapTask" ON public."RoadmapTask";
 CREATE POLICY "Allow users to manage own RoadmapTask"
 ON public."RoadmapTask"
@@ -212,14 +218,14 @@ USING (
   EXISTS (
     SELECT 1 FROM public."Roadmap" r
     WHERE r.id = public."RoadmapTask"."roadmapId"
-      AND r."userId" = auth.uid()::text
+      AND r."userId" = ((select auth.uid())::text)
   )
 )
 WITH CHECK (
   EXISTS (
     SELECT 1 FROM public."Roadmap" r
     WHERE r.id = public."RoadmapTask"."roadmapId"
-      AND r."userId" = auth.uid()::text
+      AND r."userId" = ((select auth.uid())::text)
   )
 );
 
@@ -240,22 +246,22 @@ CREATE POLICY "Allow users to read own Attempt"
 ON public."Attempt"
 FOR SELECT
 TO authenticated
-USING (auth.uid()::text = "userId");
+USING (((select auth.uid())::text) = "userId");
 
 DROP POLICY IF EXISTS "Allow users to insert own Attempt" ON public."Attempt";
 CREATE POLICY "Allow users to insert own Attempt"
 ON public."Attempt"
 FOR INSERT
 TO authenticated
-WITH CHECK (auth.uid()::text = "userId");
+WITH CHECK (((select auth.uid())::text) = "userId");
 
 DROP POLICY IF EXISTS "Allow users to update own Attempt" ON public."Attempt";
 CREATE POLICY "Allow users to update own Attempt"
 ON public."Attempt"
 FOR UPDATE
 TO authenticated
-USING (auth.uid()::text = "userId")
-WITH CHECK (auth.uid()::text = "userId");
+USING (((select auth.uid())::text) = "userId")
+WITH CHECK (((select auth.uid())::text) = "userId");
 
 DROP POLICY IF EXISTS "Allow service_role full management on Attempt" ON public."Attempt";
 CREATE POLICY "Allow service_role full management on Attempt"
@@ -270,19 +276,13 @@ WITH CHECK (true);
 ALTER TABLE public."Resume" ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Allow users to read own Resume" ON public."Resume";
-CREATE POLICY "Allow users to read own Resume"
-ON public."Resume"
-FOR SELECT
-TO authenticated
-USING (auth.uid()::text = "userId");
-
 DROP POLICY IF EXISTS "Allow users to manage own Resume" ON public."Resume";
 CREATE POLICY "Allow users to manage own Resume"
 ON public."Resume"
 FOR ALL
 TO authenticated
-USING (auth.uid()::text = "userId")
-WITH CHECK (auth.uid()::text = "userId");
+USING (((select auth.uid())::text) = "userId")
+WITH CHECK (((select auth.uid())::text) = "userId");
 
 DROP POLICY IF EXISTS "Allow service_role full management on Resume" ON public."Resume";
 CREATE POLICY "Allow service_role full management on Resume"
@@ -301,22 +301,31 @@ CREATE POLICY "Allow participants to read JobApplication"
 ON public."JobApplication"
 FOR SELECT
 TO authenticated
-USING (auth.uid()::text = "studentId" OR auth.uid()::text = "recruiterId");
+USING (
+  ((select auth.uid())::text) = "studentId" 
+  OR ((select auth.uid())::text) = "recruiterId"
+);
 
 DROP POLICY IF EXISTS "Allow students to insert JobApplication" ON public."JobApplication";
 CREATE POLICY "Allow students to insert JobApplication"
 ON public."JobApplication"
 FOR INSERT
 TO authenticated
-WITH CHECK (auth.uid()::text = "studentId");
+WITH CHECK (((select auth.uid())::text) = "studentId");
 
 DROP POLICY IF EXISTS "Allow participants to update JobApplication" ON public."JobApplication";
 CREATE POLICY "Allow participants to update JobApplication"
 ON public."JobApplication"
 FOR UPDATE
 TO authenticated
-USING (auth.uid()::text = "studentId" OR auth.uid()::text = "recruiterId")
-WITH CHECK (auth.uid()::text = "studentId" OR auth.uid()::text = "recruiterId");
+USING (
+  ((select auth.uid())::text) = "studentId" 
+  OR ((select auth.uid())::text) = "recruiterId"
+)
+WITH CHECK (
+  ((select auth.uid())::text) = "studentId" 
+  OR ((select auth.uid())::text) = "recruiterId"
+);
 
 DROP POLICY IF EXISTS "Allow service_role full management on JobApplication" ON public."JobApplication";
 CREATE POLICY "Allow service_role full management on JobApplication"
