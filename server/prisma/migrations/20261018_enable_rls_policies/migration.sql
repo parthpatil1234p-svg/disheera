@@ -115,7 +115,14 @@ CREATE POLICY "Allow anonymous and authenticated insert on CampusLead"
 ON public."CampusLead"
 FOR INSERT
 TO anon, authenticated
-WITH CHECK (true);
+WITH CHECK (
+  status = 'new'
+  AND length(trim("collegeName")) > 0
+  AND length(trim("contactPerson")) > 0
+  AND length(trim(email)) > 3
+  AND position('@' in email) > 1
+  AND length(trim(phone)) > 0
+);
 
 DROP POLICY IF EXISTS "Allow service_role full management on CampusLead" ON public."CampusLead";
 CREATE POLICY "Allow service_role full management on CampusLead"
