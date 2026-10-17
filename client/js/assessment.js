@@ -1688,114 +1688,146 @@ document.addEventListener('DOMContentLoaded', async () => {
       const row = document.createElement('div');
       row.className = `prove-skill-item ${isVerified ? 'item-verified' : ''}`;
 
-      let actionHtml = '';
       const isFlagged = skill.verificationStatus === 'flagged_cheating';
       const isCooldown = Boolean(skill.cooldownActive || (skill.nextRetakeAvailableAt && new Date() < new Date(skill.nextRetakeAvailableAt)));
       const remainingHours = skill.cooldownRemainingHours || (skill.nextRetakeAvailableAt ? Math.max(1, Math.ceil((new Date(skill.nextRetakeAvailableAt) - new Date()) / (1000 * 60 * 60))) : 24);
 
-      if (isFlagged || isCooldown) {
-        actionHtml = `
-          <div class="d-flex align-items-center gap-2 flex-wrap">
-            <span class="badge bg-danger-subtle text-danger border border-danger-subtle py-1.5 px-3 small d-inline-flex align-items-center gap-1 font-mono shadow-sm" title="Locked due to proctoring violation">
-              <i class="bi bi-lock-fill"></i>
-              <span>Locked &middot; ${remainingHours}h Cooldown</span>
-            </span>
-            <button type="button" class="btn btn-outline-danger btn-sm" disabled title="24-hour retake lockout active">
-              <i class="bi bi-slash-circle me-1"></i> Disqualified
-            </button>
-          </div>
-        `;
-      } else if (isQuizVer) {
-        actionHtml = `
-          <div class="d-flex align-items-center gap-2 flex-wrap">
-            <span class="badge bg-success text-white py-1.5 px-3 small d-inline-flex align-items-center gap-1 font-mono shadow-sm">
-              <i class="bi bi-patch-check-fill"></i>
-              <span>Calibrated (${escapeHtml(capitalize(profStr))}) \u2713</span>
-            </span>
-            <button type="button" class="btn-retest-check" data-skill="${escapeHtml(skill.name)}" title="Optional: Retake anytime to improve your score or calibrate to a higher tier">
-              <i class="bi bi-arrow-repeat"></i>
-              <span>Retest (Optional)</span>
-            </button>
-          </div>
-        `;
-      } else if (isCodeVer) {
-        actionHtml = `
-          <div class="d-flex align-items-center gap-2 flex-wrap">
-            <span class="badge bg-info text-white py-1.5 px-3 small d-inline-flex align-items-center gap-1 font-mono shadow-sm" title="Verified from connected GitHub repository code">
-              <i class="bi bi-github"></i>
-              <span>GitHub-Verified (${escapeHtml(capitalize(profStr))}) \u2713</span>
-            </span>
-            <button type="button" class="btn-retest-check" data-skill="${escapeHtml(skill.name)}" title="Take reality check quiz to calibrate level with full confidence">
-              <i class="bi bi-patch-question"></i>
-              <span>Take Quiz</span>
-            </button>
-          </div>
-        `;
-      } else {
-        actionHtml = `
-          <div class="d-flex align-items-center gap-2 flex-wrap">
-            <span class="badge bg-warning-subtle text-warning border border-warning py-1.5 px-2.5 small d-inline-flex align-items-center gap-1 font-mono">
-              <i class="bi bi-hourglass-split"></i>
-              <span>Level Pending</span>
-            </span>
-            <button type="button" class="btn-start-check cp-btn-primary shadow-sm" data-skill="${escapeHtml(skill.name)}" title="Take 90s reality check quiz to calibrate knowledge level">
-              <i class="bi bi-play-circle-fill"></i>
-              <span>Start check (90s)</span>
-            </button>
-          </div>
-        `;
-      }
-
-      let noteHtml = '';
-      if (isFlagged) {
-        noteHtml = `
-          <div class="skill-adjusted-note text-danger border-danger-subtle bg-danger-subtle">
-            <i class="bi bi-exclamation-triangle-fill text-danger me-1"></i>
-            <span><strong>Integrity Violation:</strong> 3 proctoring strikes recorded. Retake locked for ${remainingHours} hours.</span>
-          </div>
-        `;
-      } else if (!isVerified) {
-        noteHtml = `
-          <div class="skill-adjusted-note ${verifiedCount >= 1 ? 'text-muted border-secondary-subtle bg-light' : 'text-warning border-warning-subtle bg-warning-subtle'}">
-            <i class="bi ${verifiedCount >= 1 ? 'bi-info-circle text-secondary' : 'bi-shield-lock text-warning'} me-1"></i>
-            <span>${verifiedCount >= 1 ? 'Optional calibration: Take the 90-second quiz anytime to prove proficiency, or proceed with baseline.' : 'Knowledge level is not self-rated. Take the 90-second reality-check quiz to prove proficiency.'}</span>
-          </div>
-        `;
-      } else if (isQuizVer && skill.quizGaps && skill.quizGaps.length > 0) {
-        noteHtml = `
-          <div class="skill-adjusted-note">
-            <i class="bi bi-info-circle text-primary me-1"></i>
-            <span>Calibrated to <strong>${escapeHtml(capitalize(profStr))}</strong>. Recommended focus: ${escapeHtml(skill.quizGaps.slice(0, 2).join(', '))}.</span>
-          </div>
-        `;
-      }
-
-      const checkmarkIcon = isVerified
-        ? `<i class="bi bi-patch-check-fill text-success fs-5 flex-shrink-0" title="Verified Skill \u2713"></i>`
-        : `<i class="bi bi-lock-fill text-warning fs-5 flex-shrink-0" title="Level pending quiz"></i>`;
-
-      const verifiedTag = isVerified
-        ? `<span class="badge bg-success-subtle text-success border border-success-subtle py-0.5 px-2 ms-1" style="font-size: 0.72rem;"><i class="bi bi-check-lg me-1"></i>Verified</span>`
-        : '';
-
-      const levelDisplayHtml = isVerified
-        ? `<span class="prove-skill-level ${escapeHtml(profClass)}">${escapeHtml(capitalize(profStr))}</span>`
-        : `<span class="prove-skill-level pending"><i class="bi bi-hourglass-split me-1"></i>Pending Quiz</span>`;
-
       row.innerHTML = `
         <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
           <div class="prove-skill-info">
-            ${checkmarkIcon}
-            <span class="prove-skill-name">${escapeHtml(skill.displayName || skill.name)}</span>
-            ${verifiedTag}
-            ${levelDisplayHtml}
+            <span class="prove-icon-slot"></span>
+            <span class="prove-skill-name"></span>
+            <span class="prove-verified-slot"></span>
+            <span class="prove-level-slot"></span>
           </div>
-          <div class="prove-skill-action">
-            ${actionHtml}
-          </div>
+          <div class="prove-skill-action"></div>
         </div>
-        ${noteHtml}
+        <div class="prove-note-container"></div>
       `;
+
+      row.querySelector('.prove-skill-name').textContent = skill.displayName || skill.name;
+
+      const iconSlot = row.querySelector('.prove-icon-slot');
+      const iconEl = document.createElement('i');
+      if (isVerified) {
+        iconEl.className = 'bi bi-patch-check-fill text-success fs-5 flex-shrink-0';
+        iconEl.title = 'Verified Skill \u2713';
+      } else {
+        iconEl.className = 'bi bi-lock-fill text-warning fs-5 flex-shrink-0';
+        iconEl.title = 'Level pending quiz';
+      }
+      iconSlot.replaceWith(iconEl);
+
+      const verifiedSlot = row.querySelector('.prove-verified-slot');
+      if (isVerified) {
+        const vBadge = document.createElement('span');
+        vBadge.className = 'badge bg-success-subtle text-success border border-success-subtle py-0.5 px-2 ms-1';
+        vBadge.style.fontSize = '0.72rem';
+        vBadge.innerHTML = '<i class="bi bi-check-lg me-1"></i>Verified';
+        verifiedSlot.replaceWith(vBadge);
+      } else {
+        verifiedSlot.remove();
+      }
+
+      const levelSlot = row.querySelector('.prove-level-slot');
+      const lvlSpan = document.createElement('span');
+      if (isVerified) {
+        lvlSpan.className = `prove-skill-level ${profClass}`;
+        lvlSpan.textContent = capitalize(profStr);
+      } else {
+        lvlSpan.className = 'prove-skill-level pending';
+        lvlSpan.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Pending Quiz';
+      }
+      levelSlot.replaceWith(lvlSpan);
+
+      const actionContainer = row.querySelector('.prove-skill-action');
+      const actionWrap = document.createElement('div');
+      actionWrap.className = 'd-flex align-items-center gap-2 flex-wrap';
+
+      if (isFlagged || isCooldown) {
+        const lockBadge = document.createElement('span');
+        lockBadge.className = 'badge bg-danger-subtle text-danger border border-danger-subtle py-1.5 px-3 small d-inline-flex align-items-center gap-1 font-mono shadow-sm';
+        lockBadge.title = 'Locked due to proctoring violation';
+        lockBadge.innerHTML = '<i class="bi bi-lock-fill"></i> <span>Locked &middot; <span class="lock-hrs"></span>h Cooldown</span>';
+        lockBadge.querySelector('.lock-hrs').textContent = remainingHours;
+
+        const disBtn = document.createElement('button');
+        disBtn.type = 'button';
+        disBtn.className = 'btn btn-outline-danger btn-sm';
+        disBtn.disabled = true;
+        disBtn.title = '24-hour retake lockout active';
+        disBtn.innerHTML = '<i class="bi bi-slash-circle me-1"></i> Disqualified';
+
+        actionWrap.appendChild(lockBadge);
+        actionWrap.appendChild(disBtn);
+      } else if (isQuizVer) {
+        const vBadge = document.createElement('span');
+        vBadge.className = 'badge bg-success text-white py-1.5 px-3 small d-inline-flex align-items-center gap-1 font-mono shadow-sm';
+        vBadge.innerHTML = '<i class="bi bi-patch-check-fill"></i> <span class="prof-tag-text"></span>';
+        vBadge.querySelector('.prof-tag-text').textContent = `Calibrated (${capitalize(profStr)}) \u2713`;
+
+        const retBtn = document.createElement('button');
+        retBtn.type = 'button';
+        retBtn.className = 'btn-retest-check';
+        retBtn.setAttribute('data-skill', skill.name);
+        retBtn.title = 'Optional: Retake anytime to improve your score or calibrate to a higher tier';
+        retBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> <span>Retest (Optional)</span>';
+
+        actionWrap.appendChild(vBadge);
+        actionWrap.appendChild(retBtn);
+      } else if (isCodeVer) {
+        const vBadge = document.createElement('span');
+        vBadge.className = 'badge bg-info text-white py-1.5 px-3 small d-inline-flex align-items-center gap-1 font-mono shadow-sm';
+        vBadge.title = 'Verified from connected GitHub repository code';
+        vBadge.innerHTML = '<i class="bi bi-github"></i> <span class="prof-tag-text"></span>';
+        vBadge.querySelector('.prof-tag-text').textContent = `GitHub-Verified (${capitalize(profStr)}) \u2713`;
+
+        const qzBtn = document.createElement('button');
+        qzBtn.type = 'button';
+        qzBtn.className = 'btn-retest-check';
+        qzBtn.setAttribute('data-skill', skill.name);
+        qzBtn.title = 'Take reality check quiz to calibrate level with full confidence';
+        qzBtn.innerHTML = '<i class="bi bi-patch-question"></i> <span>Take Quiz</span>';
+
+        actionWrap.appendChild(vBadge);
+        actionWrap.appendChild(qzBtn);
+      } else {
+        const pendBadge = document.createElement('span');
+        pendBadge.className = 'badge bg-warning-subtle text-warning border border-warning py-1.5 px-2.5 small d-inline-flex align-items-center gap-1 font-mono';
+        pendBadge.innerHTML = '<i class="bi bi-hourglass-split"></i> <span>Level Pending</span>';
+
+        const stBtn = document.createElement('button');
+        stBtn.type = 'button';
+        stBtn.className = 'btn-start-check cp-btn-primary shadow-sm';
+        stBtn.setAttribute('data-skill', skill.name);
+        stBtn.title = 'Take 90s reality check quiz to calibrate knowledge level';
+        stBtn.innerHTML = '<i class="bi bi-play-circle-fill"></i> <span>Start check (90s)</span>';
+
+        actionWrap.appendChild(pendBadge);
+        actionWrap.appendChild(stBtn);
+      }
+      actionContainer.appendChild(actionWrap);
+
+      const noteContainer = row.querySelector('.prove-note-container');
+      if (isFlagged) {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'skill-adjusted-note text-danger border-danger-subtle bg-danger-subtle';
+        noteDiv.innerHTML = '<i class="bi bi-exclamation-triangle-fill text-danger me-1"></i><span><strong>Integrity Violation:</strong> 3 proctoring strikes recorded. Retake locked for <span class="rem-hrs"></span> hours.</span>';
+        noteDiv.querySelector('.rem-hrs').textContent = remainingHours;
+        noteContainer.appendChild(noteDiv);
+      } else if (!isVerified) {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = `skill-adjusted-note ${verifiedCount >= 1 ? 'text-muted border-secondary-subtle bg-light' : 'text-warning border-warning-subtle bg-warning-subtle'}`;
+        noteDiv.innerHTML = `<i class="bi ${verifiedCount >= 1 ? 'bi-info-circle text-secondary' : 'bi-shield-lock text-warning'} me-1"></i><span>${verifiedCount >= 1 ? 'Optional calibration: Take the 90-second quiz anytime to prove proficiency, or proceed with baseline.' : 'Knowledge level is not self-rated. Take the 90-second reality-check quiz to prove proficiency.'}</span>`;
+        noteContainer.appendChild(noteDiv);
+      } else if (isQuizVer && skill.quizGaps && skill.quizGaps.length > 0) {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'skill-adjusted-note';
+        noteDiv.innerHTML = '<i class="bi bi-info-circle text-primary me-1"></i><span>Calibrated to <strong class="gap-prof"></strong>. Recommended focus: <span class="gap-skills"></span>.</span>';
+        noteDiv.querySelector('.gap-prof').textContent = capitalize(profStr);
+        noteDiv.querySelector('.gap-skills').textContent = skill.quizGaps.slice(0, 2).join(', ');
+        noteContainer.appendChild(noteDiv);
+      }
 
       const checkBtn = row.querySelector('.btn-start-check');
       if (checkBtn) {
