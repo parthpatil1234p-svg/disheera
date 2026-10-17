@@ -528,7 +528,10 @@ img {
 .landing-page .container,
 .landing-hero .hero-container,
 .landing-hero .container,
-.landing-hero .container-fluid {
+.landing-hero .container-fluid,
+.roadmap-page .container,
+.roadmap-page .container-fluid,
+.roadmap-container {
   max-width: 1880px !important;
   width: 96% !important;
   padding-left: clamp(1rem, 2.5vw, 3rem) !important;

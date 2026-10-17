@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const weekNumber = parseInt(wNum, 10);
       const tasks = weekMap[weekNumber] || [];
       const completedCount = tasks.filter((t) => t.completed).length;
-      const isCompleted = tasks.length > 0 && tasks.every((t) => t.completed);
+      const allTasksCompleted = tasks.length > 0 ? (completedCount >= tasks.length) : true;
       
       let wp = weekProgressList.find((p) => p.weekNumber === weekNumber);
       if (!wp) {
@@ -292,8 +292,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
       }
 
+      const isWeekPassed = wp.status === 'passed' || isGraduatedRoadmap;
+      
       let isActive = false;
-      if (!isCompleted && !firstIncompleteFound) {
+      if (!isWeekPassed && !firstIncompleteFound) {
         isActive = true;
         firstIncompleteFound = true;
       }
@@ -301,15 +303,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       const weekTitle = tasks[0]?.title ? tasks[0].title.split(':')[0] : `Week ${weekNumber}`;
       const skillName = tasks[0]?.skill?.displayName || tasks[0]?.skill?.name || '';
 
+      // Clean status determination:
+      let weekStatus = 'locked';
+      if (isWeekPassed) {
+        weekStatus = 'passed';
+      } else if (allTasksCompleted) {
+        weekStatus = 'awaiting_test';
+      } else if (isActive) {
+        weekStatus = 'in_progress';
+      }
+
       weeklyMilestones.push({
         weekNumber,
         title: weekTitle,
         skillName,
         tasksCount: tasks.length,
         completedTasksCount: completedCount,
-        isCompleted: isCompleted || wp.status === 'passed' || isGraduatedRoadmap,
+        isCompleted: isWeekPassed,
         isActive,
-        status: isGraduatedRoadmap ? 'passed' : (wp.status || (isCompleted ? 'passed' : (isActive ? 'in_progress' : 'locked'))),
+        status: weekStatus,
         testScore: wp.testScore,
         testPercent: wp.testPercent,
         passedAt: wp.passedAt,
@@ -353,11 +365,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const isGraduated = currentRoadmap.status === 'completed' || currentRoadmap.progressPercentage >= 100;
       const isAdminUser = Boolean(window.Auth?.isAdmin());
-      const rawStatus = wp.status || (isGraduated ? 'passed' : (weekNumber === 1 ? 'in_progress' : 'locked'));
+      const allTasksCompleted = tasks.length > 0 ? (completedCount >= tasks.length) : true;
+      let rawStatus = wp.status || (isGraduated ? 'passed' : (weekNumber === 1 ? 'in_progress' : 'locked'));
+      if (rawStatus !== 'passed' && !isGraduated) {
+        if (!allTasksCompleted && rawStatus === 'awaiting_test') {
+          rawStatus = 'in_progress';
+        } else if (allTasksCompleted && rawStatus === 'in_progress') {
+          rawStatus = 'awaiting_test';
+        }
+      }
       const status = isAdminUser ? (rawStatus === 'locked' ? 'in_progress' : rawStatus) : rawStatus;
       const isLocked = isAdminUser ? false : (!isGraduated && status === 'locked');
       const isPassed = status === 'passed' || isGraduated;
-      const isAwaitingTest = !isGraduated && status === 'awaiting_test';
+      const isAwaitingTest = !isGraduated && status === 'awaiting_test' && allTasksCompleted;
       const isInProgress = !isGraduated && (status === 'in_progress' || (isAdminUser && !isPassed && !isAwaitingTest));
 
       let statusCardClass = '';

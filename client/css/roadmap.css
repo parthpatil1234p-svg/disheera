@@ -87,8 +87,9 @@
 
 .student-route-track-wrapper {
   position: relative;
-  min-width: max-content;
-  padding: 1.75rem 0.75rem 0.5rem 0.75rem;
+  min-width: 100%;
+  width: max-content;
+  padding: 1.75rem 0.5rem 0.5rem 0.5rem;
 }
 
 /* Connecting Rail Line behind stations */
@@ -113,7 +114,7 @@
 
 .route-stations-row {
   display: flex;
-  gap: 1.25rem;
+  gap: 0.85rem;
   position: relative;
   z-index: 2;
   align-items: stretch;
@@ -121,13 +122,33 @@
 
 /* Single Route Station Column */
 .route-station {
-  flex: 0 0 260px;
+  flex: 0 0 215px;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   scroll-snap-align: start;
   user-select: none;
   transition: transform 0.2s ease;
+}
+
+@media (min-width: 1400px) {
+  .student-route-track-wrapper {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .route-stations-row {
+    width: 100%;
+    justify-content: flex-start;
+    gap: clamp(0.5rem, 0.8vw, 1rem);
+  }
+
+  .route-station {
+    flex: 1 1 0px;
+    min-width: 180px;
+    max-width: 250px;
+  }
 }
 
 .route-station:hover {
@@ -252,7 +273,7 @@
   background: #FFFFFF;
   border: 1.5px solid #E2E8F0;
   border-radius: 12px;
-  padding: 1.1rem;
+  padding: 0.95rem 0.85rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -283,15 +304,16 @@
 }
 
 .station-title {
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   font-weight: 700;
   line-height: 1.35;
   color: #0F172A;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.4em;
+  min-height: 3.35em;
+  word-break: break-word;
 }
 
 .station-skill-badge {

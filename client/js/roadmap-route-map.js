@@ -103,8 +103,26 @@
     weeklyData.forEach((week, idx) => {
       const wNum = week.weekNumber || (idx + 1);
       const isCompleted = Boolean(week.isCompleted || week.status === 'completed' || week.status === 'passed');
+      const completedTasks = week.completedTasksCount != null ? week.completedTasksCount : (isCompleted ? (week.tasksCount || 4) : 0);
+      const totalTasks = week.tasksCount != null ? week.tasksCount : 4;
+      const allTasksDone = totalTasks > 0 ? (completedTasks >= totalTasks) : true;
+      const taskPct = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+      // Status resolution: A station can ONLY be awaiting test if ALL tasks for that week are done!
+      // If tasks are incomplete (completedTasks < totalTasks), it can NEVER be awaiting_test.
+      let stationStatus = week.status;
+      if (isCompleted) {
+        stationStatus = 'passed';
+      } else if (!allTasksDone) {
+        if (stationStatus === 'awaiting_test') {
+          stationStatus = 'in_progress';
+        }
+      } else if (allTasksDone && stationStatus === 'in_progress') {
+        stationStatus = 'awaiting_test';
+      }
+
       const isActive = idx === activeWeekIndex;
-      const isAwaitingTest = week.status === 'awaiting_test' || (!isCompleted && week.tasksCount > 0 && week.completedTasksCount >= week.tasksCount);
+      const isAwaitingTest = !isCompleted && allTasksDone && (stationStatus === 'awaiting_test' || allTasksDone);
       const isLocked = !isCompleted && !isActive && !isAwaitingTest && idx > activeWeekIndex;
 
       let stationStateClass = 'state-locked';
@@ -132,9 +150,6 @@
 
       const cleanTitle = week.title ? week.title.replace(/^Week\s*\d+\s*:\s*/i, '') : `Curriculum Stage ${wNum}`;
       const skillName = week.skillName || '';
-      const completedTasks = week.completedTasksCount != null ? week.completedTasksCount : (isCompleted ? (week.tasksCount || 4) : 0);
-      const totalTasks = week.tasksCount || 4;
-      const taskPct = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
       // Station Card Markup
       stationsHtml += `

@@ -418,6 +418,8 @@ const getCurrentRoadmap = async (req, res, next) => {
       const actualCompleted = tasks.filter((t) => t.completed).length;
       const actualTotal = tasks.length;
       const actualPct = Math.min(Math.max(Math.round((actualCompleted / actualTotal) * 100), 0), 100);
+      let roadmapModified = false;
+
       if (
         roadmap.completedTasks !== actualCompleted ||
         roadmap.totalTasks !== actualTotal ||
@@ -426,6 +428,28 @@ const getCurrentRoadmap = async (req, res, next) => {
         roadmap.completedTasks = actualCompleted;
         roadmap.totalTasks = actualTotal;
         roadmap.progressPercentage = actualPct;
+        roadmapModified = true;
+      }
+
+      // Reconcile weekProgress status if tasks and milestone status desynced
+      if (Array.isArray(roadmap.weekProgress) && roadmap.weekProgress.length > 0) {
+        for (const wp of roadmap.weekProgress) {
+          if (wp.status === 'passed') continue;
+          const tasksForThisWeek = tasks.filter((t) => t.weekNumber === wp.weekNumber);
+          if (tasksForThisWeek.length > 0) {
+            const allDone = tasksForThisWeek.every((t) => t.completed);
+            if (wp.status === 'awaiting_test' && !allDone) {
+              wp.status = 'in_progress';
+              roadmapModified = true;
+            } else if (wp.status === 'in_progress' && allDone) {
+              wp.status = 'awaiting_test';
+              roadmapModified = true;
+            }
+          }
+        }
+      }
+
+      if (roadmapModified) {
         await roadmap.save();
       }
     }
@@ -571,14 +595,19 @@ const toggleTask = async (req, res, next) => {
     // 4. Recalculate progress on Roadmap
     const updatedRoadmap = await calculateRoadmapProgress(activeRoadmap._id);
 
-    // 5. If all tasks for this task's week are completed, transition week from in_progress to awaiting_test
+    // 5. If all tasks for this task's week are completed, transition week from in_progress to awaiting_test; otherwise revert awaiting_test to in_progress
     const weekTasks = await RoadmapTask.find({ roadmap: activeRoadmap._id, weekNumber: task.weekNumber });
     const allWeekTasksDone = weekTasks.length > 0 && weekTasks.every((t) => t.completed);
-    if (allWeekTasksDone && updatedRoadmap.weekProgress) {
+    if (updatedRoadmap.weekProgress) {
       const wp = updatedRoadmap.weekProgress.find((w) => w.weekNumber === task.weekNumber);
-      if (wp && wp.status === 'in_progress') {
-        wp.status = 'awaiting_test';
-        await updatedRoadmap.save();
+      if (wp && wp.status !== 'passed') {
+        if (allWeekTasksDone && wp.status === 'in_progress') {
+          wp.status = 'awaiting_test';
+          await updatedRoadmap.save();
+        } else if (!allWeekTasksDone && wp.status === 'awaiting_test') {
+          wp.status = 'in_progress';
+          await updatedRoadmap.save();
+        }
       }
     }
 
@@ -1236,11 +1265,16 @@ const verifyVideoLearningController = async (req, res, next) => {
     // If all tasks for this week are completed, transition week from in_progress to awaiting_test
     const weekTasks = await RoadmapTask.find({ roadmap: activeRoadmap._id, weekNumber: task.weekNumber });
     const allWeekTasksDone = weekTasks.length > 0 && weekTasks.every((t) => t.completed);
-    if (allWeekTasksDone && updatedRoadmap.weekProgress) {
+    if (updatedRoadmap.weekProgress) {
       const wp = updatedRoadmap.weekProgress.find((w) => w.weekNumber === task.weekNumber);
-      if (wp && wp.status === 'in_progress') {
-        wp.status = 'awaiting_test';
-        await updatedRoadmap.save();
+      if (wp && wp.status !== 'passed') {
+        if (allWeekTasksDone && wp.status === 'in_progress') {
+          wp.status = 'awaiting_test';
+          await updatedRoadmap.save();
+        } else if (!allWeekTasksDone && wp.status === 'awaiting_test') {
+          wp.status = 'in_progress';
+          await updatedRoadmap.save();
+        }
       }
     }
 
