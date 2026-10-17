@@ -5,7 +5,7 @@
 > **राज्यस्तरीय आयोजक:** कौशल्य, रोजगार, उद्योजकता व नाविन्यता विभाग, महाराष्ट्र शासन + Ratan Tata Maharashtra State Skills University (MSSU) + Maharashtra State Innovation Society (MSInS)  
 > **जळगाव जिल्हा स्तर आयोजक:** Seva Sankalp Abhiyan 2026 — National Innovation Expo (सरदार वल्लभभाई पटेल भवन, जळगाव)  
 > **लाईव्ह वेबसाइट:** [disheera.site](https://disheera.site)  
-> **बॅकएंड API:** [careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)  
+> **बॅकएंड API:** [api.disheera.site/api/health](https://api.disheera.site/api/health)  
 
 ---
 

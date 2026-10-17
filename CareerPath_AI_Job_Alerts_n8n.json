@@ -23,7 +23,7 @@
     },
     {
       "parameters": {
-        "url": "https://careerpath-ai-bdbt.onrender.com/api/jobs/adzuna",
+        "url": "https://api.disheera.site/api/jobs/adzuna",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [

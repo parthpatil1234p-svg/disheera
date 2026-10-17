@@ -6,7 +6,7 @@
 > **Institution:** G.H. Raisoni College of Engineering and Management (GHRCEM), Jalgaon  
 > **Project Title:** `DheePath — Two-Factor Skill Verified Career GPS & Recruiter Talent Radar Platform`  
 > **Live Web Application:** [disheera.site](https://disheera.site)  
-> **Production REST API:** [careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)  
+> **Production REST API:** [api.disheera.site](https://api.disheera.site)  
 
 ---
 

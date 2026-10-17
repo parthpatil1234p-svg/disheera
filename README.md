@@ -16,10 +16,10 @@
   <a href="https://disheera.site">
     <img src="https://img.shields.io/badge/⚡_Vercel_Mirror-careerpath--ai--jade.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Edge Mirror" />
   </a>
-  <a href="https://careerpath-ai-bdbt.onrender.com">
+  <a href="https://api.disheera.site">
     <img src="https://img.shields.io/badge/⚡_API_Gateway-Render_Cloud-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Live API Gateway" />
   </a>
-  <a href="https://careerpath-ai-bdbt.onrender.com/api/health">
+  <a href="https://api.disheera.site/api/health">
     <img src="https://img.shields.io/badge/🩺_System_Health-99.9%25_Uptime-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white" alt="Health Status" />
   </a>
   <a href="LICENSE">
@@ -162,8 +162,8 @@ DheePath is an enterprise-grade Autonomous Career Guidance & Talent Intelligence
 | :--- | :--- | :--- |
 | 🌐 **Primary Production Domain** | **[https://disheera.site](https://disheera.site)** | Official production custom domain with HTTPS & edge routing |
 | ⚡ **Vercel Global Edge Mirror** | **[https://disheera.site](https://disheera.site)** | Direct Vercel Edge CDN mirror with zero cold-start delivery |
-| ⚡ **Live API Gateway** | **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)** | Node.js Express REST API hosted on Render Cloud |
-| 🩺 **Live Health Check** | **[https://careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)** | Real-time server telemetry, database connection & uptime monitor |
+| ⚡ **Live API Gateway** | **[https://api.disheera.site](https://api.disheera.site)** | Node.js Express REST API hosted on Render Cloud |
+| 🩺 **Live Health Check** | **[https://api.disheera.site/api/health](https://api.disheera.site/api/health)** | Real-time server telemetry, database connection & uptime monitor |
 | 📧 **Official Support & Inquiries** | **`parthpatil@disheera.site`** | Dedicated enterprise & university partner communication channel |
 | 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20DheePath%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
 | 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://disheera.site/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@disheera.site` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
@@ -1819,12 +1819,12 @@ DheePath implements a production-grade decoupled cloud deployment architecture d
 │   • Directory: client/ (Root or outputDirectory in root vercel.json)                   │
 │   • Live Domain: https://disheera.site                                 │
 │   • Configuration: vercel.json with cleanUrls and security headers                     │
-│   • Auto-Points To: https://careerpath-ai-bdbt.onrender.com/api                        │
+│   • Auto-Points To: https://api.disheera.site/api                        │
 │   • Features: Instant global edge invalidation, dynamic cache busting, asset bundling │
 │                                                                                        │
 │   ⚡ BACKEND REST API (Render Web Service)                                             │
 │   • Directory: server/                                                                 │
-│   • Live Gateway: https://careerpath-ai-bdbt.onrender.com                              │
+│   • Live Gateway: https://api.disheera.site                              │
 │   • Runtime: Node.js 18+ Express.js with Supabase PostgreSQL & Prisma ORM             │
 │   • Health Endpoint: /api/health (99.9% Uptime SLA & Supabase Ping Monitor)            │
 │   • Serverless Fallback: server/vercel.json with @vercel/node engine handler           │
@@ -1845,7 +1845,7 @@ DheePath implements a production-grade decoupled cloud deployment architecture d
 2. **Backend Deployment (Render Cloud):**
    - **Managed Web Service:** Hosted on Render with automatic git push tracking, Node 18+ runtime, and production health monitoring.
    - **CORS Whitelist:** Configured to strictly accept production domains `https://disheera.site` and `https://disheera.site` while preserving local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
-   - **Live API Endpoint:** **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)**
+   - **Live API Endpoint:** **[https://api.disheera.site](https://api.disheera.site)**
 3. **Local Dev & Testing Integrity Guarantee:**
    - Both client and server maintain local development fallbacks. Running `npm run dev` in `server/` and serving `client/` on `http://localhost:5500` works flawlessly without breaking remote production pipelines.
 
