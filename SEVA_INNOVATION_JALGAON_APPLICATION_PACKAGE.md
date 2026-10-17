@@ -4,7 +4,7 @@
 > **प्रकल्प नाव:** DheePath (Two-Factor Skill Verified Career GPS & Recruiter Talent Radar)  
 > **राज्यस्तरीय आयोजक:** कौशल्य, रोजगार, उद्योजकता व नाविन्यता विभाग, महाराष्ट्र शासन + Ratan Tata Maharashtra State Skills University (MSSU) + Maharashtra State Innovation Society (MSInS)  
 > **जळगाव जिल्हा स्तर आयोजक:** Seva Sankalp Abhiyan 2026 — National Innovation Expo (सरदार वल्लभभाई पटेल भवन, जळगाव)  
-> **लाईव्ह वेबसाइट:** [dheepath-jade.vercel.app](https://dheepath-jade.vercel.app)  
+> **लाईव्ह वेबसाइट:** [disheera.site](https://disheera.site)  
 > **बॅकएंड API:** [careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)  
 
 ---
@@ -132,5 +132,5 @@ flowchart TD
 > यावर उपाय म्हणून आम्ही बनवले आहे — **DheePath!**  
 > हे केवळ सल्ले देत नाही, तर विद्यार्थ्याचा खरा कॉम्प्युटर कोड तपासून आणि AI द्वारे अवघ्या ३०० मिलीसेकंदात प्रश्न विचारून त्याचे खरे ज्ञान सिद्ध करते. आमचे ६०/२५/१५ चे पारदर्शक सूत्र ५० मिलीसेकंदात त्याला योग्य करिअर सांगते आणि त्याला थेट मुंबई-पुण्याच्या कंपन्यांच्या भरती रडारवर आणून ठेवते.  
 > 
-> आमचा हा संपूर्ण प्लॅटफॉर्म आज **dheepath-jade.vercel.app** वर १००% लाईव्ह आणि कार्यरत आहे.  
+> आमचा हा संपूर्ण प्लॅटफॉर्म आज **disheera.site** वर १००% लाईव्ह आणि कार्यरत आहे.  
 > जळगावच्या तरुणांना जागतिक दर्जाची नोकरी मिळवून देण्यासाठी आणि 'विकसित भारत २०२७' च्या निर्मितीसाठी हे आमचे योगदान आहे. धन्यवाद!"*

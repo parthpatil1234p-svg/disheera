@@ -10,10 +10,10 @@
 ---
 
 <p align="center">
-  <a href="https://careerpath.is-local.org">
+  <a href="https://disheera.site">
     <img src="https://img.shields.io/badge/🌐_Production_Domain-careerpath.is--local.org-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Custom Domain" />
   </a>
-  <a href="https://careerpath-ai-jade.vercel.app">
+  <a href="https://disheera.site">
     <img src="https://img.shields.io/badge/⚡_Vercel_Mirror-careerpath--ai--jade.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Edge Mirror" />
   </a>
   <a href="https://careerpath-ai-bdbt.onrender.com">
@@ -160,39 +160,39 @@ DheePath is an enterprise-grade Autonomous Career Guidance & Talent Intelligence
 
 | Resource | Target Link / Value | Production Capability & Stakeholder Notes |
 | :--- | :--- | :--- |
-| 🌐 **Primary Production Domain** | **[https://careerpath.is-local.org](https://careerpath.is-local.org)** | Official production custom domain with HTTPS & edge routing |
-| ⚡ **Vercel Global Edge Mirror** | **[https://careerpath-ai-jade.vercel.app](https://careerpath-ai-jade.vercel.app)** | Direct Vercel Edge CDN mirror with zero cold-start delivery |
+| 🌐 **Primary Production Domain** | **[https://disheera.site](https://disheera.site)** | Official production custom domain with HTTPS & edge routing |
+| ⚡ **Vercel Global Edge Mirror** | **[https://disheera.site](https://disheera.site)** | Direct Vercel Edge CDN mirror with zero cold-start delivery |
 | ⚡ **Live API Gateway** | **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Live Health Check** | **[https://careerpath-ai-bdbt.onrender.com/api/health](https://careerpath-ai-bdbt.onrender.com/api/health)** | Real-time server telemetry, database connection & uptime monitor |
-| 📧 **Official Support & Inquiries** | **`parthpatil@careerpath.is-local.org`** | Dedicated enterprise & university partner communication channel |
+| 📧 **Official Support & Inquiries** | **`parthpatil@disheera.site`** | Dedicated enterprise & university partner communication channel |
 | 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20DheePath%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
-| 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://careerpath-ai-jade.vercel.app/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@careerpath.is-local.org` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
+| 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://disheera.site/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@disheera.site` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
 | ⚖️ **Statutory DPDP Act 2023 Alignment** | **[Gazette No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)** | Full statutory compliance across notice (s. 5), consent (s. 6), breach notification (s. 8(6)), and data principal rights |
-| 📜 **Legal & Governance Suite** | **[`privacy.html`](https://careerpath-ai-jade.vercel.app/privacy.html) · [`terms.html`](https://careerpath-ai-jade.vercel.app/terms.html) · [`security.html`](https://careerpath-ai-jade.vercel.app/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
+| 📜 **Legal & Governance Suite** | **[`privacy.html`](https://disheera.site/privacy.html) · [`terms.html`](https://disheera.site/terms.html) · [`security.html`](https://disheera.site/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
 | 🔑 **Student Sandbox Access** | **⚡ 1-Click Student Sandbox** &nbsp;•&nbsp; *Passwordless / Auto-Fill* | Pre-seeded with student profile, verified skills & active roadmap *(Protected via 1-Click Instant Sign-In on `/login.html` · Credentials masked for security)* |
 | 🏢 **Enterprise Recruiter Sandbox** | **⚡ 1-Click Recruiter Sandbox** &nbsp;•&nbsp; *Passwordless / Auto-Fill* | Pre-seeded Razorpay verified company, active job posting & candidate applicant radar *(Protected via 1-Click Demo Recruiter on `/login.html` · Credentials masked for security)* |
 | 🛡️ **Portal Isolation & RBAC** | **Strict Student vs Recruiter Guard** | Dedicated page catalogs, instant client pre-render redirect traps, and backend `requireStudent` / `requireRecruiter` RBAC |
 | 🧭 **Role-Smart Logo Navigation** | **Contextual Home Dispatch** | Clicking brand logo routes recruiters to `/recruiter-dashboard.html`, students to `/dashboard.html`; auto-redirects recruiters visiting `/index.html` unless `?view=public` |
-| 🛡️ **Recruiter Verification & Radar** | **[`/recruiter-dashboard.html`](https://careerpath-ai-jade.vercel.app/recruiter-dashboard.html)** | Real company domain verification, 60+ webmail blacklist, DNS MX resolution, AI trust scoring, opening creation & Applicant Radar with candidate verified badges |
-| 💼 **Direct Recruiter Job Board** | **[`/jobs.html`](https://careerpath-ai-jade.vercel.app/jobs.html)** | Student-facing verified company job openings with personalized AI skill match percentage & 1-click apply |
+| 🛡️ **Recruiter Verification & Radar** | **[`/recruiter-dashboard.html`](https://disheera.site/recruiter-dashboard.html)** | Real company domain verification, 60+ webmail blacklist, DNS MX resolution, AI trust scoring, opening creation & Applicant Radar with candidate verified badges |
+| 💼 **Direct Recruiter Job Board** | **[`/jobs.html`](https://disheera.site/jobs.html)** | Student-facing verified company job openings with personalized AI skill match percentage & 1-click apply |
 | 📺 **Video Learning Dedication** | **Anti-Scrubbing Guard & 1.5x Cap** | Enforces true video watch time in roadmap learning chamber; auto-pauses on window blur/tab switch |
 | 🌐 **Google Authentication** | **1-Click Google Sign-In & Sign-Up** | Animated Google logo with multi-chromatic micro-interactions & Google Identity Services |
 | 🐙 **GitHub Auth Sync** | **Zero-Prompt Repository Sync** | `POST /api/auth/github/sync` uses JWT session token; eliminates manual username prompt |
-| 🎯 **Skill Reality-Check Quiz** | **[`/quiz.html`](https://careerpath-ai-jade.vercel.app/quiz.html)** | 5-question dynamic micro-quiz powered by **Groq Llama 3.3 70B** (<300ms) with BYOK modal |
+| 🎯 **Skill Reality-Check Quiz** | **[`/quiz.html`](https://disheera.site/quiz.html)** | 5-question dynamic micro-quiz powered by **Groq Llama 3.3 70B** (<300ms) with BYOK modal |
 | 🗄️ **Database Engine** | **Pure Supabase PostgreSQL (Prisma ORM)** | 12 Relational Models, PgBouncer pooling, zero MongoDB, strict schema validation |
 | 🏷️ **Lightcast Skills Taxonomy** | **Core (⚡), Tool (🛠️), Soft (👥)** | 76+ industry skills, dynamic alias resolver (`/api/skills/resolve`), related skills graph |
 | 📬 **Streak Nudge & Maintenance** | **Automated Cron & Email Service** | 3-day inactivity threshold, dynamic milestone week/remaining tasks computation, on-demand test API & UI button |
 | 🧪 **Comprehensive API Verification** | **26/26 Endpoints Passing (100%)** | `node tests/audit_all_apis.js` audit suite executed across all 6 core subsystem phases |
 | 🗺️ **Dual Active Roadmaps & Synergy** | **[`docs/ROADMAP-ENGINE.md`](docs/ROADMAP-ENGINE.md)** | Enrolls up to 2 parallel tracks ($\le 2$) with domain/skill synergy checks; PostgreSQL partial unique index `idx_user_career_active_route` on `"Roadmap"("userId", "careerId") WHERE (status = 'active')` catching Prisma `P2002`; dynamic track switcher |
 | 💼 **Multi-Site Job Market Hub** | **6 Live Portals & ⚡ Master Launcher** | 1-click direct search deep-links for LinkedIn Jobs, Naukri.com, Indeed India, Wellfound, Internshala, and Google for Jobs + per-card cross-platform search buttons |
-| 🎙️ **AI Voice Mock Interview** | **[`/interview.html`](https://careerpath-ai-jade.vercel.app/interview.html)** | Real-time mic recording, natural voice synthesis (Joanna, Matthew, Amy, Brian), 3-pillar evaluation (Depth, Clarity, Practicality), and model answers |
+| 🎙️ **AI Voice Mock Interview** | **[`/interview.html`](https://disheera.site/interview.html)** | Real-time mic recording, natural voice synthesis (Joanna, Matthew, Amy, Brian), 3-pillar evaluation (Depth, Clarity, Practicality), and model answers |
 | 🧭 **Career GPS & Readiness Index** | **Real-Time 0-100% Metric** | Live composite readiness index, 1-click "Bridge the Gap" roadmap task injection, 3-state resume gate, canonical skill ledger, profile status selector |
 | 🏆 **4-Rule Job Ready Engine** | **[`docs/ROADMAP-ENGINE.md#4-rule-industry-job-ready-certification`](docs/ROADMAP-ENGINE.md)** | Objective industry certification requiring Score ≥70%, ≥4 verified skills, progress ≥80% |
 | 📄 **Single Resume per Account** | **[`docs/RESUME-ENGINE.md`](docs/RESUME-ENGINE.md)** | Dedicated 1:1 schema, magic-byte inspection (`%PDF`, `DOCX`, `DOC`), transactional Cloudinary lifecycle |
 | 📱 **WhatsApp Automation Suite** | **Multi-Provider Driver (Meta + OpenWA)** | Instant 2-sec 6-digit OTP delivery, weekly PDF roadmap notes compiler & 24x7 AI career assistant webhook |
 | 🔐 **Registration Dual Verification** | **Simultaneous Gmail & WhatsApp OTP** | Enforces entering BOTH codes simultaneously; algorithm guarantees distinct codes (`emailOtp !== whatsappOtp`) |
 | 🔒 **Strict WhatsApp Student Gate** | **Compulsory Uncloseable Modal (Option A)** | Auto-gates students lacking mobile numbers across dashboard/roadmaps; verified via `POST /api/users/link-phone/verify-otp` |
-| 📜 **16:9 Widescreen Certificate** | **[`/verify.html?certId=...`](https://careerpath-ai-jade.vercel.app/verify.html?certId=CP-2026-VRF892)** | Cinematic 1120x630px Navy & Gold luxury award sheet with floral filigrees, 3D rosette medal seal & live QR verification |
+| 📜 **16:9 Widescreen Certificate** | **[`/verify.html?certId=...`](https://disheera.site/verify.html?certId=CP-2026-VRF892)** | Cinematic 1120x630px Navy & Gold luxury award sheet with floral filigrees, 3D rosette medal seal & live QR verification |
 | 🛡️ **Milestone Anti-Cheat Proctoring**| **Weekly Proctored Exam Chamber** | Fullscreen enforcement, tab-blur tracking, 3-strike policy, 30-min server clock & 70% passing threshold |
 | 📊 **2D SVG Percentage Gauge** | **Accessible Progress Meter** | Replaced confusing 3D degree gauges (90/180) with high-contrast 0% to 100% SVG circular meter |
 | 🏛️ **System Architecture Spec** | **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)** | Comprehensive system architecture & threat model specification |
@@ -1217,7 +1217,7 @@ DheePath includes a production-ready **n8n Workflow Blueprint (`DheePath_AI_Job_
    - Triggers alerts only to candidates with an AI Skill Match score $\ge 75\%$.
 3. **Multi-Channel Dispatch Orchestration:**
    - **WhatsApp Transactional Notification:** Dispatches instant alert with company logo, CTC salary range, match score, and 1-click apply deep link via Meta Cloud API or OpenWA.
-   - **Rich HTML Email Dispatch:** Compiles responsive email template sent via custom domain SMTP (`parthpatil@careerpath.is-local.org`).
+   - **Rich HTML Email Dispatch:** Compiles responsive email template sent via custom domain SMTP (`parthpatil@disheera.site`).
 4. **Execution Telemetry & Audit Logs:**
    - Tracks delivery receipts, read statuses, and application conversion metrics in an auditable workflow log.
 
@@ -1280,7 +1280,7 @@ DheePath issues tamper-proof, industry-standard credentials formatted specifical
   - **Milestone Exam Score:** Average proctored weekly milestone exam performance ($\ge 70\%$).
 - **Dynamic QR Code & Verification Engine (`client/verify.html`):**
   - Live QR code embedded directly into the certificate footer linking to public verification endpoint:
-    `https://careerpath.is-local.org/verify.html?certId=CP-2026-VRF892` *(Mirror: [careerpath-ai-jade.vercel.app](https://careerpath-ai-jade.vercel.app/verify.html?certId=CP-2026-VRF892))*
+    `https://disheera.site/verify.html?certId=CP-2026-VRF892` *(Mirror: [disheera.site](https://disheera.site/verify.html?certId=CP-2026-VRF892))*
   - Public verification page displays candidate profile, completion date, track curriculum, and verified skill badges for instant recruiter due diligence.
 
 ### 13.3 Weekly Milestone Test Proctoring (Anti-Cheat Exam Chamber)
@@ -1544,7 +1544,7 @@ DheePath is engineered to meet the highest technical security standards and comp
 
 ### 17.1 Technical Guardrails, CSP, Magic Bytes & CORS
 1. **Strict Content Security Policy & HTTP Headers:** Enforced via `helmet` across all REST responses, disabling unauthorized framing, clickjacking, and XSS injection vectors.
-2. **CORS Isolation:** Backend strictly restricts origins to production frontend (`https://careerpath.is-local.org`, `https://careerpath-ai-jade.vercel.app`) and local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
+2. **CORS Isolation:** Backend strictly restricts origins to production frontend (`https://disheera.site`, `https://disheera.site`) and local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
 3. **Password Security:** Salted 10-round hashing via `bcryptjs`. Plaintext passwords are never logged, cached, or stored.
 4. **Binary Magic-Byte Inspection:** Enforced in `server/services/resumeService.js`. Rejects malicious executables or scripts disguised as `.pdf`, `.docx`, or `.doc` files prior to buffer processing.
 5. **Rate Limiting:**
@@ -1600,11 +1600,11 @@ In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the I
 | **Grievance Redressal Officer** | **Parth Patil** |
 | **Institutional Affiliation** | G.H. Raisoni College of Engineering and Management (GHRCEM) |
 | **Campus / Postal Location** | Gat No. 57/1, Shirsoli Road, Mohadi, Jalgaon - 425002, Maharashtra, India |
-| **Official Statutory Email** | **`parthpatil@careerpath.is-local.org`**  |
+| **Official Statutory Email** | **`parthpatil@disheera.site`**  |
 | **Official WhatsApp Support Desk** | **`+91 74990 85045`** *(WhatsApp Chat Only · Voice Calls Disabled)* |
 | **First Acknowledgment SLA** | Within **24 hours** of ticket receipt |
 | **Statutory Resolution SLA** | Expedited resolution within **30 days** as mandated by the DPDP Act 2023 |
-| **Direct Ticket Submission** | **[`support.html`](https://careerpath-ai-jade.vercel.app/support.html)** or via REST API `POST /api/support/ticket` |
+| **Direct Ticket Submission** | **[`support.html`](https://disheera.site/support.html)** or via REST API `POST /api/support/ticket` |
 
 ### 17.4 Production Legal & Governance Portal Suite
 DheePath ships with four beautifully styled, production-ready legal and governance portals matching the platform's Apple/Linear dark-mode aesthetic:
@@ -1622,7 +1622,7 @@ DheePath ships with four beautifully styled, production-ready legal and governan
 3. **Security Architecture & Trust (`client/security.html`):**
    - Detailed breakdown of platform defense-in-depth: TLS 256-bit encryption, Supabase PostgreSQL network boundaries, stateless JWT authentication, and Bcryptjs password hashing.
    - 4-Tier Recruiter Verification Gate: 60+ Webmail Blacklist, DNS MX resolution, HTTP live website probing, and corporate OTP validation.
-   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil@careerpath.is-local.org`.
+   - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil@disheera.site`.
 4. **Support & Statutory Grievance Desk (`client/support.html`):**
    - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`+91 74990 85045`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
 
@@ -1817,7 +1817,7 @@ DheePath implements a production-grade decoupled cloud deployment architecture d
 │                                                                                        │
 │   🌐 FRONTEND CLIENT (Vercel Global Edge Network)                                      │
 │   • Directory: client/ (Root or outputDirectory in root vercel.json)                   │
-│   • Live Domain: https://careerpath-ai-jade.vercel.app                                 │
+│   • Live Domain: https://disheera.site                                 │
 │   • Configuration: vercel.json with cleanUrls and security headers                     │
 │   • Auto-Points To: https://careerpath-ai-bdbt.onrender.com/api                        │
 │   • Features: Instant global edge invalidation, dynamic cache busting, asset bundling │
@@ -1840,11 +1840,11 @@ DheePath implements a production-grade decoupled cloud deployment architecture d
 1. **Frontend Deployment (Vercel Edge):**
    - **Repository Root:** Configured to serve the `client/` distribution with clean URL rewrites, responsive asset routing, and production security headers.
    - **Zero Environment Leakage:** Frontend accesses only public endpoints and local storage tokens without exposing cloud secrets or master keys.
-   - **Primary Production Domain:** **[https://careerpath.is-local.org](https://careerpath.is-local.org)**
-   - **Vercel Direct Mirror:** **[https://careerpath-ai-jade.vercel.app](https://careerpath-ai-jade.vercel.app)**
+   - **Primary Production Domain:** **[https://disheera.site](https://disheera.site)**
+   - **Vercel Direct Mirror:** **[https://disheera.site](https://disheera.site)**
 2. **Backend Deployment (Render Cloud):**
    - **Managed Web Service:** Hosted on Render with automatic git push tracking, Node 18+ runtime, and production health monitoring.
-   - **CORS Whitelist:** Configured to strictly accept production domains `https://careerpath.is-local.org` and `https://careerpath-ai-jade.vercel.app` while preserving local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
+   - **CORS Whitelist:** Configured to strictly accept production domains `https://disheera.site` and `https://disheera.site` while preserving local development ports (`http://localhost:5500`, `http://127.0.0.1:5500`).
    - **Live API Endpoint:** **[https://careerpath-ai-bdbt.onrender.com](https://careerpath-ai-bdbt.onrender.com)**
 3. **Local Dev & Testing Integrity Guarantee:**
    - Both client and server maintain local development fallbacks. Running `npm run dev` in `server/` and serving `client/` on `http://localhost:5500` works flawlessly without breaking remote production pipelines.
@@ -1935,7 +1935,7 @@ DheePath was founded by an engineering-first team dedicated to solving the $50B 
 | [![GitHub](https://img.shields.io/badge/GitHub-parthpatil1234p--svg-181717?style=flat-square&logo=github)](https://github.com/parthpatil1234p-svg) | [![GitHub](https://img.shields.io/badge/GitHub-aditivispute25--gif-181717?style=flat-square&logo=github)](https://github.com/aditivispute25-gif) | [![GitHub](https://img.shields.io/badge/GitHub-Suyog--SP-181717?style=flat-square&logo=github)](https://github.com/Suyog-SP) | [![GitHub](https://img.shields.io/badge/GitHub-SanikaMB-181717?style=flat-square&logo=github)](https://github.com/SanikaMB) |
 
 - **Headquarters & Engineering:** Pune & Nashik, Maharashtra, India.
-- **Official Enterprise Domain:** **[https://careerpath.is-local.org](https://careerpath.is-local.org)**
-- **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@careerpath.is-local.org) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
+- **Official Enterprise Domain:** **[https://disheera.site](https://disheera.site)**
+- **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@disheera.site) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
 - **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE), free for educational and non-commercial institutional research.
 - **Copyright:** © 2026-2027 DheePath Technologies Inc. All rights reserved.

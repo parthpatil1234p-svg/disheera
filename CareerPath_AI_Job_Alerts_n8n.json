@@ -116,7 +116,7 @@
     },
     {
       "parameters": {
-        "fromEmail": "parthpatil@careerpath.is-local.org",
+        "fromEmail": "parthpatil@disheera.site",
         "toEmail": "parthpatil1234p@gmail.com",
         "subject": "={{ .emailSubject }}",
         "html": "={{ .emailHtml }}",
