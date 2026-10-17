@@ -108,14 +108,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const redirect = urlParams.get('redirect');
 
+        const ALLOWED_REDIRECT_DESTINATIONS = {
+          'dashboard': 'dashboard.html',
+          'dashboard.html': 'dashboard.html',
+          'assessment': 'assessment.html',
+          'assessment.html': 'assessment.html',
+          'recommendations': 'recommendations.html',
+          'recommendations.html': 'recommendations.html',
+          'roadmap': 'roadmap.html',
+          'roadmap.html': 'roadmap.html',
+          'jobs': 'jobs.html',
+          'jobs.html': 'jobs.html',
+          'verify': 'verify.html',
+          'verify.html': 'verify.html',
+          'recruiter-dashboard': 'recruiter-dashboard.html',
+          'recruiter-dashboard.html': 'recruiter-dashboard.html',
+          'profile': 'profile.html',
+          'profile.html': 'profile.html',
+          'index': 'index.html',
+          'index.html': 'index.html'
+        };
+
         const getSafeRedirect = (raw) => {
           if (!raw || typeof raw !== 'string') return null;
-          const decoded = decodeURIComponent(raw).trim();
-          if (decoded.startsWith('//') || /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(decoded)) return null;
-          if (/^\/[^\/\\]/.test(decoded) || /^[a-zA-Z0-9_-]+\.html(\?[a-zA-Z0-9_=&-]*)?$/.test(decoded)) {
-            return decoded;
-          }
-          return null;
+          const cleanKey = decodeURIComponent(raw).trim().replace(/^\//, '').split('?')[0].split('#')[0].toLowerCase();
+          return Object.prototype.hasOwnProperty.call(ALLOWED_REDIRECT_DESTINATIONS, cleanKey)
+            ? ALLOWED_REDIRECT_DESTINATIONS[cleanKey]
+            : null;
         };
 
         setTimeout(() => {

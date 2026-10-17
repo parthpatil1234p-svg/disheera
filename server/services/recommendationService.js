@@ -281,13 +281,14 @@ const generateRecommendations = (user, careers, limit = 3, meta = {}) => {
   if (primaryStream === 'tech') primaryStream = 'engineering';
   if (!primaryStream) {
     const course = normalizeText(userEducation?.course || '');
-    if (course.includes('bba') || course.includes('b.com') || course.includes('mba') || course.includes('finance') || course.includes('economics') || course.includes('commerce')) {
+    const cleanCourse = course.replace(/[^a-z0-9]/g, '');
+    if (cleanCourse.includes('bba') || cleanCourse.includes('bcom') || cleanCourse.includes('mba') || cleanCourse.includes('finance') || cleanCourse.includes('economics') || cleanCourse.includes('commerce')) {
       primaryStream = 'business';
-    } else if (course.includes('marketing') || course.includes('comm') || course.includes('media')) {
+    } else if (cleanCourse.includes('marketing') || cleanCourse.includes('comm') || cleanCourse.includes('media')) {
       primaryStream = 'marketing';
-    } else if (course.includes('design') || course.includes('arts') || course.includes('animation') || course.includes('fine arts')) {
+    } else if (cleanCourse.includes('design') || cleanCourse.includes('arts') || cleanCourse.includes('animation') || cleanCourse.includes('finearts')) {
       primaryStream = 'creative';
-    } else if (course.includes('bca') || course.includes('b.tech') || course.includes('btech') || course.includes('mca') || course.includes('cs') || course.includes('engineering')) {
+    } else if (cleanCourse.includes('bca') || cleanCourse.includes('btech') || cleanCourse.includes('mca') || cleanCourse.includes('cs') || cleanCourse.includes('engineering')) {
       primaryStream = 'engineering';
     }
   }

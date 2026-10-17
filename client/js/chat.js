@@ -169,8 +169,10 @@
       return `<a href="${url}" class="cp-portal-action-pill"><i class="bi ${icon}"></i> <span>${label}</span> <i class="bi bi-chevron-right small"></i></a>`;
     });
 
-    // 7. General Markdown External Links
-    processed = processed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="cp-portal-link">$1 <i class="bi bi-box-arrow-up-right small"></i></a>');
+    // 7. General Markdown External Links (enforce https:// or http:// protocol only)
+    processed = processed.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)\"\'<>]+)\)/gi, (m, label, linkUrl) => {
+      return `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer" class="cp-portal-link">${label} <i class="bi bi-box-arrow-up-right small"></i></a>`;
+    });
 
     // 8. Bold text (**text**) & Italic (*text*)
     processed = processed.replace(/\*\*(.*?)\*\*/g, '<strong class="cp-highlight-text">$1</strong>');
@@ -683,17 +685,14 @@
 
     if (role === 'ai') {
       const parsedContent = parseMarkdown(text);
-      const engineLabel = engine ? escapeHtml(engine) : 'Disheera Knowledge Engine';
 
       row.innerHTML = `
         <div class="cp-msg-meta-header">
           <div class="cp-meta-avatar"><i class="bi bi-robot"></i></div>
           <span class="cp-meta-name">Disheera Mentor</span>
-          <span class="cp-meta-badge"><i class="bi bi-lightning-charge-fill text-warning"></i> ${engineLabel}</span>
+          <span class="cp-meta-badge"><i class="bi bi-lightning-charge-fill text-warning"></i> <span class="cp-engine-badge-text"></span></span>
         </div>
-        <div class="cp-chat-bubble">
-          ${parsedContent}
-        </div>
+        <div class="cp-chat-bubble"></div>
         <div class="cp-msg-footer">
           <span class="cp-chat-time"><i class="bi bi-clock me-1"></i>${time}</span>
           <button type="button" class="cp-msg-copy-btn" title="Copy response to clipboard">
@@ -702,29 +701,39 @@
         </div>
       `;
 
+      row.querySelector('.cp-engine-badge-text').textContent = engine || 'Disheera Knowledge Engine';
+      row.querySelector('.cp-chat-bubble').innerHTML = parsedContent;
+
       // Contextual follow-up suggestions
       const chips = generateFollowUpChips(text);
       if (chips.length > 0) {
         const chipsContainer = document.createElement('div');
         chipsContainer.className = 'cp-followup-ribbon';
-        chipsContainer.innerHTML = `
-          <span class="cp-followup-title"><i class="bi bi-arrow-return-right"></i> Next Question:</span>
-          ${chips.map(c => `<button type="button" class="cp-followup-pill" data-prompt="${escapeHtml(c.prompt)}">${escapeHtml(c.text)}</button>`).join('')}
-        `;
+        chipsContainer.innerHTML = `<span class="cp-followup-title"><i class="bi bi-arrow-return-right"></i> Next Question:</span>`;
+        chips.forEach(c => {
+          const pillBtn = document.createElement('button');
+          pillBtn.type = 'button';
+          pillBtn.className = 'cp-followup-pill';
+          pillBtn.setAttribute('data-prompt', c.prompt);
+          pillBtn.textContent = c.text;
+          chipsContainer.appendChild(pillBtn);
+        });
         row.appendChild(chipsContainer);
       }
     } else {
       const studentCtx = getStudentContext();
       row.innerHTML = `
         <div class="cp-msg-meta-header user-header">
-          <span class="cp-meta-name">${escapeHtml(studentCtx.name)}</span>
+          <span class="cp-meta-name user-display-name"></span>
           <div class="cp-meta-avatar user-avatar"><i class="bi bi-person-fill"></i></div>
         </div>
         <div class="cp-chat-bubble">
-          <p class="mb-0">${escapeHtml(text)}</p>
+          <p class="mb-0 user-bubble-text"></p>
         </div>
         <span class="cp-chat-time text-end"><i class="bi bi-clock me-1"></i>${time}</span>
       `;
+      row.querySelector('.user-display-name').textContent = studentCtx.name || 'You';
+      row.querySelector('.user-bubble-text').textContent = text;
     }
 
     container.appendChild(row);

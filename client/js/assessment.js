@@ -1106,9 +1106,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 id="skill_${escapeHtml(sKey)}"
                 ${isSelected ? 'checked' : ''}
               />
-              <label class="form-check-label fw-semibold text-ink m-0 d-inline-flex align-items-center gap-1.5" for="skill_${escapeHtml(sKey)}" title="${escapeHtml(skill.displayName)}" style="min-width: 0; cursor: pointer;">
+              <label class="form-check-label fw-semibold text-ink m-0 d-inline-flex align-items-center gap-1.5 skill-card-label" for="skill_${escapeHtml(sKey)}" style="min-width: 0; cursor: pointer;">
                 ${skillLogo}
-                <span class="skill-name-text">${escapeHtml(skill.displayName)}</span>
+                <span class="skill-name-text"></span>
                 ${typeBadgeHtml}
                 ${verifiedBadge}
               </label>
@@ -1120,6 +1120,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         </div>
       `;
+
+      const skillNameSpan = col.querySelector('.skill-name-text');
+      if (skillNameSpan) skillNameSpan.textContent = skill.displayName || skill.name;
+      const skillLabel = col.querySelector('.skill-card-label');
+      if (skillLabel) skillLabel.title = skill.displayName || skill.name;
 
       const card = col.querySelector('.skill-picker-card');
       const checkbox = col.querySelector('.skill-checkbox');
@@ -1302,14 +1307,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         actionTag = `<span class="badge cp-btn-primary text-white border border-primary ms-1 cursor-pointer take-quiz-pill-badge shadow-sm" role="button" data-skill="${escapeHtml(skill.name)}" title="Take 90s reality check quiz to calibrate knowledge level" style="padding: 2px 6px; font-size: 0.65rem; cursor: pointer;"><i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)</span>`;
       }
 
-      const skillLogo = window.TechLogos?.getLogoImg(skill.name, { size: 14, className: 'me-1' }) || '';
       pill.innerHTML = `
         ${skillLogo}
-        <span class="fw-semibold text-ink">${escapeHtml(skill.displayName || skill.name)}</span>
+        <span class="fw-semibold text-ink pill-skill-label"></span>
         ${levelTag}
         ${actionTag}
         <i class="bi bi-x ms-1 cursor-pointer text-danger" title="Remove" style="cursor: pointer;"></i>
       `;
+      const pillLabel = pill.querySelector('.pill-skill-label');
+      if (pillLabel) pillLabel.textContent = skill.displayName || skill.name;
 
       const quizBadge = pill.querySelector('.take-quiz-pill-badge');
       if (quizBadge) {
@@ -2541,16 +2547,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (btnAddCustomSkill && customSkillNameInput) {
     const handleAddCustomSkill = async () => {
-      const rawName = customSkillNameInput.value.trim();
+      const rawInput = customSkillNameInput.value.trim();
+      const rawName = rawInput.replace(/[^\w\s.+#/-]/g, ' ').replace(/\s+/g, ' ').trim();
       if (!rawName) {
         if (customSkillFeedback) {
           customSkillFeedback.className = 'small mt-2 text-danger';
-          customSkillFeedback.textContent = 'Please enter a skill name (e.g. Rust, Solidity, Blender).';
+          customSkillFeedback.textContent = 'Please enter a valid skill name (e.g. Rust, Solidity, Blender).';
           customSkillFeedback.classList.remove('d-none');
         }
         return;
       }
-      if (rawName.includes('@') || rawName.includes('.com') || rawName.includes('http')) {
+      if (rawInput.includes('@') || rawInput.includes('.com') || rawInput.includes('http')) {
         if (customSkillFeedback) {
           customSkillFeedback.className = 'small mt-2 text-danger';
           customSkillFeedback.textContent = 'Please enter a valid skill or technology name (e.g. Docker, Rust, Flutter).';
@@ -2612,7 +2619,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       customSkillNameInput.value = '';
       if (customSkillFeedback) {
         customSkillFeedback.className = 'small mt-2 text-warning';
-        customSkillFeedback.innerHTML = `<i class="bi bi-info-circle me-1"></i> "${escapeHtml(rawName)}" added! Level pending — take its 90s quiz below to calibrate your level and unlock goals.`;
+        customSkillFeedback.innerHTML = `<i class="bi bi-info-circle me-1"></i> <span class="custom-skill-confirm-name"></span> added! Level pending — take its 90s quiz below to calibrate your level and unlock goals.`;
+        const confirmNameEl = customSkillFeedback.querySelector('.custom-skill-confirm-name');
+        if (confirmNameEl) confirmNameEl.textContent = `"${rawName}"`;
         customSkillFeedback.classList.remove('d-none');
         setTimeout(() => {
           customSkillFeedback.classList.add('d-none');

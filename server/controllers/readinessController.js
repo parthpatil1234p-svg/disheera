@@ -98,13 +98,13 @@ exports.getJobReadyCheck = async (req, res, next) => {
 };
 
 /**
- * GET /api/readiness/public-verify/:credentialRef
- * Unauthenticated public credential verification endpoint.
- * Enables recruiters, LinkedIn visitors, and QR code scanners to audit credential validity in real-time.
+ * GET /api/readiness/public-verify/:certificateId
+ * Unauthenticated public certificate verification endpoint.
+ * Enables recruiters, LinkedIn visitors, and QR code scanners to audit certificate validity in real-time.
  */
 exports.verifyPublicCertificate = async (req, res, next) => {
   try {
-    const rawRef = req.params?.credentialRef || req.params?.certId || req.body?.credentialRef || req.body?.certId;
+    const rawRef = req.params?.certificateId || req.params?.certId || req.query?.certificateId || req.query?.certId || req.body?.certificateId || req.body?.certId;
     if (!rawRef || typeof rawRef !== 'string') {
       return res.status(400).json({ success: false, message: 'Certificate verification ID is required' });
     }

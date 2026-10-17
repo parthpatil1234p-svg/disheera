@@ -175,9 +175,15 @@ const FALLBACK_JOBS = {
  * 100% reliable without third-party API keys or rate-limits.
  */
 function generateMultiPortalLinks(roleTitle = 'Software Engineer', location = 'India', companyName = null) {
-  const cleanRole = String(roleTitle || 'Developer').replace(/<[^>]*>/g, '').trim();
-  const cleanSlug = cleanRole.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'software-engineer';
-  const searchCompany = companyName ? String(companyName).trim() : '';
+  const cleanRole = String(roleTitle || 'Developer')
+    .replace(/[^\w\s.+#/-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim() || 'Software Engineer';
+  const cleanSlug = cleanRole
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'software-engineer';
+  const searchCompany = companyName ? String(companyName).replace(/[^\w\s.+#/-]/g, ' ').trim() : '';
 
   const queryWithCompany = searchCompany ? `${cleanRole} ${searchCompany}` : cleanRole;
 
@@ -292,7 +298,7 @@ async function searchAdzunaJobs({ query = 'developer', country = 'in', limit = 8
         const data = await res.json();
         if (Array.isArray(data.results) && data.results.length > 0) {
           return data.results.map(r => {
-            const jobTitle = r.title ? r.title.replace(/<\/?[^>]+(>|$)/g, '').trim() : query;
+            const jobTitle = r.title ? r.title.replace(/[^\w\s.+#/-]/g, ' ').replace(/\s+/g, ' ').trim() : query;
             const company = r.company?.display_name || 'Top Tech Employer';
             return {
               id: `adzuna-${r.id}`,

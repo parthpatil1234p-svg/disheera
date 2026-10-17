@@ -52,14 +52,14 @@ const BLACKLIST_RULES = [
   {
     type: 'Medical Diagnostic Report',
     code: 'MEDICAL_REPORT',
-    regex: /\b(patient\s*(?:name|id)\b|specimen\b.*collected|investigation\s+report|clinical\s+pathology|reference\s+range\b.*biological\s+ref|fasting\s+blood\s+sugar|lipid\s+profile\b|hemoglobin\s+a1c|hospital\s+discharge\s+summary|doctor's\s+prescription|treating\s+physician|rx\s*:\s*tab\b)\b/i,
+    regex: /\b(patient\s*(?:name|id)\b|specimen\b.{0,60}collected|investigation\s+report|clinical\s+pathology|reference\s+range\b.{0,60}biological\s+ref|fasting\s+blood\s+sugar|lipid\s+profile\b|hemoglobin\s+a1c|hospital\s+discharge\s+summary|doctor's\s+prescription|treating\s+physician|rx\s*:\s*tab\b)\b/i,
     minHits: 1,
     description: 'Medical health reports and prescriptions are not permitted. Please upload your resume.',
   },
   {
     type: 'Travel Ticket / Boarding Pass',
     code: 'TRAVEL_TICKET',
-    regex: /\b(boarding\s+pass\b|flight\s+ticket\b|pnr\s*(?:no|number)?\b.*train\s+no|irctc\b.*e-ticketing|airline\s+booking\s+reference|seat\s*:\s*\d+[a-f]\b.*gate\s*:\s*[a-z0-9]+)\b/i,
+    regex: /\b(boarding\s+pass\b|flight\s+ticket\b|pnr\s*(?:no|number)?\b.{0,60}train\s+no|irctc\b.{0,60}e-ticketing|airline\s+booking\s+reference|seat\s*:\s*\d+[a-f]\b.{0,60}gate\s*:\s*[a-z0-9]+)\b/i,
     minHits: 1,
     description: 'Travel tickets and boarding passes are not valid resumes. Please upload your CV.',
   },
@@ -79,7 +79,7 @@ const RESUME_SECTIONS = [
 const RESUME_CREDENTIALS = /\b(bachelor|b\.tech|bca|b\.e|m\.tech|mca|master|b\.sc|m\.sc|diploma|university|college|institute|cgpa|gpa|percentage|graduat(?:ed|ion))\b/i;
 const RESUME_ACTION_VERBS = /\b(developed|implemented|designed|created|built|managed|led|engineered|programmed|optimized|configured|architected|collaborated|contributed|delivered)\b/i;
 const CONTACT_MARKERS = {
-  email: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}/,
+  email: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/,
   phone: /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b[6-9]\d{9}\b/,
   linkedinOrGithub: /\b(linkedin\.com\/in|github\.com)\b/i,
 };
