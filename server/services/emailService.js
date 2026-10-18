@@ -15,7 +15,31 @@ if (dns.setDefaultResultOrder) {
   } catch (_) {}
 }
 
-function createTransporter(port = null, secure = null, timeoutMs = 8000) {
+let cachedGmailIpv4 = null;
+let lastIpv4Resolve = 0;
+
+async function getGmailIpv4() {
+  const now = Date.now();
+  if (cachedGmailIpv4 && (now - lastIpv4Resolve < 10 * 60 * 1000)) {
+    return cachedGmailIpv4;
+  }
+  try {
+    const addrs = await dns.promises.resolve4('smtp.gmail.com');
+    if (addrs && addrs.length > 0) {
+      cachedGmailIpv4 = addrs[0];
+      lastIpv4Resolve = now;
+      return cachedGmailIpv4;
+    }
+  } catch (err) {
+    console.warn('⚠️ [DNS] Failed to resolve smtp.gmail.com IPv4:', err.message);
+  }
+  return cachedGmailIpv4 || 'smtp.gmail.com';
+}
+
+// Pre-resolve on module load
+getGmailIpv4().catch(() => {});
+
+function createTransporter(port = null, secure = null, timeoutMs = 8000, hostOverride = null) {
   // 1. Universal / Custom SMTP (Brevo, SendGrid, Resend, AWS SES, Postmark, etc.)
   const smtpHost = (process.env.SMTP_HOST || '').trim();
   const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : null;
@@ -38,7 +62,6 @@ function createTransporter(port = null, secure = null, timeoutMs = 8000) {
       host: smtpHost,
       port: targetPort,
       secure: isSecure,
-      family: 4, // Strict IPv4 socket to prevent ENETUNREACH on cloud
       auth: {
         user: smtpUser,
         pass: smtpPass,
@@ -52,15 +75,15 @@ function createTransporter(port = null, secure = null, timeoutMs = 8000) {
     });
   }
 
-  // 2. Google / Gmail SMTP
+  // 2. Google / Gmail SMTP - force direct IPv4 host to eliminate ENETUNREACH on IPv6-less cloud networks
   const targetPort = port || (smtpPort || 465);
   const isSecure = secure !== null ? secure : (targetPort === 465);
+  const targetHost = hostOverride || cachedGmailIpv4 || 'smtp.gmail.com';
 
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: targetHost,
     port: targetPort,
     secure: isSecure,
-    family: 4, // Strict IPv4 socket to prevent ENETUNREACH on cloud
     auth: {
       user: smtpUser,
       pass: smtpPass, // 16-character Google App Password
@@ -69,6 +92,7 @@ function createTransporter(port = null, secure = null, timeoutMs = 8000) {
     greetingTimeout: greetTimeout,
     socketTimeout: sockTimeout,
     tls: {
+      servername: 'smtp.gmail.com', // Crucial: validates TLS certificate against Google SNI
       rejectUnauthorized: false,
     },
   });
@@ -194,10 +218,13 @@ Autonomous Career GPS & Verified Talent Operating System
   const failoverPort = primaryPort === 587 ? 465 : 587;
   const failoverSecure = failoverPort === 465;
 
+  // Ensure we have resolved direct IPv4 host for Gmail to completely bypass IPv6 ENETUNREACH on Render/cloud
+  const gmailIpv4 = await getGmailIpv4();
+
   // Attempt 1: Primary Port (with responsive timeout so failover is fast if firewall blocks)
   try {
     const primaryTimeout = isCloudOrProd ? 3500 : 6000;
-    const transporterPrimary = createTransporter(primaryPort, primarySecure, primaryTimeout);
+    const transporterPrimary = createTransporter(primaryPort, primarySecure, primaryTimeout, gmailIpv4);
     if (!transporterPrimary) {
       throw new Error('Transporter initialization failed (check SMTP/EMAIL configuration in .env)');
     }
@@ -210,7 +237,7 @@ Autonomous Career GPS & Verified Talent Operating System
     // Attempt 2: Failover Port (with responsive failover timeout)
     try {
       const failoverTimeout = isCloudOrProd ? 4000 : 8000;
-      const transporterFailover = createTransporter(failoverPort, failoverSecure, failoverTimeout);
+      const transporterFailover = createTransporter(failoverPort, failoverSecure, failoverTimeout, gmailIpv4);
       if (!transporterFailover) {
         throw new Error(`Port ${failoverPort} transporter initialization failed`);
       }
