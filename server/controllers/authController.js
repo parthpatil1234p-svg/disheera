@@ -231,22 +231,19 @@ const registerUser = async (req, res, next) => {
     }
 
     let mailSent = false;
-    try {
-      const mailRes = await sendOtpEmail(normalizedEmail, name.trim(), emailOtp);
-      mailSent = Boolean(mailRes && mailRes.success);
-    } catch (mailErr) {
-      console.error('[authController.registerUser] Failed to send OTP email:', mailErr.message);
-    }
-
     let whatsappSent = false;
-    if (formattedPhone) {
-      try {
-        const waRes = await whatsappService.sendOtp(formattedPhone, whatsappOtp, name.trim());
-        whatsappSent = Boolean(waRes && waRes.success);
-      } catch (waErr) {
-        console.error('[authController.registerUser] Failed to send WhatsApp OTP:', waErr.message);
-      }
-    }
+
+    const emailTask = sendOtpEmail(normalizedEmail, name.trim(), emailOtp)
+      .then((res) => { mailSent = Boolean(res && res.success); })
+      .catch((mailErr) => { console.error('[authController.registerUser] Failed to send OTP email:', mailErr.message); });
+
+    const whatsappTask = formattedPhone
+      ? whatsappService.sendOtp(formattedPhone, whatsappOtp, name.trim())
+          .then((res) => { whatsappSent = Boolean(res && res.success); })
+          .catch((waErr) => { console.error('[authController.registerUser] Failed to send WhatsApp OTP:', waErr.message); })
+      : Promise.resolve();
+
+    await Promise.all([emailTask, whatsappTask]);
 
     res.status(201).json({
       success: true,
@@ -601,22 +598,19 @@ const resendOtp = async (req, res, next) => {
     }
 
     let mailSent = false;
-    try {
-      const mailRes = await sendOtpEmail(normalizedEmail, recipientName, emailOtp);
-      mailSent = Boolean(mailRes && mailRes.success);
-    } catch (mailErr) {
-      console.error('[authController.resendOtp] Failed to send OTP email:', mailErr.message);
-    }
-
     let whatsappSent = false;
-    if (targetPhone) {
-      try {
-        const waRes = await whatsappService.sendOtp(targetPhone, whatsappOtp, recipientName);
-        whatsappSent = Boolean(waRes && waRes.success);
-      } catch (waErr) {
-        console.error('[authController.resendOtp] Failed to send WhatsApp OTP:', waErr.message);
-      }
-    }
+
+    const emailTask = sendOtpEmail(normalizedEmail, recipientName, emailOtp)
+      .then((res) => { mailSent = Boolean(res && res.success); })
+      .catch((mailErr) => { console.error('[authController.resendOtp] Failed to send OTP email:', mailErr.message); });
+
+    const whatsappTask = targetPhone
+      ? whatsappService.sendOtp(targetPhone, whatsappOtp, recipientName)
+          .then((res) => { whatsappSent = Boolean(res && res.success); })
+          .catch((waErr) => { console.error('[authController.resendOtp] Failed to send WhatsApp OTP:', waErr.message); })
+      : Promise.resolve();
+
+    await Promise.all([emailTask, whatsappTask]);
 
     return res.status(200).json({
       success: true,

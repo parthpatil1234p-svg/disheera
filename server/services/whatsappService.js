@@ -433,7 +433,7 @@ function openwaApiRequest(endpointPath, bodyString) {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(bodyString)
       },
-      timeout: 12000
+      timeout: 6000
     };
 
     const req = client.request(options, (res) => {
