@@ -314,28 +314,19 @@ const verifyOtp = async (req, res, next) => {
         const cleanWaOtp = String(whatsappOtp || '').trim();
 
         if (pending.phone && pending.whatsappOtpHash) {
-          const emailOk = pendingSignupStore.verifyOtpHash(cleanEmailOtp, pending.emailOtpHash);
-          const waOk = pendingSignupStore.verifyOtpHash(cleanWaOtp, pending.whatsappOtpHash);
+          const emailOk = cleanEmailOtp ? pendingSignupStore.verifyOtpHash(cleanEmailOtp, pending.emailOtpHash) : false;
+          const waOk = cleanWaOtp ? pendingSignupStore.verifyOtpHash(cleanWaOtp, pending.whatsappOtpHash) : false;
 
-          if (emailOk && waOk) {
+          if (emailOk || waOk) {
             isMatch = true;
           } else {
             const attempts = await pendingSignupStore.recordAttempt(normalizedEmail);
             const remaining = Math.max(0, 5 - attempts);
-            if (!emailOk) {
-              return res.status(400).json({
-                success: false,
-                message: `Invalid Gmail verification code. ${remaining} attempt(s) remaining.`,
-                remainingAttempts: remaining,
-              });
-            }
-            if (!waOk) {
-              return res.status(400).json({
-                success: false,
-                message: `Invalid WhatsApp verification code. ${remaining} attempt(s) remaining.`,
-                remainingAttempts: remaining,
-              });
-            }
+            return res.status(400).json({
+              success: false,
+              message: `Invalid verification code. Please check your WhatsApp or Gmail and try again. (${remaining} attempt(s) remaining)`,
+              remainingAttempts: remaining,
+            });
           }
         } else {
           // Email only

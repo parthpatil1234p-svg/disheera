@@ -184,9 +184,10 @@ Autonomous Career GPS & Verified Talent Operating System
   const failoverPort = primaryPort === 587 ? 465 : 587;
   const failoverSecure = failoverPort === 465;
 
-  // Attempt 1: Primary Port (with responsive 6s timeout so failover is fast if firewall blocks)
+  // Attempt 1: Primary Port (with responsive timeout so failover is fast if firewall blocks)
   try {
-    const transporterPrimary = createTransporter(primaryPort, primarySecure, 6000);
+    const primaryTimeout = isCloudOrProd ? 3500 : 6000;
+    const transporterPrimary = createTransporter(primaryPort, primarySecure, primaryTimeout);
     if (!transporterPrimary) {
       throw new Error('Transporter initialization failed (check SMTP/EMAIL configuration in .env)');
     }
@@ -196,9 +197,10 @@ Autonomous Career GPS & Verified Talent Operating System
   } catch (errPrimary) {
     console.warn(`\n⚠️  [PORT ${primaryPort} FAILED] Attempting Port ${failoverPort} failover: ${errPrimary.message}`);
 
-    // Attempt 2: Failover Port (with 10s timeout)
+    // Attempt 2: Failover Port (with responsive failover timeout)
     try {
-      const transporterFailover = createTransporter(failoverPort, failoverSecure, 10000);
+      const failoverTimeout = isCloudOrProd ? 4000 : 8000;
+      const transporterFailover = createTransporter(failoverPort, failoverSecure, failoverTimeout);
       if (!transporterFailover) {
         throw new Error(`Port ${failoverPort} transporter initialization failed`);
       }
@@ -209,7 +211,7 @@ Autonomous Career GPS & Verified Talent Operating System
       const errMsg = errFailover.message || errPrimary.message || 'Unknown SMTP error';
       console.error(`\n❌ [EMAIL SEND ERROR] Delivery failed for ${toEmail}: ${errMsg}`);
 
-      if (errMsg.includes('535') || errMsg.includes('BadCredentials') || err587.code === 'EAUTH') {
+      if (errMsg.includes('535') || errMsg.includes('BadCredentials') || errFailover.code === 'EAUTH' || errPrimary.code === 'EAUTH') {
         console.error(`\n========================================================================`);
         console.error(`❌ [GMAIL SMTP AUTH FAILED - BadCredentials (535)]`);
         console.error(`   Google rejected authentication for sender: "${emailUser}"`);
@@ -226,7 +228,7 @@ Autonomous Career GPS & Verified Talent Operating System
       }
 
       console.log(`   🔑 [Console Backup] Verification OTP for ${toEmail}: ${otpCode}\n`);
-      return { success: false, error: errMsg, code: err587.code || err465.code };
+      return { success: false, error: errMsg, code: errFailover.code || errPrimary.code };
     }
   }
 }

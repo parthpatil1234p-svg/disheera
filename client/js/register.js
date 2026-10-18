@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
         verificationHeading.textContent = 'Verify Your Account';
       }
       if (verificationSubheading) {
-        verificationSubheading.innerHTML = `Enter the verification codes sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong> and WhatsApp <strong class="text-ink font-monospace">${escapeHtml(currentPhone)}</strong>.<div class="alert alert-info py-2 px-3 mt-2 mb-0 text-start small border border-info border-opacity-25" style="background: #F0FDFA; color: #0F766E; border-radius: 8px;"><i class="bi bi-info-circle-fill me-1"></i> <strong>Important for Gmail:</strong> If not in your primary inbox, please check your <strong>Spam / Junk</strong> folder or <strong>Promotions</strong> tab.</div>`;
+        verificationSubheading.innerHTML = `Enter the 6-digit verification code sent to WhatsApp <strong class="text-ink font-monospace">${escapeHtml(currentPhone)}</strong> or Gmail <strong class="text-ink font-monospace">${escapeHtml(email)}</strong>.<div class="alert alert-success py-2 px-3 mt-2 mb-0 text-start small border border-success border-opacity-25" style="background: #F0FDF4; color: #166534; border-radius: 8px;"><i class="bi bi-whatsapp me-1"></i> <strong>Instant WhatsApp OTP:</strong> Check your WhatsApp for your 6-digit code. Enter it below to activate your account.</div>`;
       }
       if (emailCardTitle) {
         emailCardTitle.textContent = 'Email Verification Code';
@@ -604,7 +604,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const step2Alert = document.getElementById('step2AlertContainer');
     if (step2Alert) step2Alert.innerHTML = '';
 
-    if (emailDigitInputs[0]) emailDigitInputs[0].focus();
+    if (currentPhone && waDigitInputs[0]) {
+      waDigitInputs[0].focus();
+    } else if (emailDigitInputs[0]) {
+      emailDigitInputs[0].focus();
+    }
 
     startResendCountdown(60);
 
@@ -856,17 +860,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailOtp = Array.from(emailDigitInputs).map(i => i.value.trim()).join('');
     const waOtp = currentPhone ? Array.from(waDigitInputs).map(i => i.value.trim()).join('') : '';
 
-    if (emailOtp.length !== 6) {
-      showAlert('Please enter the complete 6-digit Gmail verification code.');
-      const emptyEmailInput = Array.from(emailDigitInputs).find(i => !i.value.trim());
-      if (emptyEmailInput) emptyEmailInput.focus();
-      return;
-    }
+    const hasEmailOtp = emailOtp.length === 6;
+    const hasWaOtp = waOtp.length === 6;
 
-    if (currentPhone && waOtp.length !== 6) {
-      showAlert('Please enter the complete 6-digit WhatsApp verification code.');
-      const emptyWaInput = Array.from(waDigitInputs).find(i => !i.value.trim());
-      if (emptyWaInput) emptyWaInput.focus();
+    if (!hasEmailOtp && !hasWaOtp) {
+      showAlert('Please enter the 6-digit verification code received on your WhatsApp or Gmail.');
+      if (currentPhone && waDigitInputs[0]) {
+        waDigitInputs[0].focus();
+      } else if (emailDigitInputs[0]) {
+        emailDigitInputs[0].focus();
+      }
       return;
     }
 

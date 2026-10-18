@@ -689,7 +689,26 @@
               <div id="step2AlertContainer" role="alert" aria-live="polite"></div>
 
               <form id="otpForm" novalidate>
-                <!-- Card 1: Email Verification Code -->
+                <!-- Card 1: WhatsApp Phone Verification Code (Instant Delivery) -->
+                <div class="card p-3 mb-3 border rounded-3 shadow-xs d-none" id="whatsappOtpCard" style="background: #F0FDF4; border-color: #BBF7D0;">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="fw-semibold text-ink small d-flex align-items-center gap-2">
+                      <i class="bi bi-whatsapp text-success fs-5"></i>
+                      <span>WhatsApp Verification Code <span class="badge bg-success-subtle text-success ms-1" style="font-size: 0.7rem;">Instant &lt;2s</span></span>
+                    </span>
+                    <span class="text-muted small font-monospace" id="displayTargetPhone">+91 ...</span>
+                  </div>
+                  <div class="otp-input-wrapper mb-1" id="whatsappOtpInputs">
+                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit0" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 1" data-index="0" />
+                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit1" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 2" data-index="1" />
+                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit2" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 3" data-index="2" />
+                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit3" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 4" data-index="3" />
+                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit4" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 5" data-index="4" />
+                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit5" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 6" data-index="5" />
+                  </div>
+                </div>
+
+                <!-- Card 2: Email Verification Code (Fallback) -->
                 <div class="card p-3 mb-3 border rounded-3 shadow-xs" id="emailOtpCard" style="background: #F8FAFC; border-color: #E2E8F0;">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="fw-semibold text-ink small d-flex align-items-center gap-2">
@@ -705,25 +724,6 @@
                     <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field gmail-otp-digit" id="c1Digit3" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="Verification Code Digit 4" data-index="3" />
                     <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field gmail-otp-digit" id="c1Digit4" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="Verification Code Digit 5" data-index="4" />
                     <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field gmail-otp-digit" id="c1Digit5" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="Verification Code Digit 6" data-index="5" />
-                  </div>
-                </div>
-
-                <!-- Card 2: WhatsApp Phone Verification Code -->
-                <div class="card p-3 mb-3 border rounded-3 shadow-xs d-none" id="whatsappOtpCard" style="background: #F0FDF4; border-color: #BBF7D0;">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="fw-semibold text-ink small d-flex align-items-center gap-2">
-                      <i class="bi bi-whatsapp text-success fs-5"></i>
-                      <span>WhatsApp Verification Code</span>
-                    </span>
-                    <span class="text-muted small font-monospace" id="displayTargetPhone">+91 ...</span>
-                  </div>
-                  <div class="otp-input-wrapper mb-1" id="whatsappOtpInputs">
-                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit0" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 1" data-index="0" />
-                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit1" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 2" data-index="1" />
-                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit2" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 3" data-index="2" />
-                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit3" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 4" data-index="3" />
-                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit4" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 5" data-index="4" />
-                    <input type="text" maxlength="1" inputmode="numeric" class="otp-digit-field wa-otp-digit" id="waDigit5" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" aria-label="WhatsApp Code Digit 6" data-index="5" />
                   </div>
                 </div>
 
