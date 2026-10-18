@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
         verificationHeading.textContent = 'Verify Your Account';
       }
       if (verificationSubheading) {
-        verificationSubheading.innerHTML = `Enter the verification codes sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong> and WhatsApp <strong class="text-ink font-monospace">${escapeHtml(currentPhone)}</strong>.`;
+        verificationSubheading.innerHTML = `Enter the verification codes sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong> and WhatsApp <strong class="text-ink font-monospace">${escapeHtml(currentPhone)}</strong>.<div class="alert alert-info py-2 px-3 mt-2 mb-0 text-start small border border-info border-opacity-25" style="background: #F0FDFA; color: #0F766E; border-radius: 8px;"><i class="bi bi-info-circle-fill me-1"></i> <strong>Important for Gmail:</strong> If not in your primary inbox, please check your <strong>Spam / Junk</strong> folder or <strong>Promotions</strong> tab.</div>`;
       }
       if (emailCardTitle) {
         emailCardTitle.textContent = 'Email Verification Code';
@@ -588,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
         verificationHeading.textContent = 'Verify Your Email';
       }
       if (verificationSubheading) {
-        verificationSubheading.innerHTML = `Enter the 6-digit verification code sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong>.`;
+        verificationSubheading.innerHTML = `Enter the 6-digit verification code sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong>.<div class="alert alert-info py-2 px-3 mt-2 mb-0 text-start small border border-info border-opacity-25" style="background: #F0FDFA; color: #0F766E; border-radius: 8px;"><i class="bi bi-info-circle-fill me-1"></i> <strong>Important for Gmail:</strong> If not in your primary inbox, please check your <strong>Spam / Junk</strong> folder or <strong>Promotions</strong> tab.</div>`;
       }
       if (emailCardTitle) {
         emailCardTitle.textContent = 'Email Verification Code';

@@ -47,6 +47,14 @@ services:
       - key: CLOUDINARY_URL
         sync: false
 
+      # Email Delivery Configuration (Gmail SMTP / Custom)
+      - key: SMTP_PORT
+        value: 587
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
       # Set this to your deployed Vercel frontend URL, e.g. https://disheera.site
       - key: CLIENT_URL
         value: https://disheera.site

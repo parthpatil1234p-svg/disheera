@@ -7,7 +7,7 @@
 
 const nodemailer = require('nodemailer');
 
-function createTransporter(port = null, secure = null) {
+function createTransporter(port = null, secure = null, timeoutMs = 8000) {
   // 1. Universal / Custom SMTP (Brevo, SendGrid, Resend, AWS SES, Postmark, etc.)
   const smtpHost = (process.env.SMTP_HOST || '').trim();
   const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : null;
@@ -17,6 +17,10 @@ function createTransporter(port = null, secure = null) {
   if (!smtpUser || !smtpPass) {
     return null;
   }
+
+  const connTimeout = timeoutMs;
+  const greetTimeout = Math.min(timeoutMs, 6000);
+  const sockTimeout = Math.max(timeoutMs, 12000);
 
   // If a custom SMTP host is explicitly specified
   if (smtpHost && smtpHost !== 'smtp.gmail.com') {
@@ -30,9 +34,9 @@ function createTransporter(port = null, secure = null) {
         user: smtpUser,
         pass: smtpPass,
       },
-      connectionTimeout: 15000,
-      greetingTimeout: 10000,
-      socketTimeout: 20000,
+      connectionTimeout: connTimeout,
+      greetingTimeout: greetTimeout,
+      socketTimeout: sockTimeout,
       tls: {
         rejectUnauthorized: false,
       },
@@ -51,9 +55,9 @@ function createTransporter(port = null, secure = null) {
       user: smtpUser,
       pass: smtpPass, // 16-character Google App Password
     },
-    connectionTimeout: 15000,
-    greetingTimeout: 10000,
-    socketTimeout: 20000,
+    connectionTimeout: connTimeout,
+    greetingTimeout: greetTimeout,
+    socketTimeout: sockTimeout,
     tls: {
       rejectUnauthorized: false,
     },
@@ -172,29 +176,37 @@ Autonomous Career GPS & Verified Talent Operating System
     },
   };
 
-  // Attempt 1: Primary Port (Port 465 SSL or configured port)
+  // On Render, AWS, and cloud providers, Port 587 (STARTTLS) has 10x higher firewall compatibility than Port 465 (SMTPS).
+  const isCloudOrProd = Boolean(process.env.RENDER || process.env.VERCEL || process.env.NODE_ENV === 'production');
+  const configuredPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : null;
+  const primaryPort = configuredPort || (isCloudOrProd ? 587 : 465);
+  const primarySecure = primaryPort === 465;
+  const failoverPort = primaryPort === 587 ? 465 : 587;
+  const failoverSecure = failoverPort === 465;
+
+  // Attempt 1: Primary Port (with responsive 6s timeout so failover is fast if firewall blocks)
   try {
-    const transporter465 = createTransporter(465, true);
-    if (!transporter465) {
+    const transporterPrimary = createTransporter(primaryPort, primarySecure, 6000);
+    if (!transporterPrimary) {
       throw new Error('Transporter initialization failed (check SMTP/EMAIL configuration in .env)');
     }
-    const info = await transporter465.sendMail(mailOptions);
-    console.log(`\n📧 [EMAIL DELIVERED - Port 465] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
+    const info = await transporterPrimary.sendMail(mailOptions);
+    console.log(`\n📧 [EMAIL DELIVERED - Port ${primaryPort}] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
     return { success: true, messageId: info.messageId };
-  } catch (err465) {
-    console.warn(`\n⚠️  [PORT 465 FAILED] Attempting Port 587 STARTTLS failover: ${err465.message}`);
+  } catch (errPrimary) {
+    console.warn(`\n⚠️  [PORT ${primaryPort} FAILED] Attempting Port ${failoverPort} failover: ${errPrimary.message}`);
 
-    // Attempt 2: Port 587 (STARTTLS Failover)
+    // Attempt 2: Failover Port (with 10s timeout)
     try {
-      const transporter587 = createTransporter(587, false);
-      if (!transporter587) {
-        throw new Error('Port 587 transporter initialization failed');
+      const transporterFailover = createTransporter(failoverPort, failoverSecure, 10000);
+      if (!transporterFailover) {
+        throw new Error(`Port ${failoverPort} transporter initialization failed`);
       }
-      const info = await transporter587.sendMail(mailOptions);
-      console.log(`\n📧 [EMAIL DELIVERED - Port 587] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
+      const info = await transporterFailover.sendMail(mailOptions);
+      console.log(`\n📧 [EMAIL DELIVERED - Port ${failoverPort}] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
       return { success: true, messageId: info.messageId };
-    } catch (err587) {
-      const errMsg = err587.message || err465.message || 'Unknown SMTP error';
+    } catch (errFailover) {
+      const errMsg = errFailover.message || errPrimary.message || 'Unknown SMTP error';
       console.error(`\n❌ [EMAIL SEND ERROR] Delivery failed for ${toEmail}: ${errMsg}`);
 
       if (errMsg.includes('535') || errMsg.includes('BadCredentials') || err587.code === 'EAUTH') {
