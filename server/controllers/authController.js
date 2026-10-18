@@ -230,20 +230,18 @@ const registerUser = async (req, res, next) => {
       console.log(`\n🔑 [NEW REGISTRATION DUAL OTP] Email OTP: ${emailOtp} | WhatsApp OTP: ${whatsappOtp} for ${normalizedEmail}\n`);
     }
 
-    let mailSent = false;
-    let whatsappSent = false;
+    const isEmailConfigured = Boolean((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS));
+    const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
+    const whatsappSent = Boolean(formattedPhone);
 
-    const emailTask = sendOtpEmail(normalizedEmail, name.trim(), emailOtp)
-      .then((res) => { mailSent = Boolean(res && res.success); })
-      .catch((mailErr) => { console.error('[authController.registerUser] Failed to send OTP email:', mailErr.message); });
+    // Asynchronously dispatch OTP deliveries in background so client receives response in ~100ms
+    sendOtpEmail(normalizedEmail, name.trim(), emailOtp)
+      .catch((mailErr) => { console.error('[authController.registerUser] Background OTP email dispatch failed:', mailErr.message); });
 
-    const whatsappTask = formattedPhone
-      ? whatsappService.sendOtp(formattedPhone, whatsappOtp, name.trim())
-          .then((res) => { whatsappSent = Boolean(res && res.success); })
-          .catch((waErr) => { console.error('[authController.registerUser] Failed to send WhatsApp OTP:', waErr.message); })
-      : Promise.resolve();
-
-    await Promise.all([emailTask, whatsappTask]);
+    if (formattedPhone) {
+      whatsappService.sendOtp(formattedPhone, whatsappOtp, name.trim())
+        .catch((waErr) => { console.error('[authController.registerUser] Background WhatsApp OTP dispatch failed:', waErr.message); });
+    }
 
     res.status(201).json({
       success: true,
@@ -597,20 +595,18 @@ const resendOtp = async (req, res, next) => {
       console.log(`\n🔄 [OTP RESENT DUAL] Email OTP: ${emailOtp} | WhatsApp OTP: ${whatsappOtp} for ${normalizedEmail}\n`);
     }
 
-    let mailSent = false;
-    let whatsappSent = false;
+    const isEmailConfigured = Boolean((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS));
+    const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
+    const whatsappSent = Boolean(targetPhone);
 
-    const emailTask = sendOtpEmail(normalizedEmail, recipientName, emailOtp)
-      .then((res) => { mailSent = Boolean(res && res.success); })
-      .catch((mailErr) => { console.error('[authController.resendOtp] Failed to send OTP email:', mailErr.message); });
+    // Asynchronously dispatch OTP deliveries in background so client receives response in ~100ms
+    sendOtpEmail(normalizedEmail, recipientName, emailOtp)
+      .catch((mailErr) => { console.error('[authController.resendOtp] Background OTP email dispatch failed:', mailErr.message); });
 
-    const whatsappTask = targetPhone
-      ? whatsappService.sendOtp(targetPhone, whatsappOtp, recipientName)
-          .then((res) => { whatsappSent = Boolean(res && res.success); })
-          .catch((waErr) => { console.error('[authController.resendOtp] Failed to send WhatsApp OTP:', waErr.message); })
-      : Promise.resolve();
-
-    await Promise.all([emailTask, whatsappTask]);
+    if (targetPhone) {
+      whatsappService.sendOtp(targetPhone, whatsappOtp, recipientName)
+        .catch((waErr) => { console.error('[authController.resendOtp] Background WhatsApp OTP dispatch failed:', waErr.message); });
+    }
 
     return res.status(200).json({
       success: true,

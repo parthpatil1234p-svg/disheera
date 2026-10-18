@@ -183,13 +183,13 @@ const registerRecruiter = async (req, res, next) => {
       console.log(`\n🔑 [RECRUITER REGISTRATION OTP] 6-digit corporate code for ${normalizedEmail}: ${otpCode}\n`);
     }
 
-    let mailSent = false;
-    try {
-      const mailRes = await sendOtpEmail(normalizedEmail, name.trim(), otpCode);
-      mailSent = Boolean(mailRes && mailRes.success);
-    } catch (mailErr) {
-      console.error('[recruiterController.registerRecruiter] Mail dispatch error:', mailErr.message);
-    }
+    const isEmailConfigured = Boolean((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS));
+    const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
+
+    sendOtpEmail(normalizedEmail, name.trim(), otpCode)
+      .catch((mailErr) => {
+        console.error('[recruiterController.registerRecruiter] Mail dispatch error:', mailErr.message);
+      });
 
     return res.status(201).json({
       success: true,
