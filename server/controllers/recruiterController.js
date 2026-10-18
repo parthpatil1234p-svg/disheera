@@ -22,6 +22,7 @@ const JobOpening = require('../models/JobOpening');
 const JobApplication = require('../models/JobApplication');
 const { computeOverallCompanyVerification } = require('../services/companyVerificationService');
 const { sendOtpEmail } = require('../services/emailService');
+const pendingSignupStore = require('../data/pendingSignupStore');
 
 // ── Helper: 6-Digit Secure OTP Generator ─────────────────────
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
@@ -159,45 +160,24 @@ const registerRecruiter = async (req, res, next) => {
       verifiedAt: new Date(),
     };
 
-    let user;
-    if (existingUser) {
-      // Update pending unverified account
-      existingUser.name = name.trim();
-      existingUser.password = password;
-      existingUser.role = 'recruiter';
-      existingUser.recruiterProfile = recruiterProfileData;
-      existingUser.verificationOtp = {
-        code: otpCode,
-        expiresAt,
-        sendHistory: [new Date()],
-      };
-      await existingUser.save();
-      user = existingUser;
-    } else {
-      user = new User({
-        name: name.trim(),
-        email: normalizedEmail,
-        password,
-        role: 'recruiter',
-        isVerified: false,
-        recruiterProfile: recruiterProfileData,
-        verificationOtp: {
-          code: otpCode,
-          expiresAt,
-          sendHistory: [new Date()],
-        },
-      });
-      await user.save();
+    // Purge any legacy unverified user row for this email to maintain zero unverified rows in public.User
+    if (existingUser && !existingUser.isVerified) {
+      try {
+        await User.deleteOne({ _id: existingUser.id || existingUser._id });
+      } catch (_) {}
     }
 
-    // Attach recruiter to company list if supported by data model
-    if (company && Array.isArray(company.recruiters)) {
-      const recruiterId = String(user.id || user._id);
-      if (!company.recruiters.includes(recruiterId)) {
-        company.recruiters.push(recruiterId);
-        await company.save();
-      }
-    }
+    // Save pending registration outside public.User
+    await pendingSignupStore.savePendingSignup({
+      email: normalizedEmail,
+      name: name.trim(),
+      password,
+      role: 'recruiter',
+      phone: (workPhone || '').trim(),
+      emailOtp: otpCode,
+      backupOtp: otpCode,
+      recruiterProfile: recruiterProfileData,
+    });
 
     if (process.env.NODE_ENV !== 'production') {
       console.log(`\n🔑 [RECRUITER REGISTRATION OTP] 6-digit corporate code for ${normalizedEmail}: ${otpCode}\n`);
@@ -205,7 +185,7 @@ const registerRecruiter = async (req, res, next) => {
 
     let mailSent = false;
     try {
-      const mailRes = await sendOtpEmail(normalizedEmail, user.name, otpCode);
+      const mailRes = await sendOtpEmail(normalizedEmail, name.trim(), otpCode);
       mailSent = Boolean(mailRes && mailRes.success);
     } catch (mailErr) {
       console.error('[recruiterController.registerRecruiter] Mail dispatch error:', mailErr.message);
@@ -217,7 +197,7 @@ const registerRecruiter = async (req, res, next) => {
       email: normalizedEmail,
       companyName: company.name,
       mailSent,
-      backupOtp: !mailSent ? otpCode : undefined,
+      backupOtp: (process.env.NODE_ENV !== 'production' && !mailSent) ? otpCode : undefined,
       message: mailSent
         ? `Corporate verification code sent to ${normalizedEmail}. Please check your Inbox and Spam/Junk folder.`
         : `Corporate registration initiated. A verification code has been dispatched to ${normalizedEmail}. Please check your Inbox and Spam/Junk folder.`,

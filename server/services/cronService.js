@@ -20,6 +20,38 @@ const { sendInactivityNudgeEmail } = require('./emailService');
 let hourlyTimer = null;
 let dailyTimer = null;
 let nudgeTimer = null;
+let cleanupTimer = null;
+
+/**
+ * Purges unverified pending signups and legacy unverified User rows older than 24 hours.
+ */
+async function cleanupUnverifiedSignups() {
+  try {
+    const pendingSignupStore = require('../data/pendingSignupStore');
+    const cleanedPending = await pendingSignupStore.cleanupExpired(24);
+
+    const cutoffDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const { prisma } = require('../config/prisma');
+    let cleanedLegacyUsers = 0;
+    try {
+      const res = await prisma.user.deleteMany({
+        where: {
+          isVerified: false,
+          createdAt: { lt: cutoffDate },
+        },
+      });
+      cleanedLegacyUsers = res.count;
+    } catch (dbErr) {
+      // Ignore if table query fails
+    }
+
+    console.log(`🧹 [Cron] Unverified Signups 24h Cleanup: ${cleanedPending} pending signups + ${cleanedLegacyUsers} legacy unverified User rows purged.`);
+    return { cleanedPending, cleanedLegacyUsers };
+  } catch (err) {
+    console.warn('⚠️ [Cron] Unverified signups cleanup warning:', err.message);
+    return { error: err.message };
+  }
+}
 
 /**
  * Validates and logs skill currency for attempts older than 180 days
@@ -191,12 +223,18 @@ function initCron() {
     auditYouTubeCache();
     validateSkillCurrency();
     auditInactivityAndSendNudges();
+    cleanupUnverifiedSignups();
   }, 10000);
 
   // Hourly routine: YouTube cache health & connection check
   hourlyTimer = setInterval(() => {
     auditYouTubeCache();
   }, 60 * 60 * 1000);
+
+  // 6-Hour routine: Purge expired/unverified pending registrations (>24h)
+  cleanupTimer = setInterval(() => {
+    cleanupUnverifiedSignups();
+  }, 6 * 60 * 60 * 1000);
 
   // Daily routine: 180-day skill currency audit
   dailyTimer = setInterval(() => {
@@ -218,13 +256,16 @@ function stopCron() {
   if (hourlyTimer) clearInterval(hourlyTimer);
   if (dailyTimer) clearInterval(dailyTimer);
   if (nudgeTimer) clearInterval(nudgeTimer);
+  if (cleanupTimer) clearInterval(cleanupTimer);
   hourlyTimer = null;
   dailyTimer = null;
   nudgeTimer = null;
+  cleanupTimer = null;
 }
 
 module.exports = {
   initCron,
   stopCron,
   auditInactivityAndSendNudges,
+  cleanupUnverifiedSignups,
 };

@@ -112,13 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
   purgeExtensionInjections();
 
   const showAlert = (message, type = 'danger') => {
-    alertContainer.innerHTML = `
+    const isStep2Active = step2 && !step2.classList.contains('d-none');
+    const step2Alert = document.getElementById('step2AlertContainer');
+    const target = (isStep2Active && step2Alert) ? step2Alert : alertContainer;
+
+    if (!target) return;
+    target.innerHTML = `
       <div class="alert alert-${type} alert-dismissible fade show d-flex align-items-center gap-2 py-2 px-3 small mb-3" role="alert">
-        <i class="bi ${type === 'danger' ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill'}"></i>
+        <i class="bi ${type === 'danger' ? 'bi-exclamation-triangle-fill' : (type === 'success' ? 'bi-check-circle-fill' : 'bi-info-circle-fill')}"></i>
         <div>${escapeHtml(message)}</div>
         <button type="button" class="btn-close ms-auto p-2" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     `;
+    if (!isStep2Active) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
   // ── Role Tab Switcher ───────────────────────────────────────
@@ -471,22 +479,54 @@ document.addEventListener('DOMContentLoaded', () => {
   bindDigitGroup(emailDigitInputs);
   bindDigitGroup(waDigitInputs);
 
-  // ── Countdown Timer for Resend OTP ──────────────────────────
+  // ── Helpers: Resend Button State & Formatter ─────────────────
+  const updateResendBtnState = (isLocked, text, iconClass = 'bi-clock-history') => {
+    if (!btnResendOtp) return;
+    const resendIcon = document.getElementById('resendIcon');
+    const resendBtnText = document.getElementById('resendBtnText');
+
+    btnResendOtp.disabled = isLocked;
+
+    if (isLocked) {
+      btnResendOtp.style.background = '#F1F5F9';
+      btnResendOtp.style.color = '#64748B';
+      btnResendOtp.style.borderColor = '#CBD5E1';
+      btnResendOtp.style.cursor = 'not-allowed';
+      btnResendOtp.style.boxShadow = 'none';
+      if (resendIcon) resendIcon.className = `bi ${iconClass}`;
+      if (resendBtnText) resendBtnText.textContent = text;
+    } else {
+      btnResendOtp.style.background = '#F0FDFA';
+      btnResendOtp.style.color = '#0D9488';
+      btnResendOtp.style.borderColor = '#99F6E4';
+      btnResendOtp.style.cursor = 'pointer';
+      btnResendOtp.style.boxShadow = '0 1px 2px rgba(13,148,136,0.1)';
+      if (resendIcon) resendIcon.className = 'bi bi-arrow-clockwise';
+      if (resendBtnText) resendBtnText.textContent = 'Resend Code';
+    }
+  };
+
+  const formatCountdown = (totalSec) => {
+    const mins = Math.floor(totalSec / 60);
+    const secs = totalSec % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  // ── Countdown Timer for Resend OTP (1:00 Min Lock) ──────────
   const startResendCountdown = (seconds = 60) => {
     if (countdownTimer) clearInterval(countdownTimer);
-    btnResendOtp.disabled = true;
 
     let remaining = seconds;
-    resendCountdown.textContent = `(${remaining}s)`;
+    updateResendBtnState(true, `Resend in ${formatCountdown(remaining)}`, 'bi-clock-history');
 
     countdownTimer = setInterval(() => {
       remaining -= 1;
       if (remaining <= 0) {
         clearInterval(countdownTimer);
-        resendCountdown.textContent = '';
-        btnResendOtp.disabled = false;
+        countdownTimer = null;
+        updateResendBtnState(false, 'Resend Code', 'bi-arrow-clockwise');
       } else {
-        resendCountdown.textContent = `(${remaining}s)`;
+        updateResendBtnState(true, `Resend in ${formatCountdown(remaining)}`, 'bi-clock-history');
       }
     }, 1000);
   };
@@ -495,6 +535,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const showOtpStep = (email, _backupOtp = null, extra = {}) => {
     currentEmail = email;
     currentPhone = extra.phone || '';
+    if (email) sessionStorage.setItem('disheera_pending_email', email);
+    if (extra.phone) sessionStorage.setItem('disheera_pending_phone', extra.phone);
+
+    // Hide Step 1 tabs, headers, and pricing pills to keep Step 2 clean & uncluttered
+    const roleTabs = document.getElementById('roleSelectorTabs');
+    const authHeader = document.getElementById('authFormHeader');
+    const recruiterPlan = document.getElementById('recruiterPlanPill');
+    const studentPlan = document.getElementById('studentPlanPill');
+
+    if (roleTabs) roleTabs.classList.add('d-none');
+    if (authHeader) authHeader.classList.add('d-none');
+    if (recruiterPlan) { recruiterPlan.classList.add('d-none'); recruiterPlan.classList.remove('d-flex'); }
+    if (studentPlan) { studentPlan.classList.add('d-none'); studentPlan.classList.remove('d-flex'); }
 
     if (displayEmail) displayEmail.textContent = email;
     if (noticeEmailText) noticeEmailText.textContent = email;
@@ -510,19 +563,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (noticePhoneText) noticePhoneText.textContent = currentPhone;
 
       if (verificationBadge) {
-        verificationBadge.innerHTML = '<span class="pulse-dot"></span> DUAL-CHANNEL VERIFICATION';
+        verificationBadge.innerHTML = '<span class="pulse-dot"></span> ACCOUNT VERIFICATION';
       }
       if (verificationHeading) {
-        verificationHeading.textContent = 'Verify Gmail & WhatsApp';
+        verificationHeading.textContent = 'Verify Your Account';
       }
       if (verificationSubheading) {
-        verificationSubheading.textContent = 'Both verification codes are required simultaneously to activate your account.';
+        verificationSubheading.innerHTML = `Enter the verification codes sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong> and WhatsApp <strong class="text-ink font-monospace">${escapeHtml(currentPhone)}</strong>.`;
       }
       if (emailCardTitle) {
-        emailCardTitle.textContent = '1. Gmail Verification Code';
+        emailCardTitle.textContent = 'Email Verification Code';
       }
       if (verifyBtnText) {
-        verifyBtnText.textContent = 'Verify Both Codes & Activate Account';
+        verifyBtnText.textContent = 'Verify & Activate Account';
       }
     } else {
       // Single verification mode (Email only, e.g. corporate recruiter)
@@ -535,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
         verificationHeading.textContent = 'Verify Your Email';
       }
       if (verificationSubheading) {
-        verificationSubheading.textContent = 'Enter the 6-digit verification code sent to your email.';
+        verificationSubheading.innerHTML = `Enter the 6-digit verification code sent to <strong class="text-ink font-monospace">${escapeHtml(email)}</strong>.`;
       }
       if (emailCardTitle) {
         emailCardTitle.textContent = 'Email Verification Code';
@@ -548,26 +601,25 @@ document.addEventListener('DOMContentLoaded', () => {
     step1.classList.add('d-none');
     step2.classList.remove('d-none');
     alertContainer.innerHTML = '';
+    const step2Alert = document.getElementById('step2AlertContainer');
+    if (step2Alert) step2Alert.innerHTML = '';
 
     if (emailDigitInputs[0]) emailDigitInputs[0].focus();
 
     startResendCountdown(60);
 
+    // Only alert if there is an actual delivery issue
     if (currentPhone) {
-      if (extra.mailSent && extra.whatsappSent) {
-        showAlert(`⚡ Distinct 6-digit verification codes sent to your WhatsApp (${currentPhone}) and email! Enter both codes below to activate your account.`, 'success');
-      } else if (extra.mailSent && !extra.whatsappSent) {
-        showAlert(`📧 Verification code dispatched to ${email}. (WhatsApp delivery unavailable).`, 'info');
+      if (extra.mailSent && !extra.whatsappSent) {
+        showAlert(`Verification code sent to email. (WhatsApp delivery temporarily unavailable).`, 'info');
       } else if (!extra.mailSent && extra.whatsappSent) {
-        showAlert(`⚡ Verification code sent to WhatsApp (${currentPhone}). Note: Email delivery failed (check server console).`, 'warning');
-      } else {
-        showAlert(`⚠️ Live delivery failed (SMTP auth failed). If running locally, check the server terminal for your OTP verification code.`, 'warning');
+        showAlert(`Verification code sent to WhatsApp (${currentPhone}). Email delivery failed (check server console).`, 'warning');
+      } else if (!extra.mailSent && !extra.whatsappSent) {
+        showAlert(`Delivery warning: Check server console for verification code if running locally.`, 'warning');
       }
     } else {
-      if (extra.mailSent) {
-        showAlert(`📧 A 6-digit verification code has been dispatched to ${email}. Please check your Inbox and Spam/Junk folder.`, 'info');
-      } else {
-        showAlert(`⚠️ Email delivery failed to reach ${email} (SMTP auth failed). If running locally, check the server terminal for your OTP verification code.`, 'warning');
+      if (!extra.mailSent) {
+        showAlert(`Delivery warning: Unable to dispatch email to ${email}. Check server console if running locally.`, 'warning');
       }
     }
   };
@@ -578,7 +630,23 @@ document.addEventListener('DOMContentLoaded', () => {
       step2.classList.add('d-none');
       step1.classList.remove('d-none');
       alertContainer.innerHTML = '';
+      const step2Alert = document.getElementById('step2AlertContainer');
+      if (step2Alert) step2Alert.innerHTML = '';
       if (countdownTimer) clearInterval(countdownTimer);
+
+      // Restore Step 1 elements
+      const roleTabs = document.getElementById('roleSelectorTabs');
+      const authHeader = document.getElementById('authFormHeader');
+      const recruiterPlan = document.getElementById('recruiterPlanPill');
+      const studentPlan = document.getElementById('studentPlanPill');
+
+      if (roleTabs) roleTabs.classList.remove('d-none');
+      if (authHeader) authHeader.classList.remove('d-none');
+      if (activeRole === 'recruiter') {
+        if (recruiterPlan) { recruiterPlan.classList.remove('d-none'); recruiterPlan.classList.add('d-flex'); }
+      } else {
+        if (studentPlan) { studentPlan.classList.remove('d-none'); studentPlan.classList.add('d-flex'); }
+      }
     });
   }
 
@@ -851,36 +919,73 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Resend OTP Button ───────────────────────────────────────
-  btnResendOtp.addEventListener('click', async () => {
-    alertContainer.innerHTML = '';
-    btnResendOtp.disabled = true;
+  if (btnResendOtp) {
+    btnResendOtp.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (btnResendOtp.disabled) return;
 
-    try {
-      const response = await window.API.post('/auth/resend-otp', { email: currentEmail, phone: currentPhone });
-      if (response.success) {
-        startResendCountdown(60);
-        if (response.mailSent) {
+      const step2Alert = document.getElementById('step2AlertContainer');
+      if (step2Alert) step2Alert.innerHTML = '';
+      if (alertContainer) alertContainer.innerHTML = '';
+
+      // Reliable email resolution with multi-source fallback
+      const emailToUse = (currentEmail || '').trim() ||
+        (displayEmail ? displayEmail.textContent.trim() : '') ||
+        (document.getElementById('email') ? document.getElementById('email').value.trim() : '') ||
+        (document.getElementById('recruiterEmail') ? document.getElementById('recruiterEmail').value.trim() : '') ||
+        sessionStorage.getItem('disheera_pending_email') || '';
+
+      const phoneToUse = (currentPhone || '').trim() ||
+        (displayTargetPhone ? displayTargetPhone.textContent.trim() : '') ||
+        (document.getElementById('phone') ? document.getElementById('phone').value.trim() : '') ||
+        sessionStorage.getItem('disheera_pending_phone') || '';
+
+      if (!emailToUse) {
+        showAlert('Email address is missing. Please click "Edit Details" and re-submit your registration.', 'danger');
+        return;
+      }
+
+      // Show immediate in-button sending spinner
+      btnResendOtp.disabled = true;
+      btnResendOtp.style.cursor = 'wait';
+      const resendIcon = document.getElementById('resendIcon');
+      const resendBtnText = document.getElementById('resendBtnText');
+      if (resendIcon) resendIcon.className = 'spinner-border spinner-border-sm me-1';
+      if (resendBtnText) resendBtnText.textContent = 'Sending...';
+
+      try {
+        const response = await window.API.post('/auth/resend-otp', {
+          email: emailToUse,
+          phone: phoneToUse || undefined,
+        });
+
+        if (response.success) {
+          // Restart 1:00 min lock
+          startResendCountdown(60);
+
+          // Clear previous input digits and focus the first digit
+          emailDigitInputs.forEach(inp => inp.value = '');
+          waDigitInputs.forEach(inp => inp.value = '');
+          if (emailDigitInputs[0]) emailDigitInputs[0].focus();
+
           showAlert(response.message || 'A fresh 6-digit verification code has been dispatched to your email!', 'success');
-        } else if (response.whatsappSent) {
-          showAlert(response.message || 'A fresh verification code has been sent to your WhatsApp!', 'success');
         } else {
-          showAlert('⚠️ Email delivery could not complete (SMTP credentials rejected). Check server console for your fresh OTP code.', 'warning');
+          updateResendBtnState(false, 'Resend Code', 'bi-arrow-clockwise');
+          showAlert(response.message || 'Could not resend OTP. Please try again.', 'danger');
         }
-      } else {
-        showAlert(response.message || 'Could not resend OTP. Please try again.');
-        btnResendOtp.disabled = false;
+      } catch (err) {
+        const isRateLimited = err.status === 429 || (err.data && err.data.rateLimited);
+        if (isRateLimited) {
+          const waitTime = err.data?.waitSec || 60;
+          startResendCountdown(waitTime);
+          showAlert(err.message || 'Rate limit reached: Maximum 5 verification codes allowed per 5 minutes.', 'warning');
+        } else {
+          updateResendBtnState(false, 'Resend Code', 'bi-arrow-clockwise');
+          showAlert(err.message || 'Failed to resend verification code. Please check your network and try again.', 'danger');
+        }
       }
-    } catch (err) {
-      btnResendOtp.disabled = false;
-      const isRateLimited = err.status === 429 || (err.data && err.data.rateLimited);
-      if (isRateLimited) {
-        startResendCountdown(300);
-        showAlert(err.message || 'Rate limit reached: Maximum 5 verification codes allowed per 5 minutes.', 'warning');
-      } else {
-        showAlert(err.message || 'Failed to resend code.');
-      }
-    }
-  });
+    });
+  }
 
   // ── Direct URL Parameter Support ────────────────────────────
   const urlParams = new URLSearchParams(window.location.search);

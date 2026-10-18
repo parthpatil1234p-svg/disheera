@@ -10,6 +10,19 @@
 let passportCurrentPage = 1;
 let passportSearchTimeout = null;
 
+if (typeof window.openModal !== 'function') {
+  window.openModal = function (modalId) {
+    const el = document.getElementById(modalId);
+    if (el) el.classList.add('active');
+  };
+}
+if (typeof window.closeModal !== 'function') {
+  window.closeModal = function (modalId) {
+    const el = document.getElementById(modalId);
+    if (el) el.classList.remove('active');
+  };
+}
+
 async function loadPassports(page = 1) {
   passportCurrentPage = page;
   const tbody = document.getElementById('passportsTableBody');

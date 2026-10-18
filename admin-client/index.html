@@ -1401,10 +1401,18 @@
       showToast('Data refreshed.', 'info');
     }
 
+    function openModal(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.add('active');
+    }
+
     function closeModal(modalId) {
       const el = document.getElementById(modalId);
       if (el) el.classList.remove('active');
     }
+
+    window.openModal = openModal;
+    window.closeModal = closeModal;
 
     let hasAnimatedKpi = false;
     function animateKpiValue(id, target, duration = 600) {

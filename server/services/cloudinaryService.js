@@ -7,13 +7,13 @@
 
 const cloudinary = require('cloudinary').v2;
 
-const isConfigured = Boolean(
+const isCloudinaryConfigured = () => Boolean(
   process.env.CLOUDINARY_CLOUD_NAME &&
   process.env.CLOUDINARY_API_KEY &&
   process.env.CLOUDINARY_API_SECRET
 );
 
-if (isConfigured) {
+if (isCloudinaryConfigured()) {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -31,8 +31,18 @@ if (isConfigured) {
  * @returns {Promise<Object>} Cloudinary upload result
  */
 const uploadAvatar = async (fileData, userId) => {
-  if (!isConfigured) {
-    throw new Error('Cloudinary media service is not configured on this server.');
+  if (!isCloudinaryConfigured()) {
+    if (process.env.NODE_ENV === 'production') {
+      const err = new Error('Cloudinary media storage service is not configured in production environment.');
+      err.statusCode = 503;
+      err.code = 'STORAGE_SERVICE_UNAVAILABLE';
+      throw err;
+    }
+    console.warn('[cloudinaryService] Cloudinary not configured. Operating in resilient simulated asset mode.');
+    return {
+      secure_url: `https://res.cloudinary.com/demo/image/upload/disheera/avatars/avatar_${userId || 'user'}_${Date.now()}.jpg`,
+      public_id: `disheera/avatars/avatar_${userId || 'user'}_${Date.now()}`,
+    };
   }
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
@@ -94,8 +104,11 @@ const getResumePreviewUrl = (publicIdOrUrl, page = 1) => {
  * @returns {Promise<{ filename: string, data: Buffer, size: number }>}
  */
 const downloadResumeBuffer = async (publicIdOrUrl) => {
-  if (!isConfigured) {
-    throw new Error('Cloudinary media service is not configured on this server.');
+  if (!isCloudinaryConfigured()) {
+    const err = new Error('Cloudinary media storage service is not configured on this server.');
+    err.statusCode = 503;
+    err.code = 'STORAGE_SERVICE_UNAVAILABLE';
+    throw err;
   }
   const publicId = getPublicIdFromUrl(publicIdOrUrl) || publicIdOrUrl;
   if (!publicId) throw new Error('Invalid resume identifier or URL');
@@ -133,8 +146,22 @@ const downloadResumeBuffer = async (publicIdOrUrl) => {
  * @returns {Promise<Object>} Cloudinary upload result
  */
 const uploadResume = async (fileData, userId) => {
-  if (!isConfigured) {
-    throw new Error('Cloudinary media service is not configured on this server.');
+  if (!isCloudinaryConfigured()) {
+    if (process.env.NODE_ENV === 'production') {
+      const err = new Error('Cloudinary media storage service is not configured in production environment.');
+      err.statusCode = 503;
+      err.code = 'STORAGE_SERVICE_UNAVAILABLE';
+      throw err;
+    }
+    console.warn('[cloudinaryService] Cloudinary not configured. Operating in resilient simulated resume storage mode.');
+    const mockPublicId = `disheera/resumes/resume_${userId || 'user'}_${Date.now()}`;
+    return {
+      secure_url: `https://res.cloudinary.com/demo/image/upload/${mockPublicId}.pdf`,
+      public_id: mockPublicId,
+      format: 'pdf',
+      bytes: Buffer.byteLength(String(fileData), 'utf8'),
+      previewUrl: `https://res.cloudinary.com/demo/image/upload/${mockPublicId}.png`,
+    };
   }
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
@@ -164,7 +191,7 @@ const uploadResume = async (fileData, userId) => {
  * @returns {Promise<Object|null>}
  */
 const deleteResumeFromCloudinary = async (publicId) => {
-  if (!isConfigured || !publicId) return null;
+  if (!isCloudinaryConfigured() || !publicId) return null;
   try {
     const res = await cloudinary.uploader.destroy(publicId, {
       resource_type: 'image',
@@ -190,7 +217,7 @@ const deleteResumeFromCloudinary = async (publicId) => {
  * @param {string} resourceType
  */
 const deleteResource = async (publicId, resourceType = 'auto') => {
-  if (!isConfigured || !publicId) return;
+  if (!isCloudinaryConfigured() || !publicId) return;
   try {
     await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
   } catch (err) {
@@ -200,6 +227,7 @@ const deleteResource = async (publicId, resourceType = 'auto') => {
 
 module.exports = {
   cloudinary,
+  isCloudinaryConfigured,
   uploadAvatar,
   uploadResume,
   getPublicIdFromUrl,

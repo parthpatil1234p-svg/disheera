@@ -26,6 +26,7 @@ Object.assign(Resume, ResumeModel);
 
 // findOneAndUpdate helper
 Resume.findOneAndUpdate = async function (filter, update, options = {}) {
+  const crypto = require('crypto');
   const where = { ...filter };
   if (where.user) {
     where.userId = String(where.user);
@@ -38,13 +39,40 @@ Resume.findOneAndUpdate = async function (filter, update, options = {}) {
 
   const existing = await Resume.findOne(where);
   if (!existing && options.upsert) {
-    const createData = { ...filter, ...update.$set, ...update };
+    const rawData = update.$set || update || {};
+    const createData = {
+      id: crypto.randomUUID(),
+      userId: where.userId || String(filter.user || filter.userId),
+      ...(update.$setOnInsert || {}),
+      ...rawData,
+    };
+    if (update.$inc) {
+      for (const [k, v] of Object.entries(update.$inc)) {
+        createData[k] = (createData[k] || 0) + v;
+      }
+    }
+    if (!createData.publicId) {
+      createData.publicId = `disheera/resumes/resume_${createData.userId}_${Date.now()}`;
+    }
     delete createData.$set;
+    delete createData.$setOnInsert;
+    delete createData.$inc;
+    delete createData.user;
     return Resume.create(createData);
   }
   if (!existing) return null;
 
-  return Resume.findByIdAndUpdate(existing.id, update, options);
+  const updatePayload = { ...update };
+  if (update.$inc) {
+    const currentSet = updatePayload.$set ? { ...updatePayload.$set } : {};
+    for (const [k, v] of Object.entries(update.$inc)) {
+      currentSet[k] = (existing[k] !== undefined && existing[k] !== null ? Number(existing[k]) : 0) + Number(v);
+    }
+    updatePayload.$set = currentSet;
+    delete updatePayload.$inc;
+  }
+
+  return Resume.findByIdAndUpdate(existing.id, updatePayload, options);
 };
 
 const origFindOne = ResumeModel.findOne;

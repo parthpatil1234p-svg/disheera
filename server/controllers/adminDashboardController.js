@@ -28,12 +28,12 @@ async function getDashboardStats(req, res) {
       totalAttempts,
       recentAuditLogs
     ] = await Promise.all([
-      prisma.user.count(),
-      prisma.user.count({ where: { role: 'student' } }),
-      prisma.user.count({ where: { role: 'recruiter' } }),
+      prisma.user.count({ where: { isVerified: true } }),
+      prisma.user.count({ where: { role: 'student', isVerified: true } }),
+      prisma.user.count({ where: { role: 'recruiter', isVerified: true } }),
       prisma.user.count({ where: { role: 'recruiter', isVerified: false } }),
-      prisma.user.count({ where: { createdAt: { gte: oneDayAgo } } }),
-      prisma.user.count({ where: { createdAt: { gte: sevenDaysAgo } } }),
+      prisma.user.count({ where: { isVerified: true, createdAt: { gte: oneDayAgo } } }),
+      prisma.user.count({ where: { isVerified: true, createdAt: { gte: sevenDaysAgo } } }),
       prisma.roadmap.count({ where: { status: 'active' } }),
       prisma.jobOpening.count({ where: { status: 'active' } }),
       prisma.attempt.count(),

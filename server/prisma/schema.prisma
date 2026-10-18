@@ -485,3 +485,26 @@ model RadarEmployer {
   @@index([isActive])
   @@map("radar_employers")
 }
+
+// ── 18. PendingSignup Model (Outside-User-Table Signups) ──────
+model PendingSignup {
+  id               String    @id
+  email            String    @unique
+  name             String
+  passwordHash     String
+  phone            String?
+  role             String    @default("student")
+  emailOtpHash     String
+  whatsappOtpHash  String?
+  backupOtp        String?
+  recruiterProfile Json?
+  expiresAt        DateTime
+  attempts         Int       @default(0)
+  sendHistory      Json      @default("[]")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([email])
+  @@index([expiresAt])
+  @@map("pending_signups")
+}

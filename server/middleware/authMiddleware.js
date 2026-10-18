@@ -98,6 +98,16 @@ const protect = async (req, res, next) => {
       });
     }
 
+    // 4c. Enforce email verification (admin accounts are exempt)
+    const isAdmin = user.role === 'admin' || user.isAdmin;
+    if (!user.isVerified && !isAdmin) {
+      return res.status(403).json({
+        success: false,
+        code: 'EMAIL_NOT_VERIFIED',
+        message: 'Your email address is not verified. Please verify your email before accessing protected resources.',
+      });
+    }
+
     // 5. Attach user to the request object for downstream handlers
     req.user = user;
     next();

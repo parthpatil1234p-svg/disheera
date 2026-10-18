@@ -173,3 +173,19 @@ function closeConfirmModal() {
     modal.classList.remove('active');
   }
 }
+
+/**
+ * Universal Modal Management Helpers
+ */
+function openModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.add('active');
+}
+
+function closeModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.remove('active');
+}
+
+window.openModal = openModal;
+window.closeModal = closeModal;

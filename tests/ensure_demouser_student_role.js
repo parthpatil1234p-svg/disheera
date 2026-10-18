@@ -6,18 +6,42 @@ const { prisma } = require('../server/config/prisma');
 async function fixRoles() {
   console.log('--- CHECKING & ENSURING STRICT STUDENT ROLE FOR DEMOUSER ---');
 
+  const bcrypt = require('bcryptjs');
+  const crypto = require('crypto');
+  const hashedPassword = await bcrypt.hash('demo123', 10);
+
   const spUser = await prisma.user.findUnique({ where: { email: 'demouser@gmail.com' } });
   if (spUser) {
-    console.log('Supabase user role before:', spUser.role);
-    if (spUser.role !== 'student') {
-      await prisma.user.update({
-        where: { email: 'demouser@gmail.com' },
-        data: { role: 'student' }
-      });
-      console.log('Updated Supabase user role to student!');
-    } else {
-      console.log('User already has role: student');
-    }
+    console.log('Supabase user role before:', spUser.role, 'isVerified:', spUser.isVerified);
+    await prisma.user.update({
+      where: { email: 'demouser@gmail.com' },
+      data: {
+        role: 'student',
+        isVerified: true,
+        password: hashedPassword,
+        hasCompletedSkillVerification: true,
+        skills: [
+          { name: 'JavaScript', level: 'intermediate', isQuizVerified: true, howVerified: 'skill_check' }
+        ],
+      }
+    });
+    console.log('Updated Supabase user role to student, isVerified: true, skill verified, and password reset!');
+  } else {
+    await prisma.user.create({
+      data: {
+        id: crypto.randomUUID(),
+        name: 'Demo Student User',
+        email: 'demouser@gmail.com',
+        password: hashedPassword,
+        role: 'student',
+        isVerified: true,
+        hasCompletedSkillVerification: true,
+        skills: [
+          { name: 'JavaScript', level: 'intermediate', isQuizVerified: true, howVerified: 'skill_check' }
+        ],
+      }
+    });
+    console.log('Created demouser@gmail.com with role: student, isVerified: true, and verified skill!');
   }
 
   // Also check if any other student accounts have wrong roles
