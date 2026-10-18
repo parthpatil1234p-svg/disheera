@@ -7,25 +7,53 @@
 
 const nodemailer = require('nodemailer');
 
-function createTransporter(port = 465, secure = true) {
-  const emailUser = process.env.EMAIL_USER ? process.env.EMAIL_USER.trim() : '';
-  const emailPass = process.env.EMAIL_PASS ? process.env.EMAIL_PASS.replace(/\s+/g, '') : '';
+function createTransporter(port = null, secure = null) {
+  // 1. Universal / Custom SMTP (Brevo, SendGrid, Resend, AWS SES, Postmark, etc.)
+  const smtpHost = (process.env.SMTP_HOST || '').trim();
+  const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : null;
+  const smtpUser = (process.env.SMTP_USER || process.env.EMAIL_USER || '').trim();
+  const smtpPass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
 
-  if (!emailUser || !emailPass) {
+  if (!smtpUser || !smtpPass) {
     return null;
   }
 
+  // If a custom SMTP host is explicitly specified
+  if (smtpHost && smtpHost !== 'smtp.gmail.com') {
+    const targetPort = port || smtpPort || 587;
+    const isSecure = secure !== null ? secure : (targetPort === 465);
+    return nodemailer.createTransport({
+      host: smtpHost,
+      port: targetPort,
+      secure: isSecure,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+      connectionTimeout: 15000,
+      greetingTimeout: 10000,
+      socketTimeout: 20000,
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+  }
+
+  // 2. Google / Gmail SMTP
+  const targetPort = port || (smtpPort || 465);
+  const isSecure = secure !== null ? secure : (targetPort === 465);
+
   return nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port,
-    secure,
+    port: targetPort,
+    secure: isSecure,
     auth: {
-      user: emailUser,
-      pass: emailPass, // Google 16-character App Password
+      user: smtpUser,
+      pass: smtpPass, // 16-character Google App Password
     },
-    connectionTimeout: 10000,
+    connectionTimeout: 15000,
     greetingTimeout: 10000,
-    socketTimeout: 15000,
+    socketTimeout: 20000,
     tls: {
       rejectUnauthorized: false,
     },
@@ -34,7 +62,8 @@ function createTransporter(port = 465, secure = true) {
 
 /**
  * Sends a high-deliverability verification email containing the 6-digit OTP code.
- * Optimized against spam heuristics: clean subject, priority headers, and plain-text fallback.
+ * Anti-Spam Optimized: Clean RFC headers, no spam triggers, authentic text fallback.
+ * Works across all recipient email domains (@gmail, @yahoo, @outlook, corporate, etc.)
  *
  * @param {string} toEmail - Recipient's email address
  * @param {string} name - Recipient's name
@@ -42,18 +71,24 @@ function createTransporter(port = 465, secure = true) {
  * @returns {Promise<{success: boolean, messageId?: string, error?: string, reason?: string}>}
  */
 async function sendOtpEmail(toEmail, name, otpCode) {
-  const emailUser = process.env.EMAIL_USER ? process.env.EMAIL_USER.trim() : '';
-  const emailPass = process.env.EMAIL_PASS ? process.env.EMAIL_PASS.replace(/\s+/g, '') : '';
+  const emailUser = (process.env.SMTP_USER || process.env.EMAIL_USER || '').trim();
+  const emailPass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
 
   if (!emailUser || !emailPass) {
     console.warn(`\n⚠️  [EMAIL CONFIG WARNING] EMAIL_USER or EMAIL_PASS not configured in .env.`);
-    console.warn(`   👉 Add your Gmail & 16-digit Google App Password to .env to deliver real emails.`);
-    console.log(`   🔑 [Console Backup] OTP Code for ${toEmail}: ${otpCode}\n`);
+    console.warn(`   👉 Add your Gmail address & 16-character Google App Password to server/.env to deliver live emails.`);
+    console.log(`   🔑 [Console Backup] Verification OTP for ${toEmail}: ${otpCode}\n`);
     return { success: false, reason: 'unconfigured' };
   }
 
   const recipientName = name ? name.trim() : 'Student';
-  const cleanSubject = `Disheera Account Verification Code: ${otpCode}`;
+  const cleanSubject = `Your Disheera verification code is ${otpCode}`;
+  const fromHeader = process.env.EMAIL_FROM
+    ? process.env.EMAIL_FROM.trim()
+    : `"Disheera" <${emailUser}>`;
+  const replyToHeader = process.env.EMAIL_REPLY_TO
+    ? process.env.EMAIL_REPLY_TO.trim()
+    : emailUser;
 
   const htmlContent = `
   <!DOCTYPE html>
@@ -61,18 +96,18 @@ async function sendOtpEmail(toEmail, name, otpCode) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disheera Verification Code</title>
+    <title>Disheera Account Verification</title>
     <style>
       body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #F8FAFC; color: #0F172A; margin: 0; padding: 24px 16px; }
       .container { max-width: 520px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 32px 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-      .brand { font-size: 20px; font-weight: 800; color: #3B1A6E; margin-bottom: 20px; letter-spacing: -0.5px; }
+      .brand { font-size: 22px; font-weight: 800; color: #3B1A6E; margin-bottom: 20px; letter-spacing: -0.5px; }
       .brand span { color: #0D9488; }
       .title { font-size: 20px; font-weight: 700; color: #1E293B; margin-bottom: 12px; }
       .desc { font-size: 14px; line-height: 1.6; color: #475569; margin-bottom: 22px; }
       .otp-card { background: #F8F7FC; border: 2px dashed #3B1A6E; border-radius: 10px; text-align: center; padding: 22px 16px; margin-bottom: 22px; }
       .otp-code { font-family: 'Courier New', Courier, monospace; font-size: 38px; font-weight: 900; letter-spacing: 8px; color: #3B1A6E; margin: 0; }
       .expiry { font-size: 12px; color: #64748B; margin-top: 8px; font-weight: 500; }
-      .notice-box { background: #FEF3C7; border-left: 4px solid #D97706; padding: 10px 14px; font-size: 12px; color: #92400E; border-radius: 4px; margin-bottom: 20px; line-height: 1.5; }
+      .notice-box { background: #F1F5F9; border-left: 4px solid #0D9488; padding: 12px 14px; font-size: 12.5px; color: #334155; border-radius: 4px; margin-bottom: 20px; line-height: 1.5; }
       .footer { border-top: 1px solid #E2E8F0; padding-top: 18px; font-size: 11.5px; color: #94A3B8; text-align: center; line-height: 1.5; }
     </style>
   </head>
@@ -81,23 +116,23 @@ async function sendOtpEmail(toEmail, name, otpCode) {
       <div class="brand">
         Dishe<span>era</span>
       </div>
-      <div class="title">Verify Your Disheera Account</div>
+      <div class="title">Verify Your Email Address</div>
       <p class="desc">
         Hi <strong>${recipientName}</strong>,<br>
-        Welcome to Disheera. Please enter the 6-digit verification code below to activate your account and start your personalized career assessment:
+        Thank you for joining Disheera. Please enter the 6-digit verification code below to activate your account and access your personalized learning journey:
       </p>
       
       <div class="otp-card">
         <div class="otp-code">${otpCode}</div>
-        <div class="expiry">Valid for 10 minutes · Do not share this code with anyone</div>
+        <div class="expiry">Valid for 10 minutes · Keep this code confidential</div>
       </div>
 
       <div class="notice-box">
-        <strong>💡 Note:</strong> If this email appears in your Spam or Junk folder, please click <strong>"Report Not Spam"</strong> to ensure you receive future assessment updates and placement alerts.
+        Please enter this code on the verification screen to activate your Disheera account.
       </div>
 
       <p class="desc" style="font-size: 13px; color: #64748B; margin-bottom: 20px;">
-        If you did not request this verification code, please ignore this email. No changes will be made to your account.
+        If you did not request this verification code, you can safely disregard this email. No changes will be made to your account.
       </p>
 
       <div class="footer">
@@ -110,13 +145,13 @@ async function sendOtpEmail(toEmail, name, otpCode) {
   `;
 
   const textContent = `
-Disheera - Account Verification Code
+Disheera - Account Verification
 
 Hi ${recipientName},
 
 Your 6-digit verification code is: ${otpCode}
 
-This code is valid for 10 minutes. Please enter it to activate your Disheera account.
+This code is valid for 10 minutes. Please enter it on the verification screen to activate your Disheera account.
 
 If you did not request this code, you can safely ignore this email.
 
@@ -126,28 +161,25 @@ Autonomous Career GPS & Verified Talent Operating System
 `;
 
   const mailOptions = {
-    from: `"Disheera" <${emailUser}>`,
+    from: fromHeader,
     to: toEmail,
-    replyTo: emailUser,
+    replyTo: replyToHeader,
     subject: cleanSubject,
     html: htmlContent,
     text: textContent,
-    priority: 'high',
     headers: {
-      'X-Priority': '1',
-      'X-MSMail-Priority': 'High',
-      'Importance': 'high',
+      'X-Entity-Ref-ID': `disheera-otp-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
     },
   };
 
-  // Attempt 1: Port 465 (SSL Direct)
+  // Attempt 1: Primary Port (Port 465 SSL or configured port)
   try {
     const transporter465 = createTransporter(465, true);
     if (!transporter465) {
-      throw new Error('Transporter configuration failed');
+      throw new Error('Transporter initialization failed (check SMTP/EMAIL configuration in .env)');
     }
     const info = await transporter465.sendMail(mailOptions);
-    console.log(`\n📧 [EMAIL SENT - Port 465] OTP successfully delivered to ${toEmail} (ID: ${info.messageId})\n`);
+    console.log(`\n📧 [EMAIL DELIVERED - Port 465] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
     return { success: true, messageId: info.messageId };
   } catch (err465) {
     console.warn(`\n⚠️  [PORT 465 FAILED] Attempting Port 587 STARTTLS failover: ${err465.message}`);
@@ -156,15 +188,33 @@ Autonomous Career GPS & Verified Talent Operating System
     try {
       const transporter587 = createTransporter(587, false);
       if (!transporter587) {
-        throw new Error('Port 587 transporter configuration failed');
+        throw new Error('Port 587 transporter initialization failed');
       }
       const info = await transporter587.sendMail(mailOptions);
-      console.log(`\n📧 [EMAIL SENT - Port 587] OTP successfully delivered to ${toEmail} (ID: ${info.messageId})\n`);
+      console.log(`\n📧 [EMAIL DELIVERED - Port 587] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
       return { success: true, messageId: info.messageId };
     } catch (err587) {
-      console.error(`\n❌ [EMAIL SEND ERROR] Both ports (465 & 587) failed for ${toEmail}: ${err587.message}`);
-      console.log(`   🔑 [Console Backup] OTP Code for ${toEmail}: ${otpCode}\n`);
-      return { success: false, error: err587.message, code: err587.code };
+      const errMsg = err587.message || err465.message || 'Unknown SMTP error';
+      console.error(`\n❌ [EMAIL SEND ERROR] Delivery failed for ${toEmail}: ${errMsg}`);
+
+      if (errMsg.includes('535') || errMsg.includes('BadCredentials') || err587.code === 'EAUTH') {
+        console.error(`\n========================================================================`);
+        console.error(`❌ [GMAIL SMTP AUTH FAILED - BadCredentials (535)]`);
+        console.error(`   Google rejected authentication for sender: "${emailUser}"`);
+        console.error(`   👉 Reason: Gmail App Password is missing, invalid, or assigned to another account.`);
+        console.error(`   👉 Quick Fix:`);
+        console.error(`      1. EMAIL_USER in server/.env must be your real Gmail account (e.g. name@gmail.com).`);
+        console.error(`         Note: You cannot use a custom domain like @careerpath.is-local.org on smtp.gmail.com`);
+        console.error(`         unless your domain is registered in Google Workspace.`);
+        console.error(`      2. EMAIL_PASS must be a 16-character Google App Password (not your normal Google account password).`);
+        console.error(`      3. Generate a fresh Google App Password at: https://myaccount.google.com/apppasswords`);
+        console.error(`      4. Ensure 2-Step Verification is active on that Google account.`);
+        console.error(`      5. Paste the 16 characters into EMAIL_PASS in server/.env`);
+        console.error(`========================================================================\n`);
+      }
+
+      console.log(`   🔑 [Console Backup] Verification OTP for ${toEmail}: ${otpCode}\n`);
+      return { success: false, error: errMsg, code: err587.code || err465.code };
     }
   }
 }
@@ -194,8 +244,8 @@ async function sendInactivityNudgeEmail({
   daysInactive = 3,
   clientUrl = process.env.CLIENT_URL || 'http://localhost:5500',
 }) {
-  const emailUser = process.env.EMAIL_USER ? process.env.EMAIL_USER.trim() : '';
-  const emailPass = process.env.EMAIL_PASS ? process.env.EMAIL_PASS.replace(/\s+/g, '') : '';
+  const emailUser = (process.env.SMTP_USER || process.env.EMAIL_USER || '').trim();
+  const emailPass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
 
   if (!emailUser || !emailPass) {
     console.warn(`[Streak Nudge] Email not sent - EMAIL_USER/EMAIL_PASS not configured for ${toEmail}`);

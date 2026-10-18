@@ -168,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (err.status === 403 && (err.data?.requiresVerification || err.message?.toLowerCase().includes('not verified'))) {
         const verifyEmail = err.data?.email || email;
-        const backupOtpParam = err.data?.backupOtp ? `&backupOtp=${encodeURIComponent(err.data.backupOtp)}` : '';
         alertContainer.innerHTML = `
           <div class="alert alert-warning border border-warning border-opacity-50 p-3 mb-3 text-start" role="alert">
             <div class="d-flex align-items-center gap-2 mb-2">
@@ -178,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="small text-secondary mb-3">
               Your email <strong>${escapeHtml(verifyEmail)}</strong> is not verified yet. A 6-digit OTP code has been dispatched.
             </p>
-            <a href="register.html?verify=true&email=${encodeURIComponent(verifyEmail)}${backupOtpParam}" class="btn cp-btn-primary btn-sm w-100 py-2 text-center text-white fw-semibold">
+            <a href="register.html?verify=true&email=${encodeURIComponent(verifyEmail)}" class="btn cp-btn-primary btn-sm w-100 py-2 text-center text-white fw-semibold">
               Enter 6-Digit OTP Code →
             </a>
           </div>

@@ -24,7 +24,8 @@
     "seed:admin": "node server/prisma/seedAdmin.js",
     "admin:unlock": "node server/scripts/unlockAdmin.js",
     "test:admin-isolation": "node tests/admin_subdomain_isolation_test.js",
-    "test:admin-phase2": "node tests/admin_phase2_verification_test.js"
+    "test:admin-phase2": "node tests/admin_phase2_verification_test.js",
+    "test:email": "node server/scripts/testEmail.js"
   },
   "keywords": [
     "careerpath",

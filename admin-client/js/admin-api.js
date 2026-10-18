@@ -8,7 +8,7 @@
 // Determine API base URL dynamically
 const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://localhost:5000'
-  : (window.location.origin.includes('admin.') ? window.location.origin.replace('admin.', 'api.') : window.location.origin);
+  : (window.location.origin.includes('admin.') ? '' : window.location.origin);
 
 /**
  * Strict HTML escaping utility to prevent Cross-Site Scripting (XSS).

@@ -138,7 +138,6 @@ const registerRecruiter = async (req, res, next) => {
         isVerified: true,
         verificationScore: verification.confidenceScore,
         verificationDetails: verification.verificationDetails,
-        recruiters: [],
       });
     }
 
@@ -146,7 +145,7 @@ const registerRecruiter = async (req, res, next) => {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
     const recruiterProfileData = {
-      company: company._id,
+      company: company.id || company._id,
       companyName: company.name,
       companyDomain: company.domain,
       title: (title || 'Technical Recruiter').trim(),
@@ -191,10 +190,13 @@ const registerRecruiter = async (req, res, next) => {
       await user.save();
     }
 
-    // Attach recruiter to company list
-    if (!company.recruiters.includes(user._id)) {
-      company.recruiters.push(user._id);
-      await company.save();
+    // Attach recruiter to company list if supported by data model
+    if (company && Array.isArray(company.recruiters)) {
+      const recruiterId = String(user.id || user._id);
+      if (!company.recruiters.includes(recruiterId)) {
+        company.recruiters.push(recruiterId);
+        await company.save();
+      }
     }
 
     if (process.env.NODE_ENV !== 'production') {
@@ -218,7 +220,7 @@ const registerRecruiter = async (req, res, next) => {
       backupOtp: !mailSent ? otpCode : undefined,
       message: mailSent
         ? `Corporate verification code sent to ${normalizedEmail}. Please check your Inbox and Spam/Junk folder.`
-        : `Corporate registration initiated. Your verification code is: ${otpCode}`,
+        : `Corporate registration initiated. A verification code has been dispatched to ${normalizedEmail}. Please check your Inbox and Spam/Junk folder.`,
     });
   } catch (error) {
     next(error);

@@ -254,7 +254,7 @@ const registerUser = async (req, res, next) => {
             ? 'Account pending verification. Distinct 6-digit verification codes have been sent to your WhatsApp and email!'
             : (mailSent
                 ? 'Account pending verification. A fresh 6-digit verification code has been sent to your email. Please also check your Spam/Junk folder!'
-                : `Email delivery delayed by provider. Your verification code is: ${emailOtp}`),
+                : 'Account pending verification. A 6-digit verification code has been dispatched to your email. Please check your Inbox and Spam/Junk folder.'),
         });
       }
     }
@@ -312,7 +312,7 @@ const registerUser = async (req, res, next) => {
         ? 'Account created! Distinct 6-digit verification codes have been sent to your WhatsApp and email.'
         : (mailSent
             ? 'Account created! A 6-digit verification code has been sent to your email. Please also check your Spam/Junk folder!'
-            : `Account created! Email delivery delayed by provider. Your verification code is: ${emailOtp}`),
+            : 'Account created! A 6-digit verification code has been dispatched to your email. Please check your Inbox and Spam/Junk folder.'),
     });
   } catch (error) {
     next(error);
@@ -557,7 +557,7 @@ const resendOtp = async (req, res, next) => {
         ? 'Distinct fresh 6-digit verification codes have been sent to your WhatsApp and email!'
         : (mailSent
             ? 'A fresh 6-digit verification code has been sent to your email. Please also check your Spam/Junk folder!'
-            : `Email delivery delayed by provider. Your fresh verification code is: ${emailOtp}`),
+            : 'A fresh 6-digit verification code has been dispatched to your email. Please check your Inbox and Spam/Junk folder.'),
       data: {
         email: normalizedEmail,
         phone: targetPhone || undefined,
@@ -654,7 +654,7 @@ const loginUser = async (req, res, next) => {
             ? 'Your account is not verified yet. Distinct 6-digit OTP codes have been sent to your WhatsApp and email!'
             : (mailSent
                 ? 'Your email address is not verified yet. A fresh 6-digit OTP code has been sent to your email. Please check your Inbox and Spam/Junk folder!'
-                : `Your email address is not verified yet. Backup code: ${emailOtp}. Please enter it to verify.`),
+                : 'Your email address is not verified yet. A verification code has been dispatched to your email. Please check your Inbox and Spam/Junk folder.'),
         });
       }
     }

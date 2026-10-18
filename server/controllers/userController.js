@@ -946,7 +946,7 @@ const sendLinkPhoneOtp = async (req, res, next) => {
       success: true,
       message: whatsappSent
         ? 'A 6-digit verification code has been sent to your WhatsApp number'
-        : `WhatsApp delivery simulated/pending. Your OTP is: ${otp}`,
+        : 'A 6-digit verification code has been dispatched to your WhatsApp number. Please check your WhatsApp messages.',
       phone: formattedPhone,
       whatsappSent,
       backupOtp: !whatsappSent ? otp : undefined,

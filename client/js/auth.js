@@ -810,10 +810,6 @@ function renderStrictPhoneGateModal() {
           <input type="text" class="spg-otp-digit" id="spgd5" maxlength="1" inputmode="numeric" autocomplete="off" />
         </div>
 
-        <div id="spgBackupOtpHide" class="d-none mb-3 p-2 rounded-2 text-center" style="background: rgba(99, 102, 241, 0.15); border: 1px dashed #6366f1;">
-          <span class="small text-slate-200">Simulated WhatsApp OTP: <strong id="spgBackupOtpCode" class="text-warning font-mono fs-6"></strong></span>
-        </div>
-
         <div class="d-flex align-items-center justify-content-between mb-3 small">
           <span id="spgTimerWrap" class="text-muted">
             Resend code in <strong id="spgTimerSeconds" class="text-primary font-mono">60</strong>s
@@ -846,8 +842,6 @@ function renderStrictPhoneGateModal() {
   const btnResend = overlay.querySelector('#spgBtnResendOtp');
   const timerWrap = overlay.querySelector('#spgTimerWrap');
   const timerSecs = overlay.querySelector('#spgTimerSeconds');
-  const backupOtpHide = overlay.querySelector('#spgBackupOtpHide');
-  const backupOtpCode = overlay.querySelector('#spgBackupOtpCode');
   const digitsContainer = overlay.querySelector('#spgDigitsContainer');
   const digitInputs = [0, 1, 2, 3, 4, 5].map((i) => overlay.querySelector(`#spgd${i}`));
 
@@ -996,13 +990,6 @@ function renderStrictPhoneGateModal() {
 
       step1.classList.add('d-none');
       step2.classList.remove('d-none');
-
-      if (data.backupOtp) {
-        backupOtpHide.classList.remove('d-none');
-        backupOtpCode.textContent = data.backupOtp;
-      } else {
-        backupOtpHide.classList.add('d-none');
-      }
 
       startTimer();
       setTimeout(() => digitInputs[0].focus(), 150);

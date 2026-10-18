@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Disheera — Enterprise Admin Command Center</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,7 +14,7 @@
     <!-- ── 1. Admin Sidebar ────────────────────────────────────── -->
     <aside class="admin-sidebar">
       <div class="sidebar-header">
-        <div class="sidebar-logo-icon">🛡️</div>
+        <div class="sidebar-logo-icon"><img src="assets/logo.svg" alt="Disheera" width="32" height="32" /></div>
         <div class="sidebar-logo-text">Disheera Admin</div>
       </div>
 
@@ -841,22 +839,27 @@
 
   <!-- ── MODAL 3: Hard Delete User Modal (SUPER_ADMIN) ───────── -->
   <div id="userHardDeleteModal" class="modal-overlay">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-destructive">
       <div class="modal-header">
-        <h3 class="modal-title" style="color: var(--accent-rose);">⚠️ Permanent Hard Delete</h3>
+        <h3 class="modal-title" style="color: var(--danger);">⚠️ Permanent Hard Delete</h3>
         <button class="btn-modal-close" onclick="closeModal('userHardDeleteModal')">&times;</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="hardDeleteUserId">
         <input type="hidden" id="hardDeleteTargetEmail">
-        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
-          <strong style="color: var(--accent-rose);">DANGER:</strong> This action is completely permanent and irreversibly purges this user, their roadmaps, milestones, and assessment history from the database.
+        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.85rem; line-height: 1.5;">
+          <strong style="color: var(--danger);">DANGER:</strong> This action is completely permanent and irreversibly purges this user, their roadmaps, milestones, and assessment history from the database.
         </p>
-        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-          To prevent accidental deletion, type the exact target account email (<strong id="hardDeleteEmailDisplay" style="color: var(--text-primary);"></strong>) below:
-        </p>
-        <div class="form-group">
-          <input type="email" id="hardDeleteConfirmationInput" class="form-input" placeholder="Type target account email to confirm" autocomplete="off">
+        <div style="background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.2); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.15rem;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--danger); font-weight: 600; margin-bottom: 0.4rem;">Target Account Verification</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+            <code id="hardDeleteEmailDisplay" style="color: var(--text); font-family: var(--font-mono); font-size: 0.85rem; word-break: break-all;"></code>
+            <button type="button" class="btn-secondary" style="font-size: 0.75rem; padding: 0.25rem 0.65rem; min-height: 28px; white-space: nowrap;" onclick="autofillHardDeleteConfirmation()">📋 Fill</button>
+          </div>
+        </div>
+        <div class="form-group" style="width: 100%; margin-bottom: 0.25rem;">
+          <label class="form-label" for="hardDeleteConfirmationInput" style="font-size: 12px; margin-bottom: 0.4rem; display: block; color: var(--text-dim);">Type or fill target email to confirm erasure:</label>
+          <input type="text" id="hardDeleteConfirmationInput" class="form-input" placeholder="Type target account email to confirm" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" style="width: 100%; box-sizing: border-box; font-family: var(--font-mono); font-size: 13px;">
         </div>
       </div>
       <div class="modal-footer">
@@ -1403,19 +1406,44 @@
       if (el) el.classList.remove('active');
     }
 
+    let hasAnimatedKpi = false;
+    function animateKpiValue(id, target, duration = 600) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const finalVal = parseInt(target, 10) || 0;
+      if (!hasAnimatedKpi && finalVal > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const start = performance.now();
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(ease * finalVal).toLocaleString();
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = finalVal.toLocaleString();
+          }
+        }
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = finalVal.toLocaleString();
+      }
+    }
+
     // ── Dashboard Overview ───────────────────────────────────────
     async function loadDashboardStats() {
       try {
         const res = await adminFetch('/api/admin/dashboard/stats');
         if (res.success && res.stats) {
           const s = res.stats;
-          document.getElementById('kpiTotalUsers').textContent = s.totalUsers || 0;
-          document.getElementById('kpiDailySignups').textContent = s.dailySignups || 0;
-          document.getElementById('kpiActiveRoadmaps').textContent = s.activeRoadmaps || 0;
-          document.getElementById('kpiTotalRecruiters').textContent = s.totalRecruiters || 0;
-          document.getElementById('kpiPendingRecruiters').textContent = s.pendingRecruiters || 0;
-          document.getElementById('kpiJobOpenings').textContent = s.totalJobOpenings || 0;
-          document.getElementById('kpiTotalAttempts').textContent = s.totalAttempts || 0;
+          animateKpiValue('kpiTotalUsers', s.totalUsers || 0);
+          animateKpiValue('kpiDailySignups', s.dailySignups || 0);
+          animateKpiValue('kpiActiveRoadmaps', s.activeRoadmaps || 0);
+          animateKpiValue('kpiTotalRecruiters', s.totalRecruiters || 0);
+          animateKpiValue('kpiPendingRecruiters', s.pendingRecruiters || 0);
+          animateKpiValue('kpiJobOpenings', s.totalJobOpenings || 0);
+          animateKpiValue('kpiTotalAttempts', s.totalAttempts || 0);
+          hasAnimatedKpi = true;
 
           if (res.systemHealth) {
             document.getElementById('kpiSystemDetails').textContent = 
@@ -1615,6 +1643,15 @@
       document.getElementById('hardDeleteEmailDisplay').textContent = email;
       document.getElementById('hardDeleteConfirmationInput').value = '';
       document.getElementById('userHardDeleteModal').classList.add('active');
+    }
+
+    function autofillHardDeleteConfirmation() {
+      const target = document.getElementById('hardDeleteTargetEmail').value;
+      const input = document.getElementById('hardDeleteConfirmationInput');
+      if (input && target) {
+        input.value = target;
+        input.focus();
+      }
     }
 
     async function submitHardDeleteUser() {
