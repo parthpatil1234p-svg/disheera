@@ -1143,15 +1143,21 @@
 
 /* Skills Grid Dedicated Scroll Wrapper */
 .skills-grid-scroll-wrap {
-  min-height: 200px;
-  max-height: 260px;
+  min-height: 220px;
+  max-height: 350px;
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
-  padding: 6px 8px;
+  padding: 8px 10px;
   border: 1px solid #E2E8F0;
   border-radius: var(--radius-sm);
   background: #FAFAFB;
+}
+
+@media (min-width: 992px) {
+  .skills-grid-scroll-wrap {
+    max-height: 380px;
+  }
 }
 
 .skills-grid-scroll-wrap::-webkit-scrollbar {
@@ -1185,24 +1191,32 @@
 .skill-picker-card {
   background: #FFFFFF;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
   transition: all var(--transition-fast);
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-  min-height: 44px;
+  min-height: 48px;
   width: 100%;
   box-sizing: border-box;
+  user-select: none;
 }
 
 .skill-picker-card:hover {
-  border-color: #CBD5E1;
-  box-shadow: var(--shadow-sm);
+  border-color: #94A3B8;
+  background: #F8FAFC;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.06);
 }
 
 .skill-picker-card.active-skill {
-  border-color: var(--color-indigo-500);
-  background: var(--color-surface-indigo);
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.12);
+  border-color: var(--color-indigo-500) !important;
+  background: var(--color-surface-indigo) !important;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.12) !important;
+}
+
+.skill-picker-card.active-skill:hover {
+  background: #E0E7FF !important;
+  border-color: var(--color-indigo-600) !important;
 }
 
 .skill-picker-card .form-check-label {
@@ -1217,33 +1231,40 @@
 
 .skill-name-text {
   display: inline-block;
-  max-width: 175px;
+  max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
 }
 
-@media (min-width: 1200px) {
-  .skill-name-text {
-    max-width: 220px;
-  }
-}
-
-@media (min-width: 1400px) {
+@media (min-width: 768px) {
   .skill-name-text {
     max-width: 260px;
   }
 }
 
-.skill-proficiency-select {
-  font-size: 0.74rem;
-  font-weight: 600;
-  padding: 0.15rem 0.35rem;
-  min-width: 74px;
-  max-width: 86px;
-  height: 28px;
-  border-color: #CBD5E1;
+@media (min-width: 1200px) {
+  .skill-name-text {
+    max-width: 320px;
+  }
+}
+
+.skill-add-affordance {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: #94A3B8;
+  transition: all 0.15s ease;
+}
+
+.skill-picker-card:hover .skill-add-affordance {
+  color: var(--color-indigo-600);
+  background: #EEF2FF;
+  transform: scale(1.1);
 }
 
 /* In-Card Instant Take Quiz Button */

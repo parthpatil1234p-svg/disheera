@@ -1165,39 +1165,36 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Build level badge element
       const levelSlot = col.querySelector('.skill-level-slot');
-      const levelBadge = document.createElement('span');
       if (isSelected) {
+        const levelBadge = document.createElement('span');
         if (isQuizVerified) {
-          levelBadge.className = 'badge bg-success-subtle text-success border border-success font-mono px-2 py-1 small';
+          levelBadge.className = 'badge bg-success-subtle text-success border border-success font-mono px-2 py-0.5 small';
           levelBadge.title = `Calibrated via Reality Check Quiz (${capitalize(currentProficiency)})`;
           levelBadge.innerHTML = '<i class="bi bi-patch-check-fill me-1"></i><span class="lvl-text"></span>';
           levelBadge.querySelector('.lvl-text').textContent = capitalize(currentProficiency);
         } else if (isCodeVerified) {
-          levelBadge.className = 'badge bg-info-subtle text-info border border-info font-mono px-2 py-1 small';
+          levelBadge.className = 'badge bg-info-subtle text-info border border-info font-mono px-2 py-0.5 small';
           levelBadge.title = 'Calibrated via GitHub Repository Code';
           levelBadge.innerHTML = '<i class="bi bi-github me-1"></i><span class="lvl-text"></span>';
           levelBadge.querySelector('.lvl-text').textContent = capitalize(currentProficiency);
         } else {
-          levelBadge.className = 'badge bg-warning-subtle text-warning border border-warning font-mono px-2 py-1 small animate-pulse-soft';
+          levelBadge.className = 'badge bg-warning-subtle text-warning border border-warning font-mono px-2 py-0.5 small animate-pulse-soft d-none d-sm-inline-block';
           levelBadge.title = 'Quiz required to determine knowledge level';
-          levelBadge.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Level Pending';
+          levelBadge.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Pending';
         }
+        levelSlot.replaceWith(levelBadge);
       } else {
-        levelBadge.className = 'badge bg-light text-muted border font-mono px-1.5 py-0.5 small opacity-75 d-none d-sm-inline-block';
-        levelBadge.style.fontSize = '0.65rem';
-        levelBadge.title = 'Knowledge level is calibrated via 90s quiz or Git';
-        levelBadge.innerHTML = '<i class="bi bi-shield-check me-0.5"></i>Quiz-Calibrated';
+        levelSlot.remove();
       }
-      levelSlot.replaceWith(levelBadge);
 
       // Build action button element
       const btnSlot = col.querySelector('.skill-btn-slot');
-      const actionBtn = document.createElement('button');
-      actionBtn.type = 'button';
-      actionBtn.className = 'btn btn-sm ms-1 text-nowrap';
-      actionBtn.setAttribute('data-skill', skill.name);
-
       if (isSelected) {
+        const actionBtn = document.createElement('button');
+        actionBtn.type = 'button';
+        actionBtn.className = 'btn btn-sm ms-1 text-nowrap py-0.5 px-2';
+        actionBtn.setAttribute('data-skill', skill.name);
+
         if (isQuizVerified) {
           actionBtn.className += ' btn-outline-success btn-grid-retest';
           actionBtn.title = 'Verified via Quiz • Click to Retest';
@@ -1211,12 +1208,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           actionBtn.title = 'Take 90s reality check quiz to calibrate knowledge level';
           actionBtn.innerHTML = '<i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)';
         }
+        btnSlot.replaceWith(actionBtn);
       } else {
-        actionBtn.className += ' btn-grid-take-quiz-outline btn-grid-take-quiz';
-        actionBtn.title = `Select and verify ${skill.displayName || skill.name} with 90s quiz`;
-        actionBtn.innerHTML = '<i class="bi bi-lightning-charge-fill me-1 text-warning"></i>Take Quiz';
+        const addAffordance = document.createElement('span');
+        addAffordance.className = 'skill-add-affordance text-muted small opacity-50 pe-1';
+        addAffordance.title = 'Click to select skill';
+        addAffordance.innerHTML = '<i class="bi bi-plus-lg fs-6"></i>';
+        btnSlot.replaceWith(addAffordance);
       }
-      btnSlot.replaceWith(actionBtn);
 
       // Allow clicking the card anywhere (except inside button, input, label, link) to toggle skill
       card.addEventListener('click', (e) => {
@@ -2728,7 +2727,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       const cleanSlug = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      const category = customSkillCategorySelect?.value || 'tool';
+      const detectSkillCategory = (name) => {
+        const n = (name || '').toLowerCase();
+        if (/rust|solidity|web3|solana|ethereum|blockchain|smart contract|crypto/i.test(n)) return 'web3';
+        if (/python|pandas|numpy|pytorch|tensorflow|scikit|sql|ml|ai|data|spark|r\b|tableau|power bi|bigquery/i.test(n)) return 'data';
+        if (/react|vue|angular|svelte|next|nuxt|html|css|tailwind|javascript|typescript|front/i.test(n)) return 'frontend';
+        if (/node|express|django|flask|spring|fastapi|golang|go\b|c\+\+|java\b|c#|\.net|back|postgres|mongo|mysql|redis/i.test(n)) return 'backend';
+        if (/aws|azure|gcp|docker|kubernetes|k8s|terraform|ci\/cd|devops|linux|cloud|nginx/i.test(n)) return 'cloud';
+        if (/flutter|react native|swift|kotlin|android|ios|dart|mobile/i.test(n)) return 'mobile';
+        if (/figma|adobe|ui|ux|photoshop|illustrator|blender|3d|maya|three\.js|design/i.test(n)) return 'design';
+        if (/unity|unreal|godot|game/i.test(n)) return 'gaming';
+        if (/selenium|cypress|playwright|jest|testing|qa/i.test(n)) return 'testing';
+        if (/security|penetration|cyber|ethical|owasp|audit/i.test(n)) return 'security';
+        if (/finance|accounting|excel|tally|tax|audit|valuation/i.test(n)) return 'finance';
+        if (/marketing|seo|sem|content|social media|growth|copywriting/i.test(n)) return 'marketing';
+        if (/product|agile|scrum|jira|management/i.test(n)) return 'product';
+        return (currentCategoryFilter && currentCategoryFilter !== 'all') ? currentCategoryFilter : 'tool';
+      };
+      const category = customSkillCategorySelect?.value || detectSkillCategory(rawName);
 
       // Explicitly register custom skill in active stream
       const assignedStreams = selectedStream === 'cross' ? ['engineering', 'business', 'marketing', 'creative', 'cross'] : [selectedStream];

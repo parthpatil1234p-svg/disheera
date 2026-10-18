@@ -601,46 +601,29 @@
               </div>
 
               <!-- Custom Skill Addition Bar -->
-              <div class="custom-skill-card p-2.5 rounded-2 stat-box-atlas mb-2.5 border border-line">
+              <div class="custom-skill-card p-2.5 p-md-3 rounded-2 stat-box-atlas mb-2.5 border border-line">
                 <div class="d-flex align-items-center justify-content-between mb-1.5 flex-wrap gap-2">
                   <span class="small fw-semibold text-ink" style="font-size: 0.84rem;">
-                    <i class="bi bi-plus-circle-dotted text-teal me-1"></i> Don't see your skill? Add Custom Skill
+                    <i class="bi bi-plus-circle text-teal me-1"></i> Don't see your skill? Add Custom Skill
                   </span>
-                  <span class="badge badge-navy small" style="font-size: 0.75rem;">Universal Skill Input</span>
+                  <span class="badge badge-navy small font-mono" style="font-size: 0.72rem;">Universal Skill Input</span>
                 </div>
-                <div class="row g-2 align-items-center">
-                  <div class="col-12 col-md-6">
-                    <label class="visually-hidden" for="customSkillName">Custom skill name</label>
-                    <input
-                      type="text"
-                      id="customSkillName"
-                      class="form-control form-control-sm"
-                      placeholder="e.g. Rust, Solidity, Blender, Swift..."
-                      maxlength="40"
-                    />
-                  </div>
-                  <div class="col-7 col-md-4">
-                    <label class="visually-hidden" for="customSkillCategory">Custom skill category</label>
-                    <select id="customSkillCategory" class="form-select form-select-sm">
-                      <option value="frontend">Frontend</option>
-                      <option value="backend">Backend</option>
-                      <option value="data">Data / AI</option>
-                      <option value="cloud">Cloud / DevOps</option>
-                      <option value="security">Security</option>
-                      <option value="mobile">Mobile</option>
-                      <option value="testing">QA / Testing</option>
-                      <option value="gaming">Gaming & 3D</option>
-                      <option value="web3">Web3 / Blockchain</option>
-                      <option value="product">Product / Agile</option>
-                      <option value="design">Design / UI-UX</option>
-                      <option value="tool">Tool / Other</option>
-                    </select>
-                  </div>
-                  <div class="col-5 col-md-2">
-                    <button type="button" id="btnAddCustomSkill" class="btn cp-btn-primary btn-sm w-100 py-1">
-                      <i class="bi bi-plus-lg me-1"></i> Add
-                    </button>
-                  </div>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text bg-white border-end-0 text-muted ps-2.5">
+                    <i class="bi bi-search text-teal"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="customSkillName"
+                    class="form-control border-start-0"
+                    placeholder="Type custom skill name (e.g. Rust, Solidity, Blender, Swift, Docker)..."
+                    maxlength="50"
+                    aria-label="Custom skill name"
+                  />
+                  <button type="button" id="btnAddCustomSkill" class="btn cp-btn-primary px-3 fw-semibold d-inline-flex align-items-center gap-1">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Add</span>
+                  </button>
                 </div>
                 <div id="customSkillFeedback" class="small mt-1.5 d-none" role="status" aria-live="polite"></div>
               </div>

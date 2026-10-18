@@ -6,6 +6,14 @@
  */
 
 const nodemailer = require('nodemailer');
+const dns = require('dns');
+
+// Force IPv4 resolution to prevent ENETUNREACH on IPv6 cloud egress (Render, AWS, Docker)
+if (dns.setDefaultResultOrder) {
+  try {
+    dns.setDefaultResultOrder('ipv4first');
+  } catch (_) {}
+}
 
 function createTransporter(port = null, secure = null, timeoutMs = 8000) {
   // 1. Universal / Custom SMTP (Brevo, SendGrid, Resend, AWS SES, Postmark, etc.)
@@ -30,6 +38,7 @@ function createTransporter(port = null, secure = null, timeoutMs = 8000) {
       host: smtpHost,
       port: targetPort,
       secure: isSecure,
+      family: 4, // Strict IPv4 socket to prevent ENETUNREACH on cloud
       auth: {
         user: smtpUser,
         pass: smtpPass,
@@ -51,6 +60,7 @@ function createTransporter(port = null, secure = null, timeoutMs = 8000) {
     host: 'smtp.gmail.com',
     port: targetPort,
     secure: isSecure,
+    family: 4, // Strict IPv4 socket to prevent ENETUNREACH on cloud
     auth: {
       user: smtpUser,
       pass: smtpPass, // 16-character Google App Password

@@ -13,8 +13,16 @@
 
 // ── 1. Environment variables must be loaded FIRST ────────────
 const path = require('path');
+const dns = require('dns');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('dotenv').config();
+
+// Enforce IPv4 DNS resolution first to prevent ENETUNREACH on IPv6 cloud egress (Render, AWS, Docker)
+if (dns.setDefaultResultOrder) {
+  try {
+    dns.setDefaultResultOrder('ipv4first');
+  } catch (_) {}
+}
 
 // ── Startup Environment Guard ─────────────────────────────────
 function validateEnv() {
