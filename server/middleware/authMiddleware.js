@@ -69,6 +69,35 @@ const protect = async (req, res, next) => {
       });
     }
 
+    // 4b. Enforce account status (suspension & deactivation)
+    const profileStatus = (typeof user.profileStatus === 'string')
+      ? (() => { try { return JSON.parse(user.profileStatus); } catch (_) { return {}; } })()
+      : (user.profileStatus || {});
+    const recruiterProfile = (typeof user.recruiterProfile === 'string')
+      ? (() => { try { return JSON.parse(user.recruiterProfile); } catch (_) { return {}; } })()
+      : (user.recruiterProfile || {});
+
+    const isDeleted = Boolean(profileStatus.isDeleted || recruiterProfile.isDeleted || user.isDeleted);
+    const isSuspended = Boolean(profileStatus.isSuspended || recruiterProfile.isSuspended || user.isSuspended);
+
+    if (isDeleted) {
+      return res.status(403).json({
+        success: false,
+        code: 'ACCOUNT_DEACTIVATED',
+        message: 'Your account has been deactivated.',
+      });
+    }
+
+    if (isSuspended) {
+      return res.status(403).json({
+        success: false,
+        code: 'ACCOUNT_SUSPENDED',
+        message: 'Your account has been suspended by an administrator. Please contact support.',
+        suspensionReason: profileStatus.suspensionReason || recruiterProfile.suspensionReason || null,
+        suspendedAt: profileStatus.suspendedAt || recruiterProfile.suspendedAt || null,
+      });
+    }
+
     // 5. Attach user to the request object for downstream handlers
     req.user = user;
     next();

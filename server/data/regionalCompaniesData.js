@@ -1317,7 +1317,13 @@ function getCompaniesByProximity(options = {}) {
   const uLat = hasCoords ? Number(userLat) : null;
   const uLng = hasCoords ? Number(userLng) : null;
 
-  let list = regionalCompanies.map(c => {
+  let sourceCompanies = regionalCompanies;
+  try {
+    const { getAllEmployers } = require('./radarEmployerStore');
+    sourceCompanies = getAllEmployers(false);
+  } catch (_) {}
+
+  let list = sourceCompanies.map(c => {
     let distance = c.distanceKm;
     if (hasCoords) {
       const calc = calculateHaversineKm(uLat, uLng, c.latitude, c.longitude);

@@ -83,6 +83,13 @@ async function generatePassportData(userOrId) {
   const collegeName = education.college || 'G.H. Raisoni College of Engineering and Management (GHRCEM), Jalgaon';
   const degreeBranch = `${education.course || 'B.Tech / BCA'} in ${education.branch || 'Computer Engineering'}`;
 
+  const profileStatus = (typeof user.profileStatus === 'string')
+    ? (() => { try { return JSON.parse(user.profileStatus); } catch (_) { return {}; } })()
+    : (user.profileStatus || {});
+
+  const passportRevocation = profileStatus.passportRevocation || null;
+  const isRevoked = Boolean(passportRevocation && passportRevocation.isRevoked);
+
   return {
     studentId: user.id,
     name: user.name || 'Verified Candidate',
@@ -105,7 +112,14 @@ async function generatePassportData(userOrId) {
     projectsPortfolio: rawProjects.filter(p => p.passed),
     cryptographicHash,
     verificationUrl: `https://disheera.site/passport.html?id=${user.id}`,
-    ledgerTimestamp: new Date().toISOString()
+    ledgerTimestamp: new Date().toISOString(),
+    status: isRevoked ? 'revoked' : 'verified',
+    isRevoked,
+    revocationDetails: isRevoked ? {
+      revokedAt: passportRevocation.revokedAt,
+      revokedBy: passportRevocation.revokedBy,
+      reason: passportRevocation.reason || 'Credential revoked by platform administrator'
+    } : null
   };
 }
 

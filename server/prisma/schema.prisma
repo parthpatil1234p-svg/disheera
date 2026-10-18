@@ -371,3 +371,117 @@ model CampusLead {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
+
+// ── 13. Admin Management Models ────────────────────────────────
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  MODERATOR
+}
+
+model AdminUser {
+  id                  String             @id @default(uuid())
+  name                String
+  email               String             @unique
+  password            String             // bcrypt cost 12
+  role                AdminRole          @default(MODERATOR)
+  mustChangePassword  Boolean            @default(true)
+  totpSecret          String?
+  totpEnabled         Boolean            @default(false)
+  failedLoginAttempts Int                @default(0)
+  lockedUntil         DateTime?
+  isActive            Boolean            @default(true)
+  lastLoginAt         DateTime?
+  lastLoginIp         String?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  auditLogs           AdminAuditLog[]
+  sessions            AdminSession[]
+
+  @@map("admin_users")
+}
+
+model AdminSession {
+  id        String    @id @default(uuid())
+  adminId   String
+  tokenHash String    @unique            // SHA-256 of JWT for instant revocation
+  ipAddress String?
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+
+  admin     AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([expiresAt])
+  @@map("admin_sessions")
+}
+
+model AdminAuditLog {
+  id         String     @id @default(uuid())
+  adminId    String
+  adminEmail String
+  action     String     // e.g., "USER_SUSPEND", "RECRUITER_VERIFY", "PASSPORT_REVOKE", "VIDEO_ADD", "RADAR_UPDATE", "PASSWORD_CHANGE"
+  targetType String     // "USER", "RECRUITER", "PASSPORT", "COURSE", "RADAR", "SYSTEM", "AUTH"
+  targetId   String?
+  details    Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime   @default(now())
+
+  admin      AdminUser  @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("admin_audit_logs")
+}
+
+model AdminLoginAttempt {
+  id          String    @id @default(uuid())
+  email       String
+  ipAddress   String
+  success     Boolean
+  reason      String?   // "INVALID_CREDENTIALS", "ACCOUNT_LOCKED", "INACTIVE_ACCOUNT", "PASSWORD_CHANGE_REQUIRED"
+  attemptedAt DateTime  @default(now())
+
+  @@index([email])
+  @@index([ipAddress])
+  @@index([attemptedAt])
+  @@map("admin_login_attempts")
+}
+
+// ── 17. RadarEmployer Model (Industrial Proximity Radar) ──────
+model RadarEmployer {
+  id                 String   @id
+  name               String
+  cluster            String
+  clusterGroup       String?
+  city               String
+  state              String
+  latitude           Float
+  longitude          Float
+  distanceKm         Float?   @default(0)
+  industry           String
+  website            String?  @default("")
+  openingsCount      Int      @default(0)
+  topRoles           Json?    @default("[]")
+  requiredSkills     Json?    @default("[]")
+  verifiedPartner    Boolean  @default(false)
+  hiringFresher      Boolean  @default(true)
+  internshipOffered  Boolean  @default(false)
+  campusDriveActive  Boolean  @default(false)
+  isBaseEmployer     Boolean  @default(false)
+  isActive           Boolean  @default(true)
+  addedBy            String?
+  updatedBy          String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([cluster])
+  @@index([clusterGroup])
+  @@index([city])
+  @@index([isActive])
+  @@map("radar_employers")
+}

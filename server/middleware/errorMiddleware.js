@@ -61,13 +61,26 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // ── Build response ────────────────────────────────────────────
+  // When NODE_ENV === 'production', never return stack traces or internal server paths
+  const isProduction = process.env.NODE_ENV === 'production';
+  let sanitizedMessage = message;
+
+  if (isProduction) {
+    if (statusCode >= 500) {
+      sanitizedMessage = 'Internal Server Error';
+    } else {
+      // Strip any internal filesystem paths (Windows or Unix paths)
+      sanitizedMessage = sanitizedMessage.replace(/(?:[a-zA-Z]:)?[\\\/][a-zA-Z0-9_.\\\/ -]+/g, '[redacted]');
+    }
+  }
+
   const response = {
     success: false,
-    message,
+    message: sanitizedMessage,
   };
 
   // Include stack trace in development only — never in production
-  if (process.env.NODE_ENV === 'development') {
+  if (!isProduction && err.stack) {
     response.stack = err.stack;
   }
 

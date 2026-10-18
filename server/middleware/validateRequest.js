@@ -27,6 +27,30 @@ const isValidEmail = (email) => {
   return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(email);
 };
 
+/** Forbidden administrative fields that clients must never inject into profile updates */
+const FORBIDDEN_ADMIN_FIELDS = [
+  'profileStatus',
+  'isSuspended',
+  'isDeleted',
+  'passportRevocation',
+  'suspensionReason',
+  'suspendedAt',
+  'role',
+  'isAdmin',
+  'isVerified',
+  'jobReadiness',
+  'adminRole',
+  'failedLoginAttempts',
+  'lockedUntil',
+];
+
+const checkForbiddenAdminFields = (body) => {
+  if (!body || typeof body !== 'object') return null;
+  return Object.keys(body).find(
+    (k) => FORBIDDEN_ADMIN_FIELDS.includes(k) || k.startsWith('profileStatus.') || k.startsWith('passportRevocation.')
+  );
+};
+
 /** Send the standardised validation error response */
 const sendValidationError = (res, errors) => {
   return res.status(400).json({
@@ -83,6 +107,15 @@ const validateLogin = (req, res, next) => {
 
 // ── validateProfileUpdate ──────────────────────────────────────
 const validateProfileUpdate = (req, res, next) => {
+  const forbiddenKey = checkForbiddenAdminFields(req.body);
+  if (forbiddenKey) {
+    return res.status(403).json({
+      success: false,
+      code: 'FORBIDDEN_ADMIN_FIELD',
+      message: `Modification of administrative field "${forbiddenKey}" is strictly prohibited.`,
+    });
+  }
+
   const { name, education, interests, skills, careerGoals } = req.body;
   const errors = [];
 
@@ -165,6 +198,15 @@ const validateProfileUpdate = (req, res, next) => {
  *  - no duplicate skills allowed (case-insensitive check)
  */
 const validateAssessment = (req, res, next) => {
+  const forbiddenKey = checkForbiddenAdminFields(req.body);
+  if (forbiddenKey) {
+    return res.status(403).json({
+      success: false,
+      code: 'FORBIDDEN_ADMIN_FIELD',
+      message: `Modification of administrative field "${forbiddenKey}" is strictly prohibited.`,
+    });
+  }
+
   const { education, interests, skills, careerGoals, encryptedVault } = req.body;
   const errors = [];
 

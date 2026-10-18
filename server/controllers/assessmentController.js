@@ -23,6 +23,22 @@ const ALLOWED_ASSESSMENT_FIELDS = [
   'encryptedVault'
 ];
 
+const FORBIDDEN_ADMIN_FIELDS = [
+  'profileStatus',
+  'isSuspended',
+  'isDeleted',
+  'passportRevocation',
+  'suspensionReason',
+  'suspendedAt',
+  'role',
+  'isAdmin',
+  'isVerified',
+  'jobReadiness',
+  'adminRole',
+  'failedLoginAttempts',
+  'lockedUntil',
+];
+
 // ── Authoritative Skill-to-Stream Map for Server-Side Enforcement ──
 const SKILL_STREAM_MAP = {
   // Frontend
@@ -227,6 +243,17 @@ const isInterestAllowedForStream = (interestKey, stream) => {
  */
 const updateAssessment = async (req, res, next) => {
   try {
+    const forbiddenFound = Object.keys(req.body).find(
+      (k) => FORBIDDEN_ADMIN_FIELDS.includes(k) || k.startsWith('profileStatus.') || k.startsWith('passportRevocation.')
+    );
+    if (forbiddenFound) {
+      return res.status(403).json({
+        success: false,
+        code: 'FORBIDDEN_ADMIN_FIELD',
+        message: `Modification of administrative field "${forbiddenFound}" is strictly prohibited.`,
+      });
+    }
+
     const updates = {};
     ALLOWED_ASSESSMENT_FIELDS.forEach((field) => {
       if (req.body[field] !== undefined) {

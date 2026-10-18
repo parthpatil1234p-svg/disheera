@@ -26,3 +26,6 @@ Thumbs.db
 # Build output (if any)
 dist/
 build/
+
+# Ephemeral Radar Overrides (Migrated to PostgreSQL)
+data/radar_overrides.json

@@ -319,7 +319,12 @@ const syncUserGraduation = async (userId, roadmap) => {
     });
 
     user.skills = Array.from(skillMap.values());
-    user.profileStatus = { status: 'graduated', currentRole: title };
+    const currentProfileStatus = (user.profileStatus && typeof user.profileStatus === 'object') ? user.profileStatus : {};
+    user.profileStatus = {
+      ...currentProfileStatus,
+      status: 'graduated',
+      currentRole: title,
+    };
     user.hasCompletedSkillVerification = true;
 
     await user.save();

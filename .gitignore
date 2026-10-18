@@ -62,3 +62,6 @@ SESSION_MEMORY.md
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+# Ephemeral Radar Overrides (Migrated to PostgreSQL)
+server/data/radar_overrides.json

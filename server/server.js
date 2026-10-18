@@ -33,14 +33,25 @@ function validateEnv() {
     missing.forEach(k => console.error(`  - ${k}`));
     console.error('\nPlease copy .env.example to .env and configure the missing variables.\n');
     process.exit(1);
-  } else {
-    if (!hasGroq && !hasGemini) {
-      console.warn('\n⚠️  [WARN] Neither GROQ_API_KEY nor GEMINI_API_KEY configured. AI Mentor & dynamic insights will use static fallbacks.');
-    } else if (!hasGroq || !hasGemini) {
-      console.warn('\n⚠️  [WARN] Running AI in single-engine mode. For full dual-engine fallback, configure both GROQ_API_KEY and GEMINI_API_KEY.');
-    }
-    console.log('✅ Environment configuration validated.');
   }
+
+  // Mandatory Dedicated ADMIN_JWT_SECRET Validation (Plan 45 v1.2)
+  const adminJwtSecret = process.env.ADMIN_JWT_SECRET;
+  if (!adminJwtSecret || adminJwtSecret.length < 32) {
+    console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must be configured with at least 32 characters in .env.');
+    process.exit(1);
+  }
+  if (adminJwtSecret === process.env.JWT_SECRET) {
+    console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must NOT be identical to JWT_SECRET.');
+    process.exit(1);
+  }
+
+  if (!hasGroq && !hasGemini) {
+    console.warn('\n⚠️  [WARN] Neither GROQ_API_KEY nor GEMINI_API_KEY configured. AI Mentor & dynamic insights will use static fallbacks.');
+  } else if (!hasGroq || !hasGemini) {
+    console.warn('\n⚠️  [WARN] Running AI in single-engine mode. For full dual-engine fallback, configure both GROQ_API_KEY and GEMINI_API_KEY.');
+  }
+  console.log('✅ Environment configuration validated.');
 }
 validateEnv();
 
@@ -78,6 +89,19 @@ const whatsappRoutes = require('./routes/whatsappRoutes');
 const supportRoutes = require('./routes/supportRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const passportRoutes = require('./routes/passportRoutes');
+const adminHostGuard = require('./middleware/adminHostGuard');
+const adminAuthRoutes = require('./routes/adminAuthRoutes');
+const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
+const adminUserRoutes = require('./routes/adminUserRoutes');
+const adminRecruiterRoutes = require('./routes/adminRecruiterRoutes');
+const adminPassportRoutes = require('./routes/adminPassportRoutes');
+const adminContentRoutes = require('./routes/adminContentRoutes');
+const adminRadarRoutes = require('./routes/adminRadarRoutes');
+const adminRoadmapRoutes = require('./routes/adminRoadmapRoutes');
+const adminAuditRoutes = require('./routes/adminAuditRoutes');
+const adminManagementRoutes = require('./routes/adminManagementRoutes');
+const adminAlertRoutes = require('./routes/adminAlertRoutes');
+const adminSystemRoutes = require('./routes/adminSystemRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
 
 // ── 2. Connect Database (100% Pure Supabase PostgreSQL via Prisma) ──
@@ -86,8 +110,12 @@ connectPrisma();
 // ── 3. Create Express app ─────────────────────────────────────
 const app = express();
 
-// Enable trust proxy for Render / Vercel reverse proxy rate-limiting
-app.set('trust proxy', 1);
+// ── Trust Proxy Configuration for Multi-Hop Reverse Proxy Architecture ──
+// Production Topology: Client Browser -> Vercel Edge (admin.disheera.site rewrite) -> Render Load Balancer / Reverse Proxy -> Node.js Express
+// Total upstream proxy hops = 2. Setting trust proxy to 2 in production ensures req.ip correctly identifies
+// the true end-user IP from X-Forwarded-For, preventing spoofing while ensuring accurate rate-limiting and audit IP logs.
+// In development, fallback to 1.
+app.set('trust proxy', process.env.NODE_ENV === 'production' ? 2 : 1);
 
 // ── Security: Helmet sets robust HTTP headers (HSTS, CSP, X-Frame-Options) ──
 app.use(helmet({
@@ -125,11 +153,11 @@ app.use(helmet({
         "http://127.0.0.1:5000",
         "http://localhost:5500",
         "http://127.0.0.1:5500",
+        "http://localhost:5501",
+        "http://127.0.0.1:5501",
         "https://disheera.site",
         "https://www.disheera.site",
-        "https://disheera.site",
-        "https://disheera.site",
-        "https://www.disheera.site",
+        "https://admin.disheera.site",
         "https://api.disheera.site",
         "https://api.groq.com",
         "https://generativelanguage.googleapis.com",
@@ -147,18 +175,24 @@ app.use(helmet({
 }));
 
 // ── CORS: Strict Domain Whitelist ─────────────────────────────
+const envOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(o => o.trim())
+  .filter(Boolean);
+
 const rawOrigins = [
+  ...envOrigins,
   process.env.CLIENT_URL,
   process.env.PROD_CLIENT_URL,
   'https://disheera.site',
   'https://www.disheera.site',
+  'https://admin.disheera.site',
   'https://api.disheera.site',
   'https://apivercel.disheera.site',
-  'https://disheera.site',
-  'https://www.disheera.site',
-  'https://disheera.site',
   'http://localhost:5500',
   'http://127.0.0.1:5500',
+  'http://localhost:5501',
+  'http://127.0.0.1:5501',
   'http://localhost:5000',
   'http://127.0.0.1:5000',
   'http://localhost:3000',
@@ -479,6 +513,46 @@ app.use('/api/projects', projectRoutes);
 
 // Public Shareable Skill Passport with Dynamic QR Code
 app.use('/api/passport', passportRoutes);
+
+// ── Dedicated Subdomain Admin Panel Routes (/api/admin/*) ────
+// Layer 1: Subdomain Host Guard restricts all admin endpoints to admin.disheera.site (and dev hosts)
+app.use('/api/admin', adminHostGuard);
+
+// Subdomain Admin Authentication (Login, Me, Change Password, Logout)
+app.use('/api/admin/auth', adminAuthRoutes);
+
+// Subdomain Admin Dashboard Overview & KPI Aggregation
+app.use('/api/admin/dashboard', adminDashboardRoutes);
+
+// Subdomain Admin User Management (Dossiers, Suspension, Deletion)
+app.use('/api/admin/users', adminUserRoutes);
+
+// Subdomain Admin Recruiter Management (Corporate Verification, Approval, Rejection)
+app.use('/api/admin/recruiters', adminRecruiterRoutes);
+
+// Subdomain Admin Skill Passport Management (Oversight, Revocation, Reinstatement)
+app.use('/api/admin/passports', adminPassportRoutes);
+
+// Subdomain Admin Curated Video Content Management (Plan 43 Masterclasses)
+app.use('/api/admin/content', adminContentRoutes);
+
+// Subdomain Admin Industrial Proximity Radar Management (Plan 44 60+ Employers)
+app.use('/api/admin/radar', adminRadarRoutes);
+
+// Subdomain Admin Student Roadmaps & Assessment Anomaly Detection
+app.use('/api/admin/roadmaps', adminRoadmapRoutes);
+
+// Subdomain Admin Immutable Audit Logs (Read-only, IP masked for non-superadmin)
+app.use('/api/admin/audit-logs', adminAuditRoutes);
+
+// Subdomain Admin Personnel & Role Management (SUPER_ADMIN only)
+app.use('/api/admin/admins', adminManagementRoutes);
+
+// Subdomain Admin WhatsApp & n8n Broadcast Alerts (Confirmation & rate-limited)
+app.use('/api/admin/alerts', adminAlertRoutes);
+
+// Subdomain Admin System Telemetry & Operational Health
+app.use('/api/admin/system', adminSystemRoutes);
 
 // ── 404 Handler ───────────────────────────────────────────────
 app.use((req, res) => {

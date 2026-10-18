@@ -23,6 +23,7 @@ const {
   connectGitHub,
   getGitHubConfig,
 } = require('../controllers/authController');
+const { getMyProfile } = require('../controllers/userController');
 const { validateRegister, validateLogin } = require('../middleware/validateRequest');
 const { protect } = require('../middleware/authMiddleware');
 const otpRateLimiter = require('../middleware/otpRateLimiter');
@@ -40,6 +41,9 @@ router.post('/resend-otp', otpRateLimiter, resendOtp);
 
 // POST /api/auth/login
 router.post('/login', validateLogin, loginUser);
+
+// GET /api/auth/me — Session restore / verify current user profile
+router.get('/me', protect, getMyProfile);
 
 // POST /api/auth/google — Google OAuth2 Sign-In & Sign-Up
 router.post('/google', googleAuth);

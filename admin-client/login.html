@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Disheera — Dedicated Admin Subdomain Authentication</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+      position: relative;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-indigo));
+      border-radius: 16px 16px 0 0;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .auth-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(99, 102, 241, 0.2));
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .auth-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .auth-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .auth-domain-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      color: var(--primary-cyan);
+      margin-top: 0.75rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .form-input:focus {
+      border-color: var(--primary-cyan);
+      box-shadow: 0 0 0 3px var(--primary-cyan-glow);
+    }
+    .alert-box {
+      display: none;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+    .alert-error {
+      background: var(--accent-rose-bg);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: var(--accent-rose);
+    }
+    .alert-lockout {
+      background: var(--accent-amber-bg);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent-amber);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 0.85rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+    }
+    .auth-footer-notice {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- 1. Primary Sign-In Card -->
+    <div id="loginCard" class="auth-card">
+      <div class="auth-header">
+        <div class="auth-icon">🛡️</div>
+        <h1 class="auth-title">Disheera Command Center</h1>
+        <p class="auth-subtitle">Restricted Enterprise Administration</p>
+        <div class="auth-domain-pill">
+          <span>🔒</span> admin.disheera.site
+        </div>
+      </div>
+
+      <div id="loginErrorBox" class="alert-box alert-error"></div>
+      
+      <div id="loginLockoutBox" class="alert-box alert-lockout">
+        ⚠️ <strong>Security Lockout:</strong> Too many failed attempts. Try again in <span id="lockoutRemainingSeconds">900</span>s.
+      </div>
+
+      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Admin Email</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="admin@domain.com" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn-primary btn-submit">Sign In to Admin Panel</button>
+      </form>
+
+      <div class="auth-footer-notice">
+        Access restricted to authorized personnel only. All access attempts are cryptographically verified and recorded in the audit ledger.
+      </div>
+    </div>
+
+    <!-- 2. Forced Initial Password Change Card -->
+    <div id="changePasswordCard" class="auth-card" style="display: none;">
+      <div class="auth-header">
+        <div class="auth-icon">🔑</div>
+        <h1 class="auth-title">Initial Password Reset</h1>
+        <p class="auth-subtitle">Mandatory Security Requirement</p>
+        <div class="auth-domain-pill" style="border-color: rgba(245, 158, 11, 0.3); color: var(--accent-amber);">
+          <span>⚠️</span> Temporary credentials must be changed
+        </div>
+      </div>
+
+      <div id="changePasswordErrorBox" class="alert-box alert-error"></div>
+
+      <form id="adminChangePasswordForm" onsubmit="handleChangePassword(event)">
+        <input type="hidden" id="changeOldPassword">
+
+        <div class="form-group">
+          <label class="form-label" for="changeNewPassword">New Secure Password</label>
+          <input type="password" id="changeNewPassword" class="form-input" placeholder="At least 10 characters" required minlength="10" autocomplete="new-password">
+          <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 0.3rem;">
+            Must contain at least 10 characters with symbols, digits, and mixed-case letters.
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="changeConfirmPassword">Confirm New Password</label>
+          <input type="password" id="changeConfirmPassword" class="form-input" placeholder="Re-enter new password" required minlength="10" autocomplete="new-password">
+        </div>
+
+        <button type="submit" id="btnChangePasswordSubmit" class="btn-primary btn-submit">Set New Password & Proceed</button>
+      </form>
+
+      <div class="auth-footer-notice">
+        Upon password change, all other active administrative sessions for this account will be automatically terminated.
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin-api.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script>
+    // Check if change password mode requested via URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('changePassword') === 'true') {
+      document.getElementById('loginCard').style.display = 'none';
+      document.getElementById('changePasswordCard').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

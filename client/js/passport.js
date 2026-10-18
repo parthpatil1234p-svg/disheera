@@ -7,6 +7,16 @@
 (function () {
   'use strict';
 
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   function getApiBase() {
     return window.API_BASE_URL ||
       (window.location.origin.includes('5500') ? 'http://localhost:5000' : 'https://api.disheera.site');
@@ -47,6 +57,20 @@
 
     document.getElementById('passportLoading').classList.add('d-none');
     document.getElementById('passportContent').classList.remove('d-none');
+
+    // Revocation status banner
+    const existingBanner = document.getElementById('passportRevocationAlert');
+    if (existingBanner) existingBanner.remove();
+
+    if (p.isRevoked || p.status === 'revoked') {
+      const banner = document.createElement('div');
+      banner.id = 'passportRevocationAlert';
+      banner.className = 'alert alert-danger d-flex align-items-center gap-3 mb-4 shadow-sm border border-danger';
+      const reason = p.revocationDetails?.reason || 'Administrative revocation';
+      banner.innerHTML = '<i class="bi bi-shield-x fs-2 text-danger"></i><div><h6 class="fw-bold mb-1 text-danger">⚠️ CREDENTIAL REVOKED</h6><p class="mb-0 small text-dark">This credential has been officially revoked by platform administrators. Reason: <strong>' + escapeHtml(reason) + '</strong></p></div>';
+      const content = document.getElementById('passportContent');
+      content.insertBefore(banner, content.firstChild);
+    }
 
     // 1. Header identity
     document.getElementById('pName').textContent = p.name;

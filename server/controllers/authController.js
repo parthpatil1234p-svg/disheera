@@ -106,6 +106,46 @@ const formatUser = (user) => {
   };
 };
 
+// ── Helper: check suspension & deactivation ────────────────────
+const checkAccountSuspension = (user) => {
+  if (!user) return null;
+  const profileStatus = (typeof user.profileStatus === 'string')
+    ? (() => { try { return JSON.parse(user.profileStatus); } catch (_) { return {}; } })()
+    : (user.profileStatus || {});
+  const recruiterProfile = (typeof user.recruiterProfile === 'string')
+    ? (() => { try { return JSON.parse(user.recruiterProfile); } catch (_) { return {}; } })()
+    : (user.recruiterProfile || {});
+
+  const isDeleted = Boolean(profileStatus.isDeleted || recruiterProfile.isDeleted || user.isDeleted);
+  const isSuspended = Boolean(profileStatus.isSuspended || recruiterProfile.isSuspended || user.isSuspended);
+
+  if (isDeleted) {
+    return {
+      status: 403,
+      body: {
+        success: false,
+        code: 'ACCOUNT_DEACTIVATED',
+        message: 'This account has been deactivated. Please contact support.',
+      }
+    };
+  }
+
+  if (isSuspended) {
+    return {
+      status: 403,
+      body: {
+        success: false,
+        code: 'ACCOUNT_SUSPENDED',
+        message: 'Your account has been suspended by an administrator. Please contact support.',
+        suspensionReason: profileStatus.suspensionReason || recruiterProfile.suspensionReason || null,
+        suspendedAt: profileStatus.suspendedAt || recruiterProfile.suspendedAt || null,
+      }
+    };
+  }
+
+  return null;
+};
+
 // ── registerUser ───────────────────────────────────────────────
 /**
  * POST /api/auth/register
@@ -307,6 +347,12 @@ const verifyOtp = async (req, res, next) => {
         success: false,
         message: 'User account not found',
       });
+    }
+
+    // Enforce suspension & deactivation
+    const suspensionCheck = checkAccountSuspension(user);
+    if (suspensionCheck) {
+      return res.status(suspensionCheck.status).json(suspensionCheck.body);
     }
 
     if (user.isVerified) {
@@ -553,6 +599,12 @@ const loginUser = async (req, res, next) => {
       });
     }
 
+    // 2b. Check suspension & deactivation
+    const suspensionCheck = checkAccountSuspension(user);
+    if (suspensionCheck) {
+      return res.status(suspensionCheck.status).json(suspensionCheck.body);
+    }
+
     // 3. Enforce email verification (admin accounts are pre-verified)
     const isAdmin = user.role === 'admin' || user.isAdmin;
     if (!user.isVerified) {
@@ -734,6 +786,12 @@ const googleAuth = async (req, res, next) => {
     let isNewUser = false;
 
     if (user) {
+      // Enforce suspension & deactivation
+      const suspensionCheck = checkAccountSuspension(user);
+      if (suspensionCheck) {
+        return res.status(suspensionCheck.status).json(suspensionCheck.body);
+      }
+
       // Link Google ID if not linked
       if (!user.googleId) {
         user.googleId = googleData.googleId;
@@ -872,6 +930,12 @@ const githubAuth = async (req, res, next) => {
     let isNewUser = false;
 
     if (user) {
+      // Enforce suspension & deactivation
+      const suspensionCheck = checkAccountSuspension(user);
+      if (suspensionCheck) {
+        return res.status(suspensionCheck.status).json(suspensionCheck.body);
+      }
+
       if (!user.githubId) user.githubId = githubId;
       if (!user.avatarUrl && avatarUrl) user.avatarUrl = avatarUrl;
       if (!user.isVerified) user.isVerified = true;

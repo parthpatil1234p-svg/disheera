@@ -33,6 +33,24 @@ const ALLOWED_UPDATE_FIELDS = [
   'hasCompletedSkillVerification',
 ];
 
+// ── Forbidden administrative fields ───────────────────────────
+// Direct modification of these security/audit fields by users is strictly blocked.
+const FORBIDDEN_ADMIN_FIELDS = [
+  'profileStatus',
+  'isSuspended',
+  'isDeleted',
+  'passportRevocation',
+  'suspensionReason',
+  'suspendedAt',
+  'role',
+  'isAdmin',
+  'isVerified',
+  'jobReadiness',
+  'adminRole',
+  'failedLoginAttempts',
+  'lockedUntil',
+];
+
 // ── getMyProfile ───────────────────────────────────────────────
 /**
  * GET /api/users/me
@@ -121,6 +139,18 @@ const getMyProfile = async (req, res, next) => {
  */
 const updateMyProfile = async (req, res, next) => {
   try {
+    // 0. Strict security check: Reject payloads attempting to modify administrative state
+    const forbiddenFound = Object.keys(req.body).find(
+      (k) => FORBIDDEN_ADMIN_FIELDS.includes(k) || k.startsWith('profileStatus.') || k.startsWith('passportRevocation.')
+    );
+    if (forbiddenFound) {
+      return res.status(403).json({
+        success: false,
+        code: 'FORBIDDEN_ADMIN_FIELD',
+        message: `Modification of administrative field "${forbiddenFound}" is strictly prohibited.`,
+      });
+    }
+
     // 1. Extract only the permitted fields from the body
     const updates = {};
     ALLOWED_UPDATE_FIELDS.forEach((field) => {
@@ -776,6 +806,17 @@ const getResumePreview = async (req, res, next) => {
  */
 const updateProfileStatus = async (req, res, next) => {
   try {
+    // 0. Strict input validation: reject any extra or forbidden fields
+    const allowedKeys = ['status', 'currentRole'];
+    const extraKeys = Object.keys(req.body).filter((k) => !allowedKeys.includes(k));
+    if (extraKeys.length > 0) {
+      return res.status(403).json({
+        success: false,
+        code: 'FORBIDDEN_OR_UNKNOWN_FIELDS',
+        message: `Only status and currentRole may be updated. Forbidden or unknown fields: ${extraKeys.join(', ')}`,
+      });
+    }
+
     const { status, currentRole } = req.body;
     const validStatuses = ['learning', 'job_seeking', 'working'];
     if (status && !validStatuses.includes(status)) {
@@ -785,13 +826,25 @@ const updateProfileStatus = async (req, res, next) => {
       });
     }
 
-    const updates = {};
-    if (status) updates['profileStatus.status'] = status;
-    if (currentRole !== undefined) updates['profileStatus.currentRole'] = currentRole;
+    const existingUser = await User.findById(req.user._id);
+    if (!existingUser) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const currentProfileStatus = (existingUser.profileStatus && typeof existingUser.profileStatus === 'object')
+      ? existingUser.profileStatus
+      : {};
+
+    // Preserve all existing security/audit fields: isSuspended, isDeleted, passportRevocation, etc.
+    const updatedProfileStatus = {
+      ...currentProfileStatus,
+    };
+    if (status) updatedProfileStatus.status = status;
+    if (currentRole !== undefined) updatedProfileStatus.currentRole = currentRole;
 
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      { $set: updates },
+      { $set: { profileStatus: updatedProfileStatus } },
       { new: true }
     );
 

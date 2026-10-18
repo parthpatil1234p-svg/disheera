@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Disheera — Enterprise Admin Command Center</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- ── 1. Admin Sidebar ────────────────────────────────────── -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-icon">🛡️</div>
+        <div class="sidebar-logo-text">Disheera Admin</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" onclick="switchView('dashboard')">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Overview</span>
+        </a>
+        <a class="nav-link" onclick="switchView('users')">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">User Directory</span>
+        </a>
+        <a class="nav-link" onclick="switchView('recruiters')">
+          <span class="nav-icon">🏢</span>
+          <span class="nav-label">Recruiter Vetting</span>
+        </a>
+        <a class="nav-link" onclick="switchView('passports')">
+          <span class="nav-icon">🛡️</span>
+          <span class="nav-label">Skill Passports</span>
+        </a>
+        <a class="nav-link" onclick="switchView('content')">
+          <span class="nav-icon">🎬</span>
+          <span class="nav-label">Masterclasses</span>
+        </a>
+        <a class="nav-link" onclick="switchView('radar')">
+          <span class="nav-icon">📡</span>
+          <span class="nav-label">Proximity Radar</span>
+        </a>
+        <a class="nav-link" onclick="switchView('roadmaps')">
+          <span class="nav-icon">🗺️</span>
+          <span class="nav-label">Roadmaps & Telemetry</span>
+        </a>
+        <a class="nav-link" onclick="switchView('audit')">
+          <span class="nav-icon">📜</span>
+          <span class="nav-label">Audit Logs</span>
+        </a>
+        <a class="nav-link" id="navLinkAdmins" onclick="switchView('admins')">
+          <span class="nav-icon">🔑</span>
+          <span class="nav-label">Personnel & RBAC</span>
+        </a>
+        <a class="nav-link" onclick="switchView('alerts')">
+          <span class="nav-icon">📢</span>
+          <span class="nav-label">Broadcast Alerts</span>
+        </a>
+        <a class="nav-link" onclick="switchView('system')">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">System Health</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="admin-profile-pill">
+          <div class="admin-profile-info">
+            <span id="adminCurrentName" class="admin-profile-name">Admin</span>
+            <span id="adminCurrentRole" class="admin-profile-role">SUPER_ADMIN</span>
+          </div>
+          <button class="btn-logout" onclick="handleAdminLogout()" title="Log out">
+            🚪
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── 2. Admin Main Content ───────────────────────────────── -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div class="header-title-box">
+          <h2 id="pageHeading" class="header-title">Executive Overview</h2>
+          <span id="envIndicator" class="badge badge-emerald">Live Active</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-action" onclick="refreshCurrentView()">
+            🔄 Refresh
+          </button>
+          <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">
+            admin.disheera.site
+          </div>
+        </div>
+      </header>
+
+      <!-- ── VIEW 1: Dashboard Overview ───────────────────────── -->
+      <section id="view-dashboard" class="content-view active">
+        <!-- 8 KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Total Users</span>
+              <span class="kpi-icon">👥</span>
+            </div>
+            <div class="kpi-value" id="kpiTotalUsers">—</div>
+            <div class="kpi-subtext">All registered accounts</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Daily Signups</span>
+              <span class="kpi-icon">⚡</span>
+            </div>
+            <div class="kpi-value" id="kpiDailySignups">—</div>
+            <div class="kpi-subtext">Last 24 hours</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Active Learners</span>
+              <span class="kpi-icon">🗺️</span>
+            </div>
+            <div class="kpi-value" id="kpiActiveRoadmaps">—</div>
+            <div class="kpi-subtext">Active career roadmaps</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Corporate Recruiters</span>
+              <span class="kpi-icon">🏢</span>
+            </div>
+            <div class="kpi-value" id="kpiTotalRecruiters">—</div>
+            <div class="kpi-subtext">Registered hiring partners</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Pending Approvals</span>
+              <span class="kpi-icon">⏳</span>
+            </div>
+            <div class="kpi-value" id="kpiPendingRecruiters" style="color: var(--accent-amber);">—</div>
+            <div class="kpi-subtext">Recruiters awaiting vetting</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Live Job Openings</span>
+              <span class="kpi-icon">💼</span>
+            </div>
+            <div class="kpi-value" id="kpiJobOpenings">—</div>
+            <div class="kpi-subtext">Active corporate listings</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">Test Attempts</span>
+              <span class="kpi-icon">📝</span>
+            </div>
+            <div class="kpi-value" id="kpiTotalAttempts">—</div>
+            <div class="kpi-subtext">Skill checks & milestones</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-label">System Health</span>
+              <span class="kpi-icon">🟢</span>
+            </div>
+            <div class="kpi-value" id="kpiSystemUptime" style="font-size: 1.4rem;">Operational</div>
+            <div class="kpi-subtext" id="kpiSystemDetails">PostgreSQL · Prisma ORM</div>
+          </div>
+        </div>
+
+        <!-- Recent Audit Log Feed Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Recent Administrative Audit Trail</h3>
+            <button class="btn-action" onclick="switchView('audit')">View Full Log</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Admin</th>
+                  <th>Action</th>
+                  <th>Target Type</th>
+                  <th>Target ID</th>
+                </tr>
+              </thead>
+              <tbody id="recentAuditTableBody">
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading audit trail...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── VIEW 2: Users Management ─────────────────────────── -->
+      <section id="view-users" class="content-view">
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Registered User Directory</h3>
+            <div class="panel-filters">
+              <input type="text" id="userSearchInput" class="input-search" placeholder="Search by name or email..." onkeyup="debounceUserSearch()">
+              
+              <select id="userRoleFilter" class="select-filter" onchange="loadUsers(1)">
+                <option value="all">All Roles</option>
+                <option value="student">Students</option>
+                <option value="recruiter">Recruiters</option>
+              </select>
+
+              <select id="userStreamFilter" class="select-filter" onchange="loadUsers(1)">
+                <option value="all">All Streams</option>
+                <option value="engineering">Engineering</option>
+                <option value="medical">Medical</option>
+                <option value="commerce">Commerce</option>
+                <option value="arts">Arts</option>
+                <option value="science">Science</option>
+              </select>
+
+              <select id="userStatusFilter" class="select-filter" onchange="loadUsers(1)">
+                <option value="all">All Statuses</option>
+                <option value="active">Active Only</option>
+                <option value="suspended">Suspended Only</option>
+                <option value="verified">Verified Only</option>
+                <option value="unverified">Unverified Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>User Profile</th>
+                  <th>Role</th>
+                  <th>Stream</th>
+                  <th>Status</th>
+                  <th>Joined Date</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading user records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-dock">
+            <span id="userPaginationText">Showing 0 of 0 users</span>
+            <div class="pagination-controls">
+              <button id="btnUserPrev" class="btn-page" onclick="changeUserPage(-1)">Previous</button>
+              <span id="userCurrentPage" style="padding: 0 0.5rem; font-weight: 600;">1</span>
+              <button id="btnUserNext" class="btn-page" onclick="changeUserPage(1)">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── VIEW 3: Recruiter Vetting ────────────────────────── -->
+      <section id="view-recruiters" class="content-view">
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Corporate Recruiter Verification Queue</h3>
+            <div class="panel-filters">
+              <input type="text" id="recruiterSearchInput" class="input-search" placeholder="Search recruiter or company..." onkeyup="debounceRecruiterSearch()">
+              
+              <select id="recruiterStatusFilter" class="select-filter" onchange="loadRecruiters(1)">
+                <option value="all">All Verification Statuses</option>
+                <option value="pending" selected>Pending Verification</option>
+                <option value="verified">Verified Corporate Partners</option>
+                <option value="rejected">Rejected Applications</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Company & Recruiter</th>
+                  <th>Work Email</th>
+                  <th>Website / Domain</th>
+                  <th>Status</th>
+                  <th>Openings</th>
+                  <th>Registered</th>
+                  <th style="text-align: right;">Vetting Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recruitersTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading recruiter accounts...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-dock">
+            <span id="recruiterPaginationText">Showing 0 of 0 recruiters</span>
+            <div class="pagination-controls">
+              <button id="btnRecruiterPrev" class="btn-page" onclick="changeRecruiterPage(-1)">Previous</button>
+              <span id="recruiterCurrentPage" style="padding: 0 0.5rem; font-weight: 600;">1</span>
+              <button id="btnRecruiterNext" class="btn-page" onclick="changeRecruiterPage(1)">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── VIEW: Audit Logs ───────────────────────────────── -->
+      <section id="view-audit" class="content-view">
+        <div class="panel">
+          <div class="panel-header" style="flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="panel-title">System Audit Log History</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                Immutable administrative security ledger. IPs masked for non-superadmin personnel.
+              </p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <span class="badge badge-indigo">Immutable Security Trail</span>
+              <button class="btn-action" onclick="loadAuditLogs(1)">🔄 Refresh</button>
+            </div>
+          </div>
+
+          <!-- Advanced Filters Bar -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.75rem; background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); margin-bottom: 1.25rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem;" for="auditSearchInput">Search Query</label>
+              <input type="text" id="auditSearchInput" class="form-input" placeholder="Operator, target, action..." onkeyup="debounceAuditSearch()">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem;" for="auditActionFilter">Action Type</label>
+              <select id="auditActionFilter" class="form-input" onchange="loadAuditLogs(1)">
+                <option value="">All Actions</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem;" for="auditTargetTypeFilter">Target Type</label>
+              <select id="auditTargetTypeFilter" class="form-input" onchange="loadAuditLogs(1)">
+                <option value="">All Targets</option>
+                <option value="USER">USER</option>
+                <option value="RECRUITER">RECRUITER</option>
+                <option value="PASSPORT">PASSPORT</option>
+                <option value="VIDEO">VIDEO</option>
+                <option value="RADAR_EMPLOYER">RADAR_EMPLOYER</option>
+                <option value="ROADMAP">ROADMAP</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="SYSTEM">SYSTEM</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem;" for="auditStartDate">Start Date</label>
+              <input type="date" id="auditStartDate" class="form-input" onchange="loadAuditLogs(1)">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem;" for="auditEndDate">End Date</label>
+              <input type="date" id="auditEndDate" class="form-input" onchange="loadAuditLogs(1)">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Admin Operator</th>
+                  <th>Action</th>
+                  <th>Target Type</th>
+                  <th>Target ID</th>
+                  <th>IP Address</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="fullAuditTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading audit records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="auditPagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 0.75rem;"></div>
+        </div>
+      </section>
+
+      <!-- ── VIEW 4: Skill Passports ──────────────────────────── -->
+      <section id="view-passports" class="content-view">
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Cryptographic Skill Passports</h3>
+              <p class="card-subtitle">Verifiable credential registry, ledger hash integrity, and public QR status</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="passportSearchInput" class="form-input" style="width: 220px;" placeholder="Search candidate or email...">
+              <select id="passportStatusFilter" class="form-input" style="width: 140px;">
+                <option value="all">All Statuses</option>
+                <option value="verified">Verified Only</option>
+                <option value="revoked">Revoked Only</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Track</th>
+                  <th>Verified Skills</th>
+                  <th>Skill Prove Gate</th>
+                  <th>Credential Status</th>
+                  <th>Issued Date</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="passportsTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading skill passports...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="passportsPagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);"></div>
+        </div>
+      </section>
+
+      <!-- ── VIEW 5: Video Masterclasses (Plan 43) ─────────────── -->
+      <section id="view-content" class="content-view">
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Curated Video Masterclasses</h3>
+              <p class="card-subtitle">Curate high-yield, embeddable YouTube courses for the Focus Video Chamber</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="videoSearchInput" class="form-input" style="width: 180px;" placeholder="Search title or channel...">
+              <input type="text" id="videoSkillFilter" class="form-input" style="width: 140px;" placeholder="Filter by skill...">
+              <select id="videoStatusFilter" class="form-input" style="width: 130px;">
+                <option value="all">All Videos</option>
+                <option value="active">Active Only</option>
+                <option value="disabled">Disabled Only</option>
+              </select>
+              <button class="btn-primary" onclick="openAddVideoModal()">+ Add Masterclass</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Masterclass / Channel</th>
+                  <th>Skill Competency</th>
+                  <th>Duration</th>
+                  <th>Language</th>
+                  <th>Status</th>
+                  <th>Video ID</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="videosTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading masterclasses...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="contentPagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);"></div>
+        </div>
+      </section>
+
+      <!-- ── VIEW 6: Proximity Radar Employers (Plan 44) ────────── -->
+      <section id="view-radar" class="content-view">
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Industrial Proximity Radar Employers</h3>
+              <p class="card-subtitle">60+ verified manufacturing, IT, and agri-tech employers with real-time GPS telemetry</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="radarSearchInput" class="form-input" style="width: 180px;" placeholder="Search company or city...">
+              <input type="text" id="radarClusterFilter" class="form-input" style="width: 140px;" placeholder="Cluster name...">
+              <select id="radarStatusFilter" class="form-input" style="width: 130px;">
+                <option value="all">All Employers</option>
+                <option value="active">Active Only</option>
+                <option value="disabled">Disabled Only</option>
+              </select>
+              <button class="btn-primary" onclick="openAddEmployerModal()">+ Add Employer</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Company & City</th>
+                  <th>Industrial Cluster</th>
+                  <th>Region Group</th>
+                  <th>GPS Coordinates</th>
+                  <th>Industry Sector</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="radarTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading employers...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="radarPagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);"></div>
+        </div>
+      </section>
+
+      <!-- ── VIEW 7: Roadmaps & Anomaly Monitor ────────────────── -->
+      <section id="view-roadmaps" class="content-view">
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Student Learning Roadmaps</h3>
+              <p class="card-subtitle">Track weekly task progression and roadmap milestones</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="roadmapSearchInput" class="form-input" style="width: 220px;" placeholder="Search career or student...">
+              <select id="roadmapStatusFilter" class="form-input" style="width: 130px;">
+                <option value="all">All Roadmaps</option>
+                <option value="active">Active Only</option>
+                <option value="completed">Completed</option>
+                <option value="flagged">Flagged</option>
+                <option value="paused">Paused</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Career Track</th>
+                  <th>Learner</th>
+                  <th>Progress</th>
+                  <th>Status</th>
+                  <th>Duration</th>
+                  <th>Started</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="roadmapsTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading roadmaps...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="roadmapPagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);"></div>
+        </div>
+
+        <!-- Anti-Cheat Anomaly Detector Card -->
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 class="card-title" style="color: var(--accent-rose);">🛡️ Assessment Integrity & Anomaly Detector</h3>
+              <p class="card-subtitle">Monitors tab switching, rapid completion speeds, and anti-cheat strikes</p>
+            </div>
+            <button class="btn-action" onclick="loadAnomalies()">Scan Anomalies</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Assessment / Track</th>
+                  <th>Score</th>
+                  <th>Risk Tier</th>
+                  <th>Violation Details</th>
+                  <th>Submitted At</th>
+                </tr>
+              </thead>
+              <tbody id="anomaliesTableBody">
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading assessment anomalies...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <!-- ── VIEW: Admin Personnel & RBAC (SUPER_ADMIN) ────────── -->
+      <section id="view-admins" class="content-view">
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Administrative Personnel & Access Control</h3>
+              <p class="card-subtitle">Manage system administrators, assign hierarchical roles, and control account states</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span class="badge badge-rose">SUPER_ADMIN Only</span>
+              <button class="btn-primary" onclick="openCreateAdminModal()">+ Add Administrator</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Administrator</th>
+                  <th>Role</th>
+                  <th>Account Status</th>
+                  <th>Password Status</th>
+                  <th>Lockout / Failures</th>
+                  <th>Last Login</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminsTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading administrative personnel...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── VIEW: Broadcast Alerts & Automation ───────────────── -->
+      <section id="view-alerts" class="content-view">
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">WhatsApp & n8n Multi-Channel Broadcast Center</h3>
+              <p class="card-subtitle">Dispatch verified curriculum updates and emergency announcements</p>
+            </div>
+            <div id="alertRecipientCountPreview" class="badge badge-sky" style="font-size: 0.82rem; padding: 0.4rem 0.8rem;">
+              Calculating recipients...
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; padding: 1.25rem;">
+            <div>
+              <div class="form-group">
+                <label class="form-label" for="alertTitleInput">Broadcast Title / Campaign Name</label>
+                <input type="text" id="alertTitleInput" class="form-input" placeholder="e.g. Pune Regional Tech Fair 2026 Shortlists Announced" maxlength="100">
+              </div>
+
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                  <label class="form-label" for="alertMessageInput" style="margin: 0;">Message Content (Plain text or WhatsApp markdown: *bold*, _italic_)</label>
+                  <span id="alertCharCounter" style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">0 / 1000 characters</span>
+                </div>
+                <textarea id="alertMessageInput" class="form-input" style="height: 140px; resize: vertical; font-family: inherit;" placeholder="Type your broadcast announcement here... (minimum 10 characters)" onkeyup="updateAlertCharCounter()"></textarea>
+              </div>
+            </div>
+
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 1rem;">
+              <h4 style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary); margin: 0;">Audience Targeting</h4>
+
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label" style="font-size: 0.78rem;" for="alertTargetRole">Target Role</label>
+                <select id="alertTargetRole" class="form-input" onchange="refreshAlertRecipientCount()">
+                  <option value="student">Students Only</option>
+                  <option value="recruiter">Corporate Recruiters Only</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label" style="font-size: 0.78rem;" for="alertTargetStream">Engineering / Tech Stream</label>
+                <select id="alertTargetStream" class="form-input" onchange="refreshAlertRecipientCount()">
+                  <option value="all">All Streams</option>
+                  <option value="cs">Computer Science & Engineering</option>
+                  <option value="it">Information Technology</option>
+                  <option value="aids">AI & Data Science</option>
+                  <option value="entc">Electronics & Telecomm</option>
+                  <option value="mech">Mechanical & Automation</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label" style="font-size: 0.78rem;" for="alertTargetCollege">College Filter (Optional)</label>
+                <input type="text" id="alertTargetCollege" class="form-input" placeholder="e.g. COEP, VJTI, MIT" onblur="refreshAlertRecipientCount()">
+              </div>
+
+              <div style="padding-top: 0.5rem; border-top: 1px solid var(--border-subtle);">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--accent-amber);">
+                  <input type="checkbox" id="alertDryRunCheckbox" checked style="width: 16px; height: 16px;">
+                  Dry-Run Mode (Safe Simulation)
+                </label>
+                <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0.25rem 0 0 1.5rem;">
+                  Simulates target filtering and audit log without dispatching actual WhatsApp messages.
+                </p>
+              </div>
+
+              <button id="btnSubmitBroadcast" class="btn-primary" style="margin-top: auto;" onclick="handleBroadcastSubmit()">
+                🚀 Transmit Notification
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Past Broadcast Log Table -->
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 class="card-title">Broadcast History & Transmission Telemetry</h3>
+              <p class="card-subtitle">Log of recent simulated and live broadcast dispatches</p>
+            </div>
+            <button class="btn-action" onclick="loadAlertHistory()">Refresh Log</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Title</th>
+                  <th>Mode</th>
+                  <th>Audience</th>
+                  <th>Operator</th>
+                  <th>Message Preview</th>
+                </tr>
+              </thead>
+              <tbody id="alertHistoryTableBody">
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">Loading broadcast history...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── VIEW: System Telemetry & Operational Health ──────── -->
+      <section id="view-system" class="content-view">
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Production System Telemetry & Health</h3>
+              <p class="card-subtitle">Real-time PostgreSQL connection health, memory profiles, and service uptime</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span id="sysOverallStatusBadge" class="badge badge-emerald">● System Optimal</span>
+              <button class="btn-action" onclick="loadSystemHealth()">🔄 Ping Health</button>
+            </div>
+          </div>
+
+          <!-- Gauges Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; padding: 1.25rem;">
+            <div class="kpi-card" style="background: var(--bg-surface);">
+              <div class="kpi-header">
+                <span class="kpi-label">Database Roundtrip Latency</span>
+                <span class="kpi-icon">⚡</span>
+              </div>
+              <div class="kpi-value" id="sysDbLatency" style="font-size: 1.8rem;">— ms</div>
+              <div class="kpi-subtext" id="sysDbStatus">PostgreSQL (Supabase)</div>
+            </div>
+
+            <div class="kpi-card" style="background: var(--bg-surface);">
+              <div class="kpi-header">
+                <span class="kpi-label">Process Memory (Heap)</span>
+                <span class="kpi-icon">🧠</span>
+              </div>
+              <div class="kpi-value" id="sysHeapUsed" style="font-size: 1.4rem;">— MB</div>
+              <div style="background: var(--border-subtle); height: 6px; border-radius: 3px; margin: 0.5rem 0; overflow: hidden;">
+                <div id="sysHeapBar" style="background: var(--accent-indigo); height: 100%; width: 0%; transition: width 0.3s;"></div>
+              </div>
+              <div class="kpi-subtext">RSS: <span id="sysRss">— MB</span></div>
+            </div>
+
+            <div class="kpi-card" style="background: var(--bg-surface);">
+              <div class="kpi-header">
+                <span class="kpi-label">Process Uptime</span>
+                <span class="kpi-icon">⏱️</span>
+              </div>
+              <div class="kpi-value" id="sysUptime" style="font-size: 1.25rem;">—</div>
+              <div class="kpi-subtext">Node Server Runtime</div>
+            </div>
+
+            <div class="kpi-card" style="background: var(--bg-surface);">
+              <div class="kpi-header">
+                <span class="kpi-label">Environment & Host</span>
+                <span class="kpi-icon">🌐</span>
+              </div>
+              <div class="kpi-value" id="sysEnvironment" style="font-size: 1.25rem; text-transform: uppercase;">—</div>
+              <div class="kpi-subtext" id="sysNodeVersion">Node.js Engine</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- High-level Metric Counters -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Service Inventory & State Aggregates</h3>
+            <span class="badge badge-muted">Live Aggregation</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); text-align: center;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Total Users</div>
+              <div id="sysMetricUsers" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-top: 0.25rem;">—</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); text-align: center;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Active Roadmaps</div>
+              <div id="sysMetricRoadmaps" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-indigo); margin-top: 0.25rem;">—</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); text-align: center;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Pending Recruiters</div>
+              <div id="sysMetricRecruiters" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-amber); margin-top: 0.25rem;">—</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); text-align: center;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Active Admin Sessions</div>
+              <div id="sysMetricSessions" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-emerald); margin-top: 0.25rem;">—</div>
+            </div>
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); text-align: center;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Total Audit Records</div>
+              <div id="sysMetricAudit" style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); margin-top: 0.25rem;">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ── MODAL 1: Student Dossier Modal ───────────────────────── -->
+  <div id="userDossierModal" class="modal-overlay">
+    <div class="modal-dialog modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Student Dossier & Telemetry</h3>
+        <button class="btn-modal-close" onclick="closeModal('userDossierModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="userDossierContent">
+        <!-- Rendered dynamically via renderUserDossier() -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('userDossierModal')">Close Dossier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 2: Recruiter Rejection Modal ───────────────────── -->
+  <div id="recruiterRejectModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Reject Recruiter Application</h3>
+        <button class="btn-modal-close" onclick="closeModal('recruiterRejectModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="rejectRecruiterId">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Please state the specific reason for rejecting this recruiter's corporate credentials. This reason will be recorded in the audit trail.
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="rejectReasonInput">Rejection Reason</label>
+          <textarea id="rejectReasonInput" class="form-input" style="height: 100px; resize: vertical;" placeholder="e.g. Official corporate domain verification failed; CIN number unverified."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('recruiterRejectModal')">Cancel</button>
+        <button class="btn-danger" onclick="submitRecruiterReject()">Confirm Rejection</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 3: Hard Delete User Modal (SUPER_ADMIN) ───────── -->
+  <div id="userHardDeleteModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--accent-rose);">⚠️ Permanent Hard Delete</h3>
+        <button class="btn-modal-close" onclick="closeModal('userHardDeleteModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="hardDeleteUserId">
+        <input type="hidden" id="hardDeleteTargetEmail">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          <strong style="color: var(--accent-rose);">DANGER:</strong> This action is completely permanent and irreversibly purges this user, their roadmaps, milestones, and assessment history from the database.
+        </p>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          To prevent accidental deletion, type the exact target account email (<strong id="hardDeleteEmailDisplay" style="color: var(--text-primary);"></strong>) below:
+        </p>
+        <div class="form-group">
+          <input type="email" id="hardDeleteConfirmationInput" class="form-input" placeholder="Type target account email to confirm" autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('userHardDeleteModal')">Cancel</button>
+        <button class="btn-danger" onclick="submitHardDeleteUser()">Confirm Permanent Erasure</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 4: Forced Password Change Modal ────────────────── -->
+  <div id="forcedPasswordModal" class="modal-overlay" style="z-index: 200;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Initial Password Change Required</h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Your account was provisioned with a temporary password. You must set a permanent secure password before accessing administrative tools.
+        </p>
+        <div id="forcedPasswordError" class="alert-box alert-error"></div>
+        <div class="form-group">
+          <label class="form-label" for="forcedOldPass">Current Password</label>
+          <input type="password" id="forcedOldPass" class="form-input" placeholder="••••••••••••" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="forcedNewPass">New Password (min 10 characters)</label>
+          <input type="password" id="forcedNewPass" class="form-input" placeholder="At least 10 characters" required minlength="10">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="forcedConfirmPass">Confirm New Password</label>
+          <input type="password" id="forcedConfirmPass" class="form-input" placeholder="Confirm new password" required minlength="10">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="submitForcedPasswordChange()">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 5: Passport Cryptographic Dossier ─────────────── -->
+  <div id="passportDossierModal" class="modal-overlay">
+    <div class="modal-dialog modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Skill Passport Ledger Dossier</h3>
+        <button class="btn-modal-close" onclick="closeModal('passportDossierModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="passportDossierBody"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('passportDossierModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 6: Revoke Skill Passport ──────────────────────── -->
+  <div id="passportRevokeModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--accent-rose);">⚠️ Revoke Candidate Skill Passport</h3>
+        <button class="btn-modal-close" onclick="closeModal('passportRevokeModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="revokePassportStudentId">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Revoking the Skill Passport for <strong id="revokePassportStudentNameDisplay" style="color: var(--text-primary);"></strong> will cause public verification URLs and QR scans to immediately return a <strong>"REVOKED"</strong> status banner.
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="revokePassportReasonInput">Revocation Justification</label>
+          <textarea id="revokePassportReasonInput" class="form-input" style="height: 90px; resize: vertical;" placeholder="e.g. Tampered test telemetry; unauthorized assessment proctoring breach."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('passportRevokeModal')">Cancel</button>
+        <button class="btn-danger" onclick="submitRevokePassport()">Confirm Revocation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 7: Reinstate Skill Passport (SUPER_ADMIN) ─────── -->
+  <div id="passportReinstateModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--accent-emerald);">♻️ Reinstate Skill Passport</h3>
+        <button class="btn-modal-close" onclick="closeModal('passportReinstateModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="reinstatePassportStudentId">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Reinstating credential for <strong id="reinstatePassportStudentNameDisplay" style="color: var(--text-primary);"></strong> will restore full "VERIFIED" status and clear public alerts.
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="reinstatePassportReasonInput">Reinstatement Notes (Optional)</label>
+          <input type="text" id="reinstatePassportReasonInput" class="form-input" placeholder="e.g. Candidate submitted appeal; re-evaluation passed.">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('passportReinstateModal')">Cancel</button>
+        <button class="btn-primary" onclick="submitReinstatePassport()">Confirm Reinstatement</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 8: Add Video Masterclass ──────────────────────── -->
+  <div id="addVideoModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Curated Masterclass</h3>
+        <button class="btn-modal-close" onclick="closeModal('addVideoModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="addVideoSkill">Target Skill Competency</label>
+          <input type="text" id="addVideoSkill" class="form-input" placeholder="e.g. react, python, docker, machine-learning" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addVideoUrl">YouTube Video URL</label>
+          <input type="url" id="addVideoUrl" class="form-input" placeholder="https://www.youtube.com/watch?v=..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addVideoTitle">Masterclass Title</label>
+          <input type="text" id="addVideoTitle" class="form-input" placeholder="e.g. Full React 2026 Developer Bootcamp" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addVideoChannel">Channel / Educator</label>
+          <input type="text" id="addVideoChannel" class="form-input" placeholder="e.g. freeCodeCamp.org" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label" for="addVideoDuration">Duration Tier</label>
+            <select id="addVideoDuration" class="form-input">
+              <option value="short">Short (&lt; 30 min)</option>
+              <option value="medium" selected>Medium (30-120 min)</option>
+              <option value="long">Long (Full Course)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addVideoLanguage">Language</label>
+            <select id="addVideoLanguage" class="form-input">
+              <option value="English" selected>English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Bilingual">Bilingual</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addVideoInstructor">Instructor Name (Optional)</label>
+          <input type="text" id="addVideoInstructor" class="form-input" placeholder="e.g. Maximilian Schwarzmüller">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('addVideoModal')">Cancel</button>
+        <button class="btn-primary" onclick="submitAddVideo()">Save Masterclass</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 9: Delete Video Modal ─────────────────────────── -->
+  <div id="deleteVideoModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--accent-rose);">Remove Masterclass</h3>
+        <button class="btn-modal-close" onclick="closeModal('deleteVideoModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="deleteVideoSkillName">
+        <input type="hidden" id="deleteVideoId">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Are you sure you want to disable or remove <strong id="deleteVideoTitleDisplay" style="color: var(--text-primary);"></strong> from the Focus Video Chamber?
+        </p>
+        <div style="margin-top: 1rem;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="deleteVideoPermanentCheckbox"> Permanently purge record (SUPER_ADMIN only)
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('deleteVideoModal')">Cancel</button>
+        <button class="btn-danger" onclick="submitDeleteVideo()">Confirm Removal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 10: Add Employer Modal ────────────────────────── -->
+  <div id="addEmployerModal" class="modal-overlay">
+    <div class="modal-dialog modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Industrial Radar Employer</h3>
+        <button class="btn-modal-close" onclick="closeModal('addEmployerModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label" for="addEmpName">Company Name</label>
+            <input type="text" id="addEmpName" class="form-input" placeholder="e.g. Crompton Greaves Consumer Electricals" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpCluster">Industrial Cluster</label>
+            <input type="text" id="addEmpCluster" class="form-input" placeholder="e.g. MIDC Jalgaon Phase II" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpCity">City</label>
+            <input type="text" id="addEmpCity" class="form-input" placeholder="e.g. Jalgaon" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpState">State</label>
+            <input type="text" id="addEmpState" class="form-input" value="Maharashtra" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpLat">Latitude (-90 to 90)</label>
+            <input type="number" step="0.0001" id="addEmpLat" class="form-input" placeholder="21.0123" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpLng">Longitude (-180 to 180)</label>
+            <input type="number" step="0.0001" id="addEmpLng" class="form-input" placeholder="75.5678" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpClusterGroup">Regional Corridor</label>
+            <select id="addEmpClusterGroup" class="form-input">
+              <option value="khandesh">Khandesh (Jalgaon & Bhusawal)</option>
+              <option value="marathwada">Marathwada & Nashik</option>
+              <option value="pune_mumbai">Pune & Mumbai</option>
+              <option value="bengaluru">Bengaluru Hub</option>
+              <option value="ncr">NCR (Delhi, Gurgaon, Noida)</option>
+              <option value="hyderabad">Hyderabad Cyberabad</option>
+              <option value="gujarat">Gujarat Corridor</option>
+              <option value="pan_india">Pan-India Network</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="addEmpOpenings">Active Openings Count</label>
+            <input type="number" id="addEmpOpenings" class="form-input" value="5" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addEmpIndustry">Industry Sector & Operations</label>
+          <input type="text" id="addEmpIndustry" class="form-input" placeholder="e.g. Precision Electrical Appliances & Automation" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addEmpWebsite">Website URL</label>
+          <input type="url" id="addEmpWebsite" class="form-input" placeholder="https://www.company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addEmpRoles">Top Roles (Comma-separated)</label>
+          <input type="text" id="addEmpRoles" class="form-input" placeholder="Embedded Firmware Trainee, PLC Technician, QA Inspector">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="addEmpSkills">Required Skills (Comma-separated)</label>
+          <input type="text" id="addEmpSkills" class="form-input" placeholder="C++, PLC Siemens, Circuit Design, Testing">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('addEmployerModal')">Cancel</button>
+        <button class="btn-primary" onclick="submitAddEmployer()">Save Employer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 11: Edit Employer Modal ───────────────────────── -->
+  <div id="editEmployerModal" class="modal-overlay">
+    <div class="modal-dialog modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Industrial Radar Employer</h3>
+        <button class="btn-modal-close" onclick="closeModal('editEmployerModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editEmpId">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label" for="editEmpName">Company Name</label>
+            <input type="text" id="editEmpName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpCluster">Industrial Cluster</label>
+            <input type="text" id="editEmpCluster" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpCity">City</label>
+            <input type="text" id="editEmpCity" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpState">State</label>
+            <input type="text" id="editEmpState" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpLat">Latitude</label>
+            <input type="number" step="0.0001" id="editEmpLat" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpLng">Longitude</label>
+            <input type="number" step="0.0001" id="editEmpLng" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpClusterGroup">Regional Corridor</label>
+            <select id="editEmpClusterGroup" class="form-input">
+              <option value="khandesh">Khandesh (Jalgaon & Bhusawal)</option>
+              <option value="marathwada">Marathwada & Nashik</option>
+              <option value="pune_mumbai">Pune & Mumbai</option>
+              <option value="bengaluru">Bengaluru Hub</option>
+              <option value="ncr">NCR (Delhi, Gurgaon, Noida)</option>
+              <option value="hyderabad">Hyderabad Cyberabad</option>
+              <option value="gujarat">Gujarat Corridor</option>
+              <option value="pan_india">Pan-India Network</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmpOpenings">Openings Count</label>
+            <input type="number" id="editEmpOpenings" class="form-input" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="editEmpIndustry">Industry Sector</label>
+          <input type="text" id="editEmpIndustry" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="editEmpWebsite">Website</label>
+          <input type="url" id="editEmpWebsite" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="editEmpRoles">Top Roles</label>
+          <input type="text" id="editEmpRoles" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="editEmpSkills">Required Skills</label>
+          <input type="text" id="editEmpSkills" class="form-input">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('editEmployerModal')">Cancel</button>
+        <button class="btn-primary" onclick="submitEditEmployer()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 12: Roadmap Detail Modal ──────────────────────── -->
+  <div id="roadmapDetailModal" class="modal-overlay">
+    <div class="modal-dialog modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Roadmap Curriculum & Milestone Tasks</h3>
+        <button class="btn-modal-close" onclick="closeModal('roadmapDetailModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="roadmapDetailBody"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('roadmapDetailModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 13: Update Roadmap Status Modal ────────────────── -->
+  <div id="updateRoadmapStatusModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Update Roadmap Lifecycle Status</h3>
+        <button class="btn-modal-close" onclick="closeModal('updateRoadmapStatusModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="updateRoadmapId">
+        <div class="form-group">
+          <label class="form-label" for="updateRoadmapStatusSelect">Status</label>
+          <select id="updateRoadmapStatusSelect" class="form-input">
+            <option value="active">Active (Ongoing)</option>
+            <option value="paused">Paused</option>
+            <option value="completed">Completed</option>
+            <option value="flagged">Flagged for Audit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="updateRoadmapReasonInput">Flag / Status Reason (Optional)</label>
+          <input type="text" id="updateRoadmapReasonInput" class="form-input" placeholder="e.g. Assessment strikes review pending">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('updateRoadmapStatusModal')">Cancel</button>
+        <button class="btn-primary" onclick="submitUpdateRoadmapStatus()">Save Status</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 14: Audit Record Details Modal ─────────────────── -->
+  <div id="auditDetailsModal" class="modal-overlay">
+    <div class="modal-dialog modal-large">
+      <div class="modal-header">
+        <h3 id="auditDetailsTitle" class="modal-title">Audit Record Details</h3>
+        <button class="btn-modal-close" onclick="closeModal('auditDetailsModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="auditDetailsContent">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('auditDetailsModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL 15: Create Administrator Modal (SUPER_ADMIN) ──── -->
+  <div id="createAdminModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Provision Administrator Account</h3>
+        <button class="btn-modal-close" onclick="closeModal('createAdminModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="createAdminError" class="alert-box alert-error"></div>
+
+        <div id="createAdminFormBox">
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            A cryptographically secure one-time temporary password will be generated. The user will be required to choose a new password on their first login.
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="newAdminName">Full Name</label>
+            <input type="text" id="newAdminName" class="form-input" placeholder="e.g. Maya Deshmukh" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="newAdminEmail">Corporate Email Address</label>
+            <input type="email" id="newAdminEmail" class="form-input" placeholder="e.g. maya@disheera.site" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="newAdminRole">Assigned Access Role</label>
+            <select id="newAdminRole" class="form-input">
+              <option value="MODERATOR">MODERATOR (Read-only + Dry-run Simulation)</option>
+              <option value="ADMIN" selected>ADMIN (Full Operational Mutations)</option>
+              <option value="SUPER_ADMIN">SUPER_ADMIN (Personnel & System Control)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="createAdminSuccessBox" style="display: none;">
+          <div class="alert-box alert-success" style="display: block; margin-bottom: 1rem;">
+            <strong>Administrator Account Provisioned!</strong>
+            <div id="tempAdminSummary" style="margin-top: 0.25rem; font-size: 0.82rem;"></div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--accent-amber); font-weight: 600; margin-bottom: 0.5rem;">
+            ⚠️ IMPORTANT: One-Time Temporary Password
+          </p>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Copy this temporary password and provide it securely to the administrator. It will NEVER be stored in plain text or shown again.
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <input type="text" id="tempPasswordDisplay" class="form-input" style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-emerald);" readonly>
+            <button class="btn-action" onclick="copyTemporaryPassword()">📋 Copy</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('createAdminModal')">Close</button>
+        <button id="btnCreateAdminSubmit" class="btn-primary" onclick="submitCreateAdmin()">Generate & Provision</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/admin-api.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/modules/passportsView.js"></script>
+  <script src="js/modules/contentView.js"></script>
+  <script src="js/modules/radarView.js"></script>
+  <script src="js/modules/roadmapsView.js"></script>
+  <script src="js/modules/auditView.js"></script>
+  <script src="js/modules/adminsView.js"></script>
+  <script src="js/modules/alertsView.js"></script>
+  <script src="js/modules/systemView.js"></script>
+  <script>
+    // ── Application State ──────────────────────────────────────────
+    let activeView = 'dashboard';
+    let userCurrentPage = 1;
+    let userTotalPages = 1;
+    let recruiterCurrentPage = 1;
+    let recruiterTotalPages = 1;
+    let userSearchTimeout = null;
+    let recruiterSearchTimeout = null;
+
+    // ── Lifecycle Initialization ─────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Authenticate admin session
+      const admin = await initAdminAuthSession();
+      if (!admin) return;
+
+      // 2. Load initial dashboard data
+      loadDashboardStats();
+    });
+
+    // ── View Switching ───────────────────────────────────────────
+    function switchView(viewName) {
+      activeView = viewName;
+
+      // Update sidebar nav highlights
+      document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(`'${viewName}'`)) {
+          link.classList.add('active');
+        }
+      });
+
+      // Update content panels
+      document.querySelectorAll('.content-view').forEach(view => view.classList.remove('active'));
+      const activeEl = document.getElementById(`view-${viewName}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      // Update heading text and load view data
+      const heading = document.getElementById('pageHeading');
+      if (viewName === 'dashboard') {
+        heading.textContent = 'Executive Overview';
+        loadDashboardStats();
+      } else if (viewName === 'users') {
+        heading.textContent = 'User & Student Directory';
+        loadUsers(userCurrentPage);
+      } else if (viewName === 'recruiters') {
+        heading.textContent = 'Corporate Recruiter Vetting';
+        loadRecruiters(recruiterCurrentPage);
+      } else if (viewName === 'passports') {
+        heading.textContent = 'Skill Passport Cryptographic Ledger';
+        if (typeof loadPassports === 'function') loadPassports(1);
+      } else if (viewName === 'content') {
+        heading.textContent = 'Curated Video Masterclasses';
+        if (typeof loadVideos === 'function') loadVideos(1);
+      } else if (viewName === 'radar') {
+        heading.textContent = 'Industrial Proximity Radar Hubs';
+        if (typeof loadEmployers === 'function') loadEmployers(1);
+      } else if (viewName === 'roadmaps') {
+        heading.textContent = 'Roadmap Progression & Telemetry';
+        if (typeof loadRoadmaps === 'function') loadRoadmaps(1);
+        if (typeof loadAnomalies === 'function') loadAnomalies();
+      } else if (viewName === 'audit') {
+        heading.textContent = 'Audit Logs & Security History';
+        if (typeof loadAuditActionsFilter === 'function') loadAuditActionsFilter();
+        if (typeof loadAuditLogs === 'function') loadAuditLogs(1);
+      } else if (viewName === 'admins') {
+        heading.textContent = 'Administrative Personnel & RBAC';
+        if (typeof loadAdmins === 'function') loadAdmins();
+      } else if (viewName === 'alerts') {
+        heading.textContent = 'WhatsApp & Multi-Channel Broadcast Center';
+        if (typeof refreshAlertRecipientCount === 'function') refreshAlertRecipientCount();
+        if (typeof loadAlertHistory === 'function') loadAlertHistory();
+      } else if (viewName === 'system') {
+        heading.textContent = 'System Telemetry & Operational Health';
+        if (typeof loadSystemHealth === 'function') loadSystemHealth();
+      }
+    }
+
+    function refreshCurrentView() {
+      switchView(activeView);
+      showToast('Data refreshed.', 'info');
+    }
+
+    function closeModal(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.remove('active');
+    }
+
+    // ── Dashboard Overview ───────────────────────────────────────
+    async function loadDashboardStats() {
+      try {
+        const res = await adminFetch('/api/admin/dashboard/stats');
+        if (res.success && res.stats) {
+          const s = res.stats;
+          document.getElementById('kpiTotalUsers').textContent = s.totalUsers || 0;
+          document.getElementById('kpiDailySignups').textContent = s.dailySignups || 0;
+          document.getElementById('kpiActiveRoadmaps').textContent = s.activeRoadmaps || 0;
+          document.getElementById('kpiTotalRecruiters').textContent = s.totalRecruiters || 0;
+          document.getElementById('kpiPendingRecruiters').textContent = s.pendingRecruiters || 0;
+          document.getElementById('kpiJobOpenings').textContent = s.totalJobOpenings || 0;
+          document.getElementById('kpiTotalAttempts').textContent = s.totalAttempts || 0;
+
+          if (res.systemHealth) {
+            document.getElementById('kpiSystemDetails').textContent = 
+              `Uptime: ${Math.floor(res.systemHealth.uptimeSeconds / 60)}m · RAM: ${res.systemHealth.memoryRssMb}MB`;
+          }
+
+          // Render recent audit logs
+          renderRecentAuditLogs(res.recentActivity || []);
+        }
+      } catch (error) {
+        showToast(error.message || 'Failed to load stats', 'error');
+      }
+    }
+
+    function renderRecentAuditLogs(logs) {
+      const tbody = document.getElementById('recentAuditTableBody');
+      if (!tbody) return;
+
+      if (!logs || logs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No recent administrative activity recorded.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = logs.map(l => `
+        <tr>
+          <td style="font-family: var(--font-mono); font-size: 0.75rem;">${escapeHtml(formatDate(l.createdAt))}</td>
+          <td><span style="font-weight: 500;">${escapeHtml(l.adminEmail)}</span></td>
+          <td><span class="badge ${getActionBadgeClass(l.action)}">${escapeHtml(l.action)}</span></td>
+          <td><span class="badge badge-muted">${escapeHtml(l.targetType)}</span></td>
+          <td style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(l.targetId || '—')}</td>
+        </tr>
+      `).join('');
+    }
+
+    function getActionBadgeClass(action) {
+      if (action.includes('DELETE') || action.includes('SUSPEND') || action.includes('REJECT')) return 'badge-rose';
+      if (action.includes('APPROVE') || action.includes('UNSUSPEND') || action.includes('LOGIN')) return 'badge-emerald';
+      return 'badge-cyan';
+    }
+
+    // ── Users Management ─────────────────────────────────────────
+    function debounceUserSearch() {
+      if (userSearchTimeout) clearTimeout(userSearchTimeout);
+      userSearchTimeout = setTimeout(() => {
+        loadUsers(1);
+      }, 350);
+    }
+
+    async function loadUsers(page = 1) {
+      userCurrentPage = page;
+      const search = document.getElementById('userSearchInput').value.trim();
+      const role = document.getElementById('userRoleFilter').value;
+      const stream = document.getElementById('userStreamFilter').value;
+      const status = document.getElementById('userStatusFilter').value;
+
+      const params = new URLSearchParams({
+        page: String(page),
+        limit: '12',
+        role,
+        stream,
+        status,
+        search
+      });
+
+      const tbody = document.getElementById('usersTableBody');
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Fetching users...</td></tr>';
+
+      try {
+        const res = await adminFetch(`/api/admin/users?${params.toString()}`);
+        if (res.success) {
+          userTotalPages = res.pagination.totalPages || 1;
+          document.getElementById('userPaginationText').textContent = 
+            `Showing ${(page - 1) * 12 + (res.users.length > 0 ? 1 : 0)}-${(page - 1) * 12 + res.users.length} of ${res.pagination.total} users`;
+          document.getElementById('userCurrentPage').textContent = `${page} / ${userTotalPages}`;
+          document.getElementById('btnUserPrev').disabled = (page <= 1);
+          document.getElementById('btnUserNext').disabled = (page >= userTotalPages);
+
+          renderUsersTable(res.users);
+        }
+      } catch (error) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--accent-rose);">${escapeHtml(error.message)}</td></tr>`;
+      }
+    }
+
+    function changeUserPage(delta) {
+      const newPage = userCurrentPage + delta;
+      if (newPage >= 1 && newPage <= userTotalPages) {
+        loadUsers(newPage);
+      }
+    }
+
+    function renderUsersTable(users) {
+      const tbody = document.getElementById('usersTableBody');
+      if (!users || users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No matching users found.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = users.map(u => {
+        const statusBadge = u.isSuspended
+          ? `<span class="badge badge-rose">Suspended</span>`
+          : `<span class="badge badge-emerald">Active</span>`;
+        
+        const verifiedBadge = u.isVerified
+          ? `<span class="badge badge-cyan" title="Verified">✓ Verified</span>`
+          : `<span class="badge badge-muted">Unverified</span>`;
+
+        const isSuperAdmin = (currentAdmin && currentAdmin.role === 'SUPER_ADMIN');
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight: 600;">${escapeHtml(u.name)}</div>
+              <div class="user-meta-sub">${escapeHtml(u.email)}</div>
+            </td>
+            <td><span class="badge ${u.role === 'recruiter' ? 'badge-indigo' : 'badge-cyan'}">${escapeHtml(u.role)}</span></td>
+            <td><span class="badge badge-muted">${escapeHtml(u.primaryStream || 'General')}</span></td>
+            <td>
+              <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
+                ${statusBadge}
+                ${verifiedBadge}
+              </div>
+            </td>
+            <td style="font-size: 0.78rem; color: var(--text-muted);">${escapeHtml(formatDate(u.createdAt))}</td>
+            <td style="text-align: right;">
+              <div class="btn-action-group" style="justify-content: flex-end;">
+                <button class="btn-action" onclick="openUserDossier('${escapeHtml(u.id)}')">Dossier</button>
+                <button class="btn-action ${u.isSuspended ? 'btn-approve' : 'btn-suspend'}" onclick="confirmToggleSuspend('${escapeHtml(u.id)}', '${escapeHtml(u.email)}', ${!u.isSuspended})">
+                  ${u.isSuspended ? 'Unsuspend' : 'Suspend'}
+                </button>
+                ${isSuperAdmin ? `
+                  <button class="btn-action btn-suspend" onclick="confirmSoftDeleteUser('${escapeHtml(u.id)}', '${escapeHtml(u.email)}')">
+                    Deactivate
+                  </button>
+                  <button class="btn-action btn-delete" onclick="openHardDeleteModal('${escapeHtml(u.id)}', '${escapeHtml(u.email)}')">
+                    Hard Delete
+                  </button>
+                ` : ''}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ── User State Changing Actions (Requires Confirm Modal) ──────
+    function confirmToggleSuspend(userId, email, newSuspendState) {
+      openConfirmModal({
+        title: newSuspendState ? 'Suspend User Account' : 'Unsuspend User Account',
+        message: newSuspendState
+          ? `Are you sure you want to suspend account ${email}? The user will be blocked from accessing protected resources.`
+          : `Are you sure you want to reinstate account ${email}?`,
+        confirmText: newSuspendState ? 'Suspend Account' : 'Reinstate Account',
+        isDanger: newSuspendState,
+        onConfirm: async () => {
+          try {
+            const res = await adminFetch(`/api/admin/users/${userId}/suspend`, {
+              method: 'PATCH',
+              body: JSON.stringify({ isSuspended: newSuspendState, reason: newSuspendState ? 'Administrative suspension via panel' : '' })
+            });
+            if (res.success) {
+              showToast(res.message, 'success');
+              loadUsers(userCurrentPage);
+            }
+          } catch (e) {
+            showToast(e.message || 'Failed to update suspension status', 'error');
+          }
+        }
+      });
+    }
+
+    function confirmSoftDeleteUser(userId, email) {
+      openConfirmModal({
+        title: 'Deactivate User Account (Soft Delete)',
+        message: `Are you sure you want to soft-delete/deactivate account ${email}? The user will be blocked and anonymized, but historical records will remain intact.`,
+        confirmText: 'Deactivate User',
+        isDanger: true,
+        onConfirm: async () => {
+          try {
+            const res = await adminFetch(`/api/admin/users/${userId}`, {
+              method: 'DELETE'
+            });
+            if (res.success) {
+              showToast(res.message, 'success');
+              loadUsers(userCurrentPage);
+            }
+          } catch (e) {
+            showToast(e.message || 'Failed to deactivate user', 'error');
+          }
+        }
+      });
+    }
+
+    function openHardDeleteModal(userId, email) {
+      document.getElementById('hardDeleteUserId').value = userId;
+      document.getElementById('hardDeleteTargetEmail').value = email;
+      document.getElementById('hardDeleteEmailDisplay').textContent = email;
+      document.getElementById('hardDeleteConfirmationInput').value = '';
+      document.getElementById('userHardDeleteModal').classList.add('active');
+    }
+
+    async function submitHardDeleteUser() {
+      const userId = document.getElementById('hardDeleteUserId').value;
+      const targetEmail = document.getElementById('hardDeleteTargetEmail').value;
+      const typedEmail = document.getElementById('hardDeleteConfirmationInput').value.trim();
+
+      if (!typedEmail || typedEmail.toLowerCase() !== targetEmail.toLowerCase()) {
+        showToast('Typed confirmation email does not match target user email.', 'error');
+        return;
+      }
+
+      try {
+        const res = await adminFetch(`/api/admin/users/${userId}/hard-delete`, {
+          method: 'POST',
+          body: JSON.stringify({ confirmationEmail: typedEmail })
+        });
+        if (res.success) {
+          showToast(res.message, 'success');
+          closeModal('userHardDeleteModal');
+          loadUsers(userCurrentPage);
+        }
+      } catch (e) {
+        showToast(e.message || 'Failed to permanently delete user', 'error');
+      }
+    }
+
+    async function openUserDossier(userId) {
+      const container = document.getElementById('userDossierContent');
+      container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading student dossier...</div>';
+      document.getElementById('userDossierModal').classList.add('active');
+
+      try {
+        const res = await adminFetch(`/api/admin/users/${userId}`);
+        if (res.success && res.user) {
+          const u = res.user;
+          container.innerHTML = `
+            <div class="dossier-grid">
+              <div class="dossier-card">
+                <div class="dossier-card-title">Personal & Academic Profile</div>
+                <div class="dossier-item"><span class="dossier-key">Full Name</span><span class="dossier-val">${escapeHtml(u.name)}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Email</span><span class="dossier-val">${escapeHtml(u.email)}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Phone</span><span class="dossier-val">${escapeHtml(u.phone || 'None')}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Stream</span><span class="dossier-val">${escapeHtml(u.primaryStream)}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Verified</span><span class="dossier-val">${u.isVerified ? '✓ Yes' : 'No'}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Profile Complete</span><span class="dossier-val">${u.profileCompleted ? '✓ Yes' : 'No'}</span></div>
+              </div>
+
+              <div class="dossier-card">
+                <div class="dossier-card-title">Telemetry & Status</div>
+                <div class="dossier-item"><span class="dossier-key">Account Status</span><span class="dossier-val">${u.isSuspended ? '🚨 Suspended' : '🟢 Active'}</span></div>
+                ${u.isSuspended ? `<div class="dossier-item"><span class="dossier-key">Reason</span><span class="dossier-val">${escapeHtml(u.suspensionReason || '—')}</span></div>` : ''}
+                <div class="dossier-item"><span class="dossier-key">Registered</span><span class="dossier-val">${escapeHtml(formatDate(u.createdAt))}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Roadmaps Generated</span><span class="dossier-val">${u.roadmaps ? u.roadmaps.length : 0}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Assessments Taken</span><span class="dossier-val">${u.attempts ? u.attempts.length : 0}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Job Applications</span><span class="dossier-val">${u.applicationsCount || 0}</span></div>
+              </div>
+            </div>
+
+            <!-- Roadmaps List -->
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">Career Roadmaps (${u.roadmaps ? u.roadmaps.length : 0})</h4>
+              ${u.roadmaps && u.roadmaps.length > 0 ? `
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead><tr><th>Career Track</th><th>Status</th><th>Progress</th><th>Tasks Done</th><th>Started</th></tr></thead>
+                    <tbody>
+                      ${u.roadmaps.map(r => `
+                        <tr>
+                          <td><strong>${escapeHtml(r.career ? r.career.title : r.careerId)}</strong></td>
+                          <td><span class="badge ${r.status === 'active' ? 'badge-cyan' : 'badge-emerald'}">${escapeHtml(r.status)}</span></td>
+                          <td>${Math.round(r.progressPercentage || 0)}%</td>
+                          <td>${r.completedTasks} / ${r.totalTasks}</td>
+                          <td>${escapeHtml(formatDate(r.startedAt))}</td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              ` : '<p style="font-size: 0.8rem; color: var(--text-muted);">No career tracks generated yet.</p>'}
+            </div>
+
+            <!-- Recent Attempts -->
+            <div>
+              <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">Recent Test Attempts (${u.attempts ? u.attempts.length : 0})</h4>
+              ${u.attempts && u.attempts.length > 0 ? `
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead><tr><th>Type</th><th>Skill / Topic</th><th>Score</th><th>Result</th><th>Date</th></tr></thead>
+                    <tbody>
+                      ${u.attempts.map(a => `
+                        <tr>
+                          <td><span class="badge badge-muted">${escapeHtml(a.type)}</span></td>
+                          <td>${escapeHtml(a.skill || 'Weekly Milestone')}</td>
+                          <td>${a.score} / ${a.total} (${Math.round(a.percent)}%)</td>
+                          <td><span class="badge ${a.passed ? 'badge-emerald' : 'badge-rose'}">${a.passed ? 'PASSED' : 'FAILED'}</span></td>
+                          <td>${escapeHtml(formatDate(a.createdAt))}</td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              ` : '<p style="font-size: 0.8rem; color: var(--text-muted);">No assessment records on file.</p>'}
+            </div>
+          `;
+        }
+      } catch (error) {
+        container.innerHTML = `<div style="color: var(--accent-rose); padding: 2rem; text-align: center;">${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    // ── Recruiters Vetting ───────────────────────────────────────
+    function debounceRecruiterSearch() {
+      if (recruiterSearchTimeout) clearTimeout(recruiterSearchTimeout);
+      recruiterSearchTimeout = setTimeout(() => {
+        loadRecruiters(1);
+      }, 350);
+    }
+
+    async function loadRecruiters(page = 1) {
+      recruiterCurrentPage = page;
+      const search = document.getElementById('recruiterSearchInput').value.trim();
+      const status = document.getElementById('recruiterStatusFilter').value;
+
+      const params = new URLSearchParams({
+        page: String(page),
+        limit: '12',
+        status,
+        search
+      });
+
+      const tbody = document.getElementById('recruitersTableBody');
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading recruiter applications...</td></tr>';
+
+      try {
+        const res = await adminFetch(`/api/admin/recruiters?${params.toString()}`);
+        if (res.success) {
+          recruiterTotalPages = res.pagination.totalPages || 1;
+          document.getElementById('recruiterPaginationText').textContent = 
+            `Showing ${(page - 1) * 12 + (res.recruiters.length > 0 ? 1 : 0)}-${(page - 1) * 12 + res.recruiters.length} of ${res.pagination.total} recruiters`;
+          document.getElementById('recruiterCurrentPage').textContent = `${page} / ${recruiterTotalPages}`;
+          document.getElementById('btnRecruiterPrev').disabled = (page <= 1);
+          document.getElementById('btnRecruiterNext').disabled = (page >= recruiterTotalPages);
+
+          renderRecruitersTable(res.recruiters);
+        }
+      } catch (error) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--accent-rose);">${escapeHtml(error.message)}</td></tr>`;
+      }
+    }
+
+    function changeRecruiterPage(delta) {
+      const newPage = recruiterCurrentPage + delta;
+      if (newPage >= 1 && newPage <= recruiterTotalPages) {
+        loadRecruiters(newPage);
+      }
+    }
+
+    function renderRecruitersTable(recruiters) {
+      const tbody = document.getElementById('recruitersTableBody');
+      if (!recruiters || recruiters.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No recruiter accounts matching criteria.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = recruiters.map(r => {
+        let badge = '<span class="badge badge-amber">Pending</span>';
+        if (r.verificationStatus === 'verified') {
+          badge = '<span class="badge badge-emerald">✓ Verified</span>';
+        } else if (r.verificationStatus === 'rejected') {
+          badge = '<span class="badge badge-rose">Rejected</span>';
+        }
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight: 600;">${escapeHtml(r.companyName)}</div>
+              <div class="user-meta-sub">${escapeHtml(r.name)} (${escapeHtml(r.designation)})</div>
+            </td>
+            <td>${escapeHtml(r.email)}</td>
+            <td>
+              ${r.website ? `<a href="${escapeHtml(r.website)}" target="_blank" style="color: var(--primary-cyan); text-decoration: none;">${escapeHtml(r.website)}</a>` : '—'}
+            </td>
+            <td>${badge}</td>
+            <td>${r.jobOpeningsCount || 0}</td>
+            <td style="font-size: 0.78rem; color: var(--text-muted);">${escapeHtml(formatDate(r.createdAt))}</td>
+            <td style="text-align: right;">
+              <div class="btn-action-group" style="justify-content: flex-end;">
+                ${r.verificationStatus !== 'verified' ? `
+                  <button class="btn-action btn-approve" onclick="confirmApproveRecruiter('${escapeHtml(r.id)}', '${escapeHtml(r.companyName)}')">
+                    Approve
+                  </button>
+                ` : ''}
+                ${r.verificationStatus !== 'rejected' ? `
+                  <button class="btn-action btn-reject" onclick="openRejectRecruiterModal('${escapeHtml(r.id)}')">
+                    Reject
+                  </button>
+                ` : ''}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ── Recruiter Verification Actions ───────────────────────────
+    function confirmApproveRecruiter(recruiterId, companyName) {
+      openConfirmModal({
+        title: 'Approve Corporate Recruiter',
+        message: `Are you sure you want to approve ${companyName}? This will issue a verified corporate badge and enable direct job postings.`,
+        confirmText: 'Approve & Issue Badge',
+        isDanger: false,
+        onConfirm: async () => {
+          try {
+            const res = await adminFetch(`/api/admin/recruiters/${recruiterId}/approve`, {
+              method: 'POST'
+            });
+            if (res.success) {
+              showToast(res.message, 'success');
+              loadRecruiters(recruiterCurrentPage);
+            }
+          } catch (e) {
+            showToast(e.message || 'Failed to approve recruiter', 'error');
+          }
+        }
+      });
+    }
+
+    function openRejectRecruiterModal(recruiterId) {
+      document.getElementById('rejectRecruiterId').value = recruiterId;
+      document.getElementById('rejectReasonInput').value = '';
+      document.getElementById('recruiterRejectModal').classList.add('active');
+    }
+
+    async function submitRecruiterReject() {
+      const recruiterId = document.getElementById('rejectRecruiterId').value;
+      const reason = document.getElementById('rejectReasonInput').value.trim();
+
+      try {
+        const res = await adminFetch(`/api/admin/recruiters/${recruiterId}/reject`, {
+          method: 'POST',
+          body: JSON.stringify({ reason })
+        });
+        if (res.success) {
+          showToast(res.message, 'success');
+          closeModal('recruiterRejectModal');
+          loadRecruiters(recruiterCurrentPage);
+        }
+      } catch (e) {
+        showToast(e.message || 'Failed to reject recruiter', 'error');
+      }
+    }
+
+
+
+    // ── Forced Password Change Handler ───────────────────────────
+    async function submitForcedPasswordChange() {
+      const oldPass = document.getElementById('forcedOldPass').value;
+      const newPass = document.getElementById('forcedNewPass').value;
+      const confirmPass = document.getElementById('forcedConfirmPass').value;
+      const errBox = document.getElementById('forcedPasswordError');
+
+      if (!oldPass || !newPass || !confirmPass) {
+        errBox.textContent = 'All fields are required.';
+        errBox.style.display = 'block';
+        return;
+      }
+
+      if (newPass.length < 10) {
+        errBox.textContent = 'New password must be at least 10 characters.';
+        errBox.style.display = 'block';
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        errBox.textContent = 'Passwords do not match.';
+        errBox.style.display = 'block';
+        return;
+      }
+
+      try {
+        errBox.style.display = 'none';
+        const res = await adminFetch('/api/admin/auth/change-password', {
+          method: 'POST',
+          body: JSON.stringify({ oldPassword: oldPass, newPassword: newPass })
+        });
+        if (res.success) {
+          showToast('Password updated! Resuming session.', 'success');
+          closeModal('forcedPasswordModal');
+        }
+      } catch (e) {
+        errBox.textContent = e.message || 'Failed to update password.';
+        errBox.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

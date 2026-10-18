@@ -141,6 +141,26 @@ exports.verifyPublicCertificate = async (req, res, next) => {
       });
     }
 
+    const profileStatus = (typeof user.profileStatus === 'string')
+      ? (() => { try { return JSON.parse(user.profileStatus); } catch (_) { return {}; } })()
+      : (user.profileStatus || {});
+
+    if (profileStatus.passportRevocation?.isRevoked) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          isValid: false,
+          status: 'revoked',
+          isRevoked: true,
+          certificateId: cleanCertId,
+          studentName: user.name || 'Candidate',
+          revocation: profileStatus.passportRevocation,
+          message: 'This credential has been revoked by platform administrators.',
+          tamperProofHash: null,
+        }
+      });
+    }
+
     const readiness = user.jobReadiness || {};
     const targetRole = readiness.targetRole || 'Financial Analyst & Modeler';
     const score = Math.max(94, readiness.readinessScore || 94);

@@ -23,6 +23,8 @@
     "migrate:roadmaps": "node scripts/migrate_roadmaps_active_index.js",
     "whatsapp:bot": "node scripts/openwa_bot_runner.js",
     "test:whatsapp": "node tests/whatsapp_automation_test.js",
+    "seed:admin": "node prisma/seedAdmin.js",
+    "admin:unlock": "node scripts/unlockAdmin.js",
     "lint": "node --check server.js && node --check seed.js"
   },
   "keywords": [
