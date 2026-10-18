@@ -870,6 +870,20 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const step2Alert = document.getElementById('step2AlertContainer');
+    if (step2Alert) step2Alert.innerHTML = '';
+    if (alertContainer) alertContainer.innerHTML = '';
+
+    const emailToSubmit = (currentEmail || '').trim() ||
+      (displayEmail ? displayEmail.textContent.trim() : '') ||
+      (document.getElementById('email') ? document.getElementById('email').value.trim() : '') ||
+      sessionStorage.getItem('disheera_pending_email') || '';
+
+    const phoneToSubmit = (currentPhone || '').trim() ||
+      (displayTargetPhone ? displayTargetPhone.textContent.trim() : '') ||
+      (document.getElementById('phone') ? document.getElementById('phone').value.trim() : '') ||
+      sessionStorage.getItem('disheera_pending_phone') || '';
+
     const originalBtn = verifyOtpBtn.innerHTML;
     verifyOtpBtn.disabled = true;
     verifyOtpBtn.innerHTML = `
@@ -879,9 +893,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const payload = {
-        email: currentEmail,
+        email: emailToSubmit,
         emailOtp,
-        ...(currentPhone ? { whatsappOtp: waOtp } : {}),
+        ...(phoneToSubmit ? { whatsappOtp: waOtp } : {}),
         otp: emailOtp, // backward compatibility
       };
 

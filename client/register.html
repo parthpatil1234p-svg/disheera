@@ -270,49 +270,48 @@
 
           <!-- Right Column: Registration Form -->
           <div class="auth-form-card">
-            <!-- Role Switcher Tabs -->
-            <div class="role-selector-tab-group mb-3 p-1 rounded-3 d-flex border border-line" id="roleSelectorTabs" style="background: #F8FAFC;">
-              <button
-                type="button"
-                class="btn btn-sm flex-fill fw-semibold py-2 rounded-2 role-tab-btn active"
-                id="tabStudentRole"
-                style="background: #FFFFFF; color: #0F172A; box-shadow: 0 1px 3px rgba(0,0,0,0.08);"
-              >
-                <i class="bi bi-mortarboard-fill text-primary me-1"></i> Student Enrollment
-              </button>
-              <button
-                type="button"
-                class="btn btn-sm flex-fill fw-semibold py-2 rounded-2 text-secondary role-tab-btn"
-                id="tabRecruiterRole"
-              >
-                <i class="bi bi-buildings-fill text-success me-1"></i> Company Recruiter
-              </button>
-            </div>
-
-            <div class="auth-form-header mb-3" id="authFormHeader">
-              <h2 class="auth-form-title mt-1" id="authFormTitle">Create Account</h2>
-              <p class="auth-form-subtitle mb-0" id="authFormSubtitle">
-                Enter your details to generate your student profile.
-              </p>
-            </div>
-
-            <!-- Feedback Alert Area -->
-            <div id="alertContainer" role="alert" aria-live="polite"></div>
-
-            <!-- Recruiter Plan Ribbon (Shown when Recruiter tab is active) -->
-            <div id="recruiterPlanPill" class="alert alert-success border-success border-opacity-50 p-2.5 mb-3 d-none align-items-center justify-content-between shadow-xs flex-wrap gap-2" role="alert" style="background: #F0FDF4;">
-              <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-radar text-success fs-5"></i>
-                <div class="small">
-                  <strong class="text-ink">Selected Plan: Recruiter Talent Radar (₹9,999/mo)</strong>
-                  <div class="text-secondary" style="font-size: 0.78rem;">Includes 60 verified candidate unlocks, anti-cheat test scores &amp; unlimited job posts.</div>
-                </div>
-              </div>
-              <span class="badge bg-success font-monospace px-2 py-1">TIER 02</span>
-            </div>
-
-            <!-- Step 1: Registration Form -->
+            <!-- Step 1: Registration Form & Selection Header -->
             <div id="registerStep1">
+              <!-- Role Switcher Tabs -->
+              <div class="role-selector-tab-group mb-3 p-1 rounded-3 d-flex border border-line" id="roleSelectorTabs" style="background: #F8FAFC;">
+                <button
+                  type="button"
+                  class="btn btn-sm flex-fill fw-semibold py-2 rounded-2 role-tab-btn active"
+                  id="tabStudentRole"
+                  style="background: #FFFFFF; color: #0F172A; box-shadow: 0 1px 3px rgba(0,0,0,0.08);"
+                >
+                  <i class="bi bi-mortarboard-fill text-primary me-1"></i> Student Enrollment
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm flex-fill fw-semibold py-2 rounded-2 text-secondary role-tab-btn"
+                  id="tabRecruiterRole"
+                >
+                  <i class="bi bi-buildings-fill text-success me-1"></i> Company Recruiter
+                </button>
+              </div>
+
+              <div class="auth-form-header mb-3" id="authFormHeader">
+                <h2 class="auth-form-title mt-1" id="authFormTitle">Create Account</h2>
+                <p class="auth-form-subtitle mb-0" id="authFormSubtitle">
+                  Enter your details to generate your student profile.
+                </p>
+              </div>
+
+              <!-- Feedback Alert Area -->
+              <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+              <!-- Recruiter Plan Ribbon (Shown when Recruiter tab is active) -->
+              <div id="recruiterPlanPill" class="alert alert-success border-success border-opacity-50 p-2.5 mb-3 d-none align-items-center justify-content-between shadow-xs flex-wrap gap-2" role="alert" style="background: #F0FDF4;">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-radar text-success fs-5"></i>
+                  <div class="small">
+                    <strong class="text-ink">Selected Plan: Recruiter Talent Radar (₹9,999/mo)</strong>
+                    <div class="text-secondary" style="font-size: 0.78rem;">Includes 60 verified candidate unlocks, anti-cheat test scores &amp; unlimited job posts.</div>
+                  </div>
+                </div>
+                <span class="badge bg-success font-monospace px-2 py-1">TIER 02</span>
+              </div>
               <!-- Student View: Social Authentication Stack -->
               <div id="studentSocialStack">
                 <div class="social-auth-stack mb-3">

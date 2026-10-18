@@ -45,7 +45,7 @@ let tableChecked = false;
 let tableAvailable = false;
 
 async function isDbTableAvailable() {
-  if (tableChecked) return tableAvailable;
+  if (tableChecked && tableAvailable) return true;
   try {
     const res = await prisma.$queryRawUnsafe(`
       SELECT EXISTS (
@@ -55,15 +55,14 @@ async function isDbTableAvailable() {
       );
     `);
     tableAvailable = Boolean(res && res[0] && (res[0].exists === true || res[0].exists === 'true'));
-    tableChecked = true;
     if (tableAvailable) {
+      tableChecked = true;
       console.log('✅ [pendingSignupStore] Supabase PostgreSQL pending_signups table active.');
     } else {
       console.log('ℹ️ [pendingSignupStore] PostgreSQL pending_signups table pending migration. Operating in resilient memory mode.');
     }
   } catch (err) {
-    tableAvailable = false;
-    tableChecked = true;
+    // Do not permanently latch on transient boot-time error; allow subsequent queries to retry
     console.log('ℹ️ [pendingSignupStore] Database check skipped. Operating in resilient memory mode.');
   }
   return tableAvailable;
