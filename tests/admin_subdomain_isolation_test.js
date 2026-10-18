@@ -287,18 +287,20 @@ async function runTests() {
   const testEmail = `testadmin_${Date.now()}@disheera.site`;
   const plainPassword = 'SuperSecretAdminPassword#2026';
   const hashedPassword = await bcrypt.hash(plainPassword, 12);
+  let testAdmin = null;
 
-  const testAdmin = await prisma.adminUser.create({
-    data: {
-      name: 'Isolation Test Admin',
-      email: testEmail,
-      password: hashedPassword,
-      role: 'ADMIN',
-      mustChangePassword: true,
-      isActive: true,
-      failedLoginAttempts: 0
-    }
-  });
+  try {
+    testAdmin = await prisma.adminUser.create({
+      data: {
+        name: 'Isolation Test Admin',
+        email: testEmail,
+        password: hashedPassword,
+        role: 'ADMIN',
+        mustChangePassword: true,
+        isActive: true,
+        failedLoginAttempts: 0
+      }
+    });
 
   // Test 9: Valid JWT signature but session NOT in DB -> 401 SESSION_REVOKED
   {
@@ -670,19 +672,28 @@ async function runTests() {
     assert(pkg.scripts && pkg.scripts['admin:serve'] && pkg.scripts['admin:serve'].includes('serve admin-client -p 5501'), 'admin:serve must use serve admin-client -p 5501');
   }
 
-  // -------------------------------------------------------------
-  // Cleanup test user
-  // -------------------------------------------------------------
-  await withDbRetry(() => prisma.adminSession.deleteMany({ where: { adminId: testAdmin.id } }));
-  await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { adminId: testAdmin.id } }));
-  await withDbRetry(() => prisma.adminLoginAttempt.deleteMany({ where: { email: testAdmin.email } }));
-  await withDbRetry(() => prisma.adminUser.delete({ where: { id: testAdmin.id } }));
+  } finally {
+    // -------------------------------------------------------------
+    // Cleanup test user in finally
+    // -------------------------------------------------------------
+    try {
+      const adminId = testAdmin?.id;
+      if (adminId) {
+        await withDbRetry(() => prisma.adminSession.deleteMany({ where: { adminId } })).catch(() => {});
+        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { adminId } })).catch(() => {});
+      }
+      await withDbRetry(() => prisma.adminLoginAttempt.deleteMany({ where: { email: testEmail } })).catch(() => {});
+      await withDbRetry(() => prisma.adminUser.deleteMany({ where: { OR: [{ id: adminId }, { email: testEmail }] } })).catch(() => {});
+      console.log('  ✓ Cleaned up isolation test admin and sessions.');
+    } catch (cleanupErr) {
+      console.warn('  ⚠️ Cleanup warning:', cleanupErr.message);
+    }
+    await prisma.$disconnect().catch(() => {});
+  }
 
   console.log('\n================================================================');
   console.log(`📊 TEST RESULTS: ${passed} PASSED, ${failed} FAILED (TOTAL: ${passed + failed})`);
   console.log('================================================================\n');
-
-  await prisma.$disconnect();
 
   if (failed > 0) {
     process.exit(1);

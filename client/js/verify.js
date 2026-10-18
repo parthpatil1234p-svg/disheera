@@ -58,6 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await response.json();
 
       if (response.ok && res.success && res.data) {
+        if (!res.data.isValid) {
+          if (res.data.isRevoked || res.data.credentialStatus === 'revoked' || res.data.status === 'revoked') {
+            renderError(`⚠️ CREDENTIAL REVOKED: This credential was revoked by platform administrators. ${res.data.message || ''}`);
+          } else if (res.data.credentialStatus === 'pending' || res.data.status === 'pending') {
+            renderError(`⏳ CREDENTIAL PENDING: This credential is in Pending status (verifiedSkills < 1). Candidate has not yet passed a verified competency test.`);
+          } else {
+            renderError(res.data.message || 'Credential verification failed.');
+          }
+          return;
+        }
         renderVerifiedCertificate(res.data);
       } else {
         renderError(res.message || `No active credential record found for ID: ${certId}`);

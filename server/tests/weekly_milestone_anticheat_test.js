@@ -10,7 +10,8 @@
  */
 
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
-const mongoose = require('mongoose');
+const connectDB = require('../config/db');
+const { prisma } = require('../config/prisma');
 const User = require('../models/User');
 const Career = require('../models/Career');
 const Roadmap = require('../models/Roadmap');
@@ -26,14 +27,16 @@ async function runAntiCheatLockdownTest() {
   console.log('🧪 RUNNING: Weekly Milestone Strict Anti-Cheat Lockdown Test');
   console.log('================================================================\n');
 
-  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/careerpath';
-  await mongoose.connect(mongoUri);
-  console.log('✓ Connected to MongoDB');
+  await connectDB();
+  console.log('✓ Connected to Supabase PostgreSQL (0% MongoDB)');
+
+  const testEmail = 'anticheat_test_student@example.com';
+  let user = null;
+  let roadmap = null;
 
   try {
     // 1. Setup test user
-    const testEmail = 'anticheat_test_student@example.com';
-    let user = await User.findOne({ email: testEmail });
+    user = await User.findOne({ email: testEmail });
     if (!user) {
       user = await User.create({
         name: 'Anti-Cheat Test Student',
@@ -60,7 +63,7 @@ async function runAntiCheatLockdownTest() {
     }
 
     // 3. Setup test roadmap
-    let roadmap = await Roadmap.findOne({ user: user._id, status: 'active' });
+    roadmap = await Roadmap.findOne({ user: user._id, status: 'active' });
     if (!roadmap) {
       roadmap = await Roadmap.create({
         user: user._id,
@@ -239,8 +242,20 @@ async function runAntiCheatLockdownTest() {
     console.error('\n❌ Test failed with error:', err);
     process.exitCode = 1;
   } finally {
-    await mongoose.disconnect();
-    console.log('MongoDB connection closed.');
+    console.log('🧹 [Cleanup in finally] Purging anticheat test user, roadmaps, and attempts...');
+    try {
+      if (user?._id) {
+        await Attempt.deleteMany({ user: user._id }).catch(() => {});
+        await Roadmap.deleteMany({ user: user._id }).catch(() => {});
+        await User.deleteOne({ _id: user._id }).catch(() => {});
+      }
+      await User.deleteOne({ email: testEmail }).catch(() => {});
+      console.log('  ✓ Cleaned up anticheat test user and records.');
+    } catch (cleanupErr) {
+      console.warn('  ⚠️ Cleanup warning:', cleanupErr.message);
+    }
+    await prisma.$disconnect().catch(() => {});
+    console.log('Database connection closed.');
   }
 }
 

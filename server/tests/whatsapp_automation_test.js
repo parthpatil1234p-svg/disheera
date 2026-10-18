@@ -218,71 +218,75 @@ async function runTests() {
     const testEmail = `dualtest_${Date.now()}@college.edu`;
     const { emailOtp, whatsappOtp } = generateDualOtps();
 
-    const user = new User({
-      name: 'Dual Test Student',
-      email: testEmail,
-      password: 'password123',
-      phone: '+919876543210',
-      isVerified: false,
-      verificationOtp: {
-        code: emailOtp,
-        emailCode: emailOtp,
-        whatsappCode: whatsappOtp,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      }
-    });
-    await user.save();
+    try {
+      const user = new User({
+        name: 'Dual Test Student',
+        email: testEmail,
+        password: 'password123',
+        phone: '+919876543210',
+        isVerified: false,
+        verificationOtp: {
+          code: emailOtp,
+          emailCode: emailOtp,
+          whatsappCode: whatsappOtp,
+          expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+        }
+      });
+      await user.save();
 
-    // 1. Entering valid whatsappOtp but wrong/empty emailOtp -> Rejected!
-    const mock1 = mockReqRes({ email: testEmail, emailOtp: '000000', whatsappOtp });
-    await verifyOtp(mock1.req, mock1.res, () => {});
-    assert.strictEqual(mock1.getStatus(), 400);
-    assert.ok(mock1.getData().message.includes('Invalid Gmail verification code'), 'Must reject invalid Gmail OTP');
+      // 1. Entering valid whatsappOtp but wrong/empty emailOtp -> Rejected!
+      const mock1 = mockReqRes({ email: testEmail, emailOtp: '000000', whatsappOtp });
+      await verifyOtp(mock1.req, mock1.res, () => {});
+      assert.strictEqual(mock1.getStatus(), 400);
+      assert.ok(mock1.getData().message.includes('Invalid Gmail verification code'), 'Must reject invalid Gmail OTP');
 
-    // 2. Entering valid emailOtp but wrong whatsappOtp -> Rejected!
-    const mock2 = mockReqRes({ email: testEmail, emailOtp, whatsappOtp: '999999' });
-    await verifyOtp(mock2.req, mock2.res, () => {});
-    assert.strictEqual(mock2.getStatus(), 400);
-    assert.ok(mock2.getData().message.includes('Invalid WhatsApp verification code'), 'Must reject invalid WhatsApp OTP');
+      // 2. Entering valid emailOtp but wrong whatsappOtp -> Rejected!
+      const mock2 = mockReqRes({ email: testEmail, emailOtp, whatsappOtp: '999999' });
+      await verifyOtp(mock2.req, mock2.res, () => {});
+      assert.strictEqual(mock2.getStatus(), 400);
+      assert.ok(mock2.getData().message.includes('Invalid WhatsApp verification code'), 'Must reject invalid WhatsApp OTP');
 
-    // 3. Entering BOTH valid emailOtp AND whatsappOtp -> Approved & verified!
-    const mock3 = mockReqRes({ email: testEmail, emailOtp, whatsappOtp });
-    await verifyOtp(mock3.req, mock3.res, () => {});
-    assert.strictEqual(mock3.getStatus(), 200);
-    assert.strictEqual(mock3.getData().success, true);
-    assert.ok(mock3.getData().data?.token, 'Must return active session JWT token');
-    assert.strictEqual(mock3.getData().data?.user?.isVerified, true, 'User must be marked verified');
-
-    // Clean up
-    await User.deleteOne({ email: testEmail });
+      // 3. Entering BOTH valid emailOtp AND whatsappOtp -> Approved & verified!
+      const mock3 = mockReqRes({ email: testEmail, emailOtp, whatsappOtp });
+      await verifyOtp(mock3.req, mock3.res, () => {});
+      assert.strictEqual(mock3.getStatus(), 200);
+      assert.strictEqual(mock3.getData().success, true);
+      assert.ok(mock3.getData().data?.token, 'Must return active session JWT token');
+      assert.strictEqual(mock3.getData().data?.user?.isVerified, true, 'User must be marked verified');
+    } finally {
+      // Clean up in finally
+      await User.deleteOne({ email: testEmail }).catch(() => {});
+    }
   });
 
   await asyncTest('Single email verification succeeds for users without phone (recruiter mode)', async () => {
     const recruiterEmail = `recruiter_${Date.now()}@company.com`;
     const { emailOtp } = generateDualOtps();
 
-    const recruiterUser = new User({
-      name: 'Recruiter User',
-      email: recruiterEmail,
-      password: 'password123',
-      role: 'recruiter',
-      isVerified: false,
-      verificationOtp: {
-        code: emailOtp,
-        emailCode: emailOtp,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      }
-    });
-    await recruiterUser.save();
+    try {
+      const recruiterUser = new User({
+        name: 'Recruiter User',
+        email: recruiterEmail,
+        password: 'password123',
+        role: 'recruiter',
+        isVerified: false,
+        verificationOtp: {
+          code: emailOtp,
+          emailCode: emailOtp,
+          expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+        }
+      });
+      await recruiterUser.save();
 
-    const mock = mockReqRes({ email: recruiterEmail, emailOtp });
-    await verifyOtp(mock.req, mock.res, () => {});
-    assert.strictEqual(mock.getStatus(), 200);
-    assert.strictEqual(mock.getData().success, true);
-    assert.ok(mock.getData().data?.token, 'Must return active session token');
-
-    // Clean up
-    await User.deleteOne({ email: recruiterEmail });
+      const mock = mockReqRes({ email: recruiterEmail, emailOtp });
+      await verifyOtp(mock.req, mock.res, () => {});
+      assert.strictEqual(mock.getStatus(), 200);
+      assert.strictEqual(mock.getData().success, true);
+      assert.ok(mock.getData().data?.token, 'Must return active session token');
+    } finally {
+      // Clean up in finally
+      await User.deleteOne({ email: recruiterEmail }).catch(() => {});
+    }
   });
 
   // ── TEST 9: Strict WhatsApp Phone Link Gate for Existing Students (Option A) ──
@@ -306,68 +310,71 @@ async function runTests() {
 
   await asyncTest('sendLinkPhoneOtp sends WhatsApp OTP & verifyLinkPhoneOtp links phone successfully', async () => {
     const testStudentEmail = `oldstudent_${Date.now()}@college.edu`;
-    const studentUser = new User({
-      name: 'Existing Old Student',
-      email: testStudentEmail,
-      password: 'password123',
-      role: 'student',
-      isVerified: true,
-      phone: '', // Old student without phone
-    });
-    await studentUser.save();
-
-    const targetPhone = '9876543210';
-    const mockSend = mockReqRes({ phone: targetPhone }, studentUser);
-    await sendLinkPhoneOtp(mockSend.req, mockSend.res, () => {});
-
-    assert.strictEqual(mockSend.getStatus(), 200);
-    assert.strictEqual(mockSend.getData().success, true);
-    assert.strictEqual(mockSend.getData().phone, '+919876543210');
-
-    // Fetch updated user from DB to verify OTP was stored
-    const updatedUser = await User.findById(studentUser._id);
-    const otpCode = updatedUser.verificationOtp?.whatsappCode;
-    assert.ok(otpCode && /^\d{6}$/.test(otpCode), 'Must store 6-digit WhatsApp OTP in verificationOtp');
-    assert.strictEqual(updatedUser.verificationOtp?.phonePending, '+919876543210');
-
-    // 1. verifyLinkPhoneOtp with wrong OTP -> Rejected
-    const mockVerifyWrong = mockReqRes({ otp: '000000', phone: targetPhone }, studentUser);
-    await verifyLinkPhoneOtp(mockVerifyWrong.req, mockVerifyWrong.res, () => {});
-    assert.strictEqual(mockVerifyWrong.getStatus(), 400);
-    assert.ok(mockVerifyWrong.getData().message.includes('Invalid WhatsApp verification code'));
-
-    // 2. verifyLinkPhoneOtp with correct OTP -> Success!
-    const mockVerifyRight = mockReqRes({ otp: otpCode, phone: targetPhone }, studentUser);
-    await verifyLinkPhoneOtp(mockVerifyRight.req, mockVerifyRight.res, () => {});
-    assert.strictEqual(mockVerifyRight.getStatus(), 200);
-    assert.strictEqual(mockVerifyRight.getData().success, true);
-    assert.strictEqual(mockVerifyRight.getData().data?.user?.phone, '+919876543210', 'formatUser must return updated phone');
-
-    // DB record must now reflect verified phone
-    const finalUser = await User.findById(studentUser._id);
-    assert.strictEqual(finalUser.phone, '+919876543210');
-    assert.strictEqual(finalUser.verificationOtp?.whatsappCode, null);
-
-    // 3. Prevent duplicate phone linking by another user
     const secondStudentEmail = `anotherstudent_${Date.now()}@college.edu`;
-    const secondStudent = new User({
-      name: 'Second Student',
-      email: secondStudentEmail,
-      password: 'password123',
-      role: 'student',
-      isVerified: true,
-      phone: '',
-    });
-    await secondStudent.save();
+    const targetPhone = '9876543210';
 
-    const mockDuplicate = mockReqRes({ phone: targetPhone }, secondStudent);
-    await sendLinkPhoneOtp(mockDuplicate.req, mockDuplicate.res, () => {});
-    assert.strictEqual(mockDuplicate.getStatus(), 400);
-    assert.ok(mockDuplicate.getData().message.includes('already linked to another account'));
+    try {
+      const studentUser = new User({
+        name: 'Existing Old Student',
+        email: testStudentEmail,
+        password: 'password123',
+        role: 'student',
+        isVerified: true,
+        phone: '', // Old student without phone
+      });
+      await studentUser.save();
 
-    // Clean up
-    await User.deleteOne({ email: testStudentEmail });
-    await User.deleteOne({ email: secondStudentEmail });
+      const mockSend = mockReqRes({ phone: targetPhone }, studentUser);
+      await sendLinkPhoneOtp(mockSend.req, mockSend.res, () => {});
+
+      assert.strictEqual(mockSend.getStatus(), 200);
+      assert.strictEqual(mockSend.getData().success, true);
+      assert.strictEqual(mockSend.getData().phone, '+919876543210');
+
+      // Fetch updated user from DB to verify OTP was stored
+      const updatedUser = await User.findById(studentUser._id);
+      const otpCode = updatedUser.verificationOtp?.whatsappCode;
+      assert.ok(otpCode && /^\d{6}$/.test(otpCode), 'Must store 6-digit WhatsApp OTP in verificationOtp');
+      assert.strictEqual(updatedUser.verificationOtp?.phonePending, '+919876543210');
+
+      // 1. verifyLinkPhoneOtp with wrong OTP -> Rejected
+      const mockVerifyWrong = mockReqRes({ otp: '000000', phone: targetPhone }, studentUser);
+      await verifyLinkPhoneOtp(mockVerifyWrong.req, mockVerifyWrong.res, () => {});
+      assert.strictEqual(mockVerifyWrong.getStatus(), 400);
+      assert.ok(mockVerifyWrong.getData().message.includes('Invalid WhatsApp verification code'));
+
+      // 2. verifyLinkPhoneOtp with correct OTP -> Success!
+      const mockVerifyRight = mockReqRes({ otp: otpCode, phone: targetPhone }, studentUser);
+      await verifyLinkPhoneOtp(mockVerifyRight.req, mockVerifyRight.res, () => {});
+      assert.strictEqual(mockVerifyRight.getStatus(), 200);
+      assert.strictEqual(mockVerifyRight.getData().success, true);
+      assert.strictEqual(mockVerifyRight.getData().data?.user?.phone, '+919876543210', 'formatUser must return updated phone');
+
+      // DB record must now reflect verified phone
+      const finalUser = await User.findById(studentUser._id);
+      assert.strictEqual(finalUser.phone, '+919876543210');
+      assert.strictEqual(finalUser.verificationOtp?.whatsappCode, null);
+
+      // 3. Prevent duplicate phone linking by another user
+      const secondStudent = new User({
+        name: 'Second Student',
+        email: secondStudentEmail,
+        password: 'password123',
+        role: 'student',
+        isVerified: true,
+        phone: '',
+      });
+      await secondStudent.save();
+
+      const mockDuplicate = mockReqRes({ phone: targetPhone }, secondStudent);
+      await sendLinkPhoneOtp(mockDuplicate.req, mockDuplicate.res, () => {});
+      assert.strictEqual(mockDuplicate.getStatus(), 400);
+      assert.ok(mockDuplicate.getData().message.includes('already linked to another account'));
+    } finally {
+      // Clean up in finally
+      await User.deleteOne({ email: testStudentEmail }).catch(() => {});
+      await User.deleteOne({ email: secondStudentEmail }).catch(() => {});
+    }
   });
 
   // ── SUMMARY ──

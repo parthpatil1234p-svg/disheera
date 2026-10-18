@@ -58,11 +58,16 @@
     document.getElementById('passportLoading').classList.add('d-none');
     document.getElementById('passportContent').classList.remove('d-none');
 
-    // Revocation status banner
-    const existingBanner = document.getElementById('passportRevocationAlert');
-    if (existingBanner) existingBanner.remove();
+    // Status banners (Revocation & Pending)
+    const existingRevokeBanner = document.getElementById('passportRevocationAlert');
+    if (existingRevokeBanner) existingRevokeBanner.remove();
+    const existingPendingBanner = document.getElementById('passportPendingAlert');
+    if (existingPendingBanner) existingPendingBanner.remove();
 
-    if (p.isRevoked || p.status === 'revoked') {
+    const isRevoked = p.isRevoked || p.credentialStatus === 'revoked' || p.status === 'revoked';
+    const isVerified = (p.credentialStatus === 'verified' || p.status === 'verified') && ((p.verifiedSkillsCount || 0) >= 1);
+
+    if (isRevoked) {
       const banner = document.createElement('div');
       banner.id = 'passportRevocationAlert';
       banner.className = 'alert alert-danger d-flex align-items-center gap-3 mb-4 shadow-sm border border-danger';
@@ -70,6 +75,28 @@
       banner.innerHTML = '<i class="bi bi-shield-x fs-2 text-danger"></i><div><h6 class="fw-bold mb-1 text-danger">⚠️ CREDENTIAL REVOKED</h6><p class="mb-0 small text-dark">This credential has been officially revoked by platform administrators. Reason: <strong>' + escapeHtml(reason) + '</strong></p></div>';
       const content = document.getElementById('passportContent');
       content.insertBefore(banner, content.firstChild);
+    } else if (!isVerified) {
+      const banner = document.createElement('div');
+      banner.id = 'passportPendingAlert';
+      banner.className = 'alert alert-warning d-flex align-items-center gap-3 mb-4 shadow-sm border border-warning';
+      banner.innerHTML = '<i class="bi bi-hourglass-split fs-2 text-warning"></i><div><h6 class="fw-bold mb-1 text-warning">⏳ CREDENTIAL PENDING VERIFICATION</h6><p class="mb-0 small text-dark">This Skill Passport is currently in <strong>Pending</strong> status. Candidate must complete at least 1 verified assessment/project to activate verified status.</p></div>';
+      const content = document.getElementById('passportContent');
+      content.insertBefore(banner, content.firstChild);
+    }
+
+    // Dynamic credential status pill badge
+    const badgeEl = document.getElementById('pCredentialStatusBadge');
+    if (badgeEl) {
+      if (isRevoked) {
+        badgeEl.className = 'badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-30 rounded-pill font-mono small';
+        badgeEl.innerHTML = '<i class="bi bi-shield-x me-1"></i> Revoked';
+      } else if (isVerified) {
+        badgeEl.className = 'badge bg-success bg-opacity-10 text-success border border-success border-opacity-30 rounded-pill font-mono small';
+        badgeEl.innerHTML = '<i class="bi bi-patch-check-fill me-1"></i> Verified Talent';
+      } else {
+        badgeEl.className = 'badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-30 rounded-pill font-mono small';
+        badgeEl.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Pending Verification';
+      }
     }
 
     // 1. Header identity

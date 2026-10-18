@@ -65,21 +65,26 @@ async function runEndToEndRecruiterSuite() {
   // ── TEST 3: Recruiter Account Provisioning & OTP Activation ─
   console.log('▶ TEST 3: Recruiter Corporate Onboarding & OTP Activation');
   const testRecruiterEmail = 'test.recruiter@razorpay.com';
-  await User.deleteOne({ email: testRecruiterEmail });
-  await JobOpening.deleteMany({ recruiterEmail: testRecruiterEmail });
+  let testRecruiter = null;
+  let job = null;
+  let app = null;
 
-  let company = await Company.findOne({ domain: 'razorpay.com' });
-  if (!company) {
-    company = await Company.create({
-      name: 'Razorpay Software Pvt Ltd',
-      domain: 'razorpay.com',
-      website: 'https://razorpay.com',
-      isVerified: true,
-      verificationScore: 99
-    });
-  }
+  try {
+    await User.deleteOne({ email: testRecruiterEmail });
+    await JobOpening.deleteMany({ recruiterEmail: testRecruiterEmail });
 
-  const testRecruiter = new User({
+    let company = await Company.findOne({ domain: 'razorpay.com' });
+    if (!company) {
+      company = await Company.create({
+        name: 'Razorpay Software Pvt Ltd',
+        domain: 'razorpay.com',
+        website: 'https://razorpay.com',
+        isVerified: true,
+        verificationScore: 99
+      });
+    }
+
+    testRecruiter = new User({
     name: 'Priya Sharma',
     email: testRecruiterEmail,
     password: 'secureRecruiterPass123',
@@ -113,7 +118,7 @@ async function runEndToEndRecruiterSuite() {
 
   // ── TEST 4: Job Opening Creation ────────────────────────────
   console.log('▶ TEST 4: Job Opening Creation');
-  const job = await JobOpening.create({
+  job = await JobOpening.create({
     recruiter: testRecruiter._id,
     company: company._id,
     companyName: company.name,
@@ -166,7 +171,7 @@ async function runEndToEndRecruiterSuite() {
   // Remove any previous application for this job
   await JobApplication.deleteMany({ job: job._id, student: testStudent._id });
 
-  const app = await JobApplication.create({
+  app = await JobApplication.create({
     job: job._id,
     student: testStudent._id,
     recruiter: testRecruiter._id,
@@ -214,7 +219,26 @@ async function runEndToEndRecruiterSuite() {
   console.log('  - Candidate 1-Click Apply: Passed');
   console.log('════════════════════════════════════════════════════════════════\n');
 
-  await prisma.$disconnect();
+  } finally {
+    console.log('🧹 [Cleanup in finally] Purging test recruiter, job application, and job opening...');
+    try {
+      if (app?._id) {
+        await JobApplication.deleteOne({ _id: app._id }).catch(() => {});
+      }
+      if (job?._id) {
+        await JobApplication.deleteMany({ job: job._id }).catch(() => {});
+        await JobOpening.deleteOne({ _id: job._id }).catch(() => {});
+      }
+      if (testRecruiter?._id) {
+        await User.deleteOne({ _id: testRecruiter._id }).catch(() => {});
+      }
+      await User.deleteOne({ email: testRecruiterEmail }).catch(() => {});
+      console.log('  ✓ Cleaned up test recruiter, application, and opening.');
+    } catch (cleanupErr) {
+      console.warn('  ⚠️ Cleanup warning:', cleanupErr.message);
+    }
+    await prisma.$disconnect().catch(() => {});
+  }
   process.exit(0);
 }
 

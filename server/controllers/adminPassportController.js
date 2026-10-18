@@ -80,6 +80,15 @@ async function listPassports(req, res) {
       const rawSkills = Array.isArray(student.skills) ? student.skills : [];
       const verifiedSkillsCount = rawSkills.filter(s => s.isQuizVerified || s.isProjectVerified || s.isCodeVerified).length;
 
+      let credentialStatus = 'pending';
+      if (isRevoked) {
+        credentialStatus = 'revoked';
+      } else if (verifiedSkillsCount >= 1) {
+        credentialStatus = 'verified';
+      } else {
+        credentialStatus = 'pending';
+      }
+
       return {
         studentId: student.id,
         name: student.name,
@@ -88,7 +97,8 @@ async function listPassports(req, res) {
         totalSkills: rawSkills.length,
         verifiedSkillsCount,
         hasCompletedSkillVerification: Boolean(student.hasCompletedSkillVerification || verifiedSkillsCount > 0),
-        status: isRevoked ? 'revoked' : 'verified',
+        credentialStatus,
+        status: credentialStatus,
         isRevoked,
         revocation: isRevoked ? revocation : null,
         createdAt: student.createdAt
@@ -243,6 +253,7 @@ async function revokePassport(req, res) {
       message: `Skill Passport for candidate ${student.name} has been revoked.`,
       passport: {
         studentId: student.id,
+        credentialStatus: 'revoked',
         status: 'revoked',
         isRevoked: true,
         revocation: afterState
@@ -288,7 +299,7 @@ async function reinstatePassport(req, res) {
 
     const student = await prisma.user.findUnique({
       where: { id: studentId },
-      select: { id: true, email: true, name: true, role: true, profileStatus: true }
+      select: { id: true, email: true, name: true, role: true, profileStatus: true, skills: true }
     });
 
     if (!student || student.role !== 'student') {
@@ -341,12 +352,17 @@ async function reinstatePassport(req, res) {
       })
     ]);
 
+    const rawSkills = Array.isArray(student.skills) ? student.skills : [];
+    const verifiedSkillsCount = rawSkills.filter(s => s.isQuizVerified || s.isProjectVerified || s.isCodeVerified).length;
+    const reinstatedStatus = verifiedSkillsCount >= 1 ? 'verified' : 'pending';
+
     return res.status(200).json({
       success: true,
       message: `Skill Passport for candidate ${student.name} has been reinstated.`,
       passport: {
         studentId: student.id,
-        status: 'verified',
+        credentialStatus: reinstatedStatus,
+        status: reinstatedStatus,
         isRevoked: false,
         revocation: afterState
       }

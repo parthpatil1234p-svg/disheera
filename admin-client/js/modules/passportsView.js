@@ -63,10 +63,13 @@ function renderPassportsTable(passports, pagination) {
   const role = window.currentAdminRole || 'SUPER_ADMIN';
 
   tbody.innerHTML = passports.map(p => {
-    const isRevoked = p.isRevoked;
+    const isRevoked = p.isRevoked || p.credentialStatus === 'revoked' || p.status === 'revoked';
+    const isVerified = (p.credentialStatus === 'verified' || p.status === 'verified') && ((p.verifiedSkillsCount || 0) >= 1);
     const statusBadge = isRevoked
       ? '<span class="badge badge-rose">⚠️ Revoked</span>'
-      : '<span class="badge badge-emerald">✅ Verified</span>';
+      : (isVerified
+          ? '<span class="badge badge-emerald">✅ Verified</span>'
+          : '<span class="badge badge-muted">⏳ Pending</span>');
 
     const actionButtons = `
       <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
@@ -174,7 +177,7 @@ async function viewPassportDossier(studentId) {
           </div>
           <div style="background: rgba(255,255,255,0.02); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-subtle);">
             <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Credential State</div>
-            <div style="font-size: 1.25rem; font-weight: 700; color: ${p.isRevoked ? 'var(--accent-rose)' : 'var(--accent-emerald)'};">${p.isRevoked ? 'REVOKED' : 'ACTIVE'}</div>
+            <div style="font-size: 1.25rem; font-weight: 700; color: ${p.isRevoked ? 'var(--accent-rose)' : ((p.verifiedSkillsCount || 0) >= 1 ? 'var(--accent-emerald)' : 'var(--accent-amber)')};">${p.isRevoked ? 'REVOKED' : ((p.verifiedSkillsCount || 0) >= 1 ? 'VERIFIED' : 'PENDING')}</div>
           </div>
         </div>
 

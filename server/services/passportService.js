@@ -90,6 +90,15 @@ async function generatePassportData(userOrId) {
   const passportRevocation = profileStatus.passportRevocation || null;
   const isRevoked = Boolean(passportRevocation && passportRevocation.isRevoked);
 
+  let credentialStatus = 'pending';
+  if (isRevoked) {
+    credentialStatus = 'revoked';
+  } else if (verifiedSkillsCount >= 1) {
+    credentialStatus = 'verified';
+  } else {
+    credentialStatus = 'pending';
+  }
+
   return {
     studentId: user.id,
     name: user.name || 'Verified Candidate',
@@ -113,7 +122,9 @@ async function generatePassportData(userOrId) {
     cryptographicHash,
     verificationUrl: `https://disheera.site/passport.html?id=${user.id}`,
     ledgerTimestamp: new Date().toISOString(),
-    status: isRevoked ? 'revoked' : 'verified',
+    credentialStatus,
+    status: credentialStatus,
+    isValid: credentialStatus === 'verified',
     isRevoked,
     revocationDetails: isRevoked ? {
       revokedAt: passportRevocation.revokedAt,

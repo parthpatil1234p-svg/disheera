@@ -447,8 +447,6 @@ model AdminLoginAttempt {
   attemptedAt DateTime  @default(now())
 
   @@index([email])
-  @@index([ipAddress])
-  @@index([attemptedAt])
   @@map("admin_login_attempts")
 }
 
@@ -479,10 +477,6 @@ model RadarEmployer {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
-  @@index([cluster])
-  @@index([clusterGroup])
-  @@index([city])
-  @@index([isActive])
   @@map("radar_employers")
 }
 

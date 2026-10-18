@@ -11,6 +11,7 @@ const Roadmap = require('../models/Roadmap');
 const RoadmapTask = require('../models/RoadmapTask');
 const Career = require('../models/Career');
 const User = require('../models/User');
+const { prisma } = require('../config/prisma');
 const { generateRecommendations } = require('../services/recommendationService');
 const { generateRoadmapTasks, calculateRoadmapProgress, syncUserGraduation } = require('../services/roadmapService');
 const {
@@ -641,6 +642,46 @@ const toggleTask = async (req, res, next) => {
   }
 };
 
+/**
+ * Caps archived/abandoned roadmaps for a user, keeping only the latest N (default 3).
+ * Deletes any older abandoned roadmaps along with their child tasks and attempts.
+ *
+ * @param {string} userId - User ID
+ * @param {number} keepCount - Number of recent archived roadmaps to preserve (default: 3)
+ * @returns {Promise<{ purgedCount: number, purgedIds: string[] }>}
+ */
+const enforceArchivedRoadmapCap = async (userId, keepCount = 3) => {
+  try {
+    const archivedRoadmaps = await prisma.roadmap.findMany({
+      where: {
+        userId: String(userId),
+        status: { in: ['abandoned', 'archived'] },
+      },
+      orderBy: [
+        { abandonedAt: 'desc' },
+        { updatedAt: 'desc' },
+      ],
+      select: { id: true, careerSnapshot: true, abandonedAt: true },
+    });
+
+    if (archivedRoadmaps.length > keepCount) {
+      const excess = archivedRoadmaps.slice(keepCount);
+      const idsToDelete = excess.map((r) => r.id);
+
+      await prisma.roadmapTask.deleteMany({ where: { roadmapId: { in: idsToDelete } } }).catch(() => {});
+      await prisma.attempt.deleteMany({ where: { roadmapId: { in: idsToDelete } } }).catch(() => {});
+      const delResult = await prisma.roadmap.deleteMany({ where: { id: { in: idsToDelete } } });
+
+      console.log(`[RoadmapCap] Purged ${delResult.count} older archived roadmap(s) for user ${userId} (retained latest ${keepCount})`);
+      return { purgedCount: delResult.count, purgedIds: idsToDelete };
+    }
+    return { purgedCount: 0, purgedIds: [] };
+  } catch (err) {
+    console.error('[RoadmapCap] Error enforcing archived roadmap cap:', err.message);
+    return { purgedCount: 0, purgedIds: [], error: err.message };
+  }
+};
+
 // ── abandonRoadmap ─────────────────────────────────────────────
 /**
  * POST /api/roadmaps/current/abandon
@@ -680,6 +721,7 @@ const abandonRoadmap = async (req, res, next) => {
       user.lastAbandonedRouteAt = new Date();
       await user.save({ validateBeforeSave: false });
       invalidateDashboardCache(req.user._id);
+      await enforceArchivedRoadmapCap(req.user._id, 3);
       return res.status(200).json({
         success: true,
         message: 'All active career routes abandoned. All your earned skills and milestone quiz scores have been safely preserved.',
@@ -714,6 +756,7 @@ const abandonRoadmap = async (req, res, next) => {
       user.lastAbandonedRouteAt = new Date();
       await user.save({ validateBeforeSave: false });
       invalidateDashboardCache(req.user._id);
+      await enforceArchivedRoadmapCap(req.user._id, 3);
       return res.status(200).json({
         success: true,
         message: 'Active career route abandoned. All your earned skills and milestone quiz scores have been safely preserved.',
@@ -728,6 +771,7 @@ const abandonRoadmap = async (req, res, next) => {
     user.lastAbandonedRouteAt = new Date();
     await user.save({ validateBeforeSave: false });
     invalidateDashboardCache(req.user._id);
+    await enforceArchivedRoadmapCap(req.user._id, 3);
 
     res.status(200).json({
       success: true,
@@ -1468,4 +1512,5 @@ module.exports = {
   getDeveloperRoadmapTracks,
   getDeveloperRoadmapBySlug,
   getDeveloperRoadmapTopicGuide,
+  enforceArchivedRoadmapCap,
 };

@@ -669,29 +669,30 @@ async function runPhase2Tests() {
     console.log('\n▶ CLEANUP: Purging all Phase 2 test records from live Supabase DB...');
 
     try {
-      if (studentUser) {
-        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { targetId: studentUser.id } }));
-        await withDbRetry(() => prisma.user.deleteMany({ where: { id: studentUser.id } }));
+      const studentIds = [studentUser?.id, testStudentId].filter(Boolean);
+      const recruiterIds = [recruiterUser?.id, testRecruiterId].filter(Boolean);
+      const adminIds = [modUser?.id, adminUser?.id, superUser?.id].filter(Boolean);
+      const testEmails = [testStudentEmail, testRecruiterEmail];
+      const adminEmails = [testModEmail, testAdminEmail, testSuperEmail];
+
+      if (studentIds.length > 0) {
+        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { targetId: { in: studentIds } } }));
       }
-      if (recruiterUser) {
-        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { targetId: recruiterUser.id } }));
-        await withDbRetry(() => prisma.user.deleteMany({ where: { id: recruiterUser.id } }));
+      if (recruiterIds.length > 0) {
+        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { targetId: { in: recruiterIds } } }));
       }
-      if (modUser) {
-        await withDbRetry(() => prisma.adminSession.deleteMany({ where: { adminId: modUser.id } }));
-        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { adminId: modUser.id } }));
-        await withDbRetry(() => prisma.adminUser.deleteMany({ where: { id: modUser.id } }));
+      await withDbRetry(() => prisma.user.deleteMany({
+        where: { OR: [{ id: { in: [...studentIds, ...recruiterIds] } }, { email: { in: testEmails } }] }
+      }));
+
+      if (adminIds.length > 0) {
+        await withDbRetry(() => prisma.adminSession.deleteMany({ where: { adminId: { in: adminIds } } }));
+        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { adminId: { in: adminIds } } }));
       }
-      if (adminUser) {
-        await withDbRetry(() => prisma.adminSession.deleteMany({ where: { adminId: adminUser.id } }));
-        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { adminId: adminUser.id } }));
-        await withDbRetry(() => prisma.adminUser.deleteMany({ where: { id: adminUser.id } }));
-      }
-      if (superUser) {
-        await withDbRetry(() => prisma.adminSession.deleteMany({ where: { adminId: superUser.id } }));
-        await withDbRetry(() => prisma.adminAuditLog.deleteMany({ where: { adminId: superUser.id } }));
-        await withDbRetry(() => prisma.adminUser.deleteMany({ where: { id: superUser.id } }));
-      }
+      await withDbRetry(() => prisma.adminUser.deleteMany({
+        where: { OR: [{ id: { in: adminIds } }, { email: { in: adminEmails } }] }
+      }));
+
       console.log('  ✓ Cleaned up all Phase 2 test users, sessions, and audit entries.');
     } catch (cleanupErr) {
       console.error('  ⚠️ Cleanup warning:', cleanupErr.message);

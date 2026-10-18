@@ -145,17 +145,47 @@ exports.verifyPublicCertificate = async (req, res, next) => {
       ? (() => { try { return JSON.parse(user.profileStatus); } catch (_) { return {}; } })()
       : (user.profileStatus || {});
 
+    const rawSkills = Array.isArray(user.skills) ? user.skills : [];
+    const verifiedSkillsCount = rawSkills.filter(s => s.isQuizVerified || s.isProjectVerified || s.isCodeVerified).length;
+
+    let credentialStatus = 'pending';
     if (profileStatus.passportRevocation?.isRevoked) {
+      credentialStatus = 'revoked';
+    } else if (verifiedSkillsCount >= 1) {
+      credentialStatus = 'verified';
+    } else {
+      credentialStatus = 'pending';
+    }
+
+    if (credentialStatus === 'revoked') {
       return res.status(200).json({
         success: true,
         data: {
           isValid: false,
+          credentialStatus: 'revoked',
           status: 'revoked',
           isRevoked: true,
           certificateId: cleanCertId,
           studentName: user.name || 'Candidate',
           revocation: profileStatus.passportRevocation,
           message: 'This credential has been revoked by platform administrators.',
+          tamperProofHash: null,
+        }
+      });
+    }
+
+    if (credentialStatus === 'pending') {
+      return res.status(200).json({
+        success: true,
+        data: {
+          isValid: false,
+          credentialStatus: 'pending',
+          status: 'pending',
+          isRevoked: false,
+          certificateId: cleanCertId,
+          studentName: user.name || 'Candidate',
+          verifiedSkillsCount: 0,
+          message: 'This credential is pending skill verification (verifiedSkills must be >= 1).',
           tamperProofHash: null,
         }
       });
@@ -195,6 +225,9 @@ exports.verifyPublicCertificate = async (req, res, next) => {
       success: true,
       data: {
         isValid: true,
+        credentialStatus: 'verified',
+        status: 'verified',
+        isRevoked: false,
         certificateId: cleanCertId,
         studentName: user.name || 'Parth Patil',
         targetRole,
@@ -208,6 +241,7 @@ exports.verifyPublicCertificate = async (req, res, next) => {
           interviewScore: 90,
         },
         verifiedSkills: roleSkills,
+        verifiedSkillsCount,
         issuer: 'Disheera Global Credential Registry',
         authority: 'Academic Evaluation Council & Technical Industry Standards Board',
         academicDirector: 'Dr. Rajiv Mehta',

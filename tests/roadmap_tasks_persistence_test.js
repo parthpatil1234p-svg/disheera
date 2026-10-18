@@ -38,57 +38,58 @@ async function runTest() {
   const testUserId = `test_u_${Date.now().toString(16)}`;
   const testEmail = `test_roadmap_${Date.now()}@example.com`;
 
-  // 1. Create a test student user
-  console.log('Step 1: Creating test user...');
-  const user = new User({
-    id: testUserId,
-    name: 'Roadmap Test Student',
-    email: testEmail,
-    role: 'student',
-    profileCompleted: true,
-    hasCompletedSkillVerification: true,
-    education: { course: 'BCA', branch: 'CS', year: 'Third Year', college: 'Demo' },
-    interests: ['web development', 'problem solving'],
-    skills: [
-      { name: 'javascript', displayName: 'JavaScript', proficiency: 'intermediate', isQuizVerified: true },
-      { name: 'react', displayName: 'React', proficiency: 'intermediate', isQuizVerified: true }
-    ]
-  });
-  await user.save();
-  console.log('✓ User created:', testUserId);
-
-  // 2. Fetch or create a test career
-  let career = await Career.findOne({ slug: 'front-end-developer' })
-    .populate({ path: 'requiredSkills.skill', select: 'name displayName category description' });
-  if (!career) {
-    career = await Career.findOne({ active: true })
-      .populate({ path: 'requiredSkills.skill', select: 'name displayName category description' });
-  }
-  assert.ok(career, 'At least one active career must exist');
-
-  // 3. Create an active roadmap with intentionally 0 tasks (simulating the bug/desync)
-  console.log('\nStep 2: Creating an active roadmap with 0 tasks (simulating empty state)...');
-  const roadmap = await Roadmap.create({
-    user: testUserId,
-    career: career._id,
-    careerSnapshot: {
-      title: career.title,
-      slug: career.slug,
-      shortDescription: career.shortDescription || 'Front-End Development Track'
-    },
-    durationWeeks: 4,
-    status: 'active',
-    totalTasks: 0,
-    completedTasks: 0,
-    progressPercentage: 0,
-    startedAt: new Date()
-  });
-
-  const initialTasksCount = await RoadmapTask.countDocuments({ roadmap: roadmap._id });
-  assert.strictEqual(initialTasksCount, 0, 'Roadmap starts with 0 tasks');
-  console.log('✓ Verified roadmap starts with 0 tasks');
+  let roadmap = null;
 
   try {
+    // 1. Create a test student user
+    console.log('Step 1: Creating test user...');
+    const user = new User({
+      id: testUserId,
+      name: 'Roadmap Test Student',
+      email: testEmail,
+      role: 'student',
+      profileCompleted: true,
+      hasCompletedSkillVerification: true,
+      education: { course: 'BCA', branch: 'CS', year: 'Third Year', college: 'Demo' },
+      interests: ['web development', 'problem solving'],
+      skills: [
+        { name: 'javascript', displayName: 'JavaScript', proficiency: 'intermediate', isQuizVerified: true },
+        { name: 'react', displayName: 'React', proficiency: 'intermediate', isQuizVerified: true }
+      ]
+    });
+    await user.save();
+    console.log('✓ User created:', testUserId);
+
+    // 2. Fetch or create a test career
+    let career = await Career.findOne({ slug: 'front-end-developer' })
+      .populate({ path: 'requiredSkills.skill', select: 'name displayName category description' });
+    if (!career) {
+      career = await Career.findOne({ active: true })
+        .populate({ path: 'requiredSkills.skill', select: 'name displayName category description' });
+    }
+    assert.ok(career, 'At least one active career must exist');
+
+    // 3. Create an active roadmap with intentionally 0 tasks (simulating the bug/desync)
+    console.log('\nStep 2: Creating an active roadmap with 0 tasks (simulating empty state)...');
+    roadmap = await Roadmap.create({
+      user: testUserId,
+      career: career._id,
+      careerSnapshot: {
+        title: career.title,
+        slug: career.slug,
+        shortDescription: career.shortDescription || 'Front-End Development Track'
+      },
+      durationWeeks: 4,
+      status: 'active',
+      totalTasks: 0,
+      completedTasks: 0,
+      progressPercentage: 0,
+      startedAt: new Date()
+    });
+
+    const initialTasksCount = await RoadmapTask.countDocuments({ roadmap: roadmap._id });
+    assert.strictEqual(initialTasksCount, 0, 'Roadmap starts with 0 tasks');
+    console.log('✓ Verified roadmap starts with 0 tasks');
     // 4. Call getCurrentRoadmap (GET /api/roadmaps/current)
     console.log('\nStep 3: Calling getCurrentRoadmap to trigger self-healing...');
     const mockReq = {
@@ -127,8 +128,10 @@ async function runTest() {
   } finally {
     // Cleanup
     console.log('\nCleaning up test data...');
-    await RoadmapTask.deleteMany({ roadmap: roadmap._id }).catch(() => {});
-    await Roadmap.findByIdAndDelete(roadmap._id).catch(() => {});
+    if (roadmap?._id) {
+      await RoadmapTask.deleteMany({ roadmap: roadmap._id }).catch(() => {});
+      await Roadmap.findByIdAndDelete(roadmap._id).catch(() => {});
+    }
     await User.findByIdAndDelete(testUserId).catch(() => {});
     console.log('✓ Cleanup complete.');
   }
