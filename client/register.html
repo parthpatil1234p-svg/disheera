@@ -289,8 +289,7 @@
               </button>
             </div>
 
-            <div class="auth-form-header" id="authFormHeader">
-              <span class="atlas-coordinate" id="atlasCoordinate">NEW STUDENT ENROLLMENT &middot; REG-01</span>
+            <div class="auth-form-header mb-3" id="authFormHeader">
               <h2 class="auth-form-title mt-1" id="authFormTitle">Create Account</h2>
               <p class="auth-form-subtitle mb-0" id="authFormSubtitle">
                 Enter your details to generate your student profile.
@@ -310,18 +309,6 @@
                 </div>
               </div>
               <span class="badge bg-success font-monospace px-2 py-1">TIER 02</span>
-            </div>
-
-            <!-- Student Plan Ribbon (Shown when Student tab is active) -->
-            <div id="studentPlanPill" class="alert alert-primary border-primary border-opacity-25 p-2.5 mb-3 d-flex align-items-center justify-content-between shadow-xs flex-wrap gap-2" role="alert" style="background: #EEF2FF;">
-              <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-gift-fill text-primary fs-5"></i>
-                <div class="small">
-                  <strong class="text-ink">Student Career Ecosystem &middot; 100% Free Forever</strong>
-                  <div class="text-secondary" style="font-size: 0.78rem;">Always free for students. No credit card, no paywalls, zero subscription fees.</div>
-                </div>
-              </div>
-              <span class="badge bg-success font-monospace px-2 py-1">₹0 FREE</span>
             </div>
 
             <!-- Step 1: Registration Form -->
@@ -385,14 +372,9 @@
 
                 <!-- Email -->
                 <div class="mb-3">
-                  <div class="d-flex justify-content-between align-items-center mb-1">
-                    <label for="email" class="form-label mb-0">
-                      Email Address <span class="text-danger">*</span>
-                    </label>
-                    <span id="studentEmailBadge" class="badge bg-secondary-subtle text-secondary" style="font-size: 0.7rem;">
-                      <i class="bi bi-shield-check me-1"></i> Authentic Email Required
-                    </span>
-                  </div>
+                  <label for="email" class="form-label">
+                    Email Address <span class="text-danger">*</span>
+                  </label>
                   <div class="input-group">
                     <span class="input-group-text">
                       <i class="bi bi-envelope"></i>
@@ -420,14 +402,9 @@
 
                 <!-- WhatsApp Phone Number (Instant OTP & Weekly Notes) -->
                 <div class="mb-3">
-                  <div class="d-flex justify-content-between align-items-center mb-1">
-                    <label for="phone" class="form-label mb-0">
-                      WhatsApp Phone Number
-                    </label>
-                    <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.72rem;">
-                      <i class="bi bi-whatsapp me-1"></i> Instant OTP &lt;2s
-                    </span>
-                  </div>
+                  <label for="phone" class="form-label">
+                    WhatsApp Phone Number
+                  </label>
                   <div class="input-group">
                     <span class="input-group-text bg-light text-muted fw-semibold">
                       <i class="bi bi-whatsapp text-success me-1"></i> +91
