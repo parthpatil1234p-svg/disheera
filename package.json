@@ -22,6 +22,7 @@
     "client:serve": "echo Serving client on http://localhost:5500... && npx --yes serve client -p 5500",
     "admin:serve": "serve admin-client -p 5501",
     "seed:admin": "node server/prisma/seedAdmin.js",
+    "seed:team-admins": "node server/scripts/seedTeamAdmins.js",
     "admin:unlock": "node server/scripts/unlockAdmin.js",
     "test:admin-isolation": "node tests/admin_subdomain_isolation_test.js",
     "test:admin-phase2": "node tests/admin_phase2_verification_test.js",
