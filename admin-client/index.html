@@ -68,18 +68,19 @@
 
       <div class="sidebar-footer">
         <div class="admin-profile-pill">
-          <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0;">
+          <div class="admin-profile-left">
             <div class="admin-profile-avatar-box">
               <span id="adminAvatarInitials">SA</span>
               <span class="pulse-status-dot"></span>
             </div>
             <div class="admin-profile-info">
-              <span id="adminCurrentName" class="admin-profile-name">Admin</span>
+              <span id="adminCurrentName" class="admin-profile-name">Super Admin</span>
               <span id="adminCurrentRole" class="admin-profile-role">SUPER_ADMIN</span>
             </div>
           </div>
-          <button class="btn-logout" onclick="handleAdminLogout()" title="Log out">
-            <i class="bi bi-box-arrow-right" style="font-size: 1.15rem;"></i>
+          <button class="btn-logout" onclick="handleAdminLogout()" title="Log out and terminate session">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Exit</span>
           </button>
         </div>
       </div>
@@ -106,100 +107,174 @@
 
       <!-- ── VIEW 1: Dashboard Overview ───────────────────────── -->
       <section id="view-dashboard" class="content-view active">
-        <!-- 8 KPI Cards -->
+        <!-- 8 Executive KPI Cards with Color Themes & Vector Icons -->
         <div class="kpi-grid">
-          <div class="kpi-card">
+          <!-- Card 1: Total Users (Cyan) -->
+          <div class="kpi-card accent-cyan">
             <div class="kpi-header">
-              <span class="kpi-label">Total Users</span>
-              <span class="kpi-icon">👥</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Total Users</span>
+                <span class="kpi-subtext">All registered accounts</span>
+              </div>
+              <div class="kpi-icon-box cyan">
+                <i class="bi bi-people-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiTotalUsers">—</div>
-            <div class="kpi-subtext">All registered accounts</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiTotalUsers">—</div>
+              <span class="kpi-trend trend-cyan"><i class="bi bi-check2-circle"></i> Active</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 2: Daily Signups (Amber) -->
+          <div class="kpi-card accent-amber">
             <div class="kpi-header">
-              <span class="kpi-label">Daily Signups</span>
-              <span class="kpi-icon">⚡</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Daily Signups</span>
+                <span class="kpi-subtext">Last 24 hours</span>
+              </div>
+              <div class="kpi-icon-box amber">
+                <i class="bi bi-lightning-charge-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiDailySignups">—</div>
-            <div class="kpi-subtext">Last 24 hours</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiDailySignups">—</div>
+              <span class="kpi-trend trend-amber"><i class="bi bi-graph-up-arrow"></i> 24h Pace</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 3: Active Learners (Indigo) -->
+          <div class="kpi-card accent-indigo">
             <div class="kpi-header">
-              <span class="kpi-label">Active Learners</span>
-              <span class="kpi-icon">🗺️</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Active Learners</span>
+                <span class="kpi-subtext">Active career roadmaps</span>
+              </div>
+              <div class="kpi-icon-box indigo">
+                <i class="bi bi-compass-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiActiveRoadmaps">—</div>
-            <div class="kpi-subtext">Active career roadmaps</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiActiveRoadmaps">—</div>
+              <span class="kpi-trend trend-indigo"><i class="bi bi-mortarboard-fill"></i> Guided</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 4: Corporate Recruiters (Violet) -->
+          <div class="kpi-card accent-violet">
             <div class="kpi-header">
-              <span class="kpi-label">Corporate Recruiters</span>
-              <span class="kpi-icon">🏢</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Corporate Recruiters</span>
+                <span class="kpi-subtext">Hiring partner companies</span>
+              </div>
+              <div class="kpi-icon-box violet">
+                <i class="bi bi-buildings-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiTotalRecruiters">—</div>
-            <div class="kpi-subtext">Registered hiring partners</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiTotalRecruiters">—</div>
+              <span class="kpi-trend trend-violet"><i class="bi bi-patch-check-fill"></i> Vetted</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 5: Pending Approvals (Rose) -->
+          <div class="kpi-card accent-rose">
             <div class="kpi-header">
-              <span class="kpi-label">Pending Approvals</span>
-              <span class="kpi-icon">⏳</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Pending Approvals</span>
+                <span class="kpi-subtext">Awaiting admin review</span>
+              </div>
+              <div class="kpi-icon-box rose">
+                <i class="bi bi-hourglass-split"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiPendingRecruiters" style="color: var(--accent-amber);">—</div>
-            <div class="kpi-subtext">Recruiters awaiting vetting</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiPendingRecruiters" style="color: #FB7185;">—</div>
+              <span class="kpi-trend trend-rose"><i class="bi bi-exclamation-circle-fill"></i> Needs Action</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 6: Live Job Openings (Teal) -->
+          <div class="kpi-card accent-teal">
             <div class="kpi-header">
-              <span class="kpi-label">Live Job Openings</span>
-              <span class="kpi-icon">💼</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Live Job Openings</span>
+                <span class="kpi-subtext">Active corporate listings</span>
+              </div>
+              <div class="kpi-icon-box teal">
+                <i class="bi bi-briefcase-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiJobOpenings">—</div>
-            <div class="kpi-subtext">Active corporate listings</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiJobOpenings">—</div>
+              <span class="kpi-trend trend-teal"><i class="bi bi-broadcast-pin"></i> Live</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 7: Test Attempts (Blue) -->
+          <div class="kpi-card accent-blue">
             <div class="kpi-header">
-              <span class="kpi-label">Test Attempts</span>
-              <span class="kpi-icon">📝</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">Test Attempts</span>
+                <span class="kpi-subtext">Skill checks & milestones</span>
+              </div>
+              <div class="kpi-icon-box blue">
+                <i class="bi bi-clipboard2-check-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiTotalAttempts">—</div>
-            <div class="kpi-subtext">Skill checks & milestones</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiTotalAttempts">—</div>
+              <span class="kpi-trend trend-blue"><i class="bi bi-award-fill"></i> Verified</span>
+            </div>
           </div>
 
-          <div class="kpi-card">
+          <!-- Card 8: System Health (Emerald) -->
+          <div class="kpi-card accent-emerald">
             <div class="kpi-header">
-              <span class="kpi-label">System Health</span>
-              <span class="kpi-icon">🟢</span>
+              <div class="kpi-label-group">
+                <span class="kpi-label">System Health</span>
+                <span class="kpi-subtext" id="kpiSystemDetails">PostgreSQL · Prisma ORM</span>
+              </div>
+              <div class="kpi-icon-box emerald">
+                <i class="bi bi-cpu-fill"></i>
+              </div>
             </div>
-            <div class="kpi-value" id="kpiSystemUptime" style="font-size: 1.4rem;">Operational</div>
-            <div class="kpi-subtext" id="kpiSystemDetails">PostgreSQL · Prisma ORM</div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiSystemUptime" style="font-size: 1.45rem; color: #34D399;">Operational</div>
+              <span class="kpi-trend trend-emerald"><span class="pulse-dot-emerald"></span> Optimal</span>
+            </div>
           </div>
         </div>
 
         <!-- Recent Audit Log Feed Panel -->
         <div class="panel">
           <div class="panel-header">
-            <h3 class="panel-title">Recent Administrative Audit Trail</h3>
-            <button class="btn-action" onclick="switchView('audit')">View Full Log</button>
+            <div class="panel-header-left">
+              <div class="panel-header-icon cyan">
+                <i class="bi bi-shield-lock-fill"></i>
+              </div>
+              <div>
+                <h3 class="panel-title">Administrative Audit Trail</h3>
+                <span class="panel-subtitle">Real-time tamper-evident governance ledger</span>
+              </div>
+            </div>
+            <button class="btn-action" onclick="switchView('audit')">
+              <i class="bi bi-journal-text"></i> View Full Log
+            </button>
           </div>
           <div class="table-responsive">
             <table class="data-table">
               <thead>
                 <tr>
                   <th>Timestamp</th>
-                  <th>Admin</th>
+                  <th>Admin Actor</th>
                   <th>Action</th>
                   <th>Target Type</th>
                   <th>Target ID</th>
                 </tr>
               </thead>
               <tbody id="recentAuditTableBody">
-                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading audit trail...</td></tr>
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">Loading audit trail...</td></tr>
               </tbody>
             </table>
           </div>
@@ -387,7 +462,7 @@
             </div>
             <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
               <span class="badge badge-indigo">Immutable Security Trail</span>
-              <button class="btn-action" onclick="loadAuditLogs(1)">🔄 Refresh</button>
+              <button class="btn-action" onclick="loadAuditLogs(1)"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
             </div>
           </div>
 
@@ -615,7 +690,7 @@
         <div class="card">
           <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <h3 class="card-title" style="color: var(--accent-rose);">🛡️ Assessment Integrity & Anomaly Detector</h3>
+              <h3 class="card-title" style="color: var(--accent-rose);"><i class="bi bi-shield-exclamation"></i> Assessment Integrity & Anomaly Detector</h3>
               <p class="card-subtitle">Monitors tab switching, rapid completion speeds, and anti-cheat strikes</p>
             </div>
             <button class="btn-action" onclick="loadAnomalies()">Scan Anomalies</button>
@@ -740,7 +815,7 @@
               </div>
 
               <button id="btnSubmitBroadcast" class="btn-primary" style="margin-top: auto;" onclick="handleBroadcastSubmit()">
-                🚀 Transmit Notification
+                <i class="bi bi-send-fill"></i> Transmit Notification
               </button>
             </div>
           </div>
@@ -784,50 +859,74 @@
               <p class="card-subtitle">Real-time PostgreSQL connection health, memory profiles, and service uptime</p>
             </div>
             <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <span id="sysOverallStatusBadge" class="badge badge-emerald">● System Optimal</span>
-              <button class="btn-action" onclick="loadSystemHealth()">🔄 Ping Health</button>
+              <span id="sysOverallStatusBadge" class="badge badge-emerald"><i class="bi bi-check-circle-fill"></i> System Optimal</span>
+              <button class="btn-action" onclick="loadSystemHealth()"><i class="bi bi-arrow-repeat"></i> Ping Health</button>
             </div>
           </div>
 
           <!-- Gauges Grid -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; padding: 1.25rem;">
-            <div class="kpi-card" style="background: var(--bg-surface);">
+            <div class="kpi-card accent-cyan">
               <div class="kpi-header">
-                <span class="kpi-label">Database Roundtrip Latency</span>
-                <span class="kpi-icon">⚡</span>
+                <div class="kpi-label-group">
+                  <span class="kpi-label">Database Latency</span>
+                  <span class="kpi-subtext" id="sysDbStatus">PostgreSQL (Supabase)</span>
+                </div>
+                <div class="kpi-icon-box cyan">
+                  <i class="bi bi-lightning-charge-fill"></i>
+                </div>
               </div>
-              <div class="kpi-value" id="sysDbLatency" style="font-size: 1.8rem;">— ms</div>
-              <div class="kpi-subtext" id="sysDbStatus">PostgreSQL (Supabase)</div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="sysDbLatency" style="font-size: 1.8rem;">— ms</div>
+              </div>
             </div>
 
-            <div class="kpi-card" style="background: var(--bg-surface);">
+            <div class="kpi-card accent-violet">
               <div class="kpi-header">
-                <span class="kpi-label">Process Memory (Heap)</span>
-                <span class="kpi-icon">🧠</span>
+                <div class="kpi-label-group">
+                  <span class="kpi-label">Process Memory</span>
+                  <span class="kpi-subtext">RSS: <span id="sysRss">— MB</span></span>
+                </div>
+                <div class="kpi-icon-box violet">
+                  <i class="bi bi-memory"></i>
+                </div>
               </div>
-              <div class="kpi-value" id="sysHeapUsed" style="font-size: 1.4rem;">— MB</div>
-              <div style="background: var(--border-subtle); height: 6px; border-radius: 3px; margin: 0.5rem 0; overflow: hidden;">
-                <div id="sysHeapBar" style="background: var(--accent-indigo); height: 100%; width: 0%; transition: width 0.3s;"></div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="sysHeapUsed" style="font-size: 1.4rem;">— MB</div>
               </div>
-              <div class="kpi-subtext">RSS: <span id="sysRss">— MB</span></div>
+              <div style="background: rgba(255, 255, 255, 0.08); height: 6px; border-radius: 3px; margin-top: 0.5rem; overflow: hidden;">
+                <div id="sysHeapBar" style="background: linear-gradient(90deg, #8b5cf6, #c084fc); height: 100%; width: 0%; transition: width 0.3s;"></div>
+              </div>
             </div>
 
-            <div class="kpi-card" style="background: var(--bg-surface);">
+            <div class="kpi-card accent-amber">
               <div class="kpi-header">
-                <span class="kpi-label">Process Uptime</span>
-                <span class="kpi-icon">⏱️</span>
+                <div class="kpi-label-group">
+                  <span class="kpi-label">Process Uptime</span>
+                  <span class="kpi-subtext">Node Server Runtime</span>
+                </div>
+                <div class="kpi-icon-box amber">
+                  <i class="bi bi-stopwatch"></i>
+                </div>
               </div>
-              <div class="kpi-value" id="sysUptime" style="font-size: 1.25rem;">—</div>
-              <div class="kpi-subtext">Node Server Runtime</div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="sysUptime" style="font-size: 1.25rem;">—</div>
+              </div>
             </div>
 
-            <div class="kpi-card" style="background: var(--bg-surface);">
+            <div class="kpi-card accent-emerald">
               <div class="kpi-header">
-                <span class="kpi-label">Environment & Host</span>
-                <span class="kpi-icon">🌐</span>
+                <div class="kpi-label-group">
+                  <span class="kpi-label">Environment</span>
+                  <span class="kpi-subtext" id="sysNodeVersion">Node.js Engine</span>
+                </div>
+                <div class="kpi-icon-box emerald">
+                  <i class="bi bi-hdd-network"></i>
+                </div>
               </div>
-              <div class="kpi-value" id="sysEnvironment" style="font-size: 1.25rem; text-transform: uppercase;">—</div>
-              <div class="kpi-subtext" id="sysNodeVersion">Node.js Engine</div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="sysEnvironment" style="font-size: 1.25rem; text-transform: uppercase;">—</div>
+              </div>
             </div>
           </div>
         </div>
@@ -909,7 +1008,7 @@
   <div id="userHardDeleteModal" class="modal-overlay">
     <div class="modal-dialog modal-destructive">
       <div class="modal-header">
-        <h3 class="modal-title" style="color: var(--danger);">⚠️ Permanent Hard Delete</h3>
+        <h3 class="modal-title" style="color: var(--danger);"><i class="bi bi-exclamation-triangle-fill"></i> Permanent Hard Delete</h3>
         <button class="btn-modal-close" onclick="closeModal('userHardDeleteModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -922,7 +1021,7 @@
           <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--danger); font-weight: 600; margin-bottom: 0.4rem;">Target Account Verification</div>
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
             <code id="hardDeleteEmailDisplay" style="color: var(--text); font-family: var(--font-mono); font-size: 0.85rem; word-break: break-all;"></code>
-            <button type="button" class="btn-secondary" style="font-size: 0.75rem; padding: 0.25rem 0.65rem; min-height: 28px; white-space: nowrap;" onclick="autofillHardDeleteConfirmation()">📋 Fill</button>
+            <button type="button" class="btn-secondary" style="font-size: 0.75rem; padding: 0.25rem 0.65rem; min-height: 28px; white-space: nowrap;" onclick="autofillHardDeleteConfirmation()"><i class="bi bi-input-cursor-text"></i> Auto Fill</button>
           </div>
         </div>
         <div class="form-group" style="width: 100%; margin-bottom: 0.25rem;">
@@ -985,7 +1084,7 @@
   <div id="passportRevokeModal" class="modal-overlay">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 class="modal-title" style="color: var(--accent-rose);">⚠️ Revoke Candidate Skill Passport</h3>
+        <h3 class="modal-title" style="color: var(--accent-rose);"><i class="bi bi-shield-x"></i> Revoke Candidate Skill Passport</h3>
         <button class="btn-modal-close" onclick="closeModal('passportRevokeModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -1009,7 +1108,7 @@
   <div id="passportReinstateModal" class="modal-overlay">
     <div class="modal-dialog">
       <div class="modal-header">
-        <h3 class="modal-title" style="color: var(--accent-emerald);">♻️ Reinstate Skill Passport</h3>
+        <h3 class="modal-title" style="color: var(--accent-emerald);"><i class="bi bi-shield-check"></i> Reinstate Skill Passport</h3>
         <button class="btn-modal-close" onclick="closeModal('passportReinstateModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -1357,15 +1456,15 @@
             <strong>Administrator Account Provisioned!</strong>
             <div id="tempAdminSummary" style="margin-top: 0.25rem; font-size: 0.82rem;"></div>
           </div>
-          <p style="font-size: 0.85rem; color: var(--accent-amber); font-weight: 600; margin-bottom: 0.5rem;">
-            ⚠️ IMPORTANT: One-Time Temporary Password
+          <p style="font-size: 0.85rem; color: var(--accent-amber); font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+            <i class="bi bi-shield-lock-fill"></i> IMPORTANT: One-Time Temporary Password
           </p>
           <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
             Copy this temporary password and provide it securely to the administrator. It will NEVER be stored in plain text or shown again.
           </p>
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
             <input type="text" id="tempPasswordDisplay" class="form-input" style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-emerald);" readonly>
-            <button class="btn-action" onclick="copyTemporaryPassword()">📋 Copy</button>
+            <button class="btn-action" onclick="copyTemporaryPassword()"><i class="bi bi-copy"></i> Copy</button>
           </div>
         </div>
       </div>
@@ -1540,26 +1639,108 @@
       if (!tbody) return;
 
       if (!logs || logs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No recent administrative activity recorded.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2.5rem;"><i class="bi bi-inbox" style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem; opacity: 0.4;"></i>No recent administrative activity recorded.</td></tr>';
         return;
       }
 
-      tbody.innerHTML = logs.map(l => `
-        <tr>
-          <td style="font-family: var(--font-mono); font-size: 0.75rem;">${escapeHtml(formatDate(l.createdAt))}</td>
-          <td><span style="font-weight: 500;">${escapeHtml(l.adminEmail)}</span></td>
-          <td><span class="badge ${getActionBadgeClass(l.action)}">${escapeHtml(l.action)}</span></td>
-          <td><span class="badge badge-muted">${escapeHtml(l.targetType)}</span></td>
-          <td style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(l.targetId || '—')}</td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = logs.map(l => {
+        const adminEmail = l.adminEmail || 'admin';
+        const adminName = adminEmail.split('@')[0];
+        const initials = getUserInitials(adminName);
+        const targetId = l.targetId || '—';
+        const shortId = targetId.length > 14 ? (targetId.slice(0, 6) + '...' + targetId.slice(-4)) : targetId;
+        const relTime = getRelativeTime(l.createdAt);
+
+        return `
+          <tr>
+            <td>
+              <div class="audit-time-cell">
+                <span class="audit-date">${escapeHtml(formatDate(l.createdAt))}</span>
+                ${relTime ? `<span class="audit-relative-time">${escapeHtml(relTime)}</span>` : ''}
+              </div>
+            </td>
+            <td>
+              <div class="audit-admin-cell">
+                <div class="audit-admin-avatar">${escapeHtml(initials)}</div>
+                <span class="audit-admin-email" title="${escapeHtml(adminEmail)}">${escapeHtml(adminEmail)}</span>
+              </div>
+            </td>
+            <td>${getActionBadgeHtml(l.action)}</td>
+            <td><span class="badge badge-target-type">${escapeHtml(l.targetType || 'SYSTEM')}</span></td>
+            <td>
+              ${targetId !== '—' ? `
+                <button type="button" class="target-id-pill" onclick="copyTextToClipboard('${escapeHtml(targetId)}', 'Target ID copied to clipboard')" title="Click to copy full ID: ${escapeHtml(targetId)}">
+                  <i class="bi bi-hash"></i>
+                  <span>${escapeHtml(shortId)}</span>
+                  <i class="bi bi-copy copy-icon"></i>
+                </button>
+              ` : `<span style="color: var(--text-muted);">—</span>`}
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
-    function getActionBadgeClass(action) {
-      if (action.includes('DELETE') || action.includes('SUSPEND') || action.includes('REJECT')) return 'badge-rose';
-      if (action.includes('APPROVE') || action.includes('UNSUSPEND') || action.includes('LOGIN')) return 'badge-emerald';
-      return 'badge-cyan';
+    function getActionBadgeHtml(action) {
+      const act = String(action || 'UNKNOWN');
+      let icon = 'bi-activity';
+      let badgeClass = 'badge-cyan';
+      let label = act;
+
+      if (act.includes('DELETE')) {
+        icon = 'bi-trash3-fill';
+        badgeClass = 'badge-rose';
+        label = act.replace(/_/g, ' ');
+      } else if (act.includes('SUSPEND') || act.includes('REJECT') || act.includes('REVOKE')) {
+        icon = 'bi-shield-x';
+        badgeClass = 'badge-rose';
+        label = act.replace(/_/g, ' ');
+      } else if (act.includes('APPROVE') || act.includes('UNSUSPEND') || act.includes('REINSTATE')) {
+        icon = 'bi-shield-check';
+        badgeClass = 'badge-emerald';
+        label = act.replace(/_/g, ' ');
+      } else if (act.includes('LOGIN') || act.includes('AUTH')) {
+        icon = 'bi-box-arrow-in-right';
+        badgeClass = 'badge-emerald';
+        label = act.replace(/_/g, ' ');
+      } else if (act.includes('CREATE') || act.includes('POST')) {
+        icon = 'bi-plus-circle-fill';
+        badgeClass = 'badge-indigo';
+        label = act.replace(/_/g, ' ');
+      } else if (act.includes('UPDATE') || act.includes('EDIT')) {
+        icon = 'bi-pencil-square';
+        badgeClass = 'badge-amber';
+        label = act.replace(/_/g, ' ');
+      }
+
+      return `<span class="badge ${badgeClass}"><i class="bi ${icon}"></i> ${escapeHtml(label)}</span>`;
     }
+
+    function copyTextToClipboard(text, successMsg) {
+      if (!text) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg || 'Copied to clipboard', 'info');
+        }).catch(() => fallbackCopy(text, successMsg));
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg) {
+      try {
+        const temp = document.createElement('input');
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        showToast(successMsg || 'Copied to clipboard', 'info');
+      } catch (err) {
+        showToast('Failed to copy', 'warning');
+      }
+    }
+
 
     // ── Users Management ─────────────────────────────────────────
     const avatarPalettes = ['avatar-teal', 'avatar-indigo', 'avatar-purple', 'avatar-amber', 'avatar-rose'];
@@ -1926,13 +2107,13 @@
                 <div class="dossier-item"><span class="dossier-key">Email</span><span class="dossier-val">${escapeHtml(u.email)}</span></div>
                 <div class="dossier-item"><span class="dossier-key">Phone</span><span class="dossier-val">${escapeHtml(u.phone || 'None')}</span></div>
                 <div class="dossier-item"><span class="dossier-key">Stream</span><span class="dossier-val">${escapeHtml(u.primaryStream)}</span></div>
-                <div class="dossier-item"><span class="dossier-key">Verified</span><span class="dossier-val">${u.isVerified ? '✓ Yes' : 'No'}</span></div>
-                <div class="dossier-item"><span class="dossier-key">Profile Complete</span><span class="dossier-val">${u.profileCompleted ? '✓ Yes' : 'No'}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Verified</span><span class="dossier-val">${u.isVerified ? '<span style="color: var(--accent-emerald); font-weight: 600;"><i class="bi bi-check-circle-fill"></i> Yes</span>' : '<span style="color: var(--text-dim);">No</span>'}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Profile Complete</span><span class="dossier-val">${u.profileCompleted ? '<span style="color: var(--accent-emerald); font-weight: 600;"><i class="bi bi-check-circle-fill"></i> Yes</span>' : '<span style="color: var(--text-dim);">No</span>'}</span></div>
               </div>
 
               <div class="dossier-card">
                 <div class="dossier-card-title">Telemetry & Status</div>
-                <div class="dossier-item"><span class="dossier-key">Account Status</span><span class="dossier-val">${u.isSuspended ? '🚨 Suspended' : '🟢 Active'}</span></div>
+                <div class="dossier-item"><span class="dossier-key">Account Status</span><span class="dossier-val">${u.isSuspended ? '<span class="badge badge-rose"><i class="bi bi-shield-x"></i> Suspended</span>' : '<span class="badge badge-emerald"><i class="bi bi-check-circle-fill"></i> Active</span>'}</span></div>
                 ${u.isSuspended ? `<div class="dossier-item"><span class="dossier-key">Reason</span><span class="dossier-val">${escapeHtml(u.suspensionReason || '—')}</span></div>` : ''}
                 <div class="dossier-item"><span class="dossier-key">Registered</span><span class="dossier-val">${escapeHtml(formatDate(u.createdAt))}</span></div>
                 <div class="dossier-item"><span class="dossier-key">Roadmaps Generated</span><span class="dossier-val">${u.roadmaps ? u.roadmaps.length : 0}</span></div>
@@ -2048,11 +2229,11 @@
       }
 
       tbody.innerHTML = recruiters.map(r => {
-        let badge = '<span class="badge badge-amber">Pending</span>';
+        let badge = '<span class="badge badge-amber"><i class="bi bi-clock-history"></i> Pending</span>';
         if (r.verificationStatus === 'verified') {
-          badge = '<span class="badge badge-emerald">✓ Verified</span>';
+          badge = '<span class="badge badge-emerald"><i class="bi bi-patch-check-fill"></i> Verified</span>';
         } else if (r.verificationStatus === 'rejected') {
-          badge = '<span class="badge badge-rose">Rejected</span>';
+          badge = '<span class="badge badge-rose"><i class="bi bi-x-circle-fill"></i> Rejected</span>';
         }
 
         return `

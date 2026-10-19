@@ -71,10 +71,10 @@ function renderEmployersTable(employers, pagination) {
         <td style="text-align: right;">
           <div style="display: flex; gap: 0.4rem; justify-content: flex-end;">
             <button class="btn-action" onclick="toggleEmployerActive('${escapeHtml(e.id)}', ${e.isActive !== false})" title="${e.isActive !== false ? 'Disable from Radar' : 'Enable on Radar'}">
-              ${e.isActive !== false ? '⏸️ Disable' : '▶️ Enable'}
+              ${e.isActive !== false ? '<i class="bi bi-pause-fill"></i> Disable' : '<i class="bi bi-play-fill"></i> Enable'}
             </button>
             <button class="btn-action" onclick="openEditEmployerModal('${escapeHtml(e.id)}')" title="Edit Employer">
-              ✏️
+              <i class="bi bi-pencil-fill"></i>
             </button>
           </div>
         </td>

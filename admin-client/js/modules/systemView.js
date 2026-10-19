@@ -29,13 +29,13 @@ async function loadSystemHealth() {
       if (statusBadge) {
         if (h.status === 'healthy') {
           statusBadge.className = 'badge badge-emerald';
-          statusBadge.textContent = '● System Optimal';
+          statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> System Optimal';
         } else if (h.status === 'degraded') {
           statusBadge.className = 'badge badge-amber';
-          statusBadge.textContent = '▲ Performance Degraded';
+          statusBadge.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Performance Degraded';
         } else {
           statusBadge.className = 'badge badge-rose';
-          statusBadge.textContent = '✕ Service Unhealthy';
+          statusBadge.innerHTML = '<i class="bi bi-x-circle-fill"></i> Service Unhealthy';
         }
       }
 
@@ -101,7 +101,7 @@ async function loadSystemHealth() {
     console.error('Failed to load system health:', err);
     if (statusBadge) {
       statusBadge.className = 'badge badge-rose';
-      statusBadge.textContent = '✕ Telemetry Offline';
+      statusBadge.innerHTML = '<i class="bi bi-dash-circle-fill"></i> Telemetry Offline';
     }
   }
 }

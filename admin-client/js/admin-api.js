@@ -108,12 +108,12 @@ function showToast(message, type = 'info') {
   const toast = document.createElement('div');
   toast.className = `toast toast-${type}`;
   
-  let icon = 'ℹ️';
-  if (type === 'success') icon = '✅';
-  if (type === 'error') icon = '❌';
-  if (type === 'warning') icon = '⚠️';
+  let icon = '<i class="bi bi-info-circle-fill"></i>';
+  if (type === 'success') icon = '<i class="bi bi-check-circle-fill" style="color: var(--accent-emerald);"></i>';
+  if (type === 'error') icon = '<i class="bi bi-x-circle-fill" style="color: var(--danger);"></i>';
+  if (type === 'warning') icon = '<i class="bi bi-exclamation-triangle-fill" style="color: var(--accent-amber);"></i>';
 
-  toast.innerHTML = `<span>${icon}</span> <span>${escapeHtml(message)}</span>`;
+  toast.innerHTML = `<span class="toast-icon">${icon}</span> <span>${escapeHtml(message)}</span>`;
   container.appendChild(toast);
 
   setTimeout(() => {

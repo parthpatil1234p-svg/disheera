@@ -61,7 +61,7 @@ function renderVideosTable(videos, pagination) {
             <div>
               <div style="font-weight: 600; color: var(--text-primary); max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 <a href="${escapeHtml(v.watchUrl)}" target="_blank" style="color: var(--text-primary); text-decoration: none;" title="${escapeHtml(v.title)}">
-                  ${escapeHtml(v.title)} ↗
+                  ${escapeHtml(v.title)} <i class="bi bi-box-arrow-up-right" style="font-size: 0.75rem;"></i>
                 </a>
               </div>
               <div style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(v.channelTitle)}</div>
@@ -76,10 +76,10 @@ function renderVideosTable(videos, pagination) {
         <td style="text-align: right;">
           <div style="display: flex; gap: 0.4rem; justify-content: flex-end;">
             <button class="btn-action" onclick="toggleVideoActive('${escapeHtml(v.skillName)}', '${escapeHtml(v.videoId)}', ${v.isActive})" title="${v.isActive ? 'Disable Masterclass' : 'Enable Masterclass'}">
-              ${v.isActive ? '⏸️ Disable' : '▶️ Enable'}
+              ${v.isActive ? '<i class="bi bi-pause-fill"></i> Disable' : '<i class="bi bi-play-fill"></i> Enable'}
             </button>
             <button class="btn-action" style="color: var(--accent-rose);" onclick="openDeleteVideoModal('${escapeHtml(v.skillName)}', '${escapeHtml(v.videoId)}', '${escapeHtml(v.title)}')" title="Delete Video">
-              🗑️
+              <i class="bi bi-trash3-fill"></i>
             </button>
           </div>
         </td>

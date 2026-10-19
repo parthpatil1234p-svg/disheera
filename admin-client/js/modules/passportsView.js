@@ -66,24 +66,24 @@ function renderPassportsTable(passports, pagination) {
     const isRevoked = p.isRevoked || p.credentialStatus === 'revoked' || p.status === 'revoked';
     const isVerified = (p.credentialStatus === 'verified' || p.status === 'verified') && ((p.verifiedSkillsCount || 0) >= 1);
     const statusBadge = isRevoked
-      ? '<span class="badge badge-rose">⚠️ Revoked</span>'
+      ? '<span class="badge badge-rose"><i class="bi bi-shield-x"></i> Revoked</span>'
       : (isVerified
-          ? '<span class="badge badge-emerald">✅ Verified</span>'
-          : '<span class="badge badge-muted">⏳ Pending</span>');
+          ? '<span class="badge badge-emerald"><i class="bi bi-patch-check-fill"></i> Verified</span>'
+          : '<span class="badge badge-muted"><i class="bi bi-hourglass-split"></i> Pending</span>');
 
     const actionButtons = `
       <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
         <button class="btn-action" onclick="viewPassportDossier('${escapeHtml(p.studentId)}')" title="View Cryptographic Dossier">
-          👁️ Dossier
+          <i class="bi bi-person-badge"></i> Dossier
         </button>
         ${isRevoked
           ? (role === 'SUPER_ADMIN'
               ? `<button class="btn-action" style="color: var(--accent-emerald);" onclick="openReinstatePassportModal('${escapeHtml(p.studentId)}', '${escapeHtml(p.name)}')" title="Reinstate Credential">
-                  ♻️ Reinstate
+                  <i class="bi bi-shield-check"></i> Reinstate
                 </button>`
               : '')
           : `<button class="btn-action" style="color: var(--accent-rose);" onclick="openRevokePassportModal('${escapeHtml(p.studentId)}', '${escapeHtml(p.name)}')" title="Revoke Credential">
-              ⚠️ Revoke
+              <i class="bi bi-shield-x"></i> Revoke
             </button>`
         }
       </div>
@@ -150,7 +150,7 @@ async function viewPassportDossier(studentId) {
 
       const revocationAlert = p.isRevoked ? `
         <div class="alert-box alert-error" style="display: block; margin-bottom: 1rem;">
-          <strong style="color: var(--accent-rose);">⚠️ REVOKED CREDENTIAL:</strong> Revoked by ${escapeHtml(p.revocationDetails?.revokedBy || 'Admin')} on ${escapeHtml(new Date(p.revocationDetails?.revokedAt).toLocaleString())}.<br>
+          <strong style="color: var(--accent-rose);"><i class="bi bi-shield-x"></i> REVOKED CREDENTIAL:</strong> Revoked by ${escapeHtml(p.revocationDetails?.revokedBy || 'Admin')} on ${escapeHtml(new Date(p.revocationDetails?.revokedAt).toLocaleString())}.<br>
           Reason: <em>${escapeHtml(p.revocationDetails?.reason || 'Administrative action')}</em>
         </div>
       ` : '';
@@ -192,7 +192,7 @@ async function viewPassportDossier(studentId) {
           <label class="form-label" style="margin-bottom: 0.5rem;">Public QR Verification URL</label>
           <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">
             <a href="${escapeHtml(p.verificationUrl)}" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">
-              ${escapeHtml(p.verificationUrl)} ↗
+              ${escapeHtml(p.verificationUrl)} <i class="bi bi-box-arrow-up-right" style="font-size: 0.72rem;"></i>
             </a>
           </div>
         </div>

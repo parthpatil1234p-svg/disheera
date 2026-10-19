@@ -81,10 +81,10 @@ function renderRoadmapsTable(roadmaps, pagination) {
         <td style="text-align: right;">
           <div style="display: flex; gap: 0.4rem; justify-content: flex-end;">
             <button class="btn-action" onclick="viewRoadmapDetail('${escapeHtml(r.id)}')" title="View Tasks & Milestones">
-              👁️ Tasks
+              <i class="bi bi-list-check"></i> Tasks
             </button>
             <button class="btn-action" onclick="openUpdateRoadmapStatusModal('${escapeHtml(r.id)}', '${escapeHtml(r.status)}')" title="Change Status">
-              ⚙️
+              <i class="bi bi-gear-fill"></i>
             </button>
           </div>
         </td>
@@ -135,7 +135,7 @@ function renderAnomaliesTable(anomalies) {
   if (!tbody) return;
 
   if (!anomalies || anomalies.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--accent-emerald);">🛡️ Zero anomalous test submissions detected. All assessments conform to academic integrity rubrics.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--accent-emerald);"><i class="bi bi-shield-check" style="font-size: 1.1rem; margin-right: 0.35rem;"></i> Zero anomalous test submissions detected. All assessments conform to academic integrity rubrics.</td></tr>';
     return;
   }
 

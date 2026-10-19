@@ -87,7 +87,7 @@ async function loadAuditLogs(page = 1) {
             <td>${ipDisplay}</td>
             <td style="text-align: right;">
               <button class="btn-action" style="font-size: 0.75rem;" onclick="viewAuditDetailsModal('${escapeHtml(l.id)}', '${escapeHtml(l.action)}', '${escapeHtml(l.adminEmail)}', '${escapeHtml(new Date(l.createdAt).toLocaleString())}', this)" data-details='${JSON.stringify(l.details || {})}' data-ua='${escapeHtml(l.userAgent || '')}'>
-                🔍 Inspect
+                <i class="bi bi-search"></i> Inspect
               </button>
             </td>
           </tr>

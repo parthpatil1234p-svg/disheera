@@ -114,7 +114,7 @@ async function handleBroadcastSubmit() {
   // Safety Confirmation Gate for Live Broadcast
   if (!isDryRun) {
     const confirmation = prompt(
-      `⚠️ WARNING: LIVE PRODUCTION BROADCAST!\n\n` +
+      `WARNING: LIVE PRODUCTION BROADCAST!\n\n` +
       `You are about to transmit a real notification via WhatsApp/n8n to registered users.\n` +
       `This action cannot be undone and will be permanently recorded in the audit trail.\n\n` +
       `Type "BROADCAST" to confirm execution:`
@@ -145,9 +145,9 @@ async function handleBroadcastSubmit() {
 
     if (res.success) {
       if (res.dryRun) {
-        alert(`✅ Dry-Run Completed Successfully!\n\nEligible Audience: ${res.recipientCount} recipients\nTitle: "${res.title}"\n\nNo live messages were sent.`);
+        alert(`Dry-Run Completed Successfully!\n\nEligible Audience: ${res.recipientCount} recipients\nTitle: "${res.title}"\n\nNo live messages were sent.`);
       } else {
-        showToast(`🎉 Live broadcast dispatched to ${res.recipientCount} recipients!`, 'success');
+        showToast(`Live broadcast dispatched to ${res.recipientCount} recipients!`, 'success');
         document.getElementById('alertTitleInput').value = '';
         document.getElementById('alertMessageInput').value = '';
         updateAlertCharCounter();
