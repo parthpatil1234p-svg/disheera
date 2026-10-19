@@ -436,15 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Initialize GitHub Authentication ────────────────────────
-  if (window.GitHubAuth) {
-    window.GitHubAuth.init({
-      buttonId: 'btnGitHubAuth',
-      showAlert,
-      mode: 'signup',
-    });
-  }
-
   // ── OTP Digit Input Auto-Focus Navigation (Dual Channel Independent Groups) ──
   const bindDigitGroup = (inputs) => {
     inputs.forEach((input, index) => {

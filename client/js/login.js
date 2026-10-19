@@ -66,15 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Initialize GitHub Authentication ────────────────────────
-  if (window.GitHubAuth) {
-    window.GitHubAuth.init({
-      buttonId: 'btnGitHubAuth',
-      showAlert,
-      mode: 'signin',
-    });
-  }
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     alertContainer.innerHTML = '';

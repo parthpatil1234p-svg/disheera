@@ -51,7 +51,7 @@ router.post('/google', googleAuth);
 // GET /api/auth/google/config — Public Google Client ID
 router.get('/google/config', getGoogleConfig);
 
-// POST /api/auth/github — GitHub OAuth Sign-In & Sign-Up
+// POST /api/auth/github — Disabled (Direct GitHub login disabled; students sign in via Email/Google)
 router.post('/github', githubAuth);
 
 // POST /api/auth/github/connect — Connect & analyze GitHub study repos for logged-in user

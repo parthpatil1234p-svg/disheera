@@ -378,32 +378,13 @@ window.GitHubAuth = (function () {
           if (onError) onError(err);
         }
       } else {
-        // Sign In / Sign Up
-        sendGitHubAuthPayload({ code, redirectUri }, {
-          showAlert: notify,
-          setLoadingState,
-          onError: (err) => {
-            resetTriggerBtn();
-            if (onError) onError(err);
-          },
-          onSuccess: (data) => {
-            if (typeof onSuccess === 'function') {
-              return onSuccess(data);
-            }
-            const isNewUser = data?.isNewUser || !data?.user?.profileCompleted;
-            const urlParams = new URLSearchParams(window.location.search);
-            const redirect = urlParams.get('redirect');
-            const safeRedirect = getSafeRedirectUrl(redirect);
-            if (safeRedirect) {
-              window.location.href = safeRedirect;
-            } else if (isNewUser) {
-              window.location.href = 'assessment.html';
-            } else {
-              window.location.href = 'dashboard.html';
-            }
-            return true;
-          }
-        });
+        // Direct GitHub Login/Signup is disabled per policy
+        if (setLoadingState) setLoadingState(false);
+        resetTriggerBtn();
+        notify('Direct sign-in via GitHub is disabled. Please log in or register with your email or Google account, then connect your GitHub repos to verify your skills.', 'warning');
+        if (typeof onError === 'function') {
+          onError(new Error('GitHub login is disabled.'));
+        }
       }
     };
 
@@ -586,16 +567,9 @@ window.GitHubAuth = (function () {
         notify(err.message || 'GitHub OAuth verification failed. Please try authenticating again.', 'danger');
       }
     } else {
-      // User is not logged in: Log in via OAuth code
-      sendGitHubAuthPayload(
-        { code: oauthCode, redirectUri },
-        {
-          showAlert: notify,
-          onError: (errRes) => {
-            notify(errRes?.message || 'GitHub authorization detected, but sign-in failed. Please try again.', 'danger');
-          },
-        }
-      );
+      // User is not logged in: Direct GitHub Login is disabled
+      closeAndCleanupModals();
+      notify('Direct sign-in via GitHub is disabled. Please log in or register with your email or Google account first, then connect your GitHub repos to verify your skills.', 'warning');
     }
   };
 

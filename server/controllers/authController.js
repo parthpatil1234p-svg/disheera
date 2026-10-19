@@ -976,179 +976,22 @@ const getGoogleConfig = (req, res) => {
 // ── githubAuth ─────────────────────────────────────────────────
 /**
  * POST /api/auth/github
- * Body: { code, username, email, name, avatarUrl, githubId }
- * Handles GitHub OAuth Sign-In & Sign-Up, analyzes student repositories,
- * auto-detects code-grounded skills, and generates JWT.
+ * Disabled for unauthenticated sign-in/sign-up per product requirement.
+ * All users authenticate via Email/Password or Google.
+ * Authenticated students link and share GitHub repositories via POST /api/auth/github/connect.
  */
 const githubAuth = async (req, res, next) => {
-  try {
-    const { code, redirectUri, username: directUser, email: directEmail, name: directName, avatarUrl: directAvatar, githubId: directId } = req.body;
-
-    let accessToken = null;
-    let ghUsername = directUser ? directUser.trim() : '';
-
-    if (code) {
-      if (!process.env.GITHUB_CLIENT_SECRET || !process.env.GITHUB_CLIENT_SECRET.trim() || process.env.GITHUB_CLIENT_SECRET.includes('your_github')) {
-        return res.status(400).json({
-          success: false,
-          isSecretMissing: true,
-          message: 'GitHub Client Secret is not configured in server/.env. Please contact administrator.',
-        });
-      }
-
-      try {
-        accessToken = await exchangeOAuthCode(code, redirectUri);
-      } catch (err) {
-        console.warn('GitHub OAuth code exchange notice:', err.message);
-        if (!ghUsername) {
-          return res.status(400).json({
-            success: false,
-            isCodeExchangeFailed: true,
-            message: `GitHub code exchange failed (${err.message}). Please try again.`,
-          });
-        }
-      }
-    }
-
-    if (!ghUsername && !accessToken) {
-      return res.status(400).json({
-        success: false,
-        message: 'Could not resolve GitHub account. Please authenticate via GitHub OAuth.',
-      });
-    }
-
-    // Fetch user profile and public repos from GitHub
-    const { profile, repos } = await fetchGitHubData(ghUsername, accessToken);
-
-    if (!profile) {
-      return res.status(400).json({
-        success: false,
-        message: `Could not resolve GitHub profile${ghUsername ? ` for "${ghUsername}"` : ''}. Please check the username or credentials.`,
-      });
-    }
-
-    const githubId = String(profile.id || directId || `github_${profile.login}`);
-    const username = profile.login || ghUsername;
-    const email = (profile.email || directEmail || `${username.toLowerCase()}@users.noreply.github.com`).trim().toLowerCase();
-    const name = profile.name || directName || username;
-    const avatarUrl = profile.avatar_url || directAvatar || `https://github.com/${encodeURIComponent(username)}.png`;
-
-    // Analyze public repositories for languages, frameworks, and study relevance
-    const analysis = analyzeGitHubRepos(repos);
-
-    // Look for existing user by githubId, email, or githubProfile.username
-    let user = await User.findOne({
-      $or: [
-        { githubId },
-        { email },
-        { 'githubProfile.username': username },
-      ],
-    });
-
-    let isNewUser = false;
-
-    if (user) {
-      // Enforce suspension & deactivation
-      const suspensionCheck = checkAccountSuspension(user);
-      if (suspensionCheck) {
-        return res.status(suspensionCheck.status).json(suspensionCheck.body);
-      }
-
-      if (!user.githubId) user.githubId = githubId;
-      if (!user.avatarUrl && avatarUrl) user.avatarUrl = avatarUrl;
-      if (!user.isVerified) user.isVerified = true;
-      if (user.authProvider !== 'github' && !user.password) {
-        user.authProvider = 'github';
-      }
-
-      // Update GitHub profile and repositories
-      user.githubProfile = {
-        username,
-        name,
-        avatarUrl,
-        profileUrl: profile.html_url || `https://github.com/${username}`,
-        publicReposCount: profile.public_repos != null ? profile.public_repos : repos.length,
-        followers: profile.followers != null ? profile.followers : 0,
-        topLanguages: analysis.topLanguages,
-        connectedAt: new Date(),
-      };
-      user.githubRepos = analysis.parsedRepos;
-
-      // Merge verified skills into student's existing skills
-      if (analysis.verifiedSkills && analysis.verifiedSkills.length > 0) {
-        const existingSkillMap = new Map();
-        (user.skills || []).forEach((s) => existingSkillMap.set(s.name.toLowerCase(), s));
-
-        analysis.verifiedSkills.forEach((vSkill) => {
-          if (existingSkillMap.has(vSkill.name.toLowerCase())) {
-            const existing = existingSkillMap.get(vSkill.name.toLowerCase());
-            existing.isCodeVerified = true;
-            existing.verifiedSource = vSkill.verifiedSource;
-            existing.verificationTier = 'project_verified';
-            existing.verificationStatus = 'verified';
-          } else {
-            user.skills.push({
-              ...vSkill,
-              verificationTier: 'project_verified',
-              verificationStatus: 'verified'
-            });
-          }
-        });
-      }
-
-      await user.save();
-    } else {
-      isNewUser = true;
-      user = new User({
-        name: name.trim() || 'GitHub Student Developer',
-        email,
-        githubId,
-        authProvider: 'github',
-        avatarUrl,
-        isVerified: true,
-        role: 'student',
-        profileCompleted: false,
-        githubProfile: {
-          username,
-          name,
-          avatarUrl,
-          profileUrl: profile.html_url || `https://github.com/${username}`,
-          publicReposCount: profile.public_repos != null ? profile.public_repos : repos.length,
-          followers: profile.followers != null ? profile.followers : 0,
-          topLanguages: analysis.topLanguages,
-          connectedAt: new Date(),
-        },
-        githubRepos: analysis.parsedRepos,
-        skills: analysis.verifiedSkills,
-      });
-      await user.save();
-    }
-
-    const token = generateToken(user);
-
-    return res.status(200).json({
-      success: true,
-      message: isNewUser
-        ? 'GitHub student account created! Repositories analyzed for study roadmap.'
-        : 'Welcome back! GitHub account and repositories synchronized.',
-      data: {
-        user: formatUser(user),
-        token,
-        isNewUser,
-        detectedSkills: analysis.verifiedSkills,
-        topLanguages: analysis.topLanguages,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
+  return res.status(403).json({
+    success: false,
+    message: 'Direct sign-in via GitHub is disabled. Please log in or register with your email or Google account, then link your GitHub profile or repositories in your assessment or dashboard to verify your skills.',
+  });
 };
 
 // ── connectGitHub ──────────────────────────────────────────────
 /**
  * POST /api/auth/github/connect
  * Protected route: Connects or re-syncs GitHub study repositories for the authenticated user
- * Body: { username, code }
+ * Body: { username, code, redirectUri }
  */
 const connectGitHub = async (req, res, next) => {
   try {
@@ -1157,6 +1000,10 @@ const connectGitHub = async (req, res, next) => {
 
     let accessToken = null;
     let ghUsername = directUser ? directUser.trim() : '';
+    if (ghUsername) {
+      // Support full URLs like https://github.com/username or https://github.com/username/repo
+      ghUsername = ghUsername.replace(/^https?:\/\/(www\.)?github\.com\//i, '').replace(/\/.*$/, '').replace(/^@/, '').trim();
+    }
 
     if (code) {
       if (!process.env.GITHUB_CLIENT_SECRET || !process.env.GITHUB_CLIENT_SECRET.trim() || process.env.GITHUB_CLIENT_SECRET.includes('your_github')) {
