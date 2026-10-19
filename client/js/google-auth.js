@@ -50,15 +50,190 @@ window.GoogleAuth = (function () {
   };
 
   /**
+   * Helper: Extracts 10-digit mobile number from active page if already entered
+   */
+  const getPagePhone = () => {
+    const phoneInput = document.getElementById('phone') || document.getElementById('gFastPhoneInput');
+    if (phoneInput && phoneInput.value) {
+      const digits = phoneInput.value.trim().replace(/\D/g, '');
+      if (digits.length >= 10) return digits.slice(-10);
+    }
+    return '';
+  };
+
+  /**
+   * Shows a prompt modal to collect WhatsApp / Mobile number when Google OAuth succeeds
+   * but the mobile number is not yet saved in the database.
+   */
+  const showGooglePhonePromptModal = (pendingPayload, userData, callbacks) => {
+    let modalEl = document.getElementById('googlePhonePromptModal');
+    if (!modalEl) {
+      modalEl = document.createElement('div');
+      modalEl.id = 'googlePhonePromptModal';
+      modalEl.className = 'modal fade';
+      modalEl.tabIndex = -1;
+      modalEl.setAttribute('aria-labelledby', 'googlePhonePromptModalLabel');
+      modalEl.setAttribute('aria-hidden', 'true');
+      modalEl.setAttribute('data-bs-backdrop', 'static');
+
+      modalEl.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
+          <div class="modal-content bg-white border border-line shadow-lg text-ink p-2 rounded-3">
+            <div class="modal-header border-bottom border-line pb-3">
+              <div class="d-flex align-items-center gap-2">
+                <div class="rounded-circle d-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success p-1" style="width: 36px; height: 36px;">
+                  <i class="bi bi-whatsapp fs-5"></i>
+                </div>
+                <div>
+                  <h3 class="modal-title h6 fw-bold mb-0 text-ink" id="googlePhonePromptModalLabel">Mobile Number Verification</h3>
+                  <span class="font-mono text-secondary small" style="font-size: 0.72rem;">Google Sign-In · Contact Detail</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-body py-3">
+              <!-- Google Identity Summary Card -->
+              <div class="p-2.5 mb-3 rounded-2 bg-light border border-line d-flex align-items-center gap-2.5">
+                <img id="gPromptAvatar" src="https://lh3.googleusercontent.com/a/default-user=s96-c" class="rounded-circle border" style="width: 38px; height: 38px; object-fit: cover;" alt="Google Profile" />
+                <div class="overflow-hidden flex-grow-1">
+                  <div class="fw-semibold text-ink text-truncate small" id="gPromptName">Student</div>
+                  <div class="text-muted text-truncate font-mono" style="font-size: 0.76rem;" id="gPromptEmail">email@gmail.com</div>
+                </div>
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 small font-mono">
+                  <i class="bi bi-check-circle-fill me-1"></i>Verified
+                </span>
+              </div>
+
+              <p class="small text-secondary mb-3">
+                Please enter your <strong>WhatsApp / Mobile Number</strong> to complete your account setup and receive your AI study roadmaps, milestone tests, and verified certificates.
+              </p>
+
+              <form id="gPhonePromptForm" novalidate>
+                <div class="mb-3">
+                  <label for="gPromptPhoneInput" class="form-label small fw-semibold text-ink mb-1.5">
+                    WhatsApp Mobile Number <span class="text-danger">*</span>
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-light text-muted fw-semibold">
+                      <i class="bi bi-whatsapp text-success me-1"></i> +91
+                    </span>
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="gPromptPhoneInput"
+                      placeholder="98765 43210"
+                      maxlength="10"
+                      inputmode="numeric"
+                      autocomplete="tel"
+                      required
+                    />
+                  </div>
+                  <div id="gPromptPhoneFeedback" class="text-danger small mt-1 d-none">
+                    Please enter a valid 10-digit mobile number.
+                  </div>
+                </div>
+
+                <button type="submit" id="btnConfirmGooglePhone" class="btn cp-btn-primary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
+                  <span>Complete Sign-In & Continue</span>
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modalEl);
+    }
+
+    const email = userData.email || pendingPayload.email || '';
+    const name = userData.name || pendingPayload.name || 'Google Student';
+    const avatarUrl = userData.avatarUrl || pendingPayload.picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c';
+
+    const avatarEl = modalEl.querySelector('#gPromptAvatar');
+    const nameEl = modalEl.querySelector('#gPromptName');
+    const emailEl = modalEl.querySelector('#gPromptEmail');
+    const phoneInput = modalEl.querySelector('#gPromptPhoneInput');
+    const feedbackEl = modalEl.querySelector('#gPromptPhoneFeedback');
+    const formEl = modalEl.querySelector('#gPhonePromptForm');
+    const confirmBtn = modalEl.querySelector('#btnConfirmGooglePhone');
+
+    if (avatarEl) avatarEl.src = avatarUrl;
+    if (nameEl) nameEl.textContent = name;
+    if (emailEl) emailEl.textContent = email;
+    if (feedbackEl) feedbackEl.classList.add('d-none');
+    if (phoneInput) {
+      phoneInput.classList.remove('is-invalid');
+      const pagePhone = getPagePhone();
+      phoneInput.value = pagePhone || '';
+    }
+
+    phoneInput.oninput = (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+      if (feedbackEl) feedbackEl.classList.add('d-none');
+      phoneInput.classList.remove('is-invalid');
+    };
+
+    formEl.onsubmit = async (e) => {
+      e.preventDefault();
+      const rawPhone = (phoneInput.value || '').trim().replace(/\D/g, '');
+      if (rawPhone.length < 10) {
+        if (feedbackEl) {
+          feedbackEl.textContent = 'Please enter a valid 10-digit mobile number.';
+          feedbackEl.classList.remove('d-none');
+        }
+        phoneInput.classList.add('is-invalid');
+        phoneInput.focus();
+        return;
+      }
+
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Saving Number...';
+
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      if (modalInstance) modalInstance.hide();
+
+      const mergedPayload = { ...pendingPayload, phone: rawPhone };
+      await sendGoogleAuthPayload(mergedPayload, {
+        ...callbacks,
+        setLoadingState: (loading) => {
+          if (callbacks.setLoadingState) callbacks.setLoadingState(loading);
+          if (!loading && confirmBtn) {
+            confirmBtn.disabled = false;
+            confirmBtn.innerHTML = '<span>Complete Sign-In & Continue</span> <i class="bi bi-arrow-right"></i>';
+          }
+        }
+      });
+    };
+
+    const modalInstance = new bootstrap.Modal(modalEl);
+    modalInstance.show();
+    setTimeout(() => {
+      if (phoneInput) phoneInput.focus();
+    }, 400);
+  };
+
+  /**
    * Authenticates with Disheera backend using Google credentials or profile
    */
   const sendGoogleAuthPayload = async (payload, callbacks) => {
     const { showAlert, setLoadingState, onSuccess } = callbacks;
 
+    // Check if phone was already entered on the registration form
+    if (!payload.phone) {
+      const pagePhone = getPagePhone();
+      if (pagePhone) payload.phone = pagePhone;
+    }
+
     if (setLoadingState) setLoadingState(true);
 
     try {
       const response = await window.API.post('/auth/google', payload);
+
+      // If backend reports phone number is required to complete profile/registration:
+      if (response.requirePhone) {
+        if (setLoadingState) setLoadingState(false);
+        showGooglePhonePromptModal(payload, response.data || {}, callbacks);
+        return;
+      }
 
       if (response.success && response.data?.token) {
         window.Auth.setToken(response.data.token);
@@ -196,11 +371,33 @@ window.GoogleAuth = (function () {
                 </div>
               </div>
 
-              <div class="mb-2">
+              <div class="mb-3">
                 <label for="gFastNameInput" class="form-label small text-secondary fw-semibold">Student Name:</label>
                 <div class="input-group input-group-sm">
                   <span class="input-group-text bg-surface-muted border-line text-secondary"><i class="bi bi-person"></i></span>
                   <input type="text" id="gFastNameInput" class="form-control bg-white text-ink border-line" placeholder="Student Name" value="Alex Google Student" />
+                </div>
+              </div>
+
+              <div class="mb-2">
+                <label for="gFastPhoneInput" class="form-label small text-secondary fw-semibold">
+                  WhatsApp Mobile Number <span class="text-danger">*</span>:
+                </label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text bg-surface-muted border-line text-secondary">
+                    <i class="bi bi-whatsapp text-success me-1"></i> +91
+                  </span>
+                  <input
+                    type="tel"
+                    id="gFastPhoneInput"
+                    class="form-control bg-white text-ink border-line"
+                    placeholder="98765 43210"
+                    maxlength="10"
+                    inputmode="numeric"
+                  />
+                </div>
+                <div id="gFastPhoneFeedback" class="text-danger small mt-1 d-none" style="font-size: 0.75rem;">
+                  Please enter a valid 10-digit mobile number.
                 </div>
               </div>
             </div>
@@ -218,8 +415,18 @@ window.GoogleAuth = (function () {
 
       const emailInput = modalEl.querySelector('#gFastEmailInput');
       const nameInput = modalEl.querySelector('#gFastNameInput');
+      const phoneInput = modalEl.querySelector('#gFastPhoneInput');
+      const phoneFeedback = modalEl.querySelector('#gFastPhoneFeedback');
       const displayEmail = modalEl.querySelector('#gFastEmailDisplay');
       const displayName = modalEl.querySelector('#gFastNameDisplay');
+
+      if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+          e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+          if (phoneFeedback) phoneFeedback.classList.add('d-none');
+          phoneInput.classList.remove('is-invalid');
+        });
+      }
 
       emailInput.addEventListener('input', (e) => {
         displayEmail.textContent = e.target.value.trim() || 'student.google@gmail.com';
@@ -233,6 +440,21 @@ window.GoogleAuth = (function () {
       confirmBtn.addEventListener('click', () => {
         const email = emailInput.value.trim() || 'student.google@gmail.com';
         const name = nameInput.value.trim() || 'Alex Google Student';
+        const rawPhone = phoneInput ? (phoneInput.value || '').trim().replace(/\D/g, '') : '';
+
+        // If phone entered but invalid (less than 10 digits), require valid 10 digits
+        if (rawPhone && rawPhone.length < 10) {
+          if (phoneFeedback) {
+            phoneFeedback.textContent = 'Please enter a valid 10-digit mobile number.';
+            phoneFeedback.classList.remove('d-none');
+          }
+          if (phoneInput) {
+            phoneInput.classList.add('is-invalid');
+            phoneInput.focus();
+          }
+          return;
+        }
+
         const modalInstance = bootstrap.Modal.getInstance(modalEl);
         if (modalInstance) modalInstance.hide();
 
@@ -240,12 +462,19 @@ window.GoogleAuth = (function () {
           {
             email,
             name,
+            phone: rawPhone || undefined,
             googleId: `google_eval_${Date.now()}`,
             picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
           },
           callbacks
         );
       });
+    }
+
+    // Refresh phone input from page form if available
+    const existingPhoneInput = modalEl.querySelector('#gFastPhoneInput');
+    if (existingPhoneInput && !existingPhoneInput.value) {
+      existingPhoneInput.value = getPagePhone() || '';
     }
 
     const modalInstance = new bootstrap.Modal(modalEl);

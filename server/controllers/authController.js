@@ -831,7 +831,7 @@ const verifyGoogleToken = async (credential) => {
  */
 const googleAuth = async (req, res, next) => {
   try {
-    const { credential, email: directEmail, name: directName, picture: directPicture, googleId: directId } = req.body;
+    const { credential, email: directEmail, name: directName, picture: directPicture, googleId: directId, phone } = req.body;
 
     let googleData = null;
 
@@ -884,6 +884,19 @@ const googleAuth = async (req, res, next) => {
 
     const normalizedEmail = googleData.email.trim().toLowerCase();
 
+    // Format & validate phone number if provided
+    let formattedPhone = '';
+    if (phone && typeof phone === 'string' && phone.trim()) {
+      formattedPhone = whatsappService.formatPhoneNumber(phone.trim());
+      const digits = formattedPhone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        return res.status(400).json({
+          success: false,
+          message: 'Please provide a valid 10-digit mobile number.',
+        });
+      }
+    }
+
     // Purge any pending signup for this verified email
     try {
       await pendingSignupStore.deletePendingSignup(normalizedEmail);
@@ -896,6 +909,37 @@ const googleAuth = async (req, res, next) => {
         { email: normalizedEmail },
       ],
     });
+
+    const hasSavedPhone = Boolean(user && user.phone && String(user.phone).trim().replace(/\D/g, '').length >= 10);
+
+    // If neither the database nor this request provides a valid mobile number, prompt the user
+    if (!hasSavedPhone && !formattedPhone) {
+      return res.status(200).json({
+        success: false,
+        requirePhone: true,
+        message: 'Please provide your 10-digit WhatsApp/mobile number to complete your profile.',
+        data: {
+          email: normalizedEmail,
+          name: (user && user.name) || googleData.name,
+          avatarUrl: (user && user.avatarUrl) || googleData.avatarUrl,
+          googleId: (user && user.googleId) || googleData.googleId,
+          isNewUser: !user,
+        },
+      });
+    }
+
+    // Check duplicate phone collision across accounts
+    if (formattedPhone) {
+      const duplicateWithPhone = await User.findOne({ phone: formattedPhone });
+      if (duplicateWithPhone && (!user || String(duplicateWithPhone._id || duplicateWithPhone.id) !== String(user._id || user.id))) {
+        if (duplicateWithPhone.email !== normalizedEmail) {
+          return res.status(400).json({
+            success: false,
+            message: `This mobile number (${formattedPhone}) is already linked to another registered account. Please provide your own unique mobile number.`,
+          });
+        }
+      }
+    }
 
     let isNewUser = false;
 
@@ -913,6 +957,10 @@ const googleAuth = async (req, res, next) => {
       if (!user.avatarUrl && googleData.avatarUrl) {
         user.avatarUrl = googleData.avatarUrl;
       }
+      // Save phone if user didn't have one in DB
+      if ((!user.phone || String(user.phone).trim().length < 10) && formattedPhone) {
+        user.phone = formattedPhone;
+      }
       if (!user.isVerified) {
         user.isVerified = true;
         // Security requirement: Clear/rotate unverified password hash and invalidate OTP
@@ -925,11 +973,12 @@ const googleAuth = async (req, res, next) => {
       }
       await user.save();
     } else {
-      // Create new Google student user
+      // Create new Google student user with verified mobile number
       isNewUser = true;
       user = new User({
         name: googleData.name.trim() || 'Google Student',
         email: normalizedEmail,
+        phone: formattedPhone || '',
         googleId: googleData.googleId,
         authProvider: 'google',
         avatarUrl: googleData.avatarUrl || '',
