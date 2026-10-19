@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Disheera — Enterprise Admin Command Center</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
@@ -20,59 +21,65 @@
 
       <nav class="sidebar-nav">
         <a class="nav-link active" onclick="switchView('dashboard')">
-          <span class="nav-icon">📊</span>
+          <span class="nav-icon"><i class="bi bi-grid-1x2-fill"></i></span>
           <span class="nav-label">Overview</span>
         </a>
         <a class="nav-link" onclick="switchView('users')">
-          <span class="nav-icon">👥</span>
+          <span class="nav-icon"><i class="bi bi-people-fill"></i></span>
           <span class="nav-label">User Directory</span>
         </a>
         <a class="nav-link" onclick="switchView('recruiters')">
-          <span class="nav-icon">🏢</span>
+          <span class="nav-icon"><i class="bi bi-building-check"></i></span>
           <span class="nav-label">Recruiter Vetting</span>
         </a>
         <a class="nav-link" onclick="switchView('passports')">
-          <span class="nav-icon">🛡️</span>
+          <span class="nav-icon"><i class="bi bi-patch-check-fill"></i></span>
           <span class="nav-label">Skill Passports</span>
         </a>
         <a class="nav-link" onclick="switchView('content')">
-          <span class="nav-icon">🎬</span>
+          <span class="nav-icon"><i class="bi bi-play-circle-fill"></i></span>
           <span class="nav-label">Masterclasses</span>
         </a>
         <a class="nav-link" onclick="switchView('radar')">
-          <span class="nav-icon">📡</span>
+          <span class="nav-icon"><i class="bi bi-radar"></i></span>
           <span class="nav-label">Proximity Radar</span>
         </a>
         <a class="nav-link" onclick="switchView('roadmaps')">
-          <span class="nav-icon">🗺️</span>
+          <span class="nav-icon"><i class="bi bi-signpost-split-fill"></i></span>
           <span class="nav-label">Roadmaps & Telemetry</span>
         </a>
         <a class="nav-link" onclick="switchView('audit')">
-          <span class="nav-icon">📜</span>
+          <span class="nav-icon"><i class="bi bi-journal-text"></i></span>
           <span class="nav-label">Audit Logs</span>
         </a>
         <a class="nav-link" id="navLinkAdmins" onclick="switchView('admins')">
-          <span class="nav-icon">🔑</span>
+          <span class="nav-icon"><i class="bi bi-shield-lock-fill"></i></span>
           <span class="nav-label">Personnel & RBAC</span>
         </a>
         <a class="nav-link" onclick="switchView('alerts')">
-          <span class="nav-icon">📢</span>
+          <span class="nav-icon"><i class="bi bi-broadcast"></i></span>
           <span class="nav-label">Broadcast Alerts</span>
         </a>
         <a class="nav-link" onclick="switchView('system')">
-          <span class="nav-icon">⚡</span>
+          <span class="nav-icon"><i class="bi bi-cpu-fill"></i></span>
           <span class="nav-label">System Health</span>
         </a>
       </nav>
 
       <div class="sidebar-footer">
         <div class="admin-profile-pill">
-          <div class="admin-profile-info">
-            <span id="adminCurrentName" class="admin-profile-name">Admin</span>
-            <span id="adminCurrentRole" class="admin-profile-role">SUPER_ADMIN</span>
+          <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0;">
+            <div class="admin-profile-avatar-box">
+              <span id="adminAvatarInitials">SA</span>
+              <span class="pulse-status-dot"></span>
+            </div>
+            <div class="admin-profile-info">
+              <span id="adminCurrentName" class="admin-profile-name">Admin</span>
+              <span id="adminCurrentRole" class="admin-profile-role">SUPER_ADMIN</span>
+            </div>
           </div>
           <button class="btn-logout" onclick="handleAdminLogout()" title="Log out">
-            🚪
+            <i class="bi bi-box-arrow-right" style="font-size: 1.15rem;"></i>
           </button>
         </div>
       </div>
@@ -83,14 +90,15 @@
       <header class="admin-header">
         <div class="header-title-box">
           <h2 id="pageHeading" class="header-title">Executive Overview</h2>
-          <span id="envIndicator" class="badge badge-emerald">Live Active</span>
+          <span id="envIndicator" class="badge badge-emerald"><i class="bi bi-broadcast"></i> Live Active</span>
         </div>
 
         <div class="header-actions">
-          <button class="btn-action" onclick="refreshCurrentView()">
-            🔄 Refresh
+          <button class="btn-action btn-refresh" onclick="refreshCurrentView()">
+            <i class="bi bi-arrow-clockwise"></i> Refresh
           </button>
-          <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">
+          <div class="admin-subdomain-pill">
+            <span class="pulse-dot-emerald"></span>
             admin.disheera.site
           </div>
         </div>
@@ -200,11 +208,64 @@
 
       <!-- ── VIEW 2: Users Management ─────────────────────────── -->
       <section id="view-users" class="content-view">
+        <!-- Directory KPI Stats Strip -->
+        <div class="directory-stats-grid">
+          <div class="dir-stat-card">
+            <div class="dir-stat-icon-wrapper cyan">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="dir-stat-info">
+              <span class="dir-stat-label">Total Accounts</span>
+              <span class="dir-stat-value" id="dirStatTotal">--</span>
+              <span class="dir-stat-meta" id="dirStatTotalMeta">Registered users</span>
+            </div>
+          </div>
+
+          <div class="dir-stat-card">
+            <div class="dir-stat-icon-wrapper emerald">
+              <i class="bi bi-mortarboard-fill"></i>
+            </div>
+            <div class="dir-stat-info">
+              <span class="dir-stat-label">Active Students</span>
+              <span class="dir-stat-value" id="dirStatActiveStudents">--</span>
+              <span class="dir-stat-meta" id="dirStatStudentsMeta">Enrolled in tracks</span>
+            </div>
+          </div>
+
+          <div class="dir-stat-card">
+            <div class="dir-stat-icon-wrapper violet">
+              <i class="bi bi-building-check"></i>
+            </div>
+            <div class="dir-stat-info">
+              <span class="dir-stat-label">Corporate Recruiters</span>
+              <span class="dir-stat-value" id="dirStatRecruiters">--</span>
+              <span class="dir-stat-meta" id="dirStatRecruitersMeta">Verified talent scout</span>
+            </div>
+          </div>
+
+          <div class="dir-stat-card">
+            <div class="dir-stat-icon-wrapper amber">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div class="dir-stat-info">
+              <span class="dir-stat-label">Account Standing</span>
+              <span class="dir-stat-value" id="dirStatStanding">100%</span>
+              <span class="dir-stat-meta" id="dirStatStandingMeta">0 suspended</span>
+            </div>
+          </div>
+        </div>
+
         <div class="panel">
           <div class="panel-header">
-            <h3 class="panel-title">Registered User Directory</h3>
+            <div>
+              <h3 class="panel-title"><i class="bi bi-people-fill" style="color: #22D3EE;"></i> Registered User Directory</h3>
+              <div class="panel-subtitle">Comprehensive identity, role mapping, stream enrollment & lifecycle governance</div>
+            </div>
             <div class="panel-filters">
-              <input type="text" id="userSearchInput" class="input-search" placeholder="Search by name or email..." onkeyup="debounceUserSearch()">
+              <div class="search-box-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" id="userSearchInput" class="input-search" placeholder="Search by name, email, phone..." onkeyup="debounceUserSearch()">
+              </div>
               
               <select id="userRoleFilter" class="select-filter" onchange="loadUsers(1)">
                 <option value="all">All Roles</option>
@@ -228,6 +289,13 @@
                 <option value="verified">Verified Only</option>
                 <option value="unverified">Unverified Only</option>
               </select>
+
+              <button class="btn-action btn-reset-filter" onclick="resetUserFilters()" title="Reset all filters">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset
+              </button>
+              <button class="btn-action btn-export" onclick="exportUsersCsv()" title="Export users to CSV">
+                <i class="bi bi-download"></i> Export CSV
+              </button>
             </div>
           </div>
 
@@ -1443,6 +1511,7 @@
       try {
         const res = await adminFetch('/api/admin/dashboard/stats');
         if (res.success && res.stats) {
+          window.adminCachedStats = res.stats;
           const s = res.stats;
           animateKpiValue('kpiTotalUsers', s.totalUsers || 0);
           animateKpiValue('kpiDailySignups', s.dailySignups || 0);
@@ -1493,6 +1562,126 @@
     }
 
     // ── Users Management ─────────────────────────────────────────
+    const avatarPalettes = ['avatar-teal', 'avatar-indigo', 'avatar-purple', 'avatar-amber', 'avatar-rose'];
+    function getUserAvatarClass(idOrName) {
+      let hash = 0;
+      const str = String(idOrName || 'U');
+      for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+      return avatarPalettes[Math.abs(hash) % avatarPalettes.length];
+    }
+
+    function getUserInitials(name) {
+      if (!name) return 'U';
+      const parts = name.trim().split(/\s+/);
+      if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+      return name.slice(0, 2).toUpperCase();
+    }
+
+    function getStreamBadgeHtml(stream) {
+      const s = (stream || 'General').toLowerCase();
+      let icon = 'bi-compass';
+      if (s.includes('eng')) icon = 'bi-code-slash';
+      else if (s.includes('med')) icon = 'bi-heart-pulse-fill';
+      else if (s.includes('comm') || s.includes('biz') || s.includes('manag')) icon = 'bi-graph-up-arrow';
+      else if (s.includes('art') || s.includes('desig')) icon = 'bi-palette-fill';
+      else if (s.includes('sci')) icon = 'bi-radioactive';
+      
+      return `<span class="badge-stream"><i class="bi ${icon}"></i> ${escapeHtml(stream || 'General')}</span>`;
+    }
+
+    function getRelativeTime(dateStr) {
+      if (!dateStr) return '';
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHours = Math.floor(diffMin / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffDays === 0) {
+        if (diffHours === 0) {
+          if (diffMin <= 1) return 'Just now';
+          return `${diffMin}m ago`;
+        }
+        return `${diffHours}h ago`;
+      }
+      if (diffDays === 1) return 'Yesterday';
+      if (diffDays < 30) return `${diffDays}d ago`;
+      if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
+      return `${Math.floor(diffDays / 365)}y ago`;
+    }
+
+    function updateUserDirectoryStats(res) {
+      const stats = window.adminCachedStats || {};
+      const total = (res && res.pagination && res.pagination.total !== undefined) ? res.pagination.total : (stats.totalUsers || 0);
+      const totalRecruiters = stats.totalRecruiters || 0;
+      const activeStudents = Math.max(0, total - totalRecruiters);
+
+      let suspendedCount = 0;
+      if (res && res.users && Array.isArray(res.users)) {
+        suspendedCount = res.users.filter(u => u.isSuspended).length;
+      }
+
+      const elTotal = document.getElementById('dirStatTotal');
+      const elStudents = document.getElementById('dirStatActiveStudents');
+      const elRecruiters = document.getElementById('dirStatRecruiters');
+      const elStanding = document.getElementById('dirStatStanding');
+      const elStandingMeta = document.getElementById('dirStatStandingMeta');
+
+      if (elTotal) elTotal.textContent = total.toLocaleString();
+      if (elStudents) elStudents.textContent = activeStudents.toLocaleString();
+      if (elRecruiters) elRecruiters.textContent = totalRecruiters.toLocaleString();
+      if (elStanding) {
+        if (suspendedCount > 0) {
+          const rate = Math.max(80, Math.round(((res.users.length - suspendedCount) / Math.max(res.users.length, 1)) * 100));
+          elStanding.textContent = `${rate}%`;
+          if (elStandingMeta) elStandingMeta.textContent = `${suspendedCount} flagged/suspended`;
+        } else {
+          elStanding.textContent = '100%';
+          if (elStandingMeta) elStandingMeta.textContent = '0 suspended';
+        }
+      }
+    }
+
+    function exportUsersCsv() {
+      if (!window.cachedAdminUsers || window.cachedAdminUsers.length === 0) {
+        showToast('No user data loaded to export.', 'warning');
+        return;
+      }
+      const headers = ['ID', 'Name', 'Email', 'Phone', 'Role', 'Stream', 'Verified', 'Suspended', 'Joined Date'];
+      const rows = window.cachedAdminUsers.map(u => [
+        `"${u.id || ''}"`,
+        `"${(u.name || '').replace(/"/g, '""')}"`,
+        `"${(u.email || '').replace(/"/g, '""')}"`,
+        `"${(u.phone || '').replace(/"/g, '""')}"`,
+        `"${u.role || ''}"`,
+        `"${u.primaryStream || 'General'}"`,
+        u.isVerified ? 'YES' : 'NO',
+        u.isSuspended ? 'YES' : 'NO',
+        `"${u.createdAt || ''}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `disheera_users_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('User directory exported to CSV successfully.', 'success');
+    }
+
+    function resetUserFilters() {
+      document.getElementById('userSearchInput').value = '';
+      document.getElementById('userRoleFilter').value = 'all';
+      document.getElementById('userStreamFilter').value = 'all';
+      document.getElementById('userStatusFilter').value = 'all';
+      loadUsers(1);
+      showToast('Directory filters reset.', 'info');
+    }
+
     function debounceUserSearch() {
       if (userSearchTimeout) clearTimeout(userSearchTimeout);
       userSearchTimeout = setTimeout(() => {
@@ -1517,7 +1706,7 @@
       });
 
       const tbody = document.getElementById('usersTableBody');
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Fetching users...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2.5rem 1rem;">Fetching user directory...</td></tr>';
 
       try {
         const res = await adminFetch(`/api/admin/users?${params.toString()}`);
@@ -1529,10 +1718,12 @@
           document.getElementById('btnUserPrev').disabled = (page <= 1);
           document.getElementById('btnUserNext').disabled = (page >= userTotalPages);
 
+          window.cachedAdminUsers = res.users;
+          updateUserDirectoryStats(res);
           renderUsersTable(res.users);
         }
       } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--accent-rose);">${escapeHtml(error.message)}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--accent-rose); padding: 2rem;">${escapeHtml(error.message)}</td></tr>`;
       }
     }
 
@@ -1546,48 +1737,79 @@
     function renderUsersTable(users) {
       const tbody = document.getElementById('usersTableBody');
       if (!users || users.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No matching users found.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 3rem 1rem;">No matching user records found.</td></tr>';
         return;
       }
 
       tbody.innerHTML = users.map(u => {
+        const initials = getUserInitials(u.name);
+        const avatarClass = getUserAvatarClass(u.id || u.name);
+
         const statusBadge = u.isSuspended
-          ? `<span class="badge badge-rose">Suspended</span>`
-          : `<span class="badge badge-emerald">Active</span>`;
+          ? `<span class="badge badge-rose"><i class="bi bi-slash-circle-fill"></i> Suspended</span>`
+          : `<span class="badge badge-emerald"><i class="bi bi-check-circle-fill"></i> Active</span>`;
         
         const verifiedBadge = u.isVerified
-          ? `<span class="badge badge-cyan" title="Verified">✓ Verified</span>`
-          : `<span class="badge badge-muted">Unverified</span>`;
+          ? `<span class="badge badge-cyan" title="Verified Account"><i class="bi bi-patch-check-fill"></i> Verified</span>`
+          : `<span class="badge badge-muted"><i class="bi bi-clock"></i> Unverified</span>`;
 
+        const roleBadge = u.role === 'recruiter'
+          ? `<span class="badge-role-recruiter"><i class="bi bi-building"></i> Recruiter</span>`
+          : `<span class="badge-role-student"><i class="bi bi-mortarboard-fill"></i> Student</span>`;
+
+        const streamBadge = getStreamBadgeHtml(u.primaryStream);
+
+        const relTime = getRelativeTime(u.createdAt);
         const isSuperAdmin = (currentAdmin && currentAdmin.role === 'SUPER_ADMIN');
+
+        const phoneHtml = u.phone
+          ? `<span class="user-meta-phone" title="Phone number"><i class="bi bi-telephone-fill"></i> ${escapeHtml(u.phone)}</span>`
+          : '';
 
         return `
           <tr>
             <td>
-              <div style="font-weight: 600;">${escapeHtml(u.name)}</div>
-              <div class="user-meta-sub">${escapeHtml(u.email)}</div>
+              <div class="user-profile-cell">
+                <div class="user-avatar-circle ${avatarClass}">
+                  ${escapeHtml(initials)}
+                </div>
+                <div class="user-profile-meta">
+                  <div class="user-profile-name">
+                    ${escapeHtml(u.name)}
+                  </div>
+                  <div class="user-meta-sub">${escapeHtml(u.email)}</div>
+                  ${phoneHtml}
+                </div>
+              </div>
             </td>
-            <td><span class="badge ${u.role === 'recruiter' ? 'badge-indigo' : 'badge-cyan'}">${escapeHtml(u.role)}</span></td>
-            <td><span class="badge badge-muted">${escapeHtml(u.primaryStream || 'General')}</span></td>
+            <td>${roleBadge}</td>
+            <td>${streamBadge}</td>
             <td>
-              <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
+              <div class="status-badges-cell">
                 ${statusBadge}
                 ${verifiedBadge}
               </div>
             </td>
-            <td style="font-size: 0.78rem; color: var(--text-muted);">${escapeHtml(formatDate(u.createdAt))}</td>
+            <td>
+              <div class="date-cell">
+                <span class="date-primary">${escapeHtml(formatDate(u.createdAt))}</span>
+                ${relTime ? `<span class="date-relative">${escapeHtml(relTime)}</span>` : ''}
+              </div>
+            </td>
             <td style="text-align: right;">
               <div class="btn-action-group" style="justify-content: flex-end;">
-                <button class="btn-action" onclick="openUserDossier('${escapeHtml(u.id)}')">Dossier</button>
-                <button class="btn-action ${u.isSuspended ? 'btn-approve' : 'btn-suspend'}" onclick="confirmToggleSuspend('${escapeHtml(u.id)}', '${escapeHtml(u.email)}', ${!u.isSuspended})">
-                  ${u.isSuspended ? 'Unsuspend' : 'Suspend'}
+                <button class="btn-action btn-dossier" onclick="openUserDossier('${escapeHtml(u.id)}')" title="View complete administrative user dossier">
+                  <i class="bi bi-person-lines-fill"></i> Dossier
+                </button>
+                <button class="btn-action ${u.isSuspended ? 'btn-approve' : 'btn-suspend'}" onclick="confirmToggleSuspend('${escapeHtml(u.id)}', '${escapeHtml(u.email)}', ${!u.isSuspended})" title="${u.isSuspended ? 'Reinstate user' : 'Suspend user access'}">
+                  <i class="bi ${u.isSuspended ? 'bi-arrow-clockwise' : 'bi-slash-circle'}"></i> ${u.isSuspended ? 'Reinstate' : 'Suspend'}
                 </button>
                 ${isSuperAdmin ? `
-                  <button class="btn-action btn-suspend" onclick="confirmSoftDeleteUser('${escapeHtml(u.id)}', '${escapeHtml(u.email)}')">
-                    Deactivate
+                  <button class="btn-action btn-deactivate" onclick="confirmSoftDeleteUser('${escapeHtml(u.id)}', '${escapeHtml(u.email)}')" title="Soft deactivate user profile">
+                    <i class="bi bi-shield-x"></i> Deactivate
                   </button>
-                  <button class="btn-action btn-delete" onclick="openHardDeleteModal('${escapeHtml(u.id)}', '${escapeHtml(u.email)}')">
-                    Hard Delete
+                  <button class="btn-action btn-delete" onclick="openHardDeleteModal('${escapeHtml(u.id)}', '${escapeHtml(u.email)}')" title="Hard delete permanently from database">
+                    <i class="bi bi-trash3-fill"></i> Hard Delete
                   </button>
                 ` : ''}
               </div>

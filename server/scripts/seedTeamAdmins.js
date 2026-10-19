@@ -18,17 +18,17 @@ const team = [
   {
     name: 'Sanika Bodhanwar',
     email: 'sanikabodhanwar10@gmail.com',
-    tempPass: 'Sanika@Disheera2026!'
+    tempPass: '@DisheeraAdmin'
   },
   {
     name: 'Suyog Pawar',
     email: 'pawarsuyog0618@gmail.com',
-    tempPass: 'Suyog@Disheera2026!'
+    tempPass: '@DisheeraAdmin'
   },
   {
     name: 'Aditi Vispute',
     email: 'aditivispute25@gmail.com',
-    tempPass: 'Aditi@Disheera2026!'
+    tempPass: '@DisheeraAdmin'
   }
 ];
 
@@ -46,6 +46,10 @@ async function seedTeamAdmins() {
       update: {
         name: member.name,
         role: 'ADMIN',
+        password: hashedPassword,
+        mustChangePassword: true,
+        failedLoginAttempts: 0,
+        lockedUntil: null,
         isActive: true
       },
       create: {
@@ -54,6 +58,8 @@ async function seedTeamAdmins() {
         password: hashedPassword,
         role: 'ADMIN',
         mustChangePassword: true,
+        failedLoginAttempts: 0,
+        lockedUntil: null,
         isActive: true
       }
     });

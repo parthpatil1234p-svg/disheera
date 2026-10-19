@@ -49,6 +49,13 @@ function updateAdminHeaderUI(admin) {
   }
   if (emailEl) emailEl.textContent = admin.email;
 
+  const initialsEl = document.getElementById('adminAvatarInitials');
+  if (initialsEl) {
+    const parts = (admin.name || 'Admin').trim().split(/\s+/);
+    const initials = parts.length > 1 ? (parts[0][0] + parts[parts.length - 1][0]) : parts[0].slice(0, 2);
+    initialsEl.textContent = initials.toUpperCase();
+  }
+
   // Personnel management is restricted exclusively to SUPER_ADMIN
   if (adminsNav) {
     adminsNav.style.display = admin.role === 'SUPER_ADMIN' ? 'flex' : 'none';

@@ -530,28 +530,45 @@ textarea,
   color: var(--text-dim);
 }
 
-/* ── 9. Panels & Data Containers (NO backdrop-filter) ───────── */
+/* ── 9. Panels & Data Containers (Enhanced Depth & Polish) ──── */
 .panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(14, 21, 36, 0.95) 0%, rgba(10, 16, 28, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
   overflow: hidden;
+  transition: border-color 200ms var(--ease-subtle);
+}
+
+.panel:hover {
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .panel-header {
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .panel-title {
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--text);
+  color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panel-subtitle {
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 400;
+  margin-top: 3px;
 }
 
 .panel-filters {
@@ -559,6 +576,135 @@ textarea,
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+/* ── Directory Stats Strip ────────────────────────────────────── */
+.directory-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.dir-stat-card {
+  background: linear-gradient(145deg, rgba(14, 21, 36, 0.9) 0%, rgba(9, 14, 24, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition: all 180ms var(--ease-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.dir-stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dir-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 28px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(34, 211, 238, 0.15);
+}
+
+.dir-stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.dir-stat-icon-wrapper.cyan {
+  background: rgba(34, 211, 238, 0.12);
+  color: #22D3EE;
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.15);
+}
+
+.dir-stat-icon-wrapper.emerald {
+  background: rgba(52, 211, 153, 0.12);
+  color: #34D399;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.15);
+}
+
+.dir-stat-icon-wrapper.violet {
+  background: rgba(139, 92, 246, 0.12);
+  color: #A78BFA;
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.15);
+}
+
+.dir-stat-icon-wrapper.amber {
+  background: rgba(251, 191, 36, 0.12);
+  color: #FBBF24;
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.15);
+}
+
+.dir-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dir-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94A3B8;
+  margin-bottom: 2px;
+}
+
+.dir-stat-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-heading);
+}
+
+.dir-stat-meta {
+  font-size: 11px;
+  color: #64748B;
+  margin-top: 3px;
+}
+
+/* ── Search Box Wrapper with Icon ────────────────────────────── */
+.search-box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box-wrapper .search-icon {
+  position: absolute;
+  left: 0.85rem;
+  color: #64748B;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.search-box-wrapper .input-search {
+  padding-left: 2.3rem;
+  min-width: 260px;
 }
 
 /* ── 10. Form Controls, Inputs & Modals Forms (Full Width) ──── */
@@ -628,19 +774,19 @@ textarea,
 }
 
 .data-table th {
-  background: var(--surface-2);
-  color: var(--text-dim);
+  background: rgba(15, 23, 42, 0.75);
+  color: #94A3B8;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .data-table td {
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0.95rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   color: var(--text);
   vertical-align: middle;
   font-variant-numeric: tabular-nums;
@@ -648,17 +794,164 @@ textarea,
 
 .data-table tbody tr {
   transition: background-color 150ms var(--ease-subtle),
-              transform 150ms var(--ease-subtle);
+              box-shadow 150ms var(--ease-subtle);
 }
 
 .data-table tbody tr:hover {
-  background-color: var(--surface-2);
-  transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 3px 0 0 #22D3EE;
 }
 
-.data-table td .user-meta-sub {
-  font-size: 12px;
-  color: var(--text-dim);
+/* ── Modern User Profile Cell & Avatar Circles ──────────────── */
+.user-profile-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.user-avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.user-avatar-circle.avatar-teal {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.25), rgba(13, 148, 136, 0.45));
+  color: #5EEAD4;
+  border-color: rgba(94, 234, 212, 0.3);
+}
+
+.user-avatar-circle.avatar-indigo {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(79, 70, 229, 0.45));
+  color: #A5B4FC;
+  border-color: rgba(165, 180, 252, 0.3);
+}
+
+.user-avatar-circle.avatar-purple {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(126, 34, 206, 0.45));
+  color: #D8B4FE;
+  border-color: rgba(216, 180, 254, 0.3);
+}
+
+.user-avatar-circle.avatar-amber {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.45));
+  color: #FCD34D;
+  border-color: rgba(252, 211, 77, 0.3);
+}
+
+.user-avatar-circle.avatar-rose {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(225, 29, 72, 0.45));
+  color: #FDA4AF;
+  border-color: rgba(253, 164, 175, 0.3);
+}
+
+.user-profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-profile-name {
+  font-weight: 600;
+  color: #F1F5F9;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.user-meta-sub {
+  font-size: 0.76rem;
+  color: #94A3B8;
+  font-family: var(--font-mono);
+}
+
+.user-meta-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+.user-meta-phone i {
+  color: #10B981;
+  font-size: 0.75rem;
+}
+
+/* ── Role & Stream Badges with Micro-Icons ────────────────────── */
+.badge-role-student {
+  background: rgba(34, 211, 238, 0.12);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.74rem;
+}
+
+.badge-role-recruiter {
+  background: rgba(139, 92, 246, 0.14);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.74rem;
+}
+
+.badge-stream {
+  background: rgba(148, 163, 184, 0.1);
+  color: #CBD5E1;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.74rem;
+}
+
+.date-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date-primary {
+  font-size: 0.78rem;
+  color: #CBD5E1;
+  font-family: var(--font-mono);
+}
+
+.date-relative {
+  font-size: 0.7rem;
+  color: #64748B;
+}
+
+.status-badges-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
 }
 
 /* ── 12. Badges (Strict Color Semantics) ─────────────────────── */
@@ -758,24 +1051,153 @@ textarea,
   border-color: var(--warning);
 }
 
+/* Dossier Cyan Glow Button */
+.btn-action.btn-dossier {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.28);
+  color: #38BDF8;
+}
+.btn-action.btn-dossier:hover {
+  background: rgba(34, 211, 238, 0.18);
+  border-color: rgba(56, 189, 248, 0.6);
+  color: #E0F2FE;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.25);
+}
+
+/* Deactivate Amber Warning Button */
+.btn-action.btn-deactivate {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.28);
+  color: #FBBF24;
+}
+.btn-action.btn-deactivate:hover {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(251, 191, 36, 0.6);
+  color: #FEF3C7;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+}
+
+/* Export CSV Violet Button */
+.btn-action.btn-export {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #C084FC;
+}
+.btn-action.btn-export:hover {
+  background: rgba(139, 92, 246, 0.22);
+  border-color: rgba(192, 132, 252, 0.6);
+  color: #F3E8FF;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.25);
+}
+
+/* Reset Filter Subtle Button */
+.btn-action.btn-reset-filter {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+}
+.btn-action.btn-reset-filter:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #F1F5F9;
+}
+
+/* Header Refresh Button */
+.btn-action.btn-refresh {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+}
+.btn-action.btn-refresh:hover {
+  background: rgba(34, 211, 238, 0.12);
+  border-color: rgba(34, 211, 238, 0.4);
+  color: #22D3EE;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
+}
+
 /* Danger actions (Red strictly reserved for destructive operations) */
 .btn-action.btn-suspend {
-  border-color: rgba(248, 113, 113, 0.4);
-  color: var(--danger);
+  background: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.35);
+  color: #FB7185;
 }
 .btn-action.btn-suspend:hover {
-  background: var(--accent-rose-bg);
-  border-color: var(--danger);
+  background: rgba(248, 113, 113, 0.2);
+  border-color: #F43F5E;
+  color: #FFF1F2;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.25);
 }
 
 .btn-action.btn-delete {
-  border-color: rgba(248, 113, 113, 0.5);
-  color: var(--danger);
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.45);
+  color: #FDA4AF;
 }
 .btn-action.btn-delete:hover {
-  background: var(--danger);
-  color: #070B14;
+  background: #E11D48;
+  border-color: #E11D48;
+  color: #FFFFFF;
   font-weight: 600;
+  box-shadow: 0 0 14px rgba(225, 29, 72, 0.45);
+}
+
+/* ── Live Pulse Indicators & Subdomain Branding ─────────────── */
+.admin-subdomain-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  color: #94A3B8;
+  font-family: var(--font-mono);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.pulse-dot-emerald {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseEmerald 2s infinite;
+}
+
+@keyframes pulseEmerald {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+.admin-profile-avatar-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.82rem;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+}
+
+.pulse-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid #0B1120;
 }
 
 /* ── 14. Primary, Secondary & Danger Buttons ─────────────────── */
