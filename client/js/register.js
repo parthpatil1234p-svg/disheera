@@ -683,6 +683,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const agreeTerms = document.getElementById('agreeTerms');
+      if (agreeTerms && !agreeTerms.checked) {
+        showAlert('Please accept the Terms of Service and Privacy Policy to continue.', 'warning');
+        agreeTerms.focus();
+        return;
+      }
+
       const originalBtnContent = submitBtn.innerHTML;
       submitBtn.disabled = true;
       submitBtn.innerHTML = `
@@ -802,6 +809,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (password !== confirmPassword) {
         showAlert('Passwords do not match. Please re-check.');
+        return;
+      }
+
+      const recruiterAgreeTerms = document.getElementById('recruiterAgreeTerms');
+      if (recruiterAgreeTerms && !recruiterAgreeTerms.checked) {
+        showAlert('Please accept the Terms, Privacy Policy, and Security Standards to continue.', 'warning');
+        recruiterAgreeTerms.focus();
         return;
       }
 
