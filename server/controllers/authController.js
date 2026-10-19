@@ -15,7 +15,7 @@
 
 const User          = require('../models/User');
 const generateToken = require('../utils/generateToken');
-const { sendOtpEmail } = require('../services/emailService');
+const { sendOtpEmail, isEmailConfigured: isEmailServiceConfigured } = require('../services/emailService');
 const whatsappService = require('../services/whatsappService');
 const { exchangeOAuthCode, fetchGitHubData, analyzeGitHubRepos } = require('../services/githubService');
 const pendingSignupStore = require('../data/pendingSignupStore');
@@ -230,7 +230,11 @@ const registerUser = async (req, res, next) => {
       console.log(`\n🔑 [NEW REGISTRATION DUAL OTP] Email OTP: ${emailOtp} | WhatsApp OTP: ${whatsappOtp} for ${normalizedEmail}\n`);
     }
 
-    const isEmailConfigured = Boolean((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS));
+    const isEmailConfigured = Boolean(
+      isEmailServiceConfigured() ||
+      (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0') ||
+      ((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS))
+    );
     const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
     const whatsappSent = Boolean(formattedPhone);
 
@@ -586,7 +590,11 @@ const resendOtp = async (req, res, next) => {
       console.log(`\n🔄 [OTP RESENT DUAL] Email OTP: ${emailOtp} | WhatsApp OTP: ${whatsappOtp} for ${normalizedEmail}\n`);
     }
 
-    const isEmailConfigured = Boolean((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS));
+    const isEmailConfigured = Boolean(
+      isEmailServiceConfigured() ||
+      (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0') ||
+      ((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS))
+    );
     const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
     const whatsappSent = Boolean(targetPhone);
 

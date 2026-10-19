@@ -597,7 +597,7 @@ if (!process.env.VERCEL) {
     console.log(`🗺️  Roadmap routes    : http://localhost:${PORT}/api/roadmaps`);
     console.log(`📊 Dashboard route   : http://localhost:${PORT}/api/dashboard`);
     console.log(`🌱 Environment       : ${process.env.NODE_ENV || 'development'}`);
-    console.log(`📧 Email Service     : Configured via ${process.env.EMAIL_USER || 'Disabled'}`);
+    console.log(`📧 Email Service     : Configured via Dakly Engine API (${process.env.DAKLY_API_URL || 'https://dakly-engin.vercel.app/api/send'})`);
     console.log('👥 Platform          : Disheera Dual-Engine Hybrid Architecture');
     console.log('');
   });

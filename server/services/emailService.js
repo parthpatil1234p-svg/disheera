@@ -1,101 +1,98 @@
 /**
- * services/emailService.js — High-Reliability Email Delivery for OTP Verification
- * Uses Nodemailer with direct Gmail SMTP (Port 465 SSL with Port 587 STARTTLS Fallback).
- * Anti-Spam Optimized: Clean headers, no trigger emojis, RFC compliance.
+ * services/emailService.js — High-Reliability Email Delivery via Dakly Email API
+ * Replaces legacy SMTP/Nodemailer to eliminate connection drops, firewall blocks, and port timeouts.
+ * Anti-Spam Optimized: Clean RFC headers, no spam triggers, authentic text fallback.
+ * 
+ * Powered by Dakly Engine: https://dakly-engin.vercel.app/api/send
  * Disheera · Enterprise Backend Service
  */
 
-const nodemailer = require('nodemailer');
-const dns = require('dns');
+const DAKLY_API_URL = (process.env.DAKLY_API_URL || 'https://dakly-engin.vercel.app/api/send').trim();
+const DAKLY_API_KEY = (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0').trim();
 
-// Force IPv4 resolution to prevent ENETUNREACH on IPv6 cloud egress (Render, AWS, Docker)
-if (dns.setDefaultResultOrder) {
-  try {
-    dns.setDefaultResultOrder('ipv4first');
-  } catch (_) {}
+/**
+ * Checks if email delivery is configured and ready
+ * @returns {boolean}
+ */
+function isEmailConfigured() {
+  return Boolean(DAKLY_API_KEY && DAKLY_API_URL);
 }
 
-let cachedGmailIpv4 = null;
-let lastIpv4Resolve = 0;
-
-async function getGmailIpv4() {
-  const now = Date.now();
-  if (cachedGmailIpv4 && (now - lastIpv4Resolve < 10 * 60 * 1000)) {
-    return cachedGmailIpv4;
+/**
+ * Low-level dispatch helper sending email payload directly to Dakly Email Engine
+ * @param {Object} options
+ * @param {string} options.to - Recipient email address
+ * @param {string} options.subject - Subject line
+ * @param {string} options.html - HTML content
+ * @param {string} [options.text] - Plaintext fallback
+ * @param {string} [options.replyTo] - Reply-to email
+ * @param {number} [options.timeoutMs=10000] - Request timeout in milliseconds
+ * @returns {Promise<{success: boolean, messageId?: string, trackingId?: string, error?: string}>}
+ */
+async function sendEmail({ to, subject, html, text = '', replyTo = '', timeoutMs = 10000 }) {
+  if (!to) {
+    return { success: false, error: 'Recipient email ("to") is required.' };
   }
+
+  if (!DAKLY_API_KEY) {
+    console.warn('\n⚠️  [EMAIL CONFIG WARNING] DAKLY_API_KEY not configured.');
+    return { success: false, reason: 'unconfigured', error: 'DAKLY_API_KEY missing' };
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.signal.aborted || controller.abort(), timeoutMs);
+
+  const payload = {
+    to: to.trim(),
+    subject: subject || 'Disheera Notification',
+    html: html || `<p>${text || subject}</p>`,
+    text: text || '',
+    replyTo: replyTo || process.env.EMAIL_REPLY_TO || 'disheera.site@gmail.com',
+  };
+
   try {
-    const addrs = await dns.promises.resolve4('smtp.gmail.com');
-    if (addrs && addrs.length > 0) {
-      cachedGmailIpv4 = addrs[0];
-      lastIpv4Resolve = now;
-      return cachedGmailIpv4;
+    const res = await fetch(DAKLY_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': DAKLY_API_KEY,
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timer);
+
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok && data.success !== false) {
+      const messageId = data.messageId || data.trackingId || `<dakly-${Date.now()}@disheera.site>`;
+      console.log(`\n📧 [DAKLY EMAIL DELIVERED] Email successfully dispatched to ${to} (Tracking: ${data.trackingId || 'N/A'}, ExecTime: ${data.executionTimeMs || 0}ms)\n`);
+      return {
+        success: true,
+        messageId,
+        trackingId: data.trackingId,
+        status: data.status || 'DELIVERED',
+      };
+    } else {
+      const errMsg = data.error || data.message || `HTTP ${res.status}`;
+      console.error(`\n❌ [DAKLY EMAIL FAILED] Delivery rejected for ${to}: ${errMsg}\n`);
+      return {
+        success: false,
+        error: errMsg,
+        status: data.status || 'FAILED',
+      };
     }
   } catch (err) {
-    console.warn('⚠️ [DNS] Failed to resolve smtp.gmail.com IPv4:', err.message);
+    clearTimeout(timer);
+    const isTimeout = err.name === 'AbortError';
+    const errMsg = isTimeout ? `Request timed out after ${timeoutMs}ms` : err.message;
+    console.error(`\n❌ [DAKLY API NETWORK ERROR] Failed connecting to Dakly Engine: ${errMsg}\n`);
+    return {
+      success: false,
+      error: errMsg,
+    };
   }
-  return cachedGmailIpv4 || 'smtp.gmail.com';
-}
-
-// Pre-resolve on module load
-getGmailIpv4().catch(() => {});
-
-function createTransporter(port = null, secure = null, timeoutMs = 8000, hostOverride = null) {
-  // 1. Universal / Custom SMTP (Brevo, SendGrid, Resend, AWS SES, Postmark, etc.)
-  const smtpHost = (process.env.SMTP_HOST || '').trim();
-  const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : null;
-  const smtpUser = (process.env.SMTP_USER || process.env.EMAIL_USER || '').trim();
-  const smtpPass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
-
-  if (!smtpUser || !smtpPass) {
-    return null;
-  }
-
-  const connTimeout = timeoutMs;
-  const greetTimeout = Math.min(timeoutMs, 6000);
-  const sockTimeout = Math.max(timeoutMs, 12000);
-
-  // If a custom SMTP host is explicitly specified
-  if (smtpHost && smtpHost !== 'smtp.gmail.com') {
-    const targetPort = port || smtpPort || 587;
-    const isSecure = secure !== null ? secure : (targetPort === 465);
-    return nodemailer.createTransport({
-      host: smtpHost,
-      port: targetPort,
-      secure: isSecure,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-      connectionTimeout: connTimeout,
-      greetingTimeout: greetTimeout,
-      socketTimeout: sockTimeout,
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
-  }
-
-  // 2. Google / Gmail SMTP - force direct IPv4 host to eliminate ENETUNREACH on IPv6-less cloud networks
-  const targetPort = port || (smtpPort || 465);
-  const isSecure = secure !== null ? secure : (targetPort === 465);
-  const targetHost = hostOverride || cachedGmailIpv4 || 'smtp.gmail.com';
-
-  return nodemailer.createTransport({
-    host: targetHost,
-    port: targetPort,
-    secure: isSecure,
-    auth: {
-      user: smtpUser,
-      pass: smtpPass, // 16-character Google App Password
-    },
-    connectionTimeout: connTimeout,
-    greetingTimeout: greetTimeout,
-    socketTimeout: sockTimeout,
-    tls: {
-      servername: 'smtp.gmail.com', // Crucial: validates TLS certificate against Google SNI
-      rejectUnauthorized: false,
-    },
-  });
 }
 
 /**
@@ -106,27 +103,15 @@ function createTransporter(port = null, secure = null, timeoutMs = 8000, hostOve
  * @param {string} toEmail - Recipient's email address
  * @param {string} name - Recipient's name
  * @param {string} otpCode - 6-digit numeric verification code
- * @returns {Promise<{success: boolean, messageId?: string, error?: string, reason?: string}>}
+ * @returns {Promise<{success: boolean, messageId?: string, trackingId?: string, error?: string, reason?: string}>}
  */
 async function sendOtpEmail(toEmail, name, otpCode) {
-  const emailUser = (process.env.SMTP_USER || process.env.EMAIL_USER || '').trim();
-  const emailPass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
-
-  if (!emailUser || !emailPass) {
-    console.warn(`\n⚠️  [EMAIL CONFIG WARNING] EMAIL_USER or EMAIL_PASS not configured in .env.`);
-    console.warn(`   👉 Add your Gmail address & 16-character Google App Password to server/.env to deliver live emails.`);
-    console.log(`   🔑 [Console Backup] Verification OTP for ${toEmail}: ${otpCode}\n`);
-    return { success: false, reason: 'unconfigured' };
+  if (!toEmail || !otpCode) {
+    return { success: false, error: 'Recipient email and OTP code are required.' };
   }
 
   const recipientName = name ? name.trim() : 'Student';
   const cleanSubject = `Your Disheera verification code is ${otpCode}`;
-  const fromHeader = process.env.EMAIL_FROM
-    ? process.env.EMAIL_FROM.trim()
-    : `"Disheera" <${emailUser}>`;
-  const replyToHeader = process.env.EMAIL_REPLY_TO
-    ? process.env.EMAIL_REPLY_TO.trim()
-    : emailUser;
 
   const htmlContent = `
   <!DOCTYPE html>
@@ -198,76 +183,12 @@ Disheera Technologies Inc. · Next-Gen Career Navigation Platform
 Autonomous Career GPS & Verified Talent Operating System
 `;
 
-  const mailOptions = {
-    from: fromHeader,
+  return sendEmail({
     to: toEmail,
-    replyTo: replyToHeader,
     subject: cleanSubject,
     html: htmlContent,
     text: textContent,
-    headers: {
-      'X-Entity-Ref-ID': `disheera-otp-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-    },
-  };
-
-  // On Render, AWS, and cloud providers, Port 587 (STARTTLS) has 10x higher firewall compatibility than Port 465 (SMTPS).
-  const isCloudOrProd = Boolean(process.env.RENDER || process.env.VERCEL || process.env.NODE_ENV === 'production');
-  const configuredPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : null;
-  const primaryPort = configuredPort || (isCloudOrProd ? 587 : 465);
-  const primarySecure = primaryPort === 465;
-  const failoverPort = primaryPort === 587 ? 465 : 587;
-  const failoverSecure = failoverPort === 465;
-
-  // Ensure we have resolved direct IPv4 host for Gmail to completely bypass IPv6 ENETUNREACH on Render/cloud
-  const gmailIpv4 = await getGmailIpv4();
-
-  // Attempt 1: Primary Port (with responsive timeout so failover is fast if firewall blocks)
-  try {
-    const primaryTimeout = isCloudOrProd ? 3500 : 6000;
-    const transporterPrimary = createTransporter(primaryPort, primarySecure, primaryTimeout, gmailIpv4);
-    if (!transporterPrimary) {
-      throw new Error('Transporter initialization failed (check SMTP/EMAIL configuration in .env)');
-    }
-    const info = await transporterPrimary.sendMail(mailOptions);
-    console.log(`\n📧 [EMAIL DELIVERED - Port ${primaryPort}] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
-    return { success: true, messageId: info.messageId };
-  } catch (errPrimary) {
-    console.warn(`\n⚠️  [PORT ${primaryPort} FAILED] Attempting Port ${failoverPort} failover: ${errPrimary.message}`);
-
-    // Attempt 2: Failover Port (with responsive failover timeout)
-    try {
-      const failoverTimeout = isCloudOrProd ? 4000 : 8000;
-      const transporterFailover = createTransporter(failoverPort, failoverSecure, failoverTimeout, gmailIpv4);
-      if (!transporterFailover) {
-        throw new Error(`Port ${failoverPort} transporter initialization failed`);
-      }
-      const info = await transporterFailover.sendMail(mailOptions);
-      console.log(`\n📧 [EMAIL DELIVERED - Port ${failoverPort}] OTP successfully dispatched to ${toEmail} (ID: ${info.messageId})\n`);
-      return { success: true, messageId: info.messageId };
-    } catch (errFailover) {
-      const errMsg = errFailover.message || errPrimary.message || 'Unknown SMTP error';
-      console.error(`\n❌ [EMAIL SEND ERROR] Delivery failed for ${toEmail}: ${errMsg}`);
-
-      if (errMsg.includes('535') || errMsg.includes('BadCredentials') || errFailover.code === 'EAUTH' || errPrimary.code === 'EAUTH') {
-        console.error(`\n========================================================================`);
-        console.error(`❌ [GMAIL SMTP AUTH FAILED - BadCredentials (535)]`);
-        console.error(`   Google rejected authentication for sender: "${emailUser}"`);
-        console.error(`   👉 Reason: Gmail App Password is missing, invalid, or assigned to another account.`);
-        console.error(`   👉 Quick Fix:`);
-        console.error(`      1. EMAIL_USER in server/.env must be your real Gmail account (e.g. name@gmail.com).`);
-        console.error(`         Note: You cannot use a custom domain like @careerpath.is-local.org on smtp.gmail.com`);
-        console.error(`         unless your domain is registered in Google Workspace.`);
-        console.error(`      2. EMAIL_PASS must be a 16-character Google App Password (not your normal Google account password).`);
-        console.error(`      3. Generate a fresh Google App Password at: https://myaccount.google.com/apppasswords`);
-        console.error(`      4. Ensure 2-Step Verification is active on that Google account.`);
-        console.error(`      5. Paste the 16 characters into EMAIL_PASS in server/.env`);
-        console.error(`========================================================================\n`);
-      }
-
-      console.log(`   🔑 [Console Backup] Verification OTP for ${toEmail}: ${otpCode}\n`);
-      return { success: false, error: errMsg, code: errFailover.code || errPrimary.code };
-    }
-  }
+  });
 }
 
 /**
@@ -277,13 +198,13 @@ Autonomous Career GPS & Verified Talent Operating System
  * @param {Object} params
  * @param {string} params.toEmail - Recipient email
  * @param {string} params.name - Recipient name
- * @param {string} params.careerTitle - Active career roadmap title
- * @param {number} params.currentWeek - Current week number (e.g. 1, 2)
- * @param {number} params.remainingTasksCount - Tasks left in the current week
- * @param {string} params.nextTaskTitle - Next task to complete
- * @param {number} params.daysInactive - Number of days inactive (e.g. 3)
+ * @param {string} [params.careerTitle='Software Engineer'] - Active career roadmap title
+ * @param {number} [params.currentWeek=1] - Current week number (e.g. 1, 2)
+ * @param {number} [params.remainingTasksCount=2] - Tasks left in the current week
+ * @param {string} [params.nextTaskTitle=''] - Next task to complete
+ * @param {number} [params.daysInactive=3] - Number of days inactive (e.g. 3)
  * @param {string} [params.clientUrl] - Base client URL
- * @returns {Promise<{success: boolean, messageId?: string, error?: string}>}
+ * @returns {Promise<{success: boolean, messageId?: string, trackingId?: string, error?: string}>}
  */
 async function sendInactivityNudgeEmail({
   toEmail,
@@ -295,12 +216,8 @@ async function sendInactivityNudgeEmail({
   daysInactive = 3,
   clientUrl = process.env.CLIENT_URL || 'http://localhost:5500',
 }) {
-  const emailUser = (process.env.SMTP_USER || process.env.EMAIL_USER || '').trim();
-  const emailPass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || '').replace(/\s+/g, '');
-
-  if (!emailUser || !emailPass) {
-    console.warn(`[Streak Nudge] Email not sent - EMAIL_USER/EMAIL_PASS not configured for ${toEmail}`);
-    return { success: false, reason: 'unconfigured' };
+  if (!toEmail) {
+    return { success: false, error: 'Recipient email is required.' };
   }
 
   const recipientName = name ? name.trim().split(' ')[0] : 'Learner';
@@ -406,39 +323,17 @@ Disheera Technologies Inc.
 Autonomous Career GPS & Verified Talent Operating System
 `;
 
-  const mailOptions = {
-    from: `"Disheera Mentor" <${emailUser}>`,
+  return sendEmail({
     to: toEmail,
-    replyTo: emailUser,
     subject,
     html: htmlContent,
     text: textContent,
-    headers: {
-      'X-Entity-Ref-ID': `streak-nudge-${toEmail}-${Date.now()}`,
-    },
-  };
-
-  try {
-    const transporter465 = createTransporter(465, true);
-    if (!transporter465) throw new Error('Transporter configuration failed');
-    const info = await transporter465.sendMail(mailOptions);
-    console.log(`\n📬 [STREAK NUDGE SENT - Port 465] Delivered to ${toEmail} for ${careerTitle} (ID: ${info.messageId})\n`);
-    return { success: true, messageId: info.messageId };
-  } catch (err465) {
-    try {
-      const transporter587 = createTransporter(587, false);
-      if (!transporter587) throw new Error('Port 587 configuration failed');
-      const info = await transporter587.sendMail(mailOptions);
-      console.log(`\n📬 [STREAK NUDGE SENT - Port 587] Delivered to ${toEmail} for ${careerTitle} (ID: ${info.messageId})\n`);
-      return { success: true, messageId: info.messageId };
-    } catch (err587) {
-      console.error(`\n❌ [STREAK NUDGE ERROR] Failed to send email to ${toEmail}: ${err587.message}`);
-      return { success: false, error: err587.message };
-    }
-  }
+  });
 }
 
 module.exports = {
   sendOtpEmail,
   sendInactivityNudgeEmail,
+  sendEmail,
+  isEmailConfigured,
 };

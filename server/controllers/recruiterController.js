@@ -21,7 +21,7 @@ const Company = require('../models/Company');
 const JobOpening = require('../models/JobOpening');
 const JobApplication = require('../models/JobApplication');
 const { computeOverallCompanyVerification } = require('../services/companyVerificationService');
-const { sendOtpEmail } = require('../services/emailService');
+const { sendOtpEmail, isEmailConfigured: isEmailServiceConfigured } = require('../services/emailService');
 const pendingSignupStore = require('../data/pendingSignupStore');
 
 // ── Helper: 6-Digit Secure OTP Generator ─────────────────────
@@ -183,7 +183,11 @@ const registerRecruiter = async (req, res, next) => {
       console.log(`\n🔑 [RECRUITER REGISTRATION OTP] 6-digit corporate code for ${normalizedEmail}: ${otpCode}\n`);
     }
 
-    const isEmailConfigured = Boolean((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS));
+    const isEmailConfigured = Boolean(
+      isEmailServiceConfigured() ||
+      (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0') ||
+      ((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS))
+    );
     const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
 
     sendOtpEmail(normalizedEmail, name.trim(), otpCode)
