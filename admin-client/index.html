@@ -1046,7 +1046,7 @@
         <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
           Your account was provisioned with a temporary password. You must set a permanent secure password before accessing administrative tools.
         </p>
-        <div id="forcedPasswordError" class="alert-box alert-error"></div>
+        <div id="forcedPasswordError" class="alert-box alert-error" style="display: none;"></div>
         <div class="form-group">
           <label class="form-label" for="forcedOldPass">Current Password</label>
           <div style="position: relative;">
@@ -1514,9 +1514,9 @@
     document.addEventListener('DOMContentLoaded', async () => {
       // 1. Authenticate admin session
       const admin = await initAdminAuthSession();
-      if (!admin) return;
+      if (!admin || admin.mustChangePassword) return;
 
-      // 2. Load initial dashboard data
+      // 2. Load initial dashboard data (only if password change is not required)
       loadDashboardStats();
     });
 
@@ -2378,6 +2378,13 @@
         if (res.success) {
           showToast('Password updated! Resuming session.', 'success');
           closeModal('forcedPasswordModal');
+          if (typeof currentAdmin !== 'undefined' && currentAdmin) {
+            currentAdmin.mustChangePassword = false;
+          }
+          if (window.adminCurrentProfile) {
+            window.adminCurrentProfile.mustChangePassword = false;
+          }
+          loadDashboardStats();
         }
       } catch (e) {
         errBox.textContent = e.message || 'Failed to update password.';

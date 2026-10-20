@@ -1858,11 +1858,16 @@ input:-webkit-autofill:active {
 }
 
 .alert-box {
+  display: none;
   padding: 10px 14px;
   border-radius: 8px;
   font-size: 0.85rem;
   line-height: 1.4;
   margin-bottom: 1rem;
+}
+
+.alert-box:empty {
+  display: none !important;
 }
 
 .alert-box.alert-error {
