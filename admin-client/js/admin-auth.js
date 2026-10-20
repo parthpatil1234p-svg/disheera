@@ -44,8 +44,14 @@ function updateAdminHeaderUI(admin) {
 
   if (nameEl) nameEl.textContent = admin.name || 'Admin';
   if (roleEl) {
-    roleEl.textContent = admin.role;
-    roleEl.className = `badge ${admin.role === 'SUPER_ADMIN' ? 'badge-rose' : (admin.role === 'ADMIN' ? 'badge-cyan' : 'badge-emerald')}`;
+    const roleLabels = {
+      'SUPER_ADMIN': 'Super Admin',
+      'ADMIN': 'Admin',
+      'MODERATOR': 'Moderator'
+    };
+    roleEl.textContent = roleLabels[admin.role] || (admin.role ? admin.role.replace(/_/g, ' ') : 'Admin');
+    const roleSlug = (admin.role || '').toLowerCase().replace(/_/g, '-');
+    roleEl.className = `admin-profile-role-badge role-${roleSlug}`;
   }
   if (emailEl) emailEl.textContent = admin.email;
 

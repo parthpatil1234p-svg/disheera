@@ -324,7 +324,7 @@ textarea,
 }
 
 .sidebar-footer {
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(10, 15, 28, 0.95);
 }
@@ -333,18 +333,18 @@ textarea,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.75rem;
-  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  border-radius: 12px;
   background: rgba(21, 29, 48, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  gap: 0.75rem;
+  gap: 0.5rem;
   box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
 }
 
 .admin-profile-left {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.6rem;
   min-width: 0;
   flex: 1;
 }
@@ -353,7 +353,9 @@ textarea,
   display: flex;
   flex-direction: column;
   min-width: 0;
+  flex: 1;
   overflow: hidden;
+  gap: 3px;
 }
 
 .admin-profile-name {
@@ -363,29 +365,64 @@ textarea,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
-.admin-profile-role {
-  font-size: 10px;
+/* Dedicated, high-contrast, squircle badge for admin role that never clips or overflows */
+.admin-profile-role-badge,
+.admin-profile-role,
+.admin-profile-info .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  width: fit-content;
+  max-width: 100%;
+  font-size: 9.5px;
   font-weight: 700;
-  color: #38BDF8;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: 1.3;
+  padding: 2px 6px;
+  border-radius: 5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+.admin-profile-role-badge.role-super-admin,
+.admin-profile-info .badge-rose {
+  background: rgba(244, 63, 94, 0.16);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  color: #FB7185;
+}
+
+.admin-profile-role-badge.role-admin,
+.admin-profile-info .badge-cyan {
+  background: rgba(56, 189, 248, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38BDF8;
+}
+
+.admin-profile-role-badge.role-moderator,
+.admin-profile-info .badge-emerald {
+  background: rgba(52, 211, 153, 0.16);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #34D399;
 }
 
 .btn-logout {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  justify-content: center;
+  gap: 0.35rem;
   background: rgba(244, 63, 94, 0.12);
-  border: 1px solid rgba(244, 63, 94, 0.32);
+  border: 1px solid rgba(244, 63, 94, 0.35);
   color: #FDA4AF;
   cursor: pointer;
-  padding: 0.45rem 0.75rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 8px;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   transition: all 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -401,7 +438,7 @@ textarea,
 }
 
 .btn-logout i {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 /* ── 6. Main Content Area & Sticky Header ───────────────────── */
@@ -1818,8 +1855,27 @@ textarea,
   }
   .sidebar-logo-text,
   .nav-label,
-  .admin-profile-info {
+  .admin-profile-info,
+  .btn-logout span {
     display: none !important;
+  }
+  .sidebar-footer {
+    padding: 0.5rem 0.4rem;
+  }
+  .admin-profile-pill {
+    padding: 0.45rem 0.35rem;
+    flex-direction: column;
+    gap: 0.45rem;
+    justify-content: center;
+  }
+  .admin-profile-left {
+    justify-content: center;
+    width: 100%;
+  }
+  .btn-logout {
+    padding: 0.35rem;
+    width: 32px;
+    height: 32px;
   }
   .admin-main {
     margin-left: 72px;
