@@ -33,6 +33,7 @@
       this.maxStrikes = options.maxStrikes || 3;
       this.strikeCount = 0;
       this.isArmed = false;
+      this.isExiting = false;
       this.isLocked = false;
       this.lockReason = null;
       this.lastViolationTime = 0;
@@ -72,6 +73,7 @@
         return;
       }
 
+      this.isExiting = false;
       this.isArmed = true;
       this._attachListeners();
       this._updateHudBadge();
@@ -81,6 +83,7 @@
      * Disarm the proctoring lock (quiz completed or left)
      */
     disarm() {
+      this.isExiting = true;
       this.isArmed = false;
       this._detachListeners();
       this._removeModals();
@@ -113,6 +116,7 @@
      * Exit fullscreen mode cleanly
      */
     async exitFullscreen() {
+      this.isExiting = true;
       try {
         if (document.fullscreenElement && document.exitFullscreen) {
           await document.exitFullscreen();
@@ -151,19 +155,19 @@
     }
 
     _handleVisibilityChange() {
-      if (!this.isArmed || this.isLocked) return;
+      if (!this.isArmed || this.isLocked || this.isExiting) return;
       if (document.hidden) {
         this._recordViolation('tab_switch', 'User switched browser tab during active assessment');
       }
     }
 
     _handleWindowBlur() {
-      if (!this.isArmed || this.isLocked) return;
+      if (!this.isArmed || this.isLocked || this.isExiting) return;
       this._recordViolation('window_blur', 'Assessment window lost focus (application switch or secondary monitor click)');
     }
 
     _handleFullscreenChange() {
-      if (!this.isArmed || this.isLocked) return;
+      if (!this.isArmed || this.isLocked || this.isExiting) return;
       if (!this.isFullscreen()) {
         this._recordViolation('fullscreen_exit', 'User exited enforced fullscreen mode');
       }
@@ -227,6 +231,7 @@
      * Dispatch violation to backend and trigger HUD warnings
      */
     async _recordViolation(type, message) {
+      if (!this.isArmed || this.isLocked || this.isExiting) return;
       const now = Date.now();
       if (now - this.lastViolationTime < this.violationDebounceMs) {
         return; // debounce rapid consecutive blur+visibilitychange events
@@ -269,6 +274,12 @@
         }
       } catch (err) {
         console.error('[AntiCheatLock] Failed to report violation to server:', err);
+      }
+
+      // Guard after async network call: if disarmed or exiting, abort immediately and cleanup
+      if (!this.isArmed || this.isExiting) {
+        this._removeModals();
+        return;
       }
 
       this._updateHudBadge();
@@ -567,7 +578,7 @@
 
     _removeModals() {
       const backdrop = document.getElementById('antiCheatModalBackdrop');
-      if (backdrop && !this.isLocked) {
+      if (backdrop) {
         backdrop.style.display = 'none';
       }
     }

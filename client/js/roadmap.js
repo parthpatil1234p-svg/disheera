@@ -1146,8 +1146,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const answeredCount = Object.keys(testAnswersMap).length;
 
     if (!isAutoSubmit && answeredCount < totalQuestions) {
+      if (antiCheatLock) antiCheatLock.isExiting = true;
       const proceed = confirm(`You have answered ${answeredCount} of ${totalQuestions} questions. Are you sure you want to submit for grading?`);
-      if (!proceed) return;
+      if (!proceed) {
+        if (antiCheatLock) antiCheatLock.isExiting = false;
+        return;
+      }
     }
 
     if (timerCountdownInterval) clearInterval(timerCountdownInterval);
@@ -1274,7 +1278,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  // Explicit Exit Test button click handler
+  const btnCancelTest = document.getElementById('btnCancelTest');
+  if (btnCancelTest) {
+    btnCancelTest.addEventListener('click', () => {
+      if (timerCountdownInterval) clearInterval(timerCountdownInterval);
+      if (antiCheatLock) {
+        antiCheatLock.disarm();
+        antiCheatLock.exitFullscreen().catch(() => {});
+      }
+    });
+  }
+
   if (weeklyTestModalEl) {
+    // Disarm IMMEDIATELY as soon as closing starts to prevent fullscreen_exit violation
+    weeklyTestModalEl.addEventListener('hide.bs.modal', () => {
+      if (timerCountdownInterval) clearInterval(timerCountdownInterval);
+      if (antiCheatLock) {
+        antiCheatLock.disarm();
+        antiCheatLock.exitFullscreen().catch(() => {});
+      }
+    });
+
     weeklyTestModalEl.addEventListener('hidden.bs.modal', () => {
       if (timerCountdownInterval) clearInterval(timerCountdownInterval);
       if (antiCheatLock) {
