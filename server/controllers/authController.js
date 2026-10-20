@@ -1244,6 +1244,8 @@ const forgotPassword = async (req, res, next) => {
       resetPasswordToken: resetToken,
       resetPasswordOtp: resetOtp,
       resetExpiresAt: expiresAt,
+      resetOtpUsed: false,
+      resetFailedAttempts: 0,
     };
     await user.save();
 
@@ -1311,8 +1313,24 @@ const resetPassword = async (req, res, next) => {
       ? user.verificationOtp
       : {};
 
-    const { resetPasswordToken, resetPasswordOtp, resetExpiresAt } = verificationData;
+    const {
+      resetPasswordToken,
+      resetPasswordOtp,
+      resetExpiresAt,
+      resetOtpUsed,
+      resetFailedAttempts = 0,
+    } = verificationData;
 
+    // Strict Single-Use Policy: Reject if already consumed or burnt
+    if (resetOtpUsed === true || (!resetPasswordToken && !resetPasswordOtp)) {
+      return res.status(400).json({
+        success: false,
+        code: 'OTP_ALREADY_USED',
+        message: 'This password reset code or link has already been used. For security reasons, each code can only be used once. Please request a new code.',
+      });
+    }
+
+    // Strict 5-Minute Time Limit Expiry Check
     if (!resetExpiresAt || new Date() > new Date(resetExpiresAt)) {
       return res.status(400).json({
         success: false,
@@ -1325,13 +1343,40 @@ const resetPassword = async (req, res, next) => {
     const isOtpMatch = otp && resetPasswordOtp && String(otp).trim() === String(resetPasswordOtp).trim();
 
     if (!isTokenMatch && !isOtpMatch) {
+      const newAttempts = resetFailedAttempts + 1;
+      // Invalidate and burn OTP immediately if 3 consecutive incorrect attempts
+      if (newAttempts >= 3) {
+        user.verificationOtp = {
+          ...verificationData,
+          resetPasswordToken: null,
+          resetPasswordOtp: null,
+          resetExpiresAt: null,
+          resetOtpUsed: true,
+          resetFailedAttempts: newAttempts,
+        };
+        await user.save();
+        return res.status(400).json({
+          success: false,
+          code: 'MAX_ATTEMPTS_EXCEEDED',
+          message: 'Too many incorrect verification attempts. For your security, this reset code has been permanently invalidated. Please request a new code.',
+        });
+      }
+
+      user.verificationOtp = {
+        ...verificationData,
+        resetFailedAttempts: newAttempts,
+      };
+      await user.save();
+
       return res.status(400).json({
         success: false,
-        message: 'Invalid reset code or token. Please check the code in your email and try again.',
+        code: 'INVALID_RESET_CODE',
+        message: `Invalid reset code or token. ${3 - newAttempts} attempt(s) remaining before this code is invalidated.`,
       });
     }
 
     // Update password (UserDocument.save automatically salts & hashes with bcrypt)
+    // Burn credentials immediately so it can NEVER be reused (Strict Single-Use)
     user.password = newPassword;
     user.isVerified = true;
     user.verificationOtp = {
@@ -1339,6 +1384,9 @@ const resetPassword = async (req, res, next) => {
       resetPasswordToken: null,
       resetPasswordOtp: null,
       resetExpiresAt: null,
+      resetOtpUsed: true,
+      resetOtpUsedAt: new Date(),
+      resetFailedAttempts: 0,
     };
     await user.save();
 

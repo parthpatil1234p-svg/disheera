@@ -335,17 +335,41 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'login.html';
           }, 3500);
         } else {
-          if (res.code === 'RESET_CODE_EXPIRED') {
+          if (res.code === 'RESET_CODE_EXPIRED' || res.code === 'OTP_ALREADY_USED' || res.code === 'MAX_ATTEMPTS_EXCEEDED') {
             if (countdownTimerInterval) {
               clearInterval(countdownTimerInterval);
               countdownTimerInterval = null;
             }
             const timerValEl = document.getElementById('countdownTimerValue');
-            if (timerValEl) timerValEl.textContent = '00:00 (Expired)';
             const timerPillEl = document.getElementById('countdownPill');
-            if (timerPillEl) {
-              timerPillEl.className = 'badge bg-danger text-white font-monospace';
-              timerPillEl.textContent = 'EXPIRED';
+            const timerBoxEl = document.getElementById('otpCountdownBox');
+
+            if (res.code === 'OTP_ALREADY_USED') {
+              if (timerValEl) timerValEl.textContent = 'Already Used';
+              if (timerPillEl) {
+                timerPillEl.className = 'badge bg-danger text-white font-monospace';
+                timerPillEl.textContent = 'USED';
+              }
+            } else if (res.code === 'MAX_ATTEMPTS_EXCEEDED') {
+              if (timerValEl) timerValEl.textContent = 'Revoked';
+              if (timerPillEl) {
+                timerPillEl.className = 'badge bg-danger text-white font-monospace';
+                timerPillEl.textContent = 'REVOKED';
+              }
+            } else {
+              if (timerValEl) timerValEl.textContent = '00:00 (Expired)';
+              if (timerPillEl) {
+                timerPillEl.className = 'badge bg-danger text-white font-monospace';
+                timerPillEl.textContent = 'EXPIRED';
+              }
+            }
+
+            if (timerBoxEl) {
+              timerBoxEl.style.background = 'rgba(239, 68, 68, 0.12)';
+              timerBoxEl.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+            }
+            if (btnResendCode) {
+              btnResendCode.classList.add('fw-bold', 'text-danger');
             }
           }
           showAlert(res.message || 'Failed to reset password. Please verify the code and try again.', 'danger');

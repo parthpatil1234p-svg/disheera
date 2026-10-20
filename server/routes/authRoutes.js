@@ -29,6 +29,7 @@ const { getMyProfile } = require('../controllers/userController');
 const { validateRegister, validateLogin } = require('../middleware/validateRequest');
 const { protect } = require('../middleware/authMiddleware');
 const otpRateLimiter = require('../middleware/otpRateLimiter');
+const { passwordResetRateLimiter } = require('../middleware/passwordResetRateLimiter');
 
 const router = express.Router();
 
@@ -44,11 +45,11 @@ router.post('/resend-otp', otpRateLimiter, resendOtp);
 // POST /api/auth/login
 router.post('/login', validateLogin, loginUser);
 
-// POST /api/auth/forgot-password (request password reset OTP & 1-click token)
-router.post('/forgot-password', otpRateLimiter, forgotPassword);
+// POST /api/auth/forgot-password (request password reset OTP & 1-click token — max 3 attempts per 30 mins per IP)
+router.post('/forgot-password', passwordResetRateLimiter, forgotPassword);
 
-// POST /api/auth/reset-password (verify token/OTP and update password)
-router.post('/reset-password', resetPassword);
+// POST /api/auth/reset-password (verify token/OTP and update password — max 3 attempts per 30 mins per IP)
+router.post('/reset-password', passwordResetRateLimiter, resetPassword);
 
 // GET /api/auth/me — Session restore / verify current user profile
 router.get('/me', protect, getMyProfile);
