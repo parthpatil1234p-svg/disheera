@@ -62,6 +62,103 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPasswordToggle(toggleNewPass, newPassword);
   setupPasswordToggle(toggleConfirmPass, confirmPassword);
 
+  // ── 10-Minute Expiry Countdown Timer Logic ────────────────────
+  let countdownTimerInterval = null;
+  let countdownTargetTime = null;
+
+  function startOtpCountdown(expiresInMinutes = 10, expiresAtIso = null) {
+    if (countdownTimerInterval) {
+      clearInterval(countdownTimerInterval);
+      countdownTimerInterval = null;
+    }
+
+    if (expiresAtIso) {
+      countdownTargetTime = new Date(expiresAtIso).getTime();
+    } else {
+      countdownTargetTime = Date.now() + expiresInMinutes * 60 * 1000;
+    }
+
+    const timerValEl = document.getElementById('countdownTimerValue');
+    const timerPillEl = document.getElementById('countdownPill');
+    const timerBoxEl = document.getElementById('otpCountdownBox');
+    const timerIconEl = document.getElementById('countdownIcon');
+
+    function updateTick() {
+      const remainingMs = countdownTargetTime - Date.now();
+      const remainingSec = Math.max(0, Math.floor(remainingMs / 1000));
+
+      const mins = Math.floor(remainingSec / 60);
+      const secs = remainingSec % 60;
+      const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      if (timerValEl) timerValEl.textContent = formatted;
+
+      if (remainingSec <= 0) {
+        clearInterval(countdownTimerInterval);
+        countdownTimerInterval = null;
+
+        if (timerValEl) timerValEl.textContent = '00:00 (Expired)';
+        if (timerPillEl) {
+          timerPillEl.className = 'badge bg-danger text-white font-monospace';
+          timerPillEl.textContent = 'EXPIRED';
+        }
+        if (timerBoxEl) {
+          timerBoxEl.style.background = 'rgba(239, 68, 68, 0.12)';
+          timerBoxEl.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        }
+        if (timerIconEl) {
+          timerIconEl.className = 'bi bi-exclamation-octagon-fill text-danger fs-5';
+        }
+
+        showAlert('⏱️ Your verification code has expired after 10 minutes. Please click "Resend code" above to receive a fresh security code.', 'warning');
+        
+        if (btnResendCode) {
+          btnResendCode.classList.add('fw-bold', 'text-danger');
+        }
+        return;
+      }
+
+      // If under 2 minutes (120 seconds), highlight warning
+      if (remainingSec <= 120) {
+        if (timerBoxEl) {
+          timerBoxEl.style.background = 'rgba(239, 68, 68, 0.08)';
+          timerBoxEl.style.borderColor = 'rgba(239, 68, 68, 0.35)';
+        }
+        if (timerPillEl) {
+          timerPillEl.className = 'badge bg-danger text-white font-monospace';
+          timerPillEl.textContent = 'EXPIRING SOON';
+        }
+        if (timerValEl) {
+          timerValEl.className = 'font-monospace fw-bold text-danger';
+        }
+        if (timerIconEl) {
+          timerIconEl.className = 'bi bi-stopwatch-fill text-danger fs-5';
+        }
+      } else {
+        if (timerBoxEl) {
+          timerBoxEl.style.background = 'rgba(245, 158, 11, 0.08)';
+          timerBoxEl.style.borderColor = 'rgba(245, 158, 11, 0.35)';
+        }
+        if (timerPillEl) {
+          timerPillEl.className = 'badge bg-warning text-dark font-monospace';
+          timerPillEl.textContent = '10 MIN LIMIT';
+        }
+        if (timerValEl) {
+          timerValEl.className = 'font-monospace fw-bold text-dark';
+        }
+        if (timerIconEl) {
+          timerIconEl.className = 'bi bi-stopwatch text-warning fs-5';
+        }
+        if (btnResendCode) {
+          btnResendCode.classList.remove('fw-bold', 'text-danger');
+        }
+      }
+    }
+
+    updateTick();
+    countdownTimerInterval = setInterval(updateTick, 1000);
+  }
+
   // ── State Switching ───────────────────────────────────────────
   function showStep(stepName) {
     clearAlert();
@@ -77,12 +174,17 @@ document.addEventListener('DOMContentLoaded', () => {
         targetEmail.value = requestEmail.value.trim();
       }
       showStep('reset');
+      startOtpCountdown(10);
     });
   }
 
   if (linkSwitchToRequest) {
     linkSwitchToRequest.addEventListener('click', (e) => {
       e.preventDefault();
+      if (countdownTimerInterval) {
+        clearInterval(countdownTimerInterval);
+        countdownTimerInterval = null;
+      }
       showStep('request');
     });
   }
@@ -96,9 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
     showStep('reset');
     if (targetEmail && emailParam) targetEmail.value = emailParam;
     if (resetTokenHidden && tokenParam) resetTokenHidden.value = tokenParam;
+    startOtpCountdown(10);
 
     if (tokenParam) {
-      showAlert('1-click secure reset token verified! Enter your new password below.', 'success');
+      showAlert('1-click secure reset token verified! The link is valid for 10 minutes. Enter your new password below.', 'success');
       // If 1-click token is present, user doesn't need to manually enter OTP
       const otpGroup = document.getElementById('otpGroup');
       if (otpGroup) {
@@ -132,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (res.success) {
           if (targetEmail) targetEmail.value = emailVal;
           showStep('reset');
-          showAlert(res.message || 'Verification code sent to your email! Please check your inbox.', 'success');
+          startOtpCountdown(res.expiresInMinutes || 10, res.expiresAt);
+          showAlert(res.message || 'Verification code sent to your email (valid for 10 minutes)! Please check your inbox.', 'success');
         } else {
           showAlert(res.message || 'Unable to process reset request. Please try again.', 'danger');
         }
@@ -160,7 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const res = await window.API.post('/auth/forgot-password', { email: emailVal });
         if (res.success) {
-          showAlert('A fresh reset code has been sent to your email!', 'success');
+          startOtpCountdown(res.expiresInMinutes || 10, res.expiresAt);
+          showAlert(res.message || 'A fresh reset code has been sent to your email (valid for 10 minutes)!', 'success');
         } else {
           showAlert(res.message || 'Failed to resend code.', 'danger');
         }
@@ -220,12 +325,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (res.success) {
+          if (countdownTimerInterval) {
+            clearInterval(countdownTimerInterval);
+            countdownTimerInterval = null;
+          }
           showStep('success');
           showAlert('Password updated successfully! Redirecting to login...', 'success');
           setTimeout(() => {
             window.location.href = 'login.html';
           }, 3500);
         } else {
+          if (res.code === 'RESET_CODE_EXPIRED') {
+            if (countdownTimerInterval) {
+              clearInterval(countdownTimerInterval);
+              countdownTimerInterval = null;
+            }
+            const timerValEl = document.getElementById('countdownTimerValue');
+            if (timerValEl) timerValEl.textContent = '00:00 (Expired)';
+            const timerPillEl = document.getElementById('countdownPill');
+            if (timerPillEl) {
+              timerPillEl.className = 'badge bg-danger text-white font-monospace';
+              timerPillEl.textContent = 'EXPIRED';
+            }
+          }
           showAlert(res.message || 'Failed to reset password. Please verify the code and try again.', 'danger');
         }
       } catch (err) {

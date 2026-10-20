@@ -1228,10 +1228,12 @@ const forgotPassword = async (req, res, next) => {
     }
 
     // Generate 32-byte secure hex token for 1-click URL & 6-digit OTP code for manual entry
+    // Strict 10-minute expiry time limit
     const crypto = require('crypto');
+    const RESET_PASSWORD_EXPIRY_MINUTES = 10;
     const resetToken = crypto.randomBytes(32).toString('hex');
     const resetOtp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+    const expiresAt = new Date(Date.now() + RESET_PASSWORD_EXPIRY_MINUTES * 60 * 1000); // 10 mins
 
     const currentVerification = user.verificationOtp && typeof user.verificationOtp === 'object'
       ? user.verificationOtp
@@ -1256,12 +1258,14 @@ const forgotPassword = async (req, res, next) => {
       resetToken,
       otpCode: resetOtp,
       clientUrl,
-      validMinutes: 15,
+      validMinutes: RESET_PASSWORD_EXPIRY_MINUTES,
     });
 
     return res.status(200).json({
       success: true,
-      message: 'Password reset instructions and verification code have been sent to your email.',
+      message: `Password reset instructions and 6-digit code have been sent to your email. The code and link will expire in ${RESET_PASSWORD_EXPIRY_MINUTES} minutes.`,
+      expiresInMinutes: RESET_PASSWORD_EXPIRY_MINUTES,
+      expiresAt: expiresAt.toISOString(),
       trackingId: mailRes?.trackingId,
     });
   } catch (error) {
@@ -1312,7 +1316,8 @@ const resetPassword = async (req, res, next) => {
     if (!resetExpiresAt || new Date() > new Date(resetExpiresAt)) {
       return res.status(400).json({
         success: false,
-        message: 'Password reset code or link has expired. Please request a new one.',
+        code: 'RESET_CODE_EXPIRED',
+        message: 'Password reset code or link has expired (10-minute time limit exceeded). Please request a fresh reset code.',
       });
     }
 

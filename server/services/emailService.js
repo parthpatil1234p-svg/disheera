@@ -360,7 +360,7 @@ async function sendPasswordResetEmail({
   resetToken = '',
   otpCode = '',
   clientUrl,
-  validMinutes = 15,
+  validMinutes = 10,
 }) {
   if (!toEmail) {
     return { success: false, error: 'Recipient email is required.' };
@@ -378,8 +378,8 @@ async function sendPasswordResetEmail({
   const resetLink = `${resolvedClientUrl}/reset-password.html?token=${encodeURIComponent(resetToken)}&email=${encodeURIComponent(toEmail)}`;
 
   const subject = otpCode
-    ? `🔒 ${otpCode} is your Disheera password reset code`
-    : `🔒 Reset your Disheera password`;
+    ? `🔒 ${otpCode} is your Disheera password reset code (Valid for ${validMinutes} mins)`
+    : `🔒 Reset your Disheera password (Valid for ${validMinutes} mins)`;
 
   const htmlContent = `
   <!DOCTYPE html>
@@ -400,7 +400,7 @@ async function sendPasswordResetEmail({
       .otp-card { background: #F8FAFC; border: 2px dashed #94A3B8; border-radius: 10px; text-align: center; padding: 20px 16px; margin: 20px 0; }
       .otp-label { font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
       .otp-code { font-family: 'Courier New', Courier, monospace; font-size: 34px; font-weight: 900; letter-spacing: 8px; color: #1E1B4B; margin: 0; }
-      .expiry { font-size: 12px; color: #64748B; margin-top: 8px; font-weight: 500; }
+      .expiry { font-size: 12px; color: #DC2626; margin-top: 8px; font-weight: 600; }
       .btn-cta { display: block; text-align: center; background: #3B1A6E; color: #FFFFFF !important; text-decoration: none; font-size: 15px; font-weight: 700; padding: 14px 24px; border-radius: 10px; box-shadow: 0 4px 14px rgba(59, 26, 110, 0.3); margin: 22px 0 16px 0; }
       .link-box { background: #F1F5F9; border-radius: 6px; padding: 10px 12px; font-family: monospace; font-size: 11.5px; color: #334155; word-break: break-all; margin-top: 14px; }
       .notice-box { background: #FFFBEB; border-left: 4px solid #F59E0B; padding: 12px 14px; font-size: 12.5px; color: #92400E; border-radius: 4px; margin: 20px 0; line-height: 1.5; }
@@ -411,7 +411,7 @@ async function sendPasswordResetEmail({
     <div class="container">
       <div class="header">
         <div class="brand">Dishe<span>era</span></div>
-        <div class="security-badge">🔒 Password Reset</div>
+        <div class="security-badge">🔒 Password Reset · ${validMinutes} Min Expiry</div>
       </div>
 
       <div class="title">Reset Your Password</div>
@@ -424,7 +424,7 @@ async function sendPasswordResetEmail({
       <div class="otp-card">
         <div class="otp-label">Single-Use Security Code</div>
         <div class="otp-code">${otpCode}</div>
-        <div class="expiry">Valid for ${validMinutes} minutes · Never share this code with anyone</div>
+        <div class="expiry">⏱️ <strong>Valid for ${validMinutes} minutes only</strong> · Expires in ${validMinutes} mins</div>
       </div>
       ` : ''}
 
@@ -433,7 +433,7 @@ async function sendPasswordResetEmail({
       </a>
 
       <div class="notice-box">
-        ⏱️ <strong>Valid for ${validMinutes} minutes.</strong> If you did not request a password reset, you can safely ignore this email. Your password will remain unchanged and your account is secure.
+        ⏱️ <strong>Strict ${validMinutes}-Minute Expiry:</strong> For your security, this 6-digit code and 1-click reset link will permanently expire in <strong>${validMinutes} minutes</strong>. If the code expires, return to Disheera and request a fresh code.
       </div>
 
       <p style="font-size: 12px; color: #64748B; margin: 0 0 6px;">If the button above doesn't work, copy and paste this link into your browser:</p>
@@ -455,7 +455,7 @@ Hi ${recipientName},
 
 We received a request to reset your password for your Disheera account.
 
-${otpCode ? `Your 6-digit Reset Security Code is: ${otpCode}\n\n` : ''}Reset your password by visiting this link:
+${otpCode ? `Your 6-digit Reset Security Code is: ${otpCode}\n(Strictly valid for ${validMinutes} minutes)\n\n` : ''}Reset your password by visiting this link:
 ${resetLink}
 
 This link is valid for ${validMinutes} minutes. If you did not request this, please ignore this email.
