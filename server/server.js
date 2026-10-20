@@ -107,6 +107,7 @@ const adminPassportRoutes = require('./routes/adminPassportRoutes');
 const adminContentRoutes = require('./routes/adminContentRoutes');
 const adminRadarRoutes = require('./routes/adminRadarRoutes');
 const adminRoadmapRoutes = require('./routes/adminRoadmapRoutes');
+const adminAssignmentRoutes = require('./routes/adminAssignmentRoutes');
 const adminAuditRoutes = require('./routes/adminAuditRoutes');
 const adminManagementRoutes = require('./routes/adminManagementRoutes');
 const adminAlertRoutes = require('./routes/adminAlertRoutes');
@@ -553,6 +554,9 @@ app.use('/api/admin/radar', adminRadarRoutes);
 
 // Subdomain Admin Student Roadmaps & Assessment Anomaly Detection
 app.use('/api/admin/roadmaps', adminRoadmapRoutes);
+
+// Subdomain Admin Collegiate Assignment Review Cockpit & Commits (Plan 46)
+app.use('/api/admin/assignments', adminAssignmentRoutes);
 
 // Subdomain Admin Immutable Audit Logs (Read-only, IP masked for non-superadmin)
 app.use('/api/admin/audit-logs', adminAuditRoutes);

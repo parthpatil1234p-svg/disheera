@@ -48,6 +48,11 @@
           <span class="nav-icon"><i class="bi bi-signpost-split-fill"></i></span>
           <span class="nav-label">Roadmaps & Telemetry</span>
         </a>
+        <a class="nav-link" onclick="switchView('assignments')">
+          <span class="nav-icon"><i class="bi bi-file-earmark-check-fill"></i></span>
+          <span class="nav-label">Assignments Cockpit</span>
+          <span class="badge" id="navAssignmentsBadge" style="display:none; margin-left:auto; background:var(--accent-rose); font-size:10px;">0</span>
+        </a>
         <a class="nav-link" onclick="switchView('audit')">
           <span class="nav-icon"><i class="bi bi-journal-text"></i></span>
           <span class="nav-label">Audit Logs</span>
@@ -713,6 +718,136 @@
             </table>
           </div>
         </div>
+      <!-- ── VIEW: Collegiate Assignments Cockpit (Plan 46) ──────── -->
+      <section id="view-assignments" class="content-view">
+        <!-- KPI Strip -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="kpi-card accent-indigo">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Total Submissions</span>
+                <span class="kpi-subtext">Across All Tracks</span>
+              </div>
+              <div class="kpi-icon-box indigo">
+                <i class="bi bi-file-earmark-text-fill"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiTotalAssignments">0</div>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-amber">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Pending In Queue</span>
+                <span class="kpi-subtext">Awaiting Evaluation</span>
+              </div>
+              <div class="kpi-icon-box amber">
+                <i class="bi bi-hourglass-split"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiPendingAssignments">0</div>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-rose">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Flagged for AI</span>
+                <span class="kpi-subtext">>60% Synthetic Likelihood</span>
+              </div>
+              <div class="kpi-icon-box rose">
+                <i class="bi bi-shield-slash-fill"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiFlaggedAiAssignments">0</div>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-cyan">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">AI Graded</span>
+                <span class="kpi-subtext">Provisional 4D Marks</span>
+              </div>
+              <div class="kpi-icon-box cyan">
+                <i class="bi bi-robot"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiGradedAssignments">0</div>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-emerald">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Board Approved</span>
+                <span class="kpi-subtext">Part C Stamp Committed</span>
+              </div>
+              <div class="kpi-icon-box emerald">
+                <i class="bi bi-patch-check-fill"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiApprovedAssignments">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Assignment Dossiers Table Card -->
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title">Collegiate Weekly Submissions Dossier</h3>
+              <p class="card-subtitle">Inspect multi-page PDFs, verify Anti-AI heuristics, and commit official marks</p>
+            </div>
+            <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="assignmentSearchInput" class="form-input" style="width: 220px;" placeholder="Search student or email..." oninput="onAssignmentSearchInput()">
+              <select id="assignmentStatusFilter" class="form-input" style="width: 150px;" onchange="onAssignmentFilterChange()">
+                <option value="ALL">All Statuses</option>
+                <option value="FLAGGED_AI">🚨 Flagged AI Only</option>
+                <option value="SUBMITTED">⏳ Pending Queue</option>
+                <option value="GRADED">🤖 AI Graded</option>
+                <option value="ADMIN_APPROVED">✅ Board Approved</option>
+                <option value="RESUBMISSION_REQUESTED">⚠️ Resubmission</option>
+              </select>
+              <select id="assignmentWeekFilter" class="form-input" style="width: 120px;" onchange="onAssignmentFilterChange()">
+                <option value="">All Weeks</option>
+                <option value="1">Week 1</option>
+                <option value="2">Week 2</option>
+                <option value="3">Week 3</option>
+                <option value="4">Week 4</option>
+              </select>
+              <button class="btn-action" onclick="loadAdminAssignments(1)"><i class="bi bi-arrow-repeat"></i> Refresh</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student Candidate</th>
+                  <th>Assignment / Week</th>
+                  <th>Dossier Format</th>
+                  <th>Anti-AI Shield</th>
+                  <th>Status</th>
+                  <th>Official Marks</th>
+                  <th style="text-align: right;">Review Action</th>
+                </tr>
+              </thead>
+              <tbody id="assignmentsTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading assignments...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="assignmentPagination"></div>
+        </div>
+      </section>
+
       <!-- ── VIEW: Admin Personnel & RBAC (SUPER_ADMIN) ────────── -->
       <section id="view-admins" class="content-view">
         <div class="card">
@@ -1419,6 +1554,19 @@
   </div>
 
   <!-- ── MODAL 14: Audit Record Details Modal ─────────────────── -->
+  <!-- ── MODAL: Assignment Side-by-Side Review Cockpit ── -->
+  <div id="assignmentReviewModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 1200px; width: 95vw;">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="bi bi-file-earmark-diff-fill" style="color: var(--accent-indigo);"></i> Collegiate Assignment Inspection & Review Cockpit</h3>
+        <button class="modal-close" onclick="closeModal('assignmentReviewModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="assignmentReviewModalContent">
+        <!-- Injected dynamically by assignmentsView.js -->
+      </div>
+    </div>
+  </div>
+
   <div id="auditDetailsModal" class="modal-overlay">
     <div class="modal-dialog modal-large">
       <div class="modal-header">
@@ -1561,6 +1709,9 @@
         heading.textContent = 'Roadmap Progression & Telemetry';
         if (typeof loadRoadmaps === 'function') loadRoadmaps(1);
         if (typeof loadAnomalies === 'function') loadAnomalies();
+      } else if (viewName === 'assignments') {
+        heading.textContent = 'Collegiate Weekly Assignments Cockpit';
+        if (typeof loadAdminAssignments === 'function') loadAdminAssignments(1);
       } else if (viewName === 'audit') {
         heading.textContent = 'Audit Logs & Security History';
         if (typeof loadAuditActionsFilter === 'function') loadAuditActionsFilter();

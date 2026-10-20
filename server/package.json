@@ -28,7 +28,8 @@
     "lint": "node --check server.js && node --check seed.js",
     "test:assignments": "node ../tests/assignment_phase1_verification_test.js",
     "seed:assignments": "node prisma/seedAssignments.js",
-    "test:assignments-phase2": "node ../tests/assignment_phase2_verification_test.js"
+    "test:assignments-phase2": "node ../tests/assignment_phase2_verification_test.js",
+    "test:assignments-phase3": "node ../tests/admin_assignments_phase3_verification_test.js"
   },
   "keywords": [
     "careerpath",
