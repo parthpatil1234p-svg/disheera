@@ -360,7 +360,7 @@ async function sendPasswordResetEmail({
   resetToken = '',
   otpCode = '',
   clientUrl,
-  validMinutes = 10,
+  validMinutes = 5,
 }) {
   if (!toEmail) {
     return { success: false, error: 'Recipient email is required.' };

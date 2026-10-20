@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPasswordToggle(toggleNewPass, newPassword);
   setupPasswordToggle(toggleConfirmPass, confirmPassword);
 
-  // ── 10-Minute Expiry Countdown Timer Logic ────────────────────
+  // ── 5-Minute Expiry Countdown Timer Logic ─────────────────────
   let countdownTimerInterval = null;
   let countdownTargetTime = null;
 
-  function startOtpCountdown(expiresInMinutes = 10, expiresAtIso = null) {
+  function startOtpCountdown(expiresInMinutes = 5, expiresAtIso = null) {
     if (countdownTimerInterval) {
       clearInterval(countdownTimerInterval);
       countdownTimerInterval = null;
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           timerIconEl.className = 'bi bi-exclamation-octagon-fill text-danger fs-5';
         }
 
-        showAlert('⏱️ Your verification code has expired after 10 minutes. Please click "Resend code" above to receive a fresh security code.', 'warning');
+        showAlert('⏱️ Your verification code has expired after 5 minutes. Please click "Resend code" above to receive a fresh security code.', 'warning');
         
         if (btnResendCode) {
           btnResendCode.classList.add('fw-bold', 'text-danger');
@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // If under 2 minutes (120 seconds), highlight warning
-      if (remainingSec <= 120) {
+      // If under 60 seconds (1 minute), highlight urgent warning
+      if (remainingSec <= 60) {
         if (timerBoxEl) {
           timerBoxEl.style.background = 'rgba(239, 68, 68, 0.08)';
           timerBoxEl.style.borderColor = 'rgba(239, 68, 68, 0.35)';
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (timerPillEl) {
           timerPillEl.className = 'badge bg-warning text-dark font-monospace';
-          timerPillEl.textContent = '10 MIN LIMIT';
+          timerPillEl.textContent = '5 MIN LIMIT';
         }
         if (timerValEl) {
           timerValEl.className = 'font-monospace fw-bold text-dark';
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         targetEmail.value = requestEmail.value.trim();
       }
       showStep('reset');
-      startOtpCountdown(10);
+      startOtpCountdown(5);
     });
   }
 
@@ -198,10 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
     showStep('reset');
     if (targetEmail && emailParam) targetEmail.value = emailParam;
     if (resetTokenHidden && tokenParam) resetTokenHidden.value = tokenParam;
-    startOtpCountdown(10);
+    startOtpCountdown(5);
 
     if (tokenParam) {
-      showAlert('1-click secure reset token verified! The link is valid for 10 minutes. Enter your new password below.', 'success');
+      showAlert('1-click secure reset token verified! The link is valid for 5 minutes. Enter your new password below.', 'success');
       // If 1-click token is present, user doesn't need to manually enter OTP
       const otpGroup = document.getElementById('otpGroup');
       if (otpGroup) {
@@ -235,8 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (res.success) {
           if (targetEmail) targetEmail.value = emailVal;
           showStep('reset');
-          startOtpCountdown(res.expiresInMinutes || 10, res.expiresAt);
-          showAlert(res.message || 'Verification code sent to your email (valid for 10 minutes)! Please check your inbox.', 'success');
+          startOtpCountdown(res.expiresInMinutes || 5, res.expiresAt);
+          showAlert(res.message || 'Verification code sent to your email (valid for 5 minutes)! Please check your inbox.', 'success');
         } else {
           showAlert(res.message || 'Unable to process reset request. Please try again.', 'danger');
         }
@@ -264,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const res = await window.API.post('/auth/forgot-password', { email: emailVal });
         if (res.success) {
-          startOtpCountdown(res.expiresInMinutes || 10, res.expiresAt);
-          showAlert(res.message || 'A fresh reset code has been sent to your email (valid for 10 minutes)!', 'success');
+          startOtpCountdown(res.expiresInMinutes || 5, res.expiresAt);
+          showAlert(res.message || 'A fresh reset code has been sent to your email (valid for 5 minutes)!', 'success');
         } else {
           showAlert(res.message || 'Failed to resend code.', 'danger');
         }
