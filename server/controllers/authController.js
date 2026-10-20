@@ -1181,19 +1181,23 @@ const connectGitHub = async (req, res, next) => {
     }
 
     // Merge code-verified skills into student's profile
+    if (!Array.isArray(user.skills)) {
+      user.skills = [];
+    }
     if (analysis.verifiedSkills && analysis.verifiedSkills.length > 0) {
       const existingSkillMap = new Map();
-      (user.skills || []).forEach((s) => existingSkillMap.set(s.name.toLowerCase(), s));
+      user.skills.forEach((s) => existingSkillMap.set((s.name || '').toLowerCase(), s));
 
       analysis.verifiedSkills.forEach((vSkill) => {
-        if (existingSkillMap.has(vSkill.name.toLowerCase())) {
-          const existing = existingSkillMap.get(vSkill.name.toLowerCase());
+        const vSkillName = (vSkill.name || '').toLowerCase();
+        if (vSkillName && existingSkillMap.has(vSkillName)) {
+          const existing = existingSkillMap.get(vSkillName);
           existing.isCodeVerified = true;
           existing.verifiedSource = vSkill.verifiedSource;
           existing.verificationTier = 'project_verified';
           existing.verificationStatus = 'verified';
           if (vSkill.proficiency === 'advanced') existing.proficiency = 'advanced';
-        } else {
+        } else if (vSkillName) {
           user.skills.push({
             ...vSkill,
             verificationTier: 'project_verified',
@@ -1201,6 +1205,7 @@ const connectGitHub = async (req, res, next) => {
           });
         }
       });
+      user.hasCompletedSkillVerification = true;
     }
 
     await user.save();
