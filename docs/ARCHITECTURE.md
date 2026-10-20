@@ -457,12 +457,12 @@ To guarantee strict organizational boundaries between recruiters and students, t
 │ (role: 'recruiter') │    Return Bar             │    Applicant Management   │
 ├─────────────────────┼───────────────────────────┼───────────────────────────┤
 │ Hackathon Evaluator │ 🟢 Dual Evaluation Bypass │ 🟢 Dual Evaluation Bypass │
-│ (demouser@gmail.com)│    (Seamless Testing)     │    (Seamless Testing)     │
+│ (demouser@gmail.com)│   (Fast-Track Testing)    │   (Fast-Track Testing)    │
 └─────────────────────┴───────────────────────────┴───────────────────────────┘
 ```
 
 ### 12.1 Backend Middleware Guards
-- **`requireStudent`**: Validates `req.user.role === 'student'`. Rejects corporate recruiters with `HTTP 403 Forbidden` (`code: 'RECRUITER_ACCESS_DENIED'`), while seamlessly bypassing `demouser@gmail.com`.
+- **`requireStudent`**: Validates `req.user.role === 'student'`. Rejects corporate recruiters with `HTTP 403 Forbidden` (`code: 'RECRUITER_ACCESS_DENIED'`), while exempting `demouser@gmail.com`.
 - **`requireRecruiter`**: Validates `req.user.role === 'recruiter'`. Rejects students with `HTTP 403 Forbidden` (`code: 'STUDENT_ACCESS_DENIED'`), while allowing `demouser@gmail.com` for instant end-to-end evaluation.
 
 ### 12.2 Client-Side Pre-Render Traps & Floating Session Bar

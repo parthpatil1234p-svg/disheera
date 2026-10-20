@@ -209,7 +209,7 @@
                     <div class="text-center py-5 text-muted bg-white rounded-3 border" style="border-color: #E2E8F0 !important;">
                       <i class="bi bi-clipboard-x fs-1 mb-2 d-block text-secondary"></i>
                       <h6 class="fw-bold" style="color: #0F172A;">No Evaluation Record Yet</h6>
-                      <p class="small text-muted mb-0">Submit your weekly assignment to unlock real-time Gemini AI grading and stamped feedback.</p>
+                      <p class="small text-muted mb-0">Submit your weekly assignment to receive real-time automated AI evaluation and stamped feedback.</p>
                     </div>
                   </div>
                 </div>

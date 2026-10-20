@@ -2,7 +2,7 @@
  * hero-route-map.js — Interactive Mapped In-Demand Skills Showcase for Hero Section
  * 
  * Provides responsive category filtering across verified industry skills (Tech, AI/Data, UI/UX)
- * and seamless integration with the skill guide modal dialog.
+ * and direct integration with the skill guide modal dialog.
  * 
  * Accessible (W3C ARIA), lightweight, zero WebGL overhead, instant FCP/CLS = 0.
  */

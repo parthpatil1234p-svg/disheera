@@ -5,7 +5,7 @@
  * Implements:
  * - Google Identity Services (GSI) One-Tap and Pop-up Credential verification
  * - Dynamic client ID resolution from GET /api/auth/google/config
- * - Seamless fallback & 1-Click Fast-Track Google Evaluator Sign-In
+ * - Automatic fallback & 1-Click Fast-Track Google Evaluator Sign-In
  * - Unified JWT authentication and profile redirection
  */
 
@@ -308,7 +308,7 @@ window.GoogleAuth = (function () {
       }
     } catch (err) {
       if (showAlert) {
-        showAlert(err.message || 'An error occurred during Google authentication.');
+        showAlert(err.message || 'Google authentication failed. Please check credentials or retry.');
       }
       if (setLoadingState) setLoadingState(false);
     }
@@ -597,7 +597,7 @@ window.GoogleAuth = (function () {
           }
         });
       } else {
-        // Show seamless Google Sign-In fast-track modal
+        // Show Google Sign-In fast-track modal
         showFastTrackGoogleModal({ showAlert, setLoadingState, onSuccess });
       }
     });

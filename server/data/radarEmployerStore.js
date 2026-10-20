@@ -2,7 +2,7 @@
  * radarEmployerStore.js — Industrial Proximity Radar Employer Storage Engine
  *
  * Persists additions, edits, and soft-disables of regional employers to PostgreSQL
- * (model: RadarEmployer / table: radar_employers) while seamlessly merging with base regionalCompaniesData.
+ * (model: RadarEmployer / table: radar_employers) while merging with base regionalCompaniesData.
  * Features resilient in-memory caching and graceful pre-migration fallback.
  *
  * Disheera · Enterprise Administration Service

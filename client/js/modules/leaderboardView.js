@@ -159,7 +159,7 @@
                 <!-- 2. Internship Rewards View -->
                 <div class="tab-pane fade" id="lb-rewards-view" role="tabpanel">
                   <div class="mb-3">
-                    <p class="text-muted small mb-0">Disheera Strategic Placement Partnerships. Top scorers unlock direct executive referrals and fast-track technical evaluations.</p>
+                    <p class="text-muted small mb-0">Disheera Strategic Placement Partnerships. Top scorers qualify for direct executive referrals and fast-track technical evaluations.</p>
                   </div>
                   <div class="row g-3" id="lbRewardsGrid">
                     <!-- Rewards Cards dynamically rendered -->

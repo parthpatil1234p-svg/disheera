@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (unlockedBox) unlockedBox.classList.add('d-none');
       if (btnUploadResumeTrigger) {
         btnUploadResumeTrigger.disabled = true;
-        btnUploadResumeTrigger.title = '🔒 Verify at least 1 skill in a Weekly Test to unlock resume upload';
+        btnUploadResumeTrigger.title = '🔒 Verify at least 1 skill in a Weekly Test to enable resume upload';
         btnUploadResumeTrigger.onclick = () => {
           showAlert('🔒 Resume Upload Locked: You must pass at least 1 skill test or weekly milestone first.', 'warning');
         };
@@ -2044,9 +2044,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (dashJobReadySummary) {
         if (isJobReady) {
-          dashJobReadySummary.innerHTML = '<div class="d-flex align-items-center gap-2 p-2 px-3 rounded-2" style="background: rgba(22, 163, 74, 0.08); border-left: 3.5px solid #16A34A; color: #15803D; font-size: 0.85rem; font-weight: 500;"><i class="bi bi-check-circle-fill text-success fs-6 flex-shrink-0"></i><span>Outstanding achievement! You have satisfied all 4 industry hiring benchmarks. Your official digital career credential is now unlocked and verifiable.</span></div>';
+          dashJobReadySummary.innerHTML = '<div class="d-flex align-items-center gap-2 p-2 px-3 rounded-2" style="background: rgba(22, 163, 74, 0.08); border-left: 3.5px solid #16A34A; color: #15803D; font-size: 0.85rem; font-weight: 500;"><i class="bi bi-check-circle-fill text-success fs-6 flex-shrink-0"></i><span>All 4 industry hiring benchmarks satisfied. Your official digital career credential is ready and verifiable.</span></div>';
         } else {
-          dashJobReadySummary.innerHTML = 'Official Job Ready Certification requires satisfying all 4 industry hiring benchmarks. Complete the remaining items below to unlock your verified credential:';
+          dashJobReadySummary.innerHTML = 'Official Job Ready Certification requires satisfying all 4 industry hiring benchmarks. Complete the remaining items below to generate your verified credential:';
         }
       }
 
@@ -3208,7 +3208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       };
 
       audio.onerror = (e) => {
-        console.warn('Neural cloud stream unavailable, seamlessly using browser natural voice engine:', e);
+        console.warn('Neural cloud stream unavailable; falling back to browser natural voice engine:', e);
         currentAudioInstance = null;
         playBrowserNaturalVoice(cleanText, selectedVoice);
       };

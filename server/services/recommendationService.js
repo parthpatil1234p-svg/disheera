@@ -447,7 +447,7 @@ const generateRecommendations = (user, careers, limit = 3, meta = {}) => {
       const bridgeReason = crossTrackCandidate.career.domain === 'business'
         ? 'Transfer your analytical problem-solving into revenue, finance & operational leadership.'
         : crossTrackCandidate.career.domain === 'marketing'
-        ? 'Leverage technical and analytical reasoning to dominate algorithmic growth & conversion architectures.'
+        ? 'Apply technical and analytical reasoning to run algorithmic growth and conversion architectures.'
         : crossTrackCandidate.career.domain === 'creative'
         ? 'Combine structural thinking with spatial brand & visual asset storytelling.'
         : 'Bridge domain and analytical principles with software automation and engineering scalability.';

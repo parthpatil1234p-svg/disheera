@@ -340,7 +340,7 @@ const Auth = {
             </div>
             <h2 class="h3 fw-bold text-ink mb-2">${escapeHtml(pageName)} is Locked</h2>
             <p class="text-muted mb-4 lead" style="font-size: 1.05rem;">
-              ${escapeHtml(description)} require verified skill data to generate. Complete <strong>"Prove your skills"</strong> in your assessment to earn your <strong>Account Verified ✓</strong> credential and unlock this page.
+              ${escapeHtml(description)} require verified skill data to generate. Complete <strong>"Prove your skills"</strong> in your assessment to earn your <strong>Account Verified ✓</strong> credential and open this page.
             </p>
             <div class="p-3 mb-4 rounded-3 stat-box-atlas text-start d-flex align-items-center gap-3 border border-line">
               <div class="rounded-circle p-2 bg-primary-subtle text-primary fs-4 flex-shrink-0">
@@ -348,13 +348,13 @@ const Auth = {
               </div>
               <div>
                 <div class="fw-semibold text-ink">90-Second Adaptive Check or GitHub Sync</div>
-                <div class="small text-muted">Answer 5 quick adaptive questions or auto-sync your GitHub repositories to prove your skills and unlock all platform features.</div>
+                <div class="small text-muted">Answer 5 quick adaptive questions or auto-sync your GitHub repositories to verify your skills and access full platform features.</div>
               </div>
             </div>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
               <a href="assessment.html?step=3#stepPanel3" class="btn cp-btn-primary px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2">
                 <i class="bi bi-shield-check"></i>
-                <span>Prove Your Skills to Unlock</span>
+                <span>Prove Skills to Continue</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
               <a href="index.html" class="btn btn-outline-secondary px-3 py-2.5">
@@ -821,7 +821,7 @@ function renderStrictPhoneGateModal() {
 
         <button id="spgBtnVerifyOtp" class="btn cp-btn-primary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
           <i class="bi bi-shield-check"></i>
-          <span>Verify & Unlock Platform</span>
+          <span>Verify Code & Continue</span>
         </button>
       </div>
     </div>

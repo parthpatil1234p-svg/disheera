@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="mt-3 d-flex align-items-center justify-content-between pt-2 border-top border-line flex-wrap gap-2">
             <div class="text-muted small">
               ${isAdminUser ? '<span class="text-success fw-semibold"><i class="bi bi-unlock-fill me-1"></i> Fast-Track Access:</span> All tasks and milestone tests are unlocked for evaluation.' : (completedCount === tasks.length 
-                ? 'All tasks checked! Take milestone test to unlock the next week.' 
+                ? 'All tasks checked! Take milestone test to advance to the next week.' 
                 : `${completedCount} of ${tasks.length} tasks finished. Complete all tasks or verify skill early when ready.`)}
             </div>
             <button class="btn ${isAdminUser ? 'cp-btn-primary' : 'btn-outline-primary'} btn-sm px-3 btn-open-test" data-week="${weekNumber}">
@@ -1241,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       percentEl.className = 'h3 fw-bold text-danger mb-0';
       iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger" style="font-size: 3.5rem;"></i>';
       titleEl.textContent = 'Milestone Incomplete (70% Required)';
-      subtitleEl.textContent = 'A minimum score of 70% is required to unlock the next week milestone. Review the missed topics below and retake with fresh questions.';
+      subtitleEl.textContent = 'A minimum score of 70% is required to clear this milestone. Review the missed topics below and retake with fresh questions.';
       passedBox.classList.add('d-none');
       retakeBtn.classList.remove('d-none');
 

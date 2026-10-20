@@ -128,7 +128,7 @@ window.GitHubAuth = (function () {
       if (onError) {
         onError(err);
       } else if (showAlert) {
-        showAlert(err.message || 'An error occurred during GitHub authentication.');
+        showAlert(err.message || 'GitHub authentication failed. Please check credentials or retry.');
       }
     }
   };
@@ -327,7 +327,7 @@ window.GitHubAuth = (function () {
       console.warn('Popup window error or blocked:', popupErr);
     }
 
-    // If popup was blocked or failed, fallback seamlessly to direct page redirect
+    // If popup was blocked or failed, fall back directly to page redirect
     if (!popup || popup.closed || typeof popup.closed === 'undefined') {
       window.location.href = authUrl;
       return;

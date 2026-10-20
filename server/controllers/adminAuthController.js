@@ -246,7 +246,7 @@ async function login(req, res) {
     return res.status(500).json({
       success: false,
       code: 'LOGIN_INTERNAL_ERROR',
-      message: 'An error occurred during authentication.'
+      message: 'Authentication failed. Please verify credentials or retry.'
     });
   }
 }

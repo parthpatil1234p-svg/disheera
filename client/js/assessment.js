@@ -1536,7 +1536,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         proveSkillsProgressFill.className = 'prove-skills-progress-fill';
       }
       if (proveSkillsSubtitle) {
-        proveSkillsSubtitle.textContent = 'Select skills above to unlock your 90-second reality-check quizzes.';
+        proveSkillsSubtitle.textContent = 'Select skills above to launch your 90-second reality-check quizzes.';
       }
       proveSkillsPanel.classList.remove('all-verified');
 
@@ -1662,7 +1662,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           proveSkillsProgressFill.className = 'prove-skills-progress-fill';
         }
         if (proveSkillsSubtitle) {
-          proveSkillsSubtitle.innerHTML = `<span class="text-warning-emphasis fw-bold"><i class="bi bi-lock-fill me-1"></i> Baseline Verification Required:</span> Skill knowledge levels must be calibrated via Reality Check Quizzes or GitHub code (no self-ratings). Please complete the 90s quiz for at least 1 skill below to unlock Goals.`;
+          proveSkillsSubtitle.innerHTML = `<span class="text-warning-emphasis fw-bold"><i class="bi bi-lock-fill me-1"></i> Baseline Verification Required:</span> Skill knowledge levels must be calibrated via Reality Check Quizzes or GitHub code (no self-ratings). Please complete the 90s quiz for at least 1 skill below to proceed to Goals.`;
         }
         proveSkillsPanel.classList.remove('all-verified');
 
@@ -3022,7 +3022,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
-  // Wizard state preservation for seamless OAuth
+  // Wizard state preservation across OAuth redirection
   const saveAssessmentDraft = () => {
     try {
       const draft = {

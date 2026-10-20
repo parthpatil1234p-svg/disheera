@@ -298,7 +298,7 @@ const discoveryLimiter = rateLimit({
   max: 300, // 300 requests per 15 minutes per IP
   standardHeaders: true,
   legacyHeaders: false,
-  message: 'Too many discovery requests from this IP. Please try again later.'
+  message: 'Rate limit reached (too many discovery requests from this IP). Try again in 15 minutes.'
 });
 
 app.get('/llms.txt', discoveryLimiter, (req, res) => {
@@ -389,7 +389,7 @@ const authLimiter = rateLimit({
   skip: isLoadTestBypass,
   message: {
     success: false,
-    message: 'Too many authentication attempts. Please try again later.',
+    message: 'Too many failed authentication attempts. Please wait 15 minutes before retrying.',
   },
 });
 app.use('/api/auth/login', authLimiter);

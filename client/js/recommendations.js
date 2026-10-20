@@ -1513,7 +1513,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           await fetchUserRouteState();
           loadRecommendations();
         } else {
-          showAlert(err.message || 'An error occurred while generating roadmap.', 'danger');
+          showAlert(err.message || 'Failed to generate roadmap from server. Please retry in a few seconds.', 'danger');
         }
       } finally {
         if (!window.location.href.includes('roadmap.html')) {

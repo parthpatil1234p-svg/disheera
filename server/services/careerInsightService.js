@@ -208,14 +208,14 @@ const DEFAULT_MARKET_INSIGHTS = {
   'motion-3d-designer': {
     salaryRange: '₹5.0 – ₹10.5 LPA (Entry-Level)',
     hiringDemand: 'Fast Expanding · Growing demand in UI motion, product showcases, gaming, and 3D web experiences',
-    whyYouFit: 'Your spatial awareness, timing sensibility, and aesthetic vision align with cutting-edge motion design and 3D rendering.',
+    whyYouFit: 'Your spatial awareness, timing sensibility, and aesthetic vision align with production-grade motion design and real-time 3D pipelines.',
     keyBottleneck: 'Mastering Blender/Cinema 4D rendering pipelines, lighting, and After Effects micro-interaction choreography.',
     actionableTip: 'Publish a 15-second 3D product animation or UI motion reel demonstrating lighting and physics choreography on YouTube or Instagram.'
   },
   'motion-graphics-3d-designer': {
     salaryRange: '₹5.0 – ₹10.5 LPA (Entry-Level)',
     hiringDemand: 'Fast Expanding · Growing demand in UI motion, product showcases, gaming, and 3D web experiences',
-    whyYouFit: 'Your spatial awareness, timing sensibility, and aesthetic vision align with cutting-edge motion design and 3D rendering.',
+    whyYouFit: 'Your spatial awareness, timing sensibility, and aesthetic vision align with production-grade motion design and real-time 3D pipelines.',
     keyBottleneck: 'Mastering Blender/Cinema 4D rendering pipelines, lighting, and After Effects micro-interaction choreography.',
     actionableTip: 'Publish a 15-second 3D product animation or UI motion reel demonstrating lighting and physics choreography on YouTube or Instagram.'
   },
