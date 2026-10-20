@@ -3162,6 +3162,18 @@ document.addEventListener('DOMContentLoaded', async () => {
               if (typeof showAlert === 'function') {
                 showAlert(err?.message || 'Could not verify GitHub account.', 'warning');
               }
+              if ((err?.isCodeExchangeFailed || err?.requireConnect) && window.GitHubAuth?.showUniversalGitHubModal) {
+                window.GitHubAuth.showUniversalGitHubModal({
+                  showAlert: (msg, type) => {
+                    if (typeof showAlert === 'function') showAlert(msg, type);
+                  },
+                  onSuccess: (data) => {
+                    resetBtn();
+                    applyDetectedSkills(data);
+                  },
+                  onError: () => resetBtn(),
+                }, true, err?.message);
+              }
             },
             setLoadingState: (loading) => {
               if (!loading) resetBtn();

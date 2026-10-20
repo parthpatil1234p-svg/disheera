@@ -467,8 +467,171 @@ window.GitHubAuth = (function () {
   /**
    * Compatibility alias — directly executes OAuth without modal window or username
    */
-  const showUniversalGitHubModal = (callbacks = {}, isConnectOnly = false) => {
-    return startGitHubOAuth(callbacks, isConnectOnly);
+    /**
+   * Renders the Universal GitHub Student Modal (works for ANY user with 1-Click OAuth or Direct Username)
+   */
+  const showUniversalGitHubModal = (callbacks = {}, isConnectOnly = true, customNotice = '') => {
+    closeAndCleanupModals();
+
+    let modalEl = document.getElementById('universalGitHubModal');
+    if (modalEl) modalEl.remove();
+
+    const user = (typeof window.Auth?.getUser === 'function' ? window.Auth.getUser() : null) ||
+                 (typeof window.Auth?.getCurrentUser === 'function' ? window.Auth.getCurrentUser() : null);
+    const existingGhUser = user?.githubProfile?.username || user?.githubUsername || '';
+
+    modalEl = document.createElement('div');
+    modalEl.id = 'universalGitHubModal';
+    modalEl.className = 'modal fade';
+    modalEl.tabIndex = -1;
+    modalEl.setAttribute('aria-labelledby', 'universalGitHubModalLabel');
+    modalEl.setAttribute('aria-hidden', 'true');
+
+    modalEl.innerHTML = `
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border border-secondary border-opacity-25 shadow-lg" style="background: #111827; color: #f9fafb; border-radius: 16px;">
+          <div class="modal-header border-bottom border-secondary border-opacity-25 pb-3">
+            <div class="d-flex align-items-center gap-2">
+              <div class="d-flex align-items-center justify-content-center bg-dark border border-secondary border-opacity-50 rounded-circle" style="width: 36px; height: 36px;">
+                <i class="bi bi-github text-white fs-5"></i>
+              </div>
+              <div>
+                <h3 class="modal-title h6 fw-bold mb-0 text-white" id="universalGitHubModalLabel">
+                  Connect GitHub Repositories
+                </h3>
+                <span class="font-mono text-secondary small" style="font-size: 0.72rem;">Live Public GitHub API · Auto-Detect Skills</span>
+              </div>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body py-3">
+            ${
+              customNotice
+                ? `
+              <div class="alert alert-warning py-2 px-3 small d-flex align-items-center gap-2 mb-3 bg-warning bg-opacity-10 border-warning border-opacity-25 text-warning">
+                <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                <div style="font-size: 0.82rem;">${customNotice}</div>
+              </div>
+            `
+                : ''
+            }
+
+            <div class="mb-3">
+              <button
+                type="button"
+                id="btnModalStartOAuth"
+                class="btn btn-primary w-100 py-2.5 px-3 d-flex align-items-center justify-content-center gap-2 shadow-sm fw-semibold"
+              >
+                <i class="bi bi-shield-check fs-5"></i>
+                <span>Authorize with GitHub (1-Click OAuth)</span>
+              </button>
+              <div class="text-center text-secondary small mt-1 font-mono" style="font-size: 0.72rem;">
+                Official GitHub OAuth verification
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center my-3">
+              <hr class="flex-grow-1 border-secondary border-opacity-25 m-0">
+              <span class="px-2 text-secondary font-mono small text-uppercase" style="font-size: 0.70rem;">Or Enter GitHub Username</span>
+              <hr class="flex-grow-1 border-secondary border-opacity-25 m-0">
+            </div>
+
+            <div class="mb-3">
+              <label for="ghUsernameInputModal" class="form-label small text-secondary fw-semibold">
+                GitHub Username or Profile URL:
+              </label>
+              <div class="input-group">
+                <span class="input-group-text bg-dark text-secondary border-secondary border-opacity-50">@</span>
+                <input
+                  type="text"
+                  id="ghUsernameInputModal"
+                  class="form-control bg-dark text-white border-secondary border-opacity-50 font-mono"
+                  placeholder="e.g. torvalds or your-username"
+                  value="${existingGhUser}"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
+              <div class="form-text text-secondary small" style="font-size: 0.74rem;">
+                Instantly scans your public repositories and detects skills without requiring OAuth tokens.
+              </div>
+            </div>
+
+            <div id="ghModalAlertContainer"></div>
+          </div>
+
+          <div class="modal-footer border-top border-secondary border-opacity-25 pt-2 pb-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" id="btnConfirmModalUsername" class="btn btn-success btn-sm px-4 d-flex align-items-center gap-2">
+              <i class="bi bi-arrow-repeat"></i>
+              <span>Scan & Link Repositories</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modalEl);
+
+    const bsModal = new bootstrap.Modal(modalEl);
+    bsModal.show();
+
+    const oauthBtn = modalEl.querySelector('#btnModalStartOAuth');
+    if (oauthBtn) {
+      oauthBtn.addEventListener('click', () => {
+        bsModal.hide();
+        startGitHubOAuth(callbacks, isConnectOnly);
+      });
+    }
+
+    const confirmBtn = modalEl.querySelector('#btnConfirmModalUsername');
+    const inputEl = modalEl.querySelector('#ghUsernameInputModal');
+
+    const handleUsernameSubmit = () => {
+      const username = (inputEl ? inputEl.value : '').trim();
+      if (!username) {
+        const alertBox = modalEl.querySelector('#ghModalAlertContainer');
+        if (alertBox) {
+          alertBox.innerHTML = '<div class="alert alert-danger py-1 px-2 small mt-2">Please enter your GitHub username.</div>';
+        }
+        return;
+      }
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Scanning...';
+
+      connectGitHubAccount(username, {
+        ...callbacks,
+        showAlert: (msg, type) => {
+          if (type === 'danger' || type === 'warning') {
+            confirmBtn.disabled = false;
+            confirmBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> <span>Scan & Link Repositories</span>';
+            const alertBox = modalEl.querySelector('#ghModalAlertContainer');
+            if (alertBox) {
+              alertBox.innerHTML = `<div class="alert alert-${type} py-1 px-2 small mt-2">${msg}</div>`;
+            }
+          } else {
+            bsModal.hide();
+            if (callbacks.showAlert) callbacks.showAlert(msg, type);
+          }
+        },
+        onSuccess: (data) => {
+          bsModal.hide();
+          if (callbacks.onSuccess) callbacks.onSuccess(data);
+        }
+      });
+    };
+
+    if (confirmBtn) confirmBtn.addEventListener('click', handleUsernameSubmit);
+    if (inputEl) {
+      inputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleUsernameSubmit();
+        }
+      });
+      setTimeout(() => inputEl.focus(), 300);
+    }
   };
 
   /**
@@ -484,7 +647,16 @@ window.GitHubAuth = (function () {
     dispatchedOAuthCodes.add(oauthCode);
 
     // Detect if this page is inside a popup or was opened by window.open
-    const isPopup = Boolean((window.opener && window.opener !== window) || (window.name === 'careerpath_github_oauth' && window.opener)); //
+    // Clean up ?code= and ?state= from address bar immediately to avoid duplicate processing on refresh
+    try {
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, cleanUrl);
+    } catch (e) {}
+
+    const isPopup = Boolean(
+      (window.opener && window.opener !== window) ||
+      window.name === 'careerpath_github_oauth'
+    );
 
 
     if (isPopup) {
@@ -578,11 +750,11 @@ window.GitHubAuth = (function () {
             }, 1200);
           }
         } else {
-          notify(response.message || 'GitHub OAuth code received, but could not link repositories.', 'warning');
+          showUniversalGitHubModal({ showAlert: notify }, true, response.message || 'GitHub OAuth code expired. Enter your GitHub username to link repositories:');
         }
       } catch (err) {
         closeAndCleanupModals();
-        notify(err.message || 'GitHub OAuth verification failed. Please try authenticating again.', 'danger');
+        showUniversalGitHubModal({ showAlert: notify }, true, err?.message || 'GitHub OAuth verification expired. Enter your GitHub username below to link repositories:');
       }
     } else {
       // User is not logged in: Direct GitHub Login is disabled
@@ -645,7 +817,7 @@ window.GitHubAuth = (function () {
     sendGitHubAuthPayload,
     connectGitHubAccount,
     syncRepos,
-    showFastTrackGitHubModal: startGitHubOAuth,
-    showUniversalGitHubModal: startGitHubOAuth,
+    showFastTrackGitHubModal: showUniversalGitHubModal,
+    showUniversalGitHubModal,
   };
 })();

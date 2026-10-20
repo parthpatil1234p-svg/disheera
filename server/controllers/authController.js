@@ -1055,11 +1055,27 @@ const connectGitHub = async (req, res, next) => {
     const { username: directUser, code, redirectUri } = req.body;
     const userId = req.user.id;
 
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Student account not found.',
+      });
+    }
+
     let accessToken = null;
     let ghUsername = directUser ? directUser.trim() : '';
     if (ghUsername) {
       // Support full URLs like https://github.com/username or https://github.com/username/repo
       ghUsername = ghUsername.replace(/^https?:\/\/(www\.)?github\.com\//i, '').replace(/\/.*$/, '').replace(/^@/, '').trim();
+    }
+
+    if (!ghUsername && user.githubProfile?.username) {
+      ghUsername = user.githubProfile.username;
+    }
+
+    if (!ghUsername && user.authProvider === 'github' && user.githubId) {
+      ghUsername = user.githubId.replace(/^github_user_/, '').replace(/^github_/, '');
     }
 
     if (code) {
@@ -1078,27 +1094,9 @@ const connectGitHub = async (req, res, next) => {
           return res.status(400).json({
             success: false,
             isCodeExchangeFailed: true,
-            message: `GitHub code exchange failed (${err.message}). Please try again.`,
+            message: `GitHub authorization code expired or already used (${err.message}). Please click 'Auto-Detect' to try again or enter your GitHub handle.`,
           });
         }
-      }
-    }
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'Student account not found.',
-      });
-    }
-
-    if (!ghUsername && user.githubProfile?.username) {
-      ghUsername = user.githubProfile.username;
-    }
-
-    if (!ghUsername && !accessToken) {
-      if (user.authProvider === 'github' && user.githubId) {
-        ghUsername = user.githubId.replace(/^github_user_/, '').replace(/^github_/, '');
       }
     }
 
