@@ -616,6 +616,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         <!-- Milestone Status Action Box -->
         ${milestoneActionHtml}
+
+        <!-- Collegiate Weekly Assignment Action Box (Plan 46) -->
+        <div class="mt-3 p-3 card border border-primary border-opacity-25 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 shadow-sm" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(16, 185, 129, 0.03)); border-radius: 12px;">
+          <div class="d-flex align-items-center gap-3">
+            <div class="p-2 rounded-3 text-primary" style="background: rgba(99, 102, 241, 0.12);">
+              <i class="bi bi-file-earmark-code fs-4"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-ink d-flex align-items-center gap-2 mb-0.5">
+                Week ${weekNumber} Collegiate Assignment
+                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 font-monospace">10.0 Marks</span>
+                <span class="badge bg-warning bg-opacity-10 text-warning font-monospace" style="font-size: 0.7rem;">40% CMS Weight</span>
+              </div>
+              <div class="text-muted small">
+                Submit compiled solution PDF (Parts A + B). Dual-evaluated with Gemini Multimodal AI and team commit reviews.
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn cp-btn-primary btn-sm px-3 py-2 flex-shrink-0" onclick="window.assignmentModal && window.assignmentModal.open({ weekNumber: ${weekNumber} })">
+            <i class="bi bi-cloud-arrow-up me-1"></i> Open Assignment
+          </button>
+        </div>
       `;
 
       weeksContainer.appendChild(weekCard);

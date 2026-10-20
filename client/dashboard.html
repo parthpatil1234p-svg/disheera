@@ -275,6 +275,9 @@
               <button type="button" class="btn btn-profile-primary" data-bs-toggle="modal" data-bs-target="#manageSkillsModal">
                 <i class="bi bi-lightning-charge-fill"></i> <span>Manage Skills</span>
               </button>
+              <button type="button" class="btn btn-profile-secondary text-warning" onclick="window.leaderboardView && window.leaderboardView.open()" title="View National Merit Standings & Partner Tech Internships">
+                <i class="bi bi-trophy-fill text-warning"></i> <span>Leaderboard</span>
+              </button>
               <a href="passport.html" class="btn btn-profile-primary text-white" style="background: linear-gradient(135deg, #6366f1, #10b981); border: none;" title="View & Share Verifiable Skill Passport">
                 <i class="bi bi-patch-check-fill"></i> <span>Skill Passport & QR</span>
               </a>
@@ -1689,6 +1692,7 @@
     <script src="js/tech-logos.js?v=3.2.0"></script>
     <script src="js/i18n.js"></script>
     <script src="js/project-verifier.js"></script>
+    <script src="js/modules/leaderboardView.js"></script>
     <script src="js/dashboard.js?v=3.9"></script>
     <script src="js/chat.js?v=3.0"></script>
   </body>

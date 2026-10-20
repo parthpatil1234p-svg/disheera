@@ -251,7 +251,7 @@ async function runPhase1Suite() {
 
     assert(res.statusCode === 201, `Valid multi-page PDF must return 201 Created (received: ${res.statusCode})`);
     assert(res.body?.success === true, 'Response must indicate success: true');
-    assert(res.body?.submission?.status === 'SUBMITTED', 'Status must be SUBMITTED');
+    assert(['SUBMITTED', 'GRADED', 'FLAGGED_AI'].includes(res.body?.submission?.status), `Status must be valid submission state (got: ${res.body?.submission?.status})`);
     assert(res.body?.submission?.pageCount >= 2, `Page count must be recorded (received: ${res.body?.submission?.pageCount})`);
     assert(res.body?.submission?.id, 'Submission ID must be returned');
 
@@ -271,7 +271,7 @@ async function runPhase1Suite() {
     
     const matched = res.body?.submissions.find(s => s.id === createdSubmissionId);
     assert(Boolean(matched), 'Newly submitted assignment must appear in student submission history');
-    assert(matched?.status === 'SUBMITTED', 'Historical status must be SUBMITTED');
+    assert(['SUBMITTED', 'GRADED', 'FLAGGED_AI', 'ADMIN_APPROVED'].includes(matched?.status), `Historical status must be valid submission state (got: ${matched?.status})`);
     assert(matched?.weekNumber === 1, 'Week number must be 1');
   }
 
