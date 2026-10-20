@@ -16,11 +16,13 @@ jobs:
     steps:
       - name: Ping Render Backend Health Check
         run: |
-          echo "Pinging Disheera Render backend at $(date)..."
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 45 "https://api.disheera.site/health")
-          echo "Render Health Check HTTP status: $HTTP_STATUS"
-          if [ "$HTTP_STATUS" -eq 200 ]; then
+          echo "Pinging Disheera Render backend endpoints at $(date)..."
+          HTTP_STATUS_CUSTOM=$(curl -s -o /dev/null -w "%{http_code}" --max-time 45 "https://api.disheera.site/health" || echo "000")
+          HTTP_STATUS_RENDER=$(curl -s -o /dev/null -w "%{http_code}" --max-time 45 "https://careerpath-ai-bdbt.onrender.com/api/health" || echo "000")
+          echo "api.disheera.site status: $HTTP_STATUS_CUSTOM"
+          echo "onrender.com status: $HTTP_STATUS_RENDER"
+          if [ "$HTTP_STATUS_CUSTOM" -eq 200 ] || [ "$HTTP_STATUS_RENDER" -eq 200 ]; then
             echo "✅ Backend is awake, healthy, and ready for instant responses!"
           else
-            echo "⚠️ Backend responded with HTTP status $HTTP_STATUS (may have been waking up, will retry next interval)"
+            echo "⚠️ Backend responded with unexpected status (waking up, will retry next interval)"
           fi
