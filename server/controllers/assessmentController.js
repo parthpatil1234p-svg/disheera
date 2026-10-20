@@ -418,7 +418,7 @@ const updateAssessment = async (req, res, next) => {
 const getAssessment = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).select(
-      'name education interests skills careerGoals profileCompleted hasCompletedSkillVerification primaryStream encryptedVault'
+      'name education interests skills careerGoals profileCompleted hasCompletedSkillVerification primaryStream encryptedVault githubProfile githubRepos'
     );
 
     if (!user) {
@@ -441,6 +441,8 @@ const getAssessment = async (req, res, next) => {
           hasCompletedSkillVerification: Boolean(user.hasCompletedSkillVerification),
           primaryStream: user.primaryStream || 'engineering',
           encryptedVault: user.encryptedVault || null,
+          githubProfile: user.githubProfile || null,
+          githubRepos: user.githubRepos || [],
         }
       }
     });

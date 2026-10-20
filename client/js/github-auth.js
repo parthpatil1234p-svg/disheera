@@ -164,6 +164,9 @@ window.GitHubAuth = (function () {
 
       if (response.success && response.data?.user) {
         window.Auth.setCurrentUser(response.data.user);
+        if (typeof window.applyDetectedSkills === 'function') {
+          window.applyDetectedSkills(response.data);
+        }
         if (typeof window.Auth?.initNav === 'function') {
           window.Auth.initNav();
         }
@@ -209,6 +212,9 @@ window.GitHubAuth = (function () {
 
       if (response.success && response.data?.user) {
         window.Auth.setCurrentUser(response.data.user);
+        if (typeof window.applyDetectedSkills === 'function') {
+          window.applyDetectedSkills(response.data);
+        }
         if (typeof window.Auth?.initNav === 'function') {
           window.Auth.initNav();
         }
@@ -262,6 +268,7 @@ window.GitHubAuth = (function () {
           ? window.location.pathname
           : (window.location.pathname === '/' ? '/index.html' : window.location.pathname))
       : '';
+    const redirectUri = isLocal ? (window.location.origin + callbackPath) : '';
     const cryptoObj = window.crypto || window.msCrypto;
     let oauthState = 'popup_';
     if (cryptoObj && cryptoObj.getRandomValues) {
@@ -439,7 +446,18 @@ window.GitHubAuth = (function () {
       }
     }, 300);
 
+    const safetyTimer = setTimeout(() => {
+      if (!isHandled) {
+        isHandled = true;
+        if (cleanupListeners) cleanupListeners();
+        if (setLoadingState) setLoadingState(false);
+        resetTriggerBtn();
+        try { if (popup && !popup.closed) popup.close(); } catch(e){}
+      }
+    }, 45000);
+
     cleanupListeners = () => {
+      clearTimeout(safetyTimer);
       window.removeEventListener('message', onMessage);
       window.removeEventListener('storage', onStorage);
       clearInterval(pollTimer);
@@ -466,8 +484,8 @@ window.GitHubAuth = (function () {
     dispatchedOAuthCodes.add(oauthCode);
 
     // Detect if this page is inside a popup or was opened by window.open
-    const isPopup = oauthState.startsWith('popup_') ||
-                    Boolean((window.opener && window.opener !== window) || window.name === 'careerpath_github_oauth');
+    const isPopup = Boolean((window.opener && window.opener !== window) || (window.name === 'careerpath_github_oauth' && window.opener)); //
+
 
     if (isPopup) {
       // 1. Post message to opener with strict origin check

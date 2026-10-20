@@ -3079,53 +3079,109 @@ document.addEventListener('DOMContentLoaded', async () => {
     const ghUser = data?.profile?.username || data?.user?.githubProfile?.username || data?.profile?.login || 'user';
     const repoCount = data?.repositories?.length || data?.repos?.length || data?.user?.githubRepos?.length || 0;
     showAlert(`\u2713 Scanned @${ghUser} (${repoCount} study repos) and auto-detected ${countAdded} verified skills!`, 'success');
-    if (btnAutoDetectGitHubSkills) {
-      btnAutoDetectGitHubSkills.disabled = false;
-      btnAutoDetectGitHubSkills.innerHTML = `<i class="bi bi-patch-check-fill text-success"></i> <span>@${ghUser} (${countAdded} Verified)</span>`;
-    }
   };
-  window.applyDetectedSkills = applyDetectedSkills;
-
-  updateGitHubButtonState();
 
   if (btnAutoDetectGitHubSkills) {
     btnAutoDetectGitHubSkills.addEventListener('click', () => {
       const origHtml = btnAutoDetectGitHubSkills.innerHTML;
       btnAutoDetectGitHubSkills.disabled = true;
-      btnAutoDetectGitHubSkills.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Connecting GitHub...';
 
+      let isCleared = false;
       const resetBtn = () => {
+        if (isCleared) return;
+        isCleared = true;
+        clearTimeout(failsafeTimer);
         btnAutoDetectGitHubSkills.disabled = false;
         btnAutoDetectGitHubSkills.innerHTML = origHtml;
+        updateGitHubButtonState();
       };
 
-      if (window.GitHubAuth?.startGitHubOAuth) {
-        window.GitHubAuth.startGitHubOAuth({
+      // Failsafe 15s timer ensures loading is NEVER non-stoppable
+      const failsafeTimer = setTimeout(() => {
+        console.warn('[GitHub Skills] Auto-reset triggered after 15s timeout');
+        resetBtn();
+      }, 15000);
+
+      const user = (typeof window.Auth?.getUser === 'function' ? window.Auth.getUser() : null) || 
+                   (typeof window.Auth?.getCurrentUser === 'function' ? window.Auth.getCurrentUser() : null);
+      const connectedGhUser = user?.githubProfile?.username || user?.githubUsername;
+
+      // SMART SYNC: If user already connected GitHub, sync repositories directly!
+      if (connectedGhUser && window.GitHubAuth?.syncRepos) {
+        btnAutoDetectGitHubSkills.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Syncing Repositories...';
+        window.GitHubAuth.syncRepos({
+          showAlert: (msg, type) => {
+            if (typeof showAlert === 'function') showAlert(msg, type);
+          },
+          setLoadingState: (loading) => {
+            if (!loading) resetBtn();
+          },
           onSuccess: (data) => {
             resetBtn();
             applyDetectedSkills(data);
           },
           onError: (err) => {
-            resetBtn();
-            if (typeof showAlert === 'function') {
-              showAlert(err?.message || 'Could not verify GitHub account.', 'warning');
+            if (err?.requireConnect && window.GitHubAuth?.startGitHubOAuth) {
+              btnAutoDetectGitHubSkills.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Connecting GitHub...';
+              window.GitHubAuth.startGitHubOAuth({
+                onSuccess: (data) => {
+                  resetBtn();
+                  applyDetectedSkills(data);
+                },
+                onError: (oauthErr) => {
+                  resetBtn();
+                  if (typeof showAlert === 'function') showAlert(oauthErr?.message || err.message, 'warning');
+                },
+                setLoadingState: (loading) => {
+                  if (!loading) resetBtn();
+                }
+              }, true);
+            } else {
+              resetBtn();
+              if (typeof showAlert === 'function') {
+                showAlert(err?.message || 'Could not sync repositories.', 'warning');
+              }
             }
-          },
-          setLoadingState: (loading) => {
-            if (!loading) resetBtn();
           }
-        }, true);
-      } else if (window.GitHubAuth?.showUniversalGitHubModal) {
-        window.GitHubAuth.showUniversalGitHubModal({
-          onSuccess: (data) => {
-            resetBtn();
-            applyDetectedSkills(data);
-          },
-          onError: () => resetBtn(),
-        }, true);
-      } else {
+        });
+        return;
+      }
+
+      // FIRST-TIME CONNECT: Trigger 1-Click OAuth
+      btnAutoDetectGitHubSkills.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Connecting GitHub...';
+
+      try {
+        if (window.GitHubAuth?.startGitHubOAuth) {
+          window.GitHubAuth.startGitHubOAuth({
+            onSuccess: (data) => {
+              resetBtn();
+              applyDetectedSkills(data);
+            },
+            onError: (err) => {
+              resetBtn();
+              if (typeof showAlert === 'function') {
+                showAlert(err?.message || 'Could not verify GitHub account.', 'warning');
+              }
+            },
+            setLoadingState: (loading) => {
+              if (!loading) resetBtn();
+            }
+          }, true);
+        } else if (window.GitHubAuth?.showUniversalGitHubModal) {
+          window.GitHubAuth.showUniversalGitHubModal({
+            onSuccess: (data) => {
+              resetBtn();
+              applyDetectedSkills(data);
+            },
+            onError: () => resetBtn(),
+          }, true);
+        } else {
+          resetBtn();
+          showAlert('GitHub integration script loading. Please refresh.', 'warning');
+        }
+      } catch (err) {
+        console.error('[GitHub Skills] Click exception:', err);
         resetBtn();
-        showAlert('GitHub integration script loading. Please refresh.', 'warning');
       }
     });
   }
@@ -3137,31 +3193,35 @@ document.addEventListener('DOMContentLoaded', async () => {
       btnChangeGitHubAccount.disabled = true;
       btnChangeGitHubAccount.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Switching...';
 
+      let isCleared = false;
       const resetBtn = () => {
+        if (isCleared) return;
+        isCleared = true;
+        clearTimeout(failsafeTimer);
         btnChangeGitHubAccount.disabled = false;
         btnChangeGitHubAccount.innerHTML = origHtml;
       };
 
-      if (window.GitHubAuth?.startGitHubOAuth) {
-        window.GitHubAuth.startGitHubOAuth({
-          onSuccess: (data) => {
-            resetBtn();
-            applyDetectedSkills(data);
-          },
-          onError: () => resetBtn(),
-          setLoadingState: (loading) => {
-            if (!loading) resetBtn();
-          }
-        }, true);
-      } else if (window.GitHubAuth?.showUniversalGitHubModal) {
-        window.GitHubAuth.showUniversalGitHubModal({
-          onSuccess: (data) => {
-            resetBtn();
-            applyDetectedSkills(data);
-          },
-          onError: () => resetBtn(),
-        }, true);
-      } else {
+      const failsafeTimer = setTimeout(() => {
+        resetBtn();
+      }, 15000);
+
+      try {
+        if (window.GitHubAuth?.startGitHubOAuth) {
+          window.GitHubAuth.startGitHubOAuth({
+            onSuccess: (data) => {
+              resetBtn();
+              applyDetectedSkills(data);
+            },
+            onError: () => resetBtn(),
+            setLoadingState: (loading) => {
+              if (!loading) resetBtn();
+            }
+          }, true);
+        } else {
+          resetBtn();
+        }
+      } catch (err) {
         resetBtn();
       }
     });
@@ -3370,6 +3430,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const merged = Object.assign({}, cachedUser || {}, authoritativeData);
         window.Auth.setCurrentUser(merged);
       }
+
+      // Auto-restore and apply skills from existing GitHub repositories on page refresh
+      if (Array.isArray(authoritativeData.githubRepos) && authoritativeData.githubRepos.length > 0) {
+        applyDetectedSkills({
+          repositories: authoritativeData.githubRepos,
+          profile: authoritativeData.githubProfile,
+          user: authoritativeData
+        });
+      }
+      updateGitHubButtonState();
 
       // Reconcile and fix any stale local drafts in localStorage so they never conflict
       if (authoritativeData.hasCompletedSkillVerification || (Array.isArray(authoritativeData.skills) && authoritativeData.skills.some(s => s.isQuizVerified || s.isCodeVerified))) {

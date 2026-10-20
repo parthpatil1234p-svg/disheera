@@ -107,6 +107,7 @@ const exchangeOAuthCode = async (code, redirectUri = null) => {
           'User-Agent': 'Disheera-Platform',
         },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(10000),
       });
 
       const data = await response.json();
@@ -127,6 +128,7 @@ const exchangeOAuthCode = async (code, redirectUri = null) => {
                 'User-Agent': 'Disheera-Platform',
               },
               body: JSON.stringify(fallbackPayload),
+              signal: AbortSignal.timeout(10000),
             });
             const fallbackData = await fallbackRes.json();
             if (!fallbackData.error && fallbackData.access_token) {
@@ -173,7 +175,7 @@ const fetchGitHubData = async (username, accessToken = null) => {
       : (username ? `https://api.github.com/users/${encodeURIComponent(username)}` : null);
 
     if (profileUrl) {
-      const profileRes = await fetch(profileUrl, { headers });
+      const profileRes = await fetch(profileUrl, { headers, signal: AbortSignal.timeout(10000) });
       if (profileRes.ok) {
         profile = await profileRes.json();
       } else {
@@ -187,7 +189,7 @@ const fetchGitHubData = async (username, accessToken = null) => {
       : (username ? `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=15` : null);
 
     if (reposUrl) {
-      const reposRes = await fetch(reposUrl, { headers });
+      const reposRes = await fetch(reposUrl, { headers, signal: AbortSignal.timeout(10000) });
       if (reposRes.ok) {
         repos = await reposRes.json();
       } else {
