@@ -58,6 +58,8 @@ model User {
   jobOpenings                   JobOpening[]
   studentApplications           JobApplication[] @relation("StudentApplications")
   recruiterApplications         JobApplication[] @relation("RecruiterApplications")
+  assignmentSubmissions         AssignmentSubmission[]
+  meritScore                    StudentMeritScore?
 
   createdAt                     DateTime  @default(now())
   updatedAt                     DateTime  @updatedAt
@@ -499,4 +501,107 @@ model PendingSignup {
   updatedAt        DateTime  @updatedAt
 
   @@map("pending_signups")
+}
+// ── 19. Weekly Assignments & Multimodal Grading Suite (Plan 46) ──
+enum SubmissionStatus {
+  SUBMITTED
+  EVALUATING
+  GRADED
+  FLAGGED_AI
+  RESUBMISSION_REQUESTED
+  ADMIN_APPROVED
+}
+
+model WeeklyAssignment {
+  id               String                 @id @default(uuid())
+  careerId         String
+  weekNumber       Int
+  title            String
+  description      String
+  maxMarks         Int                    @default(10)
+  learningOutcomes Json?                  // Array of concepts covered in that week
+  questions        Json                   // Array of college-style questions/problems
+  rubric           Json                   // 4D evaluation rubric criteria
+  templatePdfUrl   String?                // Downloadable Cover Sheet template
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+
+  submissions      AssignmentSubmission[]
+
+  @@unique([careerId, weekNumber])
+  @@index([careerId])
+  @@map("weekly_assignments")
+}
+
+model AssignmentSubmission {
+  id                   String           @id @default(uuid())
+  assignmentId         String
+  assignment           WeeklyAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  userId               String
+  user                 User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roadmapId            String
+  weekNumber           Int
+  pdfUrl               String           // Stored assignment PDF path/URL or base64 reference
+  fileSizeBytes        Int
+  pageCount            Int              @default(1)
+  status               SubmissionStatus @default(SUBMITTED)
+
+  // Dual Evaluation: AI Evaluation & Anti-AI Signals
+  aiScore              Float?           // AI provisional score (0-10)
+  aiFeedback           String?          @db.Text
+  aiRubricBreakdown    Json?            // { problemSolving: 4, methodology: 3, clarity: 2.5 }
+  aiProbability        Float            @default(0.0) // 0.0 to 1.0 (e.g., 0.85 = 85% AI)
+  aiDetected           Boolean          @default(false)
+  aiDetectionReasons   Json?            // Array of specific flags detected
+  aiEvaluatedAt        DateTime?
+
+  // Dual Evaluation: Admin Review & Team Commits
+  adminScore           Float?           // Final overridden score if modified
+  finalScore           Float?           // Official marks (adminScore ?? aiScore)
+  adminFeedback        String?          @db.Text // Official team commit/review feedback
+  reviewedByAdminId    String?
+  reviewedAt           DateTime?
+
+  submittedAt          DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  @@index([userId])
+  @@index([assignmentId])
+  @@index([status])
+  @@index([userId, weekNumber])
+  @@map("assignment_submissions")
+}
+
+model StudentMeritScore {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignmentMarks      Float    @default(0.0)
+  quizMarks            Float    @default(0.0)
+  progressMarks        Float    @default(0.0)
+  consistencyMarks     Float    @default(0.0)
+  totalMeritScore      Float    @default(0.0) // CMS composite score (0-100)
+  currentRank          Int      @default(0)
+  isTopper             Boolean  @default(false)
+  topperBadge          String?  // "GOLD", "SILVER", "BRONZE"
+  lastCalculatedAt     DateTime @default(now())
+
+  @@index([totalMeritScore(sort: Desc)])
+  @@index([currentRank])
+  @@map("student_merit_scores")
+}
+
+model InternshipReward {
+  id                   String   @id @default(uuid())
+  companyName          String
+  roleTitle            String
+  location             String
+  stipendRange         String
+  eligibilityCrest     String   // "GOLD", "SILVER", "BRONZE", "TOP_10"
+  applyUrl             String?
+  referralContact      String?
+  isActive             Boolean  @default(true)
+  createdAt            DateTime @default(now())
+
+  @@map("internship_rewards")
 }

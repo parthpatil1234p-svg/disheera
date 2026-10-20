@@ -25,7 +25,9 @@
     "test:whatsapp": "node tests/whatsapp_automation_test.js",
     "seed:admin": "node prisma/seedAdmin.js",
     "admin:unlock": "node scripts/unlockAdmin.js",
-    "lint": "node --check server.js && node --check seed.js"
+    "lint": "node --check server.js && node --check seed.js",
+    "test:assignments": "node ../tests/assignment_phase1_verification_test.js",
+    "seed:assignments": "node prisma/seedAssignments.js"
   },
   "keywords": [
     "careerpath",

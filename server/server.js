@@ -97,6 +97,7 @@ const whatsappRoutes = require('./routes/whatsappRoutes');
 const supportRoutes = require('./routes/supportRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const passportRoutes = require('./routes/passportRoutes');
+const assignmentRoutes = require('./routes/assignmentRoutes');
 const adminHostGuard = require('./middleware/adminHostGuard');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
@@ -521,6 +522,9 @@ app.use('/api/projects', projectRoutes);
 
 // Public Shareable Skill Passport with Dynamic QR Code
 app.use('/api/passport', passportRoutes);
+
+// Collegiate Weekly Assignments, PDF Cover Templates & Submissions (Plan 46)
+app.use('/api/assignments', assignmentRoutes);
 
 // ── Dedicated Subdomain Admin Panel Routes (/api/admin/*) ────
 // Layer 1: Subdomain Host Guard restricts all admin endpoints to admin.disheera.site (and dev hosts)
