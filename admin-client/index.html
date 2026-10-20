@@ -1049,15 +1049,30 @@
         <div id="forcedPasswordError" class="alert-box alert-error"></div>
         <div class="form-group">
           <label class="form-label" for="forcedOldPass">Current Password</label>
-          <input type="password" id="forcedOldPass" class="form-input" placeholder="••••••••••••" required>
+          <div style="position: relative;">
+            <input type="password" id="forcedOldPass" class="form-input" placeholder="••••••••••••" required autocomplete="current-password" style="padding-right: 2.75rem;">
+            <button type="button" onclick="togglePasswordVisibility('forcedOldPass', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-dim); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; z-index: 5;">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="forcedNewPass">New Password (min 10 characters)</label>
-          <input type="password" id="forcedNewPass" class="form-input" placeholder="At least 10 characters" required minlength="10">
+          <div style="position: relative;">
+            <input type="password" id="forcedNewPass" class="form-input" placeholder="At least 10 characters" required minlength="10" autocomplete="new-password" style="padding-right: 2.75rem;">
+            <button type="button" onclick="togglePasswordVisibility('forcedNewPass', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-dim); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; z-index: 5;">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="forcedConfirmPass">Confirm New Password</label>
-          <input type="password" id="forcedConfirmPass" class="form-input" placeholder="Confirm new password" required minlength="10">
+          <div style="position: relative;">
+            <input type="password" id="forcedConfirmPass" class="form-input" placeholder="Confirm new password" required minlength="10" autocomplete="new-password" style="padding-right: 2.75rem;">
+            <button type="button" onclick="togglePasswordVisibility('forcedConfirmPass', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-dim); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; z-index: 5;">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -2319,6 +2334,17 @@
 
 
     // ── Forced Password Change Handler ───────────────────────────
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isPass = input.type === 'password';
+      input.type = isPass ? 'text' : 'password';
+      const icon = btn.querySelector('i');
+      if (icon) {
+        icon.className = isPass ? 'bi bi-eye-slash' : 'bi bi-eye';
+      }
+    }
+
     async function submitForcedPasswordChange() {
       const oldPass = document.getElementById('forcedOldPass').value;
       const newPass = document.getElementById('forcedNewPass').value;
@@ -2347,7 +2373,7 @@
         errBox.style.display = 'none';
         const res = await adminFetch('/api/admin/auth/change-password', {
           method: 'POST',
-          body: JSON.stringify({ oldPassword: oldPass, newPassword: newPass })
+          body: JSON.stringify({ currentPassword: oldPass, oldPassword: oldPass, newPassword: newPass, confirmPassword: confirmPass })
         });
         if (res.success) {
           showToast('Password updated! Resuming session.', 'success');

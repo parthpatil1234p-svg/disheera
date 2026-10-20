@@ -1843,3 +1843,36 @@ textarea,
     transition: none !important;
   }
 }
+
+
+/* ── 21. Dark Theme Autofill & Modal Alerts ─────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #151D30 inset !important;
+  -webkit-text-fill-color: #E6EAF2 !important;
+  caret-color: #E6EAF2 !important;
+  transition: background-color 5000s ease-in-out 0s;
+  border-color: rgba(34, 211, 238, 0.4) !important;
+}
+
+.alert-box {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.alert-box.alert-error {
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #FCA5A5;
+}
+
+.alert-box.alert-success {
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: #6EE7B7;
+}

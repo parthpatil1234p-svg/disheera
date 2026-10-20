@@ -178,7 +178,7 @@ async function handleChangePassword(event) {
 
     const res = await adminFetch('/api/admin/auth/change-password', {
       method: 'POST',
-      body: JSON.stringify({ oldPassword, newPassword })
+      body: JSON.stringify({ currentPassword: oldPassword, oldPassword, newPassword, confirmPassword })
     });
 
     if (res.success) {

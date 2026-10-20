@@ -273,7 +273,9 @@ async function getMe(req, res) {
  * POST /api/admin/auth/change-password
  */
 async function changePassword(req, res) {
-  const { currentPassword, newPassword, confirmPassword } = req.body;
+  const currentPassword = req.body.currentPassword || req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  const confirmPassword = req.body.confirmPassword;
 
   if (!currentPassword || !newPassword) {
     return res.status(400).json({
