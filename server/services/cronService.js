@@ -87,10 +87,16 @@ async function auditYouTubeCache() {
  * Dispatches automated streak motivation emails with exact remaining tasks.
  */
 async function auditInactivityAndSendNudges(options = {}) {
+  const defaultClientUrl =
+    (process.env.NODE_ENV === 'production' && process.env.PROD_CLIENT_URL) ||
+    process.env.PROD_CLIENT_URL ||
+    process.env.CLIENT_URL ||
+    'https://disheera.site';
+
   const {
     inactivityDays = 3,
     forceUserEmail = null,
-    clientUrl = process.env.CLIENT_URL || 'http://localhost:5500',
+    clientUrl = defaultClientUrl,
   } = options;
 
   const results = {

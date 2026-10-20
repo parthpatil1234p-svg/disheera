@@ -214,15 +214,25 @@ async function sendInactivityNudgeEmail({
   remainingTasksCount = 2,
   nextTaskTitle = '',
   daysInactive = 3,
-  clientUrl = process.env.CLIENT_URL || 'http://localhost:5500',
+  clientUrl,
 }) {
   if (!toEmail) {
     return { success: false, error: 'Recipient email is required.' };
   }
 
+  // Determine production/client URL for email links:
+  // If running in production (or PROD_CLIENT_URL is set), prefer public domain so links work on mobile/remote devices.
+  const resolvedClientUrl = (
+    clientUrl ||
+    (process.env.NODE_ENV === 'production' && process.env.PROD_CLIENT_URL) ||
+    process.env.PROD_CLIENT_URL ||
+    process.env.CLIENT_URL ||
+    'https://disheera.site'
+  ).replace(/\/$/, '');
+
   const recipientName = name ? name.trim().split(' ')[0] : 'Learner';
   const subject = `🔥 Don't break your momentum, ${recipientName}! Only ${remainingTasksCount} tasks left in Week ${currentWeek}`;
-  const roadmapUrl = `${clientUrl.replace(/\/$/, '')}/roadmap.html`;
+  const roadmapUrl = `${resolvedClientUrl}/roadmap.html`;
 
   const htmlContent = `
   <!DOCTYPE html>
@@ -297,7 +307,7 @@ async function sendInactivityNudgeEmail({
       <div class="footer">
         Disheera Technologies Inc. · Automated Learning Engagement Engine<br>
         Autonomous Career GPS &amp; Verified Talent Operating System · 
-        <a href="${clientUrl}/dashboard.html" style="color: #64748B;">Student Dashboard</a>
+        <a href="${resolvedClientUrl}/dashboard.html" style="color: #64748B;">Student Dashboard</a>
       </div>
     </div>
   </body>

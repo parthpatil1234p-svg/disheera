@@ -1357,10 +1357,14 @@ const verifyVideoLearningController = async (req, res, next) => {
  */
 const triggerStreakNudgeTestController = async (req, res, next) => {
   try {
+    const origin = req.headers.origin || (req.headers.referer ? new URL(req.headers.referer).origin : null);
+    const clientUrl = origin || process.env.PROD_CLIENT_URL || process.env.CLIENT_URL || 'https://disheera.site';
+
     const { auditInactivityAndSendNudges } = require('../services/cronService');
     const result = await auditInactivityAndSendNudges({
       forceUserEmail: req.user.email,
       inactivityDays: 0,
+      clientUrl,
     });
 
     if (result.nudgesSent > 0) {
