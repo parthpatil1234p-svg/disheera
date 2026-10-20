@@ -16,6 +16,23 @@
 
   const MODAL_ID = 'leaderboardModal';
 
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function getInitials(name, fallback = 'U') {
+    if (!name || typeof name !== 'string') return fallback;
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
   /**
    * Builds and injects the Leaderboard modal into DOM if absent.
    */
@@ -24,7 +41,7 @@
 
     const modalHtml = `
       <div class="modal fade" id="${MODAL_ID}" tabindex="-1" aria-labelledby="${MODAL_ID}Label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" style="max-width: min(1380px, 96vw); width: 96vw; margin: 1.25rem auto;">
           <div class="modal-content" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; box-shadow: 0 20px 50px -15px rgba(15, 23, 42, 0.15);">
             
             <!-- Modal Header -->
@@ -54,7 +71,7 @@
             </div>
 
             <!-- Modal Body -->
-            <div class="modal-body p-4" style="background: #F8FAFC;">
+            <div class="modal-body p-4" style="background: #F8FAFC; max-height: calc(88vh - 120px); overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent;">
               
               <!-- User Standing Sticky HUD -->
               <div id="lbUserStandingCard" class="p-3 mb-4 rounded-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); border-radius: 14px;">
@@ -116,18 +133,18 @@
                 
                 <!-- 1. Leaderboard Table View -->
                 <div class="tab-pane fade show active" id="lb-table-view" role="tabpanel">
-                  <div class="table-responsive rounded-3 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);">
-                    <table class="table table-hover mb-0 align-middle">
-                      <thead class="table-light text-secondary" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                  <div class="table-responsive rounded-3 bg-white shadow-xs" style="border: 1px solid #E2E8F0; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent;">
+                    <table class="table table-hover mb-0 align-middle" style="min-width: 1040px; width: 100%;">
+                      <thead class="table-light text-secondary" style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1.5px solid #E2E8F0;">
                         <tr>
-                          <th scope="col" class="py-3 px-3 text-center" style="width: 70px;">Rank</th>
-                          <th scope="col" class="py-3 px-3">Student</th>
-                          <th scope="col" class="py-3 px-3">Career Track</th>
-                          <th scope="col" class="py-3 px-3">College</th>
-                          <th scope="col" class="py-3 px-3 text-center">Assignments (40%)</th>
-                          <th scope="col" class="py-3 px-3 text-center">Quizzes (30%)</th>
-                          <th scope="col" class="py-3 px-3 text-center">Progress (20%)</th>
-                          <th scope="col" class="py-3 px-3 text-end">Total CMS</th>
+                          <th scope="col" class="py-3 px-3 text-center" style="width: 75px; min-width: 75px; white-space: nowrap;">Rank</th>
+                          <th scope="col" class="py-3 px-3" style="min-width: 220px; white-space: nowrap;">Student</th>
+                          <th scope="col" class="py-3 px-3" style="min-width: 170px; white-space: nowrap;">Career Track</th>
+                          <th scope="col" class="py-3 px-3" style="min-width: 180px; white-space: nowrap;">College / Institution</th>
+                          <th scope="col" class="py-3 px-3 text-center" style="min-width: 140px; white-space: nowrap;">Assignments (40%)</th>
+                          <th scope="col" class="py-3 px-3 text-center" style="min-width: 125px; white-space: nowrap;">Quizzes (30%)</th>
+                          <th scope="col" class="py-3 px-3 text-center" style="min-width: 130px; white-space: nowrap;">Progress (20%)</th>
+                          <th scope="col" class="py-3 px-3 text-end" style="min-width: 110px; white-space: nowrap;">Total CMS</th>
                         </tr>
                       </thead>
                       <tbody id="lbTableBody">
@@ -423,33 +440,49 @@
 
     tableBody.innerHTML = rankings.map(r => {
       let rankBadge = `<span class="fw-bold font-monospace text-muted">#${r.rank}</span>`;
-      if (r.rank === 1) rankBadge = '<span class="badge fw-bold" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A;">👑 #1</span>';
-      else if (r.rank === 2) rankBadge = '<span class="badge fw-bold" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">🥈 #2</span>';
-      else if (r.rank === 3) rankBadge = '<span class="badge fw-bold" style="background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74;">🥉 #3</span>';
+      if (r.rank === 1) rankBadge = '<span class="badge fw-bold" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; padding: 4px 8px;">👑 #1</span>';
+      else if (r.rank === 2) rankBadge = '<span class="badge fw-bold" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1; padding: 4px 8px;">🥈 #2</span>';
+      else if (r.rank === 3) rankBadge = '<span class="badge fw-bold" style="background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74; padding: 4px 8px;">🥉 #3</span>';
 
       const isCurrent = r.isCurrentUser;
       const rowStyle = isCurrent ? 'background: #EFF6FF !important; border-left: 4px solid #2563EB;' : '';
 
       return `
         <tr style="${rowStyle}">
-          <td class="text-center py-3">${rankBadge}</td>
-          <td>
+          <td class="text-center py-3" style="white-space: nowrap;">${rankBadge}</td>
+          <td style="min-width: 220px;">
             <div class="d-flex align-items-center gap-2.5">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 36px; height: 36px; background: #EFF6FF; color: #2563EB; font-size: 0.9rem; border: 1px solid #DBEAFE; flex-shrink: 0;">
-                ${r.studentName ? r.studentName.charAt(0).toUpperCase() : 'U'}
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 36px; height: 36px; background: #EFF6FF; color: #2563EB; font-size: 0.85rem; border: 1px solid #DBEAFE; flex-shrink: 0;">
+                ${getInitials(r.studentName, 'U')}
               </div>
-              <div class="text-truncate" style="max-width: 200px;">
-                <div class="fw-bold small" style="color: #0F172A;">${r.studentName} ${isCurrent ? '<span class="badge bg-primary ms-1" style="font-size: 0.65rem;">YOU</span>' : ''}</div>
-                <div class="text-muted text-truncate" style="font-size: 0.72rem;">${r.studentEmail || ''}</div>
+              <div style="min-width: 0;">
+                <div class="fw-bold small text-truncate" style="color: #0F172A; max-width: 190px;" title="${escapeHtml(r.studentName)}">
+                  ${escapeHtml(r.studentName)} ${isCurrent ? '<span class="badge bg-primary ms-1" style="font-size: 0.65rem;">YOU</span>' : ''}
+                </div>
+                <div class="text-muted text-truncate" style="font-size: 0.72rem; max-width: 190px;" title="${escapeHtml(r.studentEmail || '')}">
+                  ${escapeHtml(r.studentEmail || '')}
+                </div>
               </div>
             </div>
           </td>
-          <td><span class="badge bg-light text-secondary border font-monospace small" style="font-weight: 500;">${r.careerTitle || 'Developer'}</span></td>
-          <td class="small text-muted text-truncate" style="max-width: 180px;">${r.college || 'Engineering'}</td>
-          <td class="text-center font-monospace small fw-semibold" style="color: #334155;">${r.assignmentMarks != null ? r.assignmentMarks.toFixed(1) : '—'}</td>
-          <td class="text-center font-monospace small fw-semibold" style="color: #334155;">${r.quizMarks != null ? r.quizMarks.toFixed(1) : '—'}</td>
-          <td class="text-center font-monospace small fw-semibold" style="color: #334155;">${r.progressMarks != null ? r.progressMarks.toFixed(1) : '—'}%</td>
-          <td class="text-end">
+          <td style="white-space: nowrap;">
+            <span class="badge bg-light text-secondary border font-monospace small" style="font-weight: 500;">
+              ${escapeHtml(r.careerTitle || 'Developer')}
+            </span>
+          </td>
+          <td class="small text-muted text-truncate" style="max-width: 210px;" title="${escapeHtml(r.college || 'Engineering')}">
+            ${escapeHtml(r.college || 'Engineering')}
+          </td>
+          <td class="text-center font-monospace small fw-semibold" style="color: #334155; white-space: nowrap;">
+            ${r.assignmentMarks != null ? r.assignmentMarks.toFixed(1) : '—'}
+          </td>
+          <td class="text-center font-monospace small fw-semibold" style="color: #334155; white-space: nowrap;">
+            ${r.quizMarks != null ? r.quizMarks.toFixed(1) : '—'}
+          </td>
+          <td class="text-center font-monospace small fw-semibold" style="color: #334155; white-space: nowrap;">
+            ${r.progressMarks != null ? r.progressMarks.toFixed(1) : '—'}%
+          </td>
+          <td class="text-end" style="white-space: nowrap;">
             <span class="badge font-monospace fw-bold fs-6" style="background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; padding: 5px 10px;">
               ${r.totalMeritScore.toFixed(1)}
             </span>
@@ -470,35 +503,59 @@
     }
 
     grid.innerHTML = rewards.map(r => {
-      let crestBadge = '<span class="badge bg-light text-secondary border">TOP 10</span>';
+      let crestBadge = '<span class="badge bg-light text-secondary border font-monospace">TOP 10</span>';
       if (r.eligibilityCrest === 'GOLD') crestBadge = '<span class="badge fw-bold" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A;">👑 GOLD CREST</span>';
       else if (r.eligibilityCrest === 'SILVER') crestBadge = '<span class="badge fw-bold" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">🥈 SILVER CREST</span>';
       else if (r.eligibilityCrest === 'BRONZE') crestBadge = '<span class="badge fw-bold" style="background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74;">🥉 BRONZE CREST</span>';
 
       const isEligible = r.isEligible;
       const statusPill = isEligible
-        ? '<span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> You are Eligible</span>'
-        : '<span class="badge bg-light text-muted border"><i class="bi bi-lock-fill me-1"></i> Higher CMS Required</span>';
+        ? '<span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold" style="font-size: 0.75rem;"><i class="bi bi-check-circle-fill me-1"></i> You are Eligible</span>'
+        : '<span class="badge bg-light text-muted border font-monospace" style="font-size: 0.75rem;"><i class="bi bi-lock-fill me-1"></i> Higher CMS Required</span>';
+
+      const companyInitials = getInitials(r.companyName, 'CO');
 
       return `
-        <div class="col-md-6 col-lg-4">
-          <div class="p-3.5 rounded-3 h-100 d-flex flex-column justify-content-between bg-white" style="border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); transition: transform 0.2s, box-shadow 0.2s;">
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="h-100 bg-white rounded-3 p-3.5 d-flex flex-column justify-content-between" style="border: 1.5px solid #E2E8F0; border-radius: 16px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); transition: transform 0.2s, box-shadow 0.2s;">
             <div>
               <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="fw-bold fs-6" style="color: #0F172A;">${r.companyName}</span>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="rounded-3 d-flex align-items-center justify-content-center fw-bold" style="width: 36px; height: 36px; background: #F1F5F9; color: #1E293B; border: 1px solid #CBD5E1; font-size: 0.82rem; flex-shrink: 0;">
+                    ${companyInitials}
+                  </div>
+                  <div>
+                    <span class="fw-bold fs-6 d-block" style="color: #0F172A; line-height: 1.2;">${escapeHtml(r.companyName)}</span>
+                    <span class="text-muted small" style="font-size: 0.72rem;">Placement Partner</span>
+                  </div>
+                </div>
                 ${crestBadge}
               </div>
-              <h6 class="text-primary fw-semibold mb-1">${r.roleTitle}</h6>
-              <div class="small text-muted mb-2">
-                <i class="bi bi-geo-alt me-1"></i> ${r.location} &bull; <i class="bi bi-cash-stack me-1"></i> ${r.stipendRange}
+
+              <h6 class="text-primary fw-semibold mb-2" style="font-size: 0.95rem; line-height: 1.4;">${escapeHtml(r.roleTitle)}</h6>
+
+              <div class="d-flex align-items-center gap-1.5 flex-wrap mb-2.5">
+                <span class="badge bg-light text-secondary border font-mono" style="font-size: 0.74rem; font-weight: 500; padding: 4px 8px;">
+                  <i class="bi bi-geo-alt text-danger me-1"></i>${escapeHtml(r.location)}
+                </span>
+                <span class="badge bg-success-subtle text-success border border-success-subtle font-mono" style="font-size: 0.74rem; font-weight: 700; padding: 4px 8px;">
+                  <i class="bi bi-cash-stack text-success me-1"></i>${escapeHtml(r.stipendRange)}
+                </span>
               </div>
-              <div class="p-2.5 rounded-2 mb-3" style="background: #F8FAFC; border: 1px solid #E2E8F0; font-size: 0.75rem; color: #475569;">
-                <i class="bi bi-shield-lock-fill text-warning me-1"></i> <strong>Referral Track:</strong> ${r.referralContact || 'Disheera Direct Placement'}
+
+              <div class="p-2.5 rounded-2 mb-2" style="background: #F8FAFC; border: 1px solid #E2E8F0; font-size: 0.75rem; color: #334155;">
+                <div class="d-flex align-items-center gap-1.5">
+                  <i class="bi bi-shield-lock-fill text-warning fs-6 flex-shrink-0"></i>
+                  <div>
+                    <strong class="text-ink">Referral Track:</strong> ${escapeHtml(r.referralContact || 'Disheera Direct Executive Referral')}
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="d-flex align-items-center justify-content-between pt-2 border-top" style="border-color: #E2E8F0 !important;">
+
+            <div class="d-flex align-items-center justify-content-between pt-2.5 mt-2 border-top" style="border-color: #E2E8F0 !important;">
               <div>${statusPill}</div>
-              <a href="${r.applyUrl || '#'}" target="_blank" class="btn btn-sm ${isEligible ? 'btn-primary' : 'btn-outline-secondary disabled'}" style="${isEligible ? 'background: #2563EB; border: none; font-weight: 600;' : ''}">
+              <a href="${escapeHtml(r.applyUrl || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-sm ${isEligible ? 'btn-primary' : 'btn-outline-secondary disabled'}" style="${isEligible ? 'background: #2563EB; border: none; font-weight: 600;' : 'font-weight: 600;'}">
                 Apply <i class="bi bi-box-arrow-up-right ms-1"></i>
               </a>
             </div>

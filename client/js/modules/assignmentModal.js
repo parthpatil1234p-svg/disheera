@@ -42,7 +42,7 @@
 
     const modalHtml = `
       <div class="modal fade" id="${MODAL_ID}" tabindex="-1" aria-labelledby="${MODAL_ID}Label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" style="max-width: min(1360px, 96vw); width: 96vw; margin: 1.25rem auto;">
           <div class="modal-content" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.15);">
             
             <!-- Modal Header -->
@@ -68,7 +68,7 @@
             </div>
 
             <!-- Modal Body -->
-            <div class="modal-body p-4" style="background: #F8FAFC;">
+            <div class="modal-body p-4" style="background: #F8FAFC; max-height: calc(88vh - 120px); overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent;">
               
               <!-- Tabs / Nav -->
               <ul class="nav nav-pills mb-4 gap-2" id="wamTabs" role="tablist">
