@@ -22,6 +22,8 @@ const {
   githubAuth,
   connectGitHub,
   getGitHubConfig,
+  forgotPassword,
+  resetPassword,
 } = require('../controllers/authController');
 const { getMyProfile } = require('../controllers/userController');
 const { validateRegister, validateLogin } = require('../middleware/validateRequest');
@@ -41,6 +43,12 @@ router.post('/resend-otp', otpRateLimiter, resendOtp);
 
 // POST /api/auth/login
 router.post('/login', validateLogin, loginUser);
+
+// POST /api/auth/forgot-password (request password reset OTP & 1-click token)
+router.post('/forgot-password', otpRateLimiter, forgotPassword);
+
+// POST /api/auth/reset-password (verify token/OTP and update password)
+router.post('/reset-password', resetPassword);
 
 // GET /api/auth/me — Session restore / verify current user profile
 router.get('/me', protect, getMyProfile);

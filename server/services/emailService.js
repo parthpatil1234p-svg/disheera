@@ -341,8 +341,141 @@ Autonomous Career GPS & Verified Talent Operating System
   });
 }
 
+/**
+ * Sends a high-security Password Reset email with both a 1-click reset button and 6-digit OTP.
+ * Anti-Spam & Deliverability Optimized for Gmail, Outlook, Apple Mail, and corporate firewalls.
+ *
+ * @param {Object} params
+ * @param {string} params.toEmail - Recipient email address
+ * @param {string} [params.name] - Recipient name
+ * @param {string} [params.resetToken] - 32-byte hex token for 1-click link
+ * @param {string} [params.otpCode] - 6-digit numeric OTP code
+ * @param {string} [params.clientUrl] - Base client URL
+ * @param {number} [params.validMinutes=15] - Expiration in minutes
+ * @returns {Promise<{success: boolean, messageId?: string, trackingId?: string, error?: string}>}
+ */
+async function sendPasswordResetEmail({
+  toEmail,
+  name,
+  resetToken = '',
+  otpCode = '',
+  clientUrl,
+  validMinutes = 15,
+}) {
+  if (!toEmail) {
+    return { success: false, error: 'Recipient email is required.' };
+  }
+
+  const resolvedClientUrl = (
+    clientUrl ||
+    (process.env.NODE_ENV === 'production' && process.env.PROD_CLIENT_URL) ||
+    process.env.PROD_CLIENT_URL ||
+    process.env.CLIENT_URL ||
+    'https://disheera.site'
+  ).replace(/\/$/, '');
+
+  const recipientName = name ? name.trim().split(' ')[0] : 'Learner';
+  const resetLink = `${resolvedClientUrl}/reset-password.html?token=${encodeURIComponent(resetToken)}&email=${encodeURIComponent(toEmail)}`;
+
+  const subject = otpCode
+    ? `🔒 ${otpCode} is your Disheera password reset code`
+    : `🔒 Reset your Disheera password`;
+
+  const htmlContent = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disheera - Password Reset</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #F8FAFC; color: #0F172A; margin: 0; padding: 24px 16px; }
+      .container { max-width: 520px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 32px 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+      .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F1F5F9; padding-bottom: 16px; margin-bottom: 22px; }
+      .brand { font-size: 21px; font-weight: 800; color: #3B1A6E; letter-spacing: -0.5px; }
+      .brand span { color: #0D9488; }
+      .security-badge { background: #FEF2F2; color: #DC2626; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid #FECACA; display: inline-block; }
+      .title { font-size: 20px; font-weight: 800; color: #1E293B; margin-bottom: 12px; }
+      .desc { font-size: 14.5px; line-height: 1.6; color: #475569; margin-bottom: 20px; }
+      .otp-card { background: #F8FAFC; border: 2px dashed #94A3B8; border-radius: 10px; text-align: center; padding: 20px 16px; margin: 20px 0; }
+      .otp-label { font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+      .otp-code { font-family: 'Courier New', Courier, monospace; font-size: 34px; font-weight: 900; letter-spacing: 8px; color: #1E1B4B; margin: 0; }
+      .expiry { font-size: 12px; color: #64748B; margin-top: 8px; font-weight: 500; }
+      .btn-cta { display: block; text-align: center; background: #3B1A6E; color: #FFFFFF !important; text-decoration: none; font-size: 15px; font-weight: 700; padding: 14px 24px; border-radius: 10px; box-shadow: 0 4px 14px rgba(59, 26, 110, 0.3); margin: 22px 0 16px 0; }
+      .link-box { background: #F1F5F9; border-radius: 6px; padding: 10px 12px; font-family: monospace; font-size: 11.5px; color: #334155; word-break: break-all; margin-top: 14px; }
+      .notice-box { background: #FFFBEB; border-left: 4px solid #F59E0B; padding: 12px 14px; font-size: 12.5px; color: #92400E; border-radius: 4px; margin: 20px 0; line-height: 1.5; }
+      .footer { border-top: 1px solid #E2E8F0; padding-top: 18px; font-size: 11.5px; color: #94A3B8; text-align: center; line-height: 1.5; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand">Dishe<span>era</span></div>
+        <div class="security-badge">🔒 Password Reset</div>
+      </div>
+
+      <div class="title">Reset Your Password</div>
+      <p class="desc">
+        Hi <strong>${recipientName}</strong>,<br>
+        We received a request to reset the password for your Disheera account. Use the one-time code or click the button below to choose a new password:
+      </p>
+
+      ${otpCode ? `
+      <div class="otp-card">
+        <div class="otp-label">Single-Use Security Code</div>
+        <div class="otp-code">${otpCode}</div>
+        <div class="expiry">Valid for ${validMinutes} minutes · Never share this code with anyone</div>
+      </div>
+      ` : ''}
+
+      <a href="${resetLink}" class="btn-cta">
+        Reset My Password &rarr;
+      </a>
+
+      <div class="notice-box">
+        ⏱️ <strong>Valid for ${validMinutes} minutes.</strong> If you did not request a password reset, you can safely ignore this email. Your password will remain unchanged and your account is secure.
+      </div>
+
+      <p style="font-size: 12px; color: #64748B; margin: 0 0 6px;">If the button above doesn't work, copy and paste this link into your browser:</p>
+      <div class="link-box">${resetLink}</div>
+
+      <div class="footer">
+        Disheera Technologies Inc. · Next-Gen Career Navigation Platform<br>
+        Autonomous Career GPS &amp; Verified Talent Operating System
+      </div>
+    </div>
+  </body>
+  </html>
+  `;
+
+  const textContent = `
+Disheera - Password Reset Request
+
+Hi ${recipientName},
+
+We received a request to reset your password for your Disheera account.
+
+${otpCode ? `Your 6-digit Reset Security Code is: ${otpCode}\n\n` : ''}Reset your password by visiting this link:
+${resetLink}
+
+This link is valid for ${validMinutes} minutes. If you did not request this, please ignore this email.
+
+--
+Disheera Technologies Inc.
+Autonomous Career GPS & Verified Talent Operating System
+`;
+
+  return sendEmail({
+    to: toEmail,
+    subject,
+    html: htmlContent,
+    text: textContent,
+  });
+}
+
 module.exports = {
   sendOtpEmail,
+  sendPasswordResetEmail,
   sendInactivityNudgeEmail,
   sendEmail,
   isEmailConfigured,

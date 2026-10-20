@@ -15,7 +15,7 @@
 
 const User          = require('../models/User');
 const generateToken = require('../utils/generateToken');
-const { sendOtpEmail, isEmailConfigured: isEmailServiceConfigured } = require('../services/emailService');
+const { sendOtpEmail, sendPasswordResetEmail, isEmailConfigured: isEmailServiceConfigured } = require('../services/emailService');
 const whatsappService = require('../services/whatsappService');
 const { exchangeOAuthCode, fetchGitHubData, analyzeGitHubRepos } = require('../services/githubService');
 const pendingSignupStore = require('../data/pendingSignupStore');
@@ -1200,6 +1200,152 @@ const getGitHubConfig = (req, res) => {
   });
 };
 
+// ── forgotPassword ────────────────────────────────────────────
+/**
+ * POST /api/auth/forgot-password
+ * Body: { email }
+ * Dispatches secure password reset token and 6-digit OTP code to the user's email.
+ */
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email || typeof email !== 'string') {
+      return res.status(400).json({
+        success: false,
+        message: 'A valid email address is required.',
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const user = await User.findOne({ email: normalizedEmail });
+
+    // Anti-enumeration: If user does not exist, return generic success message without leaking account presence
+    if (!user) {
+      return res.status(200).json({
+        success: true,
+        message: 'If an account is associated with that email, password reset instructions have been sent.',
+      });
+    }
+
+    // Generate 32-byte secure hex token for 1-click URL & 6-digit OTP code for manual entry
+    const crypto = require('crypto');
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+
+    const currentVerification = user.verificationOtp && typeof user.verificationOtp === 'object'
+      ? user.verificationOtp
+      : {};
+
+    user.verificationOtp = {
+      ...currentVerification,
+      resetPasswordToken: resetToken,
+      resetPasswordOtp: resetOtp,
+      resetExpiresAt: expiresAt,
+    };
+    await user.save();
+
+    // Determine client URL
+    const origin = req.headers.origin || (req.headers.referer ? new URL(req.headers.referer).origin : null);
+    const clientUrl = origin || process.env.PROD_CLIENT_URL || process.env.CLIENT_URL || 'https://disheera.site';
+
+    // Dispatch via Dakly Email API
+    const mailRes = await sendPasswordResetEmail({
+      toEmail: normalizedEmail,
+      name: user.name,
+      resetToken,
+      otpCode: resetOtp,
+      clientUrl,
+      validMinutes: 15,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password reset instructions and verification code have been sent to your email.',
+      trackingId: mailRes?.trackingId,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// ── resetPassword ─────────────────────────────────────────────
+/**
+ * POST /api/auth/reset-password
+ * Body: { email, token, otp, newPassword }
+ * Validates reset token or OTP code, updates user password, and clears reset credentials.
+ */
+const resetPassword = async (req, res, next) => {
+  try {
+    const { email, token, otp, newPassword } = req.body;
+
+    if (!email || (!token && !otp) || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email, reset code or token, and new password are required.',
+      });
+    }
+
+    if (typeof newPassword !== 'string' || newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'New password must be at least 6 characters long.',
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const user = await User.findOne({ email: normalizedEmail }).select('+password');
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid or expired password reset request.',
+      });
+    }
+
+    const verificationData = user.verificationOtp && typeof user.verificationOtp === 'object'
+      ? user.verificationOtp
+      : {};
+
+    const { resetPasswordToken, resetPasswordOtp, resetExpiresAt } = verificationData;
+
+    if (!resetExpiresAt || new Date() > new Date(resetExpiresAt)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password reset code or link has expired. Please request a new one.',
+      });
+    }
+
+    const isTokenMatch = token && resetPasswordToken && token.trim() === resetPasswordToken.trim();
+    const isOtpMatch = otp && resetPasswordOtp && String(otp).trim() === String(resetPasswordOtp).trim();
+
+    if (!isTokenMatch && !isOtpMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid reset code or token. Please check the code in your email and try again.',
+      });
+    }
+
+    // Update password (UserDocument.save automatically salts & hashes with bcrypt)
+    user.password = newPassword;
+    user.isVerified = true;
+    user.verificationOtp = {
+      ...verificationData,
+      resetPasswordToken: null,
+      resetPasswordOtp: null,
+      resetExpiresAt: null,
+    };
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Your password has been reset successfully! You can now log in with your new password.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   formatUser,
   registerUser,
@@ -1213,4 +1359,6 @@ module.exports = {
   getGitHubConfig,
   generateDualOtps,
   isDisposableEmail,
+  forgotPassword,
+  resetPassword,
 };
