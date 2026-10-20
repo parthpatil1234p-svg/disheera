@@ -328,13 +328,15 @@
 }
 
 #roadmap-path {
-  height: 300px;
+  height: auto;
+  min-height: auto;
   width: 100%;
 }
 
 @media (min-width: 992px) {
   #roadmap-path {
-    height: 360px;
+    height: auto;
+    min-height: auto;
   }
 }
 

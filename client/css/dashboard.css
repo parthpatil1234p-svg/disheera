@@ -271,6 +271,7 @@
   gap: 0.45rem !important;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
   white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 .btn-profile-primary:hover {
@@ -296,6 +297,7 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   text-decoration: none !important;
   white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 .btn-profile-secondary:hover {
@@ -492,47 +494,73 @@
   color: var(--color-success) !important;
 }
 
-/* Badge Types & Priorities */
-.badge-type-concept {
-  background: #F0F9FF;
-  color: #0369A1;
-  border: 1px solid #BAE6FD;
+/* Badge Types & Priorities — High-Contrast Light Theme System */
+.badge-type-concept,
+.badge-type-learn,
+.badge-type-theory,
+.badge-type-study {
+  background: #EFF6FF !important;
+  color: #1D4ED8 !important;
+  border: 1px solid #BFDBFE !important;
+  font-weight: 700 !important;
 }
 
-.badge-type-practical {
-  background: var(--color-surface-cyan);
-  color: var(--color-cyan-700);
-  border: 1px solid #A5F3FC;
+.badge-type-practical,
+.badge-type-practice,
+.badge-type-exercise,
+.badge-type-lab {
+  background: #F0FDF4 !important;
+  color: #15803D !important;
+  border: 1px solid #BBF7D0 !important;
+  font-weight: 700 !important;
 }
 
-.badge-type-project {
-  background: var(--color-warning-bg);
-  color: var(--color-warning);
-  border: 1px solid #FDE68A;
+.badge-type-project,
+.badge-type-build,
+.badge-type-capstone {
+  background: #FFFBEB !important;
+  color: #B45309 !important;
+  border: 1px solid #FDE68A !important;
+  font-weight: 700 !important;
 }
 
-.badge-type-assessment {
-  background: var(--color-danger-bg);
-  color: var(--color-danger);
-  border: 1px solid #FECACA;
+.badge-type-assessment,
+.badge-type-quiz,
+.badge-type-test,
+.badge-type-exam {
+  background: #FEF2F2 !important;
+  color: #B91C1C !important;
+  border: 1px solid #FECACA !important;
+  font-weight: 700 !important;
+}
+
+.badge-type-milestone,
+.badge-type-assignment {
+  background: #FAF5FF !important;
+  color: #7E22CE !important;
+  border: 1px solid #E9D5FF !important;
+  font-weight: 700 !important;
 }
 
 .badge-priority-high {
-  background: var(--color-danger-bg);
-  color: var(--color-danger);
-  border: 1px solid #FECACA;
+  background: #FEF2F2 !important;
+  color: #DC2626 !important;
+  border: 1px solid #FECACA !important;
+  font-weight: 700 !important;
 }
 
 .badge-priority-medium {
-  background: var(--color-warning-bg);
-  color: var(--color-warning);
-  border: 1px solid #FDE68A;
+  background: #FFFBEB !important;
+  color: #D97706 !important;
+  border: 1px solid #FDE68A !important;
+  font-weight: 700 !important;
 }
 
 .badge-priority-low {
-  background: var(--color-success-bg);
-  color: var(--color-success);
-  border: 1px solid #BBF7D0;
+  background: #F0FDF4 !important;
+  color: #16A34A !important;
+  border: 1px solid #BBF7D0 !important;
+  font-weight: 700 !important;
 }
 
 /* Desktop UX Enhancements */

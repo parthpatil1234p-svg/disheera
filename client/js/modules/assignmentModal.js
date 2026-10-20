@@ -24,6 +24,16 @@
 
   const MODAL_ID = 'weeklyAssignmentModal';
 
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   /**
    * Builds and injects the modal markup into the DOM if not present.
    */
@@ -505,15 +515,40 @@
         // Questions
         const questionsList = document.getElementById('wamQuestionsList');
         if (a.questions && Array.isArray(a.questions)) {
-          questionsList.innerHTML = a.questions.map((q, idx) => `
-            <div class="p-3.5 rounded-3 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);">
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="badge font-monospace" style="background: #EFF6FF; color: #2563EB; border: 1px solid #DBEAFE; font-weight: 600;">Question ${idx + 1} (${q.marks || 5} Marks)</span>
+          questionsList.innerHTML = a.questions.map((q, idx) => {
+            const questionText = q.prompt || q.problemStatement || q.question || q.description || q.title || 'Practical problem statement for weekly submission.';
+            const rawType = q.type || 'problem_derivation';
+            const formattedType = rawType.replace(/_/g, ' ').toUpperCase();
+            const marksVal = q.marks !== undefined ? q.marks : 3.5;
+            const keywords = Array.isArray(q.expectedKeywords) ? q.expectedKeywords : (Array.isArray(q.keywords) ? q.keywords : []);
+
+            return `
+              <div class="p-3.5 rounded-3 bg-white mb-2" style="border: 1.5px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);">
+                <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="badge font-monospace" style="background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; font-weight: 700; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px;">
+                      Question ${q.qNumber || idx + 1} (${marksVal} Marks)
+                    </span>
+                    <span class="badge bg-light text-secondary border font-monospace" style="font-size: 0.7rem; font-weight: 600; padding: 4px 8px; border-radius: 6px;">
+                      ${escapeHtml(formattedType)}
+                    </span>
+                  </div>
+                  <span class="small text-muted font-monospace"><i class="bi bi-shield-check text-success me-1"></i>Rigorous Collegiate Standard</span>
+                </div>
+                <div class="mb-2 text-secondary" style="color: #1E293B !important; font-size: 0.92rem; font-weight: 500; line-height: 1.6;">
+                  ${escapeHtml(questionText)}
+                </div>
+                ${keywords.length > 0 ? `
+                  <div class="pt-2 mt-2 border-top border-light d-flex align-items-center gap-1.5 flex-wrap">
+                    <span class="small text-muted fw-semibold me-1" style="font-size: 0.74rem;">
+                      <i class="bi bi-key-fill text-warning me-1"></i>Key Evaluation Benchmarks:
+                    </span>
+                    ${keywords.map(k => `<span class="badge bg-white text-secondary border" style="font-size: 0.72rem; font-weight: 500; border-color: #E2E8F0 !important; padding: 3px 8px; border-radius: 4px;"><i class="bi bi-check2 text-primary me-1"></i>${escapeHtml(k)}</span>`).join('')}
+                  </div>
+                ` : ''}
               </div>
-              <h6 class="fw-bold mb-2" style="color: #0F172A;">${q.problemStatement || q.title || 'Problem Description'}</h6>
-              ${q.requirements ? `<p class="small text-muted mb-0"><strong class="text-secondary">Requirements:</strong> ${q.requirements}</p>` : ''}
-            </div>
-          `).join('');
+            `;
+          }).join('');
         }
 
         // Submissions Status

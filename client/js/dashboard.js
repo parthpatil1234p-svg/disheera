@@ -262,6 +262,24 @@ document.addEventListener('DOMContentLoaded', async () => {
                  </a>`
               : '';
 
+            // Infer or normalize task type & priority for solid contrast badges
+            const rawType = (task.type || '').trim().toLowerCase();
+            let taskType = rawType;
+            if (!taskType) {
+              const tLower = (task.title || '').toLowerCase();
+              if (tLower.includes('project') || tLower.includes('build') || tLower.includes('dashboard') || tLower.includes('portfolio') || tLower.includes('app') || tLower.includes('deploy')) {
+                taskType = 'project';
+              } else if (tLower.includes('quiz') || tLower.includes('test') || tLower.includes('exam') || tLower.includes('assessment')) {
+                taskType = 'quiz';
+              } else if (tLower.includes('practice') || tLower.includes('exercise') || tLower.includes('lab') || tLower.includes('workflow') || tLower.includes('git') || tLower.includes('setup')) {
+                taskType = 'practice';
+              } else {
+                taskType = 'learn';
+              }
+            }
+
+            const priorityVal = (task.priority || 'medium').trim().toLowerCase();
+
             return `
               <div class="dashboard-task-item d-flex align-items-center justify-content-between gap-3 flex-wrap ${task.completed ? 'is-completed' : ''}" data-task-id="${task._id}">
                 <div class="d-flex align-items-center gap-3 flex-grow-1" style="min-width: 0;">
@@ -276,14 +294,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="fw-semibold small task-title mb-0" style="color: var(--ink);">
                       Week ${task.weekNumber}: ${escapeHtml(task.title)}
                     </div>
-                    <div class="d-flex align-items-center gap-2 mt-1 flex-wrap">
-                      <span class="badge badge-type-${task.type} text-uppercase font-monospace" style="font-size: 0.75rem;">
-                        ${escapeHtml(task.type)}
+                    <div class="d-flex align-items-center gap-2 mt-1.5 flex-wrap">
+                      <span class="badge badge-type-${taskType} text-uppercase font-monospace px-2 py-1" style="font-size: 0.72rem; letter-spacing: 0.04em; border-radius: 6px;">
+                        ${escapeHtml(taskType)}
                       </span>
-                      <span class="badge badge-priority-${task.priority}" style="font-size: 0.75rem;">
-                        ${escapeHtml(task.priority)}
+                      <span class="badge badge-priority-${priorityVal} text-capitalize px-2 py-1" style="font-size: 0.72rem; border-radius: 6px;">
+                        ${escapeHtml(priorityVal)}
                       </span>
-                      <span class="text-secondary" style="font-size: 0.75rem; font-family: var(--font-mono);">
+                      <span class="text-secondary fw-semibold" style="font-size: 0.75rem; font-family: var(--font-mono);">
                         <i class="bi bi-clock me-1"></i>${task.estimatedHours || 2}h
                       </span>
                     </div>
@@ -1959,7 +1977,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       if (readinessTargetRoleText) {
-        readinessTargetRoleText.innerHTML = `Target Role: <strong class="text-white">${escapeHtml(data.targetRole || 'Software Engineer')}</strong> · Weighted composite score derived from verified skills, roadmap progress, resume ATS compliance, and AI mock interview simulations.`;
+        readinessTargetRoleText.innerHTML = `Target Role: <strong class="text-ink fw-bold" style="color: #0F172A !important;">${escapeHtml(data.targetRole || 'Software Engineer')}</strong> · Weighted composite score derived from verified skills, roadmap progress, resume ATS compliance, and AI mock interview simulations.`;
       }
 
       // Breakdown metrics
@@ -2083,12 +2101,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (btnViewCertificate) {
         if (isJobReady) {
           btnViewCertificate.className = 'btn btn-warning btn-sm px-3 py-1.5 fw-semibold shadow-sm';
+          btnViewCertificate.style.cssText = '';
           btnViewCertificate.innerHTML = '<i class="bi bi-award-fill me-1"></i> View Career Certificate (Unlocked ✓)';
           btnViewCertificate.setAttribute('data-bs-toggle', 'modal');
           btnViewCertificate.setAttribute('data-bs-target', '#certificateModal');
           btnViewCertificate.onclick = null;
         } else {
-          btnViewCertificate.className = 'btn btn-outline-light btn-sm px-3 py-1.5 fw-semibold';
+          btnViewCertificate.className = 'btn btn-outline-secondary btn-sm px-3 py-1.5 fw-semibold';
+          btnViewCertificate.style.cssText = 'color: #475569 !important; border-color: #CBD5E1 !important; background: #FFFFFF !important;';
           btnViewCertificate.innerHTML = `<i class="bi bi-shield-lock me-1"></i> Certificate Locked (${4 - missingCriteria.length}/4 Criteria)`;
           btnViewCertificate.removeAttribute('data-bs-toggle');
           btnViewCertificate.removeAttribute('data-bs-target');
