@@ -13,8 +13,10 @@ const {
   getWeeklyAssignment,
   downloadCoverTemplate,
   submitAssignment,
+  evaluateSubmissionEndpoint,
   getMySubmissions,
-  downloadSubmissionPdf
+  downloadSubmissionPdf,
+  downloadEvaluationSheet
 } = require('../controllers/assignmentController');
 
 // All assignment endpoints require authentication and student role (or admin)
@@ -26,13 +28,19 @@ router.get('/week/:weekNumber', getWeeklyAssignment);
 // 2. Download personalized 1-page Part A Cover Page PDF
 router.get('/template', downloadCoverTemplate);
 
-// 3. Submit standardized assignment PDF (Part A + Part B)
+// 3. Submit standardized assignment PDF (Part A + Part B) & trigger auto-grader
 router.post('/submit', submitAssignment);
 
-// 4. View personal submission history & marks
+// 4. Trigger on-demand AI evaluation / re-grading
+router.post('/:id/evaluate', evaluateSubmissionEndpoint);
+
+// 5. View personal submission history & marks
 router.get('/my-submissions', getMySubmissions);
 
-// 5. Download / view submitted assignment PDF
+// 6. Download / view submitted assignment PDF
 router.get('/download/:submissionId', downloadSubmissionPdf);
+
+// 7. Download Part C Official Stamped Evaluation Sheet PDF
+router.get('/eval-sheet/:submissionId', downloadEvaluationSheet);
 
 module.exports = router;

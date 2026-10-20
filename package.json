@@ -28,7 +28,8 @@
     "test:admin-phase2": "node tests/admin_phase2_verification_test.js",
     "test:email": "node server/scripts/testEmail.js",
     "test:assignments": "node tests/assignment_phase1_verification_test.js",
-    "seed:assignments": "node server/prisma/seedAssignments.js"
+    "seed:assignments": "node server/prisma/seedAssignments.js",
+    "test:assignments-phase2": "node tests/assignment_phase2_verification_test.js"
   },
   "keywords": [
     "careerpath",

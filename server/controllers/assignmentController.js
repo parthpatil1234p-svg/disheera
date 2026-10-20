@@ -1,11 +1,12 @@
 /**
  * controllers/assignmentController.js — Weekly Assignments & PDF Submission Controller (Plan 46)
  *
- * Implements Phase 1 of Plan 46:
+ * Implements Phase 1 & Phase 2 of Plan 46:
  * - Fetch weekly collegiate assignments, 4D rubrics, and learning outcomes
  * - Generate and download standardized 1-page Cover Sheets (Part A)
  * - Multipart & Base64 PDF submission pipeline with page-count & magic-byte validation
- * - Student submission history tracking
+ * - AI Dual-Layer Multimodal Auto-Grading & Anti-AI Content Shield invocation
+ * - Part C Official Evaluation Sheet downloads and student history tracking
  *
  * Disheera Technologies Inc.
  */
@@ -14,6 +15,8 @@ const fs = require('fs');
 const path = require('path');
 const { prisma } = require('../config/prisma');
 const { generateCoverPagePdf } = require('../services/assignmentTemplateService');
+const { evaluateSubmission } = require('../services/assignmentAiGraderService');
+const { generateEvaluationSheetPdf } = require('../services/assignmentFeedbackService');
 const { PDFParse } = require('pdf-parse');
 
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads', 'assignments');
@@ -147,7 +150,8 @@ const getWeeklyAssignment = async (req, res, next) => {
             pageCount: existingSubmission.pageCount,
             fileSizeBytes: existingSubmission.fileSizeBytes,
             submittedAt: existingSubmission.submittedAt,
-            pdfUrl: `/api/assignments/download/${existingSubmission.id}`
+            pdfUrl: `/api/assignments/download/${existingSubmission.id}`,
+            evalSheetUrl: `/api/assignments/eval-sheet/${existingSubmission.id}`
           }
         : null
     });
@@ -209,7 +213,7 @@ const downloadCoverTemplate = async (req, res, next) => {
 
 /**
  * POST /api/assignments/submit
- * Handles PDF submission, page validation, file persistence, and database record creation.
+ * Handles PDF submission, page validation, file persistence, and automatic AI grading trigger.
  */
 const submitAssignment = async (req, res, next) => {
   try {
@@ -406,20 +410,76 @@ const submitAssignment = async (req, res, next) => {
       console.warn('[assignmentController.submit] RoadmapTask link warning:', taskErr.message);
     }
 
+    // 8. Trigger Phase 2 Dual-Layer AI Evaluation (Multimodal Gemini + Anti-AI Shield)
+    let evaluationResult = null;
+    try {
+      evaluationResult = await evaluateSubmission(submission.id);
+    } catch (evalErr) {
+      console.warn('[assignmentController.submit] AI Auto-Grader async evaluation note:', evalErr.message);
+    }
+
+    const currentStatus = evaluationResult ? evaluationResult.status : submission.status;
+    const finalScore = evaluationResult ? evaluationResult.finalScore : submission.finalScore;
+    const aiScore = evaluationResult ? evaluationResult.rawScore : submission.aiScore;
+
     return res.status(201).json({
       success: true,
-      message: 'Assignment successfully submitted! AI Multimodal Grading pipeline queued for evaluation.',
+      message: currentStatus === 'FLAGGED_AI'
+        ? 'Assignment received! High AI writing generation was detected; submission is flagged for human administrative review.'
+        : 'Assignment successfully submitted and officially evaluated!',
       submission: {
         id: submission.id,
         assignmentId: submission.assignmentId,
         weekNumber: submission.weekNumber,
-        status: submission.status,
+        status: currentStatus,
         pageCount: submission.pageCount,
         fileSizeBytes: submission.fileSizeBytes,
+        aiScore,
+        finalScore,
+        aiDetected: evaluationResult?.antiAi?.aiDetected ?? false,
+        aiProbability: evaluationResult?.antiAi?.aiProbability ?? 0.0,
+        aiReasons: evaluationResult?.antiAi?.aiReasons ?? [],
+        aiFeedback: evaluationResult?.feedback ?? null,
+        rubricBreakdown: evaluationResult?.rubricBreakdown ?? null,
         pdfUrl: `/api/assignments/download/${submission.id}`,
+        evalSheetUrl: `/api/assignments/eval-sheet/${submission.id}`,
         submittedAt: submission.submittedAt
       }
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * POST /api/assignments/:id/evaluate
+ * Triggers on-demand AI re-evaluation for a submission (admin or student owner).
+ */
+const evaluateSubmissionEndpoint = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const submission = await prisma.assignmentSubmission.findUnique({
+      where: { id }
+    });
+
+    if (!submission) {
+      return res.status(404).json({
+        success: false,
+        message: 'Assignment submission dossier not found.'
+      });
+    }
+
+    const isOwner = submission.userId === req.user.id;
+    const isAdmin = req.user.role === 'admin' || req.user.isAdmin;
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied: You are not authorized to evaluate this dossier.'
+      });
+    }
+
+    const result = await evaluateSubmission(id);
+    return res.status(200).json(result);
   } catch (err) {
     next(err);
   }
@@ -465,7 +525,8 @@ const getMySubmissions = async (req, res, next) => {
       adminFeedback: s.adminFeedback,
       submittedAt: s.submittedAt,
       reviewedAt: s.reviewedAt,
-      pdfDownloadUrl: `/api/assignments/download/${s.id}`
+      pdfDownloadUrl: `/api/assignments/download/${s.id}`,
+      evalSheetUrl: `/api/assignments/eval-sheet/${s.id}`
     }));
 
     return res.status(200).json({
@@ -498,7 +559,6 @@ const downloadSubmissionPdf = async (req, res, next) => {
       });
     }
 
-    // Security check: Only the owner or an admin can access the submission
     const isOwner = submission.userId === req.user.id;
     const isAdmin = req.user.role === 'admin' || req.user.isAdmin;
     if (!isOwner && !isAdmin) {
@@ -508,7 +568,6 @@ const downloadSubmissionPdf = async (req, res, next) => {
       });
     }
 
-    // Resolve file from disk
     const filename = submission.pdfUrl.split('/').pop();
     const filePath = path.join(UPLOADS_DIR, filename);
 
@@ -531,10 +590,75 @@ const downloadSubmissionPdf = async (req, res, next) => {
   }
 };
 
+/**
+ * GET /api/assignments/eval-sheet/:submissionId
+ * Streams the Part C Official Evaluation Sheet PDF.
+ */
+const downloadEvaluationSheet = async (req, res, next) => {
+  try {
+    const { submissionId } = req.params;
+
+    const submission = await prisma.assignmentSubmission.findUnique({
+      where: { id: submissionId },
+      include: {
+        assignment: true,
+        user: true
+      }
+    });
+
+    if (!submission) {
+      return res.status(404).json({
+        success: false,
+        message: 'Evaluation dossier not found for specified submission ID.'
+      });
+    }
+
+    const isOwner = submission.userId === req.user.id;
+    const isAdmin = req.user.role === 'admin' || req.user.isAdmin;
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied: You are not authorized to view this evaluation sheet.'
+      });
+    }
+
+    const evalFilePath = path.join(UPLOADS_DIR, `eval_${submission.id}.pdf`);
+    if (fs.existsSync(evalFilePath)) {
+      const stat = fs.statSync(evalFilePath);
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Length', stat.size);
+      res.setHeader('Content-Disposition', `inline; filename="Part_C_Evaluation_Week_${submission.weekNumber}.pdf"`);
+      const stream = fs.createReadStream(evalFilePath);
+      return stream.pipe(res);
+    }
+
+    // If file doesn't exist on disk yet, generate dynamically
+    const pdfBuf = await generateEvaluationSheetPdf({
+      submission,
+      assignment: submission.assignment,
+      user: submission.user,
+      antiAiResult: {
+        aiProbability: submission.aiProbability,
+        aiReasons: submission.aiDetectionReasons
+      },
+      rubricBreakdown: submission.aiRubricBreakdown || {}
+    });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Length', pdfBuf.length);
+    res.setHeader('Content-Disposition', `inline; filename="Part_C_Evaluation_Week_${submission.weekNumber}.pdf"`);
+    return res.end(pdfBuf);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getWeeklyAssignment,
   downloadCoverTemplate,
   submitAssignment,
+  evaluateSubmissionEndpoint,
   getMySubmissions,
-  downloadSubmissionPdf
+  downloadSubmissionPdf,
+  downloadEvaluationSheet
 };
