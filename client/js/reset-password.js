@@ -238,7 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
           startOtpCountdown(res.expiresInMinutes || 5, res.expiresAt);
           showAlert(res.message || 'Verification code sent to your email (valid for 5 minutes)! Please check your inbox.', 'success');
         } else {
-          showAlert(res.message || 'Unable to process reset request. Please try again.', 'danger');
+          const alertType = res.code === 'PASSWORD_RESET_COOLDOWN' ? 'warning' : 'danger';
+          showAlert(res.message || 'Unable to process reset request. Please try again.', alertType);
         }
       } catch (err) {
         showAlert(err.message || 'Failed to connect to server. Please try again.', 'danger');
@@ -267,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
           startOtpCountdown(res.expiresInMinutes || 5, res.expiresAt);
           showAlert(res.message || 'A fresh reset code has been sent to your email (valid for 5 minutes)!', 'success');
         } else {
-          showAlert(res.message || 'Failed to resend code.', 'danger');
+          const alertType = res.code === 'PASSWORD_RESET_COOLDOWN' ? 'warning' : 'danger';
+          showAlert(res.message || 'Failed to resend code.', alertType);
         }
       } catch (err) {
         showAlert(err.message || 'Error requesting new code.', 'danger');
@@ -372,7 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
               btnResendCode.classList.add('fw-bold', 'text-danger');
             }
           }
-          showAlert(res.message || 'Failed to reset password. Please verify the code and try again.', 'danger');
+          const alertType = res.code === 'PASSWORD_RESET_COOLDOWN' ? 'warning' : 'danger';
+          showAlert(res.message || 'Failed to reset password. Please verify the code and try again.', alertType);
         }
       } catch (err) {
         showAlert(err.message || 'Unable to update password. Please check your code and try again.', 'danger');

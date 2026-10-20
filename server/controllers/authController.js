@@ -1227,6 +1227,25 @@ const forgotPassword = async (req, res, next) => {
       });
     }
 
+    const currentVerification = user.verificationOtp && typeof user.verificationOtp === 'object'
+      ? user.verificationOtp
+      : {};
+
+    // ── 30-Minute Cooldown Guard: Only 1 password reset allowed per 30 minutes ──
+    const RESET_COOLDOWN_MS = 30 * 60 * 1000; // 30 minutes
+    if (currentVerification.lastPasswordResetAt) {
+      const elapsedMs = Date.now() - new Date(currentVerification.lastPasswordResetAt).getTime();
+      if (elapsedMs < RESET_COOLDOWN_MS) {
+        const remainingMinutes = Math.ceil((RESET_COOLDOWN_MS - elapsedMs) / 60000);
+        return res.status(429).json({
+          success: false,
+          code: 'PASSWORD_RESET_COOLDOWN',
+          message: `You have already reset your password recently. For account security, passwords can only be reset once every 30 minutes. Please wait ${remainingMinutes} more minute(s) before requesting another reset.`,
+          remainingMinutes,
+        });
+      }
+    }
+
     // Generate 32-byte secure hex token for 1-click URL & 6-digit OTP code for manual entry
     // Strict 5-minute expiry time limit
     const crypto = require('crypto');
@@ -1234,10 +1253,6 @@ const forgotPassword = async (req, res, next) => {
     const resetToken = crypto.randomBytes(32).toString('hex');
     const resetOtp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + RESET_PASSWORD_EXPIRY_MINUTES * 60 * 1000); // 5 mins
-
-    const currentVerification = user.verificationOtp && typeof user.verificationOtp === 'object'
-      ? user.verificationOtp
-      : {};
 
     user.verificationOtp = {
       ...currentVerification,
@@ -1319,7 +1334,23 @@ const resetPassword = async (req, res, next) => {
       resetExpiresAt,
       resetOtpUsed,
       resetFailedAttempts = 0,
+      lastPasswordResetAt,
     } = verificationData;
+
+    // ── 30-Minute Cooldown Guard: Only 1 password reset allowed per 30 minutes ──
+    const RESET_COOLDOWN_MS = 30 * 60 * 1000;
+    if (lastPasswordResetAt) {
+      const elapsedMs = Date.now() - new Date(lastPasswordResetAt).getTime();
+      if (elapsedMs < RESET_COOLDOWN_MS) {
+        const remainingMinutes = Math.ceil((RESET_COOLDOWN_MS - elapsedMs) / 60000);
+        return res.status(429).json({
+          success: false,
+          code: 'PASSWORD_RESET_COOLDOWN',
+          message: `You have already reset your password recently. For account security, passwords can only be reset once every 30 minutes. Please wait ${remainingMinutes} more minute(s).`,
+          remainingMinutes,
+        });
+      }
+    }
 
     // Strict Single-Use Policy: Reject if already consumed or burnt
     if (resetOtpUsed === true || (!resetPasswordToken && !resetPasswordOtp)) {
@@ -1377,6 +1408,7 @@ const resetPassword = async (req, res, next) => {
 
     // Update password (UserDocument.save automatically salts & hashes with bcrypt)
     // Burn credentials immediately so it can NEVER be reused (Strict Single-Use)
+    // Record lastPasswordResetAt: strictly enforce only 1 reset per 30 minutes
     user.password = newPassword;
     user.isVerified = true;
     user.verificationOtp = {
@@ -1386,6 +1418,7 @@ const resetPassword = async (req, res, next) => {
       resetExpiresAt: null,
       resetOtpUsed: true,
       resetOtpUsedAt: new Date(),
+      lastPasswordResetAt: new Date(),
       resetFailedAttempts: 0,
     };
     await user.save();
