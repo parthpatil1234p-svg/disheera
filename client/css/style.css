@@ -13854,3 +13854,94 @@ img {
 }
 
 
+
+/* --------------------------------------------------------------------------
+   Disheera Cumulative Merit Leaderboard Stepped 3D Podium (Light Theme)
+   -------------------------------------------------------------------------- */
+.cms-podium-stage-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  user-select: none;
+}
+
+.cms-podium-column {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cms-podium-column:hover {
+  transform: translateY(-3px);
+}
+
+.cms-pedestal-block {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+.cms-pedestal-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.cms-rank-watermark {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  letter-spacing: -2px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.cms-podium-base-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.cms-podium-base-stage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 575.98px) {
+  .cms-podium-stage-container {
+    gap: 4px;
+    padding-inline: 0 !important;
+  }
+  .cms-podium-column {
+    max-width: 32% !important;
+  }
+  .cms-winner-profile .rounded-circle {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1rem !important;
+  }
+  .cms-winner-profile h6,
+  .cms-winner-profile h5 {
+    font-size: 0.78rem !important;
+  }
+  .cms-pedestal-block {
+    height: 90px !important;
+  }
+  .cms-podium-column:nth-child(2) .cms-pedestal-block {
+    height: 120px !important;
+  }
+  .cms-rank-watermark {
+    font-size: 2rem !important;
+  }
+}
