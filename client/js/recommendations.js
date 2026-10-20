@@ -1106,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <i class="bi bi-check-circle-fill me-1"></i> Matched (${matchedSkills.length})
                   </span>
                 </div>
-                <div class="d-flex flex-wrap gap-1">
+                <div class="d-flex flex-wrap gap-1 gap-pill-container align-items-center">
                   ${
                     matchedSkills.length > 0
                       ? matchedSkills
@@ -1141,8 +1141,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                             const sName = s.displayName || s.name;
                             const logoHtml = window.TechLogos?.getLogoImg(sName, { size: 14, className: 'me-1' }) || '';
                             return `
-                              <span class="badge skill-pill matched-pill ${borderClass}" title="Proficiency: ${s.userProficiency} · Passport Tier: ${tier}">
-                                ${logoHtml || `<i class="bi ${verIcon}"></i>`} <span>${escapeHtml(sName)}</span> ${tierBadge}
+                              <span class="skill-pill matched-pill ${borderClass}" style="display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:9999px; font-size:0.78rem; font-weight:600; background-color:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; line-height:1.3; text-decoration:none;" title="Proficiency: ${s.userProficiency} · Passport Tier: ${tier}">
+                                ${logoHtml || `<i class="bi ${verIcon} me-1"></i>`} <span class="skill-pill-name" style="color:inherit;">${escapeHtml(sName)}</span> ${tierBadge}
                               </span>
                             `;
                           })
@@ -1161,7 +1161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <i class="bi bi-arrow-up-circle-fill me-1"></i> Developing (${weakSkills.length})
                   </span>
                 </div>
-                <div class="d-flex flex-wrap gap-1">
+                <div class="d-flex flex-wrap gap-1 gap-pill-container align-items-center">
                   ${
                     weakSkills.length > 0
                       ? weakSkills
@@ -1173,8 +1173,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                             const tierBadge = isQuizVer ? `<span class="passport-tier-badge badge-passport-t1 ms-1" style="font-size:0.58rem; padding: 1px 4px;"><i class="bi bi-shield-check"></i> Quiz</span>` : '';
                             const logoHtml = window.TechLogos?.getLogoImg(sName, { size: 14, className: 'me-1' }) || '';
                             return `
-                              <span class="badge skill-pill weak-pill" title="Current: ${s.userProficiency}, Required: ${s.requiredProficiency}${gapTooltip}">
-                                ${logoHtml || `<i class="bi bi-arrow-up"></i>`} <span>${escapeHtml(sName)}</span> ${tierBadge}
+                              <span class="skill-pill weak-pill" style="display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:9999px; font-size:0.78rem; font-weight:600; background-color:#FFFBEB; color:#92400E; border:1px solid #FDE68A; line-height:1.3; text-decoration:none;" title="Current: ${s.userProficiency}, Required: ${s.requiredProficiency}${gapTooltip}">
+                                ${logoHtml || `<i class="bi bi-arrow-up-circle-fill text-warning me-1"></i>`} <span class="skill-pill-name" style="color:inherit;">${escapeHtml(sName)}</span> ${tierBadge}
                                 ${hasGaps ? '<span class="badge bg-danger-subtle text-danger ms-1" style="font-size: 0.6rem; font-weight: 600;">Focus: ' + escapeHtml(s.quizGaps[0]) + '</span>' : ''}
                               </span>
                             `;
@@ -1194,7 +1194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <i class="bi bi-plus-circle-fill me-1"></i> Missing (${missingSkills.length})
                   </span>
                 </div>
-                <div class="d-flex flex-wrap gap-1">
+                <div class="d-flex flex-wrap gap-1 gap-pill-container align-items-center">
                   ${
                     missingSkills.length > 0
                       ? missingSkills
@@ -1203,8 +1203,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                               const sName = s.displayName || s.name;
                               const logoHtml = window.TechLogos?.getLogoImg(sName, { size: 14, className: 'me-1' }) || '';
                               return `
-                                <span class="badge skill-pill missing-pill" title="Required: ${s.requiredProficiency} (${s.importance} importance)">
-                                  ${logoHtml || `<i class="bi bi-plus"></i>`} <span>${escapeHtml(sName)}</span>
+                                <span class="skill-pill missing-pill" style="display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:9999px; font-size:0.78rem; font-weight:600; background-color:#FEF2F2; color:#991B1B; border:1px solid #FECACA; line-height:1.3; text-decoration:none;" title="Required: ${s.requiredProficiency} (${s.importance} importance)">
+                                  ${logoHtml || `<i class="bi bi-plus-circle-fill text-danger me-1"></i>`} <span class="skill-pill-name" style="color:inherit;">${escapeHtml(sName)}</span>
                                 </span>
                               `;
                             }

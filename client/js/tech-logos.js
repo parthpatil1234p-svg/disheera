@@ -252,6 +252,45 @@
     'pycharm': `${LOGO_BASE_PATH}/ides/pycharm.svg`,
     'phpstorm': `${LOGO_BASE_PATH}/ides/phpstorm.svg`,
     'datagrip': `${LOGO_BASE_PATH}/ides/datagrip.svg`,
+
+    // Web3, Blockchain, Ethereum & Smart Contracts
+    'solidity': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'solidity (smart contracts)': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'smart contracts': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'smart-contracts': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'smart contract architecture': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'smart contract': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'web3': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'web3js': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'web3.js': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'web3.js & ethers.js': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'ethers': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'ethers.js': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'blockchain': `${LOGO_BASE_PATH}/social-icons/ethereum.svg`,
+    'bitcoin': `${LOGO_BASE_PATH}/social-icons/bitcoin.svg`,
+
+    // Search Engine Optimization & Search
+    'baidu-seo': `${LOGO_BASE_PATH}/social-icons/baidu.svg`,
+    'baidu seo': `${LOGO_BASE_PATH}/social-icons/baidu.svg`,
+    'baidu': `${LOGO_BASE_PATH}/social-icons/baidu.svg`,
+    'technical-seo': `${LOGO_BASE_PATH}/custom/seo.svg`,
+    'technical seo': `${LOGO_BASE_PATH}/custom/seo.svg`,
+    'aeo': `${LOGO_BASE_PATH}/custom/seo.svg`,
+
+    // Testing & QA
+    'cypress': `${LOGO_BASE_PATH}/social-icons/codeberg.svg`,
+    'playwright': `${LOGO_BASE_PATH}/custom/api.svg`,
+    'selenium': `${LOGO_BASE_PATH}/custom/api.svg`,
+
+    // Streaming, Messaging & Caching
+    'kafka': `${LOGO_BASE_PATH}/databases/redis.svg`,
+    'rabbitmq': `${LOGO_BASE_PATH}/databases/redis.svg`,
+
+    // Game Engines
+    'unity': `${LOGO_BASE_PATH}/social-icons/ea.svg`,
+    'unreal': `${LOGO_BASE_PATH}/social-icons/ea.svg`,
+    'unreal-engine': `${LOGO_BASE_PATH}/social-icons/ea.svg`,
+    'unreal engine': `${LOGO_BASE_PATH}/social-icons/ea.svg`,
   };
 
   /**
@@ -276,9 +315,30 @@
     if (!key) return null;
     if (TECH_LOGO_MAP[key]) return TECH_LOGO_MAP[key];
 
+    // Strip parenthetical text, e.g. "Solidity (Smart Contracts)" -> "solidity"
+    const stripped = key.replace(/\(.*?\)/g, '').trim();
+    if (stripped && TECH_LOGO_MAP[stripped]) return TECH_LOGO_MAP[stripped];
+
+    // Check inside parenthetical text, e.g. "(Smart Contracts)" -> "smart contracts"
+    const parenMatch = key.match(/\((.*?)\)/);
+    if (parenMatch && parenMatch[1]) {
+      const inside = normalizeKey(parenMatch[1]);
+      if (inside && TECH_LOGO_MAP[inside]) return TECH_LOGO_MAP[inside];
+    }
+
+    // Split on compounds like '&', '/', 'and', or ','
+    const parts = key.split(/[\&,\/]|(?:\band\b)/).map(p => normalizeKey(p)).filter(Boolean);
+    for (const part of parts) {
+      if (TECH_LOGO_MAP[part]) return TECH_LOGO_MAP[part];
+    }
+
     // Try kebab case: e.g. "power-bi" or "power bi"
     const kebab = key.replace(/\s+/g, '-');
     if (TECH_LOGO_MAP[kebab]) return TECH_LOGO_MAP[kebab];
+    if (stripped) {
+      const strippedKebab = stripped.replace(/\s+/g, '-');
+      if (TECH_LOGO_MAP[strippedKebab]) return TECH_LOGO_MAP[strippedKebab];
+    }
 
     // Try without punctuation (e.g. "node.js" -> "nodejs", "c++" -> "cpp")
     const cleanKey = key.replace(/[\.\-_]/g, '');
@@ -313,7 +373,7 @@
       return '';
     }
 
-    return `<img src="${url}" alt="${alt}" width="${size}" height="${size}" class="tech-brand-logo ${className}" style="object-fit: contain; vertical-align: middle; flex-shrink: 0;" onerror="this.style.display='none'" />`;
+    return `<img src="${url}" alt="${alt}" width="${size}" height="${size}" class="tech-brand-logo ${className}" style="width:${size}px; height:${size}px; max-width:${size}px; max-height:${size}px; object-fit:contain; vertical-align:middle; flex-shrink:0; display:inline-block;" onerror="this.style.display='none'" />`;
   }
 
   // Export to window

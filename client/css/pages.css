@@ -1434,9 +1434,101 @@
   background: #FFFFFF;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 1.25rem;
+  padding: 1.15rem 1.25rem;
   height: 100%;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+.skill-gap-analysis .gap-column .gap-pill-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  align-content: flex-start;
+  flex-grow: 1;
+}
+
+.recommendations-page .skill-pill,
+.skill-gap-analysis .skill-pill,
+.gap-column .skill-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  max-width: 100% !important;
+  padding: 0.32rem 0.68rem !important;
+  border-radius: 9999px !important;
+  font-family: var(--font-body, inherit) !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  text-align: start !important;
+  white-space: nowrap !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+.recommendations-page .skill-pill:hover,
+.skill-gap-analysis .skill-pill:hover,
+.gap-column .skill-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08) !important;
+}
+
+.recommendations-page .skill-pill.matched-pill,
+.skill-gap-analysis .skill-pill.matched-pill,
+.gap-column .skill-pill.matched-pill {
+  color: #065F46 !important;
+  background-color: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+}
+
+.recommendations-page .skill-pill.weak-pill,
+.skill-gap-analysis .skill-pill.weak-pill,
+.gap-column .skill-pill.weak-pill {
+  color: #92400E !important;
+  background-color: #FFFBEB !important;
+  border: 1px solid #FDE68A !important;
+}
+
+.recommendations-page .skill-pill.missing-pill,
+.skill-gap-analysis .skill-pill.missing-pill,
+.gap-column .skill-pill.missing-pill {
+  color: #991B1B !important;
+  background-color: #FEF2F2 !important;
+  border: 1px solid #FECACA !important;
+}
+
+.recommendations-page .skill-pill .tech-brand-logo,
+.skill-gap-analysis .skill-pill .tech-brand-logo,
+.gap-column .skill-pill .tech-brand-logo {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.recommendations-page .skill-pill i,
+.skill-gap-analysis .skill-pill i,
+.gap-column .skill-pill i {
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  vertical-align: middle !important;
+}
+
+.recommendations-page .skill-pill span,
+.skill-gap-analysis .skill-pill span,
+.gap-column .skill-pill span {
+  color: inherit !important;
+  line-height: 1.35 !important;
 }
 
 /* --------------------------------------------------------------------------
