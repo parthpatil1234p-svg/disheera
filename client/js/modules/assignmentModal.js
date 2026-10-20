@@ -1,6 +1,7 @@
 /**
  * client/js/modules/assignmentModal.js — Collegiate Weekly Assignment & PDF Submission Modal (Plan 46)
  *
+ * EduTech Light Theme · Disheera Design System Aligned
  * Provides:
  * - Dynamic modal creation and management for weekly assignments
  * - Fetching weekly problem statements, learning outcomes & 4D grading rubrics
@@ -32,48 +33,48 @@
     const modalHtml = `
       <div class="modal fade" id="${MODAL_ID}" tabindex="-1" aria-labelledby="${MODAL_ID}Label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-          <div class="modal-content text-white" style="background: #0f172a; border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);">
+          <div class="modal-content" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.15);">
             
             <!-- Modal Header -->
-            <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);">
+            <div class="modal-header border-bottom px-4 py-3" style="background: #FFFFFF; border-color: #E2E8F0 !important;">
               <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
                 <div>
                   <div class="d-flex align-items-center gap-2 mb-1">
-                    <span class="badge" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; font-weight: 600; padding: 6px 12px; border-radius: 20px;">
+                    <span class="badge" style="background: #EEF2FF; color: #2563EB; border: 1px solid #C7D2FE; font-weight: 600; padding: 5px 12px; border-radius: 20px;">
                       <i class="bi bi-file-earmark-code-fill me-1"></i> Weekly Collegiate Assignment
                     </span>
-                    <span class="badge bg-secondary bg-opacity-25 text-info font-monospace" id="wamWeekBadge">Week 1</span>
-                    <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25" id="wamMaxMarksBadge">10.0 Max Marks</span>
+                    <span class="badge bg-light text-secondary border font-monospace" id="wamWeekBadge">Week 1</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle" id="wamMaxMarksBadge">10.0 Max Marks</span>
                   </div>
-                  <h4 class="modal-title h5 fw-bold text-white mb-0" id="wamAssignmentTitle">Weekly Assignment</h4>
+                  <h4 class="modal-title h5 fw-bold mb-0" id="wamAssignmentTitle" style="color: #0F172A;">Weekly Assignment</h4>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                   <div id="wamStatusPill">
                     <span class="badge bg-secondary-subtle text-muted">Loading...</span>
                   </div>
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
               </div>
             </div>
 
             <!-- Modal Body -->
-            <div class="modal-body p-4" style="background: #0b1120;">
+            <div class="modal-body p-4" style="background: #F8FAFC;">
               
               <!-- Tabs / Nav -->
               <ul class="nav nav-pills mb-4 gap-2" id="wamTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active px-3 py-2 rounded-3 text-white" id="wam-overview-tab" data-bs-toggle="pill" data-bs-target="#wam-overview" type="button" role="tab" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.3);">
+                  <button class="nav-link active px-3 py-2 rounded-3 fw-semibold" id="wam-overview-tab" data-bs-toggle="pill" data-bs-target="#wam-overview" type="button" role="tab" style="background: #2563EB; color: #FFFFFF; border: 1px solid #2563EB;">
                     <i class="bi bi-journal-text me-1"></i> Problem & Rubric
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link px-3 py-2 rounded-3 text-white" id="wam-submit-tab" data-bs-toggle="pill" data-bs-target="#wam-submit" type="button" role="tab" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <i class="bi bi-cloud-arrow-up-fill me-1"></i> Submit Solution PDF
+                  <button class="nav-link px-3 py-2 rounded-3 fw-semibold text-secondary" id="wam-submit-tab" data-bs-toggle="pill" data-bs-target="#wam-submit" type="button" role="tab" style="background: #FFFFFF; border: 1px solid #E2E8F0;">
+                    <i class="bi bi-cloud-arrow-up-fill me-1 text-primary"></i> Submit Solution PDF
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link px-3 py-2 rounded-3 text-white" id="wam-results-tab" data-bs-toggle="pill" data-bs-target="#wam-results" type="button" role="tab" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <i class="bi bi-award-fill me-1"></i> AI Evaluation & Marks
+                  <button class="nav-link px-3 py-2 rounded-3 fw-semibold text-secondary" id="wam-results-tab" data-bs-toggle="pill" data-bs-target="#wam-results" type="button" role="tab" style="background: #FFFFFF; border: 1px solid #E2E8F0;">
+                    <i class="bi bi-award-fill me-1 text-warning"></i> AI Evaluation & Marks
                   </button>
                 </li>
               </ul>
@@ -85,53 +86,53 @@
                 <div class="tab-pane fade show active" id="wam-overview" role="tabpanel">
                   
                   <!-- Cover Page Callout -->
-                  <div class="p-3 mb-4 rounded-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" style="background: rgba(99, 102, 241, 0.1); border: 1px dashed rgba(99, 102, 241, 0.4);">
+                  <div class="p-3 mb-4 rounded-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" style="background: #EFF6FF; border: 1px dashed #93C5FD; border-radius: 12px;">
                     <div class="d-flex align-items-center gap-3">
-                      <div class="p-2 rounded-3 text-primary" style="background: rgba(99, 102, 241, 0.2);">
+                      <div class="p-2.5 rounded-3" style="background: #DBEAFE; color: #2563EB;">
                         <i class="bi bi-file-earmark-pdf fs-3"></i>
                       </div>
                       <div>
-                        <h6 class="fw-bold mb-1 text-white">Standardized Part A Cover Page</h6>
+                        <h6 class="fw-bold mb-1" style="color: #0F172A;">Standardized Part A Cover Page</h6>
                         <p class="small text-muted mb-0">Every collegiate submission must include Disheera's verified 1-page cover sheet with your student metadata and honor pledge.</p>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-primary px-3 py-2 flex-shrink-0" id="wamBtnDownloadCover" style="background: #6366f1; border: none; border-radius: 8px;">
+                    <button type="button" class="btn btn-sm px-3 py-2 flex-shrink-0" id="wamBtnDownloadCover" style="background: #2563EB; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">
                       <i class="bi bi-download me-1"></i> Download Part A Cover (PDF)
                     </button>
                   </div>
 
                   <!-- Learning Outcomes -->
                   <div class="mb-4">
-                    <h6 class="text-uppercase small fw-bold text-info mb-2" style="letter-spacing: 0.5px;">
+                    <h6 class="text-uppercase small fw-bold text-primary mb-2" style="letter-spacing: 0.5px;">
                       <i class="bi bi-bullseye me-1"></i> Core Learning Outcomes
                     </h6>
                     <div id="wamOutcomesList" class="d-flex flex-wrap gap-2">
-                      <span class="badge bg-secondary bg-opacity-25 text-white">Mastering architectural foundations</span>
+                      <span class="badge bg-white text-secondary border">Mastering architectural foundations</span>
                     </div>
                   </div>
 
                   <!-- 4D Rubric Breakdown -->
-                  <div class="mb-4 p-3 rounded-3" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);">
-                    <h6 class="text-uppercase small fw-bold text-warning mb-2" style="letter-spacing: 0.5px;">
-                      <i class="bi bi-check2-square me-1"></i> 4D Evaluation Rubric (10.0 Marks Total)
+                  <div class="mb-4 p-3 rounded-3" style="background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);">
+                    <h6 class="text-uppercase small fw-bold text-warning-emphasis mb-2" style="letter-spacing: 0.5px;">
+                      <i class="bi bi-check2-square me-1 text-warning"></i> 4D Evaluation Rubric (10.0 Marks Total)
                     </h6>
                     <div class="row g-3">
                       <div class="col-md-4">
-                        <div class="p-2 rounded-2" style="background: rgba(99, 102, 241, 0.08); border-left: 3px solid #6366f1;">
-                          <div class="fw-bold small text-white">Problem Solving & Correctness</div>
-                          <div class="text-muted small">Max: <strong>4.0 Marks</strong></div>
+                        <div class="p-2.5 rounded-2" style="background: #EFF6FF; border: 1px solid #DBEAFE; border-left: 4px solid #2563EB;">
+                          <div class="fw-bold small" style="color: #0F172A;">Problem Solving & Correctness</div>
+                          <div class="text-muted small">Max: <strong class="text-primary">4.0 Marks</strong></div>
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <div class="p-2 rounded-2" style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid #10b981;">
-                          <div class="fw-bold small text-white">Methodology & Architecture</div>
-                          <div class="text-muted small">Max: <strong>3.0 Marks</strong></div>
+                        <div class="p-2.5 rounded-2" style="background: #ECFDF5; border: 1px solid #A7F3D0; border-left: 4px solid #10B981;">
+                          <div class="fw-bold small" style="color: #0F172A;">Methodology & Architecture</div>
+                          <div class="text-muted small">Max: <strong class="text-success">3.0 Marks</strong></div>
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <div class="p-2 rounded-2" style="background: rgba(234, 179, 8, 0.08); border-left: 3px solid #eab308;">
-                          <div class="fw-bold small text-white">Clarity & Documentation</div>
-                          <div class="text-muted small">Max: <strong>3.0 Marks</strong></div>
+                        <div class="p-2.5 rounded-2" style="background: #FFFBEB; border: 1px solid #FDE68A; border-left: 4px solid #F59E0B;">
+                          <div class="fw-bold small" style="color: #0F172A;">Clarity & Documentation</div>
+                          <div class="text-muted small">Max: <strong class="text-warning-emphasis">3.0 Marks</strong></div>
                         </div>
                       </div>
                     </div>
@@ -139,8 +140,8 @@
 
                   <!-- Questions Container -->
                   <div>
-                    <h6 class="text-uppercase small fw-bold text-white mb-3" style="letter-spacing: 0.5px;">
-                      <i class="bi bi-question-circle me-1"></i> Assignment Problem Statements
+                    <h6 class="text-uppercase small fw-bold mb-3" style="color: #0F172A; letter-spacing: 0.5px;">
+                      <i class="bi bi-question-circle me-1 text-primary"></i> Assignment Problem Statements
                     </h6>
                     <div id="wamQuestionsList" class="d-flex flex-column gap-3">
                       <!-- Rendered dynamically -->
@@ -151,23 +152,23 @@
 
                 <!-- 2. Submission Tab -->
                 <div class="tab-pane fade" id="wam-submit" role="tabpanel">
-                  <div class="p-4 rounded-3 text-center" id="wamDropzone" style="border: 2px dashed rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.03); border-radius: 12px; cursor: pointer; transition: all 0.2s ease;">
+                  <div class="p-4 rounded-3 text-center" id="wamDropzone" style="border: 2px dashed #93C5FD; background: #FFFFFF; border-radius: 12px; cursor: pointer; transition: all 0.2s ease;">
                     <i class="bi bi-file-earmark-arrow-up text-primary fs-1 mb-2 d-block"></i>
-                    <h5 class="fw-bold text-white mb-1">Drag and drop your solution PDF here</h5>
+                    <h5 class="fw-bold mb-1" style="color: #0F172A;">Drag and drop your solution PDF here</h5>
                     <p class="text-muted small mb-3">Single compiled PDF containing Part A (Cover Page) and Part B (Your Solutions). Max 15MB.</p>
-                    <button type="button" class="btn btn-outline-primary btn-sm px-4" id="wamBrowseBtn">
+                    <button type="button" class="btn btn-sm px-4" id="wamBrowseBtn" style="border: 1px solid #2563EB; color: #2563EB; background: #FFFFFF; font-weight: 600;">
                       <i class="bi bi-folder2-open me-1"></i> Browse Files
                     </button>
                     <input type="file" id="wamFileInput" accept="application/pdf" class="d-none" />
                   </div>
 
                   <!-- Selected File Display -->
-                  <div id="wamSelectedFileInfo" class="d-none mt-3 p-3 rounded-3" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3);">
+                  <div id="wamSelectedFileInfo" class="d-none mt-3 p-3 rounded-3" style="background: #ECFDF5; border: 1px solid #A7F3D0;">
                     <div class="d-flex align-items-center justify-content-between">
                       <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-file-earmark-check-fill text-success fs-4"></i>
                         <div>
-                          <div class="fw-bold text-white" id="wamFileName">solution.pdf</div>
+                          <div class="fw-bold" style="color: #065F46;" id="wamFileName">solution.pdf</div>
                           <div class="small text-muted" id="wamFileSize">0 KB</div>
                         </div>
                       </div>
@@ -178,15 +179,15 @@
                   </div>
 
                   <!-- Upload Progress / Evaluating Spinner -->
-                  <div id="wamEvaluatingState" class="d-none text-center my-4 p-4 rounded-3" style="background: rgba(99, 102, 241, 0.06);">
+                  <div id="wamEvaluatingState" class="d-none text-center my-4 p-4 rounded-3" style="background: #FFFFFF; border: 1px solid #E2E8F0;">
                     <div class="spinner-border text-primary mb-2" role="status" style="width: 2.5rem; height: 2.5rem;"></div>
-                    <h6 class="text-white fw-bold">Gemini Multimodal AI Evaluating Solutions...</h6>
+                    <h6 class="fw-bold" style="color: #0F172A;">Gemini Multimodal AI Evaluating Solutions...</h6>
                     <p class="text-muted small mb-0">Analyzing 4D rubric criteria, running Anti-AI writing heuristics, and stamping Part C evaluation sheet.</p>
                   </div>
 
                   <!-- Submit Action Button -->
                   <div class="mt-4 text-end">
-                    <button type="button" class="btn btn-primary px-4 py-2" id="wamSubmitBtn" disabled style="background: #6366f1; border: none; border-radius: 8px;">
+                    <button type="button" class="btn px-4 py-2" id="wamSubmitBtn" disabled style="background: #2563EB; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">
                       <i class="bi bi-send-fill me-1"></i> Submit & AI Evaluate
                     </button>
                   </div>
@@ -195,10 +196,10 @@
                 <!-- 3. AI Evaluation & Marks Tab -->
                 <div class="tab-pane fade" id="wam-results" role="tabpanel">
                   <div id="wamResultsContent">
-                    <div class="text-center py-5 text-muted">
-                      <i class="bi bi-clipboard-x fs-1 mb-2 d-block"></i>
-                      <h6>No Evaluation Record Yet</h6>
-                      <p class="small">Submit your weekly assignment to unlock real-time Gemini AI grading and stamped feedback.</p>
+                    <div class="text-center py-5 text-muted bg-white rounded-3 border" style="border-color: #E2E8F0 !important;">
+                      <i class="bi bi-clipboard-x fs-1 mb-2 d-block text-secondary"></i>
+                      <h6 class="fw-bold" style="color: #0F172A;">No Evaluation Record Yet</h6>
+                      <p class="small text-muted mb-0">Submit your weekly assignment to unlock real-time Gemini AI grading and stamped feedback.</p>
                     </div>
                   </div>
                 </div>
@@ -208,8 +209,8 @@
             </div>
 
             <!-- Modal Footer -->
-            <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-3" style="background: rgba(15, 23, 42, 0.85);">
-              <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer border-top px-4 py-3" style="background: #FFFFFF; border-color: #E2E8F0 !important;">
+              <button type="button" class="btn btn-outline-secondary btn-sm px-3 fw-semibold" data-bs-dismiss="modal">Close</button>
             </div>
 
           </div>
@@ -233,6 +234,21 @@
     const submitBtn = document.getElementById('wamSubmitBtn');
     const downloadCoverBtn = document.getElementById('wamBtnDownloadCover');
 
+    // Tab styling sync
+    const tabBtns = document.querySelectorAll('#wamTabs .nav-link');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('shown.bs.tab', (e) => {
+        tabBtns.forEach(b => {
+          b.style.background = '#FFFFFF';
+          b.style.color = '#475569';
+          b.style.borderColor = '#E2E8F0';
+        });
+        e.target.style.background = '#2563EB';
+        e.target.style.color = '#FFFFFF';
+        e.target.style.borderColor = '#2563EB';
+      });
+    });
+
     browseBtn.addEventListener('click', () => fileInput.click());
     dropzone.addEventListener('click', (e) => {
       if (e.target !== browseBtn) fileInput.click();
@@ -242,16 +258,16 @@
     ['dragenter', 'dragover'].forEach(evt => {
       dropzone.addEventListener(evt, (e) => {
         e.preventDefault();
-        dropzone.style.borderColor = '#10b981';
-        dropzone.style.background = 'rgba(16, 185, 129, 0.05)';
+        dropzone.style.borderColor = '#2563EB';
+        dropzone.style.background = '#EFF6FF';
       });
     });
 
     ['dragleave', 'drop'].forEach(evt => {
       dropzone.addEventListener(evt, (e) => {
         e.preventDefault();
-        dropzone.style.borderColor = 'rgba(99, 102, 241, 0.4)';
-        dropzone.style.background = 'rgba(99, 102, 241, 0.03)';
+        dropzone.style.borderColor = '#93C5FD';
+        dropzone.style.background = '#FFFFFF';
       });
     });
 
@@ -390,9 +406,9 @@
     const evalSheetUrl = `${window.CONFIG?.API_BASE_URL || '/api'}/assignments/eval-sheet/${submission.id}?token=${token || ''}`;
 
     resultsContainer.innerHTML = `
-      <div class="p-4 rounded-3 mb-4" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);">
+      <div class="p-4 rounded-3 mb-4 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);">
         <div class="row align-items-center g-4">
-          <div class="col-md-4 text-center border-end border-secondary border-opacity-25">
+          <div class="col-md-4 text-center border-end" style="border-color: #E2E8F0 !important;">
             <div class="text-muted small text-uppercase fw-semibold mb-1">Official Marks</div>
             <div class="display-4 fw-bold" style="color: ${scoreColor}; font-family: monospace;">
               ${marks != null ? marks.toFixed(1) : 'Pending'}<span class="fs-4 text-muted">/10</span>
@@ -400,39 +416,39 @@
             <div class="mt-2">${aiBadge}</div>
           </div>
           <div class="col-md-8">
-            <h6 class="text-white fw-bold mb-2">Evaluator Breakdown & Rubric</h6>
+            <h6 class="fw-bold mb-2" style="color: #0F172A;">Evaluator Breakdown & Rubric</h6>
             <div class="row g-2 mb-3">
               <div class="col-sm-4">
-                <div class="p-2 rounded-2" style="background: rgba(99, 102, 241, 0.1);">
+                <div class="p-2.5 rounded-2" style="background: #EFF6FF; border: 1px solid #DBEAFE;">
                   <div class="small text-muted">Problem Solving</div>
-                  <div class="fw-bold text-white">${rubric.problemSolving != null ? rubric.problemSolving : '—'} / 4.0</div>
+                  <div class="fw-bold text-primary">${rubric.problemSolving != null ? rubric.problemSolving : '—'} / 4.0</div>
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="p-2 rounded-2" style="background: rgba(16, 185, 129, 0.1);">
+                <div class="p-2.5 rounded-2" style="background: #ECFDF5; border: 1px solid #A7F3D0;">
                   <div class="small text-muted">Methodology</div>
-                  <div class="fw-bold text-white">${rubric.methodology != null ? rubric.methodology : '—'} / 3.0</div>
+                  <div class="fw-bold text-success">${rubric.methodology != null ? rubric.methodology : '—'} / 3.0</div>
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="p-2 rounded-2" style="background: rgba(234, 179, 8, 0.1);">
+                <div class="p-2.5 rounded-2" style="background: #FFFBEB; border: 1px solid #FDE68A;">
                   <div class="small text-muted">Clarity</div>
-                  <div class="fw-bold text-white">${rubric.clarity != null ? rubric.clarity : '—'} / 3.0</div>
+                  <div class="fw-bold text-warning-emphasis">${rubric.clarity != null ? rubric.clarity : '—'} / 3.0</div>
                 </div>
               </div>
             </div>
-            <div class="p-3 rounded-2" style="background: rgba(0, 0, 0, 0.3); border-left: 3px solid #6366f1;">
+            <div class="p-3 rounded-2" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 4px solid #2563EB;">
               <div class="small text-muted mb-1 fw-bold">Team Commit & Evaluator Feedback:</div>
-              <p class="small text-white mb-0" style="line-height: 1.5;">${submission.adminFeedback || submission.aiFeedback || 'Evaluation feedback logged.'}</p>
+              <p class="small text-secondary mb-0" style="line-height: 1.5;">${submission.adminFeedback || submission.aiFeedback || 'Evaluation feedback logged.'}</p>
             </div>
           </div>
         </div>
 
-        <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2" style="border-color: #E2E8F0 !important;">
           <div class="small text-muted">
             <i class="bi bi-calendar-check me-1"></i> Evaluated: ${new Date(submission.updatedAt || submission.submittedAt).toLocaleDateString()}
           </div>
-          <a href="${evalSheetUrl}" target="_blank" class="btn btn-sm btn-outline-info px-3">
+          <a href="${evalSheetUrl}" target="_blank" class="btn btn-sm btn-outline-primary px-3 fw-semibold">
             <i class="bi bi-file-earmark-pdf me-1"></i> Download Part C Evaluation Appendix (PDF)
           </a>
         </div>
@@ -483,19 +499,19 @@
         // Outcomes
         const outcomesList = document.getElementById('wamOutcomesList');
         if (a.learningOutcomes && Array.isArray(a.learningOutcomes)) {
-          outcomesList.innerHTML = a.learningOutcomes.map(o => `<span class="badge bg-secondary bg-opacity-25 text-white"><i class="bi bi-check me-1"></i>${o}</span>`).join('');
+          outcomesList.innerHTML = a.learningOutcomes.map(o => `<span class="badge bg-white text-secondary border" style="font-weight: 500; padding: 6px 12px; border-color: #E2E8F0 !important;"><i class="bi bi-check2 text-success me-1"></i>${o}</span>`).join('');
         }
 
         // Questions
         const questionsList = document.getElementById('wamQuestionsList');
         if (a.questions && Array.isArray(a.questions)) {
           questionsList.innerHTML = a.questions.map((q, idx) => `
-            <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);">
+            <div class="p-3.5 rounded-3 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);">
               <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 font-monospace">Question ${idx + 1} (${q.marks || 5} Marks)</span>
+                <span class="badge font-monospace" style="background: #EFF6FF; color: #2563EB; border: 1px solid #DBEAFE; font-weight: 600;">Question ${idx + 1} (${q.marks || 5} Marks)</span>
               </div>
-              <h6 class="text-white fw-semibold mb-2">${q.problemStatement || q.title || 'Problem Description'}</h6>
-              ${q.requirements ? `<p class="small text-muted mb-0"><strong class="text-info">Requirements:</strong> ${q.requirements}</p>` : ''}
+              <h6 class="fw-bold mb-2" style="color: #0F172A;">${q.problemStatement || q.title || 'Problem Description'}</h6>
+              ${q.requirements ? `<p class="small text-muted mb-0"><strong class="text-secondary">Requirements:</strong> ${q.requirements}</p>` : ''}
             </div>
           `).join('');
         }
@@ -504,10 +520,10 @@
         const statusPill = document.getElementById('wamStatusPill');
         if (data.submission) {
           currentSubmission = data.submission;
-          statusPill.innerHTML = `<span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25"><i class="bi bi-check-circle-fill me-1"></i> Submitted (${data.submission.status})</span>`;
+          statusPill.innerHTML = `<span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Submitted (${data.submission.status})</span>`;
           renderResultsTab(currentSubmission);
         } else {
-          statusPill.innerHTML = `<span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25"><i class="bi bi-clock-history me-1"></i> Not Submitted</span>`;
+          statusPill.innerHTML = `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle fw-semibold"><i class="bi bi-clock-history me-1"></i> Not Submitted</span>`;
         }
       }
     } catch (err) {

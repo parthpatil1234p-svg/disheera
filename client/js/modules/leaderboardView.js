@@ -1,6 +1,7 @@
 /**
  * client/js/modules/leaderboardView.js — Cumulative Merit Score (CMS) & Dynamic Leaderboard HUD (Plan 46 Phase 4)
  *
+ * EduTech Light Theme · Disheera Design System Aligned
  * Implements:
  * - Animated Top 3 Topper Podium (Gold, Silver, Bronze)
  * - 4D Composite CMS Leaderboard table with metric breakdown (40% Assignments, 30% Quizzes, 20% Progress, 10% Consistency)
@@ -24,46 +25,46 @@
     const modalHtml = `
       <div class="modal fade" id="${MODAL_ID}" tabindex="-1" aria-labelledby="${MODAL_ID}Label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-          <div class="modal-content text-white" style="background: #0f172a; border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 20px; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);">
+          <div class="modal-content" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; box-shadow: 0 20px 50px -15px rgba(15, 23, 42, 0.15);">
             
             <!-- Modal Header -->
-            <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(14px);">
+            <div class="modal-header border-bottom px-4 py-3" style="background: #FFFFFF; border-color: #E2E8F0 !important;">
               <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
                 <div class="d-flex align-items-center gap-3">
-                  <div class="p-2.5 rounded-3 text-warning" style="background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.3);">
-                    <i class="bi bi-trophy-fill fs-4"></i>
+                  <div class="p-2.5 rounded-3 text-warning" style="background: #FFFBEB; border: 1px solid #FDE68A;">
+                    <i class="bi bi-trophy-fill fs-4 text-warning"></i>
                   </div>
                   <div>
                     <div class="d-flex align-items-center gap-2 mb-0.5">
-                      <span class="badge" style="background: linear-gradient(135deg, #eab308, #f59e0b); color: #000; font-weight: 700; border-radius: 12px; font-size: 0.75rem;">
+                      <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-weight: 700; border-radius: 12px; font-size: 0.75rem;">
                         NATIONAL MERIT STANDINGS
                       </span>
-                      <span class="badge bg-secondary bg-opacity-25 text-info font-monospace small">Plan 46 CMS Engine</span>
+                      <span class="badge bg-light text-secondary border font-monospace small">Plan 46 CMS Engine</span>
                     </div>
-                    <h4 class="modal-title h5 fw-bold text-white mb-0">Disheera Cumulative Merit Leaderboard & Rewards</h4>
+                    <h4 class="modal-title h5 fw-bold mb-0" style="color: #0F172A;">Disheera Cumulative Merit Leaderboard & Rewards</h4>
                   </div>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-warning" id="lbRefreshBtn" title="Refresh Leaderboard">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="lbRefreshBtn" title="Refresh Leaderboard">
                     <i class="bi bi-arrow-clockwise"></i>
                   </button>
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
               </div>
             </div>
 
             <!-- Modal Body -->
-            <div class="modal-body p-4" style="background: #0b1120;">
+            <div class="modal-body p-4" style="background: #F8FAFC;">
               
               <!-- User Standing Sticky HUD -->
-              <div id="lbUserStandingCard" class="p-3 mb-4 rounded-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(16, 185, 129, 0.1)); border: 1px solid rgba(99, 102, 241, 0.3);">
+              <div id="lbUserStandingCard" class="p-3 mb-4 rounded-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04); border-radius: 14px;">
                 <div class="d-flex align-items-center gap-3">
-                  <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 44px; height: 44px; background: #6366f1; color: #fff; font-size: 1.1rem;" id="lbUserAvatar">
+                  <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 44px; height: 44px; background: #2563EB; color: #FFFFFF; font-size: 1.1rem;" id="lbUserAvatar">
                     U
                   </div>
                   <div>
                     <div class="d-flex align-items-center gap-2">
-                      <h6 class="text-white fw-bold mb-0" id="lbUserName">Your Standing</h6>
+                      <h6 class="fw-bold mb-0" style="color: #0F172A;" id="lbUserName">Your Standing</h6>
                       <span id="lbUserTopperBadge"></span>
                     </div>
                     <div class="small text-muted" id="lbUserSubtext">Calculating current position...</div>
@@ -71,12 +72,12 @@
                 </div>
                 <div class="d-flex align-items-center gap-3 flex-wrap">
                   <div class="text-md-end">
-                    <div class="small text-muted text-uppercase" style="font-size: 0.7rem;">Cumulative Merit Score</div>
-                    <div class="fs-4 fw-bold font-monospace text-warning" id="lbUserCmsScore">0.0<span class="fs-6 text-muted">/100</span></div>
+                    <div class="small text-muted text-uppercase" style="font-size: 0.7rem; font-weight: 600;">Cumulative Merit Score</div>
+                    <div class="fs-4 fw-bold font-monospace text-primary" id="lbUserCmsScore">0.0<span class="fs-6 text-muted">/100</span></div>
                   </div>
-                  <div class="p-2 rounded-2 text-center" style="background: rgba(0, 0, 0, 0.3); min-width: 90px;">
-                    <div class="small text-muted text-uppercase" style="font-size: 0.7rem;">National Rank</div>
-                    <div class="fs-4 fw-bold text-white font-monospace" id="lbUserRank">#—</div>
+                  <div class="p-2 rounded-2 text-center" style="background: #F1F5F9; border: 1px solid #E2E8F0; min-width: 90px;">
+                    <div class="small text-muted text-uppercase" style="font-size: 0.7rem; font-weight: 600;">National Rank</div>
+                    <div class="fs-4 fw-bold font-monospace" style="color: #0F172A;" id="lbUserRank">#—</div>
                   </div>
                 </div>
               </div>
@@ -84,7 +85,7 @@
               <!-- Top 3 Podium Section -->
               <div class="mb-5">
                 <div class="text-center mb-4">
-                  <h5 class="fw-bold text-white mb-1"><i class="bi bi-award me-1 text-warning"></i> National Top 3 Podium</h5>
+                  <h5 class="fw-bold mb-1" style="color: #0F172A;"><i class="bi bi-award me-1 text-warning"></i> National Top 3 Podium</h5>
                   <p class="text-muted small mb-0">Highest Cumulative Merit Scores across collegiate assignments, proctored quizzes, and learning consistency</p>
                 </div>
 
@@ -94,14 +95,14 @@
               </div>
 
               <!-- Navigation Pills (Leaderboard Table vs Internship Rewards) -->
-              <ul class="nav nav-pills mb-4 gap-2 border-bottom border-secondary border-opacity-25 pb-3" id="lbTabs" role="tablist">
+              <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3" style="border-color: #E2E8F0 !important;" id="lbTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active px-3 py-2 rounded-3 text-white" id="lb-table-tab" data-bs-toggle="pill" data-bs-target="#lb-table-view" type="button" role="tab" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.3);">
+                  <button class="nav-link active px-3 py-2 rounded-3 fw-semibold" id="lb-table-tab" data-bs-toggle="pill" data-bs-target="#lb-table-view" type="button" role="tab" style="background: #2563EB; color: #FFFFFF; border: 1px solid #2563EB;">
                     <i class="bi bi-list-ol me-1"></i> Full National Rankings
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link px-3 py-2 rounded-3 text-white" id="lb-rewards-tab" data-bs-toggle="pill" data-bs-target="#lb-rewards-view" type="button" role="tab" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+                  <button class="nav-link px-3 py-2 rounded-3 fw-semibold text-secondary" id="lb-rewards-tab" data-bs-toggle="pill" data-bs-target="#lb-rewards-view" type="button" role="tab" style="background: #FFFFFF; border: 1px solid #E2E8F0;">
                     <i class="bi bi-briefcase-fill me-1 text-warning"></i> Partner Tech Internships & Rewards
                   </button>
                 </li>
@@ -111,9 +112,9 @@
                 
                 <!-- 1. Leaderboard Table View -->
                 <div class="tab-pane fade show active" id="lb-table-view" role="tabpanel">
-                  <div class="table-responsive rounded-3" style="border: 1px solid rgba(255, 255, 255, 0.08);">
-                    <table class="table table-dark table-hover mb-0 align-middle" style="background: #0b1120;">
-                      <thead style="background: rgba(15, 23, 42, 0.9); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                  <div class="table-responsive rounded-3 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);">
+                    <table class="table table-hover mb-0 align-middle">
+                      <thead class="table-light text-secondary" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">
                         <tr>
                           <th scope="col" class="py-3 px-3 text-center" style="width: 70px;">Rank</th>
                           <th scope="col" class="py-3 px-3">Student</th>
@@ -149,11 +150,11 @@
             </div>
 
             <!-- Modal Footer -->
-            <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-3" style="background: rgba(15, 23, 42, 0.85);">
+            <div class="modal-footer border-top px-4 py-3" style="background: #FFFFFF; border-color: #E2E8F0 !important;">
               <div class="small text-muted me-auto">
-                <i class="bi bi-info-circle me-1"></i> CMS Formula: (Assignments &times; 0.40) + (Quizzes &times; 0.30) + (Roadmap &times; 0.20) + (Consistency &times; 0.10)
+                <i class="bi bi-info-circle me-1 text-primary"></i> CMS Formula: (Assignments &times; 0.40) + (Quizzes &times; 0.30) + (Roadmap &times; 0.20) + (Consistency &times; 0.10)
               </div>
-              <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm px-3 fw-semibold" data-bs-dismiss="modal">Close</button>
             </div>
 
           </div>
@@ -162,6 +163,21 @@
     `;
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    // Tab styling sync
+    const tabBtns = document.querySelectorAll('#lbTabs .nav-link');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('shown.bs.tab', (e) => {
+        tabBtns.forEach(b => {
+          b.style.background = '#FFFFFF';
+          b.style.color = '#475569';
+          b.style.borderColor = '#E2E8F0';
+        });
+        e.target.style.background = '#2563EB';
+        e.target.style.color = '#FFFFFF';
+        e.target.style.borderColor = '#2563EB';
+      });
+    });
 
     document.getElementById('lbRefreshBtn').addEventListener('click', loadLeaderboardData);
   }
@@ -220,13 +236,13 @@
 
     let badgeHtml = '';
     if (currentUser.topperBadge === 'GOLD' || currentUser.rank === 1) {
-      badgeHtml = '<span class="badge" style="background: linear-gradient(135deg, #ffd700, #ffae00); color: #000; font-weight: bold;">👑 GOLD TOPPER</span>';
+      badgeHtml = '<span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-weight: bold;">👑 GOLD TOPPER</span>';
     } else if (currentUser.topperBadge === 'SILVER' || currentUser.rank === 2) {
-      badgeHtml = '<span class="badge" style="background: linear-gradient(135deg, #e0e0e0, #bdbdbd); color: #000; font-weight: bold;">🥈 SILVER TOPPER</span>';
+      badgeHtml = '<span class="badge" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1; font-weight: bold;">🥈 SILVER TOPPER</span>';
     } else if (currentUser.topperBadge === 'BRONZE' || currentUser.rank === 3) {
-      badgeHtml = '<span class="badge" style="background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; font-weight: bold;">🥉 BRONZE TOPPER</span>';
+      badgeHtml = '<span class="badge" style="background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74; font-weight: bold;">🥉 BRONZE TOPPER</span>';
     } else if (currentUser.rank <= 10) {
-      badgeHtml = '<span class="badge bg-primary bg-opacity-25 text-info">TOP 10 MERIT</span>';
+      badgeHtml = '<span class="badge bg-primary-subtle text-primary border border-primary-subtle">TOP 10 MERIT</span>';
     }
     document.getElementById('lbUserTopperBadge').innerHTML = badgeHtml;
   }
@@ -249,17 +265,17 @@
       <!-- Rank 2: Silver (Left) -->
       <div class="col-md-4 col-sm-6 text-center order-2 order-md-1">
         ${silver ? `
-          <div class="p-3 rounded-top-4 d-flex flex-column align-items-center" style="background: linear-gradient(180deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.05)); border: 1px solid rgba(192, 192, 192, 0.3); border-bottom: none; min-height: 220px; justify-content: flex-end;">
+          <div class="p-3 rounded-top-4 d-flex flex-column align-items-center" style="background: #FFFFFF; border: 1px solid #CBD5E1; border-bottom: none; min-height: 220px; justify-content: flex-end; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);">
             <div class="position-relative mb-2">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 58px; height: 58px; background: linear-gradient(135deg, #c0c0c0, #9e9e9e); color: #000; font-size: 1.3rem; border: 3px solid #e0e0e0; box-shadow: 0 0 15px rgba(192, 192, 192, 0.4);">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 58px; height: 58px; background: #F1F5F9; color: #334155; font-size: 1.3rem; border: 3px solid #CBD5E1; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
                 ${silver.studentName ? silver.studentName.charAt(0).toUpperCase() : 'S'}
               </div>
-              <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-light text-dark fw-bold" style="font-size: 0.75rem;">2</span>
+              <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-secondary text-white fw-bold" style="font-size: 0.75rem;">2</span>
             </div>
-            <h6 class="fw-bold text-white mb-0 text-truncate w-100">${silver.studentName}</h6>
+            <h6 class="fw-bold mb-0 text-truncate w-100" style="color: #0F172A;">${silver.studentName}</h6>
             <div class="small text-muted mb-1 text-truncate w-100">${silver.college || 'Engineering'}</div>
-            <div class="badge text-dark font-monospace fw-bold mb-2" style="background: #c0c0c0;">${silver.totalMeritScore} CMS</div>
-            <div class="w-100 py-2 rounded-2 text-dark fw-bold" style="background: rgba(192, 192, 192, 0.3); font-size: 0.85rem;">
+            <div class="badge font-monospace fw-bold mb-2" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">${silver.totalMeritScore} CMS</div>
+            <div class="w-100 py-2 rounded-2 fw-bold" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1; font-size: 0.85rem;">
               🥈 SILVER TOPPER
             </div>
           </div>
@@ -269,18 +285,18 @@
       <!-- Rank 1: Gold (Center - Highest) -->
       <div class="col-md-4 col-sm-6 text-center order-1 order-md-2 mb-3 mb-md-0">
         ${gold ? `
-          <div class="p-3 rounded-top-4 d-flex flex-column align-items-center" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.25), rgba(234, 179, 8, 0.08)); border: 2px solid rgba(234, 179, 8, 0.6); border-bottom: none; min-height: 260px; justify-content: flex-end; box-shadow: 0 0 30px rgba(234, 179, 8, 0.25);">
+          <div class="p-3 rounded-top-4 d-flex flex-column align-items-center" style="background: #FEFCE8; border: 2px solid #FDE047; border-bottom: none; min-height: 260px; justify-content: flex-end; box-shadow: 0 8px 25px rgba(234, 179, 8, 0.15);">
             <div class="position-relative mb-2">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 72px; height: 72px; background: linear-gradient(135deg, #ffd700, #ffb300); color: #000; font-size: 1.6rem; border: 4px solid #fff; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 72px; height: 72px; background: #FDE047; color: #854D0E; font-size: 1.6rem; border: 4px solid #FFFFFF; box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);">
                 ${gold.studentName ? gold.studentName.charAt(0).toUpperCase() : 'G'}
               </div>
-              <span class="position-absolute top-0 start-50 translate-middle fs-4" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">👑</span>
+              <span class="position-absolute top-0 start-50 translate-middle fs-4">👑</span>
               <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-warning text-dark fw-bold" style="font-size: 0.85rem;">1</span>
             </div>
-            <h5 class="fw-bold text-white mb-0 text-truncate w-100">${gold.studentName}</h5>
+            <h5 class="fw-bold mb-0 text-truncate w-100" style="color: #0F172A;">${gold.studentName}</h5>
             <div class="small text-muted mb-1 text-truncate w-100">${gold.college || 'Engineering'}</div>
-            <div class="badge text-dark font-monospace fw-bold mb-2 fs-6" style="background: #ffd700;">${gold.totalMeritScore} CMS</div>
-            <div class="w-100 py-2.5 rounded-2 text-dark fw-bold" style="background: #ffd700; font-size: 0.9rem; letter-spacing: 0.5px;">
+            <div class="badge font-monospace fw-bold mb-2 fs-6" style="background: #FEF08A; color: #854D0E; border: 1px solid #FDE047;">${gold.totalMeritScore} CMS</div>
+            <div class="w-100 py-2.5 rounded-2 fw-bold" style="background: #EAB308; color: #000000; font-size: 0.9rem; letter-spacing: 0.5px;">
               👑 NATIONAL GOLD TOPPER
             </div>
           </div>
@@ -290,17 +306,17 @@
       <!-- Rank 3: Bronze (Right) -->
       <div class="col-md-4 col-sm-6 text-center order-3 order-md-3">
         ${bronze ? `
-          <div class="p-3 rounded-top-4 d-flex flex-column align-items-center" style="background: linear-gradient(180deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05)); border: 1px solid rgba(205, 127, 50, 0.4); border-bottom: none; min-height: 190px; justify-content: flex-end;">
+          <div class="p-3 rounded-top-4 d-flex flex-column align-items-center" style="background: #FFF7ED; border: 1px solid #FDBA74; border-bottom: none; min-height: 190px; justify-content: flex-end; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.06);">
             <div class="position-relative mb-2">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 52px; height: 52px; background: linear-gradient(135deg, #cd7f32, #a0522d); color: #fff; font-size: 1.2rem; border: 3px solid #e29f6b; box-shadow: 0 0 15px rgba(205, 127, 50, 0.3);">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 52px; height: 52px; background: #FFEDD5; color: #9A3412; font-size: 1.2rem; border: 3px solid #FFFFFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
                 ${bronze.studentName ? bronze.studentName.charAt(0).toUpperCase() : 'B'}
               </div>
               <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-warning-subtle text-dark fw-bold" style="font-size: 0.75rem;">3</span>
             </div>
-            <h6 class="fw-bold text-white mb-0 text-truncate w-100">${bronze.studentName}</h6>
+            <h6 class="fw-bold mb-0 text-truncate w-100" style="color: #0F172A;">${bronze.studentName}</h6>
             <div class="small text-muted mb-1 text-truncate w-100">${bronze.college || 'Engineering'}</div>
-            <div class="badge text-white font-monospace fw-bold mb-2" style="background: #cd7f32;">${bronze.totalMeritScore} CMS</div>
-            <div class="w-100 py-2 rounded-2 text-white fw-bold" style="background: rgba(205, 127, 50, 0.4); font-size: 0.85rem;">
+            <div class="badge font-monospace fw-bold mb-2" style="background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74;">${bronze.totalMeritScore} CMS</div>
+            <div class="w-100 py-2 rounded-2 fw-bold" style="background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74; font-size: 0.85rem;">
               🥉 BRONZE TOPPER
             </div>
           </div>
@@ -326,29 +342,29 @@
       else if (r.rank === 3) rankBadge = '<span class="badge text-white fw-bold" style="background: #cd7f32;">🥉 #3</span>';
 
       const isCurrent = r.isCurrentUser;
-      const rowStyle = isCurrent ? 'background: rgba(99, 102, 241, 0.15); border-left: 3px solid #6366f1;' : '';
+      const rowStyle = isCurrent ? 'background: #EFF6FF; border-left: 3px solid #2563EB;' : '';
 
       return `
         <tr style="${rowStyle}">
           <td class="text-center py-3">${rankBadge}</td>
           <td>
             <div class="d-flex align-items-center gap-2">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; background: rgba(255, 255, 255, 0.1); font-size: 0.85rem;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; background: #EFF6FF; color: #2563EB; font-size: 0.85rem; border: 1px solid #DBEAFE;">
                 ${r.studentName ? r.studentName.charAt(0).toUpperCase() : 'U'}
               </div>
               <div>
-                <div class="fw-bold text-white small">${r.studentName} ${isCurrent ? '<span class="badge bg-primary ms-1" style="font-size: 0.65rem;">YOU</span>' : ''}</div>
+                <div class="fw-bold small" style="color: #0F172A;">${r.studentName} ${isCurrent ? '<span class="badge bg-primary ms-1" style="font-size: 0.65rem;">YOU</span>' : ''}</div>
                 <div class="text-muted" style="font-size: 0.72rem;">${r.studentEmail || ''}</div>
               </div>
             </div>
           </td>
-          <td><span class="badge bg-secondary bg-opacity-25 text-info font-monospace small">${r.careerTitle || 'Developer'}</span></td>
+          <td><span class="badge bg-light text-secondary border font-monospace small">${r.careerTitle || 'Developer'}</span></td>
           <td class="small text-muted">${r.college || 'Engineering'}</td>
           <td class="text-center font-monospace small">${r.assignmentMarks != null ? r.assignmentMarks.toFixed(1) : '—'}</td>
           <td class="text-center font-monospace small">${r.quizMarks != null ? r.quizMarks.toFixed(1) : '—'}</td>
           <td class="text-center font-monospace small">${r.progressMarks != null ? r.progressMarks.toFixed(1) : '—'}%</td>
           <td class="text-end">
-            <span class="badge text-warning font-monospace fw-bold fs-6" style="background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.3);">
+            <span class="badge font-monospace fw-bold fs-6" style="background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A;">
               ${r.totalMeritScore.toFixed(1)}
             </span>
           </td>
@@ -368,35 +384,35 @@
     }
 
     grid.innerHTML = rewards.map(r => {
-      let crestBadge = '<span class="badge bg-secondary text-white">TOP 10</span>';
+      let crestBadge = '<span class="badge bg-light text-secondary border">TOP 10</span>';
       if (r.eligibilityCrest === 'GOLD') crestBadge = '<span class="badge bg-warning text-dark fw-bold">👑 GOLD CREST</span>';
-      else if (r.eligibilityCrest === 'SILVER') crestBadge = '<span class="badge bg-secondary-subtle text-white fw-bold">🥈 SILVER CREST</span>';
+      else if (r.eligibilityCrest === 'SILVER') crestBadge = '<span class="badge bg-light text-dark fw-bold border">🥈 SILVER CREST</span>';
       else if (r.eligibilityCrest === 'BRONZE') crestBadge = '<span class="badge text-white fw-bold" style="background: #cd7f32;">🥉 BRONZE CREST</span>';
 
       const isEligible = r.isEligible;
       const statusPill = isEligible
-        ? '<span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-50"><i class="bi bi-check-circle-fill me-1"></i> You are Eligible</span>'
-        : '<span class="badge bg-secondary bg-opacity-10 text-muted"><i class="bi bi-lock-fill me-1"></i> Higher CMS Required</span>';
+        ? '<span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-check-circle-fill me-1"></i> You are Eligible</span>'
+        : '<span class="badge bg-light text-muted border"><i class="bi bi-lock-fill me-1"></i> Higher CMS Required</span>';
 
       return `
         <div class="col-md-6 col-lg-4">
-          <div class="p-3.5 rounded-3 h-100 d-flex flex-column justify-content-between" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px;">
+          <div class="p-3.5 rounded-3 h-100 d-flex flex-column justify-content-between bg-white" style="border: 1px solid #E2E8F0; border-radius: 14px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);">
             <div>
               <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="fw-bold text-white fs-6">${r.companyName}</span>
+                <span class="fw-bold fs-6" style="color: #0F172A;">${r.companyName}</span>
                 ${crestBadge}
               </div>
-              <h6 class="text-info fw-semibold mb-1">${r.roleTitle}</h6>
+              <h6 class="text-primary fw-semibold mb-1">${r.roleTitle}</h6>
               <div class="small text-muted mb-2">
                 <i class="bi bi-geo-alt me-1"></i> ${r.location} &bull; <i class="bi bi-cash-stack me-1"></i> ${r.stipendRange}
               </div>
-              <div class="p-2 rounded-2 mb-3" style="background: rgba(0, 0, 0, 0.3); font-size: 0.75rem; color: #94a3b8;">
+              <div class="p-2 rounded-2 mb-3" style="background: #F8FAFC; border: 1px solid #E2E8F0; font-size: 0.75rem; color: #475569;">
                 <i class="bi bi-shield-lock-fill text-warning me-1"></i> <strong>Referral Track:</strong> ${r.referralContact || 'Disheera Direct Placement'}
               </div>
             </div>
-            <div class="d-flex align-items-center justify-content-between pt-2 border-top border-secondary border-opacity-25">
+            <div class="d-flex align-items-center justify-content-between pt-2 border-top" style="border-color: #E2E8F0 !important;">
               <div>${statusPill}</div>
-              <a href="${r.applyUrl || '#'}" target="_blank" class="btn btn-sm ${isEligible ? 'btn-primary' : 'btn-outline-secondary disabled'}" style="${isEligible ? 'background: #6366f1; border: none;' : ''}">
+              <a href="${r.applyUrl || '#'}" target="_blank" class="btn btn-sm ${isEligible ? 'btn-primary' : 'btn-outline-secondary disabled'}" style="${isEligible ? 'background: #2563EB; border: none; font-weight: 600;' : ''}">
                 Apply <i class="bi bi-box-arrow-up-right ms-1"></i>
               </a>
             </div>
