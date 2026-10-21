@@ -529,7 +529,6 @@ model WeeklyAssignment {
   submissions      AssignmentSubmission[]
 
   @@unique([careerId, weekNumber])
-  @@index([careerId])
   @@map("weekly_assignments")
 }
 
@@ -566,7 +565,6 @@ model AssignmentSubmission {
   updatedAt            DateTime         @updatedAt
 
   @@index([userId])
-  @@index([assignmentId])
   @@index([status])
   @@index([userId, weekNumber])
   @@map("assignment_submissions")
@@ -587,7 +585,6 @@ model StudentMeritScore {
   lastCalculatedAt     DateTime @default(now())
 
   @@index([totalMeritScore(sort: Desc)])
-  @@index([currentRank])
   @@map("student_merit_scores")
 }
 
