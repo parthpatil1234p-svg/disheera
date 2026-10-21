@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software in your research or project, please cite it as below."
+authors:
+  - family-names: "Patil"
+    given-names: "Parth"
+    affiliation: "Team 404 Brain Not Found · Hack2Ignite"
+title: "Disheera: Autonomous AI Career Guidance and Skill Roadmap Platform"
+version: 1.2.0
+date-released: 2026-10-21
+url: "https://github.com/parthpatil1234p-svg/disheera"
+keywords:
+  - "ai"
+  - "career-guidance"
+  - "edtech"
+  - "skill-roadmaps"
+  - "anti-cheat"
+  - "student-assessments"
+  - "talent-radar"
+license: "MIT"

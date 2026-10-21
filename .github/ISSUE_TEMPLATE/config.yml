@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Security Vulnerability
+    url: https://github.com/parthpatil1234p-svg/disheera/security/policy
+    about: Please report security vulnerabilities privately according to our Security Policy.
+  - name: 💬 Community Q&A & Discussions
+    url: https://github.com/parthpatil1234p-svg/disheera/discussions
+    about: Ask questions, get help from the community, and share your learning experiences.

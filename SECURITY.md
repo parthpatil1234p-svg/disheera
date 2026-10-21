@@ -46,7 +46,9 @@ For the Hack2Ignite Round 1 MVP, the following baseline security controls are ac
 3. **HTTP Security Headers:** Integrated `helmet` middleware setting `X-Content-Type-Options`, `X-Frame-Options`, and referrer policies.
 4. **Rate Limiting:** `express-rate-limit` throttles brute-force attempts on sensitive endpoints.
 5. **CORS Hardening:** Cross-Origin Resource Sharing is locked down to authorized frontend origins and localhost.
-6. **Input Sanitization:** MongoDB schema validation rejects unauthorized keys and malformed types.
+6. **PostgreSQL Row Level Security (RLS):** All public tables enforce Supabase PostgreSQL RLS policies isolating student records, corporate vacancies, and audit logs.
+7. **1:1 Mobile Uniqueness Guard:** Database partial unique index (`User_phone_unique_not_empty`) prevents duplicate accounts or phone takeovers.
+8. **Dependency Security Hygiene:** Continuous zero-vulnerability security baseline maintained across all dependencies (`npm audit` 0 vulnerabilities).
 
 ---
 
