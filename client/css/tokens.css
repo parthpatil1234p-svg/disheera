@@ -4,13 +4,29 @@
    Disheera · Enterprise Edition
    ========================================================================== */
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/inter-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/inter-600.woff2') format('woff2');
+}
+
 :root {
   /* ------------------------------------------------------------------------
      1. Primary Surfaces & Backgrounds (Clean, Trustworthy, Light)
      ------------------------------------------------------------------------ */
-  --color-background: #F8FAFC;        /* Main page canvas */
+  --color-background: #F7F9FD;        /* Main page canvas */
   --color-surface: #FFFFFF;           /* Card and panel background */
-  --color-surface-muted: #F1F5F9;     /* Subtle section fills, table headers */
+  --color-surface-muted: #F1F4FA;     /* Subtle section fills, table headers */
   --color-surface-blue: #EFF6FF;      /* Soft blue badge / card tint */
   --color-surface-indigo: #EEF2FF;    /* Soft indigo highlight tint */
   --color-surface-cyan: #ECFEFF;      /* Soft cyan accent tint */
@@ -33,9 +49,9 @@
   /* ------------------------------------------------------------------------
      2. Primary Clean Modern Blue Palette (Standard Normal UI)
      ------------------------------------------------------------------------ */
-  --color-primary-900: #0F172A;
+  --color-primary-900: #0F1A35;
   --color-primary-800: #1E3A8A;
-  --color-primary-700: #1D4ED8;
+  --color-primary-700: #1D4FD0;
   --color-primary-600: #2563EB;
   --color-primary-500: #3B82F6;
 
@@ -53,11 +69,11 @@
   --color-cyan-300: #7DD3FC;
 
   /* Semantic Status Colors (Clean & Standard) */
-  --color-success: #10B981;
+  --color-success: #16A36A;
   --color-success-bg: #ECFDF5;
-  --color-warning: #F59E0B;
+  --color-warning: #D98A0B;
   --color-warning-bg: #FFFBEB;
-  --color-danger: #EF4444;
+  --color-danger: #DC4B4B;
   --color-danger-bg: #FEF2F2;
   --color-info: #2563EB;
   --color-info-bg: #EFF6FF;
@@ -81,11 +97,11 @@
   /* ------------------------------------------------------------------------
      3. High-Contrast Accessible Typography Colors
      ------------------------------------------------------------------------ */
-  --color-text-primary: #0F172A;      /* Clean Dark Slate for headings */
+  --color-text-primary: #0F1A35;       /* Clean Dark Slate for headings */
   --color-text-secondary: #334155;    /* Clear Slate for body text */
-  --color-text-muted: #475569;        /* High-contrast WCAG AAA slate for captions (7.07:1 ratio) */
+  --color-text-muted: #5B6783;         /* Captions and secondary labels */
   --color-text-disabled: #64748B;     /* Disabled text */
-  --color-border: #E2E8F0;            /* Clean light border */
+  --color-border: #E3E8F2;             /* Clean light border */
 
   /* Legacy Typography Aliases */
   --text-primary: var(--color-text-primary);
@@ -121,7 +137,7 @@
   /* ------------------------------------------------------------------------
      6. Modern Sleek Typography Stacks & Scale (Issue 1 Heuristic)
      ------------------------------------------------------------------------ */
-  --font-heading: 'Outfit', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
@@ -131,18 +147,18 @@
   --font-size-xs: 0.75rem;    /* 12px: Badges, timestamps, small tags */
   --font-size-sm: 0.875rem;   /* 14px: Secondary captions, table data, sub-labels */
   --font-size-base: 1rem;     /* 16px: Standard body copy, inputs, primary buttons */
-  --font-size-lg: 1.125rem;   /* 18px: Subheadings, highlighted cards */
-  --font-size-xl: 1.25rem;    /* 20px: Card titles, modal headers */
-  --font-size-2xl: 1.5rem;    /* 24px: Section subheadings */
-  --font-size-3xl: 2rem;      /* 32px: Section titles */
-  --font-size-display: 2.5rem;/* 40px: Hero headlines */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
+  --font-size-3xl: 3rem;      /* 48px */
+  --font-size-display: 3rem;  /* 48px */
 
   /* ------------------------------------------------------------------------
      7. Spacing & Geometric Radii (Issue 3 Heuristic - 4 Core System Radii)
      ------------------------------------------------------------------------ */
-  --radius-xs: 6px;
-  --radius-sm: 6px;                   /* Small controls: 6px */
-  --radius-md: 10px;                  /* Controls, buttons, inputs: 10px */
+  --radius-xs: 8px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
   --radius-lg: 16px;                  /* Cards, modals, containers: 16px */
   --radius-pill: 9999px;              /* Segmented tabs, search bars, pills: 9999px */
 
@@ -169,4 +185,273 @@
   --coral-subtle: var(--color-danger-bg);
   --navy-subtle: var(--color-surface-indigo);
   --teal-subtle: var(--color-surface-cyan);
+
+  /* Shared cross-app tokens */
+  --bg: var(--color-background);
+  --surface: var(--color-surface);
+  --surface-2: var(--color-surface-muted);
+  --border: var(--color-border);
+  --text: var(--color-text-primary);
+  --text-dim: var(--color-text-muted);
+  --primary: var(--color-primary-600);
+  --primary-hover: #1D4FD0;
+  --primary-soft: rgba(37, 99, 235, 0.10);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --danger: var(--color-danger);
+
+  /* Shared spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  font-family: var(--font-body);
+}
+
+body {
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(32px, 4vw, 48px); }
+h2 { font-size: clamp(24px, 3vw, 32px); }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
+
+button,
+.btn,
+.cp-btn-primary,
+.cp-btn-outline,
+[role="button"] {
+  min-height: 44px !important;
+  border-radius: var(--radius-sm);
+}
+
+button.btn,
+a.btn,
+.navbar-toggler,
+.nav-user-pill,
+.nav-btn-logout,
+.notch-mobile-toggle {
+  min-width: 44px;
+  flex-shrink: 0;
+}
+
+.form-select-sm,
+.form-control-sm {
+  height: auto !important;
+  min-height: 44px !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),
+select,
+textarea {
+  min-height: 44px !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 2px;
+}
+
+.card,
+.dashboard-profile-card,
+.readiness-hero-card,
+.active-route-card,
+.journey-canvas-card,
+.modal-content,
+.auth-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary,
+.cp-btn-primary,
+.btn-profile-primary {
+  color: #FFFFFF;
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-primary:hover,
+.cp-btn-primary:hover,
+.btn-profile-primary:hover {
+  color: #FFFFFF;
+  background: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.btn-outline-primary,
+.cp-btn-outline,
+.btn-profile-secondary {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.table,
+table {
+  --bs-table-border-color: var(--border);
+  color: var(--text-dim);
+}
+
+.table thead th,
+table thead th {
+  color: var(--text);
+  background-color: var(--surface-2);
+}
+
+.nav-tabs .nav-link,
+.nav-pills .nav-link {
+  min-height: 44px;
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+}
+
+.navbar-brand,
+.nav-user-pill,
+.profile-resume-pill,
+.portal-badge,
+.cross-search-btn,
+.gh-repo-link,
+.gh-repo-title,
+.dashboard-profile-card a.badge {
+  min-height: 44px;
+  align-items: center;
+}
+
+.task-checkbox-input {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+}
+
+.task-checkbox-row {
+  min-height: 44px;
+}
+
+@media (max-width: 575.98px) {
+  .dashboard-profile-card {
+    padding: 16px !important;
+  }
+
+  .dashboard-profile-card > .row > *,
+  .dashboard-profile-card .row > .col-xl-6 {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .dashboard-profile-card .row > .col-xl-6:first-child {
+    align-items: flex-start !important;
+  }
+
+  .dashboard-profile-card .row > .col-xl-6:first-child > div:last-child {
+    min-width: 0;
+    flex: 1 1 180px;
+  }
+
+  .dashboard-profile-card .profile-meta-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+  }
+
+  .dashboard-profile-card .profile-meta-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .dashboard-profile-card #profileStatusBar {
+    align-items: flex-start !important;
+  }
+
+  .dashboard-profile-card .status-segmented-control {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    align-items: stretch;
+    gap: 4px;
+    padding: 4px;
+    border-radius: var(--radius-md);
+    background: var(--surface-2);
+  }
+
+  .dashboard-profile-card .status-toggle-btn {
+    flex: 1 1 96px;
+    width: auto;
+    min-height: 44px;
+    border-radius: var(--radius-sm);
+  }
+
+  .dashboard-profile-card .status-toggle-btn.active {
+    color: var(--primary);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .dashboard-profile-card .row > .col-xl-6:last-child {
+    justify-content: flex-start !important;
+  }
+
+  .dashboard-profile-card .row > .col-xl-6:last-child > .btn,
+  .dashboard-profile-card .row > .col-xl-6:last-child > a.btn {
+    min-height: 44px;
+  }
+}
+
+.nav-pills .nav-link.active,
+.nav-tabs .nav-link.active {
+  color: #FFFFFF;
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,0 +1,137 @@
+:root {
+  --bg: #F7F9FD;
+  --surface: #FFFFFF;
+  --surface-2: #F1F4FA;
+  --border: #E3E8F2;
+  --text: #0F1A35;
+  --text-dim: #5B6783;
+  --primary: #2563EB;
+  --primary-hover: #1D4FD0;
+  --primary-soft: rgba(37, 99, 235, 0.10);
+  --success: #16A36A;
+  --warning: #D98A0B;
+  --danger: #DC4B4B;
+
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: var(--font-body);
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(15, 26, 53, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 26, 53, 0.08);
+  --shadow-lg: 0 20px 45px -12px rgba(15, 23, 42, 0.12);
+}
+
+html,
+body {
+  font-family: var(--font-body);
+}
+
+body {
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+button,
+.btn,
+[role="button"],
+.nav-link {
+  min-height: 44px !important;
+  border-radius: var(--radius-sm);
+}
+
+button.btn,
+a.btn,
+.navbar-toggler {
+  min-width: 44px;
+  flex-shrink: 0;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),
+select,
+textarea {
+  min-height: 44px !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 2px;
+}
+
+.auth-card,
+.stat-card,
+.panel,
+.data-card,
+.modal-content,
+.table-container {
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-card {
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary,
+.btn-action,
+.btn-save {
+  color: #FFFFFF;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover,
+.btn-action:hover,
+.btn-save:hover {
+  color: #FFFFFF;
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.nav-link.active,
+.tab-button.active,
+.tab-btn.active {
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
