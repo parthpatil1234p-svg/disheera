@@ -47,6 +47,19 @@ async function connectPrisma() {
   try {
     await prisma.$connect();
     console.log('✅ Supabase PostgreSQL Connected [Prisma ORM]: db.naefjieafxfdzliphaxb.supabase.co');
+
+    // Enforce 1:1 Mobile Uniqueness at database level:
+    // Partial unique index ensures non-empty phones are strictly unique across all accounts
+    try {
+      await prisma.$executeRawUnsafe(`
+        CREATE UNIQUE INDEX IF NOT EXISTS "User_phone_unique_not_empty" 
+        ON public."User" (phone) 
+        WHERE phone IS NOT NULL AND phone != '';
+      `);
+    } catch (idxErr) {
+      console.warn('⚠️  Notice verifying User phone unique index:', idxErr.message);
+    }
+
     return prisma;
   } catch (error) {
     console.warn('⚠️  Supabase PostgreSQL Notice:', error.message);

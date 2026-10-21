@@ -23,6 +23,7 @@ const JobApplication = require('../models/JobApplication');
 const { computeOverallCompanyVerification } = require('../services/companyVerificationService');
 const { sendOtpEmail, isEmailConfigured: isEmailServiceConfigured } = require('../services/emailService');
 const pendingSignupStore = require('../data/pendingSignupStore');
+const whatsappService = require('../services/whatsappService');
 
 // ── Helper: 6-Digit Secure OTP Generator ─────────────────────
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
@@ -109,6 +110,36 @@ const registerRecruiter = async (req, res, next) => {
       });
     }
 
+    // 1:1 Mobile Uniqueness Enforcement for corporate recruiters
+    const formattedWorkPhone = workPhone ? whatsappService.formatPhoneNumber(workPhone) : '';
+    if (formattedWorkPhone) {
+      const digits = formattedWorkPhone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        return res.status(400).json({
+          success: false,
+          message: 'Please provide a valid 10-digit contact mobile number.',
+        });
+      }
+
+      const existingPhoneUser = await User.findOne({ phone: formattedWorkPhone });
+      if (existingPhoneUser && existingPhoneUser.isVerified && existingPhoneUser.email !== normalizedEmail) {
+        return res.status(400).json({
+          success: false,
+          code: 'PHONE_ALREADY_EXISTS',
+          message: `This mobile number (${formattedWorkPhone}) is already linked to another registered account. Each account must have a unique mobile number. Please use a different number.`,
+        });
+      }
+
+      const pendingOther = await pendingSignupStore.getPendingSignupByPhone(formattedWorkPhone);
+      if (pendingOther && pendingOther.email !== normalizedEmail) {
+        return res.status(400).json({
+          success: false,
+          code: 'PHONE_ALREADY_EXISTS',
+          message: 'This mobile number is currently undergoing verification for another account. Please use your own unique mobile number.',
+        });
+      }
+    }
+
     // Run full corporate legitimacy checks
     const verification = await computeOverallCompanyVerification({
       companyName: companyName.trim(),
@@ -152,7 +183,7 @@ const registerRecruiter = async (req, res, next) => {
       title: (title || 'Technical Recruiter').trim(),
       corporateEmail: normalizedEmail,
       linkedinUrl: (linkedinUrl || '').trim(),
-      workPhone: (workPhone || '').trim(),
+      workPhone: formattedWorkPhone || (workPhone || '').trim(),
       verificationStatus: 'verified',
       verificationScore: verification.confidenceScore,
       verificationMethod: 'corporate_email_otp_plus_ai_intel',
@@ -173,7 +204,7 @@ const registerRecruiter = async (req, res, next) => {
       name: name.trim(),
       password,
       role: 'recruiter',
-      phone: (workPhone || '').trim(),
+      phone: formattedWorkPhone || undefined,
       emailOtp: otpCode,
       backupOtp: otpCode,
       recruiterProfile: recruiterProfileData,

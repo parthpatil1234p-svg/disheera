@@ -18,6 +18,7 @@ const Roadmap = require('../models/Roadmap');
 const RoadmapTask = require('../models/RoadmapTask');
 const { cacheManager } = require('../utils/cacheManager');
 const whatsappService = require('../services/whatsappService');
+const pendingSignupStore = require('../data/pendingSignupStore');
 const { formatUser } = require('./authController');
 
 // ── Permitted update fields whitelist ─────────────────────────
@@ -890,12 +891,22 @@ const sendLinkPhoneOtp = async (req, res, next) => {
       });
     }
 
-    // Check if another user already owns this phone number
+    // Check if another user already owns this phone number (1:1 Mobile Uniqueness)
     const existingUserWithPhone = await User.findOne({ phone: formattedPhone });
     if (existingUserWithPhone && String(existingUserWithPhone._id) !== String(req.user._id)) {
       return res.status(400).json({
         success: false,
-        message: 'This WhatsApp phone number is already linked to another account',
+        code: 'PHONE_ALREADY_EXISTS',
+        message: 'This WhatsApp phone number is already linked to another account. Each account must have a unique mobile number.',
+      });
+    }
+
+    const pendingOther = await pendingSignupStore.getPendingSignupByPhone(formattedPhone);
+    if (pendingOther && pendingOther.email !== req.user.email) {
+      return res.status(400).json({
+        success: false,
+        code: 'PHONE_ALREADY_EXISTS',
+        message: 'This mobile number is currently undergoing registration verification for another account. Please use your own unique mobile number.',
       });
     }
 
@@ -1019,12 +1030,13 @@ const verifyLinkPhoneOtp = async (req, res, next) => {
       });
     }
 
-    // Double-check uniqueness
+    // Double-check uniqueness (1:1 Mobile Uniqueness)
     const existingWithPhone = await User.findOne({ phone: targetPhone });
     if (existingWithPhone && String(existingWithPhone._id) !== String(user._id)) {
       return res.status(400).json({
         success: false,
-        message: 'This WhatsApp phone number is already linked to another account',
+        code: 'PHONE_ALREADY_EXISTS',
+        message: 'This WhatsApp phone number is already linked to another account. Each account must have a unique mobile number.',
       });
     }
 
@@ -1035,7 +1047,18 @@ const verifyLinkPhoneOtp = async (req, res, next) => {
       phonePending: null,
     };
 
-    await user.save();
+    try {
+      await user.save();
+    } catch (saveErr) {
+      if (saveErr.code === 'P2002' || saveErr.message?.includes('User_phone_unique') || saveErr.message?.includes('duplicate key value')) {
+        return res.status(400).json({
+          success: false,
+          code: 'PHONE_ALREADY_EXISTS',
+          message: 'This mobile number is already linked to another registered account. Each account must have a unique mobile number.',
+        });
+      }
+      throw saveErr;
+    }
 
     console.log(`\n✅ [PHONE LINK VERIFIED] User ${user.email} successfully linked WhatsApp phone: ${targetPhone}\n`);
 

@@ -445,6 +445,15 @@ table thead th {
   border-color: var(--primary);
 }
 
+/* Landing page pricing panels: use token radii instead of missing legacy aliases. */
+.pricing-card {
+  border-radius: var(--radius-lg, 16px) !important;
+}
+
+.popular-badge {
+  border-radius: 999px !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

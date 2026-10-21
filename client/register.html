@@ -390,9 +390,14 @@
 
                 <!-- WhatsApp Phone Number (Instant OTP & Weekly Notes) -->
                 <div class="mb-3">
-                  <label for="phone" class="form-label">
-                    WhatsApp Phone Number
-                  </label>
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label for="phone" class="form-label mb-0">
+                      WhatsApp Phone Number
+                    </label>
+                    <span class="badge rounded-pill px-2 py-0.5" style="background: #EFF6FF; color: #1D4ED8; font-size: 0.72rem; font-weight: 500; border: 1px solid #DBEAFE;">
+                      <i class="bi bi-shield-check me-1"></i>1 Account = 1 Mobile
+                    </span>
+                  </div>
                   <div class="input-group">
                     <span class="input-group-text bg-light text-muted fw-semibold">
                       <i class="bi bi-whatsapp text-success me-1"></i> +91
@@ -406,9 +411,13 @@
                       pattern="[0-9]{10}"
                       maxlength="15"
                     />
+                    <span class="input-group-text bg-white border-start-0 d-none" id="phoneStatusIcon">
+                      <i class="bi bi-check-circle-fill text-success"></i>
+                    </span>
                   </div>
+                  <div id="phoneValidationFeedback" class="form-text small mt-1 d-none"></div>
                   <div class="form-text text-muted small mt-1">
-                    Receive your 6-digit verification code and weekly PDF notes directly on WhatsApp.
+                    Receive your 6-digit verification code and weekly PDF notes directly on WhatsApp. Strictly 1 account per mobile number.
                   </div>
                 </div>
 

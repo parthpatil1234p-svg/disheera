@@ -221,6 +221,60 @@ async function getPendingSignup(email) {
 }
 
 /**
+ * Retrieves an active (non-expired) pending registration by phone number.
+ */
+async function getPendingSignupByPhone(phone) {
+  if (!phone) return null;
+  const formatted = typeof phone === 'string' ? phone.trim() : '';
+  if (!formatted) return null;
+
+  const now = new Date();
+
+  // 1. Check in-memory map
+  for (const record of pendingMap.values()) {
+    if (record.phone === formatted && new Date(record.expiresAt) > now) {
+      return record;
+    }
+  }
+
+  // 2. Check PostgreSQL database if table is active
+  try {
+    if (await isDbTableAvailable()) {
+      const rows = await prisma.$queryRawUnsafe(`
+        SELECT * FROM public.pending_signups 
+        WHERE phone = $1 AND "expiresAt" > NOW() 
+        LIMIT 1;
+      `, formatted);
+
+      if (rows && rows.length > 0) {
+        const row = rows[0];
+        return {
+          id: row.id,
+          email: row.email,
+          name: row.name,
+          passwordHash: row.passwordHash,
+          phone: row.phone,
+          role: row.role,
+          emailOtpHash: row.emailOtpHash,
+          whatsappOtpHash: row.whatsappOtpHash,
+          backupOtp: row.backupOtp,
+          recruiterProfile: row.recruiterProfile,
+          expiresAt: new Date(row.expiresAt),
+          attempts: row.attempts,
+          sendHistory: row.sendHistory,
+          createdAt: new Date(row.createdAt),
+          updatedAt: new Date(row.updatedAt),
+        };
+      }
+    }
+  } catch (dbErr) {
+    console.warn('⚠️ [pendingSignupStore.getPendingSignupByPhone] DB read warning:', dbErr.message);
+  }
+
+  return null;
+}
+
+/**
  * Increments failed attempt counter for a pending signup.
  */
 async function recordAttempt(email) {
@@ -351,6 +405,7 @@ module.exports = {
   verifyOtpHash,
   savePendingSignup,
   getPendingSignup,
+  getPendingSignupByPhone,
   recordAttempt,
   updatePendingOtp,
   deletePendingSignup,

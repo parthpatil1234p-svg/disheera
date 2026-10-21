@@ -24,6 +24,7 @@ const {
   getGitHubConfig,
   forgotPassword,
   resetPassword,
+  checkPhoneAvailability,
 } = require('../controllers/authController');
 const { getMyProfile } = require('../controllers/userController');
 const { validateRegister, validateLogin } = require('../middleware/validateRequest');
@@ -32,6 +33,9 @@ const otpRateLimiter = require('../middleware/otpRateLimiter');
 const { passwordResetRateLimiter } = require('../middleware/passwordResetRateLimiter');
 
 const router = express.Router();
+
+// POST /api/auth/check-phone (Live 1:1 mobile number availability pre-check)
+router.post('/check-phone', checkPhoneAvailability);
 
 // POST /api/auth/register (max 2 OTP sends per 5 mins per email)
 router.post('/register', otpRateLimiter, validateRegister, registerUser);

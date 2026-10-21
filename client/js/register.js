@@ -404,6 +404,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Real-Time 1:1 Mobile Number Live Availability Pre-check ──
+  const phoneInput = document.getElementById('phone');
+  const phoneFeedback = document.getElementById('phoneValidationFeedback');
+  const phoneStatusIcon = document.getElementById('phoneStatusIcon');
+  let phoneCheckDebounceTimer = null;
+
+  if (phoneInput && phoneFeedback) {
+    phoneInput.addEventListener('input', () => {
+      clearTimeout(phoneCheckDebounceTimer);
+      const rawVal = phoneInput.value.trim();
+      const digits = rawVal.replace(/\D/g, '');
+
+      if (!digits) {
+        phoneFeedback.classList.add('d-none');
+        if (phoneStatusIcon) phoneStatusIcon.classList.add('d-none');
+        phoneInput.classList.remove('is-invalid', 'is-valid');
+        return;
+      }
+
+      if (digits.length < 10) {
+        phoneFeedback.className = 'form-text small mt-1 text-muted';
+        phoneFeedback.innerHTML = `<i class="bi bi-info-circle me-1"></i> Enter a 10-digit mobile number (${digits.length}/10 digits).`;
+        phoneFeedback.classList.remove('d-none');
+        if (phoneStatusIcon) phoneStatusIcon.classList.add('d-none');
+        phoneInput.classList.remove('is-invalid', 'is-valid');
+        return;
+      }
+
+      phoneFeedback.className = 'form-text small mt-1 text-muted';
+      phoneFeedback.innerHTML = '<span class="spinner-border spinner-border-sm me-1" style="width: 0.8rem; height: 0.8rem;"></span> Checking mobile number availability...';
+      phoneFeedback.classList.remove('d-none');
+
+      phoneCheckDebounceTimer = setTimeout(async () => {
+        try {
+          const res = await window.API.post('/auth/check-phone', {
+            phone: digits.slice(-10),
+            email: (studentEmailInput ? studentEmailInput.value.trim().toLowerCase() : '')
+          });
+
+          if (res.available) {
+            phoneFeedback.className = 'form-text small mt-1 text-success fw-medium';
+            phoneFeedback.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Mobile number is available (+91 ${digits.slice(-10)}).`;
+            phoneInput.classList.remove('is-invalid');
+            phoneInput.classList.add('is-valid');
+            if (phoneStatusIcon) {
+              phoneStatusIcon.classList.remove('d-none');
+              phoneStatusIcon.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+            }
+          } else {
+            phoneFeedback.className = 'form-text small mt-1 text-danger fw-semibold';
+            phoneFeedback.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-1"></i> ${escapeHtml(res.message || 'This mobile number is already linked to another account.')} <a href="login.html" class="text-danger text-decoration-underline ms-1">Log In</a>`;
+            phoneInput.classList.remove('is-valid');
+            phoneInput.classList.add('is-invalid');
+            if (phoneStatusIcon) {
+              phoneStatusIcon.classList.remove('d-none');
+              phoneStatusIcon.innerHTML = '<i class="bi bi-exclamation-circle-fill text-danger"></i>';
+            }
+          }
+        } catch (err) {
+          console.warn('Phone precheck error:', err);
+          phoneFeedback.classList.add('d-none');
+          if (phoneStatusIcon) phoneStatusIcon.classList.add('d-none');
+        }
+      }, 350);
+    });
+  }
+
   // ── Initialize Google Authentication ────────────────────────
   if (window.GoogleAuth) {
     window.GoogleAuth.init({
@@ -730,6 +797,27 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        // Strict 1:1 mobile number check first
+        if (err.data?.code === 'PHONE_ALREADY_EXISTS' || (err.message && (err.message.toLowerCase().includes('mobile number') || err.message.toLowerCase().includes('phone number')))) {
+          alertContainer.innerHTML = `
+            <div class="alert alert-warning border border-warning border-opacity-50 p-3 mb-3 text-start" role="alert" style="background: #FFFBEB;">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-phone-fill text-warning fs-5"></i>
+                <strong class="text-ink">Mobile Number Already Registered</strong>
+              </div>
+              <p class="small text-secondary mb-2">
+                ${escapeHtml(err.data?.message || err.message || 'This mobile number is already linked to another registered account.')} Each account must have a unique mobile number.
+              </p>
+              <div class="d-flex gap-2">
+                <a href="login.html" class="btn cp-btn-primary btn-sm flex-grow-1 py-1">
+                  Log In to Existing Account →
+                </a>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
         const isExisting =
           (err.message && err.message.toLowerCase().includes('already exists')) ||
           (err.data?.message && err.data.message.toLowerCase().includes('already exists'));
@@ -852,6 +940,11 @@ document.addEventListener('DOMContentLoaded', () => {
         recruiterSubmitBtn.disabled = false;
         recruiterSubmitBtn.innerHTML = originalBtnContent;
 
+        if (err.data?.code === 'PHONE_ALREADY_EXISTS' || (err.message && (err.message.toLowerCase().includes('mobile number') || err.message.toLowerCase().includes('phone number')))) {
+          showAlert(err.data?.message || err.message, 'warning');
+          return;
+        }
+
         showAlert(err.message || 'Corporate registration failed. Please ensure your email domain matches your company website.');
       }
     });
@@ -936,6 +1029,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       verifyOtpBtn.disabled = false;
       verifyOtpBtn.innerHTML = originalBtn;
+      if (err.data?.code === 'PHONE_ALREADY_EXISTS') {
+        showAlert(err.data.message || 'This mobile number is already linked to another account. Each account must have a unique mobile number.', 'danger');
+        return;
+      }
       showAlert(err.message || 'Verification failed. Please check both codes or request new ones.');
     }
   });

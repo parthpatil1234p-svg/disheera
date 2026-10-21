@@ -176,6 +176,38 @@ const registerUser = async (req, res, next) => {
 
     const formattedPhone = phone ? whatsappService.formatPhoneNumber(phone) : '';
 
+    if (formattedPhone) {
+      const digits = formattedPhone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        return res.status(400).json({
+          success: false,
+          message: 'Please provide a valid 10-digit mobile number.',
+        });
+      }
+
+      // 1:1 Mobile Uniqueness Enforcement: One mobile number can only belong to one account
+      const existingUserWithPhone = await User.findOne({ phone: formattedPhone });
+      if (existingUserWithPhone && existingUserWithPhone.isVerified) {
+        if (existingUserWithPhone.email !== normalizedEmail) {
+          return res.status(400).json({
+            success: false,
+            code: 'PHONE_ALREADY_EXISTS',
+            message: `This mobile number (${formattedPhone}) is already linked to another registered account. Each account must have a unique mobile number. Please log in directly or use a different number.`,
+          });
+        }
+      }
+
+      // Check active pending registrations for a different email
+      const pendingWithPhone = await pendingSignupStore.getPendingSignupByPhone(formattedPhone);
+      if (pendingWithPhone && pendingWithPhone.email !== normalizedEmail) {
+        return res.status(400).json({
+          success: false,
+          code: 'PHONE_ALREADY_EXISTS',
+          message: 'This mobile number is currently undergoing verification for another account. Please use your own unique mobile number.',
+        });
+      }
+    }
+
     // Check if verified user already exists
     let existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
@@ -374,6 +406,18 @@ const verifyOtp = async (req, res, next) => {
         });
       }
 
+      // 1:1 Mobile Uniqueness Verification Guard: prevent race conditions
+      if (pending.phone) {
+        const phoneCollision = await User.findOne({ phone: pending.phone });
+        if (phoneCollision && phoneCollision.isVerified && String(phoneCollision.email || '').toLowerCase() !== normalizedEmail) {
+          return res.status(400).json({
+            success: false,
+            code: 'PHONE_ALREADY_EXISTS',
+            message: `This mobile number (${pending.phone}) is already linked to another registered account. Each account must have a unique mobile number.`,
+          });
+        }
+      }
+
       // Verification succeeded! Now create the real User row in public.User
       const user = new User({
         name: pending.name,
@@ -391,7 +435,18 @@ const verifyOtp = async (req, res, next) => {
         user.recruiterProfile.verifiedAt = new Date();
       }
 
-      await user.save();
+      try {
+        await user.save();
+      } catch (saveErr) {
+        if (saveErr.code === 'P2002' || saveErr.message?.includes('User_phone_unique') || saveErr.message?.includes('duplicate key value')) {
+          return res.status(400).json({
+            success: false,
+            code: 'PHONE_ALREADY_EXISTS',
+            message: `This mobile number (${pending.phone}) is already registered to another account. Each account must have a unique mobile number.`,
+          });
+        }
+        throw saveErr;
+      }
 
       // Purge from pending signups store
       await pendingSignupStore.deletePendingSignup(normalizedEmail);
@@ -943,6 +998,7 @@ const googleAuth = async (req, res, next) => {
         if (duplicateWithPhone.email !== normalizedEmail) {
           return res.status(400).json({
             success: false,
+            code: 'PHONE_ALREADY_EXISTS',
             message: `This mobile number (${formattedPhone}) is already linked to another registered account. Please provide your own unique mobile number.`,
           });
         }
@@ -1478,6 +1534,73 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+// ── checkPhoneAvailability ─────────────────────────────────────
+/**
+ * POST /api/auth/check-phone
+ * Body: { phone, email }
+ * Real-time endpoint to verify if a mobile number is already taken
+ */
+const checkPhoneAvailability = async (req, res, next) => {
+  try {
+    const { phone, email } = req.body;
+    if (!phone || typeof phone !== 'string' || !phone.trim()) {
+      return res.status(400).json({
+        success: false,
+        valid: false,
+        message: 'Phone number is required.',
+      });
+    }
+
+    const formattedPhone = whatsappService.formatPhoneNumber(phone.trim());
+    const digits = formattedPhone.replace(/\D/g, '');
+    if (digits.length < 10) {
+      return res.status(400).json({
+        success: false,
+        valid: false,
+        message: 'Please enter a valid 10-digit mobile number.',
+      });
+    }
+
+    const normalizedEmail = email ? String(email).trim().toLowerCase() : null;
+
+    // Check if phone belongs to an existing verified user
+    const existingUser = await User.findOne({ phone: formattedPhone });
+    if (existingUser && existingUser.isVerified) {
+      if (!normalizedEmail || existingUser.email !== normalizedEmail) {
+        return res.status(200).json({
+          success: true,
+          available: false,
+          code: 'PHONE_ALREADY_EXISTS',
+          phone: formattedPhone,
+          message: 'This mobile number is already registered to another account. Each account must have a unique mobile number.',
+        });
+      }
+    }
+
+    // Check if active pending signup exists for another email
+    const pendingOther = await pendingSignupStore.getPendingSignupByPhone(formattedPhone);
+    if (pendingOther && (!normalizedEmail || pendingOther.email !== normalizedEmail)) {
+      return res.status(200).json({
+        success: true,
+        available: false,
+        code: 'PHONE_ALREADY_EXISTS',
+        phone: formattedPhone,
+        message: 'This mobile number is currently undergoing verification for another account.',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      available: true,
+      valid: true,
+      phone: formattedPhone,
+      message: 'Mobile number is available for registration.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   formatUser,
   registerUser,
@@ -1493,4 +1616,5 @@ module.exports = {
   isDisposableEmail,
   forgotPassword,
   resetPassword,
+  checkPhoneAvailability,
 };
