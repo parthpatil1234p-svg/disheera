@@ -1,8 +1,8 @@
 # 📄 Disheera — Single Resume per Account & File Integrity Architecture
 
-> **🏆 Hack2Ignite 2026–27 · Technical Deep-Dive**  
-> **Problem Statement ID:** ED-02 (AI Career Guidance and Skill Roadmap Platform)  
-> **Authors:** Team 404 Brain Not Found  
+> **Disheera Technologies Inc. · Technical Architecture Whitepaper**
+> **Platform:** Disheera Autonomous Career Guidance & Verified Talent Marketplace
+> **Engineering:** Disheera Core Systems & Security Team  
 
 ---
 

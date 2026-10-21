@@ -1,9 +1,8 @@
 # Backend Schema & REST API Reference Specification
 
-> **Hack2Ignite 2026–27 · Round 1 Qualifier**  
-> **Team:** 404 Brain Not Found  
-> **Problem Statement ID:** ED-02 (AI-Powered Career Guidance System)  
-> **Backend Stack:** Node.js v18+, Express.js, MongoDB Atlas (Mongoose ODM), JWT, bcryptjs
+> **Disheera Technologies Inc. · Enterprise Backend Schema Specification**
+> **Platform:** Disheera Autonomous Career Guidance & Verified Talent Marketplace
+> **Backend Stack:** Node.js v18+, Express.js, PostgreSQL (Supabase) via Prisma ORM, JWT, bcryptjs
 
 ---
 

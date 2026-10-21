@@ -1,7 +1,7 @@
 /**
  * services/jobBoardService.js — AI Dev Board Live Jobs Integration
  * Connects to https://aidevboard.com/api/v1 for real-time tech & developer openings.
- * Built with graceful failover for reliable hackathon demos.
+ * Built with graceful failover for reliable production resilience.
  * Disheera · Enterprise Backend Service
  */
 

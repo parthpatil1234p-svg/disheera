@@ -1,8 +1,8 @@
 # 🗺️ Disheera — Hardened Single Active Route & Job Ready Engine
 
-> **🏆 Hack2Ignite 2026–27 · Technical Deep-Dive**  
-> **Problem Statement ID:** ED-02 (AI Career Guidance and Skill Roadmap Platform)  
-> **Authors:** Team 404 Brain Not Found  
+> **Disheera Technologies Inc. · Technical Architecture Whitepaper**
+> **Platform:** Disheera Autonomous Career Guidance & Verified Talent Marketplace
+> **Engineering:** Disheera Core Systems & Curriculum Team  
 
 ---
 

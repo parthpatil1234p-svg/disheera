@@ -1,6 +1,7 @@
 # Disheera — Business Model & Monetization Strategy
 
-> **Domain:** EduTech / AI for Good · **Hack2Ignite 2026–27** · **Team:** 404 Brain Not Found  
+> **Disheera Technologies Inc. · Commercial Strategy & Business Architecture**
+> **Platform:** Disheera Autonomous Career Guidance & Verified Talent Marketplace  
 > **Key Question:** *"How does Disheera sustain itself financially without charging students?"*
 
 ---

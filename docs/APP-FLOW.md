@@ -1,7 +1,7 @@
 # Application Flow & Interactive User Journeys
 
-> **Hack2Ignite 2026–27 · Team 404 Brain Not Found**  
-> **Project:** Disheera (ED-02)  
+> **Disheera Technologies Inc. · Enterprise Architecture Specification**
+> **Platform:** Disheera Autonomous Career Guidance & Verified Talent Marketplace
 > **Architecture:** Decoupled Full-Stack Web Application
 
 ---
@@ -65,7 +65,7 @@ flowchart TD
     SelectSkill --> ProviderCheck{AI Provider Selected}
     ProviderCheck -- Groq Cloud --> GroqCall[Invoke Groq Llama 3.3 70B <300ms]
     ProviderCheck -- Gemini --> GeminiCall[Invoke Google Gemini 2.5 Flash]
-    ProviderCheck -- BYOK --> CustomKey[Invoke with Evaluator Custom API Key]
+    ProviderCheck -- BYOK --> CustomKey[Invoke with User/Admin Custom API Key]
     ProviderCheck -- Offline/No Key --> Fallback[Load Curated Domain Bank 860+ Lines]
 
     GroqCall & GeminiCall & CustomKey & Fallback --> InitStepper[Render 5-Question Stepper UI]
@@ -265,5 +265,5 @@ flowchart TD
     StudentBranch -- Recruiter API Call --> Block403[Server Rejects with HTTP 403 RECRUITER_ACCESS_DENIED]
     StudentBranch -- Brand Logo Click --> GoStudentDash[Navigate to /dashboard.html]
     
-    RoleSwitch -- "demouser@gmail.com" --> DualBypass[Full Unrestricted Access to BOTH Portals for Jury Evaluation]
+    RoleSwitch -- "demouser@gmail.com" --> DualBypass[Full Unrestricted Access to BOTH Portals for Platform Review & Sandbox Exploration]
 ```

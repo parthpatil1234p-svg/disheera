@@ -4,63 +4,66 @@
 
 ## Platform
 
-web
+Web (Desktop, Tablet & Mobile Responsive Web Applications)
 
 ## Users
 
-Primary: Indian engineering & computer science students (e.g. B.Tech, BCA, MCA freshers and skill switchers) seeking clarity, honest skill-gap analysis, and actionable tech career roadmaps.
-Secondary: Campus recruiters and Training & Placement Officers (TPOs) seeking verified student profiles with code-grounded proof of work and objective reality-check quiz scores.
+- **Primary (B2C)**: Engineering, BCA, MCA, and STEM students seeking career clarity, objective skill-gap analysis, and actionable tech career roadmaps.
+- **Institutional (B2B)**: Training & Placement Officers (TPOs), College Academic Directors, and HODs requiring verified student readiness analytics, NAAC/NIRF employability data, and batch progress tracking.
+- **Enterprise Recruiters (B2B)**: Talent acquisition specialists, hiring managers, and corporate tech recruiters seeking pre-verified candidates backed by proctored code milestone evaluations and verified portfolio proof of work.
 
 ## Product Purpose
 
-Democratize AI-driven, evidence-based career guidance. Disheera eliminates career blindness and credential inflation by transforming subjective aspirations into deterministic matching, actionable week-by-week learning milestones, and validated proof-of-work.
+Democratize AI-driven, evidence-based career guidance and talent placement. Disheera eliminates career blindness and credential inflation by transforming subjective student aspirations into deterministic matching, actionable week-by-week learning milestones, and tamper-resistant proof of competency.
 
 ## Positioning
 
-Unlike generic roadmap blogs, broad job portals, or ungrounded generative AI chatbots, Disheera uses an explainable deterministic matching algorithm (60% Skill Match + 25% Interest Match + 15% Education Fit) coupled with two-factor skill verification (automated GitHub repository code audit + adaptive reality-check quizzes) and corporate recruiter domain verification.
+Unlike generic roadmap blogs, uncurated job boards, or ungrounded generative AI chatbots, Disheera delivers:
+1. An **explainable deterministic matching algorithm** (60% Skill Match + 25% Interest Match + 15% Education Fit).
+2. **Two-Factor Skill Verification** (Automated GitHub repository audit + proctored reality-check milestone exams).
+3. **Corporate Talent Radar** with enterprise DNS/MX domain validation, one-click candidate shortlisting, and direct interview pipelines.
 
 ## Operating Context
 
-- Desktop & mobile web browser environments (wide-viewport optimized, 90% wide layout, fully mobile-responsive).
-- Used during academic semester transitions, career discovery phases, placement season prep, and recruiter talent discovery.
-- Integrates with live GitHub public repositories, Google Identity Services, and live tech job search aggregations.
+- Cross-platform web application optimized for desktop, tablet, and mobile browsers.
+- Integrates with PostgreSQL / Supabase, Prisma ORM, Google Identity Services, GitHub REST API, Google Gemini AI Engine, and automated WhatsApp alert gateways (Dakly / OpenWA).
+- Operates in high-throughput academic seasons (placement drives, semester onboarding, hackathons, and corporate hiring cycles).
 
-## Capabilities and Constraints
+## Capabilities and Technical Architecture
 
-- **Career Matching**: Deterministic 60/25/15 weighted matching engine over verified domain tracks (AI/ML, Full-Stack, Cloud/DevOps, CyberSecurity, Data Science, etc.).
-- **Actionable Roadmaps**: 4, 8, and 12-week dual concurrent roadmap tracks with atomic task checkboxes, curated learning resources, and progress tracking.
-- **Two-Factor Skill Verification**: GitHub code auditing (parsing languages, commits, repos) and adaptive AI reality-check quizzes.
-- **Recruiter Portal**: Verified recruiter dashboard with DNS/MX domain validation, candidate talent radar, and job opening management.
-- **Technical Stack**: Node.js & Express REST API backend with MongoDB persistence; responsive Vanilla JS, Tailwind CSS, and HTML5 frontend; local dev runtime with dual deployment to Vercel (client) and Render (backend).
-- **Constraints**: No hardcoded production credentials; local development integrity must remain functional (`localhost:5500` client and `localhost:5000` API); sub-300ms generation response times.
+- **Autonomous Career Matching**: Deterministic 60/25/15 weighted matching engine covering high-demand technical tracks (Full-Stack, Cloud & DevOps, AI/ML, Cybersecurity, Data Science, Mobile Engineering, etc.).
+- **Dynamic Learning Roadmaps**: 4, 8, and 12-week customizable curriculum paths with interactive milestone checkboxes, proctored weekly evaluation chambers, and real-time progress persistence.
+- **Two-Factor Competency Verification**: Automated GitHub profile auditing (commit velocity, language breakdown, repo health) coupled with anti-cheat proctored technical evaluations (tab-switch tracking, strike penalties, server-side grading).
+- **Recruiter & Talent Portal**: Verified recruiter dashboard with corporate domain authentication, talent radar filtering, 1-click candidate shortlisting, and live job vacancy management.
+- **Full-Stack Stack**: Node.js & Express REST API with PostgreSQL (Supabase) via Prisma ORM; high-performance client architecture with Vanilla JS, Tailwind CSS, Bootstrap 5, and Chart.js; production deployment on Vercel and Render.
+- **Security & Hygiene**: 1:1 mobile number uniqueness via PostgreSQL partial unique index, Row Level Security (RLS), helmet security headers, and continuous 0-vulnerability dependency baseline (`npm audit`).
 
 ## Brand Commitments
 
-- **Name**: Disheera
+- **Organization**: Disheera Technologies Inc.
+- **Product**: Disheera EduTech Platform
+- **Leadership**: Parth Patil (Founder & CEO)
 - **Tagline**: Discover Your Career. Bridge Your Skill Gaps. Build Your Future.
-- **Team**: 404 Brain Not Found (Hack2Ignite 2026–27, Problem Statement ED-02)
-- **Voice**: Authoritative, encouraging, pragmatic, objective, and transparent (no inflated hype; clear gap analysis: 🟢 Matched, 🟡 Upgrade, 🔴 Missing).
-- **Design Language**: Futuristic dark/glassmorphic aesthetic with neon accents (Cyan, Emerald, Violet), clean typography (Inter / Plus Jakarta Sans), crisp cards, and responsive bento grids.
+- **Official Palette**: Exclusively **Light-Theme Modern EduTech Platform**.
+  - Canvas: `#F8FAFC` (Slate 50)
+  - Cards & Modals: Pure `#FFFFFF` with `#E2E8F0` borders and subtle elevation
+  - Brand Primary: `#2563EB` (Royal Blue)
+  - Text Hierarchy: Primary `#0F172A`, Body `#334155`, Subtext `#475569`
+- **Voice**: Authoritative, encouraging, objective, and transparent (objective gap analysis: 🟢 Matched, 🟡 Upgrade, 🔴 Missing).
 
-## Evidence on Hand
+## Product Documentation & Specifications
 
-- Hackathon Project Documentation: `docs/PRD.md`, `docs/ARCHITECTURE.md`, `docs/UI-UX-DESIGN.md`, `docs/REQUIREMENTS-MATRIX.md`, `README.md`.
-- Working local and production deployments:
-  - Frontend: `https://disheera.site` (and `http://localhost:5500`)
-  - Backend API: `https://api.disheera.site` (and `http://localhost:5000`)
-- Demo Evaluator Credentials: 1-Click Sandbox on `/login.html` and recruiter demo access.
-- Test suites: E2E and unit test scripts under `tests/` and root `test_*.js`.
+- Architectural Specifications: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/PRD.md`](docs/PRD.md), [`docs/TRD.md`](docs/TRD.md)
+- Engineering & Schemas: [`docs/BACKEND-SCHEMA.md`](docs/BACKEND-SCHEMA.md), [`docs/API-SPECIFICATION.md`](docs/API-SPECIFICATION.md), [`docs/API-ECOSYSTEM.md`](docs/API-ECOSYSTEM.md)
+- Security & Verification: [`SECURITY.md`](SECURITY.md), [`docs/STRIX_SECURITY_AUDIT_REPORT.md`](docs/STRIX_SECURITY_AUDIT_REPORT.md)
+- Design Guidelines: [`docs/UI-UX-DESIGN.md`](docs/UI-UX-DESIGN.md), [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- Live Deployments:
+  - Frontend: `https://disheera.site` (Local: `http://localhost:5500`)
+  - Backend API: `https://api.disheera.site` (Local: `http://localhost:5000`)
 
 ## Product Principles
 
-1. **Truth Over Hype**: Every career recommendation and skill assessment must be grounded in transparent formulas and objective proof-of-work, not flattering AI hallucinations.
-2. **Actionable Over Theoretical**: Never present advice without a concrete next step; roadmaps must break daunting goals into atomic, weekly tasks.
-3. **Frictionless Accessibility**: Evaluators, students, and recruiters must be able to experience full functionality immediately via one-click demo accounts, social auth, or guest flows.
-4. **Local & Cloud Coexistence**: The platform must run reliably both in production and locally with zero manual setup hassles or hardcoded origin assumptions.
-
-## Accessibility & Inclusion
-
-- Responsive wide-screen bento grid design tested across 320px mobile to 1440px desktop.
-- High-contrast text against dark surfaces meeting WCAG AA contrast standards.
-- Keyboard-accessible forms and modal dialogs with clear focus rings.
-- Graceful fallbacks for WebGL 3D visualizations for lower-powered devices.
+1. **Truth Over Hype**: Every career recommendation and skill evaluation is grounded in transparent formulas and objective evidence, avoiding ungrounded AI hallucinations.
+2. **Actionable Over Theoretical**: Learning pathways break complex multi-month career goals into atomic, weekly milestone tasks with verifiable code projects.
+3. **Institutional Trust**: Verifiable digital credentials with unique verification IDs (`CP-YYYY-XXXXXX`), live QR verification, and proctored exam transcripts.
+4. **Local & Cloud Reliability**: Development workflows guarantee 100% local machine execution alongside robust cloud production instances.

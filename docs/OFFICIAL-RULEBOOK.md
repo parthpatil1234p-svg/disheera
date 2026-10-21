@@ -1,21 +1,26 @@
-# Official Hackathon Rules
+# Enterprise Architectural Standards & Platform Governance
 
-Source: Hack 2 Ignite - Rulebook.pdf
+> **Disheera Technologies Inc. · Quality Assurance & Architecture Policy**
 
-## Official requirements
+---
 
-- Development window: 16 September 2026, 9:00 AM to 18 September 2026, 9:00 AM.
-- GitHub must be used with clear commit history.
-- AI usage is allowed but must be disclosed in PPT and README.
-- Major development must happen within the official window.
-- Prototype and PPT must be submitted.
-- Demo video is optional but strongly recommended.
-- Submitted links and files must be accessible.
-- Work must be original.
-- Public libraries, APIs, frameworks, and tools are permitted.
-- Teams must not manipulate GitHub history or timestamps.
+## 1. Foundational Architecture Principles
 
-## Source limitation
+1. **Deterministic Core Over Unpredictable LLMs:**  
+   Core evaluation mathematics, fit scoring, and prerequisite validation are strictly deterministic. Generative AI is deployed as a conversational pedagogical mentor, resume evaluator, and dynamic micro-quiz author, never as an ungrounded gatekeeper.
 
-This file summarizes the official rulebook.
-Internal PRD and TRD features are not official hackathon requirements unless explicitly stated by the organizers.
+2. **Database-Level Invariants:**  
+   Critical business rules must be enforced at the database layer (PostgreSQL / Supabase with Prisma ORM):
+   - Strict 1:1 mobile number uniqueness via partial unique indexes.
+   - Single active roadmap enrollment per student with 7-day cooldown.
+   - Dedicated single resume draft per student to prevent media storage bloat.
+   - Row Level Security (RLS) on all public tables.
+
+3. **Strict Light-Theme Modern EduTech Design System:**  
+   Disheera is exclusively a Light-Theme platform (Canvas: `#F8FAFC`, Cards: `#FFFFFF`, Brand: `#2563EB`). Dark backgrounds (`#0f172a`, `#000000`) and cyberpunk neon styling are strictly prohibited across all interfaces and modals.
+
+4. **Continuous Zero-Vulnerability Security Hygiene:**  
+   Every software release must maintain zero high or critical dependency vulnerabilities (`npm audit` reporting 0 vulnerabilities).
+
+5. **Local Run Integrity:**  
+   The application must always remain fully functional on local developer environments (`http://localhost:5500` client and `http://localhost:5000` API) with zero reliance on hardcoded cloud URLs.

@@ -1,26 +1,34 @@
-# Official Problem Statement
+# Market Opportunity & Problem Statement
 
-Source: Hack2Ignite 2026–27 Round 1 official track announcement
+> **Disheera Technologies Inc. · Commercial & Academic Problem Analysis**
 
-## Domain / Track
+---
 
-EduTech (Educational Technology / AI for Good)
+## 1. Executive Summary
 
-## Exact statement
+Every year, India produces over **1.5 million engineering and computer science graduates**. Despite massive national investments in technical education, industry reports consistently reveal that **over 80% of technical graduates are deemed unemployable** for core software engineering, data, cloud, and AI roles.
 
-EduTech: Build an innovative technology-driven solution in the EduTech domain addressing student learning, career progression, or educational challenges.
+This crisis stems not from a lack of student ambition, but from severe structural failures in career guidance and academic-to-industry alignment:
 
-## Received at
+1. **Career Blindness & Monoculture:**  
+   Students are largely unaware of modern high-growth technical specializations (e.g., MLOps, Cloud Security, Site Reliability Engineering, Data Platform Engineering). Most students default to generic full-stack development without understanding market demand or their own aptitude.
 
-16 September 2026, 9:00 AM
+2. **Credential Inflation & Unverified Claims:**  
+   Traditional resumes rely entirely on an unverified honor system. Self-reported skill lists on resumes often mask fundamental conceptual gaps, leading to high interview rejection rates and wasted recruiter cycles.
 
-## Mandatory acceptance points
+3. **Tutorial Hopping & Fragmented Learning:**  
+   Students attempt to learn through disparate YouTube playlists, blogs, and documentation without structured, week-by-week accountability. Over 78% of self-learners drop out before achieving job-ready competency.
 
-- The project must directly address a real challenge within the EduTech (Educational Technology) domain.
-- Prototype must be built and functional within the official 48-hour development window (16–18 September 2026).
-- Follow all official rules outlined in `docs/OFFICIAL-RULEBOOK.md`.
+4. **Institutional Blindspots in Placement Cells (TPOs):**  
+   Training & Placement Officers manage thousands of candidates using static Excel spreadsheets. They possess zero real-time telemetry into student skill acquisition until corporate recruiters deliver rejection lists.
 
-## Notes
+---
 
-- Disheera (AI Career Guidance and Skill Roadmap Platform) is our team's chosen solution to address the EduTech challenge.
-- All internal algorithm formulas (60/25/15), 3D visualizations, and specific timelines (4/8/12 weeks) are team product decisions mapped under `TEAM` and `TECH` categories in `docs/REQUIREMENTS-MATRIX.md`.
+## 2. The Disheera Solution: Autonomous Career Architecture
+
+Disheera resolves this crisis through an integrated, evidence-backed platform:
+
+- **Mathematical Career Matching:** An explainable 60/25/15 deterministic scoring matrix (60% Skill Fit, 25% Interest Alignment, 15% Academic Foundation) eliminating black-box bias.
+- **Two-Factor Skill Verification:** Combining automated GitHub repository code audits with anti-cheat proctored milestone assessments.
+- **Structured Roadmap Pathways:** 4, 8, and 12-week focused curricula with atomic task tracking and weekly server-verified milestones.
+- **Enterprise Talent Marketplace:** Direct connection to verified corporate recruiters, eliminating recruitment friction and cutting hiring lead times.

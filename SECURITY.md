@@ -1,54 +1,61 @@
 # Security Policy — Disheera
 
-> **Hack2Ignite 2026–27 · Team 404 Brain Not Found**
+> **Disheera Technologies Inc. · Enterprise Production Security Standards**
 
-The security and privacy of student data are paramount to Disheera. This document outlines our security policies, vulnerability reporting procedure, and architecture safeguards.
+The security, privacy, and integrity of student and institutional data are paramount to Disheera. This document outlines our official security policies, responsible vulnerability disclosure procedures, active security controls, and enterprise compliance standards.
 
 ---
 
-## 🔒 Prohibited Data (Never Commit to Git)
+## 🔒 Confidential & Restricted Credentials (Never Commit to Git)
 
 The following items must **never** be committed to source control or logged in cleartext:
 
-- MongoDB connection strings containing database credentials (`mongodb+srv://...`).
+- PostgreSQL / Supabase connection strings containing database credentials (`DATABASE_URL`, `DIRECT_URL`, `postgresql://...`).
 - JWT signing secrets (`JWT_SECRET`).
-- Third-party API keys (e.g., Gemini API, Cloudinary keys, OAuth tokens).
-- Plaintext student passwords or hashes in static seed files.
-- Real `.env` or `.env.production` files.
-- Personally Identifiable Information (PII) of real users.
+- Third-party API keys (e.g., Google Gemini API, Dakly WhatsApp Gateway API keys, OpenWA session tokens, OAuth client secrets).
+- Plaintext student or recruiter passwords or hashes in static seed files.
+- Production environment configurations (`.env`, `.env.production`).
+- Personally Identifiable Information (PII) of real students, job applicants, or corporate recruiters.
 
-All local configuration must be managed through `server/.env` (excluded by `.gitignore`).
+All local configuration must be managed through `server/.env` (strictly excluded by `.gitignore`) and mirrored in `.env.example` with non-sensitive placeholder variables.
 
 ---
 
-## 📢 Vulnerability Reporting Procedure
+## 📢 Responsible Vulnerability Disclosure
 
-If you discover a potential vulnerability or security flaw in Disheera:
+If you discover a potential vulnerability or security flaw in the Disheera platform:
 
-1. **Do not create a public GitHub issue.**
-2. Report the vulnerability privately to **Parth Patil (Team Leader)** or via the private team communication channel.
-3. Provide:
-   - Description of the vulnerability.
-   - Affected endpoint, component, or file.
+1. **Do not create a public GitHub issue or disclose the vulnerability publicly.**
+2. Report the vulnerability privately via email to our Security Operations Team:
+   - **Primary Security Contact:** [security@disheera.site](mailto:security@disheera.site)
+   - **Alternative Contact:** [contact@disheera.site](mailto:contact@disheera.site)
+   - **Executive Oversight:** Parth Patil (Founder & CEO, Disheera Technologies Inc.)
+3. Please provide:
+   - A descriptive summary of the vulnerability.
+   - Affected endpoint, component, or file path.
    - Minimal reproduction steps or proof-of-concept payload.
-   - Suggested remediation (if known).
+   - Expected impact and suggested remediation (if known).
 
-The team lead will review and triage the issue within 4 hours during active hackathon phases.
+### Triage SLA
+- **Critical & High Severity:** Initial triage and containment acknowledgement within **4 hours**.
+- **Medium & Low Severity:** Triage acknowledgement within **24 hours**.
+- Disheera commits to keeping reporters informed of resolution timelines and will credit responsible security researchers in release advisories.
 
 ---
 
-## 🛡️ Current MVP Security Measures
+## 🛡️ Production Security Architecture & Baseline Controls
 
-For the Hack2Ignite Round 1 MVP, the following baseline security controls are active:
+Disheera enforces a multi-layered defense-in-depth architecture across all microservices and web interfaces:
 
-1. **Password Hashing:** Passwords are salted and hashed using `bcryptjs` with 10 salt rounds before database persistence.
-2. **Stateless Authentication:** JSON Web Tokens (JWT) signed with HMAC-SHA256 and configured with 7-day expiration.
-3. **HTTP Security Headers:** Integrated `helmet` middleware setting `X-Content-Type-Options`, `X-Frame-Options`, and referrer policies.
-4. **Rate Limiting:** `express-rate-limit` throttles brute-force attempts on sensitive endpoints.
-5. **CORS Hardening:** Cross-Origin Resource Sharing is locked down to authorized frontend origins and localhost.
+1. **Cryptographic Password Security:** All user credentials are automatically salted and hashed using `bcryptjs` with 10 salt rounds before database persistence. Plaintext passwords are never stored or logged.
+2. **Stateless JWT Session Management:** Cryptographically signed JSON Web Tokens (HMAC-SHA256) with strict claims verification and automated expiration lifetimes.
+3. **HTTP Security Headers & Defenses:** Integrated `helmet` middleware enforcing strict `X-Content-Type-Options`, `X-Frame-Options` (clickjacking defense), Content Security Policies, and referrer protections.
+4. **Adaptive Rate Limiting:** `express-rate-limit` throttles brute-force attempts across sensitive authentication routes (`/api/auth/*`), assessment generation, and AI proctoring services.
+5. **CORS Hardening:** Cross-Origin Resource Sharing is strictly whitelisted to production frontend domains (`https://disheera.site`, `https://*.disheera.site`) and local development ports (`http://localhost:5500`, `http://localhost:5000`).
 6. **PostgreSQL Row Level Security (RLS):** All public tables enforce Supabase PostgreSQL RLS policies isolating student records, corporate vacancies, and audit logs.
-7. **1:1 Mobile Uniqueness Guard:** Database partial unique index (`User_phone_unique_not_empty`) prevents duplicate accounts or phone takeovers.
-8. **Dependency Security Hygiene:** Continuous zero-vulnerability security baseline maintained across all dependencies (`npm audit` 0 vulnerabilities).
+7. **1:1 Strict Mobile Uniqueness Guard:** Enforced via a PostgreSQL partial unique index (`User_phone_unique_not_empty`) ensuring each mobile number maps to exactly one account with zero collisions across phone takeovers.
+8. **Proctored Anti-Cheat Security:** Web-based proctoring chamber featuring real-time tab switch detection, browser blur listeners, strike counters, and tamper-resistant milestone submission hashes.
+9. **Zero-Vulnerability Dependency Baseline:** Continuous vulnerability hygiene maintained across all root, client, and backend packages (`npm audit` reporting 0 vulnerabilities).
 
 ---
 
@@ -68,13 +75,12 @@ For full technical analysis and methodology, see [`docs/STRIX_SECURITY_AUDIT_REP
 
 ---
 
-## ⚠️ MVP Architecture Notice & Future Production Hardening
+## 🔒 Enterprise Compliance & Production Hardening Roadmap
 
-> **Educational Hackathon Context:** For this 48-hour prototype, JWT tokens are stored in browser `localStorage` to facilitate multi-page client-side authentication without an active domain cookie policy.
+Disheera is continuously expanding enterprise governance for university institutions and hiring partners:
 
-For commercial production deployment, the following enhancements are planned:
-- **HttpOnly Cookies:** Migrate JWT storage to secure, HttpOnly, SameSite cookies to defend against Cross-Site Scripting (XSS).
-- **CSRF Protection:** Implement double-submit cookie verification or anti-CSRF tokens.
-- **Enhanced Rate Limiting:** Redis-backed distributed rate limiters across all API routes.
-- **Data Minimization:** Encrypt student assessment records at rest using AES-256.
-- **Automated Dependency Audits:** Continuous integration pipeline running `npm audit` and Snyk security scans on every commit.
+- **HttpOnly Secure Session Cookies:** Transitioning client session tokens to HttpOnly, SameSite=Strict cookies with automated rotation.
+- **Enterprise SSO / SAML 2.0:** Single Sign-On integration for partner universities and enterprise corporate recruiters.
+- **Data Encryption at Rest:** AES-256 field-level encryption for student academic transcripts and institutional assessments.
+- **SOC 2 Type II & ISO 27001 Alignment:** Establishing formal compliance logging, audit trails, and automated access reviews.
+- **Continuous CI/CD Security Scanning:** Automated SAST/DAST pipelines and Dependabot security updates on every pull request.

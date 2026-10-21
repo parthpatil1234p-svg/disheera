@@ -2818,7 +2818,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Hackathon Judge Demo Profile Auto-Fill Handler (Adaptive to Stream)
+  // Sample Demo Profile Auto-Fill Handler (Adaptive to Stream)
   const btnJudgeDemoFill = document.getElementById('btnJudgeDemoFill');
   if (btnJudgeDemoFill) {
     btnJudgeDemoFill.addEventListener('click', () => {

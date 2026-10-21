@@ -316,7 +316,7 @@ window.GoogleAuth = (function () {
 
   /**
    * Renders the Fast-Track Google Evaluator Dialog
-   * Useful in hackathons or testing environments before custom GCP Client ID is active
+   * Useful in staging sandbox or testing environments before custom GCP Client ID is active
    */
   const showFastTrackGoogleModal = (callbacks) => {
     // Check if modal already exists

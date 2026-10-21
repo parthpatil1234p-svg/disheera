@@ -118,7 +118,7 @@ async function runTests() {
   // ── TEST 4: Supabase User Model Persistence with Phone Field ──
   console.log('\n▶ SUITE 4: Supabase User Model Phone Column Persistence');
   await asyncTest('Finds demo user and confirms phone field capability in Supabase', async () => {
-    const demoUser = (await User.findOne({ email: 'judge@hack2ignite.com' })) || (await User.findOne({}));
+    const demoUser = (await User.findOne({ email: 'demo@disheera.site' })) || (await User.findOne({}));
     assert.ok(demoUser, 'A user record must exist in Supabase');
     assert.ok('phone' in demoUser, 'User document must have phone property');
   });

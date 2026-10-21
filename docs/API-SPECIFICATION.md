@@ -1,6 +1,6 @@
 # 🔌 Disheera - REST API Reference Specification
 
-> **🏆 Hack2Ignite 2026-27 · Official Submission**  
+> **Disheera Technologies Inc. · Enterprise REST API Specification**  
 > **Base Production URL:** `https://api.disheera.site`  
 > **Base Local Development URL:** `http://localhost:5000`  
 > **Authentication:** Bearer JWT in `Authorization` header (`Bearer <token>`)  
@@ -938,5 +938,5 @@
 | `HTTP 409` | `DUPLICATE_APPLICATION` | Attempting to submit multiple applications to same job | `applyJob` |
 | `HTTP 429` | `ABANDON_COOLDOWN_ACTIVE` | Attempting to abandon route within 7 days of previous | `abandonRoadmap` |
 
-> **Dual Evaluation Bypass Note:** Requests authenticated under `demouser@gmail.com` bypass both `requireStudent` and `requireRecruiter` checks, guaranteeing uninterrupted hackathon jury exploration across both portals.
+> **Sandbox Demonstration Account:** Requests authenticated under `demouser@gmail.com` bypass both `requireStudent` and `requireRecruiter` checks, enabling institutional partners, academic evaluators, and corporate reviewers to seamlessly inspect both student learning workflows and corporate recruiter radars without switching logins.
 

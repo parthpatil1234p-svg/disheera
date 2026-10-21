@@ -22,8 +22,8 @@ Before reaching out, check if your question is covered in our self-service guide
   - Share ideas for new career roadmaps and skill tracks.
   - Connect with other students, educators, and mentors.
 - **Direct Email Support:**
-  - Technical & Hackathon Inquiries: [contact@disheera.site](mailto:contact@disheera.site)
-  - Team Lead: Parth Patil ([parthpatil1234p@gmail.com](mailto:parthpatil1234p@gmail.com))
+  - Enterprise & Technical Inquiries: [contact@disheera.site](mailto:contact@disheera.site)
+  - Founder & CEO: Parth Patil ([parthpatil1234p@gmail.com](mailto:parthpatil1234p@gmail.com))
 
 ---
 

@@ -1,9 +1,8 @@
 # 🏛️ Disheera — Comprehensive System Architecture
 
-> **🏆 Hack2Ignite 2026–27 · Official Submission**  
-> **Problem Statement ID:** **ED-02** — *Develop an AI-powered career guidance system for students based on skills, interests, and market trends*  
-> **Domain / Track:** EduTech (Educational Technology / AI for Good)  
-> **Team Name:** 404 Brain Not Found  
+> **Disheera Technologies Inc. · Enterprise System Architecture**
+> **Platform:** Disheera Autonomous Career Guidance & Verified Talent Marketplace
+> **Market Focus:** EduTech, Campus Placement Intelligence & Pre-Screened Tech Talent  
 
 ---
 
@@ -456,7 +455,7 @@ To guarantee strict organizational boundaries between recruiters and students, t
 │ Recruiter           │ 🟡 View-Only with Floating│ 🟢 Full Job Creation &    │
 │ (role: 'recruiter') │    Return Bar             │    Applicant Management   │
 ├─────────────────────┼───────────────────────────┼───────────────────────────┤
-│ Hackathon Evaluator │ 🟢 Dual Evaluation Bypass │ 🟢 Dual Evaluation Bypass │
+│ Sandbox Reviewer    │ 🟢 Dual Evaluation Bypass │ 🟢 Dual Evaluation Bypass │
 │ (demouser@gmail.com)│   (Fast-Track Testing)    │   (Fast-Track Testing)    │
 └─────────────────────┴───────────────────────────┴───────────────────────────┘
 ```

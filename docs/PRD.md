@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)
-## Disheera - Hack2Ignite 2026-27
+## Disheera Technologies Inc. — Product Requirements Document
 
 ---
 
@@ -9,9 +9,9 @@
 
 **One-liner:** AI-powered career recommendations + personalized learning roadmaps + code-grounded proof-of-work + adaptive reality-check quizzes, presented in an accessible, wide-screen interface.
 
-**Domain / Track:** EduTech (Educational Technology / AI for Good)  
-**Problem Statement ID:** **ED-02** - *Develop an AI-powered career guidance system for students based on skills, interests, and market trends*  
-**Team:** 404 Brain Not Found  
+**Organization:** Disheera Technologies Inc.  
+**Executive Leadership:** Parth Patil (Founder & CEO)  
+**Mission:** Autonomous AI Career Guidance & Verified Talent Marketplace  
 
 ---
 

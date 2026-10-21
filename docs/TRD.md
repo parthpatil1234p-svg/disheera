@@ -1,5 +1,5 @@
 # Technical Requirements Document (TRD)
-## Disheera — Hack2Ignite 2026–27
+## Disheera Technologies Inc. — Technical Architecture Specification
 
 ---
 

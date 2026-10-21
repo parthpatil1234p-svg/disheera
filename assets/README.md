@@ -1,6 +1,6 @@
 # Project Assets Directory — Disheera
 
-> **Hack2Ignite 2026–27 · Team 404 Brain Not Found**
+> **Disheera Technologies Inc. · Brand & Platform Asset Repository**
 
 This directory stores visual, structural, and multimedia assets supporting the Disheera repository.
 
@@ -23,33 +23,19 @@ All screenshots are real, un-mocked captures of the working Disheera application
 | `08_assessment_page_full.png` | Assessment | Full 3-step assessment wizard layout |
 | `09_assessment_step1_academics.png` | Assessment | Step 1: Degree, Branch, Year, and Institution profiling |
 | `10_assessment_step2_interests.png` | Assessment | Step 2: Domain interest chips selection with counter |
-| `11_assessment_step3_skills.png` | Assessment | Step 3: Categorized 45+ industry skills with 3-tier proficiency |
-| `12_assessment_step4_goals.png` | Assessment | Assessment review and career matching submission |
-| `13_recommendations_full.png` | Recommendations | Full recommendations page with the interactive skill map and ranked career routes |
-| `14_recommendations_top_card.png` | Recommendations | Clickable skill-logo cards, matched/developing/missing legend, and learning-guide hint |
-| `15_roadmap_duration_modal.png` | Roadmap Setup | 4, 8, or 12-week duration selection modal |
-| `16_live_market_jobs_modal.png` | Market Telemetry | Adzuna Developer API modal showing live Indian tech jobs & CTC ranges |
-| `17_roadmap_page_full.png` | Roadmap | Full structured milestone roadmap schedule |
-| `18_roadmap_milestones_viewport.png`| Roadmap | Roadmap milestones and prioritized skill gaps |
-| `19_roadmap_tasks_schedule.png` | Roadmap | Actionable step-by-step tasks with curated documentation links |
-| `20_roadmap_task_completed.png` | Roadmap | Checked-off milestone tasks with atomic progress bar update |
-| `21_login_page.png` | Authentication | Secure student login portal with JWT token persistence |
-| `22_register_page.png` | Authentication | Zero-OTP instant registration portal for evaluator testing |
+| `11_assessment_step3_skills.png` | Assessment | Step 3: Skill picker, custom skill inputs, and experience tags |
+| `12_recommendations_full.png` | Recommendations | Career recommendation cards with fit scores, matched skills, and wage telemetry |
+| `13_recommendations_top_match.png` | Recommendations | Top career card with deterministic 60/25/15 score breakdown |
+| `14_recommendations_skill_radar.png` | Recommendations | Detailed skill-gap matrix (🟢 Matched, 🟡 Upgrade, 🔴 Missing) |
+| `15_recommendations_jobs_modal.png` | Live Job Telemetry | Live market job vacancies sourced via Adzuna API |
+| `16_roadmap_full_page.png` | Roadmap | Full roadmap view with progress overview, week selector, and tasks |
+| `17_roadmap_week1_active.png` | Roadmap | Week 1 milestone checklist with task toggle controls and resources |
+| `18_login_page.png` | Authentication | Login card with fast demo login buttons and social login |
+| `19_register_page.png` | Authentication | Registration card with instant account setup |
+| `20_404_error_page.png` | Error Handling | Custom 404 error page with quick navigation back to safety |
 
 ---
 
-### 2. `diagrams/`
-- **Purpose:** High-resolution exports of architectural diagrams, ER schemas, and user flow charts.
-
-### 3. `demo/`
-- **Purpose:** Optional compressed demo video recordings (e.g., 1080p MP4) and master demo scripts.
-- **Master Script:** Refer to [`Disheera-Demo-Video-Voice-Script.txt`](../Disheera-Demo-Video-Voice-Script.txt) in the project root.
-
----
-
-## ⚖️ Asset Attribution & Licensing Rules
-
-- **Zero Copyrighted Material:** Only self-created screenshots and open-source assets used.
-- **Icons:** Bootstrap Icons (MIT License).
-- **Fonts:** Google Fonts — Space Grotesk (OFL) and Inter (OFL).
-- **Product interface:** Skill logos and page screenshots are captured from the running application.
+## 🔒 Confidentiality & Asset Integrity
+- No proprietary API keys, internal credentials, or confidential user PII are contained within visual assets.
+- All screenshots are captured directly from live test environments conforming to Disheera's Light-Theme EduTech design standards.
