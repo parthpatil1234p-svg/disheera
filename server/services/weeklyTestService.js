@@ -6,7 +6,7 @@
  * Implements Pillar 4 of the Shared Foundation:
  *  - 30-Minute Server-Locked Countdown (immune to page reloads)
  *  - Progressive Answer Auto-Save
- *  - 70% Pass Threshold for Next Week Unlock
+ *  - 70% Pass Threshold for Next Week Advancement
  *  - Target Skill Evidence & Attempt Recording
  *  - Completed Path Graduation upon Final Week Pass
  */
@@ -420,7 +420,7 @@ async function submitWeeklyTest(userId, attemptId, manual = true, submittedAnswe
         currentWp.status = 'passed';
         currentWp.passedAt = new Date();
 
-        // Unlock next week if available
+        // Advance to next week if available
         const nextWp = roadmap.weekProgress.find((wp) => wp.weekNumber === attempt.roadmapWeek + 1);
         if (nextWp) {
           nextWp.status = 'in_progress';

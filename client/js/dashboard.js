@@ -1504,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             </span>
           `;
           actionBtnHtml = `
-            <a href="quiz.html?skill=${encodeURIComponent(sKey)}" class="btn cp-btn-primary btn-sm py-0 px-2 text-decoration-none font-mono btn-modal-quiz-action text-nowrap shadow-sm" data-skill="${escapeHtml(sKey)}" title="Take 90s reality check quiz to calibrate and unlock verified proficiency">
+            <a href="quiz.html?skill=${encodeURIComponent(sKey)}" class="btn cp-btn-primary btn-sm py-0 px-2 text-decoration-none font-mono btn-modal-quiz-action text-nowrap shadow-sm" data-skill="${escapeHtml(sKey)}" title="Take 90s reality check quiz to calibrate and verify proficiency">
               <i class="bi bi-play-circle-fill me-1"></i>Take Quiz (90s)
             </a>
           `;

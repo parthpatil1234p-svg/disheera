@@ -1163,7 +1163,7 @@ Disheera implements an automated tri-tier failover routing engine ensuring $99.9
 Registration enforces a military-grade anti-bot and verified identity moat:
 1. **Simultaneous Dual Verification (Gmail + WhatsApp):**
    - Step 2 of candidate registration presents **two distinct verification cards**: one for Gmail and one for WhatsApp.
-   - Students must enter **both 6-digit codes** simultaneously to unlock account activation.
+   - Students must enter **both 6-digit codes** simultaneously to complete account activation.
 2. **Distinct Dual OTP Mathematical Guarantee (`emailOtp !== whatsappOtp`):**
    - Governed by `generateDualOtps()` in `server/controllers/authController.js`:
      $$\text{emailOtp} \ne \text{whatsappOtp} \quad (\forall \text{ generations})$$

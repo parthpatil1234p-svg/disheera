@@ -161,14 +161,14 @@ sequenceDiagram
     end
 
     Note over Student,UI: === 90% WATCH DURATION REACHED ===
-    UI->>Student: Unlock Reflection & Synthesis Prompt
+    UI->>Student: Open Reflection & Synthesis Prompt
     Student->>UI: Types 30+ character takeaway summary
     Student->>UI: Clicks "Verify Video Milestone"
     UI->>BE: POST /api/roadmaps/tasks/:taskId/verify-video
     BE->>BE: Validate duration & text length
     BE->>DB: Set isVideoVerified=true, videoCompleted=true
     BE-->>UI: 200 OK { success: true, taskUnlocked: true }
-    UI->>Student: Unlock task checkbox & celebrate milestone!
+    UI->>Student: Enable task checkbox & confirm milestone
 ```
 
 ---

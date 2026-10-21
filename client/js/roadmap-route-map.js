@@ -5,7 +5,7 @@
  * - Visual subway / career highway station track connecting each week
  * - Status Color Coding:
  *     - Completed: Emerald green (#10B981) with verified checkmark
- *     - Current Focus: Electric cyan / teal (#00F2FE) with live pulsing radar beacon ("YOU ARE HERE")
+ *     - Current Focus: Electric cyan / teal (#00F2FE) with live pulsing radar signal ("YOU ARE HERE")
  *     - Milestone Test Ready: Amber gold (#F59E0B) with lightning pill
  *     - Upcoming / Locked: Muted slate (#64748B) with padlock
  * - Deep interactivity:

@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (bannerTitle) bannerTitle.innerHTML = `<span class="badge badge-navy me-1 font-mono">2/2 Active</span> ${titles}`;
         if (bannerProgress) bannerProgress.textContent = `2 Parallel Courses Active`;
         if (bannerSubtitle) {
-          bannerSubtitle.textContent = `You have reached the maximum concurrency limit of 2 active courses. Complete milestone tests to graduate or abandon a track to unlock new ones.`;
+          bannerSubtitle.textContent = `You have reached the maximum concurrency limit of 2 active courses. Complete milestone tests to graduate or abandon a track to enroll in a new one.`;
         }
       }
       activeLockBanner.classList.remove('d-none');

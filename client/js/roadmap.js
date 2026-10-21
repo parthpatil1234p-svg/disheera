@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="mt-3 p-3 card border-line text-muted small d-flex flex-row align-items-center gap-2" style="background: rgba(0,0,0,0.02); border-radius: 8px;">
             <i class="bi bi-lock-fill text-secondary fs-5"></i>
             <div>
-              <strong>Milestone Locked:</strong> Complete Week ${weekNumber - 1} tasks and pass its 30-minute milestone test (&ge; 70%) to unlock this curriculum.
+              <strong>Milestone Locked:</strong> Complete Week ${weekNumber - 1} tasks and pass its 30-minute milestone test (&ge; 70%) to access this curriculum.
             </div>
           </div>
         `;
@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 Week ${weekNumber} All Tasks Completed! Milestone Test Ready
               </div>
               <div class="text-muted small">
-                Pass the 30-minute server test (10 questions, &ge; 70% threshold) to stamp verified skill evidence into your ledger and unlock Week ${weekNumber + 1}.
+                Pass the 30-minute server test (10 questions, &ge; 70% threshold) to stamp verified skill evidence into your ledger and advance to Week ${weekNumber + 1}.
               </div>
             </div>
             <button class="btn cp-btn-primary px-4 py-2 btn-open-test flex-shrink-0" data-week="${weekNumber}">

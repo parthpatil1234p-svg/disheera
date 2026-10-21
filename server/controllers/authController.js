@@ -835,7 +835,7 @@ const verifyGoogleToken = async (credential) => {
 /**
  * POST /api/auth/google
  * Body: { credential, email, name, picture, googleId }
- * Handles Google OAuth Sign-In & Sign-Up seamlessly.
+ * Handles Google OAuth Sign-In & Sign-Up directly.
  */
 const googleAuth = async (req, res, next) => {
   try {

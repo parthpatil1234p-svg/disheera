@@ -106,7 +106,7 @@ const RAW_TAXONOMY_SECTORS = [
         displayName: 'Tailwind CSS',
         type: 'software',
         aliases: ['tailwind', 'tailwindcss', 'tailwind utility css'],
-        description: 'Utility-first CSS framework for rapid UI development and modern bespoke interface styling.'
+        description: 'Utility-first CSS framework for rapid UI development and modern tailored interface styling.'
       },
       {
         name: 'bootstrap',
@@ -134,7 +134,7 @@ const RAW_TAXONOMY_SECTORS = [
         displayName: 'Responsive Web Design',
         type: 'specialized',
         aliases: ['mobile-first design', 'responsive design', 'fluid layout', 'media queries'],
-        description: 'Web development approach creating dynamic layouts that adapt seamlessly to all device screen viewports.'
+        description: 'Web development approach creating dynamic layouts that adapt responsively to all device screen viewports.'
       },
       {
         name: 'vite',

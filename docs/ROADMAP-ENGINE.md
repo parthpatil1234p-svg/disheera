@@ -166,7 +166,7 @@ flowchart TD
     CheckNinety -- Yes --> PromptReflection[Display Reflection & Synthesis Input]
     PromptReflection --> SubmitSummary[Student Submits 30+ Character Reflection]
     SubmitSummary --> PostVerify[POST /api/roadmaps/tasks/:taskId/verify-video]
-    PostVerify --> UnlockCheckbox[Set isVideoVerified=true & Unlock Task Completion]
+    PostVerify --> EnableCheckbox[Set isVideoVerified=true & Enable Task Completion]
 ```
 
 ### 5.1 Enforcement Mechanics

@@ -12595,7 +12595,7 @@ body.assessment-page .assessment-layout {
 .w-dot.w-yellow { background: #F59E0B; opacity: 0.85; }
 .w-dot.w-green { background: #10B981; opacity: 0.85; }
 
-/* Floating Status Pills (Hidden: native SVG vector headers provide seamless dissolve badges) */
+/* Floating Status Pills (Hidden: native SVG vector headers provide smooth dissolve badges) */
 .transformation-overlay-bar {
   display: none !important;
 }

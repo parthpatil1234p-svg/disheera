@@ -852,7 +852,7 @@ const QUIZ_QUESTIONS = {
         "topic": "asyncio-blocking",
         "question": "What occurs if a coroutine executes time.sleep(3) instead of await asyncio.sleep(3)?",
         "options": [
-          "asyncio switches to a background worker thread seamlessly",
+          "asyncio switches to a background worker thread automatically",
           "The entire single-threaded event loop freezes for 3 seconds, blocking all other scheduled tasks",
           "Raises an immediate BlockingIOError exception",
           "The sleep is skipped automatically"

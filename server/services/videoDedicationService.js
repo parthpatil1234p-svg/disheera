@@ -89,7 +89,7 @@ const CHECKPOINT_BANK = {
       'It prevents documents from having duplicate IDs.'
     ],
     correctIndex: 1,
-    explanation: 'Indexes store a small portion of the collection dataset in an easy-to-traverse form, preventing costly collection-wide scans and dramatically accelerating queries.'
+    explanation: 'Indexes store a small portion of the collection dataset in an easy-to-traverse form, preventing costly collection-wide scans and speeding up queries by orders of magnitude.'
   },
   python: {
     question: 'What makes list comprehensions in Python both idiomatic and performant compared to standard for loops?',

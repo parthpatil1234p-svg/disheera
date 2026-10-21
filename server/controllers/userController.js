@@ -532,7 +532,7 @@ const uploadResume = async (req, res, next) => {
         return res.status(403).json({
           success: false,
           code: 'RESUME_LOCKED',
-          message: 'Verify one skill to unlock resume upload.',
+          message: 'Verify at least one skill to enable resume upload.',
         });
       }
     }

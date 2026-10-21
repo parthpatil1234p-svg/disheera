@@ -493,7 +493,7 @@ const developerRoadmaps = {
             title: 'Client-Server Architecture & DNS',
             type: 'core',
             status: 'Core Foundation',
-            shortExplanation: 'How the frontend browser, reverse proxy, API gateway, and backend database synchronize seamlessly.',
+            shortExplanation: 'How the frontend browser, reverse proxy, API gateway, and backend database synchronize reliably.',
             keyTopics: ['Three-Tier Architecture', 'Stateless vs Stateful Services', 'REST Protocol Rules', 'Environment Strategy (.env.local, .env.prod)'],
             documentationUrl: 'https://developer.mozilla.org/en-US/docs/Learn/Server-side/First_steps/Client-Server_overview',
             videoUrl: 'https://www.youtube.com/watch?v=4r6WdaY3SOA',

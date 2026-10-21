@@ -400,7 +400,7 @@ function generateOfflineFallback(skill) {
         id: `${slug}-ai5`,
         difficulty: 'hard',
         topic: `${cap} Production Drift & MLOps`,
-        question: `What is Concept Drift in production systems leveraging ${cap}?`,
+        question: `What is Concept Drift in production systems using ${cap}?`,
         codeSnippet: null,
         options: [
           `A syntax error in model serialization files`,
@@ -601,7 +601,7 @@ function generateOfflineFallback(skill) {
         id: `${slug}-mob3`,
         difficulty: 'medium',
         topic: `${cap} Offline-First Architecture`,
-        question: `What is considered a best practice for delivering a seamless offline-first experience in ${cap}?`,
+        question: `What is considered a best practice for delivering a resilient offline-first experience in ${cap}?`,
         options: [
           `Showing a full-screen error modal whenever mobile signal drops`,
           `Writing writes to local storage (e.g. SQLite, Room, Hive) immediately with optimistic UI updates and syncing via background worker queues upon reconnection`,

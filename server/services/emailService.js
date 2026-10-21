@@ -287,7 +287,7 @@ async function sendInactivityNudgeEmail({
         </div>
         <div class="card-row">
           <span class="card-label">⚡ Tasks Remaining in Week ${currentWeek}:</span>
-          <span class="card-value" style="color: #0D9488;">${remainingTasksCount} tasks to unlock test</span>
+          <span class="card-value" style="color: #0D9488;">${remainingTasksCount} tasks to start test</span>
         </div>
         ${nextTaskTitle ? `
         <div class="next-task-box">
@@ -322,7 +322,7 @@ Hi ${recipientName},
 You've been away for ${daysInactive} days on your "${careerTitle}" roadmap.
 
 Current Milestone: Week ${currentWeek}
-Tasks Left: ${remainingTasksCount} tasks remaining to unlock your Week ${currentWeek} Milestone Test!
+Tasks Left: ${remainingTasksCount} tasks remaining to launch your Week ${currentWeek} Milestone Test!
 ${nextTaskTitle ? `Next Task: ${nextTaskTitle}\n` : ''}
 Resume your learning now: ${roadmapUrl}
 

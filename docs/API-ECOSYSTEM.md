@@ -79,7 +79,7 @@ These APIs are fully implemented, tested, and operational on our production depl
 - **Role in Platform:**
   - Automatically fetches the student's public repositories, scans primary languages, evaluates star counts, and extracts hands-on competencies.
   - Grants verified status (`isCodeVerified: true`) to matched skills, displaying luminous `[✓ Code Verified]` badges on the Dashboard and Assessment form.
-  - Eliminates manual username prompt modals for seamless 1-click synchronization.
+  - Eliminates manual username prompt modals with direct 1-click synchronization.
 
 ### 1.2. Groq Cloud API (High-Speed AI Quiz & Career Mentor)
 - **Models:** `llama-3.3-70b-versatile` (Primary), `llama-3.1-8b-instant` (High-throughput fallback)
@@ -104,7 +104,7 @@ These APIs are fully implemented, tested, and operational on our production depl
 - **Source:** [`server/data/quizQuestions.js`](file:///c:/Users/PARTH/OneDrive/Documents/hackethon/Hack%202%20ignite/CareerPath%20AI/disheera/server/data/quizQuestions.js) (860+ lines)
 - **Role in Platform:**
   - Provides a deep bank of verified, expert-curated questions across Python, JavaScript, React, Node.js, SQL, Machine Learning, and DevOps.
-  - Ensures seamless quiz evaluation even in offline environments, network dropouts, or absent API keys.
+  - Guarantees reliable quiz evaluation even in offline environments, network dropouts, or absent API keys.
 
 ### 1.5. Adzuna Developer API (Real-Time Indian Tech Jobs & Salaries)
 - **Endpoint:** `https://api.adzuna.com/v1/api/jobs/in/search/1`

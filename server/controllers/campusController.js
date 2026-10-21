@@ -272,7 +272,7 @@ exports.getTpoCohortAnalytics = async (req, res, next) => {
           regionalMarketDemand: [85, 78, 88, 82, 75, 72]
         },
         batchInterventionTriggers: [
-          'Conduct a 2-day hands-on Docker & Kubernetes workshop to unlock 34 additional corporate recruiter shortlist filters.',
+          'Conduct a 2-day hands-on Docker & Kubernetes workshop to qualify for 34 additional corporate recruiter shortlist filters.',
           '58 students are within 5 points of achieving the Verified Debugging Index (VDI) gold threshold.',
           'Regional industrial demand in Pune and Chhatrapati Sambhajinagar corridors heavily prioritizes Microservices API error resilience.'
         ],

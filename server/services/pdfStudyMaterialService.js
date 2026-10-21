@@ -217,7 +217,7 @@ function getDefaultTasks(careerTitle, weekNumber) {
     { title: `Core Conceptual Foundations of ${careerTitle}`, description: 'Read architectural documentation and build a minimal prototype repository.', estimatedHours: 4 },
     { title: 'Interactive Practical Implementation', description: 'Create 2 hands-on coding exercises practicing core design patterns and data structures.', estimatedHours: 5 },
     { title: 'Code Review & Edge Case Hardening', description: 'Address error states, offline fallbacks, and write automated unit tests.', estimatedHours: 3 },
-    { title: 'Milestone Knowledge Verification', description: 'Complete the weekly proctored quiz with >=70% score to unlock next week.', estimatedHours: 2 }
+    { title: 'Milestone Knowledge Verification', description: 'Complete the weekly proctored quiz with >=70% score to advance to the next week.', estimatedHours: 2 }
   ];
 }
 

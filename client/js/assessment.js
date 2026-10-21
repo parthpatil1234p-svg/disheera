@@ -2791,7 +2791,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       customSkillNameInput.value = '';
       if (customSkillFeedback) {
         customSkillFeedback.className = 'small mt-2 text-warning';
-        customSkillFeedback.innerHTML = `<i class="bi bi-info-circle me-1"></i> <span class="custom-skill-confirm-name"></span> added! Level pending — take its 90s quiz below to calibrate your level and unlock goals.`;
+        customSkillFeedback.innerHTML = `<i class="bi bi-info-circle me-1"></i> <span class="custom-skill-confirm-name"></span> added! Level pending — take its 90s quiz below to calibrate your level and advance to goals.`;
         const confirmNameEl = customSkillFeedback.querySelector('.custom-skill-confirm-name');
         if (confirmNameEl) confirmNameEl.textContent = `"${rawName}"`;
         customSkillFeedback.classList.remove('d-none');

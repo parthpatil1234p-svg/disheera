@@ -1106,7 +1106,7 @@ Hum priority review shuru kar denge!
 
 Namaste ${userContext.name}! Weekly milestone tests strict server proctoring ke saath aate hain:
 
-1. *Pass Threshold:* 70% passing score is required to unlock subsequent weeks.
+1. *Pass Threshold:* 70% passing score is required to advance to subsequent weeks.
 2. *Proctoring Rules:*
    • Fullscreen mode is mandatory.
    • Strike 1: -2 min penalty.
@@ -1131,7 +1131,7 @@ Namaste ${userContext.name}! Weekly milestone tests strict server proctoring ke 
 
 Namaste ${userContext.name}! Verified digital certificates se judi jaankari:
 
-1. *Unlock Criteria:* Complete all weekly milestone roadmaps with passing scores.
+1. *Qualification Criteria:* Complete all weekly milestone roadmaps with passing scores.
 2. *Tamper-Proof Verification:* Every certificate carries an immutable SHA-256 hash.
 3. *Verify Online:* Anyone can verify credentials at:
    👉 https://disheera.site/verify.html
@@ -1721,7 +1721,7 @@ Aapke *Week ${userContext.activeWeek} (${userContext.targetCareer})* ka mileston
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⏱️ *Test Parameters & Anti-Cheat Rules:*
-• *Pass Threshold:* 70% passing score is mandatory to unlock next week.
+• *Pass Threshold:* 70% passing score is mandatory to advance to next week.
 • *Strict Anti-Cheat Proctoring:*
   - Fullscreen lock is required.
   - Tab switch Strike 1: -2 min penalty.
