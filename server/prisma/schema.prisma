@@ -565,6 +565,7 @@ model AssignmentSubmission {
   updatedAt            DateTime         @updatedAt
 
   @@index([userId])
+  @@index([assignmentId])
   @@index([status])
   @@index([userId, weekNumber])
   @@map("assignment_submissions")
