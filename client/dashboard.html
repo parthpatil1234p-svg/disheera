@@ -205,6 +205,45 @@
       <!-- Dashboard Content -->
       <div id="dashboardContent" class="d-none">
 
+        <!-- Top Greeting Header (Screen-12 Elevation) -->
+        <div class="dashboard-greeting-bar mb-4">
+          <div class="d-flex align-items-center gap-2 text-muted small mb-1">
+            <span>Home</span>
+            <span>/</span>
+            <span class="text-ink fw-medium">Student Dashboard</span>
+          </div>
+          <h1 class="h2 fw-bold text-ink mb-1">
+            Good morning, <span id="greetingUserName">Student</span> 👋
+          </h1>
+          <p class="text-secondary small mb-0">
+            Your verified signals and proctored milestones are turning into real career momentum.
+          </p>
+        </div>
+
+        <!-- 1.4 Congratulations & 16:9 Verified Career Certificate Ribbon -->
+        <div class="card p-4 rounded-3 mb-4 border border-primary border-opacity-25 shadow-sm d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" id="dashCertificateCelebrationRibbon" style="background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);">
+          <div class="d-flex align-items-start gap-3">
+            <div class="p-2.5 rounded-3 bg-primary bg-opacity-10 text-primary fs-3 flex-shrink-0">
+              <i class="bi bi-patch-check-fill"></i>
+            </div>
+            <div>
+              <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                <span class="badge bg-success bg-opacity-10 text-success font-mono small">VERIFIED TALENT CREDENTIAL</span>
+                <span class="badge bg-primary bg-opacity-10 text-primary font-mono small">16:9 WIDESCREEN</span>
+              </div>
+              <h2 class="h5 fw-bold text-ink mb-1">
+                Verified Career Certificate &amp; Proof-of-Work Dossier
+              </h2>
+              <p class="text-secondary small mb-0">
+                Tamper-proof digital credentials backed by SHA-256 hash, 180-day skill currency, and recruiter QR verification.
+              </p>
+            </div>
+          </div>
+          <button type="button" class="btn cp-btn-primary px-4 py-2.5 flex-shrink-0 shadow-sm" data-bs-toggle="modal" data-bs-target="#certificateModal">
+            <i class="bi bi-award-fill text-warning me-2"></i> View Verified Certificate (16:9)
+          </button>
+        </div>
+
         <!-- 1. Profile Summary Card -->
         <div class="dashboard-profile-card p-4 p-md-4 rounded-3 mb-4">
           <div class="row align-items-center g-3">
@@ -223,6 +262,12 @@
                   <h1 class="h4 fw-bold text-ink mb-0" id="userName">Student Name</h1>
                   <span class="badge badge-verified-student">
                     <i class="bi bi-patch-check-fill me-1"></i> Verified Student
+                  </span>
+                  <span class="badge bg-secondary bg-opacity-10 text-primary font-mono small py-1 px-2.5 rounded-pill">
+                    [✓ GitHub Verified]
+                  </span>
+                  <span class="badge bg-secondary bg-opacity-10 text-success font-mono small py-1 px-2.5 rounded-pill">
+                    [✓ Phone Verified]
                   </span>
                 </div>
                 <p class="text-muted small mb-1" id="userEmail">student@example.com</p>

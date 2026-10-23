@@ -145,6 +145,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Profile Card
     const nameStr = user?.name || 'Student';
     userName.textContent = nameStr;
+    const greetingUserName = document.getElementById('greetingUserName');
+    if (greetingUserName) greetingUserName.textContent = nameStr;
     if (user?.avatarUrl) {
       userAvatar.innerHTML = `<img src="${escapeHtml(user.avatarUrl)}" alt="${escapeHtml(nameStr)}" class="w-100 h-100" style="object-fit: cover; border-radius: inherit;" onerror="this.remove(); document.getElementById('userAvatar').textContent = '${nameStr.charAt(0).toUpperCase()}';" />`;
     } else {
