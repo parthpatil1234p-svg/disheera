@@ -1,9 +1,9 @@
 /**
- * services/assignmentTemplateService.js — Standardized Assignment Cover PDF Generator (Plan 46)
+ * services/assignmentTemplateService.js — Standardized Assignment Cover & Question Paper PDF Generator (Plan 46)
  *
- * Generates an official 1-page standardized Disheera Assignment Cover Sheet (Part A)
- * using PDFKit. Students download this personalized cover sheet, sign the honor pledge,
- * and attach their assignment work/photos (Part B) before submission.
+ * Generates an official standardized Disheera Assignment Package using PDFKit:
+ * - Part A (Page 1): Official Student Submission Dossier, candidate identification, and signed Honor Pledge.
+ * - Part B (Page 2+): Official Question Paper with detailed problem statements, marks allocation, target concepts, and submission instructions.
  *
  * Disheera Technologies Inc.
  */
@@ -11,7 +11,7 @@
 const PDFDocument = require('pdfkit');
 
 /**
- * Generates an official 1-page Assignment Cover Sheet PDF Buffer.
+ * Generates an official Assignment Package (Cover Sheet + Question Paper) PDF Buffer.
  *
  * @param {object} params
  * @param {string} [params.studentName]
@@ -22,6 +22,11 @@ const PDFDocument = require('pdfkit');
  * @param {string} [params.careerTitle]
  * @param {number} [params.weekNumber]
  * @param {string} [params.assignmentTitle]
+ * @param {string} [params.description]
+ * @param {Array|object} [params.questions]
+ * @param {Array<string>} [params.learningOutcomes]
+ * @param {number} [params.maxMarks]
+ * @param {object} [params.rubric]
  * @param {string} [params.submissionDate]
  * @returns {Promise<Buffer>}
  */
@@ -34,18 +39,34 @@ function generateCoverPagePdf({
   careerTitle = 'Full Stack Web Developer',
   weekNumber = 1,
   assignmentTitle = 'Weekly Practical Milestone & Technical Derivations',
+  description = '',
+  questions = null,
+  learningOutcomes = null,
+  maxMarks = 10,
+  rubric = null,
   submissionDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
 } = {}) {
   return new Promise((resolve, reject) => {
     try {
+      let parsedQuestions = questions;
+      if (typeof parsedQuestions === 'string') {
+        try {
+          parsedQuestions = JSON.parse(parsedQuestions);
+        } catch (e) {
+          parsedQuestions = null;
+        }
+      }
+      const hasQuestions = Array.isArray(parsedQuestions) && parsedQuestions.length > 0;
+      const totalPages = hasQuestions ? 2 : 1;
+
       const doc = new PDFDocument({
         size: 'A4',
         margins: { top: 36, bottom: 36, left: 40, right: 40 },
         info: {
-          Title: `Disheera Cover Sheet - Week ${weekNumber} - ${careerTitle}`,
+          Title: `Disheera Assignment - Week ${weekNumber} - ${careerTitle}`,
           Author: 'Disheera Technologies Inc.',
-          Subject: 'Collegiate Weekly Assignment Cover Sheet (Part A)',
-          Keywords: 'disheera, assignment, cover sheet, engineering, edtech'
+          Subject: hasQuestions ? 'Collegiate Weekly Assignment & Question Paper' : 'Collegiate Weekly Assignment Cover Sheet (Part A)',
+          Keywords: 'disheera, assignment, cover sheet, questions, engineering, edtech'
         }
       });
 
@@ -66,43 +87,68 @@ function generateCoverPagePdf({
       const pageHeight = 841.89;
       const margin = 32;
 
-      // ── OUTER DECORATIVE BORDER ──
-      doc.rect(margin, margin, pageWidth - (margin * 2), pageHeight - (margin * 2))
-         .lineWidth(1.5)
-         .stroke(indigo);
-
-      doc.rect(margin + 3, margin + 3, pageWidth - (margin * 2) - 6, pageHeight - (margin * 2) - 6)
-         .lineWidth(0.5)
-         .stroke(borderCol);
-
-      // ── TOP INSTITUTIONAL BANNER ──
       const bannerX = margin + 8;
       const bannerY = margin + 8;
       const bannerW = pageWidth - ((margin + 8) * 2);
       const bannerH = 72;
 
-      doc.rect(bannerX, bannerY, bannerW, bannerH)
-         .fill(indigo);
+      // Helper function to draw outer decorative border
+      function drawOuterBorders() {
+        doc.rect(margin, margin, pageWidth - (margin * 2), pageHeight - (margin * 2))
+           .lineWidth(1.5)
+           .stroke(indigo);
 
-      // Disheera Logo & Header
-      doc.fillColor('#ffffff').fontSize(18).font('Helvetica-Bold')
-         .text('DISHEERA', bannerX + 16, bannerY + 14, { characterSpacing: 2 });
+        doc.rect(margin + 3, margin + 3, pageWidth - (margin * 2) - 6, pageHeight - (margin * 2) - 6)
+           .lineWidth(0.5)
+           .stroke(borderCol);
+      }
 
-      doc.fontSize(8.5).font('Helvetica')
-         .text('AUTONOMOUS CAREER GPS & VERIFIED TALENT OS', bannerX + 16, bannerY + 36, { characterSpacing: 1 });
+      // Helper function to draw top institutional banner
+      function drawTopBanner(partLabel, maxMarksText) {
+        doc.rect(bannerX, bannerY, bannerW, bannerH)
+           .fill(indigo);
 
-      doc.fillColor('#93c5fd').fontSize(7.5).font('Helvetica')
-         .text('Accredited Milestone Evaluation · Collegiate Assessment Framework', bannerX + 16, bannerY + 50);
+        // Disheera Logo & Header
+        doc.fillColor('#ffffff').fontSize(18).font('Helvetica-Bold')
+           .text('DISHEERA', bannerX + 16, bannerY + 14, { characterSpacing: 2 });
 
-      // Right-aligned header badge
-      doc.fillColor(gold).fontSize(11).font('Helvetica-Bold')
-         .text(`WEEK ${weekNumber} ASSIGNMENT`, bannerX + bannerW - 210, bannerY + 16, { align: 'right', width: 195 });
+        doc.fontSize(8.5).font('Helvetica')
+           .text('AUTONOMOUS CAREER GPS & VERIFIED TALENT OS', bannerX + 16, bannerY + 36, { characterSpacing: 1 });
 
-      doc.fillColor('#ffffff').fontSize(8.5).font('Helvetica')
-         .text('Part A: Official Submission Dossier', bannerX + bannerW - 210, bannerY + 32, { align: 'right', width: 195 });
+        doc.fillColor('#93c5fd').fontSize(7.5).font('Helvetica')
+           .text('Accredited Milestone Evaluation · Collegiate Assessment Framework', bannerX + 16, bannerY + 50);
 
-      doc.fillColor('#cbd5e1').fontSize(7.5).font('Helvetica')
-         .text('Maximum Marks: 10.0', bannerX + bannerW - 210, bannerY + 48, { align: 'right', width: 195 });
+        // Right-aligned header badge
+        doc.fillColor(gold).fontSize(11).font('Helvetica-Bold')
+           .text(`WEEK ${weekNumber} ASSIGNMENT`, bannerX + bannerW - 220, bannerY + 16, { align: 'right', width: 205 });
+
+        doc.fillColor('#ffffff').fontSize(8.5).font('Helvetica')
+           .text(partLabel, bannerX + bannerW - 220, bannerY + 32, { align: 'right', width: 205 });
+
+        doc.fillColor('#cbd5e1').fontSize(7.5).font('Helvetica')
+           .text(maxMarksText || `Maximum Marks: ${maxMarks}.0`, bannerX + bannerW - 220, bannerY + 48, { align: 'right', width: 205 });
+      }
+
+      // Helper function to draw footer bar
+      function drawFooterBar(pageNum, total) {
+        const footerY = pageHeight - margin - 24;
+        doc.rect(bannerX, footerY, bannerW, 16).fill('#f1f5f9');
+
+        const docRef = `REF: DSH-W${weekNumber}-${Buffer.from(email).toString('hex').slice(0, 6).toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
+
+        doc.fillColor('#64748b').fontSize(7).font('Helvetica')
+           .text('Disheera Technologies Inc. · Official Collegiate Document Standard · ISO 9001/27001 Aligned', bannerX + 8, footerY + 5);
+
+        const pageLabel = total > 1 ? `Page ${pageNum} of ${total}` : docRef;
+        doc.fillColor(indigo).fontSize(7).font('Helvetica-Bold')
+           .text(pageLabel, bannerX + bannerW - 180, footerY + 5, { align: 'right', width: 172 });
+      }
+
+      // =========================================================================
+      // PAGE 1: PART A — OFFICIAL SUBMISSION DOSSIER & STUDENT COVER SHEET
+      // =========================================================================
+      drawOuterBorders();
+      drawTopBanner('Part A: Official Submission Dossier', `Maximum Marks: ${maxMarks}.0`);
 
       // ── ASSIGNMENT SUBJECT STRIP ──
       const stripY = bannerY + bannerH + 12;
@@ -170,7 +216,9 @@ function generateCoverPagePdf({
 
       const bulletY = instrY + 28;
       const instructions = [
-        '1. Standard Submission Sequence: This Cover Sheet MUST be Page 1. Attach your handwritten solution sheets, code outputs, architectural schematics, or photos directly behind this sheet (Pages 2-10).',
+        hasQuestions
+          ? '1. Standard Submission Sequence: This Cover Sheet is Page 1. The official Question Paper is provided on Page 2. Attach your handwritten solution sheets, code outputs, architectural schematics, or photos directly behind (Pages 3-10).'
+          : '1. Standard Submission Sequence: This Cover Sheet MUST be Page 1. Attach your handwritten solution sheets, code outputs, architectural schematics, or photos directly behind this sheet (Pages 2-10).',
         '2. Multi-Modal Vision Ingestion: Ensure photographs/scans are high-resolution, well-lit, and upright. The AI auto-grader evaluates handwritten derivations and visual diagrams.',
         '3. 4D Rubric Weightage (10 Marks): Problem Solving & Accuracy (4.0 pts) · Methodological Rigour & Formulas (3.0 pts) · Clarity & Step-by-Step Flow (3.0 pts).',
         '4. Anti-AI Writing Shield: Raw copy-pasting from generative LLMs is flagged with synthetic perplexity heuristics. Authentic handwritten derivations receive full authentic merit credits.'
@@ -222,17 +270,117 @@ function generateCoverPagePdf({
       doc.fillColor('#64748b').fontSize(7).font('Helvetica')
          .text(`Recorded: ${submissionDate}`, bannerX + 26 + sigColW, sigLineY + 16);
 
-      // ── FOOTER BAR ──
-      const footerY = pageHeight - margin - 24;
-      doc.rect(bannerX, footerY, bannerW, 16).fill('#f1f5f9');
-      
-      const docRef = `REF: DSH-W${weekNumber}-${Buffer.from(email).toString('hex').slice(0, 6).toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
-      
-      doc.fillColor('#64748b').fontSize(7).font('Helvetica')
-         .text('Disheera Technologies Inc. · Official Collegiate Document Standard Part A · ISO 9001/27001 Aligned', bannerX + 8, footerY + 5);
-      
-      doc.fillColor(indigo).fontSize(7).font('Helvetica-Bold')
-         .text(docRef, bannerX + bannerW - 180, footerY + 5, { align: 'right', width: 172 });
+      // Page 1 footer
+      drawFooterBar(1, totalPages);
+
+      // =========================================================================
+      // PAGE 2: PART B — OFFICIAL QUESTION PAPER & MILESTONE PROBLEMS
+      // =========================================================================
+      if (hasQuestions) {
+        doc.addPage();
+        drawOuterBorders();
+        drawTopBanner('Part B: Official Question Paper', `Total Questions: ${parsedQuestions.length}`);
+
+        // Topic & Target Concepts strip
+        const p2StripY = bannerY + bannerH + 10;
+        const p2StripH = 46;
+        doc.rect(bannerX, p2StripY, bannerW, p2StripH)
+           .fillAndStroke(cardBg, borderCol);
+
+        doc.fillColor(indigo).fontSize(7.5).font('Helvetica-Bold')
+           .text('ASSIGNMENT SPECIFICATION & TARGET CONCEPTS', bannerX + 14, p2StripY + 7);
+
+        const outcomesText = (Array.isArray(learningOutcomes) && learningOutcomes.length > 0)
+          ? `Core Concepts Tested: ${learningOutcomes.join('  •  ')}`
+          : (description || `${careerTitle} — Week ${weekNumber} Collegiate Practical Assessment`);
+
+        doc.fillColor(navy).fontSize(8.5).font('Helvetica')
+           .text(outcomesText, bannerX + 14, p2StripY + 20, {
+             width: bannerW - 28,
+             height: 22,
+             ellipsis: true
+           });
+
+        // Section Title Bar
+        const secY = p2StripY + p2StripH + 10;
+        doc.rect(bannerX, secY, bannerW, 24).fill('#f1f5f9');
+        doc.rect(bannerX, secY, 4, 24).fill(electric);
+
+        doc.fillColor(navy).fontSize(8.5).font('Helvetica-Bold')
+           .text('SECTION I: MANDATORY PRACTICAL PROBLEM STATEMENTS', bannerX + 14, secY + 7);
+
+        doc.fillColor(electric).fontSize(8).font('Helvetica-Bold')
+           .text(`All Questions Compulsory · Total: ${maxMarks}.0 Marks`, bannerX + bannerW - 240, secY + 7, { align: 'right', width: 226 });
+
+        // Iterate through Questions and render clean Question Cards
+        let qY = secY + 32;
+
+        parsedQuestions.forEach((q, idx) => {
+          const qNum = q.qNumber || (idx + 1);
+          const qMarks = q.marks !== undefined ? `${q.marks} Marks` : '3.5 Marks';
+          const qType = q.type ? String(q.type).replace(/_/g, ' ').toUpperCase() : 'TECHNICAL DERIVATION';
+          const prompt = q.prompt || q.question || 'Complete the weekly technical milestone practical requirements.';
+          const keywords = Array.isArray(q.expectedKeywords)
+            ? q.expectedKeywords.join(', ')
+            : (typeof q.expectedKeywords === 'string' ? q.expectedKeywords : '');
+
+          doc.fontSize(8.8).font('Helvetica');
+          const promptHeight = doc.heightOfString(prompt, { width: bannerW - 28, lineGap: 3 });
+          const cardH = 24 + promptHeight + (keywords ? 20 : 10);
+
+          // Card container
+          doc.rect(bannerX, qY, bannerW, cardH)
+             .fillAndStroke('#ffffff', borderCol);
+
+          // Card header bar
+          doc.rect(bannerX, qY, bannerW, 20).fill('#f8fafc');
+          doc.rect(bannerX, qY, 3, 20).fill(indigo);
+
+          doc.fillColor(indigo).fontSize(8).font('Helvetica-Bold')
+             .text(`QUESTION ${qNum}: [${qType}]`, bannerX + 12, qY + 6);
+
+          doc.fillColor(gold).fontSize(8).font('Helvetica-Bold')
+             .text(`[ ${qMarks} ]`, bannerX + bannerW - 100, qY + 6, { align: 'right', width: 88 });
+
+          // Question Prompt
+          doc.fillColor(navy).fontSize(8.8).font('Helvetica')
+             .text(prompt, bannerX + 14, qY + 26, {
+               width: bannerW - 28,
+               lineGap: 3
+             });
+
+          // Keywords sub-badge
+          if (keywords) {
+            const kwY = qY + 26 + promptHeight + 4;
+            doc.fillColor('#64748b').fontSize(7.2).font('Helvetica-Oblique')
+               .text(`Key Concepts Expected: ${keywords}`, bannerX + 14, kwY, {
+                 width: bannerW - 28,
+                 ellipsis: true
+               });
+          }
+
+          qY += cardH + 10;
+        });
+
+        // Submission Guidelines Tip Box at bottom of Page 2
+        const tipY = qY + 4;
+        const tipH = 54;
+        if (tipY + tipH < pageHeight - margin - 26) {
+          doc.rect(bannerX, tipY, bannerW, tipH)
+             .fillAndStroke('#eff6ff', '#bfdbfe');
+
+          doc.fillColor(electric).fontSize(8).font('Helvetica-Bold')
+             .text('COLLEGIATE SUBMISSION & ATTACHMENT INSTRUCTIONS:', bannerX + 12, tipY + 8);
+
+          doc.fillColor('#1e3a8a').fontSize(7.4).font('Helvetica')
+             .text('• Handwrite or illustrate solutions clearly using dark blue or black pen, or format code outputs and architecture diagrams.\n• Page 1 of this PDF must be the front cover. Append your solutions directly behind Page 2 before scanning or compiling.\n• Upload the complete compiled PDF (Max 15MB) to Disheera for instant Multimodal AI evaluation and CMS scoring.', bannerX + 12, tipY + 20, {
+               width: bannerW - 24,
+               lineGap: 2.2
+             });
+        }
+
+        drawFooterBar(2, totalPages);
+      }
 
       doc.end();
     } catch (err) {

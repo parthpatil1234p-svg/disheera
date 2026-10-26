@@ -182,7 +182,7 @@ const downloadCoverTemplate = async (req, res, next) => {
     const weekNumber = parseInt(req.query.weekNumber || '1', 10);
     const { careerId, careerTitle } = await resolveStudentContext(req.user.id, req.query.careerId);
 
-    const assignment = await prisma.weeklyAssignment.findUnique({
+    let assignment = await prisma.weeklyAssignment.findUnique({
       where: {
         careerId_weekNumber: {
           careerId,
@@ -190,6 +190,14 @@ const downloadCoverTemplate = async (req, res, next) => {
         }
       }
     });
+
+    // Fallback if not found for specific career: grab week assignment for this weekNumber
+    if (!assignment) {
+      assignment = await prisma.weeklyAssignment.findFirst({
+        where: { weekNumber },
+        orderBy: { createdAt: 'asc' }
+      });
+    }
 
     // Extract student education metadata
     const user = req.user;
@@ -207,11 +215,16 @@ const downloadCoverTemplate = async (req, res, next) => {
       careerTitle: careerTitle || 'Engineering Track',
       weekNumber,
       assignmentTitle: assignment?.title || `Week ${weekNumber} Practical Assignment`,
+      description: assignment?.description || '',
+      questions: assignment?.questions || null,
+      learningOutcomes: assignment?.learningOutcomes || null,
+      maxMarks: assignment?.maxMarks || 10,
+      rubric: assignment?.rubric || null,
       submissionDate: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
     });
 
     const safeCareerSlug = (careerTitle || 'Career').toLowerCase().replace(/[^a-z0-9]+/g, '_');
-    const filename = `Disheera_Week_${weekNumber}_Cover_${safeCareerSlug}.pdf`;
+    const filename = `Disheera_Week_${weekNumber}_Assignment_${safeCareerSlug}.pdf`;
 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);

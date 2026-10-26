@@ -102,12 +102,12 @@
                         <i class="bi bi-file-earmark-pdf fs-3"></i>
                       </div>
                       <div>
-                        <h6 class="fw-bold mb-1" style="color: #0F172A;">Standardized Part A Cover Page</h6>
-                        <p class="small text-muted mb-0">Every collegiate submission must include Disheera's verified 1-page cover sheet with your student metadata and honor pledge.</p>
+                        <h6 class="fw-bold mb-1" style="color: #0F172A;">Standardized Assignment & Question Package</h6>
+                        <p class="small text-muted mb-0">Official Disheera assignment dossier with verified student cover sheet (Part A) and complete problem statements (Part B).</p>
                       </div>
                     </div>
                     <button type="button" class="btn btn-sm px-3 py-2 flex-shrink-0" id="wamBtnDownloadCover" style="background: #2563EB; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">
-                      <i class="bi bi-download me-1"></i> Download Part A Cover (PDF)
+                      <i class="bi bi-download me-1"></i> Download Assignment (PDF)
                     </button>
                   </div>
 
