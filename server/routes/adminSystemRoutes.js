@@ -11,7 +11,9 @@ const router = express.Router();
 const {
   getSystemHealth,
   getSystemMetrics,
-  getInfrastructureTelemetry
+  getInfrastructureTelemetry,
+  getAdminMaintenanceConfig,
+  updateAdminMaintenanceConfig
 } = require('../controllers/adminSystemController');
 const { verifyAdminAuth, requireAdminRole } = require('../middleware/adminAuthMiddleware');
 
@@ -27,5 +29,11 @@ router.get('/metrics', getSystemMetrics);
 
 // GET /api/admin/system/infrastructure — Live Distributed Cluster Telemetry (Vercel + Render + Supabase)
 router.get('/infrastructure', getInfrastructureTelemetry);
+
+// GET /api/admin/system/maintenance — Retrieve current maintenance mode state
+router.get('/maintenance', getAdminMaintenanceConfig);
+
+// POST /api/admin/system/maintenance — Toggle maintenance mode (Requires ADMIN or SUPER_ADMIN)
+router.post('/maintenance', requireAdminRole('ADMIN'), updateAdminMaintenanceConfig);
 
 module.exports = router;

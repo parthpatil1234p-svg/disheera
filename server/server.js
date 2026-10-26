@@ -484,6 +484,25 @@ app.use('/api/interview', aiLimiter);
 app.use('/api/resume/upload', aiLimiter);
 app.use('/api/recommendations', aiLimiter);
 
+// ── Public Platform Maintenance Status Endpoint ──────────────
+const { getMaintenanceConfig } = require('./services/maintenanceService');
+const { maintenanceMiddleware } = require('./middleware/maintenanceMiddleware');
+
+app.get('/api/system/maintenance', async (req, res) => {
+  try {
+    const config = await getMaintenanceConfig();
+    return res.status(200).json({ success: true, maintenance: config });
+  } catch (err) {
+    return res.status(200).json({
+      success: true,
+      maintenance: { enabled: false, message: 'Normal operational mode' }
+    });
+  }
+});
+
+// ── Global Platform Maintenance Guard Middleware ─────────────
+app.use(maintenanceMiddleware);
+
 // ── Routes ────────────────────────────────────────────────────
 
 // ── Root route ────────────────────────────────────────────────

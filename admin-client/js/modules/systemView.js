@@ -137,11 +137,12 @@ async function loadSystemHealth() {
   const nodeVerEl = document.getElementById('sysNodeVersion');
 
   try {
-    // Run infrastructure probe in parallel with standard health & metrics
+    // Run infrastructure probe and maintenance sync in parallel with standard health & metrics
     const [healthRes, metricsRes] = await Promise.all([
       adminFetch('/api/admin/system/health'),
       adminFetch('/api/admin/system/metrics'),
-      loadInfrastructureTelemetry()
+      loadInfrastructureTelemetry(),
+      loadMaintenanceSettings()
     ]);
 
     if (healthRes.success && healthRes.health) {
@@ -230,3 +231,308 @@ async function loadSystemHealth() {
 
 window.loadSystemHealth = loadSystemHealth;
 window.loadInfrastructureTelemetry = loadInfrastructureTelemetry;
+
+
+// ── Maintenance Mode Client Logic ─────────────────────────────────
+let maintCurrentConfig = {
+  enabled: false,
+  title: 'Scheduled System Maintenance',
+  message: 'We are currently performing routine upgrades, performance tuning, and bug fixing. We will be back online shortly.',
+  startTime: '',
+  endTime: '',
+  expectedDuration: 'Approx. 1-2 hours',
+  updatedAt: null,
+  updatedBy: 'System'
+};
+
+async function loadMaintenanceSettings() {
+  const badgeEl = document.getElementById('maintStatusBadge');
+  const titleEl = document.getElementById('maintTitleInput');
+  const msgEl = document.getElementById('maintMessageInput');
+  const startEl = document.getElementById('maintStartTimeInput');
+  const endEl = document.getElementById('maintEndTimeInput');
+  const durEl = document.getElementById('maintDurationInput');
+  const stateBox = document.getElementById('maintCockpitStateBox');
+  const iconEl = document.getElementById('maintCockpitIcon');
+  const boxTitleEl = document.getElementById('maintCockpitTitle');
+  const boxDescEl = document.getElementById('maintCockpitDesc');
+  const btnToggle = document.getElementById('btnToggleMaintenanceMaster');
+  const toggleHint = document.getElementById('maintToggleHint');
+  const updatedMetaEl = document.getElementById('maintUpdatedMeta');
+
+  try {
+    const res = await adminFetch('/api/admin/system/maintenance');
+    if (res.success && res.maintenance) {
+      maintCurrentConfig = res.maintenance;
+
+      // Populate input fields if user is not actively editing
+      if (titleEl && (!document.activeElement || document.activeElement !== titleEl)) {
+        titleEl.value = maintCurrentConfig.title || '';
+      }
+      if (msgEl && (!document.activeElement || document.activeElement !== msgEl)) {
+        msgEl.value = maintCurrentConfig.message || '';
+        updateMaintCharCounter();
+      }
+      if (startEl && (!document.activeElement || document.activeElement !== startEl)) {
+        startEl.value = maintCurrentConfig.startTime || '';
+      }
+      if (endEl && (!document.activeElement || document.activeElement !== endEl)) {
+        endEl.value = maintCurrentConfig.endTime || '';
+      }
+      if (durEl && (!document.activeElement || document.activeElement !== durEl)) {
+        durEl.value = maintCurrentConfig.expectedDuration || '';
+      }
+
+      const isEnabled = Boolean(maintCurrentConfig.enabled);
+
+      // Top Status Badge
+      if (badgeEl) {
+        if (isEnabled) {
+          badgeEl.className = 'badge badge-amber';
+          badgeEl.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Maintenance Active (Public Down)';
+        } else {
+          badgeEl.className = 'badge badge-emerald';
+          badgeEl.innerHTML = '<i class="bi bi-check-circle-fill"></i> Public Site Live';
+        }
+      }
+
+      // Cockpit State Box
+      if (stateBox) {
+        if (isEnabled) {
+          stateBox.style.border = '2px solid #f59e0b';
+          stateBox.style.background = '#fffbeb';
+          if (iconEl) iconEl.innerHTML = '<i class="bi bi-exclamation-triangle-fill" style="color: #d97706; font-size: 2rem;"></i>';
+          if (boxTitleEl) {
+            boxTitleEl.textContent = 'Maintenance Mode ACTIVE';
+            boxTitleEl.style.color = '#92400e';
+          }
+          if (boxDescEl) {
+            boxDescEl.textContent = 'Public visitors see the downtime page. Public APIs return 503.';
+            boxDescEl.style.color = '#b45309';
+          }
+          if (btnToggle) {
+            btnToggle.className = 'btn-danger';
+            btnToggle.style.background = '#dc2626';
+            btnToggle.style.borderColor = '#dc2626';
+            btnToggle.innerHTML = '<i class="bi bi-power"></i> <span>Deactivate Maintenance (Restore Site)</span>';
+          }
+          if (toggleHint) {
+            toggleHint.textContent = 'Click to bring Disheera back online immediately.';
+          }
+        } else {
+          stateBox.style.border = '2px solid #22c55e';
+          stateBox.style.background = '#ffffff';
+          if (iconEl) iconEl.innerHTML = '<i class="bi bi-check-circle-fill" style="color: #16a34a; font-size: 2rem;"></i>';
+          if (boxTitleEl) {
+            boxTitleEl.textContent = 'Public Site is LIVE';
+            boxTitleEl.style.color = '#0f172a';
+          }
+          if (boxDescEl) {
+            boxDescEl.textContent = 'All visitors, students, and recruiters can access Disheera normally.';
+            boxDescEl.style.color = '#64748b';
+          }
+          if (btnToggle) {
+            btnToggle.className = 'btn-primary';
+            btnToggle.style.background = '#2563eb';
+            btnToggle.style.borderColor = '#2563eb';
+            btnToggle.innerHTML = '<i class="bi bi-power"></i> <span>Activate Maintenance Mode</span>';
+          }
+          if (toggleHint) {
+            toggleHint.textContent = 'Clicking will ask for confirmation before switching downtime.';
+          }
+        }
+      }
+
+      // Metadata
+      if (updatedMetaEl && maintCurrentConfig.updatedAt) {
+        const d = new Date(maintCurrentConfig.updatedAt);
+        updatedMetaEl.innerHTML = `<i class="bi bi-clock-history"></i> Updated: ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} by ${escapeHtml(maintCurrentConfig.updatedBy || 'Admin')}`;
+      }
+    }
+  } catch (err) {
+    console.warn('Failed to load maintenance settings:', err);
+  }
+}
+
+function updateMaintCharCounter() {
+  const msgEl = document.getElementById('maintMessageInput');
+  const counterEl = document.getElementById('maintCharCounter');
+  if (msgEl && counterEl) {
+    const len = msgEl.value.length;
+    counterEl.textContent = `${len} / 500`;
+    counterEl.style.color = len > 450 ? '#dc2626' : '#64748b';
+  }
+}
+
+function applyMaintenancePreset(type) {
+  const titleEl = document.getElementById('maintTitleInput');
+  const msgEl = document.getElementById('maintMessageInput');
+  const startEl = document.getElementById('maintStartTimeInput');
+  const endEl = document.getElementById('maintEndTimeInput');
+  const durEl = document.getElementById('maintDurationInput');
+
+  const now = new Date();
+  const formatTime = (d) => {
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) + ' IST';
+  };
+
+  const startTimeStr = formatTime(now);
+  const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000);
+  const twoHoursLater = new Date(now.getTime() + 120 * 60 * 1000);
+
+  if (type === 'patch') {
+    if (titleEl) titleEl.value = 'Routine Bug Fixing & Performance Patch';
+    if (msgEl) {
+      msgEl.value = 'Our engineering team is deploying performance optimizations, bug fixes, and stability patches to ensure maximum platform reliability. Student data and progress remain 100% secure. We will be back online shortly.';
+    }
+    if (startEl && !startEl.value) startEl.value = startTimeStr;
+    if (endEl && !endEl.value) endEl.value = formatTime(oneHourLater);
+    if (durEl) durEl.value = 'Approx. 30-45 minutes';
+  } else if (type === 'upgrade') {
+    if (titleEl) titleEl.value = 'Disheera Core Engine & Feature Upgrade';
+    if (msgEl) {
+      msgEl.value = 'We are upgrading the Disheera platform with new AI diagnostic modules and user interface enhancements. All coursework progress and certificates are safely preserved. We will resume service shortly.';
+    }
+    if (startEl && !startEl.value) startEl.value = startTimeStr;
+    if (endEl && !endEl.value) endEl.value = formatTime(twoHoursLater);
+    if (durEl) durEl.value = 'Approx. 1-2 hours';
+  } else if (type === 'database') {
+    if (titleEl) titleEl.value = 'Database Optimization & Security Maintenance';
+    if (msgEl) {
+      msgEl.value = 'We are currently conducting scheduled database indexing and security audits to ensure peak system performance. Public access is temporarily paused. Thank you for your patience.';
+    }
+    if (startEl && !startEl.value) startEl.value = startTimeStr;
+    if (endEl && !endEl.value) endEl.value = formatTime(oneHourLater);
+    if (durEl) durEl.value = 'Approx. 1 hour';
+  }
+
+  updateMaintCharCounter();
+  if (typeof showToast === 'function') {
+    showToast('Applied announcement template.', 'info');
+  }
+}
+
+async function handleMaintenanceMasterToggle() {
+  const isCurrentlyActive = Boolean(maintCurrentConfig.enabled);
+
+  if (isCurrentlyActive) {
+    const confirmed = confirm(
+      'Restore Public Website?\n\n' +
+      'This will turn OFF maintenance mode and immediately restore full public access for all students, visitors, and recruiters.'
+    );
+    if (!confirmed) return;
+    await executeSaveMaintenance({ enabled: false });
+  } else {
+    const confirmed = confirm(
+      'Activate Platform Maintenance Mode?\n\n' +
+      '⚠️ ATTENTION: This will take the public website down and show the maintenance downtime screen to all visitors.\n\n' +
+      '• Public APIs will return 503 Service Unavailable.\n' +
+      '• This Admin Portal (admin.disheera.site) will remain 100% online and accessible.\n\n' +
+      'Do you want to proceed?'
+    );
+    if (!confirmed) return;
+    await executeSaveMaintenance({ enabled: true });
+  }
+}
+
+async function saveMaintenanceSettingsOnly() {
+  await executeSaveMaintenance({});
+}
+
+async function executeSaveMaintenance(overrides = {}) {
+  const titleEl = document.getElementById('maintTitleInput');
+  const msgEl = document.getElementById('maintMessageInput');
+  const startEl = document.getElementById('maintStartTimeInput');
+  const endEl = document.getElementById('maintEndTimeInput');
+  const durEl = document.getElementById('maintDurationInput');
+
+  const payload = {
+    title: titleEl ? titleEl.value.trim() : maintCurrentConfig.title,
+    message: msgEl ? msgEl.value.trim() : maintCurrentConfig.message,
+    startTime: startEl ? startEl.value.trim() : maintCurrentConfig.startTime,
+    endTime: endEl ? endEl.value.trim() : maintCurrentConfig.endTime,
+    expectedDuration: durEl ? durEl.value.trim() : maintCurrentConfig.expectedDuration
+  };
+
+  if (typeof overrides.enabled === 'boolean') {
+    payload.enabled = overrides.enabled;
+  } else {
+    payload.enabled = Boolean(maintCurrentConfig.enabled);
+  }
+
+  try {
+    const res = await adminFetch('/api/admin/system/maintenance', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+
+    if (res.success) {
+      if (typeof showToast === 'function') {
+        const msg = payload.enabled 
+          ? 'Platform Maintenance Mode is now ACTIVE! Public site is offline.' 
+          : 'Public website restored to LIVE service!';
+        showToast(msg, payload.enabled ? 'warning' : 'success');
+      }
+      await loadMaintenanceSettings();
+    } else {
+      if (typeof showToast === 'function') {
+        showToast(res.message || 'Failed to update maintenance settings.', 'error');
+      }
+    }
+  } catch (err) {
+    console.error('Error saving maintenance settings:', err);
+    if (typeof showToast === 'function') {
+      showToast(err.message || 'Network error updating maintenance state.', 'error');
+    }
+  }
+}
+
+function openMaintenancePreview() {
+  const titleEl = document.getElementById('maintTitleInput');
+  const msgEl = document.getElementById('maintMessageInput');
+  const startEl = document.getElementById('maintStartTimeInput');
+  const endEl = document.getElementById('maintEndTimeInput');
+  const durEl = document.getElementById('maintDurationInput');
+
+  const pTitle = document.getElementById('prevMaintTitle');
+  const pMsg = document.getElementById('prevMaintMessage');
+  const pWindow = document.getElementById('prevMaintTimeWindow');
+  const pDur = document.getElementById('prevMaintDuration');
+  const pScheduleBox = document.getElementById('prevMaintScheduleBox');
+
+  const title = (titleEl && titleEl.value.trim()) || maintCurrentConfig.title || 'Platform Scheduled Maintenance';
+  const msg = (msgEl && msgEl.value.trim()) || maintCurrentConfig.message || 'We are currently performing routine upgrades, performance tuning, and bug fixing. We will be back online shortly.';
+  const start = (startEl && startEl.value.trim()) || maintCurrentConfig.startTime || '';
+  const end = (endEl && endEl.value.trim()) || maintCurrentConfig.endTime || '';
+  const dur = (durEl && durEl.value.trim()) || maintCurrentConfig.expectedDuration || '';
+
+  if (pTitle) pTitle.textContent = title;
+  if (pMsg) pMsg.textContent = msg;
+
+  if (pWindow) {
+    if (start && end) {
+      pWindow.textContent = `${start} - ${end}`;
+    } else if (start) {
+      pWindow.textContent = `Starts: ${start}`;
+    } else if (end) {
+      pWindow.textContent = `Ends: ${end}`;
+    } else {
+      pWindow.textContent = 'In Progress';
+    }
+  }
+
+  if (pDur) {
+    pDur.textContent = dur || 'Approx. 1-2 hours';
+  }
+
+  if (typeof openModal === 'function') {
+    openModal('maintenancePreviewModal');
+  }
+}
+
+window.loadMaintenanceSettings = loadMaintenanceSettings;
+window.applyMaintenancePreset = applyMaintenancePreset;
+window.updateMaintCharCounter = updateMaintCharCounter;
+window.handleMaintenanceMasterToggle = handleMaintenanceMasterToggle;
+window.saveMaintenanceSettingsOnly = saveMaintenanceSettingsOnly;
+window.openMaintenancePreview = openMaintenancePreview;

@@ -103,6 +103,24 @@
           }
         }
       }, { passive: true });
+
+      // Auto-inject Platform Maintenance Mode Guard for public client pages
+      try {
+        const isAlreadyLoaded = Array.from(document.querySelectorAll('script')).some(s => s.src && s.src.includes('maintenance-guard.js'));
+        if (!isAlreadyLoaded) {
+          const script = document.createElement('script');
+          const configScript = document.querySelector('script[src*="config.js"]');
+          let basePath = 'js/';
+          if (configScript && configScript.src) {
+            basePath = configScript.src.substring(0, configScript.src.lastIndexOf('/') + 1);
+          }
+          script.src = basePath + 'maintenance-guard.js';
+          script.async = true;
+          document.head.appendChild(script);
+        }
+      } catch (err) {
+        console.debug('[Maintenance Guard Init]', err);
+      }
     }
   })();
 

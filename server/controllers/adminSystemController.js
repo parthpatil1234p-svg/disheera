@@ -8,6 +8,7 @@
  */
 
 const { prisma } = require('../config/prisma');
+const { getMaintenanceConfig, setMaintenanceConfig } = require('../services/maintenanceService');
 
 /**
  * GET /api/admin/system/health
@@ -255,8 +256,100 @@ async function getInfrastructureTelemetry(req, res) {
   });
 }
 
+
+/**
+ * GET /api/admin/system/maintenance
+ * Retrieves current platform maintenance settings from database/cache.
+ * Roles: MODERATOR, ADMIN, SUPER_ADMIN
+ */
+async function getAdminMaintenanceConfig(req, res) {
+  try {
+    const config = await getMaintenanceConfig(true);
+    return res.json({
+      success: true,
+      maintenance: config
+    });
+  } catch (err) {
+    console.error('getAdminMaintenanceConfig error:', err);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve maintenance configuration',
+      error: err.message
+    });
+  }
+}
+
+/**
+ * POST /api/admin/system/maintenance
+ * Toggles maintenance mode and updates downtime schedule/notice.
+ * Roles: ADMIN, SUPER_ADMIN
+ */
+async function updateAdminMaintenanceConfig(req, res) {
+  try {
+    const { enabled, title, message, startTime, endTime, expectedDuration } = req.body;
+    const adminIdentifier = req.admin?.email || req.admin?.id || 'Admin';
+
+    const updatePayload = {
+      updatedBy: adminIdentifier
+    };
+
+    if (typeof enabled === 'boolean') updatePayload.enabled = enabled;
+    if (typeof title === 'string') updatePayload.title = title;
+    if (typeof message === 'string') updatePayload.message = message;
+    if (typeof startTime === 'string') updatePayload.startTime = startTime;
+    if (typeof endTime === 'string') updatePayload.endTime = endTime;
+    if (typeof expectedDuration === 'string') updatePayload.expectedDuration = expectedDuration;
+
+    const updatedConfig = await setMaintenanceConfig(updatePayload, adminIdentifier);
+
+    // Record in AdminAuditLog for security traceability
+    try {
+      if (req.admin?.id) {
+        const adminUser = await prisma.adminUser.findUnique({ where: { id: req.admin.id }, select: { id: true } });
+        if (adminUser) {
+          await prisma.adminAuditLog.create({
+            data: {
+              adminId: req.admin.id,
+              adminEmail: req.admin?.email || 'admin@disheera.site',
+              action: updatedConfig.enabled ? 'MAINTENANCE_MODE_ENABLED' : 'MAINTENANCE_MODE_DISABLED',
+              targetType: 'SYSTEM',
+              targetId: 'maintenance_mode',
+              details: {
+                enabled: updatedConfig.enabled,
+                title: updatedConfig.title,
+                startTime: updatedConfig.startTime,
+                endTime: updatedConfig.endTime,
+                expectedDuration: updatedConfig.expectedDuration
+              }
+            }
+          });
+        }
+      }
+    } catch (auditErr) {
+      console.warn('Notice recording maintenance audit log:', auditErr.message);
+    }
+
+    return res.json({
+      success: true,
+      message: updatedConfig.enabled
+        ? 'Platform maintenance mode ACTIVATED. Public site is now displaying the downtime screen.'
+        : 'Platform maintenance mode DEACTIVATED. Public site is restored to live service.',
+      maintenance: updatedConfig
+    });
+  } catch (err) {
+    console.error('updateAdminMaintenanceConfig error:', err);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to update maintenance configuration',
+      error: err.message
+    });
+  }
+}
+
 module.exports = {
   getSystemHealth,
   getSystemMetrics,
-  getInfrastructureTelemetry
+  getInfrastructureTelemetry,
+  getAdminMaintenanceConfig,
+  updateAdminMaintenanceConfig
 };
