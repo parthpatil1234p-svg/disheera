@@ -93,6 +93,10 @@ async function savePendingSignup(data) {
   if (!passwordHash && password) {
     const salt = await bcrypt.genSalt(12);
     passwordHash = await bcrypt.hash(password, salt);
+  } else if (!passwordHash) {
+    // Generate secure placeholder hash for OAuth (Google) registrations to satisfy PostgreSQL NOT NULL constraint
+    const salt = await bcrypt.genSalt(10);
+    passwordHash = await bcrypt.hash(crypto.randomBytes(16).toString('hex'), salt);
   }
 
   const now = new Date();

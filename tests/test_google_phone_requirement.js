@@ -84,9 +84,9 @@ const runTests = async () => {
         throw new Error(`FAIL in Test 2: expected 400 invalid phone, got ${res2.status} ${JSON.stringify(data2)}`);
       }
 
-      // 3. New user with valid 10-digit phone: must register and return token + formatted phone
+      // 3. New user with valid 10-digit phone: must require OTP verification first
       console.log('\n[TEST 3] Google user with valid 10-digit phone ("9876543210")...');
-      const res3 = await fetch(`${baseUrl}/google`, {
+      const res3a = await fetch(`${baseUrl}/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -96,19 +96,63 @@ const runTests = async () => {
           phone: testPhone,
         }),
       });
-      const data3 = await res3.json();
-      console.log('  Status:', res3.status);
-      console.log('  User phone in response:', data3.data?.user?.phone);
+      const data3a = await res3a.json();
+      console.log('  Status (initial phone submission):', res3a.status);
+      console.log('  Response requireOtp:', data3a.requireOtp);
+
+      if (res3a.status === 200 && data3a.requireOtp === true) {
+        console.log('  ✓ PASS: Initial phone submission strictly requires WhatsApp OTP verification (requireOtp: true).');
+      } else {
+        throw new Error(`FAIL in Test 3a: expected requireOtp: true, got ${JSON.stringify(data3a)}`);
+      }
+
+      // Test 3b: Wrong OTP rejected with HTTP 400
+      console.log('  Testing wrong OTP rejection...');
+      const res3b = await fetch(`${baseUrl}/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: testEmail1,
+          name: 'Google Student One',
+          googleId: `gid_test_${Date.now()}`,
+          phone: testPhone,
+          otp: '000000',
+        }),
+      });
+      const data3b = await res3b.json();
+      if (res3b.status === 400 && data3b.success === false) {
+        console.log('  ✓ PASS: Invalid OTP rejected with HTTP 400.');
+      } else {
+        throw new Error(`FAIL in Test 3b: expected 400 invalid OTP, got ${res3b.status} ${JSON.stringify(data3b)}`);
+      }
+
+      // Test 3c: Valid OTP completes registration & issues token
+      console.log('  Testing valid OTP completion...');
+      const validOtp = data3a.backupOtp || '999999';
+      const res3c = await fetch(`${baseUrl}/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: testEmail1,
+          name: 'Google Student One',
+          googleId: `gid_test_${Date.now()}`,
+          phone: testPhone,
+          otp: validOtp,
+        }),
+      });
+      const data3c = await res3c.json();
+      console.log('  Status:', res3c.status);
+      console.log('  User phone in response:', data3c.data?.user?.phone);
 
       if (
-        (res3.status === 200 || res3.status === 201) &&
-        data3.success === true &&
-        data3.data?.token &&
-        data3.data?.user?.phone === expectedFormattedPhone
+        (res3c.status === 200 || res3c.status === 201) &&
+        data3c.success === true &&
+        data3c.data?.token &&
+        data3c.data?.user?.phone === expectedFormattedPhone
       ) {
-        console.log(`  ✓ PASS: User created successfully with formatted phone: ${data3.data.user.phone}`);
+        console.log(`  ✓ PASS: User created successfully after verifying OTP: ${data3c.data.user.phone}`);
       } else {
-        throw new Error(`FAIL in Test 3: expected success with formatted phone, got ${JSON.stringify(data3)}`);
+        throw new Error(`FAIL in Test 3c: expected success with formatted phone, got ${JSON.stringify(data3c)}`);
       }
 
       // Verify persisted in DB
@@ -194,8 +238,8 @@ const runTests = async () => {
         throw new Error(`FAIL in Test 6a: expected requirePhone: true for legacy user, got ${JSON.stringify(data6a)}`);
       }
 
-      // Supply phone -> must update legacy user's phone in DB
-      const res6b = await fetch(`${baseUrl}/google`, {
+      // Supply phone -> must require OTP, then verify OTP to update legacy user's phone in DB
+      const res6b1 = await fetch(`${baseUrl}/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -204,12 +248,30 @@ const runTests = async () => {
           phone: testPhone3,
         }),
       });
-      const data6b = await res6b.json();
-      const updatedLegacyUser = await User.findOne({ email: testEmail3 });
-      if (res6b.status === 200 && data6b.success === true && updatedLegacyUser.phone === expectedFormattedPhone3) {
-        console.log(`  ✓ PASS: Legacy user's phone successfully updated in DB to ${updatedLegacyUser.phone}.`);
+      const data6b1 = await res6b1.json();
+      if (res6b1.status === 200 && data6b1.requireOtp === true) {
+        console.log('  ✓ PASS: Legacy user phone submission strictly requires OTP (requireOtp: true).');
       } else {
-        throw new Error(`FAIL in Test 6b: expected phone update, got DB phone=${updatedLegacyUser?.phone}`);
+        throw new Error(`FAIL in Test 6b1: expected requireOtp: true, got ${JSON.stringify(data6b1)}`);
+      }
+
+      const legacyOtp = data6b1.backupOtp || '999999';
+      const res6b2 = await fetch(`${baseUrl}/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: testEmail3,
+          googleId: legacyUser.googleId,
+          phone: testPhone3,
+          otp: legacyOtp,
+        }),
+      });
+      const data6b2 = await res6b2.json();
+      const updatedLegacyUser = await User.findOne({ email: testEmail3 });
+      if (res6b2.status === 200 && data6b2.success === true && updatedLegacyUser.phone === expectedFormattedPhone3) {
+        console.log(`  ✓ PASS: Legacy user's phone successfully updated in DB after OTP verification to ${updatedLegacyUser.phone}.`);
+      } else {
+        throw new Error(`FAIL in Test 6b2: expected phone update, got DB phone=${updatedLegacyUser?.phone}`);
       }
 
       // Clean up legacy test user
