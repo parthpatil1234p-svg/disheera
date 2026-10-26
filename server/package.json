@@ -4,6 +4,7 @@
   "description": "Disheera — Backend API server built with Node.js and Express.js",
   "main": "server.js",
   "scripts": {
+    "build": "prisma generate",
     "start": "node server.js",
     "postinstall": "prisma generate",
     "dev": "nodemon server.js",

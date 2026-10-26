@@ -256,22 +256,20 @@ app.options('*', cors(corsOptions));
 
 // ── Vercel Serverless Path Normalizer (Dual-Engine Architecture) ──
 app.use((req, res, next) => {
-  const forwardedUri = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'];
+  const forwardedUri = req.headers['x-forwarded-uri'];
   if (
     forwardedUri &&
-    (req.url === '/server.js' ||
-      req.url.startsWith('/server.js?') ||
-      req.url === '/api/index.js' ||
-      req.url.startsWith('/api/index.js?') ||
-      req.url === '/api/index' ||
-      req.url.startsWith('/api/index?') ||
-      req.url === '/api')
+    forwardedUri !== '/server.js' &&
+    forwardedUri !== '/api/index.js' &&
+    forwardedUri !== '/api/index'
   ) {
     req.url = forwardedUri;
   } else if (req.url.startsWith('/server.js')) {
     req.url = req.url.replace('/server.js', '') || '/';
   } else if (req.url.startsWith('/api/index.js')) {
     req.url = req.url.replace('/api/index.js', '') || '/';
+  } else if (req.url.startsWith('/api/index')) {
+    req.url = req.url.replace('/api/index', '') || '/';
   }
   next();
 });
@@ -437,7 +435,7 @@ app.use('/api/recommendations', aiLimiter);
 // ── Routes ────────────────────────────────────────────────────
 
 // ── Root route ────────────────────────────────────────────────
-app.get('/', (req, res) => {
+app.get(['/', '/api'], (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Welcome to Disheera API 🚀',
