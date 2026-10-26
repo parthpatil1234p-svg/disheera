@@ -20,7 +20,16 @@
 
 const fs = require('fs');
 const path = require('path');
-const { PDFParse } = require('pdf-parse');
+let _PDFParse = null;
+function getPDFParse() {
+  if (!_PDFParse) {
+    if (typeof globalThis.DOMMatrix === 'undefined') {
+      globalThis.DOMMatrix = class DOMMatrix {};
+    }
+    _PDFParse = require('pdf-parse').PDFParse;
+  }
+  return _PDFParse;
+}
 const { prisma } = require('../config/prisma');
 const { detectAiContent } = require('./antiAiDetectionService');
 const { generateEvaluationSheetPdf, notifyStudentEvaluation } = require('./assignmentFeedbackService');
@@ -218,7 +227,7 @@ async function evaluateSubmission(submissionId) {
   if (fs.existsSync(filePath)) {
     try {
       const pdfBuffer = fs.readFileSync(filePath);
-      const parser = new PDFParse({ data: pdfBuffer });
+      const parser = new (getPDFParse())({ data: pdfBuffer });
       const loaded = await parser.load();
       pageCount = loaded?.numPages || pageCount;
       const parsedResult = await parser.getText();

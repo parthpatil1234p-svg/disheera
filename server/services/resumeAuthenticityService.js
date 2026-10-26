@@ -10,7 +10,16 @@
  * Disheera · Enterprise Backend Service
  */
 
-const { PDFParse } = require('pdf-parse');
+let _PDFParse = null;
+function getPDFParse() {
+  if (!_PDFParse) {
+    if (typeof globalThis.DOMMatrix === 'undefined') {
+      globalThis.DOMMatrix = class DOMMatrix {};
+    }
+    _PDFParse = require('pdf-parse').PDFParse;
+  }
+  return _PDFParse;
+}
 let AdmZip = null;
 try {
   AdmZip = require('adm-zip');
@@ -98,7 +107,7 @@ async function extractTextFromBuffer(buffer, mimeType) {
   // 1. PDF Parsing via pdf-parse v2
   if (mimeType === 'application/pdf' || buffer.subarray(0, 4).toString('ascii').startsWith('%PDF')) {
     try {
-      const parser = new PDFParse({ data: buffer });
+      const parser = new (getPDFParse())({ data: buffer });
       await parser.load();
       const parseRes = await parser.getText();
       return (parseRes?.text || '').trim();

@@ -17,7 +17,16 @@ const { prisma } = require('../config/prisma');
 const { generateCoverPagePdf } = require('../services/assignmentTemplateService');
 const { evaluateSubmission } = require('../services/assignmentAiGraderService');
 const { generateEvaluationSheetPdf } = require('../services/assignmentFeedbackService');
-const { PDFParse } = require('pdf-parse');
+let _PDFParse = null;
+function getPDFParse() {
+  if (!_PDFParse) {
+    if (typeof globalThis.DOMMatrix === 'undefined') {
+      globalThis.DOMMatrix = class DOMMatrix {};
+    }
+    _PDFParse = require('pdf-parse').PDFParse;
+  }
+  return _PDFParse;
+}
 
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads', 'assignments');
 const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB
@@ -279,7 +288,7 @@ const submitAssignment = async (req, res, next) => {
     let pageCount = 1;
     let extractedText = '';
     try {
-      const parser = new PDFParse({ data: pdfBuffer });
+      const parser = new (getPDFParse())({ data: pdfBuffer });
       const loaded = await parser.load();
       pageCount = loaded?.numPages || parser.doc?.numPages || 1;
       const parsedTextResult = await parser.getText();
