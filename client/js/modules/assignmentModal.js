@@ -352,17 +352,28 @@
 
     try {
       const token = window.Auth?.getToken() || localStorage.getItem('token');
-      const formData = new FormData();
-      formData.append('pdfFile', file);
-      formData.append('weekNumber', currentWeekNumber);
-      if (currentCareerId) formData.append('careerId', currentCareerId);
+
+      // Convert selected PDF file to base64 Data URI
+      const fileData = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (err) => reject(new Error('Failed to read PDF file for submission.'));
+        reader.readAsDataURL(file);
+      });
+
+      const payload = {
+        weekNumber: parseInt(currentWeekNumber, 10),
+        careerId: currentCareerId || undefined,
+        fileData: fileData
+      };
 
       const response = await fetch(`${window.CONFIG?.API_BASE_URL || '/api'}/assignments/submit`, {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: formData
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();

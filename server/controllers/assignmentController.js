@@ -243,7 +243,9 @@ const downloadCoverTemplate = async (req, res, next) => {
  */
 const submitAssignment = async (req, res, next) => {
   try {
-    const { weekNumber, fileData, pdfBase64, assignmentId, roadmapId: inputRoadmapId, careerId: inputCareerId } = req.body;
+    const body = req.body || {};
+    const weekNumber = body.weekNumber ?? req.query?.weekNumber;
+    const { fileData, pdfBase64, assignmentId, roadmapId: inputRoadmapId, careerId: inputCareerId } = body;
 
     const parsedWeekNumber = parseInt(weekNumber, 10);
     if (isNaN(parsedWeekNumber) || parsedWeekNumber < 1) {
