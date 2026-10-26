@@ -1,14 +1,47 @@
 /**
- * api/index.js — Vercel Serverless Function Bridge
- *
- * Exports Express application directly for native Vercel Node.js Serverless Bridge.
+ * api/index.js — Vercel Serverless Function Bridge with Self-Diagnostic Guard
  * Disheera Technologies Inc. · Enterprise Distributed Architecture
  */
 
-// 1. Enforce VERCEL runtime flag before importing server modules
 process.env.VERCEL = process.env.VERCEL || '1';
 
-const app = require('../server');
+let app;
+let initError = null;
 
-// Export Express app directly per official Vercel Express runtime standards
-module.exports = app;
+try {
+  app = require('../server');
+} catch (err) {
+  console.error('[Vercel Serverless Boot Exception]', err);
+  initError = {
+    message: err.message,
+    stack: err.stack,
+    name: err.name,
+  };
+}
+
+module.exports = (req, res) => {
+  if (initError) {
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(500).json({
+      success: false,
+      phase: 'MODULE_INITIALIZATION_ERROR',
+      error: initError.message,
+      stack: initError.stack ? initError.stack.split('\n') : [],
+      envKeysPresent: Object.keys(process.env).filter(k => !k.includes('KEY') && !k.includes('SECRET') && !k.includes('PASSWORD')),
+      nodeVersion: process.version,
+    });
+  }
+
+  try {
+    return app(req, res);
+  } catch (runErr) {
+    console.error('[Vercel Serverless Request Exception]', runErr);
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(500).json({
+      success: false,
+      phase: 'REQUEST_DISPATCH_ERROR',
+      error: runErr.message,
+      stack: runErr.stack ? runErr.stack.split('\n') : [],
+    });
+  }
+};
