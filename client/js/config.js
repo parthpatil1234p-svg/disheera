@@ -37,12 +37,18 @@
   // Production Persistent Real-Time & WebSockets (Render 24/7 worker on api.disheera.site)
   const PRODUCTION_REALTIME_URL = 'https://api.disheera.site';
 
-  // Production REST API (Render 24/7 Unified Backend with Supabase PostgreSQL)
-  const PRODUCTION_REST_API = 'https://api.disheera.site/api';
+  // Production Request-Driven API: Same-origin Vercel Gateway (/api) eliminates CORS preflight latency
+  // Routes short-lived APIs to Vercel Serverless and heavy compute to Render via vercel.json rewrites
+  const PRODUCTION_REST_API = (typeof window !== 'undefined' && (isVercel || isCustomDomain))
+    ? `${window.location.origin}/api`
+    : 'https://api.disheera.site/api';
 
   const CONFIG = {
-    // Stateless REST API (Render in Prod, localhost:5000 in dev)
+    // Stateless REST API (Vercel Serverless / Same-Origin in Prod, localhost:5000 in dev)
     API_BASE_URL: isLocal ? LOCAL_API_URL : PRODUCTION_REST_API,
+
+    // Dedicated Heavy Compute & Background Operations Endpoint
+    HEAVY_API_BASE_URL: isLocal ? LOCAL_API_URL : 'https://api.disheera.site/api',
 
     // Persistent Real-Time & WebSockets (Render in Prod, localhost:5000 in dev)
     REALTIME_BASE_URL: isLocal ? LOCAL_REALTIME_URL : PRODUCTION_REALTIME_URL,

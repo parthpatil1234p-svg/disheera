@@ -40,24 +40,35 @@ if (!globalForPrisma.prisma) {
 }
 const prisma = globalForPrisma.prisma;
 
+let isPrismaConnected = false;
+
 /**
  * Validates connection to Supabase PostgreSQL database
  */
 async function connectPrisma() {
+  if (isPrismaConnected) {
+    return prisma;
+  }
+
   try {
     await prisma.$connect();
+    isPrismaConnected = true;
     console.log('✅ Supabase PostgreSQL Connected [Prisma ORM]: db.naefjieafxfdzliphaxb.supabase.co');
 
-    // Enforce 1:1 Mobile Uniqueness at database level:
-    // Partial unique index ensures non-empty phones are strictly unique across all accounts
-    try {
-      await prisma.$executeRawUnsafe(`
-        CREATE UNIQUE INDEX IF NOT EXISTS "User_phone_unique_not_empty" 
-        ON public."User" (phone) 
-        WHERE phone IS NOT NULL AND phone != '';
-      `);
-    } catch (idxErr) {
-      console.warn('⚠️  Notice verifying User phone unique index:', idxErr.message);
+    // In serverless execution, skip DDL index verification to keep cold starts sub-50ms;
+    // DDL checks are performed during persistent server boot (Render / local dev).
+    if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+      // Enforce 1:1 Mobile Uniqueness at database level:
+      // Partial unique index ensures non-empty phones are strictly unique across all accounts
+      try {
+        await prisma.$executeRawUnsafe(`
+          CREATE UNIQUE INDEX IF NOT EXISTS "User_phone_unique_not_empty" 
+          ON public."User" (phone) 
+          WHERE phone IS NOT NULL AND phone != '';
+        `);
+      } catch (idxErr) {
+        console.warn('⚠️  Notice verifying User phone unique index:', idxErr.message);
+      }
     }
 
     return prisma;

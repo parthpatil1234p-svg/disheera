@@ -1,6 +1,6 @@
 # ============================================================
 # Disheera — Render Blueprint Deployment Specification
-# Dual-Engine Architecture: Persistent Real-Time & Worker Service
+# Tier 2: Dedicated Persistent Real-Time & Heavy Computation Worker
 # ============================================================
 
 services:
@@ -27,6 +27,12 @@ services:
       - key: SERVER_ROLE
         value: realtime-worker
 
+      - key: PERSISTENT_WORKER
+        value: "true"
+
+      - key: ENABLE_CRON_WORKER
+        value: "true"
+
       - key: UV_THREADPOOL_SIZE
         value: 64
 
@@ -43,20 +49,42 @@ services:
       - key: JWT_SECRET
         sync: false
 
+      - key: ADMIN_JWT_SECRET
+        sync: false
+
       # Optional Media Storage & API Keys
       - key: CLOUDINARY_URL
         sync: false
 
-      # Email Delivery Configuration (Gmail SMTP / Custom)
+      # Dual-Engine AI Keys for Heavy Workloads (Groq & Gemini)
+      - key: GROQ_API_KEY
+        sync: false
+
+      - key: GEMINI_API_KEY
+        sync: false
+
+      # Email Delivery Configuration (Dakly Engine API / SMTP)
+      - key: DAKLY_API_URL
+        value: https://dakly-engin.vercel.app/api/send
+
+      - key: DAKLY_API_KEY
+        sync: false
+
       - key: SMTP_PORT
         value: 587
+
       - key: EMAIL_USER
         sync: false
+
       - key: EMAIL_PASS
         sync: false
 
-      # Set this to your deployed Vercel frontend URL, e.g. https://disheera.site
+      # Frontend Origins & Reverse Proxy Allowlist
       - key: CLIENT_URL
         value: https://disheera.site
+
       - key: PROD_CLIENT_URL
         value: https://disheera.site
+
+      - key: ALLOWED_ORIGINS
+        value: https://disheera.site,https://www.disheera.site,https://admin.disheera.site

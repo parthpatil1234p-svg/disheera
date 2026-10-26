@@ -3,9 +3,40 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/index.js": {
+      "memory": 1024,
+      "maxDuration": 15
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://api.disheera.site/api/$1" },
+    { "source": "/socket.io/(.*)", "destination": "https://api.disheera.site/socket.io/$1" },
+    { "source": "/socket.io", "destination": "https://api.disheera.site/socket.io" },
+    { "source": "/api/interview/(.*)", "destination": "https://api.disheera.site/api/interview/$1" },
+    { "source": "/api/interview", "destination": "https://api.disheera.site/api/interview" },
+    { "source": "/api/projects/submit", "destination": "https://api.disheera.site/api/projects/submit" },
+    { "source": "/api/projects/verify(.*)", "destination": "https://api.disheera.site/api/projects/verify$1" },
+    { "source": "/api/projects/(.*)/evaluate", "destination": "https://api.disheera.site/api/projects/$1/evaluate" },
+    { "source": "/api/resume/analyze", "destination": "https://api.disheera.site/api/resume/analyze" },
+    { "source": "/api/resume/upload(.*)", "destination": "https://api.disheera.site/api/resume/upload$1" },
+    { "source": "/api/resume/improve-text", "destination": "https://api.disheera.site/api/resume/improve-text" },
+    { "source": "/api/resume/match-job", "destination": "https://api.disheera.site/api/resume/match-job" },
+    { "source": "/api/assignments/template", "destination": "https://api.disheera.site/api/assignments/template" },
+    { "source": "/api/assignments/download-batch(.*)", "destination": "https://api.disheera.site/api/assignments/download-batch$1" },
+    { "source": "/api/assignments/(.*)/evaluate", "destination": "https://api.disheera.site/api/assignments/$1/evaluate" },
+    { "source": "/api/assignments/eval-sheet/(.*)", "destination": "https://api.disheera.site/api/assignments/eval-sheet/$1" },
+    { "source": "/api/assignments/download/(.*)", "destination": "https://api.disheera.site/api/assignments/download/$1" },
+    { "source": "/api/whatsapp/(.*)", "destination": "https://api.disheera.site/api/whatsapp/$1" },
+    { "source": "/api/whatsapp", "destination": "https://api.disheera.site/api/whatsapp" },
+    { "source": "/api/campus/export-batch(.*)", "destination": "https://api.disheera.site/api/campus/export-batch$1" },
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/api", "destination": "/api/index.js" },
     { "source": "/.well-known/(.*)", "destination": "/client/.well-known/$1" },
+    { "source": "/mcp-actions.json", "destination": "/client/mcp-actions.json" },
+    { "source": "/llms.txt", "destination": "/client/llms.txt" },
+    { "source": "/llms-full.txt", "destination": "/client/llms-full.txt" },
+    { "source": "/robots.txt", "destination": "/client/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/client/sitemap.xml" },
     { "source": "/(.*)", "destination": "/client/$1" }
   ],
   "headers": [

@@ -248,10 +248,21 @@ app.options('*', cors(corsOptions));
 // ── Vercel Serverless Path Normalizer (Dual-Engine Architecture) ──
 app.use((req, res, next) => {
   const forwardedUri = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'];
-  if (forwardedUri && (req.url === '/server.js' || req.url.startsWith('/server.js?'))) {
+  if (
+    forwardedUri &&
+    (req.url === '/server.js' ||
+      req.url.startsWith('/server.js?') ||
+      req.url === '/api/index.js' ||
+      req.url.startsWith('/api/index.js?') ||
+      req.url === '/api/index' ||
+      req.url.startsWith('/api/index?') ||
+      req.url === '/api')
+  ) {
     req.url = forwardedUri;
   } else if (req.url.startsWith('/server.js')) {
     req.url = req.url.replace('/server.js', '') || '/';
+  } else if (req.url.startsWith('/api/index.js')) {
+    req.url = req.url.replace('/api/index.js', '') || '/';
   }
   next();
 });
@@ -266,12 +277,14 @@ app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 
 // ── Dedicated Health Check & Keep-Alive Endpoints (No rate-limit, instant 200) ──
-// Safely responds to Render health checks, UptimeRobot, and cron pingers
+// Safely responds to Render health checks, Vercel health probes, and uptime pingers
 const healthHandler = (req, res) => {
   res.status(200).json({
     status: 'healthy',
     success: true,
     message: 'Disheera Server is running and healthy ✅',
+    runtime: process.env.VERCEL ? 'Vercel Serverless Function' : 'Persistent Node.js Worker',
+    role: process.env.VERCEL ? 'request-driven-api' : (process.env.SERVER_ROLE || 'unified-worker'),
     uptime: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'production',
