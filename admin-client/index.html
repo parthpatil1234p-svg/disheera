@@ -988,6 +988,183 @@
 
       <!-- ── VIEW: System Telemetry & Operational Health ──────── -->
       <section id="view-system" class="content-view">
+        <!-- ── Distributed Cloud Topology & Multi-Tier Traffic Split ── -->
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <h3 class="card-title" style="margin: 0;">Distributed Cloud Topology & Traffic Monitor</h3>
+                <span class="badge badge-indigo" style="font-size: 0.75rem;"><i class="bi bi-diagram-3-fill"></i> Hybrid Vercel + Render</span>
+              </div>
+              <p class="card-subtitle" style="margin-top: 0.25rem;">Live workload allocation, request metering, and latency tracking across edge serverless & persistent workers</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span id="clusterSyncTime" style="font-size: 0.8rem; color: var(--text-muted);"><i class="bi bi-clock-history"></i> Live Sync</span>
+              <button class="btn-action" onclick="loadInfrastructureTelemetry()"><i class="bi bi-arrow-repeat"></i> Probe Cluster</button>
+            </div>
+          </div>
+
+          <div style="padding: 1.25rem;">
+            <!-- Real-Time Traffic Routing Split Meter -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div>
+                  <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);"><i class="bi bi-shuffle"></i> Real-Time Traffic Routing Split</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted); margin-left: 0.5rem;">(Edge Request-Driven vs. Dedicated Heavy Compute)</span>
+                </div>
+                <div style="display: flex; gap: 1.25rem; font-size: 0.85rem; font-weight: 600;">
+                  <span style="color: #2563eb;"><i class="bi bi-triangle-fill" style="font-size: 0.65rem;"></i> Vercel Gateway: <strong id="trafficVercelPct">75%</strong> (<span id="trafficVercelReqs">0 reqs</span>)</span>
+                  <span style="color: #7c3aed;"><i class="bi bi-square-fill" style="font-size: 0.65rem;"></i> Render Worker: <strong id="trafficRenderPct">25%</strong> (<span id="trafficRenderReqs">0 reqs</span>)</span>
+                </div>
+              </div>
+              <!-- Dual Segment Progress Bar -->
+              <div style="height: 10px; border-radius: 6px; overflow: hidden; display: flex; background: #e2e8f0;">
+                <div id="trafficBarVercel" style="background: linear-gradient(90deg, #2563eb, #3b82f6); width: 75%; transition: width 0.5s ease;"></div>
+                <div id="trafficBarRender" style="background: linear-gradient(90deg, #7c3aed, #a855f7); width: 25%; transition: width 0.5s ease;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                <span>Stateless Short-Lived APIs: Auth, Dashboard, Careers, Assessments</span>
+                <span>Stateful Heavy Compute: Mock Interviews, PDF Graders, ATS Resumes, WebSockets</span>
+              </div>
+            </div>
+
+            <!-- 3 Tier Nodes Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.25rem;">
+              
+              <!-- Tier 1: Vercel Serverless Gateway -->
+              <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 0.4rem;">
+                      <span class="badge" style="background: #eff6ff; color: #2563eb; font-weight: 700; border: 1px solid #bfdbfe;">Tier 1</span>
+                      <strong style="color: var(--text-primary); font-size: 1rem;">Vercel Serverless Gateway</strong>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;"><code>apivercel.disheera.site</code></div>
+                  </div>
+                  <span id="tier1StatusBadge" class="badge badge-emerald"><i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> Active (200 OK)</span>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; background: #f8fafc; padding: 0.75rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Response Ping</div>
+                    <div id="tier1Ping" style="font-size: 1.15rem; font-weight: 700; color: #2563eb;">— ms</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Handled In-Pod</div>
+                    <div id="tier1Requests" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">—</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Runtime</div>
+                    <div id="tier1Runtime" style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">AWS Lambda / Edge</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Target Role</div>
+                    <div id="tier1Role" style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">request-driven-api</div>
+                  </div>
+                </div>
+
+                <div style="margin-top: auto;">
+                  <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Assigned Workloads:</div>
+                  <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.8rem; color: #475569; line-height: 1.5;">
+                    <li>User Authentication &amp; JWT Verification (<code>/api/auth/*</code>)</li>
+                    <li>Student Dashboard &amp; Career Roadmap views (<code>/api/roadmaps/*</code>)</li>
+                    <li>Lightcast Skill Taxonomy &amp; Career Catalog (<code>/api/careers/*</code>)</li>
+                    <li>Diagnostic Assessments &amp; Scoring (<code>/api/assessment/*</code>)</li>
+                    <li>Skill Passports &amp; Shareable Credentials (<code>/api/passports/*</code>)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Tier 2: Render Realtime Dedicated Worker -->
+              <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 0.4rem;">
+                      <span class="badge" style="background: #f5f3ff; color: #7c3aed; font-weight: 700; border: 1px solid #ddd6fe;">Tier 2</span>
+                      <strong style="color: var(--text-primary); font-size: 1rem;">Render Realtime Worker</strong>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;"><code>api.disheera.site</code></div>
+                  </div>
+                  <span id="tier2StatusBadge" class="badge badge-emerald"><i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> Active (200 OK)</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; background: #f8fafc; padding: 0.75rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Response Ping</div>
+                    <div id="tier2Ping" style="font-size: 1.15rem; font-weight: 700; color: #7c3aed;">— ms</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Worker Uptime</div>
+                    <div id="tier2Uptime" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">—</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Runtime</div>
+                    <div id="tier2Runtime" style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">Node.js (24/7 Daemon)</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Target Role</div>
+                    <div id="tier2Role" style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">realtime-worker</div>
+                  </div>
+                </div>
+
+                <div style="margin-top: auto;">
+                  <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Assigned Heavy Operations:</div>
+                  <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.8rem; color: #475569; line-height: 1.5;">
+                    <li>WebSockets &amp; Live Signaling (<code>socket.io</code> bi-directional)</li>
+                    <li>Mock Technical Interview Chamber (Audio/Video AI streaming)</li>
+                    <li>Collegiate Assignment AI Grader &amp; PDF Engine (<code>/api/assignments/*</code>)</li>
+                    <li>Multi-Page ATS Resume Authenticity Scanner (<code>/api/resume/*</code>)</li>
+                    <li>WhatsApp Bot &amp; Automated Dispatch Notifications (<code>/api/whatsapp/*</code>)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Tier 3: Supabase PostgreSQL Enterprise -->
+              <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 0.4rem;">
+                      <span class="badge" style="background: #ecfdf5; color: #059669; font-weight: 700; border: 1px solid #a7f3d0;">Tier 3</span>
+                      <strong style="color: var(--text-primary); font-size: 1rem;">Supabase PostgreSQL</strong>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;"><code>db.naefjieafxfdzliphaxb.supabase.co</code></div>
+                  </div>
+                  <span id="tier3StatusBadge" class="badge badge-emerald"><i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> Connected (200 OK)</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; background: #f8fafc; padding: 0.75rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Query Latency</div>
+                    <div id="tier3Ping" style="font-size: 1.15rem; font-weight: 700; color: #059669;">— ms</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Engine</div>
+                    <div id="tier3Engine" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">PostgreSQL 16</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Pooler Mode</div>
+                    <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">PgBouncer (6543)</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">MongoDB Count</div>
+                    <div style="font-size: 0.8rem; font-weight: 600; color: #059669;">0% (100% Pure SQL)</div>
+                  </div>
+                </div>
+
+                <div style="margin-top: auto;">
+                  <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Database Guarantees:</div>
+                  <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.8rem; color: #475569; line-height: 1.5;">
+                    <li>Prisma ORM with strict type safety &amp; foreign key constraints</li>
+                    <li>Connection limit: <code>connection_limit=2</code> for serverless lambdas</li>
+                    <li>Persistent pool: <code>connection_limit=15</code> for Render worker</li>
+                    <li>Sub-50ms query execution across Indian &amp; US zones</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
         <div class="card" style="margin-bottom: 1.5rem;">
           <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>

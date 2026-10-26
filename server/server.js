@@ -298,6 +298,41 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 
+// ── Distributed Telemetry & Request Metering (Multi-Cloud Hybrid Architecture) ──
+const requestTelemetry = {
+  totalRequests: 0,
+  startedAt: new Date().toISOString(),
+  endpoints: {
+    auth: 0,
+    careers: 0,
+    assessment: 0,
+    roadmaps: 0,
+    dashboard: 0,
+    interviews: 0,
+    assignments: 0,
+    admin: 0,
+    health: 0,
+    other: 0
+  }
+};
+app.locals.requestTelemetry = requestTelemetry;
+
+app.use((req, res, next) => {
+  requestTelemetry.totalRequests++;
+  const p = req.path || req.url || '';
+  if (p.includes('/auth')) requestTelemetry.endpoints.auth++;
+  else if (p.includes('/careers')) requestTelemetry.endpoints.careers++;
+  else if (p.includes('/assessment') || p.includes('/quiz')) requestTelemetry.endpoints.assessment++;
+  else if (p.includes('/roadmaps')) requestTelemetry.endpoints.roadmaps++;
+  else if (p.includes('/dashboard')) requestTelemetry.endpoints.dashboard++;
+  else if (p.includes('/interview')) requestTelemetry.endpoints.interviews++;
+  else if (p.includes('/assignment')) requestTelemetry.endpoints.assignments++;
+  else if (p.includes('/admin')) requestTelemetry.endpoints.admin++;
+  else if (p.includes('/health')) requestTelemetry.endpoints.health++;
+  else requestTelemetry.endpoints.other++;
+  next();
+});
+
 // ── Dedicated Health Check & Keep-Alive Endpoints (No rate-limit, instant 200) ──
 // Safely responds to Render health checks, Vercel health probes, and uptime pingers
 const healthHandler = (req, res) => {
@@ -308,6 +343,8 @@ const healthHandler = (req, res) => {
     runtime: process.env.VERCEL ? 'Vercel Serverless Function' : 'Persistent Node.js Worker',
     role: process.env.VERCEL ? 'request-driven-api' : (process.env.SERVER_ROLE || 'unified-worker'),
     uptime: Math.floor(process.uptime()),
+    requestsHandled: requestTelemetry.totalRequests,
+    requestBreakdown: requestTelemetry.endpoints,
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'production',
     version: '2.5.0',

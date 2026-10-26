@@ -10,7 +10,8 @@ const express = require('express');
 const router = express.Router();
 const {
   getSystemHealth,
-  getSystemMetrics
+  getSystemMetrics,
+  getInfrastructureTelemetry
 } = require('../controllers/adminSystemController');
 const { verifyAdminAuth, requireAdminRole } = require('../middleware/adminAuthMiddleware');
 
@@ -23,5 +24,8 @@ router.get('/health', getSystemHealth);
 
 // GET /api/admin/system/metrics — Service counts & active sessions
 router.get('/metrics', getSystemMetrics);
+
+// GET /api/admin/system/infrastructure — Live Distributed Cluster Telemetry (Vercel + Render + Supabase)
+router.get('/infrastructure', getInfrastructureTelemetry);
 
 module.exports = router;
