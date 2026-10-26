@@ -34,5 +34,23 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/socket.io/(.*)",
+      "destination": "https://api.disheera.site/socket.io/$1"
+    },
+    {
+      "source": "/socket.io",
+      "destination": "https://api.disheera.site/socket.io"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "https://api.disheera.site/api/$1"
+    },
+    {
+      "source": "/api",
+      "destination": "https://api.disheera.site/api"
+    }
   ]
 }

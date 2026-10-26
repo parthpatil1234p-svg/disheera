@@ -39,9 +39,8 @@
 
   // Production Request-Driven API: Same-origin Vercel Gateway (/api) eliminates CORS preflight latency
   // Routes short-lived APIs to Vercel Serverless and heavy compute to Render via vercel.json rewrites
-  const PRODUCTION_REST_API = (typeof window !== 'undefined' && (isVercel || isCustomDomain))
-    ? `${window.location.origin}/api`
-    : 'https://api.disheera.site/api';
+  // Primary Production API endpoint: Direct to high-performance verified cloud cluster
+  const PRODUCTION_REST_API = 'https://api.disheera.site/api';
 
   const CONFIG = {
     // Stateless REST API (Vercel Serverless / Same-Origin in Prod, localhost:5000 in dev)
