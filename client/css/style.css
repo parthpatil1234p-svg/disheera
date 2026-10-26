@@ -6883,6 +6883,230 @@ div[id].cp-section {
   line-height: 1.2;
 }
 
+/* Keep the weekly assignment sheet inside the viewport and allow its trust label to wrap. */
+#weeklyAssignmentModal .modal-dialog {
+  width: calc(100vw - 2rem) !important;
+  max-width: min(1360px, calc(100vw - 2rem)) !important;
+  margin: 1rem auto !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .d-flex.mb-2 > .small.text-muted.font-monospace {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 575.98px) {
+  #weeklyAssignmentModal .modal-dialog {
+    width: calc(100vw - 1rem) !important;
+    max-width: calc(100vw - 1rem) !important;
+    margin: 0.5rem auto !important;
+  }
+
+  #weeklyAssignmentModal #wamQuestionsList > div > .d-flex.mb-2 > div {
+    flex-wrap: wrap;
+  }
+}
+
+/* Weekly assignment modal: calmer measure, clearer hierarchy, and one scroll area. */
+#weeklyAssignmentModal .modal-dialog {
+  width: min(1120px, calc(100vw - 2rem)) !important;
+  max-width: min(1120px, calc(100vw - 2rem)) !important;
+}
+
+#weeklyAssignmentModal .modal-content {
+  overflow: hidden;
+  border-radius: 16px !important;
+}
+
+#weeklyAssignmentModal .modal-header,
+#weeklyAssignmentModal .modal-footer {
+  padding: 1rem 1.5rem !important;
+}
+
+#weeklyAssignmentModal .modal-body {
+  max-height: min(68vh, 700px) !important;
+  padding: 1.5rem !important;
+}
+
+#weeklyAssignmentModal #wamTabs {
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem !important;
+}
+
+#weeklyAssignmentModal #wamTabs .nav-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal;
+  line-height: 1.25;
+}
+
+#weeklyAssignmentModal #wamAssignmentTitle {
+  max-width: 76ch;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+#weeklyAssignmentModal #wamOutcomesList .badge,
+#weeklyAssignmentModal #wamQuestionsList .badge {
+  line-height: 1.35;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div {
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .d-flex.mb-2 {
+  align-items: flex-start !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .d-flex.mb-2 > div {
+  min-width: 0;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .mb-2.text-secondary {
+  max-width: 92ch;
+}
+
+#weeklyAssignmentModal #wamDropzone,
+#weeklyAssignmentModal #wamResultsContent > div {
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+#weeklyAssignmentModal :is(button, input):focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
+}
+
+@media (max-width: 575.98px) {
+  #weeklyAssignmentModal .modal-dialog {
+    width: calc(100vw - 1rem) !important;
+    max-width: calc(100vw - 1rem) !important;
+    margin: 0.5rem auto !important;
+  }
+
+  #weeklyAssignmentModal .modal-header,
+  #weeklyAssignmentModal .modal-footer {
+    padding: 0.875rem 1rem !important;
+  }
+
+  #weeklyAssignmentModal .modal-body {
+    max-height: 72vh !important;
+    padding: 1rem !important;
+  }
+
+  #weeklyAssignmentModal #wamAssignmentTitle {
+    font-size: 1.05rem;
+  }
+
+  #weeklyAssignmentModal #wamQuestionsList > div > .d-flex.mb-2 {
+    flex-direction: column;
+  }
+}
+
+/* Sharpen hierarchy in the assignment's score and question panels. */
+#weeklyAssignmentModal #wam-overview > .mb-4.p-3.rounded-3 {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.045) !important;
+}
+
+#weeklyAssignmentModal #wam-overview .row.g-3 > div > div {
+  min-height: 64px;
+  padding: 0.75rem !important;
+  border-radius: 10px !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div {
+  border-color: #D8E1EF !important;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div:hover {
+  border-color: #B8CCF4 !important;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.06) !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .d-flex.mb-2 > div:first-child {
+  flex-wrap: wrap;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .small.text-muted.font-monospace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid #E3E8F2;
+  border-radius: 999px;
+  background: #F7F9FD;
+  color: #475569 !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .pt-2.mt-2 {
+  row-gap: 0.45rem;
+  column-gap: 0.45rem !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .pt-2.mt-2 .badge {
+  border-radius: 999px !important;
+  padding: 0.25rem 0.55rem !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div > .mb-2.text-secondary {
+  line-height: 1.65 !important;
+  font-weight: 400 !important;
+}
+
+#weeklyAssignmentModal #wamQuestionsList > div + div {
+  margin-top: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #weeklyAssignmentModal #wamQuestionsList > div {
+    transition: none;
+  }
+}
+
+/* Cover the full viewport even when the page behind the modal has horizontal overflow. */
+#weeklyAssignmentModal {
+  width: 100vw !important;
+}
+
+#weeklyAssignmentModal .modal-header .d-flex.align-items-center.gap-2.mb-1 {
+  flex-wrap: wrap;
+}
+
+#weeklyAssignmentModal .modal-header > .d-flex.justify-content-between > .d-flex.align-items-center.gap-2 {
+  margin-left: auto;
+}
+
+#weeklyAssignmentModal .btn-close {
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  padding: 0.75rem;
+}
+
+#weeklyAssignmentModal .modal-footer .btn,
+#weeklyAssignmentModal #wamBtnDownloadCover,
+#weeklyAssignmentModal #wamBrowseBtn,
+#weeklyAssignmentModal #wamSubmitBtn,
+#weeklyAssignmentModal #wamRemoveFileBtn {
+  min-height: 44px;
+}
+
+@media (max-width: 575.98px) {
+  #weeklyAssignmentModal .modal-dialog {
+    width: calc(100vw - 0.25rem) !important;
+    max-width: calc(100vw - 0.25rem) !important;
+    margin: 0.25rem 0 !important;
+  }
+}
+
 
 /* --- Module: dashboard.css --- */
 /* ==========================================================================
