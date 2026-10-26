@@ -7785,6 +7785,92 @@ div[id].cp-section {
   }
 }
 
+/* Give the readiness gauge and certificate guidance a clear, balanced home. */
+#readinessHeroCard > .row.align-items-center.g-4 {
+  align-items: stretch !important;
+}
+
+#readinessHeroCard > .row > .col-lg-5 {
+  justify-content: center !important;
+}
+
+#readinessHeroCard > .row > .col-lg-5 > .d-flex.align-items-center.gap-4 {
+  width: 100%;
+  min-height: 176px;
+  justify-content: center;
+  gap: 1.25rem !important;
+  padding: 1.25rem;
+  border: 1px solid #DCE7F6;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.06);
+}
+
+#readinessHeroCard .readiness-gauge-circle {
+  width: 112px;
+  height: 112px;
+  flex: 0 0 112px;
+}
+
+#readinessHeroCard .readiness-gauge-inner {
+  width: 92px;
+  height: 92px;
+}
+
+#readinessHeroCard .col-lg-5 > .d-flex > .small.text-secondary {
+  max-width: 20ch;
+  line-height: 1.5;
+}
+
+#readinessHeroCard > .row > .col-lg-5 > .d-flex.align-items-center.gap-4 {
+  justify-content: center;
+}
+
+#readinessHeroCard .col-lg-5 > .d-flex > .small.text-secondary > .text-muted {
+  font-size: 0.875rem !important;
+  line-height: 1.5;
+}
+
+@media (max-width: 991.98px) {
+  #readinessHeroCard > .row > .col-lg-5 > .d-flex.align-items-center.gap-4 {
+    min-height: 156px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  #readinessHeroCard > .row > .col-lg-5 > .d-flex.align-items-center.gap-4 {
+    max-width: 600px;
+    margin-inline: auto;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  #readinessHeroCard > .row > .col-lg-5 > .d-flex.align-items-center.gap-4 {
+    min-height: 0;
+    flex-direction: column;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 1rem;
+  }
+
+  #readinessHeroCard .readiness-gauge-circle {
+    width: 88px;
+    height: 88px;
+    flex-basis: 88px;
+  }
+
+  #readinessHeroCard .readiness-gauge-inner {
+    width: 72px;
+    height: 72px;
+  }
+
+  #readinessHeroCard .col-lg-5 > .d-flex > .small.text-secondary {
+    max-width: 20ch;
+    text-align: center;
+  }
+}
+
 /* ==========================================================================
    Career GPS — Job Readiness Index, Resume ATS, Mock Interview & Certificate
    ========================================================================== */
