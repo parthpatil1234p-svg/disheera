@@ -31,9 +31,13 @@ function getPDFParse() {
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads', 'assignments');
 const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB
 
-// Ensure uploads directory exists on startup
-if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+// Ensure uploads directory exists on startup (guarded against read-only serverless filesystems)
+try {
+  if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  }
+} catch (fsErr) {
+  // Read-only serverless runtime (Vercel/Lambda)
 }
 
 /**

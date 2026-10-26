@@ -19,8 +19,12 @@ try {
 
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads', 'assignments');
 
-if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  }
+} catch (fsErr) {
+  // Read-only serverless runtime (Vercel/Lambda)
 }
 
 /**
