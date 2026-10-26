@@ -25,6 +25,28 @@ function escapeHtml(unsafe) {
 }
 
 /**
+ * Returns consistent badge color class based on audit/action semantics
+ */
+function getActionBadgeClass(action) {
+  const act = String(action || '').toUpperCase();
+  if (act.includes('DELETE') || act.includes('SUSPEND') || act.includes('REJECT') || act.includes('REVOKE') || act.includes('FAIL') || act.includes('BLOCK')) {
+    return 'badge-rose';
+  }
+  if (act.includes('APPROVE') || act.includes('UNSUSPEND') || act.includes('REINSTATE') || act.includes('LOGIN') || act.includes('AUTH') || act.includes('SUCCESS') || act.includes('ENABLE')) {
+    return 'badge-emerald';
+  }
+  if (act.includes('UPDATE') || act.includes('EDIT') || act.includes('MAINTENANCE') || act.includes('RESET') || act.includes('CONFIG') || act.includes('WARN')) {
+    return 'badge-amber';
+  }
+  if (act.includes('CREATE') || act.includes('POST') || act.includes('REGISTER') || act.includes('INVITE') || act.includes('ADD') || act.includes('SEED')) {
+    return 'badge-indigo';
+  }
+  return 'badge-cyan';
+}
+
+window.getActionBadgeClass = getActionBadgeClass;
+
+/**
  * Formats a Date object or ISO string cleanly
  */
 function formatDate(dateStr) {

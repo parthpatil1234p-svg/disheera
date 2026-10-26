@@ -8,6 +8,40 @@
 let currentAuditPage = 1;
 const AUDIT_PAGE_LIMIT = 20;
 
+/**
+ * Returns consistent badge color class based on audit action semantics
+ */
+function getActionBadgeClass(action) {
+  const act = String(action || '').toUpperCase();
+  if (act.includes('DELETE') || act.includes('SUSPEND') || act.includes('REJECT') || act.includes('REVOKE') || act.includes('FAIL') || act.includes('BLOCK')) {
+    return 'badge-rose';
+  }
+  if (act.includes('APPROVE') || act.includes('UNSUSPEND') || act.includes('REINSTATE') || act.includes('LOGIN') || act.includes('AUTH') || act.includes('SUCCESS') || act.includes('ENABLE')) {
+    return 'badge-emerald';
+  }
+  if (act.includes('UPDATE') || act.includes('EDIT') || act.includes('MAINTENANCE') || act.includes('RESET') || act.includes('CONFIG') || act.includes('WARN')) {
+    return 'badge-amber';
+  }
+  if (act.includes('CREATE') || act.includes('POST') || act.includes('REGISTER') || act.includes('INVITE') || act.includes('ADD') || act.includes('SEED')) {
+    return 'badge-indigo';
+  }
+  return 'badge-cyan';
+}
+
+/**
+ * Returns contextual icon class for audit action
+ */
+function getActionIcon(action) {
+  const act = String(action || '').toUpperCase();
+  if (act.includes('DELETE')) return 'bi-trash3-fill';
+  if (act.includes('SUSPEND') || act.includes('REJECT') || act.includes('REVOKE') || act.includes('BLOCK')) return 'bi-shield-x';
+  if (act.includes('APPROVE') || act.includes('UNSUSPEND') || act.includes('REINSTATE')) return 'bi-shield-check';
+  if (act.includes('LOGIN') || act.includes('AUTH')) return 'bi-box-arrow-in-right';
+  if (act.includes('CREATE') || act.includes('POST') || act.includes('ADD') || act.includes('REGISTER') || act.includes('INVITE')) return 'bi-plus-circle-fill';
+  if (act.includes('UPDATE') || act.includes('EDIT') || act.includes('MAINTENANCE') || act.includes('RESET') || act.includes('CONFIG')) return 'bi-pencil-square';
+  return 'bi-activity';
+}
+
 async function loadAuditActionsFilter() {
   const select = document.getElementById('auditActionFilter');
   if (!select) return;
@@ -64,7 +98,7 @@ async function loadAuditLogs(page = 1) {
           ? `<span class="badge badge-muted" title="Masked for privacy">${escapeHtml(l.ipAddress || '—')}</span>`
           : `<span class="badge badge-indigo" title="Full IP (Super Admin)">${escapeHtml(l.ipAddress || '—')}</span>`;
 
-        const detailsJson = escapeHtml(JSON.stringify(l.details || {}, null, 2));
+        const encodedDetails = encodeURIComponent(JSON.stringify(l.details || {}));
 
         return `
           <tr>
@@ -76,7 +110,7 @@ async function loadAuditLogs(page = 1) {
               <div style="font-size: 0.72rem; color: var(--text-muted);">${escapeHtml(l.adminEmail)} (${escapeHtml(l.adminRole)})</div>
             </td>
             <td>
-              <span class="badge ${getActionBadgeClass(l.action)}">${escapeHtml(l.action)}</span>
+              <span class="badge ${getActionBadgeClass(l.action)}"><i class="bi ${getActionIcon(l.action)}"></i> ${escapeHtml(l.action)}</span>
             </td>
             <td>
               <span class="badge badge-muted">${escapeHtml(l.targetType)}</span>
@@ -86,7 +120,7 @@ async function loadAuditLogs(page = 1) {
             </td>
             <td>${ipDisplay}</td>
             <td style="text-align: right;">
-              <button class="btn-action" style="font-size: 0.75rem;" onclick="viewAuditDetailsModal('${escapeHtml(l.id)}', '${escapeHtml(l.action)}', '${escapeHtml(l.adminEmail)}', '${escapeHtml(new Date(l.createdAt).toLocaleString())}', this)" data-details='${JSON.stringify(l.details || {})}' data-ua='${escapeHtml(l.userAgent || '')}'>
+              <button class="btn-action" style="font-size: 0.75rem;" onclick="viewAuditDetailsModal('${escapeHtml(l.id)}', '${escapeHtml(l.action)}', '${escapeHtml(l.adminEmail)}', '${escapeHtml(new Date(l.createdAt).toLocaleString())}', this)" data-details="${encodedDetails}" data-ua="${escapeHtml(l.userAgent || '')}">
                 <i class="bi bi-search"></i> Inspect
               </button>
             </td>
@@ -122,11 +156,20 @@ function viewAuditDetailsModal(id, action, adminEmail, timestamp, btn) {
   let details = {};
   let userAgent = '';
   try {
-    details = JSON.parse(btn.getAttribute('data-details') || '{}');
-    userAgent = btn.getAttribute('data-ua') || '';
+    const rawAttr = btn.getAttribute('data-details') || '';
+    if (rawAttr.startsWith('%7B') || rawAttr.includes('%22')) {
+      details = JSON.parse(decodeURIComponent(rawAttr));
+    } else {
+      details = JSON.parse(rawAttr || '{}');
+    }
   } catch (e) {
-    details = { error: 'Failed to parse details JSON' };
+    try {
+      details = JSON.parse(btn.getAttribute('data-details') || '{}');
+    } catch (err2) {
+      details = { error: 'Failed to parse details JSON' };
+    }
   }
+  userAgent = btn.getAttribute('data-ua') || '';
 
   const modal = document.getElementById('auditDetailsModal');
   const title = document.getElementById('auditDetailsTitle');
@@ -140,7 +183,7 @@ function viewAuditDetailsModal(id, action, adminEmail, timestamp, btn) {
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; background: var(--bg-surface); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-subtle); font-size: 0.8rem;">
         <div><strong style="color: var(--text-muted);">Event ID:</strong> <span style="font-family: var(--font-mono);">${escapeHtml(id)}</span></div>
         <div><strong style="color: var(--text-muted);">Operator:</strong> ${escapeHtml(adminEmail)}</div>
-        <div><strong style="color: var(--text-muted);">Action:</strong> <span class="badge ${getActionBadgeClass(action)}">${escapeHtml(action)}</span></div>
+        <div><strong style="color: var(--text-muted);">Action:</strong> <span class="badge ${getActionBadgeClass(action)}"><i class="bi ${getActionIcon(action)}"></i> ${escapeHtml(action)}</span></div>
         <div><strong style="color: var(--text-muted);">Timestamp:</strong> ${escapeHtml(timestamp)}</div>
       </div>
 
@@ -169,6 +212,8 @@ function debounceAuditSearch() {
   }, 350);
 }
 
+window.getActionBadgeClass = getActionBadgeClass;
+window.getActionIcon = getActionIcon;
 window.loadAuditLogs = loadAuditLogs;
 window.loadAuditActionsFilter = loadAuditActionsFilter;
 window.viewAuditDetailsModal = viewAuditDetailsModal;
