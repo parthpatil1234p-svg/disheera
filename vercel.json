@@ -29,6 +29,11 @@
     { "source": "/api/whatsapp/(.*)", "destination": "https://api.disheera.site/api/whatsapp/$1" },
     { "source": "/api/whatsapp", "destination": "https://api.disheera.site/api/whatsapp" },
     { "source": "/api/campus/export-batch(.*)", "destination": "https://api.disheera.site/api/campus/export-batch$1" },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "apivercel.disheera.site" }],
+      "destination": "/api/index.js"
+    },
     { "source": "/api/(.*)", "destination": "/api/index.js" },
     { "source": "/api", "destination": "/api/index.js" },
     { "source": "/.well-known/(.*)", "destination": "/client/.well-known/$1" },

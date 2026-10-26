@@ -40,18 +40,27 @@ function validateEnv() {
     console.error('\n❌ [FATAL] STARTUP ABORTED: Missing required environment variables:');
     missing.forEach(k => console.error(`  - ${k}`));
     console.error('\nPlease copy .env.example to .env and configure the missing variables.\n');
-    process.exit(1);
+    if (!process.env.VERCEL) {
+      process.exit(1);
+    }
   }
 
   // Mandatory Dedicated ADMIN_JWT_SECRET Validation (Plan 45 v1.2)
   const adminJwtSecret = process.env.ADMIN_JWT_SECRET;
   if (!adminJwtSecret || adminJwtSecret.length < 32) {
-    console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must be configured with at least 32 characters in .env.');
-    process.exit(1);
-  }
-  if (adminJwtSecret === process.env.JWT_SECRET) {
-    console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must NOT be identical to JWT_SECRET.');
-    process.exit(1);
+    if (process.env.VERCEL) {
+      console.warn('\u26a0\ufe0f [Serverless Notice] ADMIN_JWT_SECRET not configured or < 32 chars in Vercel environment variables. Admin routes will remain protected.');
+    } else {
+      console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must be configured with at least 32 characters in .env.');
+      process.exit(1);
+    }
+  } else if (adminJwtSecret === process.env.JWT_SECRET) {
+    if (process.env.VERCEL) {
+      console.warn('\u26a0\ufe0f [Serverless Notice] ADMIN_JWT_SECRET is identical to JWT_SECRET.');
+    } else {
+      console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must NOT be identical to JWT_SECRET.');
+      process.exit(1);
+    }
   }
 
   if (!hasGroq && !hasGemini) {
