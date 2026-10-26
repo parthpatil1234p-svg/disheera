@@ -34,8 +34,8 @@
       "has": [{ "type": "host", "value": "apivercel.disheera.site" }],
       "destination": "/api"
     },
-    { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/api", "destination": "/api" },
+    { "source": "/api/(.*)", "destination": "https://api.disheera.site/api/$1" },
+    { "source": "/api", "destination": "https://api.disheera.site/api" },
     { "source": "/.well-known/(.*)", "destination": "/client/.well-known/$1" },
     { "source": "/mcp-actions.json", "destination": "/client/mcp-actions.json" },
     { "source": "/llms.txt", "destination": "/client/llms.txt" },

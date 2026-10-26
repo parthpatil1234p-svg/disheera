@@ -66,6 +66,18 @@ const API = {
         }
       }
 
+            // If gateway returns 404 (e.g. edge proxy routing glitch), failover to live Render cloud backend
+      if (response && response.status === 404 && !url.includes('api.disheera.site')) {
+        try {
+          console.warn(`⚠️ Endpoint ${url} returned 404 on gateway. Failing over to Render persistent worker...`);
+          const fallbackUrl = url.replace(/https?:\/\/[^/]+\/api/, 'https://api.disheera.site/api');
+          const fallbackRes = await fetch(fallbackUrl, fetchConfig);
+          if (fallbackRes.ok || fallbackRes.status !== 404) {
+            response = fallbackRes;
+          }
+        } catch (_) {}
+      }
+
       const data = await response.json().catch(() => ({
         success: false,
         message: `HTTP ${response.status} ${response.statusText || ''}`.trim(),
