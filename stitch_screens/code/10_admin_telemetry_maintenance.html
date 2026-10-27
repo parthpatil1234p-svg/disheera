@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "outline": "#737686", "background": "#faf8ff", "slate-body": "#334155", "surface-dim": "#d2d9f4", "on-secondary-fixed": "#002111", "slate-caption": "#475569", "surface-container-highest": "#dae2fd", "border-outline": "#CBD5E1", "canvas-white": "#F7F9FD", "surface-container-low": "#f2f3ff", "coral-danger": "#DC4B4B", "secondary-fixed": "#80fab9", "surface-container-lowest": "#ffffff", "surface": "#faf8ff", "secondary-fixed-dim": "#62dd9e", "on-error-container": "#93000a", "on-surface": "#131b2e", "surface-bright": "#faf8ff", "surface-container-high": "#e2e7ff", "border-whisper": "#E2E8F0", "emerald-soft": "#ECFDF5", "tertiary-container": "#9a6000", "on-secondary-fixed-variant": "#005232", "surface-muted": "#F1F4FA", "primary-container": "#2563eb", "secondary-container": "#7df7b6", "on-primary-fixed-variant": "#003ea8", "tertiary-fixed-dim": "#ffb962", "on-background": "#131b2e", "on-tertiary-fixed": "#2b1700", "primary-fixed-dim": "#b4c5ff", "on-primary": "#ffffff", "inverse-surface": "#283044", "secondary": "#006d44", "on-surface-variant": "#434655", "on-tertiary": "#ffffff", "on-tertiary-fixed-variant": "#663e00", "inverse-primary": "#b4c5ff", "inverse-on-surface": "#eef0ff", "surface-pure": "#FFFFFF", "tertiary-fixed": "#ffddb9", "on-primary-container": "#eeefff", "primary": "#004ac6", "on-error": "#ffffff", "error": "#ba1a1a", "surface-variant": "#dae2fd", "surface-tint": "#0053db", "primary-fixed": "#dbe1ff", "on-tertiary-container": "#ffeddd", "outline-variant": "#c3c6d7", "on-primary-fixed": "#00174b", "tertiary": "#794a00", "error-container": "#ffdad6", "on-secondary-container": "#007147", "blue-soft": "#EFF6FF", "surface-container": "#eaedff", "on-secondary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-mobile": "1rem", "gutter": "1.5rem", "space-2xl": "3rem", "space-xl": "2rem", "space-lg": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-lg-mobile": ["Outfit"], "display-mobile": ["Outfit"], "headline-sm": ["Outfit"], "body-sm-medium": ["Inter"], "body-sm": ["Inter"], "display": ["Outfit"], "code-sm": ["JetBrains Mono"], "body-base": ["Inter"], "code-base": ["JetBrains Mono"], "caption": ["Inter"], "headline-md": ["Outfit"], "headline-lg": ["Outfit"] }, "fontSize": { "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "display-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm-medium": ["14px", { "lineHeight": "22.4px", "fontWeight": "500" }], "body-sm": ["14px", { "lineHeight": "22.4px", "fontWeight": "400" }], "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "code-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "body-base": ["16px", { "lineHeight": "25.6px", "fontWeight": "400" }], "code-base": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "caption": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }] } } } }</script></head><body class="bg-surface font-body-base text-body-base text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-pure/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="logo-256.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UwBdO7tZp23T7SlfTeGT4HBr-dsL2zW5kJ_Q0yqJjipvX0p3F0WTeUIEmWfa5txOJjg4_6snmg0uUi0kGUQALlyxN0r_ssgaGTRc8fFAxgdrofOHp1KuFLQ72tFb1Vsx269Iy_mx5MpFeVbGlcJ8IJ1ShE8emdLdhAP7BzGZ0dZG9g_Dpx_0CfDSXfWbgLx8Fe4vjIGEd29G35hhP-REu0dzFegGzPvTnHYCP7EARbAT5wftRlVKewlIEmvXT5GRDoLhOrWfVeqA"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-semibold">Disheera Admin Command Cockpit</span></div><div class="hidden xl:flex items-center gap-space-xs bg-emerald-soft px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-caption text-caption text-secondary uppercase tracking-wider">System Live</span></div></div><nav class="hidden lg:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-body-sm-medium text-body-sm-medium rounded-lg"><a aria-current="page" class="px-space-md py-space-sm transition-colors bg-primary-container text-on-primary-container font-body-sm-medium text-body-sm-medium rounded-lg" data-path="telemetry-&amp;-control" href="#">Telemetry &amp; Control</a><a class="px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-sm-medium text-body-sm-medium" data-path="grading-queue" href="#">Grading Queue</a><a class="px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-sm-medium text-body-sm-medium" data-path="node-clusters" href="#">Node Clusters</a><a class="px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-sm-medium text-body-sm-medium" data-path="security-audits" href="#">Security Audits</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs bg-surface-muted px-space-md py-space-xs rounded-full"><span class="font-code-sm text-code-sm text-slate-body font-medium">Parth Patil</span><span class="font-caption text-caption text-outline">·</span><span class="font-caption text-caption text-primary uppercase font-semibold">Superadmin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="max-w-[1400px] w-full mx-auto px-margin py-space-lg flex flex-col gap-space-lg">
+<!-- Cockpit Sub-Header & Live Toolbar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-xs">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-slate-caption">
+<span class="hover:text-primary transition-colors cursor-pointer">Disheera Infrastructure</span>
+<span class="text-outline">/</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Multi-Region Operations</span>
+<span class="text-outline">/</span>
+<span class="text-slate-body font-medium bg-surface-muted px-space-xs py-0.5 rounded">us-east-1 &amp; in-bom-1</span>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">System Telemetry &amp; Maintenance Cockpit</h1>
+<span class="flex items-center gap-1.5 bg-emerald-soft px-space-sm py-1 rounded-full text-secondary font-caption text-caption uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+            Operational Cluster V4.8
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap self-start lg:self-auto">
+<div class="flex items-center gap-space-xs bg-surface-pure px-space-sm py-1.5 rounded-lg shadow-sm font-code-sm text-code-sm text-slate-caption">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>Telemetry Stream:</span>
+<span class="text-primary font-semibold">Live (2s poll)</span>
+</div>
+<button class="flex items-center gap-1.5 bg-surface-pure hover:bg-surface-container-high px-space-md py-1.5 rounded-lg text-on-surface font-body-sm-medium text-body-sm-medium transition-all shadow-sm active:scale-95" id="btn-sync" onclick="handleSync(this)">
+<span class="material-symbols-outlined text-[18px] text-primary">sync</span>
+<span>Sync Node Heartbeats</span>
+</button>
+<button class="flex items-center gap-1.5 bg-primary hover:bg-primary-container text-on-primary px-space-md py-1.5 rounded-lg font-body-sm-medium text-body-sm-medium shadow-sm transition-all active:scale-95" onclick="handleDumpDownload()">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>Forensic Dump</span>
+</button>
+</div>
+</div>
+<!-- Stat Strip (3 High-Density KPI Bento Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- KPI 1 -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-caption text-caption text-slate-caption uppercase tracking-wider">Active Collegiate Cohort</span>
+<span class="font-display text-display text-on-surface tracking-tight font-bold">14,280</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-blue-soft text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">school</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between font-code-sm text-code-sm bg-surface-container-low px-space-sm py-1.5 rounded-lg">
+<div class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+12.4% this week</span>
+</div>
+<span class="text-slate-caption">2,410 concurrent</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-caption text-caption text-slate-caption uppercase tracking-wider">Enterprise Recruiters</span>
+<span class="font-display text-display text-on-surface tracking-tight font-bold">340<span class="font-body-sm text-body-sm text-slate-caption font-normal ml-1">orgs</span></span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-emerald-soft text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-caption text-caption">
+<span class="text-slate-caption">Active Enterprise Pipelines</span>
+<span class="text-secondary font-code-sm font-semibold">98.4% Verified</span>
+</div>
+<div class="flex items-center gap-1 flex-wrap">
+<span class="font-code-sm text-code-sm bg-surface-muted text-slate-body px-2 py-0.5 rounded">Razorpay</span>
+<span class="font-code-sm text-code-sm bg-surface-muted text-slate-body px-2 py-0.5 rounded">Microsoft</span>
+<span class="font-code-sm text-code-sm bg-surface-muted text-slate-body px-2 py-0.5 rounded">CRED</span>
+<span class="font-code-sm text-code-sm bg-surface-muted text-slate-body px-2 py-0.5 rounded">Zerodha</span>
+</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-caption text-caption text-slate-caption uppercase tracking-wider">Collegiate Evaluation Ingest</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface tracking-tight font-bold">42</span>
+<span class="bg-tertiary-fixed text-tertiary font-code-sm text-code-sm px-2 py-0.5 rounded font-semibold uppercase">Pending</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed/30 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">assignment_turned_in</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between font-code-sm text-code-sm bg-surface-container-low px-space-sm py-1.5 rounded-lg">
+<div class="flex items-center gap-2 text-slate-body">
+<span>28 Sprints</span>
+<span class="text-outline">·</span>
+<span>14 4D Rubrics</span>
+</div>
+<a class="text-primary hover:text-primary-container font-semibold flex items-center gap-0.5" href="#">
+<span>Inspect</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Two-Column Midsection (58% Distributed Telemetry / 42% Emergency Control Box) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Distributed Architecture Telemetry Widget (7 cols = ~58%) -->
+<div class="lg:col-span-7 bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Distributed Workload Telemetry</h2>
+</div>
+<p class="font-body-sm text-body-sm text-slate-caption mt-0.5">Edge serverless runners vs persistent state compute clusters.</p>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm bg-surface-muted px-2.5 py-1 rounded text-slate-body self-start sm:self-auto">
+<span>Aggregated TPS:</span>
+<span class="text-primary font-bold">1,842 req/s</span>
+</div>
+</div>
+<!-- Workload Progress Bars -->
+<div class="flex flex-col gap-space-md">
+<!-- Item 1: Vercel Edge -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-space-md rounded-xl">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">bolt</span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Vercel Serverless Edge</span>
+<span class="font-code-sm text-code-sm text-slate-caption bg-surface-pure px-2 py-0.5 rounded shadow-sm">apivercel.disheera.site</span>
+</div>
+<div class="flex items-center gap-2 font-code-sm text-code-sm">
+<span class="text-primary font-bold">62% Load</span>
+<span class="text-outline">·</span>
+<span class="text-slate-body">4.2M req/day</span>
+<span class="text-outline">·</span>
+<span class="text-secondary font-semibold">p95 42ms</span>
+</div>
+</div>
+<p class="font-caption text-caption text-slate-caption">Handles OAuth2 callbacks, edge SSR caching, JWT handshakes, and public directory indexing.</p>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-1 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-700" style="width: 62%"></div>
+</div>
+</div>
+<!-- Item 2: Render Persistent Worker -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-space-md rounded-xl">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-tertiary">memory</span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Render Persistent Worker</span>
+<span class="font-code-sm text-code-sm text-slate-caption bg-surface-pure px-2 py-0.5 rounded shadow-sm">backend.disheera.site</span>
+</div>
+<div class="flex items-center gap-2 font-code-sm text-code-sm">
+<span class="text-tertiary font-bold">38% Load</span>
+<span class="text-outline">·</span>
+<span class="text-slate-body">1.8M req/day</span>
+<span class="text-outline">·</span>
+<span class="text-slate-body">p95 198ms</span>
+</div>
+</div>
+<p class="font-caption text-caption text-slate-caption">Executes Python code sandboxes, ATS LaTeX compilation, multi-model evaluation, and WebSockets.</p>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-1 overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full transition-all duration-700" style="width: 38%"></div>
+</div>
+</div>
+</div>
+<!-- Infrastructure Health Stats Row -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<!-- Sub-card 1 -->
+<div class="bg-surface-muted p-space-md rounded-xl flex flex-col gap-1">
+<span class="font-caption text-caption text-slate-caption uppercase">Supabase PG Pool</span>
+<div class="flex items-baseline gap-1.5 font-code-base text-code-base font-bold text-on-surface">
+<span>24</span>
+<span class="text-slate-caption font-normal">/ 50 conn</span>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-secondary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>48% util · In Sync</span>
+</div>
+</div>
+<!-- Sub-card 2 -->
+<div class="bg-surface-muted p-space-md rounded-xl flex flex-col gap-1">
+<span class="font-caption text-caption text-slate-caption uppercase">Redis Cache Hit</span>
+<div class="flex items-baseline gap-1.5 font-code-base text-code-base font-bold text-on-surface">
+<span>94.2%</span>
+<span class="text-secondary font-normal font-caption">ratio</span>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-slate-caption">
+<span>1.2M keys · 0 evict</span>
+</div>
+</div>
+<!-- Sub-card 3 -->
+<div class="bg-surface-muted p-space-md rounded-xl flex flex-col gap-1">
+<span class="font-caption text-caption text-slate-caption uppercase">Global Edge Latency</span>
+<div class="flex items-baseline gap-1.5 font-code-base text-code-base font-bold text-on-surface">
+<span>142ms</span>
+<span class="text-secondary font-normal font-caption">avg</span>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-secondary font-medium">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Zero Packet Drop</span>
+</div>
+</div>
+</div>
+<!-- Edge Node Matrix Mini Map -->
+<div class="bg-surface-pure rounded-lg p-space-sm flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between font-caption text-caption text-slate-caption">
+<span class="font-semibold uppercase text-slate-body">Live Cluster Node Heartbeats</span>
+<span class="font-code-sm text-code-sm text-secondary">3 Clusters Healthy</span>
+</div>
+<div class="grid grid-cols-3 gap-2 font-code-sm text-code-sm">
+<div class="flex items-center justify-between bg-surface-container-low px-2.5 py-1.5 rounded">
+<span class="text-slate-body">us-east-1 (N. Virginia)</span>
+<span class="text-secondary font-semibold">22ms</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-2.5 py-1.5 rounded">
+<span class="text-slate-body">in-bom-1 (Mumbai Core)</span>
+<span class="text-secondary font-semibold">14ms</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-2.5 py-1.5 rounded">
+<span class="text-slate-body">eu-central-1 (Frankfurt)</span>
+<span class="text-secondary font-semibold">41ms</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Emergency Maintenance Mode Control Box (5 cols = ~42%) -->
+<div class="lg:col-span-5 bg-tertiary-fixed/10 rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Control Card Header -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 rounded-lg bg-tertiary-fixed text-tertiary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]">shield_lock</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-tight">Maintenance Protocol</h2>
+<span class="font-caption text-caption text-slate-caption">Emergency Broadcast System</span>
+</div>
+</div>
+<div class="bg-surface-pure px-2.5 py-1 rounded-full shadow-sm font-code-sm text-code-sm text-secondary font-semibold flex items-center gap-1.5" id="status-badge">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Standby</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-slate-body">
+          Gating the cluster triggers instantaneous 503 Maintenance landing pages on the Student Terminal while allowing superadmins full bypass via JWT claim header.
+        </p>
+<!-- Toggle Switch -->
+<div class="bg-surface-pure rounded-xl p-space-md shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Cluster Maintenance Mode</span>
+<span class="font-caption text-caption text-slate-caption" id="toggle-desc">Platform is currently in active normal operation.</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="maint-toggle" onchange="toggleMaintenance(this)" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-pure after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-pure after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-tertiary"></div>
+</label>
+</div>
+<!-- Schedule Inputs Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-caption text-caption text-slate-body font-semibold">Scheduled Start (IST)</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-pure font-code-sm text-code-sm text-on-surface px- space-sm py-2 pl-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" type="text" value="2025-05-15 02:00 IST"/>
+<span class="material-symbols-outlined absolute left-2 text-[16px] text-slate-caption">schedule</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-caption text-caption text-slate-body font-semibold">Estimated Resume (IST)</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-pure font-code-sm text-code-sm text-on-surface px-space-sm py-2 pl-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" type="text" value="2025-05-15 05:00 IST"/>
+<span class="material-symbols-outlined absolute left-2 text-[16px] text-slate-caption">update</span>
+</div>
+</div>
+</div>
+<!-- Custom Notice Textarea -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-caption text-caption text-slate-body font-semibold">Public Interstitial Notice</label>
+<span class="font-code-sm text-code-sm text-slate-caption">Markdown Supported</span>
+</div>
+<textarea class="w-full bg-surface-pure font-body-sm text-body-sm text-on-surface p-space-sm rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none" rows="3">Disheera is undergoing scheduled database indexing upgrades. All services will resume at 05:00 AM IST. In-progress sprint submissions are safely preserved in edge storage.</textarea>
+</div>
+<!-- Target Checkboxes -->
+<div class="flex flex-col gap-2 pt-space-xs">
+<span class="font-caption text-caption text-slate-caption uppercase font-semibold">Broadcast Dispatch Targets</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+<label class="flex items-center gap-2 bg-surface-pure px-space-sm py-2 rounded-lg shadow-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-caption text-caption text-slate-body font-medium">Student Portal</span>
+</label>
+<label class="flex items-center gap-2 bg-surface-pure px-space-sm py-2 rounded-lg shadow-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-caption text-caption text-slate-body font-medium">Recruiter OS</span>
+</label>
+<label class="flex items-center gap-2 bg-surface-pure px-space-sm py-2 rounded-lg shadow-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-caption text-caption text-slate-body font-medium">WhatsApp Advisory</span>
+</label>
+</div>
+</div>
+<!-- Save Button -->
+<button class="w-full mt-space-xs flex items-center justify-center gap-2 bg-tertiary hover:bg-tertiary-container text-on-tertiary font-body-sm-medium text-body-sm-medium py-2.5 rounded-lg shadow-sm transition-all active:scale-[0.99]" id="btn-deploy-maint" onclick="deployMaintenance(this)">
+<span class="material-symbols-outlined text-[18px]">cell_tower</span>
+<span>Save &amp; Deploy Maintenance Notice</span>
+</button>
+</div>
+</div>
+<!-- Bottom Section: Recent Activity & Security Audit Table -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Table Header & Filter Pills -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">policy</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Continuous Real-Time Security &amp; Audit Ledger</h2>
+</div>
+<p class="font-body-sm text-body-sm text-slate-caption mt-0.5">Cryptographically signed ingestion telemetry with IP tracing and anomaly detection.</p>
+</div>
+<div class="flex items-center gap-1.5 flex-wrap">
+<button class="audit-filter-btn bg-primary text-on-primary font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold" onclick="filterAudit('all', this)">All Events</button>
+<button class="audit-filter-btn bg-surface-muted text-slate-body hover:bg-surface-container-high font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold" onclick="filterAudit('auth', this)">Auth &amp; Identity</button>
+<button class="audit-filter-btn bg-surface-muted text-slate-body hover:bg-surface-container-high font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold" onclick="filterAudit('submission', this)">Submissions</button>
+<button class="audit-filter-btn bg-surface-muted text-slate-body hover:bg-surface-container-high font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold" onclick="filterAudit('recruiter', this)">Shortlists</button>
+<button class="audit-filter-btn bg-surface-muted text-slate-body hover:bg-surface-container-high font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold" onclick="filterAudit('security', this)">Security Flags</button>
+</div>
+</div>
+<!-- High-Density Data Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-slate-caption font-code-sm text-code-sm uppercase tracking-wider">
+<th class="py-2.5 px-3 rounded-l">Telemetry Event Action</th>
+<th class="py-2.5 px-3">Principal / Context UID</th>
+<th class="py-2.5 px-3">Origin IP &amp; CDN Gateway</th>
+<th class="py-2.5 px-3">Timestamp (IST)</th>
+<th class="py-2.5 px-3 rounded-r">Verdict / Execution Status</th>
+</tr>
+</thead>
+<tbody class="font-code-sm text-code-sm" id="audit-table-body">
+<!-- Row 1 -->
+<tr class="audit-row border-b-0 hover:bg-surface-container-low/60 transition-colors" data-category="auth">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Google OAuth + WhatsApp OTP Verified</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-body font-medium">Aarav Sharma <span class="text-primary bg-blue-soft px-1.5 py-0.5 rounded font-code-sm">#IITB-26-409</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">103.21.124.82 <span class="text-outline text-[11px]">(Cloudflare BOM)</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">2 mins ago <span class="text-outline">14:32:04 IST</span></td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 bg-emerald-soft text-secondary px-2 py-0.5 rounded-md font-semibold text-[11px]">
+<span class="material-symbols-outlined text-[13px]">check</span>
+                  Success · 2FA Passed
+                </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="audit-row border-b-0 hover:bg-surface-container-low/60 transition-colors" data-category="submission">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Collegiate Week 4 Assignment Submitted</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-body font-medium">Priya Nandakumar <span class="text-primary bg-blue-soft px-1.5 py-0.5 rounded font-code-sm">#COEP-26-118</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">49.37.192.14 <span class="text-outline text-[11px]">(Jio Fiber Pune)</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">8 mins ago <span class="text-outline">14:26:18 IST</span></td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 bg-emerald-soft text-secondary px-2 py-0.5 rounded-md font-semibold text-[11px]">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                  MD5 Signed #a912f
+                </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="audit-row border-b-0 hover:bg-surface-container-low/60 transition-colors" data-category="recruiter">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Recruiter Candidate Shortlisted</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-body font-medium">Devina Sen <span class="text-slate-caption bg-surface-muted px-1.5 py-0.5 rounded font-code-sm">Razorpay Talent OS</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">152.58.21.90 <span class="text-outline text-[11px]">(Bengaluru Office)</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">14 mins ago <span class="text-outline">14:20:55 IST</span></td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 bg-blue-soft text-primary px-2 py-0.5 rounded-md font-semibold text-[11px]">
+<span class="material-symbols-outlined text-[13px]">bookmark_added</span>
+                  Action Logged
+                </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="audit-row border-b-0 hover:bg-surface-container-low/60 transition-colors" data-category="submission">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">ATS LaTeX Resume Compiled</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-body font-medium">Rohan Verma <span class="text-primary bg-blue-soft px-1.5 py-0.5 rounded font-code-sm">#BITS-26-881</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">115.112.44.102 <span class="text-outline text-[11px]">(Airtel HYD)</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">22 mins ago <span class="text-outline">14:12:40 IST</span></td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 bg-emerald-soft text-secondary px-2 py-0.5 rounded-md font-semibold text-[11px]">
+<span class="material-symbols-outlined text-[13px]">picture_as_pdf</span>
+                  200 OK · PDF Ready
+                </span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="audit-row border-b-0 hover:bg-surface-container-low/60 transition-colors" data-category="security">
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Rate Limit Exceeded (Anti-Abuse Engine)</span>
+</div>
+</td>
+<td class="py-3 px-3 text-error font-medium">Anonymous Scraper / IP Block <span class="bg-error-container text-on-error-container px-1.5 py-0.5 rounded font-code-sm">WAF-TRIP</span></td>
+<td class="py-3 px-3 text-error font-code-sm">194.26.29.133 <span class="text-outline text-[11px]">(TOR Exit Node)</span></td>
+<td class="py-3 px-3 text-slate-caption font-code-sm">31 mins ago <span class="text-outline">14:03:12 IST</span></td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container px-2 py-0.5 rounded-md font-semibold text-[11px]">
+<span class="material-symbols-outlined text-[13px]">block</span>
+                  429 Blocked · Cloudflare WAF
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Ledger Footer Integrity Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs font-code-sm text-code-sm text-slate-caption">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+<span>Showing 5 of 1,429 security audit events · SHA-256 Tamper-Proof Audit Trail Active</span>
+</div>
+<div class="flex items-center gap-1 text-slate-body">
+<span class="font-semibold text-primary">Ledger Block:</span>
+<span>#894,119-IST</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function handleSync(btn) {
+    const icon = btn.querySelector('.material-symbols-outlined');
+    icon.classList.add('animate-spin');
+    btn.disabled = true;
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      btn.disabled = false;
+      alert('Node heartbeats synchronized across us-east-1 and in-bom-1. All replicas current.');
+    }, 900);
+  }
+
+  function handleDumpDownload() {
+    const ts = new Date().toISOString().replace(/[:.]/g, '-');
+    alert('Generating signed forensic snapshot (telemetry-dump-' + ts + '.json.enc)... Initiated.');
+  }
+
+  function toggleMaintenance(el) {
+    const badge = document.getElementById('status-badge');
+    const desc = document.getElementById('toggle-desc');
+    const deployBtn = document.getElementById('btn-deploy-maint');
+
+    if (el.checked) {
+      badge.className = 'bg-tertiary-fixed text-tertiary px-2.5 py-1 rounded-full shadow-sm font-code-sm text-code-sm font-semibold flex items-center gap-1.5';
+      badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span>ARMED (PENDING SAVE)</span>';
+      desc.textContent = 'Maintenance window armed. Click deploy to engage platform gating.';
+      deployBtn.classList.remove('bg-tertiary');
+      deployBtn.classList.add('bg-coral-danger');
+      deployBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">warning</span><span>CONFIRM & ENGAGE PLATFORM LOCKDOWN</span>';
+    } else {
+      badge.className = 'bg-surface-pure px-2.5 py-1 rounded-full shadow-sm font-code-sm text-code-sm text-secondary font-semibold flex items-center gap-1.5';
+      badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-secondary"></span><span>Standby</span>';
+      desc.textContent = 'Platform is currently in active normal operation.';
+      deployBtn.classList.remove('bg-coral-danger');
+      deployBtn.classList.add('bg-tertiary');
+      deployBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">cell_tower</span><span>Save & Deploy Maintenance Notice</span>';
+    }
+  }
+
+  function deployMaintenance(btn) {
+    const toggle = document.getElementById('maint-toggle');
+    if (toggle.checked) {
+      alert('ALERT: Production cluster has entered scheduled maintenance mode. 503 Gating active for unauthenticated requests.');
+    } else {
+      alert('Maintenance schedules and notices updated successfully without interrupting current traffic.');
+    }
+  }
+
+  function filterAudit(cat, btn) {
+    document.querySelectorAll('.audit-filter-btn').forEach(b => {
+      b.className = 'audit-filter-btn bg-surface-muted text-slate-body hover:bg-surface-container-high font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold';
+    });
+    btn.className = 'audit-filter-btn bg-primary text-on-primary font-caption text-caption px-3 py-1.5 rounded-full transition-colors font-semibold';
+
+    const rows = document.querySelectorAll('.audit-row');
+    rows.forEach(row => {
+      if (cat === 'all' || row.getAttribute('data-category') === cat) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script></main><footer class="w-full bg-surface-pure shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-lg"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><span class="font-caption text-caption text-slate-caption">© 2025 Disheera Institutional Framework. All rights reserved.</span></div><div class="flex flex-wrap items-center gap-space-sm"><div class="flex items-center gap-space-xs bg-surface-muted px-space-sm py-1 rounded"><span class="font-code-sm text-code-sm text-slate-body">ISO/IEC 27001</span><span class="font-caption text-caption text-secondary font-semibold">CERTIFIED</span></div><div class="flex items-center gap-space-xs bg-surface-muted px-space-sm py-1 rounded"><span class="font-code-sm text-code-sm text-slate-body">SOC-2 TYPE II</span><span class="font-caption text-caption text-primary font-semibold">ATTESTED</span></div><div class="flex items-center gap-space-xs bg-surface-muted px-space-sm py-1 rounded"><span class="font-code-sm text-code-sm text-slate-body">ZERO-TRUST V4</span><span class="font-caption text-caption text-secondary font-semibold">ENFORCED</span></div></div></div></footer></body></html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Disheera Student Portal</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "emerald-soft": "#ECFDF5", "on-tertiary": "#ffffff", "primary-fixed": "#dbe1ff", "on-secondary-fixed": "#002111", "secondary": "#006d44", "surface-container-low": "#f2f3ff", "on-tertiary-container": "#ffeddd", "on-background": "#131b2e", "on-surface-variant": "#434655", "on-error": "#ffffff", "surface-container": "#eaedff", "outline-variant": "#c3c6d7", "on-tertiary-fixed": "#2b1700", "on-secondary-container": "#007147", "on-error-container": "#93000a", "error": "#ba1a1a", "on-primary-fixed-variant": "#003ea8", "error-container": "#ffdad6", "primary-container": "#2563eb", "outline": "#737686", "tertiary-fixed-dim": "#ffb962", "surface-dim": "#d2d9f4", "border-outline": "#CBD5E1", "canvas-white": "#F7F9FD", "blue-soft": "#EFF6FF", "surface-pure": "#FFFFFF", "surface-container-highest": "#dae2fd", "tertiary-fixed": "#ffddb9", "surface-container-high": "#e2e7ff", "inverse-surface": "#283044", "primary-fixed-dim": "#b4c5ff", "slate-caption": "#475569", "background": "#faf8ff", "primary": "#004ac6", "surface-bright": "#faf8ff", "tertiary-container": "#9a6000", "secondary-container": "#7df7b6", "on-secondary": "#ffffff", "on-primary-fixed": "#00174b", "border-whisper": "#E2E8F0", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#663e00", "inverse-primary": "#b4c5ff", "surface": "#faf8ff", "on-primary": "#ffffff", "slate-body": "#334155", "secondary-fixed": "#80fab9", "surface-variant": "#dae2fd", "coral-danger": "#DC4B4B", "on-primary-container": "#eeefff", "surface-muted": "#F1F4FA", "on-secondary-fixed-variant": "#005232", "surface-tint": "#0053db", "on-surface": "#131b2e", "inverse-on-surface": "#eef0ff", "secondary-fixed-dim": "#62dd9e", "tertiary": "#794a00" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "space-2xl": "3rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "margin": "1.5rem", "gutter": "1.5rem", "space-lg": "1.5rem", "margin-mobile": "1rem" }, "fontFamily": { "display-mobile": [ "Outfit" ], "headline-lg-mobile": [ "Outfit" ], "headline-sm": [ "Outfit" ], "code-sm": [ "JetBrains Mono" ], "body-sm": [ "Inter" ], "headline-md": [ "Outfit" ], "body-base": [ "Inter" ], "code-base": [ "JetBrains Mono" ], "headline-lg": [ "Outfit" ], "body-sm-medium": [ "Inter" ], "caption": [ "Inter" ], "display": [ "Outfit" ] }, "fontSize": { "display-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "code-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "500" } ], "body-sm": [ "14px", { "lineHeight": "22.4px", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-base": [ "16px", { "lineHeight": "25.6px", "fontWeight": "400" } ], "code-base": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-sm-medium": [ "14px", { "lineHeight": "22.4px", "fontWeight": "500" } ], "caption": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "display": [ "48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-canvas-white font-body-base text-body-base text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-pure/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full max-w-[1400px] mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm shrink-0"><img alt="logo-256.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UwBdO7tZp23T7SlfTeGT4HBr-dsL2zW5kJ_Q0yqJjipvX0p3F0WTeUIEmWfa5txOJjg4_6snmg0uUi0kGUQALlyxN0r_ssgaGTRc8fFAxgdrofOHp1KuFLQ72tFb1Vsx269Iy_mx5MpFeVbGlcJ8IJ1ShE8emdLdhAP7BzGZ0dZG9g_Dpx_0CfDSXfWbgLx8Fe4vjIGEd29G35hhP-REu0dzFegGzPvTnHYCP7EARbAT5wftRlVKewlIEmvXT5GRDoLhOrWfVeqA"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">Disheera</span></div><nav class="hidden lg:flex items-center gap-space-xs p-1 bg-surface-muted rounded-full" data-active-classes="bg-primary-container text-on-primary font-body-sm-medium"><a aria-current="page" class="px-space-md py-1.5 rounded-full transition-colors bg-primary-container text-on-primary font-body-sm-medium" data-path="dashboard" href="#">Dashboard</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="roadmap" href="#">Roadmap</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="assignments" href="#">Assignments</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="passport" href="#">Passport</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="resume" href="#">Resume</a></nav><div class="flex items-center gap-space-md shrink-0"><button aria-label="Notifications" class="relative p-2 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-muted transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-pure"></span></button><div class="flex items-center gap-space-sm pl-space-sm py-1 pr-space-md bg-surface-pure rounded-full shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden sm:flex flex-col text-left"><span class="font-body-sm-medium text-body-sm-medium text-on-surface leading-tight">Aarav Sharma</span><span class="font-caption text-caption text-slate-caption leading-tight">IIT Bombay · Cohort '26</span></div></div></div></div></header><main class="w-full pt-16 min-h-screen bg-canvas-white"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1400px] mx-auto px-margin py-space-xl flex flex-col gap-space-xl">
+<!-- Greeting & Status Strip -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-space-md bg-surface-pure p-space-lg rounded-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div class="flex flex-col gap-space-xs">
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Welcome back, Aarav 👋</h1>
+<p class="font-body-base text-body-base text-slate-caption">You are on track to complete <span class="font-body-sm-medium text-body-sm-medium text-on-surface">Full Stack AI Engineer Milestone 1</span> in 6 days.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm shrink-0">
+<div class="inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>WhatsApp Alert Sync: Active</span>
+</div>
+<div class="inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-blue-soft text-primary-container font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[18px]">school</span>
+<span>Track: Full Stack AI</span>
+</div>
+</div>
+</header>
+<!-- Metrics Bento Grid (3-Card Row) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1: Cumulative Merit Score (CMS) -->
+<div class="flex flex-col justify-between p-space-lg bg-surface-pure rounded-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div>
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Cumulative Merit Score</span>
+<button aria-label="Score breakdown details" class="text-slate-caption hover:text-on-surface transition-colors flex items-center" type="button">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</button>
+</div>
+<p class="font-caption text-caption text-slate-caption mt-0.5">Academic rigor &amp; algorithmic proof ledger</p>
+</div>
+<div class="flex items-center justify-between gap-space-md my-space-md">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display text-display text-on-surface tracking-tight font-bold">842</span>
+<span class="font-code-base text-code-base text-slate-caption">/ 1000</span>
+</div>
+<span class="font-code-sm text-code-sm text-slate-caption mt-1">Tier-1 Percentile: Top 4.2%</span>
+</div>
+<!-- Radial Progress Gauge (84.2%) -->
+<div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+<svg aria-hidden="true" class="w-full h-full -rotate-90" viewbox="0 0 72 72">
+<circle class="text-blue-soft fill-none" cx="36" cy="36" r="30" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary-container fill-none transition-all duration-1000" cx="36" cy="36" r="30" stroke="currentColor" stroke-dasharray="188.5" stroke-dashoffset="29.8" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute font-code-sm text-code-sm text-primary-container font-semibold">84.2%</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-space-xs px-2.5 py-1.5 rounded-lg bg-emerald-soft text-secondary font-body-sm-medium text-body-sm-medium">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+18 points gained from Week 3 Assignment</span>
+</div>
+</div>
+<!-- Card 2: Active Sprint Progress -->
+<div class="flex flex-col justify-between p-space-lg bg-surface-pure rounded-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div>
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Active Sprint</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-muted text-on-surface font-code-sm text-code-sm">Sprint 04 / 16</span>
+</div>
+<h2 class="font-body-base text-body-base text-on-surface font-semibold mt-space-sm line-clamp-1">Database Optimization &amp; Query Indexing</h2>
+</div>
+<div class="flex flex-col gap-space-xs my-space-md">
+<div class="flex justify-between items-center font-caption text-caption">
+<span class="text-slate-caption">Completion Pace</span>
+<span class="font-code-sm text-code-sm text-primary-container font-semibold">5 of 8 tasks complete (62%)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-muted overflow-hidden">
+<div class="h-full bg-primary-container rounded-full transition-all duration-700" style="width: 62%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-muted">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0">radio_button_unchecked</span>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-slate-caption">Up Next</span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface truncate">Explain Plan Query Analysis</span>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-slate-caption shrink-0">~45m</span>
+</div>
+</div>
+<!-- Card 3: Verifiable Credentials & Seals -->
+<div class="flex flex-col justify-between p-space-lg bg-surface-pure rounded-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div>
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Verifiable Credentials</span>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm">3 Verified Badges</span>
+</div>
+<p class="font-caption text-caption text-slate-caption mt-0.5">On-chain SHA-256 institutional seals</p>
+</div>
+<div class="grid grid-cols-3 gap-space-xs my-space-md">
+<div class="flex flex-col items-center text-center p-2 rounded-lg bg-surface-muted">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[16px]">layers</span>
+</div>
+<span class="font-caption text-caption text-on-surface font-semibold truncate w-full">Next.js 15 SSR</span>
+<span class="font-code-sm text-code-sm text-secondary text-[10px]">#B712A</span>
+</div>
+<div class="flex flex-col items-center text-center p-2 rounded-lg bg-surface-muted">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+</div>
+<span class="font-caption text-caption text-on-surface font-semibold truncate w-full">Redis Cache</span>
+<span class="font-code-sm text-code-sm text-secondary text-[10px]">#E409C</span>
+</div>
+<div class="flex flex-col items-center text-center p-2 rounded-lg bg-surface-muted">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[16px]">database</span>
+</div>
+<span class="font-caption text-caption text-on-surface font-semibold truncate w-full">Postgres Schema</span>
+<span class="font-code-sm text-code-sm text-secondary text-[10px]">#F881D</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-space-xs py-2 px-space-md rounded-lg bg-surface-pure hover:bg-surface-muted text-on-surface font-body-sm-medium text-body-sm-medium shadow-sm transition-colors" type="button">
+<span>View Career Passport</span>
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</button>
+</div>
+</section>
+<!-- Main Workspace (8:4 Asymmetric Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column (8 units / ~66%) -->
+<section class="lg:col-span-8 flex flex-col gap-space-lg min-w-0">
+<!-- Featured Collegiate Assignment Card -->
+<article class="flex flex-col bg-surface-pure rounded-xl p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary-container font-caption text-caption uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>Collegiate Problem Set · Department of Distributed Systems</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">Week 4 Problem Set: PostgreSQL Query Optimization &amp; Indexing</h2>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-space-xs pt-1 font-caption text-caption text-slate-caption">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary-container">grade</span>
+<span>10.0 Marks Maximum</span>
+</div>
+<span class="text-slate-caption">·</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">history_edu</span>
+<span>Standard Collegiate Format</span>
+</div>
+<span class="text-slate-caption">·</span>
+<div class="flex items-center gap-1 text-coral-danger font-semibold">
+<span class="material-symbols-outlined text-[16px]">timer</span>
+<span>Due in 3 days (Sunday 11:59 PM IST)</span>
+</div>
+</div>
+</div>
+<!-- Structured Two-Part Submission Instruction Box -->
+<div class="flex flex-col gap-space-lg p-space-lg rounded-xl bg-surface-muted my-space-lg">
+<!-- Part A Section -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pb-space-md bg-surface-pure p-space-md rounded-lg shadow-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-blue-soft text-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">badge</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h3 class="font-body-base text-body-base text-on-surface font-semibold">Part A: Mandatory Personalized Cover Sheet</h3>
+<p class="font-body-sm text-body-sm text-slate-caption mt-0.5">Pre-filled institutional identity sheet with cryptographic QR stamp and authentication hashes.</p>
+</div>
+</div>
+<button class="shrink-0 inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-body-sm-medium text-body-sm-medium shadow-sm transition-all active:-translate-y-px" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download Official Cover PDF</span>
+</button>
+</div>
+<!-- Part B Section -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">upload_file</span>
+<h3 class="font-body-base text-body-base text-on-surface font-semibold">Part B: Solution Dossier &amp; Artifact Upload</h3>
+</div>
+<!-- Dropzone -->
+<div class="flex flex-col items-center justify-center text-center p-space-xl rounded-xl bg-surface-pure shadow-sm cursor-pointer hover:bg-blue-soft/30 transition-colors" id="dropzone">
+<div class="w-12 h-12 rounded-full bg-blue-soft text-primary-container flex items-center justify-center mb-space-sm">
+<span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+</div>
+<span class="font-body-base text-body-base text-on-surface font-semibold">Upload Combined PDF Dossier</span>
+<span class="font-caption text-caption text-slate-caption max-w-md mt-1">Cover Sheet + Solution Pages (min 2 pages). Drag &amp; drop your compiled PDF here, or click to browse (Max 25MB). Auto-verifies MD5 integrity.</span>
+<input accept=".pdf" class="hidden" id="file-upload" type="file"/>
+<div class="mt-space-md inline-flex items-center gap-space-xs px-3 py-1 rounded bg-surface-muted text-slate-caption font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>MD5 Integrity Verification Enforced</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Final Action Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-xs text-slate-caption font-caption text-caption max-w-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0">format_image_left</span>
+<span>Evaluated against 4D Collegiate Rubric (Architecture, Query Efficiency, Edge Cases, Code Hygiene).</span>
+</div>
+<button class="inline-flex items-center justify-center gap-space-xs px-space-lg py-3 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-body-sm-medium text-body-sm-medium shadow-sm transition-all active:-translate-y-px" type="button">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span>Submit for 4D AI Rubric Evaluation</span>
+</button>
+</div>
+</article>
+<!-- Milestone Progress Timeline Card -->
+<article class="flex flex-col bg-surface-pure rounded-xl p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div class="flex items-center justify-between mb-space-lg">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Milestone Learning Roadmap</h2>
+<p class="font-caption text-caption text-slate-caption">Phase 1: Backend Rigor &amp; Computational Foundation</p>
+</div>
+<span class="font-code-sm text-code-sm text-primary-container px-2.5 py-1 rounded-full bg-blue-soft">Cohort Avg: 72%</span>
+</div>
+<!-- Vertical Timeline Tree -->
+<div class="relative flex flex-col gap-space-lg pl-6">
+<!-- Vertical connecting rail -->
+<div aria-hidden="true" class="absolute left-2.5 top-3 bottom-3 w-0.5 bg-surface-muted"></div>
+<!-- Milestone 1 -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between w-full p-space-md rounded-lg bg-surface-muted gap-space-xs">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-code-sm text-code-sm text-secondary font-semibold">Sprint 01 Completed</span>
+<span class="font-caption text-caption text-slate-caption">· SHA-256 Verifiable</span>
+</div>
+<h3 class="font-body-base text-body-base text-on-surface font-semibold mt-0.5">Modern React 19 &amp; Concurrency Primitives</h3>
+</div>
+<div class="flex items-center gap-space-md self-start sm:self-center shrink-0">
+<div class="text-right">
+<span class="font-code-base text-code-base text-secondary font-bold">9.8</span>
+<span class="font-code-sm text-code-sm text-slate-caption"> / 10.0</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+</div>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between w-full p-space-md rounded-lg bg-surface-muted gap-space-xs">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-code-sm text-code-sm text-secondary font-semibold">Sprint 02 Completed</span>
+<span class="font-caption text-caption text-slate-caption">· SHA-256 Verifiable</span>
+</div>
+<h3 class="font-body-base text-body-base text-on-surface font-semibold mt-0.5">ORM Schema Design &amp; High-Throughput Migrations</h3>
+</div>
+<div class="flex items-center gap-space-md self-start sm:self-center shrink-0">
+<div class="text-right">
+<span class="font-code-base text-code-base text-secondary font-bold">9.5</span>
+<span class="font-code-sm text-code-sm text-slate-caption"> / 10.0</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+</div>
+</div>
+</div>
+<!-- Milestone 3 (Current Active) -->
+<div class="relative flex items-start gap-space-md">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0 animate-pulse">
+<span class="w-2 h-2 rounded-full bg-surface-pure"></span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between w-full p-space-md rounded-lg bg-blue-soft gap-space-xs">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-code-sm text-code-sm text-primary-container font-semibold">Sprint 03 Active</span>
+<span class="px-2 py-0.2 rounded bg-surface-pure text-primary-container font-caption text-caption font-semibold">In Evaluation</span>
+</div>
+<h3 class="font-body-base text-body-base text-on-surface font-semibold mt-0.5">PostgreSQL Query Optimization &amp; pgvector Indexing</h3>
+</div>
+<div class="flex items-center gap-space-xs self-start sm:self-center shrink-0 text-primary-container">
+<span class="font-caption text-caption font-semibold">Submission In Progress</span>
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</div>
+</div>
+</div>
+<!-- Milestone 4 (Locked) -->
+<div class="relative flex items-start gap-space-md opacity-70">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-surface-muted text-slate-caption flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between w-full p-space-md rounded-lg bg-surface-muted gap-space-xs">
+<div>
+<span class="font-code-sm text-code-sm text-slate-caption font-semibold">Sprint 04 · Locked</span>
+<h3 class="font-body-base text-body-base text-slate-caption font-semibold mt-0.5">Production Redis Architecture &amp; Cache Invalidation</h3>
+</div>
+<span class="font-caption text-caption text-slate-caption bg-surface-pure px-2.5 py-1 rounded">Unlocks at 850 CMS</span>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- Right Column (4 units / ~33%) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg min-w-0">
+<!-- Local Industry & Skill Proximity Radar Card -->
+<article class="flex flex-col p-space-lg bg-surface-pure rounded-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<div class="flex flex-col gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Skill Proximity Radar</h2>
+<p class="font-caption text-caption text-slate-caption">Benchmarked against 420+ Q2 tech hiring requirements across Bangalore, Mumbai &amp; Remote roles.</p>
+</div>
+<!-- Skill Bar Visualization -->
+<div class="flex flex-col gap-space-md my-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">React 19 &amp; Server Actions</span>
+<span class="font-code-sm text-code-sm text-primary-container font-bold">92% · Advanced</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-muted overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 92%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">PostgreSQL &amp; Query Tuning</span>
+<span class="font-code-sm text-code-sm text-primary-container font-bold">88% · Advanced</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-muted overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 88%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">LangChain &amp; Multi-Agent Workflows</span>
+<span class="font-code-sm text-code-sm text-primary-container font-bold">74% · Proficient</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-muted overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 74%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Docker &amp; Containerization</span>
+<span class="font-code-sm text-code-sm text-slate-caption font-bold">65% · Intermediate</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-muted overflow-hidden">
+<div class="h-full bg-slate-caption rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Market Demand Callout Box -->
+<div class="p-space-md rounded-xl bg-blue-soft flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary-container font-body-sm-medium text-body-sm-medium font-bold">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+<span>High Velocity Hiring Track</span>
+</div>
+<p class="font-caption text-caption text-slate-caption leading-relaxed">
+<strong class="text-on-surface">412 verified engineering openings</strong> match your certified credential stack in India Tier-1 hubs &amp; US Remote contracts.
+            </p>
+</div>
+</article>
+<!-- Quick Action Launcher Card -->
+<article class="flex flex-col p-space-lg bg-surface-pure rounded-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)]">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-space-md">Tactical Actions</h2>
+<div class="flex flex-col gap-space-sm">
+<!-- Action 1 -->
+<button class="w-full flex items-center justify-between p-space-md rounded-lg bg-surface-muted hover:bg-blue-soft transition-colors text-left group" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface group-hover:text-primary-container transition-colors truncate">Resume Learning Chamber</span>
+<span class="font-caption text-caption text-slate-caption truncate">Module 4.3: EXPLAIN ANALYZE Deep Dive</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-caption group-hover:text-primary-container transition-colors shrink-0">chevron_right</span>
+</button>
+<!-- Action 2 -->
+<button class="w-full flex items-center justify-between p-space-md rounded-lg bg-surface-muted hover:bg-blue-soft transition-colors text-left group" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-pure shadow-sm text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface group-hover:text-primary-container transition-colors truncate">Generate ATS LaTeX Resume</span>
+<span class="font-caption text-caption text-slate-caption truncate">Syncs latest verified CMS &amp; credentials</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-caption group-hover:text-primary-container transition-colors shrink-0">download</span>
+</button>
+</div>
+<!-- WhatsApp Bot Direct Box -->
+<div class="mt-space-lg p-space-md rounded-lg bg-emerald-soft flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px] shrink-0 mt-0.5">chat</span>
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-secondary">WhatsApp Bot Active</span>
+<p class="font-caption text-caption text-slate-caption mt-0.5">
+                Reply <code class="font-code-sm text-code-sm bg-surface-pure px-1 py-0.5 rounded text-secondary font-semibold">/status</code> or send homework debugging questions directly to Disheera WhatsApp concierge.
+              </p>
+</div>
+</div>
+</article>
+</aside>
+</div>
+</div>
+<script>
+    (function () {
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('file-upload');
+
+      if (dropzone && fileInput) {
+        dropzone.addEventListener('click', () => {
+          fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+          if (e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const titleElem = dropzone.querySelector('span.font-body-base');
+            const subElem = dropzone.querySelector('span.font-caption');
+            if (titleElem) {
+              titleElem.textContent = file.name;
+            }
+            if (subElem) {
+              subElem.textContent = (file.size / (1024 * 1024)).toFixed(2) + " MB · Ready for checksum validation";
+            }
+          }
+        });
+
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropzone.classList.add('bg-blue-soft');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+          dropzone.classList.remove('bg-blue-soft');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropzone.classList.remove('bg-blue-soft');
+          if (e.dataTransfer.files.length > 0) {
+            fileInput.files = e.dataTransfer.files;
+            const file = e.dataTransfer.files[0];
+            const titleElem = dropzone.querySelector('span.font-body-base');
+            const subElem = dropzone.querySelector('span.font-caption');
+            if (titleElem) {
+              titleElem.textContent = file.name;
+            }
+            if (subElem) {
+              subElem.textContent = (file.size / (1024 * 1024)).toFixed(2) + " MB · Ready for checksum validation";
+            }
+          }
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-pure shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-xl"><div class="w-full max-w-[1400px] mx-auto px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>All Systems Operational · 99.98% Uptime</div><span class="hidden md:inline font-caption text-caption text-slate-caption">· Disheera Technologies Inc.</span></div><div class="flex flex-wrap items-center gap-space-lg text-slate-caption font-body-sm text-body-sm"><a class="hover:text-primary transition-colors" href="#">Academic Ledger</a><a class="hover:text-primary transition-colors" href="#">Verification Protocol</a><a class="hover:text-primary transition-colors" href="#">Institutional Support</a><a class="hover:text-primary transition-colors" href="#">Security &amp; Privacy</a></div></div></footer></body></html>

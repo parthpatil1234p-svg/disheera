@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-dim":"#d2d9f4","on-secondary-fixed-variant":"#005232","secondary":"#006d44","primary":"#004ac6","outline-variant":"#c3c6d7","on-secondary-fixed":"#002111","surface-container-lowest":"#ffffff","canvas-white":"#F7F9FD","blue-soft":"#EFF6FF","emerald-soft":"#ECFDF5","surface":"#faf8ff","surface-container-low":"#f2f3ff","tertiary-fixed":"#ffddb9","tertiary-fixed-dim":"#ffb962","surface-muted":"#F1F4FA","on-secondary":"#ffffff","primary-fixed-dim":"#b4c5ff","on-primary-fixed-variant":"#003ea8","border-whisper":"#E2E8F0","error-container":"#ffdad6","on-primary":"#ffffff","on-surface":"#131b2e","primary-container":"#2563eb","secondary-container":"#7df7b6","outline":"#737686","slate-body":"#334155","on-tertiary-fixed":"#2b1700","inverse-on-surface":"#eef0ff","tertiary-container":"#9a6000","surface-container-highest":"#dae2fd","surface-tint":"#0053db","on-error":"#ffffff","on-primary-container":"#eeefff","on-surface-variant":"#434655","surface-container":"#eaedff","surface-pure":"#FFFFFF","secondary-fixed":"#80fab9","on-error-container":"#93000a","surface-bright":"#faf8ff","tertiary":"#794a00","secondary-fixed-dim":"#62dd9e","background":"#faf8ff","coral-danger":"#DC4B4B","on-primary-fixed":"#00174b","on-tertiary":"#ffffff","primary-fixed":"#dbe1ff","surface-variant":"#dae2fd","slate-caption":"#475569","border-outline":"#CBD5E1","on-background":"#131b2e","surface-container-high":"#e2e7ff","inverse-surface":"#283044","inverse-primary":"#b4c5ff","on-tertiary-container":"#ffeddd","error":"#ba1a1a","on-secondary-container":"#007147","on-tertiary-fixed-variant":"#663e00"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2rem","margin":"1.5rem","margin-mobile":"1rem","space-md":"1rem","space-lg":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-2xl":"3rem","gutter":"1.5rem"},"fontFamily":{"code-base":["JetBrains Mono"],"display":["Outfit"],"body-sm":["Inter"],"caption":["Inter"],"headline-lg":["Outfit"],"body-sm-medium":["Inter"],"display-mobile":["Outfit"],"headline-sm":["Outfit"],"body-base":["Inter"],"headline-md":["Outfit"],"headline-lg-mobile":["Outfit"],"code-sm":["JetBrains Mono"]},"fontSize":{"code-base":["14px",{"lineHeight":"20px","fontWeight":"500"}],"display":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["14px",{"lineHeight":"22.4px","fontWeight":"400"}],"caption":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm-medium":["14px",{"lineHeight":"22.4px","fontWeight":"500"}],"display-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-base":["16px",{"lineHeight":"25.6px","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"code-sm":["12px",{"lineHeight":"16px","fontWeight":"500"}]}}}}</script></head><body class="bg-surface font-body-base text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-pure/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="logo-256.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UwBdO7tZp23T7SlfTeGT4HBr-dsL2zW5kJ_Q0yqJjipvX0p3F0WTeUIEmWfa5txOJjg4_6snmg0uUi0kGUQALlyxN0r_ssgaGTRc8fFAxgdrofOHp1KuFLQ72tFb1Vsx269Iy_mx5MpFeVbGlcJ8IJ1ShE8emdLdhAP7BzGZ0dZG9g_Dpx_0CfDSXfWbgLx8Fe4vjIGEd29G35hhP-REu0dzFegGzPvTnHYCP7EARbAT5wftRlVKewlIEmvXT5GRDoLhOrWfVeqA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Disheera</span><span class="font-caption text-caption text-on-surface-variant tracking-wider uppercase leading-none mt-0.5">Talent OS</span></div></div><div class="h-6 w-px bg-surface-container-high hidden lg:block"></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-sm-medium rounded-lg shadow-sm"><a aria-current="page" class="px-3 py-1.5 transition-all bg-primary-container text-on-primary font-body-sm-medium rounded-lg shadow-sm" data-path="talent-discovery" href="#">Talent Discovery</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="shortlisted" href="#">Shortlisted (14)</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="pipeline-and-interviews" href="#">Pipeline &amp; Interviews</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="collegiate-verifier" href="#">Collegiate Verifier</a><a class="px-3 py-1.5 font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="analytics" href="#">Analytics</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden 2xl:flex items-center gap-2 px-3 py-1 bg-emerald-soft rounded-full"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-caption text-caption text-on-secondary-container">TPO Network: All Systems Verified · Sync Active</span></div><div class="relative flex items-center justify-center p-2 rounded-lg hover:bg-surface-container hover:text-on-surface text-on-surface-variant transition-colors cursor-pointer"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-coral-danger text-[10px] font-caption font-bold text-on-error">3</span></div><div class="h-7 w-px bg-surface-container-high hidden sm:block"></div><div class="flex items-center gap-space-sm pl-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden md:flex flex-col text-left"><div class="flex items-center gap-1.5"><span class="font-body-sm-medium text-body-sm-medium text-on-surface leading-tight">Devina Sen</span><span class="inline-block px-1.5 py-0.2 bg-surface-container-high rounded text-[10px] font-caption text-on-surface-variant font-medium">Recruiter</span></div><span class="font-caption text-caption text-slate-caption leading-tight">Global University Recruiting @ Razorpay</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px] hidden md:block">keyboard_arrow_down</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-4rem)]"><div class="flex flex-col w-full">
+<!-- Talent Cockpit Core Area -->
+<div class="w-full max-w-[1400px] mx-auto px-margin py-space-lg flex flex-col gap-space-lg">
+<!-- Header & Live Ledger Status Bar -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded-full bg-blue-soft text-primary-container font-code-sm text-code-sm uppercase tracking-wider font-semibold">Ledger Sync: Block #94821</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-caption text-caption text-secondary font-medium">Collegiate Oracle Attested</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Talent Discovery Cockpit</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
+          Search across 4,200+ empirically evaluated engineers with tamper-proof collegiate 4D rubrics, cryptographically signed commit trees, and live university registries.
+        </p>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-pure shadow-sm border border-border-whisper">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-code-sm text-code-sm text-slate-body font-bold">4,280</span>
+<span class="font-caption text-caption text-slate-caption">Verified</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-pure shadow-sm border border-border-whisper">
+<span class="material-symbols-outlined text-[15px] text-tertiary">workspace_premium</span>
+<span class="font-code-sm text-code-sm text-slate-body font-bold">312</span>
+<span class="font-caption text-caption text-slate-caption">Top 5%</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-soft shadow-sm border border-primary/20">
+<span class="material-symbols-outlined text-[15px] text-primary-container" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+<span class="font-code-sm text-code-sm text-primary-container font-bold">14</span>
+<span class="font-caption text-caption text-primary-container font-medium">Shortlisted</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-pure shadow-sm border border-border-whisper">
+<span class="font-caption text-caption text-slate-caption">Cohort Avg:</span>
+<span class="font-code-sm text-code-sm text-on-surface font-bold">782 CMS</span>
+</div>
+</div>
+</div>
+<!-- Filter Control Cockpit Grid -->
+<div class="w-full bg-surface-pure rounded-xl p-space-md shadow-sm border border-border-whisper flex flex-col gap-space-md">
+<!-- Row 1: High Density Search & Primary Tracks -->
+<div class="flex flex-col xl:flex-row items-stretch xl:items-center gap-space-md">
+<!-- Search Bar with Shortcut -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-slate-caption">search</span>
+<input class="w-full pl-10 pr-16 py-2.5 bg-canvas-white rounded-lg border border-border-whisper text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary-container focus:bg-surface-pure transition-all" placeholder="Search by candidate name, skill, GitHub repo, or college (e.g., COEP, IIT Bombay, vector search)..." type="text" value="Aarav Sharma"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-[11px] font-bold">⌘K</span>
+</div>
+<!-- Role Track Filter Pills -->
+<div class="flex flex-wrap items-center gap-1.5">
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-muted font-body-sm-medium text-body-sm-medium transition-colors">
+            All Tracks
+          </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-body-sm-medium text-body-sm-medium shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">auto_awesome</span>
+            Full Stack AI
+          </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-muted font-body-sm-medium text-body-sm-medium transition-colors">
+            Data Engineering
+          </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-muted font-body-sm-medium text-body-sm-medium transition-colors">
+            DevOps &amp; Platform
+          </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-muted font-body-sm-medium text-body-sm-medium transition-colors">
+            SecOps
+          </button>
+</div>
+</div>
+<!-- Row 2: Precision Cutoff Sliders, Verification Switches & Campus Tiers -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md pt-space-xs border-t border-border-whisper">
+<div class="flex flex-wrap items-center gap-space-md">
+<!-- CMS Filter Toggle -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-canvas-white border border-border-whisper">
+<span class="material-symbols-outlined text-[16px] text-primary-container">tune</span>
+<span class="font-caption text-caption text-slate-caption uppercase">CMS Cutoff:</span>
+<span class="font-code-sm text-code-sm font-bold text-primary-container">800+ (Top 10%)</span>
+</div>
+<!-- Verified Collegiate Checkbox -->
+<label class="flex items-center gap-2 cursor-pointer select-none px-3 py-1.5 rounded-lg bg-emerald-soft border border-secondary/20">
+<input checked="" class="w-4 h-4 accent-secondary rounded" type="checkbox"/>
+<span class="font-body-sm-medium text-body-sm-medium text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+              Verified Collegiate Sprints Only
+            </span>
+</label>
+<!-- College Tier Dropdown Button -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-canvas-white border border-border-whisper text-on-surface font-body-sm text-body-sm cursor-pointer hover:bg-surface-muted transition-colors">
+<span class="material-symbols-outlined text-[16px] text-slate-caption">account_balance</span>
+<span>Top Engineering Colleges (Tier-1 &amp; Fellows)</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-code-sm text-[11px] font-bold text-on-surface-variant">48 Campuses</span>
+<span class="material-symbols-outlined text-[16px] text-slate-caption">arrow_drop_down</span>
+</div>
+</div>
+<!-- Action Auxiliaries -->
+<div class="flex items-center gap-space-xs self-end md:self-auto">
+<button class="px-3 py-1.5 rounded-lg text-slate-caption hover:text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+            Clear
+          </button>
+<button class="px-3 py-1.5 rounded-lg border border-border-outline text-on-surface hover:bg-surface-muted font-body-sm-medium text-body-sm-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">bookmark_add</span>
+            Save Search
+          </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-pure border border-border-outline text-on-surface hover:bg-surface-muted font-body-sm-medium text-body-sm-medium shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">file_download</span>
+            Export Batch CSV (14)
+          </button>
+</div>
+</div>
+</div>
+<!-- High-Density Candidate Data Table Grid (Density 8/10) -->
+<div class="w-full bg-surface-pure rounded-xl shadow-sm border border-border-whisper overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-muted text-slate-caption font-caption text-caption uppercase tracking-wider border-b border-border-whisper">
+<th class="py-3 px-4 w-12 text-center">
+<input class="w-4 h-4 rounded accent-primary-container" type="checkbox"/>
+</th>
+<th class="py-3 px-4 font-semibold">Candidate &amp; Identity</th>
+<th class="py-3 px-4 font-semibold">College &amp; Cohort</th>
+<th class="py-3 px-4 font-semibold">Cumulative Merit (CMS)</th>
+<th class="py-3 px-4 font-semibold">Verified Tech Stack</th>
+<th class="py-3 px-4 font-semibold">Anti-Cheat Audit</th>
+<th class="py-3 px-4 text-right font-semibold">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-whisper font-body-sm text-body-sm">
+<!-- Row 1: Featured Active Candidate (Inspected in Dossier Modal) -->
+<tr class="bg-blue-soft/40 hover:bg-blue-soft/70 transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input checked="" class="w-4 h-4 rounded accent-primary-container" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-on-primary font-headline-sm text-[13px] font-bold shadow-sm">
+                    AS
+                  </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Aarav Sharma</span>
+<span class="material-symbols-outlined text-[15px] text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-caption text-[12px] text-primary-container font-medium">Full Stack AI &amp; Backend Architect</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">IIT Bombay</span>
+<div class="flex items-center gap-1.5">
+<span class="font-caption text-caption text-slate-caption">B.Tech CSE '26</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container font-code-sm text-[11px] text-on-surface font-semibold">9.12 CGPA</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-code-base text-code-base font-bold text-on-surface">885 <span class="text-[12px] text-slate-caption font-normal">/ 1000</span></span>
+<span class="inline-flex items-center gap-1 font-caption text-[11px] font-bold text-secondary">
+                    ★ Top 3.8% Cohort
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-1 max-w-xs">
+<span class="px-2 py-0.5 rounded bg-emerald-soft text-secondary font-code-sm text-[11px] font-semibold border border-secondary/20">✓ TypeScript</span>
+<span class="px-2 py-0.5 rounded bg-emerald-soft text-secondary font-code-sm text-[11px] font-semibold border border-secondary/20">✓ PG EXPLAIN</span>
+<span class="px-2 py-0.5 rounded bg-emerald-soft text-secondary font-code-sm text-[11px] font-semibold border border-secondary/20">✓ Next.js 15</span>
+<span class="px-2 py-0.5 rounded bg-emerald-soft text-secondary font-code-sm text-[11px] font-semibold border border-secondary/20">✓ pgvector</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary font-caption text-caption font-semibold border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">security</span>
+                  100% Authentic (MD5 Signed)
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-body-sm-medium text-[13px] shadow-sm hover:bg-on-primary-fixed-variant transition-all flex items-center gap-1" onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+                    View Dossier
+                  </button>
+<button class="p-1.5 rounded-lg bg-blue-soft text-primary-container hover:bg-primary-fixed transition-colors" title="Shortlisted">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-canvas-white transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="w-4 h-4 rounded accent-primary-container" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-on-surface font-headline-sm text-[13px] font-bold flex items-center justify-center">
+                    PN
+                  </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Priya Nandakumar</span>
+<span class="material-symbols-outlined text-[15px] text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-caption text-[12px] text-slate-caption font-medium">Distributed Systems Engineer</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">COEP Tech University</span>
+<div class="flex items-center gap-1.5">
+<span class="font-caption text-caption text-slate-caption">B.Tech '26</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container font-code-sm text-[11px] text-on-surface font-semibold">9.35 CGPA</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-code-base text-code-base font-bold text-on-surface">864 <span class="text-[12px] text-slate-caption font-normal">/ 1000</span></span>
+<span class="inline-flex items-center gap-1 font-caption text-[11px] font-bold text-secondary">
+                    ★ Top 4.5% Cohort
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-1 max-w-xs">
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Go</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Kafka</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Redis</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Docker</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary font-caption text-caption font-semibold border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">security</span>
+                  100% Authentic (MD5)
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-3 py-1.5 rounded-lg border border-border-outline text-on-surface font-body-sm-medium text-[13px] hover:bg-surface-muted transition-colors flex items-center gap-1" onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+                    View Dossier
+                  </button>
+<button class="p-1.5 rounded-lg text-slate-caption hover:bg-surface-muted hover:text-on-surface transition-colors" title="Shortlist">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-canvas-white transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="w-4 h-4 rounded accent-primary-container" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-on-surface font-headline-sm text-[13px] font-bold flex items-center justify-center">
+                    RV
+                  </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Rohan Varma</span>
+<span class="material-symbols-outlined text-[15px] text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-caption text-[12px] text-slate-caption font-medium">Data Platform Engineer</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">BITS Pilani</span>
+<div class="flex items-center gap-1.5">
+<span class="font-caption text-caption text-slate-caption">B.E. '25</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container font-code-sm text-[11px] text-on-surface font-semibold">8.94 CGPA</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-code-base text-code-base font-bold text-on-surface">842 <span class="text-[12px] text-slate-caption font-normal">/ 1000</span></span>
+<span class="inline-flex items-center gap-1 font-caption text-[11px] font-bold text-secondary">
+                    ★ Top 5.0% Cohort
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-1 max-w-xs">
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Python</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Apache Spark</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ dbt</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Snowflake</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary font-caption text-caption font-semibold border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                  99.8% Authentic (3 Audited Sprints)
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-3 py-1.5 rounded-lg border border-border-outline text-on-surface font-body-sm-medium text-[13px] hover:bg-surface-muted transition-colors flex items-center gap-1" onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+                    View Dossier
+                  </button>
+<button class="p-1.5 rounded-lg text-slate-caption hover:bg-surface-muted hover:text-on-surface transition-colors" title="Shortlist">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-canvas-white transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="w-4 h-4 rounded accent-primary-container" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-on-surface font-headline-sm text-[13px] font-bold flex items-center justify-center">
+                    AD
+                  </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Ananya Deshmukh</span>
+<span class="material-symbols-outlined text-[15px] text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-caption text-[12px] text-slate-caption font-medium">Cloud &amp; Infrastructure Engineer</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">NIT Trichy</span>
+<div class="flex items-center gap-1.5">
+<span class="font-caption text-caption text-slate-caption">B.Tech '26</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container font-code-sm text-[11px] text-on-surface font-semibold">9.08 CGPA</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-code-base text-code-base font-bold text-on-surface">829 <span class="text-[12px] text-slate-caption font-normal">/ 1000</span></span>
+<span class="inline-flex items-center gap-1 font-caption text-[11px] font-bold text-primary-container">
+                    ★ Top 7.2% Cohort
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-1 max-w-xs">
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Kubernetes</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Terraform</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ AWS</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Go</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary font-caption text-caption font-semibold border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">security</span>
+                  100% Authentic (MD5)
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-3 py-1.5 rounded-lg border border-border-outline text-on-surface font-body-sm-medium text-[13px] hover:bg-surface-muted transition-colors flex items-center gap-1" onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+                    View Dossier
+                  </button>
+<button class="p-1.5 rounded-lg text-slate-caption hover:bg-surface-muted hover:text-on-surface transition-colors" title="Shortlist">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-canvas-white transition-colors">
+<td class="py-3.5 px-4 text-center">
+<input class="w-4 h-4 rounded accent-primary-container" type="checkbox"/>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-on-surface font-headline-sm text-[13px] font-bold flex items-center justify-center">
+                    SM
+                  </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface font-semibold">Siddharth Mehta</span>
+<span class="material-symbols-outlined text-[15px] text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-caption text-[12px] text-slate-caption font-medium">Full Stack AI Engineer</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">VJTI Mumbai</span>
+<div class="flex items-center gap-1.5">
+<span class="font-caption text-caption text-slate-caption">B.Tech '25</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container font-code-sm text-[11px] text-on-surface font-semibold">8.88 CGPA</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-code-base text-code-base font-bold text-on-surface">815 <span class="text-[12px] text-slate-caption font-normal">/ 1000</span></span>
+<span class="inline-flex items-center gap-1 font-caption text-[11px] font-bold text-primary-container">
+                    ★ Top 8.5% Cohort
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-1 max-w-xs">
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ React 19</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ Node.js</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ LangChain</span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-body font-code-sm text-[11px]">✓ PostgreSQL</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary font-caption text-caption font-semibold border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">security</span>
+                  100% Authentic (MD5)
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-3 py-1.5 rounded-lg border border-border-outline text-on-surface font-body-sm-medium text-[13px] hover:bg-surface-muted transition-colors flex items-center gap-1" onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+                    View Dossier
+                  </button>
+<button class="p-1.5 rounded-lg text-slate-caption hover:bg-surface-muted hover:text-on-surface transition-colors" title="Shortlist">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Compact Ledger Pagination Footer -->
+<div class="px-space-md py-3 bg-surface-muted/50 border-t border-border-whisper flex flex-col sm:flex-row items-center justify-between gap-space-sm font-caption text-caption text-slate-caption">
+<div class="flex items-center gap-2">
+<span>Showing <strong class="text-on-surface font-bold">1 - 5</strong> of <strong class="text-on-surface font-bold">312</strong> vetted candidates</span>
+<span class="text-outline-variant">•</span>
+<span>Ranked by cumulative collegiate merit score (CMS)</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded border border-border-whisper bg-surface-pure text-on-surface-variant hover:bg-surface-container font-medium disabled:opacity-40" disabled="">
+            Previous
+          </button>
+<span class="px-3 py-1 rounded bg-primary-container text-on-primary font-code-sm text-code-sm font-bold">1</span>
+<button class="px-3 py-1 rounded bg-surface-pure border border-border-whisper hover:bg-surface-container font-code-sm text-code-sm">2</button>
+<button class="px-3 py-1 rounded bg-surface-pure border border-border-whisper hover:bg-surface-container font-code-sm text-code-sm">3</button>
+<span class="px-1 text-slate-caption">...</span>
+<button class="px-3 py-1 rounded bg-surface-pure border border-border-whisper hover:bg-surface-container font-code-sm text-code-sm">63</button>
+<button class="px-2.5 py-1 rounded border border-border-whisper bg-surface-pure text-on-surface hover:bg-surface-container font-medium">
+            Next
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- FLOATING DEEP-DIVE CANDIDATE DOSSIER MODAL -->
+<!-- Overlaid Dialog for Aarav Sharma -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-200" id="candidate-dossier-modal">
+<div class="relative w-full max-w-[680px] max-h-[942px] flex flex-col bg-surface-pure rounded-2xl shadow-[0_20px_50px_-10px_rgba(15,23,42,0.22)] border border-primary/20 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="p-space-lg bg-surface-pure border-b border-border-whisper flex items-start justify-between gap-space-md relative">
+<div class="flex items-start gap-space-md">
+<!-- Photo Placeholder with Verified Badge -->
+<div class="relative">
+<img class="w-16 h-16 rounded-xl object-cover border border-border-outline shadow-sm" data-alt="Close up professional portrait of Aarav Sharma, a young confident South Asian software engineer with glasses in a modern university technical research laboratory, soft natural lighting, high clarity, corporate edutech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs_nN7UrfiN4oOBt3k6i0dToBlVBDaJJJB85X8rlWKndUSDJZLbEcDNIEUe9SRR1b6QInHPV02lg342tdaBeUhYzcRkhniUzi8E7n808cvkokIpJxzr5iWrbiE7ktrNxjyZUuTK0ZZcd28IitLgfLAbICzZwtjfz2pDVtvBaurDQ7zFulIi0Dqb6F0H-ATP3YFLxiO9b_B_IxhbDc_sboWzd6h6f31ZXmNde8yby1J4-Z9RlKBCRCMNA"/>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center border-2 border-surface-pure shadow-sm" title="Institutional Identity Verified">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+</div>
+</div>
+<!-- Name, Role and College Credentials -->
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Aarav Sharma</h2>
+<span class="px-2 py-0.5 rounded-full bg-emerald-soft text-secondary font-caption text-[11px] font-bold border border-secondary/20">
+                Top 3.8% Percentile
+              </span>
+<span class="px-2 py-0.5 rounded bg-blue-soft text-primary-container font-code-sm text-[11px] font-bold">
+                CMS 885 / 1000
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium mt-0.5">
+              Full Stack AI &amp; Backend Architect · IIT Bombay (Class of 2026)
+            </p>
+<div class="flex items-center gap-3 mt-2 flex-wrap">
+<!-- Verified WhatsApp Contact Pill -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary font-code-sm text-[12px] font-bold border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">chat</span>
+                +91 98200 41200 · Verified Identity
+              </span>
+<!-- Ledger UID Tag -->
+<span class="font-code-sm text-[11px] text-slate-caption flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">fingerprint</span>
+                #IITB-26-409 · ECDSA Verified
+              </span>
+</div>
+</div>
+</div>
+<!-- Close Button -->
+<button class="p-1.5 rounded-lg text-slate-caption hover:text-on-surface hover:bg-surface-muted transition-colors" onclick="document.getElementById('candidate-dossier-modal').classList.add('hidden')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Scrollable Modal Body -->
+<div class="flex-1 overflow-y-auto p-space-lg flex flex-col gap-space-lg bg-surface/30">
+<!-- 4D Collegiate Evaluation Rubric Matrix -->
+<div class="p-space-md rounded-xl bg-surface-pure border border-border-whisper shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">analytics</span>
+<h3 class="font-headline-sm text-[16px] text-on-surface font-bold">4D Empirical Rubric Matrix</h3>
+</div>
+<span class="font-caption text-caption text-slate-caption">Collegiate Standard 2.4</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- 1. Technical Depth -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-body-sm font-medium">
+<span class="text-on-surface">1. Technical Depth &amp; Architectural Mastery</span>
+<span class="font-code-sm text-code-sm font-bold text-primary-container">9.6 / 10</span>
+</div>
+<div class="w-full h-2 rounded-full bg-border-whisper overflow-hidden">
+<div class="h-full rounded-full bg-primary-container" style="width: 96%"></div>
+</div>
+<span class="font-caption text-[11px] text-slate-caption">Demonstrated in PostgreSQL query tuning, index mechanics, buffer cache analysis.</span>
+</div>
+<!-- 2. Problem Solving -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-body-sm font-medium">
+<span class="text-on-surface">2. Problem Solving &amp; Algorithmic Rigor</span>
+<span class="font-code-sm text-code-sm font-bold text-primary-container">9.4 / 10</span>
+</div>
+<div class="w-full h-2 rounded-full bg-border-whisper overflow-hidden">
+<div class="h-full rounded-full bg-primary-container" style="width: 94%"></div>
+</div>
+<span class="font-caption text-[11px] text-slate-caption">Query refactoring, Redis distributed locking, zero-downtime schema migrations.</span>
+</div>
+<!-- 3. Code Authenticity -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-body-sm font-medium">
+<span class="text-on-surface flex items-center gap-1.5">
+                  3. Code Authenticity &amp; Integrity
+                  <span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+</span>
+<span class="font-code-sm text-code-sm font-bold text-secondary">10.0 / 10 (Zero Anomaly)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-border-whisper overflow-hidden">
+<div class="h-full rounded-full bg-secondary" style="width: 100%"></div>
+</div>
+<span class="font-caption text-[11px] text-slate-caption">0.0% AI Hallucination detected · Full biometric + keystroke dynamics validated by IITB oracle.</span>
+</div>
+<!-- 4. Delivery Speed -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-body-sm font-medium">
+<span class="text-on-surface">4. Delivery Speed &amp; Production Cadence</span>
+<span class="font-code-sm text-code-sm font-bold text-primary-container">9.2 / 10</span>
+</div>
+<div class="w-full h-2 rounded-full bg-border-whisper overflow-hidden">
+<div class="h-full rounded-full bg-primary-container" style="width: 92%"></div>
+</div>
+<span class="font-caption text-[11px] text-slate-caption">1.35x cohort velocity ratio · 3.1 calendar days average per multi-tier sprint.</span>
+</div>
+</div>
+</div>
+<!-- Verified Artifacts & Evidence Chamber -->
+<div class="p-space-md rounded-xl bg-surface-pure border border-border-whisper shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
+<h3 class="font-headline-sm text-[16px] text-on-surface font-bold">Tamper-Proof Artifacts &amp; Code Evidence</h3>
+</div>
+<span class="font-code-sm text-[11px] text-slate-caption font-semibold">3 Cryptographic Seals</span>
+</div>
+<div class="flex flex-col divide-y divide-border-whisper">
+<!-- Artifact 1 -->
+<div class="py-2.5 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[22px] text-coral-danger">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface leading-tight">Collegiate Sprint 3 Solution Dossier</span>
+<span class="font-caption text-[11px] text-slate-caption">PostgreSQL Optimization &amp; Plan 46 standard · 48 pages · MD5 #b712a</span>
+</div>
+</div>
+<a class="px-2.5 py-1 rounded bg-canvas-white hover:bg-surface-muted text-primary font-caption text-caption font-bold border border-border-whisper flex items-center gap-1 transition-colors" href="#">
+                Preview PDF
+                <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</a>
+</div>
+<!-- Artifact 2 -->
+<div class="py-2.5 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[22px] text-on-surface">terminal</span>
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface leading-tight">Verified Git Repository Tree</span>
+<span class="font-code-sm text-[11px] text-slate-caption">github.com/aarav-sh/disheera-sprints · 45 commits · 100% tests</span>
+</div>
+</div>
+<a class="px-2.5 py-1 rounded bg-canvas-white hover:bg-surface-muted text-on-surface font-caption text-caption font-bold border border-border-whisper flex items-center gap-1 transition-colors" href="#">
+                Inspect Repo
+                <span class="material-symbols-outlined text-[13px]">code</span>
+</a>
+</div>
+<!-- Artifact 3 -->
+<div class="py-2.5 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[22px] text-secondary">token</span>
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface leading-tight">Disheera Verifiable Credential #DSH-PASS-2025-0842</span>
+<span class="font-caption text-[11px] text-slate-caption">Issued by IIT Bombay Distributed Systems Lab · Non-transferable</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-emerald-soft text-secondary font-code-sm text-[11px] font-bold">
+                VALID
+              </span>
+</div>
+</div>
+</div>
+<!-- Recruiter Match Alignment & Compensation Bracket -->
+<div class="p-space-md rounded-xl bg-canvas-white border border-border-whisper flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-soft text-secondary flex items-center justify-center font-headline-sm text-[15px] font-bold">
+              96%
+            </div>
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Target Match: Senior Full Stack AI Resident</span>
+<span class="font-caption text-caption text-slate-caption">Alignment: High concurrency, PostgreSQL indices, vector store memory</span>
+</div>
+</div>
+<div class="flex flex-col sm:items-end">
+<span class="font-caption text-caption text-slate-caption uppercase">Comp Expectation</span>
+<span class="font-code-sm text-code-sm font-bold text-on-surface">₹14 - 18 LPA <span class="text-slate-caption font-normal">(July 2026)</span></span>
+</div>
+</div>
+</div>
+<!-- Action Control Footer -->
+<div class="p-space-md bg-surface-pure border-t border-border-whisper flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-caption text-caption text-slate-body">
+            Shortlisted by <strong>Devina Sen</strong> · Razorpay Pipeline
+          </span>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-lg border border-border-outline text-on-surface hover:bg-surface-muted font-body-sm-medium text-body-sm-medium transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-slate-caption">description</span>
+            Download ATS Dossier
+          </button>
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-on-primary-fixed-variant font-body-sm-medium text-body-sm-medium transition-all shadow-md flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_add_on</span>
+            Invite to Technical Interview
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-pure shadow-[0_-1px_8px_rgba(0,0,0,0.03)] py-space-lg"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><span class="font-body-sm-medium text-body-sm-medium text-on-surface">Disheera Talent OS</span><span class="text-outline-variant font-caption">•</span><span class="font-caption text-caption text-slate-caption">Institutional Verification Infrastructure</span></div><div class="flex items-center gap-space-lg font-caption text-caption text-on-surface-variant"><span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Institutional Ledger Active</span><span>FERPA &amp; ISO 27001 Compliant</span><span>© 2025 Disheera Technologies Inc.</span></div></div></footer></body></html>

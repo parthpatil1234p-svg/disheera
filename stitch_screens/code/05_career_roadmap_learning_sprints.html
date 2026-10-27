@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Disheera Student Portal</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "emerald-soft": "#ECFDF5", "on-tertiary": "#ffffff", "primary-fixed": "#dbe1ff", "on-secondary-fixed": "#002111", "secondary": "#006d44", "surface-container-low": "#f2f3ff", "on-tertiary-container": "#ffeddd", "on-background": "#131b2e", "on-surface-variant": "#434655", "on-error": "#ffffff", "surface-container": "#eaedff", "outline-variant": "#c3c6d7", "on-tertiary-fixed": "#2b1700", "on-secondary-container": "#007147", "on-error-container": "#93000a", "error": "#ba1a1a", "on-primary-fixed-variant": "#003ea8", "error-container": "#ffdad6", "primary-container": "#2563eb", "outline": "#737686", "tertiary-fixed-dim": "#ffb962", "surface-dim": "#d2d9f4", "border-outline": "#CBD5E1", "canvas-white": "#F7F9FD", "blue-soft": "#EFF6FF", "surface-pure": "#FFFFFF", "surface-container-highest": "#dae2fd", "tertiary-fixed": "#ffddb9", "surface-container-high": "#e2e7ff", "inverse-surface": "#283044", "primary-fixed-dim": "#b4c5ff", "slate-caption": "#475569", "background": "#faf8ff", "primary": "#004ac6", "surface-bright": "#faf8ff", "tertiary-container": "#9a6000", "secondary-container": "#7df7b6", "on-secondary": "#ffffff", "on-primary-fixed": "#00174b", "border-whisper": "#E2E8F0", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#663e00", "inverse-primary": "#b4c5ff", "surface": "#faf8ff", "on-primary": "#ffffff", "slate-body": "#334155", "secondary-fixed": "#80fab9", "surface-variant": "#dae2fd", "coral-danger": "#DC4B4B", "on-primary-container": "#eeefff", "surface-muted": "#F1F4FA", "on-secondary-fixed-variant": "#005232", "surface-tint": "#0053db", "on-surface": "#131b2e", "inverse-on-surface": "#eef0ff", "secondary-fixed-dim": "#62dd9e", "tertiary": "#794a00" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "space-2xl": "3rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "margin": "1.5rem", "gutter": "1.5rem", "space-lg": "1.5rem", "margin-mobile": "1rem" }, "fontFamily": { "display-mobile": [ "Outfit" ], "headline-lg-mobile": [ "Outfit" ], "headline-sm": [ "Outfit" ], "code-sm": [ "JetBrains Mono" ], "body-sm": [ "Inter" ], "headline-md": [ "Outfit" ], "body-base": [ "Inter" ], "code-base": [ "JetBrains Mono" ], "headline-lg": [ "Outfit" ], "body-sm-medium": [ "Inter" ], "caption": [ "Inter" ], "display": [ "Outfit" ] }, "fontSize": { "display-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "code-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "500" } ], "body-sm": [ "14px", { "lineHeight": "22.4px", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-base": [ "16px", { "lineHeight": "25.6px", "fontWeight": "400" } ], "code-base": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-sm-medium": [ "14px", { "lineHeight": "22.4px", "fontWeight": "500" } ], "caption": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "display": [ "48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" } ] } } } };</script></head><body class="bg-canvas-white font-body-base text-body-base text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-pure/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full max-w-[1400px] mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm shrink-0"><img alt="logo-256.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UwBdO7tZp23T7SlfTeGT4HBr-dsL2zW5kJ_Q0yqJjipvX0p3F0WTeUIEmWfa5txOJjg4_6snmg0uUi0kGUQALlyxN0r_ssgaGTRc8fFAxgdrofOHp1KuFLQ72tFb1Vsx269Iy_mx5MpFeVbGlcJ8IJ1ShE8emdLdhAP7BzGZ0dZG9g_Dpx_0CfDSXfWbgLx8Fe4vjIGEd29G35hhP-REu0dzFegGzPvTnHYCP7EARbAT5wftRlVKewlIEmvXT5GRDoLhOrWfVeqA"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">Disheera</span></div><nav class="hidden lg:flex items-center gap-space-xs p-1 bg-surface-muted rounded-full" data-active-classes="bg-primary-container text-on-primary font-body-sm-medium"><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="roadmap" href="#">Roadmap</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="assignments" href="#">Assignments</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="passport" href="#">Passport</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="resume" href="#">Resume</a></nav><div class="flex items-center gap-space-md shrink-0"><button aria-label="Notifications" class="relative p-2 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-muted transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-pure"></span></button><div class="flex items-center gap-space-sm pl-space-sm py-1 pr-space-md bg-surface-pure rounded-full shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden sm:flex flex-col text-left"><span class="font-body-sm-medium text-body-sm-medium text-on-surface leading-tight">Aarav Sharma</span><span class="font-caption text-caption text-slate-caption leading-tight">IIT Bombay · Cohort '26</span></div></div></div></div></header><main class="w-full pt-16 min-h-screen bg-canvas-white"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1400px] mx-auto px-margin-mobile sm:px-margin py-space-lg lg:py-space-xl flex flex-col gap-space-xl">
+<!-- Track Switcher & High-Level Progress Deck -->
+<div class="w-full bg-surface-pure rounded-xl p-space-lg lg:p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.08)] flex flex-col gap-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Interactive Track Picker -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-space-md">
+<div class="relative inline-block text-left" id="track-dropdown-container">
+<button aria-expanded="false" aria-haspopup="true" class="inline-flex items-center gap-space-sm px-space-md py-2.5 rounded-lg bg-surface-muted hover:bg-surface-container-low transition-colors text-left" id="track-dropdown-btn" type="button">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shrink-0"></span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-slate-caption uppercase tracking-wider">Current Degree Track</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight" id="active-track-name">Full Stack AI Engineer</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-slate-caption ml-1">expand_more</span>
+</button>
+<!-- Switcher Menu -->
+<div class="hidden absolute left-0 mt-2 w-80 rounded-xl bg-surface-pure shadow-[0_20px_45px_-12px_rgba(15,23,42,0.14)] z-40 p-1.5 flex-col gap-1" id="track-dropdown-menu">
+<button class="w-full text-left p-space-sm rounded-lg bg-blue-soft text-primary font-body-sm-medium flex items-center justify-between" onclick="switchTrack('Full Stack AI Engineer')" type="button">
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Full Stack AI Engineer</span>
+<span class="font-caption text-caption text-slate-caption">Cohort '26 · IIT Bombay Stream</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check</span>
+</button>
+<button class="w-full text-left p-space-sm rounded-lg hover:bg-surface-muted text-on-surface font-body-sm transition-colors flex items-center justify-between" onclick="switchTrack('Cloud DevOps Specialist')" type="button">
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Cloud DevOps Specialist</span>
+<span class="font-caption text-caption text-slate-caption">Dual Enrollment Candidate</span>
+</div>
+<span class="material-symbols-outlined text-slate-caption text-[16px]">swap_horiz</span>
+</button>
+<button class="w-full text-left p-space-sm rounded-lg hover:bg-surface-muted text-on-surface font-body-sm transition-colors flex items-center justify-between" onclick="switchTrack('AI &amp; Data Engineering')" type="button">
+<div class="flex flex-col">
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">AI &amp; Data Engineering</span>
+<span class="font-caption text-caption text-slate-caption">Advanced Elective Track</span>
+</div>
+<span class="material-symbols-outlined text-slate-caption text-[16px]">swap_horiz</span>
+</button>
+</div>
+</div>
+<div class="inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            Academic Ledger Verified · 892 CMS
+          </div>
+</div>
+<!-- Quick actions -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-pure hover:bg-surface-muted text-slate-body font-body-sm-medium transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-slate-caption">menu_book</span>
+<span>View Syllabus &amp; Rubric</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-pure hover:bg-surface-muted text-slate-body font-body-sm-medium transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-slate-caption">picture_as_pdf</span>
+<span>Export Roadmap PDF</span>
+</button>
+</div>
+</div>
+<!-- Overall Status Rail & Benchmarks -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md pt-space-md bg-canvas-white p-space-md rounded-xl">
+<!-- Progress Bar (Col 6) -->
+<div class="md:col-span-6 flex flex-col justify-center gap-space-xs">
+<div class="flex items-center justify-between text-on-surface font-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">Sprint 3 of 16</span>
+<span class="font-caption text-caption text-primary font-semibold px-2 py-0.5 rounded-full bg-blue-soft uppercase tracking-wider">Active Stage</span>
+</div>
+<span class="font-code-sm text-code-sm text-slate-caption font-semibold">42% Degree Completion</span>
+</div>
+<div class="w-full h-3 bg-surface-container rounded-full overflow-hidden relative">
+<div class="h-full bg-primary-container rounded-full transition-all duration-700 ease-out" style="width: 42%;"></div>
+</div>
+<div class="flex items-center justify-between font-caption text-caption text-slate-caption pt-0.5">
+<span>Milestones: 2 Verified / 1 Active / 13 Locked</span>
+<span>Est. Completion: 6 Weeks Remaining</span>
+</div>
+</div>
+<!-- Metric Chips (Col 6) -->
+<div class="md:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-space-sm items-center">
+<div class="bg-surface-pure p-3 rounded-lg flex flex-col">
+<span class="font-caption text-caption text-slate-caption">Cumulative Merit</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">892</span>
+<span class="text-secondary font-code-sm text-code-sm font-semibold bg-emerald-soft px-1.5 py-0.5 rounded flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>+45
+              </span>
+</div>
+</div>
+<div class="bg-surface-pure p-3 rounded-lg flex flex-col">
+<span class="font-caption text-caption text-slate-caption">Cohort Percentile</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Top 4.2%</span>
+</div>
+<span class="font-caption text-caption text-slate-caption mt-0.5">IIT-B Stream Rank #3</span>
+</div>
+<div class="bg-surface-pure p-3 rounded-lg flex flex-col col-span-2 sm:col-span-1">
+<span class="font-caption text-caption text-slate-caption">Pace Ratio</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-headline-sm text-headline-sm font-bold text-secondary">1.35x</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">bolt</span>
+</div>
+<span class="font-caption text-caption text-slate-caption mt-0.5">Ahead of baseline</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Asymmetric Workspace (7:5 Split) -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Primary Column: Vertical Chronological Timeline (Col 8 / 12) -->
+<div class="lg:col-span-8 flex flex-col relative">
+<!-- Connecting Vertical Spine behind nodes -->
+<div aria-hidden="true" class="absolute left-6 top-8 bottom-12 w-0.5 bg-border-whisper hidden sm:block pointer-events-none"></div>
+<div class="flex flex-col gap-space-lg">
+<!-- SPRINT 1: COMPLETED -->
+<div class="relative sm:pl-16 group">
+<!-- Node Marker -->
+<div class="hidden sm:flex absolute left-3.5 -translate-x-1/2 top-6 w-7 h-7 rounded-full bg-secondary items-center justify-center text-on-primary ring-4 ring-canvas-white z-10">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<!-- Card Body -->
+<div class="bg-surface-pure rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                    Completed · Verified on-chain
+                  </span>
+<span class="font-caption text-caption text-slate-caption">Oct 12, 2024 · Cohort Ledger</span>
+</div>
+<div class="font-code-sm text-code-sm text-secondary font-semibold bg-emerald-soft/50 px-2 py-0.5 rounded">
+                  Grade: 9.8 / 10.0 Marks
+                </div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Sprint 1: Modern React 19 &amp; Concurrency Primitives</h3>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Server Components, Actions, Transition Hooks, and Optimistic UI reconciliation under stress loads.</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-muted p-3 rounded-lg">
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-slate-caption">
+<span class="material-symbols-outlined text-[16px] text-slate-caption">tag</span>
+<span>Ledger Hash:</span>
+<span class="text-on-surface font-mono">0x8f3a...c920</span>
+</div>
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-body-sm-medium text-body-sm-medium transition-colors" type="button">
+<span>View Graded 4D Evaluation Dossier</span>
+<span class="material-symbols-outlined text-[16px]">north_east</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SPRINT 2: COMPLETED -->
+<div class="relative sm:pl-16 group">
+<!-- Node Marker -->
+<div class="hidden sm:flex absolute left-3.5 -translate-x-1/2 top-6 w-7 h-7 rounded-full bg-secondary items-center justify-center text-on-primary ring-4 ring-canvas-white z-10">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<!-- Card Body -->
+<div class="bg-surface-pure rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                    Completed · Verified on-chain
+                  </span>
+<span class="px-2 py-0.5 rounded bg-surface-muted text-slate-caption font-code-sm text-code-sm">Credential #F881D</span>
+<span class="font-caption text-caption text-slate-caption">Oct 20, 2024</span>
+</div>
+<div class="font-code-sm text-code-sm text-secondary font-semibold bg-emerald-soft/50 px-2 py-0.5 rounded">
+                  Grade: 9.6 / 10.0 Marks
+                </div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Sprint 2: ORM Schema Design &amp; High-Throughput Migrations</h3>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Prisma vs Drizzle architecture, non-blocking zero-downtime DDL rollouts, and transactional fixtures.</p>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-muted p-3 rounded-lg">
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-slate-caption">
+<span class="material-symbols-outlined text-[16px] text-slate-caption">verified_user</span>
+<span>Institutional Seal:</span>
+<span class="text-on-surface font-mono">IITB-SE-CRED-9884</span>
+</div>
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-body-sm-medium text-body-sm-medium transition-colors" type="button">
+<span>View Graded 4D Evaluation Dossier</span>
+<span class="material-symbols-outlined text-[16px]">north_east</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SPRINT 3: ACTIVE FOCUS HERO CARD -->
+<div class="relative sm:pl-16">
+<!-- Pulsing Beacon Node -->
+<div class="hidden sm:flex absolute left-3.5 -translate-x-1/2 top-8 w-7 h-7 rounded-full bg-primary-container items-center justify-center text-on-primary ring-4 ring-canvas-white z-10 shadow-md">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-pure animate-ping absolute"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-surface-pure"></span>
+</div>
+<!-- Elevated Card with Royal Blue Accent Bar -->
+<div class="bg-surface-pure rounded-xl p-space-lg lg:p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<!-- Header Row -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-soft text-primary font-caption text-caption font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                      In Progress · Active Sprint
+                    </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-muted text-slate-caption font-code-sm text-code-sm">Sprint 3 of 16</span>
+</div>
+<div class="flex items-center gap-1.5 text-coral-danger font-caption text-caption font-semibold bg-error-container/40 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Due Sunday 11:59 PM IST (3 days left)</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-1">
+                  Sprint 3: PostgreSQL Optimization, Indexing &amp; Query Tuning
+                </h2>
+<p class="font-body-base text-body-base text-slate-body max-w-2xl">
+                  Master query execution analysis, composite B-tree &amp; BRIN indexing, buffer cache tuning, and collegiate 4D rubric solution dossier submission.
+                </p>
+</div>
+<!-- SECTION 1: Curated Video & Learning Chamber -->
+<div class="mt-space-lg pt-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">smart_display</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Curated Learning Chamber</span>
+</div>
+<span class="inline-flex items-center gap-1 text-secondary font-code-sm text-code-sm bg-emerald-soft px-2.5 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">security</span>
+                    Anti-Cheat Checkpoint · 3/3 Focus Checks Passed
+                  </span>
+</div>
+<!-- Video Chamber Preview Card -->
+<div class="rounded-xl overflow-hidden bg-surface-muted flex flex-col md:flex-row items-stretch">
+<div class="relative md:w-2/5 aspect-video md:aspect-auto overflow-hidden bg-inverse-surface group cursor-pointer">
+<div class="bg-cover bg-center w-full h-full transform group-hover:scale-105 transition-transform duration-500" data-alt="High quality cinematic screenshot of a university computer science lecture hall with glowing query execution tree diagram explaining postgres query plan on a lecture display, subtle light blue ambient illumination." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDF7xr24eyznL4ZsoUO1BOvJbo5BiblaQSaa-lW2OvGpYnLjQaragwc-EYPHLJsTZFvgdz85eC7uG4du68mnnvEbr9BqAF5ZCwCeQWOiTPfCwBocxuvzts3N8SWiUks_Akgu2NnS-uUBVJwqlyAkt0bS59f3TF4_CqfCuVhIa3866u58ReEp1ZpZ0v4f4TGtAaAVNEfijWsgLY2g8V4ISFBdrJyZl4APDcBQudc76mL1HDLXvChfxkqAw')"></div>
+<div class="absolute inset-0 bg-inverse-surface/40 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[26px]">play_arrow</span>
+</div>
+</div>
+<span class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-inverse-surface/80 text-on-primary font-code-sm text-code-sm">1h 48m</span>
+</div>
+<div class="p-space-md md:w-3/5 flex flex-col justify-between gap-space-sm bg-surface-pure">
+<div>
+<div class="flex items-center justify-between text-slate-caption font-caption text-caption mb-1">
+<span>MODULE 3.4 · CORE LECTURE</span>
+<span class="font-code-sm text-code-sm text-primary font-semibold">85% Watched</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Deep Dive: EXPLAIN ANALYZE, Buffer Hits &amp; Partial Indexes</h4>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Instructor: Dr. V. Sen (IIT Bombay Visiting Research Fellow). Real-world production telemetry from 10M record tables.</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 85%;"></div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-caption text-caption text-slate-caption">Auto-synced to Academic Ledger</span>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-body-sm-medium text-body-sm-medium shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>Open Learning Chamber</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Collegiate Weekly Assignment (Plan 46 Standard) -->
+<div class="mt-space-lg pt-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs mb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Collegiate Weekly Assignment (Plan 46 Standard)</h3>
+</div>
+<p class="font-body-sm text-body-sm text-slate-caption mt-0.5">Dual-verification collegiate submission with automated MD5 checksum and tamper-proof cover sheet.</p>
+</div>
+<span class="px-2.5 py-1 rounded bg-blue-soft text-primary font-code-sm text-code-sm font-semibold whitespace-nowrap self-start sm:self-auto">
+                    Max Marks: 10.0
+                  </span>
+</div>
+<!-- 3-Box Submission Workflow -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Part A: Personalized Cover Sheet -->
+<div class="bg-surface-muted p-space-md rounded-xl flex flex-col justify-between gap-space-md">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-primary font-semibold uppercase tracking-wider">Step 1 · Verification Protocol</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface mt-1">Personalized Cover Sheet Generator</h4>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Institutional cover page with candidate Aadhaar/IITB stamp and anti-tamper QR watermarking. Must precede all solution sheets.</p>
+<!-- Meta Details -->
+<div class="mt-space-sm p-space-sm bg-surface-pure rounded-lg flex flex-col gap-1 font-caption text-caption text-slate-caption">
+<div class="flex justify-between">
+<span>Student Name:</span>
+<span class="font-semibold text-on-surface">Aarav Sharma</span>
+</div>
+<div class="flex justify-between">
+<span>Student Identifier:</span>
+<span class="font-mono text-on-surface">#IITB-26-409</span>
+</div>
+<div class="flex justify-between">
+<span>Sprint Protocol:</span>
+<span class="font-mono text-on-surface">POSTGRES-OPT-S3</span>
+</div>
+</div>
+</div>
+<button class="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-pure hover:bg-surface-container text-primary font-body-sm-medium text-body-sm-medium shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Download Official 1-Page Cover PDF</span>
+</button>
+</div>
+<!-- Part B: Solution Dossier Upload Dropzone -->
+<div class="bg-surface-pure p-space-md rounded-xl flex flex-col justify-between gap-space-sm shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-slate-caption font-semibold uppercase tracking-wider">Step 2 · Submission Channel</span>
+<span class="material-symbols-outlined text-slate-caption text-[18px]">cloud_upload</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface mt-1">Solution Dossier Upload Dropzone</h4>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Combined single PDF (Cover Sheet + Solution Pages). Minimum 2 pages, maximum 25 MB file size limit.</p>
+</div>
+<!-- Dropzone -->
+<div class="p-space-lg rounded-xl bg-canvas-white hover:bg-blue-soft/30 transition-colors flex flex-col items-center justify-center text-center cursor-pointer" id="dropzone-box">
+<span class="material-symbols-outlined text-primary text-[36px] mb-1">upload_file</span>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface">Drag &amp; drop combined PDF dossier</span>
+<span class="font-caption text-caption text-slate-caption mt-0.5">or <span class="text-primary underline">browse local files</span> (PDF format only)</span>
+<span class="font-code-sm text-code-sm text-slate-caption mt-2 bg-surface-pure px-2 py-0.5 rounded shadow-sm">
+                        Auto MD5 checksum verification active
+                      </span>
+</div>
+<div class="flex items-center justify-between font-caption text-caption text-slate-caption px-1">
+<span>Plagiarism Scan: Turnitin AI 0.0%</span>
+<span class="text-secondary font-semibold">TPO Ready</span>
+</div>
+</div>
+</div>
+<!-- Part C: 4D Collegiate Rubric Breakdown Matrix -->
+<div class="mt-space-md p-space-md rounded-xl bg-canvas-white">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">4D Collegiate Rubric Matrix</span>
+<span class="font-caption text-caption text-slate-caption">Dual Evaluation by Institutional Model + TPO Peer Reviewers</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-pure flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-slate-caption uppercase">Dimension 1</span>
+<span class="font-code-sm text-code-sm font-bold text-primary">3.0 Marks</span>
+</div>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface block mt-1">Technical Depth</span>
+<p class="font-caption text-caption text-slate-caption mt-1">EXPLAIN ANALYZE plan parsing, IO buffer cache ratios, index scan vs seq scan validation.</p>
+</div>
+<div class="mt-2 text-right">
+<span class="font-code-sm text-code-sm text-slate-caption">Pass criteria: &gt; 2.2</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-pure flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-slate-caption uppercase">Dimension 2</span>
+<span class="font-code-sm text-code-sm font-bold text-primary">3.0 Marks</span>
+</div>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface block mt-1">Problem Solving &amp; Query Optimization</span>
+<p class="font-caption text-caption text-slate-caption mt-1">Query execution reduction &gt; 70%, compound B-Tree construction, and CTE refactoring.</p>
+</div>
+<div class="mt-2 text-right">
+<span class="font-code-sm text-code-sm text-slate-caption">Pass criteria: &gt; 2.1</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-pure flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-slate-caption uppercase">Dimension 3</span>
+<span class="font-code-sm text-code-sm font-bold text-primary">2.0 Marks</span>
+</div>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface block mt-1">Code Authenticity &amp; Integrity</span>
+<p class="font-caption text-caption text-slate-caption mt-1">Zero AI-generated boilerplate hallucinations, original schema execution timestamps.</p>
+</div>
+<div class="mt-2 text-right">
+<span class="font-code-sm text-code-sm text-slate-caption">Pass criteria: &gt; 1.8</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-pure flex flex-col justify-between shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-slate-caption uppercase">Dimension 4</span>
+<span class="font-code-sm text-code-sm font-bold text-primary">2.0 Marks</span>
+</div>
+<span class="font-body-sm-medium text-body-sm-medium text-on-surface block mt-1">Dossier Presentation Hygiene</span>
+<p class="font-caption text-caption text-slate-caption mt-1">Cover sheet alignment, legible execution charts, and markdown benchmark tables.</p>
+</div>
+<div class="mt-2 text-right">
+<span class="font-code-sm text-code-sm text-slate-caption">Pass criteria: &gt; 1.5</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Milestone Credential Action -->
+<div class="mt-space-lg pt-space-md p-space-md rounded-xl bg-surface-muted flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-pure flex items-center justify-center text-slate-caption shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">workspace_premium</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Sprint 3 Credential &amp; Passport Seal</span>
+<span class="px-2 py-0.5 rounded bg-surface-pure text-slate-caption font-code-sm text-code-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                        Locked
+                      </span>
+</div>
+<p class="font-caption text-caption text-slate-caption mt-0.5">Unlocks automatically once Solution Dossier is evaluated and scores ≥ 8.0 / 10.0 Marks.</p>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-slate-caption font-body-sm-medium text-body-sm-medium cursor-not-allowed opacity-75 shrink-0" disabled="" type="button">
+                  Claim Milestone 3 Seal
+                </button>
+</div>
+</div>
+</div>
+<!-- SPRINT 4: LOCKED -->
+<div class="relative sm:pl-16 group opacity-85 hover:opacity-100 transition-opacity">
+<!-- Node Marker -->
+<div class="hidden sm:flex absolute left-3.5 -translate-x-1/2 top-6 w-7 h-7 rounded-full bg-surface-pure items-center justify-center text-slate-caption ring-4 ring-canvas-white z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+</div>
+<!-- Card Body -->
+<div class="bg-surface-pure rounded-xl p-space-md lg:p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-muted text-slate-caption font-code-sm text-code-sm font-medium">Sprint 4 of 16</span>
+<span class="font-caption text-caption text-slate-caption">Scheduled: Nov 2, 2024</span>
+</div>
+<div class="inline-flex items-center gap-1 font-caption text-caption text-slate-caption">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>Prerequisite: Pass Sprint 3</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight mt-1">Sprint 4: Docker Containerization &amp; Microservice Networking</h3>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Multi-stage Alpine builds, network namespaces, persistent volume bindings, and horizontal health probes.</p>
+</div>
+</div>
+<!-- SPRINT 5: LOCKED -->
+<div class="relative sm:pl-16 group opacity-75 hover:opacity-95 transition-opacity">
+<!-- Node Marker -->
+<div class="hidden sm:flex absolute left-3.5 -translate-x-1/2 top-6 w-7 h-7 rounded-full bg-surface-pure items-center justify-center text-slate-caption ring-4 ring-canvas-white z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+</div>
+<div class="bg-surface-pure rounded-xl p-space-md lg:p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-muted text-slate-caption font-code-sm text-code-sm font-medium">Sprint 5 of 16</span>
+<span class="font-caption text-caption text-slate-caption">Scheduled: Nov 10, 2024</span>
+</div>
+<div class="inline-flex items-center gap-1 font-caption text-caption text-slate-caption">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>Unlocks at 850 Cumulative CMS</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight mt-1">Sprint 5: Production Redis Architecture &amp; Cache Invalidation</h3>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Pub/Sub event busses, write-through vs write-behind eviction, and distributed lock contention primitives.</p>
+</div>
+</div>
+<!-- SPRINT 6: LOCKED -->
+<div class="relative sm:pl-16 group opacity-65 hover:opacity-90 transition-opacity">
+<!-- Node Marker -->
+<div class="hidden sm:flex absolute left-3.5 -translate-x-1/2 top-6 w-7 h-7 rounded-full bg-surface-pure items-center justify-center text-slate-caption ring-4 ring-canvas-white z-10 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+</div>
+<div class="bg-surface-pure rounded-xl p-space-md lg:p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-muted text-slate-caption font-code-sm text-code-sm font-medium">Sprint 6 of 16</span>
+<span class="font-caption text-caption text-slate-caption">Scheduled: Nov 18, 2024</span>
+</div>
+<div class="inline-flex items-center gap-1 font-caption text-caption text-slate-caption">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>Requires Sprint 4 &amp; 5 Validation</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight mt-1">Sprint 6: LangChain &amp; Multi-Agent Systems</h3>
+<p class="font-body-sm text-body-sm text-slate-caption mt-1">Deterministic state machines, tool calling schemas, vector search latency thresholds, and guardrails.</p>
+</div>
+</div>
+<!-- Expansion Trigger -->
+<div class="sm:pl-16 pt-2">
+<button class="w-full py-3 px-space-md rounded-xl bg-surface-pure hover:bg-surface-muted text-slate-body font-body-sm-medium text-body-sm-medium flex items-center justify-center gap-space-xs transition-colors shadow-sm" id="toggle-sprints-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">unfold_more</span>
+<span id="toggle-sprints-text">Show All 16 Sprints in Roadmap (10 more sprints)</span>
+</button>
+</div>
+<!-- Hidden remaining sprints (7 - 16) expandable -->
+<div class="hidden flex-col gap-space-lg sm:pl-16" id="additional-sprints">
+<div class="p-space-md rounded-xl bg-surface-pure shadow-sm flex items-center justify-between">
+<div>
+<span class="font-code-sm text-code-sm text-slate-caption">Sprint 7 - 16 Curriculum Block</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Advanced Cloud Infrastructure, Distributed Systems &amp; Capstone</h4>
+<p class="font-caption text-caption text-slate-caption mt-0.5">Kafka Event Streaming, Kubernetes Operator Lifecycle, Fine-Tuning LLMs, and Institutional Demo Day.</p>
+</div>
+<span class="material-symbols-outlined text-slate-caption text-[22px]">lock_clock</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Auxiliary Column: Right Tactical HUD (Col 4 / 12) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Sprint Fast Navigator -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-sm">
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Sprint Navigator</h4>
+<span class="font-code-sm text-code-sm text-primary font-semibold">16 Sprints</span>
+</div>
+<div class="flex flex-col gap-1.5 mt-space-xs">
+<a class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-muted text-slate-body transition-colors" href="#">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-emerald-soft text-secondary flex items-center justify-center font-code-sm text-code-sm">✓</span>
+<span class="font-body-sm text-body-sm text-on-surface">Sprint 1: React 19 Primitives</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">9.8</span>
+</a>
+<a class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-muted text-slate-body transition-colors" href="#">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-emerald-soft text-secondary flex items-center justify-center font-code-sm text-code-sm">✓</span>
+<span class="font-body-sm text-body-sm text-on-surface">Sprint 2: ORM Schema Design</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">9.6</span>
+</a>
+<a class="flex items-center justify-between p-2 rounded-lg bg-blue-soft text-primary font-body-sm-medium transition-colors" href="#">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-code-sm text-code-sm animate-pulse">3</span>
+<span class="font-body-sm-medium text-body-sm-medium text-primary">Sprint 3: Postgres Optimization</span>
+</div>
+<span class="font-code-sm text-code-sm text-primary font-semibold">Active</span>
+</a>
+<div class="flex items-center justify-between p-2 rounded-lg text-slate-caption opacity-75">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-surface-muted text-slate-caption flex items-center justify-center font-code-sm text-code-sm">4</span>
+<span class="font-body-sm text-body-sm">Sprint 4: Docker &amp; Networking</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-slate-caption">lock</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg text-slate-caption opacity-60">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-surface-muted text-slate-caption flex items-center justify-center font-code-sm text-code-sm">5</span>
+<span class="font-body-sm text-body-sm">Sprint 5: Redis Architecture</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-slate-caption">lock</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg text-slate-caption opacity-50">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-surface-muted text-slate-caption flex items-center justify-center font-code-sm text-code-sm">6</span>
+<span class="font-body-sm text-body-sm">Sprint 6: LangChain Agents</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-slate-caption">lock</span>
+</div>
+</div>
+</div>
+<!-- WhatsApp Sprint Concierge Pill -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-emerald-soft text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">chat</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Sprint Concierge</h4>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<p class="font-caption text-caption text-slate-caption">Synced with Aarav (+91 98*** 4120)</p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-slate-body">
+            Receive automated milestone SMS triggers, rubric clarification, and emergency peer reviewer reminders via WhatsApp.
+          </p>
+<div class="flex flex-col gap-space-xs">
+<button class="w-full inline-flex items-center justify-between px-space-md py-2.5 rounded-lg bg-emerald-soft hover:bg-emerald-soft/80 text-secondary font-body-sm-medium text-body-sm-medium transition-colors" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">forum</span>
+<span>Send `/rubric` to Disheera Bot</span>
+</div>
+<span class="font-code-sm text-code-sm">WhatsApp ↗</span>
+</button>
+<button class="w-full inline-flex items-center justify-between px-space-md py-2.5 rounded-lg bg-surface-muted hover:bg-surface-container text-slate-body font-body-sm-medium text-body-sm-medium transition-colors" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+<span>Check Submission Deadline</span>
+</div>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Verified Cohort Benchmarks Radar / Chart -->
+<div class="bg-surface-pure rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Pace &amp; Velocity Benchmarks</h4>
+<span class="material-symbols-outlined text-slate-caption text-[18px]">analytics</span>
+</div>
+<div class="p-space-sm bg-canvas-white rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface font-body-sm">
+<span class="text-slate-caption font-caption text-caption">AARAV'S SPRINT PACE</span>
+<span class="font-code-sm text-code-sm text-secondary font-bold">3.1 Days / Sprint</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 78%;"></div>
+</div>
+<div class="flex items-center justify-between text-on-surface font-body-sm pt-2">
+<span class="text-slate-caption font-caption text-caption">COHORT AVERAGE</span>
+<span class="font-code-sm text-code-sm text-slate-caption font-bold">4.2 Days / Sprint</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-slate-caption rounded-full" style="width: 55%;"></div>
+</div>
+</div>
+<!-- Micro Sparkline SVG -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-caption text-caption text-slate-caption">
+<span>Velocity Trajectory (Last 6 Sprints)</span>
+<span class="text-secondary font-semibold">+18% Efficiency</span>
+</div>
+<div class="w-full h-12 flex items-center justify-center pt-1">
+<svg class="w-full h-10 overflow-visible" fill="none" viewbox="0 0 280 40" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 32 L46 28 L92 20 L138 24 L184 12 L230 16 L280 4" stroke="#2563EB" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<path d="M0 32 L46 28 L92 20 L138 24 L184 12 L230 16 L280 4 L280 40 L0 40 Z" fill="url(#sparkline-grad)" opacity="0.12"></path>
+<circle cx="280" cy="4" fill="#2563EB" r="3.5"></circle>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="sparkline-grad" x1="0" x2="0" y1="0" y2="40">
+<stop stop-color="#2563EB"></stop>
+<stop offset="1" stop-color="#2563EB" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<div class="p-space-sm bg-blue-soft rounded-lg text-primary font-caption text-caption flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>On track for "Exemplary Scholar" Honors designation at graduation.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Track Picker Toggle Interaction
+  const trackBtn = document.getElementById('track-dropdown-btn');
+  const trackMenu = document.getElementById('track-dropdown-menu');
+  const trackName = document.getElementById('active-track-name');
+
+  if (trackBtn && trackMenu) {
+    trackBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      trackMenu.classList.toggle('hidden');
+      trackMenu.classList.toggle('flex');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!trackBtn.contains(e.target) && !trackMenu.contains(e.target)) {
+        trackMenu.classList.add('hidden');
+        trackMenu.classList.remove('flex');
+      }
+    });
+  }
+
+  function switchTrack(name) {
+    if (trackName) trackName.textContent = name;
+    if (trackMenu) {
+      trackMenu.classList.add('hidden');
+      trackMenu.classList.remove('flex');
+    }
+  }
+
+  // Toggle Hidden Sprints
+  const toggleBtn = document.getElementById('toggle-sprints-btn');
+  const toggleText = document.getElementById('toggle-sprints-text');
+  const additionalSprints = document.getElementById('additional-sprints');
+
+  if (toggleBtn && additionalSprints && toggleText) {
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = additionalSprints.classList.contains('hidden');
+      if (isHidden) {
+        additionalSprints.classList.remove('hidden');
+        additionalSprints.classList.add('flex');
+        toggleText.textContent = 'Collapse Sprints 7 through 16 ▴';
+      } else {
+        additionalSprints.classList.add('hidden');
+        additionalSprints.classList.remove('flex');
+        toggleText.textContent = 'Show All 16 Sprints in Roadmap (10 more sprints) ▾';
+      }
+    });
+  }
+
+  // File Dropzone Interaction Simulation
+  const dropzone = document.getElementById('dropzone-box');
+  if (dropzone) {
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('bg-blue-soft');
+    });
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('bg-blue-soft');
+    });
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('bg-blue-soft');
+      dropzone.innerHTML = `
+        <span class="material-symbols-outlined text-secondary text-[36px] mb-1">task_alt</span>
+        <span class="font-body-sm-medium text-body-sm-medium text-on-surface">dossier_aarav_sprint3_v1.pdf</span>
+        <span class="font-code-sm text-code-sm text-secondary mt-1">MD5 Checksum: 7e2f5b61... Verified ✓</span>
+      `;
+    });
+  }
+</script></main><footer class="w-full bg-surface-pure shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-xl"><div class="w-full max-w-[1400px] mx-auto px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>All Systems Operational · 99.98% Uptime</div><span class="hidden md:inline font-caption text-caption text-slate-caption">· Disheera Technologies Inc.</span></div><div class="flex flex-wrap items-center gap-space-lg text-slate-caption font-body-sm text-body-sm"><a class="hover:text-primary transition-colors" href="#">Academic Ledger</a><a class="hover:text-primary transition-colors" href="#">Verification Protocol</a><a class="hover:text-primary transition-colors" href="#">Institutional Support</a><a class="hover:text-primary transition-colors" href="#">Security &amp; Privacy</a></div></div></footer></body></html>

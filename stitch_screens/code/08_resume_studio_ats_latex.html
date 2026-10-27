@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface":"#131b2e","surface-container":"#eaedff","secondary-fixed-dim":"#62dd9e","on-surface-variant":"#434655","on-secondary-container":"#007147","secondary-fixed":"#80fab9","on-primary-container":"#eeefff","on-primary-fixed":"#00174b","tertiary-fixed":"#ffddb9","inverse-surface":"#283044","on-secondary-fixed-variant":"#005232","slate-caption":"#475569","slate-body":"#334155","tertiary-container":"#9a6000","primary-container":"#2563eb","on-background":"#131b2e","surface-tint":"#0053db","surface-bright":"#faf8ff","surface-container-lowest":"#ffffff","emerald-soft":"#ECFDF5","inverse-on-surface":"#eef0ff","on-error-container":"#93000a","surface-variant":"#dae2fd","on-tertiary-fixed":"#2b1700","coral-danger":"#DC4B4B","error-container":"#ffdad6","on-tertiary-fixed-variant":"#663e00","surface-container-low":"#f2f3ff","surface-dim":"#d2d9f4","surface-pure":"#FFFFFF","surface-muted":"#F1F4FA","secondary":"#006d44","on-primary":"#ffffff","on-primary-fixed-variant":"#003ea8","canvas-white":"#F7F9FD","surface-container-high":"#e2e7ff","primary":"#004ac6","inverse-primary":"#b4c5ff","tertiary":"#794a00","secondary-container":"#7df7b6","outline-variant":"#c3c6d7","blue-soft":"#EFF6FF","error":"#ba1a1a","tertiary-fixed-dim":"#ffb962","surface-container-highest":"#dae2fd","outline":"#737686","primary-fixed-dim":"#b4c5ff","on-tertiary-container":"#ffeddd","background":"#faf8ff","primary-fixed":"#dbe1ff","border-outline":"#CBD5E1","on-secondary-fixed":"#002111","surface":"#faf8ff","on-secondary":"#ffffff","on-tertiary":"#ffffff","border-whisper":"#E2E8F0","on-error":"#ffffff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xs":"0.25rem","margin-mobile":"1rem","space-md":"1rem","space-xl":"2rem","space-lg":"1.5rem",gutter:"1.5rem",margin:"1.5rem","space-sm":"0.5rem","space-2xl":"3rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Outfit"],"code-sm":["JetBrains Mono"],"headline-md":["Outfit"],"headline-lg-mobile":["Outfit"],"body-base":["Inter"],caption:["Inter"],"headline-sm":["Outfit"],"body-sm-medium":["Inter"],"display-mobile":["Outfit"],"code-base":["JetBrains Mono"],display:["Outfit"]},fontSize:{"body-sm":["14px",{lineHeight:"22.4px",fontWeight:"400"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"code-sm":["12px",{lineHeight:"16px",fontWeight:"500"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-lg-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-base":["16px",{lineHeight:"25.6px",fontWeight:"400"}],caption:["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-sm":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"body-sm-medium":["14px",{lineHeight:"22.4px",fontWeight:"500"}],"display-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"code-base":["14px",{lineHeight:"20px",fontWeight:"500"}],display:["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}]}}}};</script></head><body class="bg-canvas-white font-body-base text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-pure/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full max-w-[1400px] mx-auto px-gutter flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="logo-256.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UwBdO7tZp23T7SlfTeGT4HBr-dsL2zW5kJ_Q0yqJjipvX0p3F0WTeUIEmWfa5txOJjg4_6snmg0uUi0kGUQALlyxN0r_ssgaGTRc8fFAxgdrofOHp1KuFLQ72tFb1Vsx269Iy_mx5MpFeVbGlcJ8IJ1ShE8emdLdhAP7BzGZ0dZG9g_Dpx_0CfDSXfWbgLx8Fe4vjIGEd29G35hhP-REu0dzFegGzPvTnHYCP7EARbAT5wftRlVKewlIEmvXT5GRDoLhOrWfVeqA"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-semibold">Disheera</span></div><div class="h-5 w-[1px] bg-border-whisper hidden md:block"></div><nav class="hidden md:flex items-center gap-space-xs p-1 bg-surface-muted rounded-xl" data-active-classes="bg-primary-container text-on-primary font-medium rounded-lg shadow-sm"><a class="px-space-md py-1.5 font-body-sm-medium text-body-sm-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a aria-current="page" class="px-space-md py-1.5 transition-colors bg-primary-container text-on-primary font-medium rounded-lg shadow-sm" data-path="resume" href="#">Resume</a><a class="px-space-md py-1.5 font-body-sm-medium text-body-sm-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="roadmap" href="#">Roadmap</a><a class="px-space-md py-1.5 font-body-sm-medium text-body-sm-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="assignments" href="#">Assignments</a><a class="px-space-md py-1.5 font-body-sm-medium text-body-sm-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="passport" href="#">Passport</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-sm px-space-md py-1.5 rounded-full bg-blue-soft"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-caption text-caption text-primary">Aarav Sharma</span><span class="text-border-outline font-caption text-caption">·</span><span class="font-caption text-caption text-slate-caption">IIT Bombay</span></div><button aria-label="Notifications" class="relative p-2 rounded-xl text-on-surface-variant hover:bg-surface-muted hover:text-on-surface transition-colors flex items-center justify-center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-coral-danger ring-2 ring-surface-pure"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-canvas-white min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- Studio Control Sub-Header / Sticky Toolbar -->
+<div class="sticky top-16 z-40 w-full bg-surface-pure/95 backdrop-blur-md shadow-sm">
+<div class="max-w-[1400px] mx-auto px-gutter py-3 flex flex-wrap items-center justify-between gap-space-md">
+<!-- Title & Engine Meta -->
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-blue-soft flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">description</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-sm text-headline-sm text-on-surface">ATS Resume Studio</h1>
+<span class="px-2 py-0.5 rounded-full bg-emerald-soft text-secondary font-caption text-caption">Live Sync</span>
+</div>
+<p class="font-caption text-caption text-slate-caption flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            LaTeX Engine v3.2 · Deterministic ATS Parser Synced
+          </p>
+</div>
+</div>
+<!-- Center Controls: Template Selector & Font Sizer -->
+<div class="flex items-center gap-space-sm bg-surface-muted p-1 rounded-xl">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant text-[18px] pointer-events-none">style</span>
+<select aria-label="Resume Template" class="pl-8 pr-8 py-1.5 bg-surface-pure rounded-lg font-body-sm-medium text-body-sm-medium text-on-surface shadow-xs appearance-none focus:outline-none cursor-pointer" id="templateSelect">
+<option selected="">Standard Academic ATS [Active]</option>
+<option>Single Column Tech FastTrack</option>
+<option>Minimalist Quantitative</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-on-surface-variant text-[16px] pointer-events-none">expand_more</span>
+</div>
+<div class="h-4 w-px bg-border-outline"></div>
+<div class="flex items-center gap-0.5 bg-surface-pure rounded-lg p-0.5 shadow-xs">
+<button class="px-2.5 py-1 rounded text-slate-body hover:text-on-surface text-caption font-caption transition-colors" onclick="setFontSize('10pt')" type="button">10pt</button>
+<button class="px-2.5 py-1 rounded bg-blue-soft text-primary-container font-caption text-caption font-semibold" onclick="setFontSize('11pt')" type="button">11pt</button>
+<button class="px-2.5 py-1 rounded text-slate-body hover:text-on-surface text-caption font-caption transition-colors" onclick="setFontSize('12pt')" type="button">12pt</button>
+</div>
+</div>
+<!-- Right Action Bar: Score Pill & Action Triggers -->
+<div class="flex items-center gap-space-sm">
+<!-- ATS Metric Chip -->
+<div class="flex items-center gap-space-xs px-3 py-1.5 bg-emerald-soft rounded-full shadow-xs cursor-help group relative" title="98% Machine Parseability">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+<span class="font-body-sm-medium text-body-sm-medium text-secondary font-semibold">ATS: 98 / 100</span>
+<span class="font-caption text-caption text-secondary">🔥</span>
+<!-- Breakdown Tooltip -->
+<div class="absolute top-full mt-2 right-0 hidden group-hover:block w-64 bg-inverse-surface text-inverse-on-surface p-3 rounded-xl shadow-xl z-50 pointer-events-none">
+<div class="flex justify-between font-caption text-caption mb-1">
+<span>Keyword Density</span>
+<span class="text-secondary-fixed">99%</span>
+</div>
+<div class="flex justify-between font-caption text-caption mb-1">
+<span>Section Hierarchy</span>
+<span class="text-secondary-fixed">100%</span>
+</div>
+<div class="flex justify-between font-caption text-caption">
+<span>Contact Machine Encoding</span>
+<span class="text-secondary-fixed">95%</span>
+</div>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-xl bg-surface-pure text-on-surface font-body-sm-medium text-body-sm-medium shadow-xs hover:bg-surface-muted transition-all active:scale-[0.98] flex items-center gap-1.5" onclick="triggerAudit()" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="hidden sm:inline">Re-score ATS</span>
+</button>
+<button class="px-space-md py-2 rounded-xl bg-primary-container text-on-primary font-body-sm-medium text-body-sm-medium shadow-sm hover:bg-primary transition-all active:scale-[0.98] flex items-center gap-1.5" onclick="exportPDF()" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Official PDF</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Workstation Canvas: 42% Editor Form vs 58% Document Render -->
+<div class="max-w-[1400px] w-full mx-auto px-gutter py-space-lg">
+<div class="flex flex-col lg:flex-row gap-space-lg items-start">
+<!-- ================= LEFT PANE: ATS EDITOR (42%) ================= -->
+<div class="w-full lg:w-[42%] flex flex-col gap-space-md order-2 lg:order-1">
+<!-- Automated Proof Import Banner -->
+<div class="rounded-2xl p-space-md bg-blue-soft/90 shadow-sm relative overflow-hidden">
+<div class="relative z-10 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-primary-container text-on-primary font-caption text-caption uppercase tracking-wider font-semibold">One-Click Cryptographic Ledger</span>
+<span class="material-symbols-outlined text-primary-container text-[20px]">auto_awesome</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-1">Autonomous Ledger Synchronization</h2>
+<p class="font-body-sm text-body-sm text-slate-body">
+              Seamlessly pull verified collegiate sprints, MD5 code proofs, and 4D assignment rubrics into clean LaTeX bullet points.
+            </p>
+<div class="mt-2 flex flex-wrap items-center gap-space-sm">
+<button class="px-space-md py-2 bg-primary-container hover:bg-primary text-on-primary font-body-sm-medium text-body-sm-medium rounded-xl shadow-xs transition-all active:scale-[0.98] flex items-center gap-1.5" onclick="syncDisheeraLedger()" type="button">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Sync Verified Ledger</span>
+</button>
+<div class="flex items-center gap-1.5 font-caption text-caption text-secondary bg-emerald-soft px-2.5 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>3 Sprints Synced (CMS 88.5% · Top 3.8%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 1: Contact Details Accordion -->
+<div class="bg-surface-pure rounded-2xl shadow-sm overflow-hidden">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-muted/50 transition-colors" onclick="toggleAccordion('sec-contact')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container">badge</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">1. Contact &amp; Identity Matrix</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform" id="sec-contact-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md flex flex-col gap-space-sm" id="sec-contact">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-name">Full Legal Name</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-name" oninput="updateResumeField('disp-name', this.value)" type="text" value="Aarav Sharma"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-email">Institutional Email</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-email" oninput="updateResumeField('disp-email', this.value)" type="email" value="aarav.sharma@iitb.ac.in"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="block font-caption text-caption text-slate-caption" for="inp-phone">Phone (ATS Format)</label>
+<span class="font-caption text-caption text-secondary flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px]">verified</span> Verified</span>
+</div>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-phone" oninput="updateResumeField('disp-phone', this.value)" type="text" value="+91 98200 41200"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-loc">Location</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-loc" oninput="updateResumeField('disp-location', this.value)" type="text" value="Mumbai, India"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-li">LinkedIn Handle</label>
+<input class="w-full px-2.5 py-1.5 bg-canvas-white rounded-lg font-code-sm text-code-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-li" oninput="updateResumeField('disp-linkedin', this.value)" type="text" value="linkedin.com/in/aarav-sharma"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-gh">GitHub Root</label>
+<input class="w-full px-2.5 py-1.5 bg-canvas-white rounded-lg font-code-sm text-code-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-gh" oninput="updateResumeField('disp-github', this.value)" type="text" value="github.com/aarav-sharma"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-ds">Disheera Ledger UID</label>
+<input class="w-full px-2.5 py-1.5 bg-canvas-white rounded-lg font-code-sm text-code-sm text-on-surface focus:outline-none focus:bg-surface-pure" id="inp-ds" oninput="updateResumeField('disp-ledger', this.value)" type="text" value="disheera.com/p/iitb-26-409"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Education Accordion -->
+<div class="bg-surface-pure rounded-2xl shadow-sm overflow-hidden">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-muted/50 transition-colors" onclick="toggleAccordion('sec-edu')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container">school</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">2. Higher Education &amp; Pedagogy</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform" id="sec-edu-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md flex flex-col gap-space-sm" id="sec-edu">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-inst">Institution</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-inst" type="text" value="Indian Institute of Technology Bombay"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-degree">Degree &amp; Major</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-degree" type="text" value="B.Tech in Computer Science &amp; Engineering"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-cgpa">Cumulative Grade Metric (CGPA)</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-cgpa" type="text" value="9.12 / 10.0"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-year">Conferment Timeline</label>
+<input class="w-full px-3 py-2 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-year" type="text" value="Expected May 2026"/>
+</div>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1.5">Core Academic Coursework Chips</label>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 bg-surface-muted rounded-md font-body-sm text-body-sm text-slate-body">Distributed Systems</span>
+<span class="px-2.5 py-1 bg-surface-muted rounded-md font-body-sm text-body-sm text-slate-body">Database Internals</span>
+<span class="px-2.5 py-1 bg-surface-muted rounded-md font-body-sm text-body-sm text-slate-body">Operating Systems</span>
+<span class="px-2.5 py-1 bg-surface-muted rounded-md font-body-sm text-body-sm text-slate-body">Reinforcement Learning</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Verified Experience & Technical Milestones Accordion -->
+<div class="bg-surface-pure rounded-2xl shadow-sm overflow-hidden">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-muted/50 transition-colors" onclick="toggleAccordion('sec-exp')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container">work_history</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">3. Verified Engineering Experience</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform" id="sec-exp-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md flex flex-col gap-space-sm" id="sec-exp">
+<div class="p-3 bg-canvas-white rounded-xl flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-body-sm-medium text-body-sm-medium text-on-surface">Disheera Collegiate Fellow — Full Stack AI Track</h3>
+<span class="font-caption text-caption text-slate-caption">Aug 2024 – Present · Accelerated Research Resident</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-emerald-soft text-secondary font-code-sm text-code-sm">#DSH-PASS-0842</span>
+</div>
+<!-- Bullet 1 -->
+<div class="mt-2">
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-slate-caption">Bullet 1: Query Latency Optimization</span>
+<span class="font-code-sm text-code-sm text-secondary">MD5 #b712a</span>
+</div>
+<textarea class="w-full p-2 bg-surface-pure rounded-lg font-body-sm text-body-sm text-on-surface resize-none focus:outline-none" rows="2">Engineered high-throughput PostgreSQL query optimization reducing seq scans on 45M rows by 72% via composite B-tree &amp; BRIN indexing.</textarea>
+</div>
+<!-- Bullet 2 -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-slate-caption">Bullet 2: Distributed State &amp; Invalidation</span>
+<span class="font-code-sm text-code-sm text-secondary">Pub/Sub Bench</span>
+</div>
+<textarea class="w-full p-2 bg-surface-pure rounded-lg font-body-sm text-body-sm text-on-surface resize-none focus:outline-none" rows="2">Architected distributed caching layer in Redis with atomic invalidation pub/sub bus, handling 14,200 req/sec at sub-5ms p99 latency.</textarea>
+</div>
+<!-- Bullet 3 -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-caption text-caption text-slate-caption">Bullet 3: Multi-Agent Orchestration</span>
+<span class="font-code-sm text-code-sm text-secondary">4D Rubric: 9.8</span>
+</div>
+<textarea class="w-full p-2 bg-surface-pure rounded-lg font-body-sm text-body-sm text-on-surface resize-none focus:outline-none" rows="2">Implemented multi-agent LangChain workflow with deterministic state machines and vector search embeddings via pgvector.</textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Technical Projects Accordion -->
+<div class="bg-surface-pure rounded-2xl shadow-sm overflow-hidden">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-muted/50 transition-colors" onclick="toggleAccordion('sec-proj')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container">terminal</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">4. Flagship Projects &amp; Systems</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform" id="sec-proj-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md flex flex-col gap-space-sm" id="sec-proj">
+<div class="p-3 bg-canvas-white rounded-xl flex flex-col gap-2">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-pname">Project Title</label>
+<input class="w-full px-3 py-1.5 bg-surface-pure rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-pname" type="text" value="Autonomous Ledger &amp; Query Optimizer"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-pstack">Stack Summary</label>
+<input class="w-full px-3 py-1.5 bg-surface-pure rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-pstack" type="text" value="Next.js 15, PostgreSQL, Redis, Docker"/>
+</div>
+</div>
+<textarea class="w-full p-2 bg-surface-pure rounded-lg font-body-sm text-body-sm text-on-surface resize-none focus:outline-none" rows="2">Constructed fault-tolerant async execution engine buffering 2M events/day with Kafka, reducing cold-start processing times by 41% across distributed workers.</textarea>
+</div>
+</div>
+</div>
+<!-- Section 5: Technical Skills Matrix -->
+<div class="bg-surface-pure rounded-2xl shadow-sm overflow-hidden">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-muted/50 transition-colors" onclick="toggleAccordion('sec-skills')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container">code_blocks</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">5. Categorized Skills Matrix</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform" id="sec-skills-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md flex flex-col gap-space-sm" id="sec-skills">
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-languages">Programming Languages</label>
+<input class="w-full px-3 py-1.5 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-languages" type="text" value="TypeScript, JavaScript, Python, C++, Go, SQL (PostgreSQL)"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-frameworks">Frameworks &amp; Libraries</label>
+<input class="w-full px-3 py-1.5 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-frameworks" type="text" value="React 19, Next.js 15, Node.js, Express, LangChain, Tailwind CSS"/>
+</div>
+<div>
+<label class="block font-caption text-caption text-slate-caption mb-1" for="inp-infra">Databases, Cloud &amp; Tooling</label>
+<input class="w-full px-3 py-1.5 bg-canvas-white rounded-lg font-body-sm text-body-sm text-on-surface" id="inp-infra" type="text" value="Redis, pgvector, Docker, Kubernetes, Git, GitHub Actions, AWS, Linux, LaTeX"/>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT PANE: LIVE ATS LATEX PAPER PREVIEW (58%) ================= -->
+<div class="w-full lg:w-[58%] sticky top-36 flex flex-col items-center order-1 lg:order-2">
+<!-- Viewer Chamber Header Bar with Zoom Micro-Controls -->
+<div class="w-full flex items-center justify-between mb-3 px-1">
+<div class="flex items-center gap-space-sm">
+<span class="font-caption text-caption uppercase tracking-wider text-slate-caption font-semibold">Live ATS Compilation Chamber</span>
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+</div>
+<!-- Floating Zoom Controls -->
+<div class="flex items-center gap-1 bg-surface-pure shadow-sm px-2 py-1 rounded-xl">
+<button aria-label="Zoom Out" class="w-7 h-7 flex items-center justify-center text-slate-body hover:text-on-surface rounded hover:bg-surface-muted transition-colors" onclick="adjustZoom(-0.05)" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-code-sm text-code-sm text-on-surface px-1 min-w-[42px] text-center" id="zoomLevelDisplay">100%</span>
+<button aria-label="Zoom In" class="w-7 h-7 flex items-center justify-center text-slate-body hover:text-on-surface rounded hover:bg-surface-muted transition-colors" onclick="adjustZoom(0.05)" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+<div class="h-3 w-px bg-border-outline mx-0.5"></div>
+<button class="px-2 py-1 font-caption text-caption text-primary-container hover:bg-blue-soft rounded transition-colors" onclick="resetZoom()" type="button">Fit Paper</button>
+</div>
+</div>
+<!-- Document Sheet Chamber (Grey Canvas Floor) -->
+<div class="w-full bg-[#EAEEF5] rounded-3xl p-4 sm:p-8 flex justify-center shadow-inner overflow-x-auto max-h-[calc(100vh-170px)] overflow-y-auto">
+<!-- Authentic 8.5" x 11" Clean Paper Sheet Container -->
+<div class="w-full max-w-[800px] bg-white text-[#0F172A] shadow-[0_12px_40px_rgba(15,23,42,0.08)] rounded-xs p-8 sm:p-12 transition-transform origin-top" id="resumeSheet" style="font-family: 'Times New Roman', Times, Georgia, serif;">
+<!-- LATEX RESUME HEADER -->
+<div class="text-center pb-2">
+<div class="text-[24px] font-bold tracking-[1.5px] uppercase text-[#0F172A] leading-tight" id="disp-name">
+                AARAV SHARMA
+              </div>
+<div class="text-[11px] leading-[18px] text-[#334155] mt-1 flex flex-wrap justify-center items-center gap-x-1.5 font-normal">
+<span id="disp-location">Mumbai, India</span>
+<span class="text-[#94A3B8]">•</span>
+<span id="disp-phone">+91 98200 41200</span>
+<span class="text-[#94A3B8]">•</span>
+<a class="text-[#0F172A] hover:underline" href="mailto:aarav.sharma@iitb.ac.in" id="disp-email">aarav.sharma@iitb.ac.in</a>
+<span class="text-[#94A3B8]">•</span>
+<a class="text-[#0F172A] hover:underline" href="#" id="disp-linkedin">linkedin.com/in/aarav-sharma</a>
+<span class="text-[#94A3B8]">•</span>
+<a class="text-[#0F172A] hover:underline" href="#" id="disp-github">github.com/aarav-sharma</a>
+<span class="text-[#94A3B8]">•</span>
+<a class="text-[#0F172A] hover:underline font-semibold" href="#" id="disp-ledger">disheera.com/p/iitb-26-409</a>
+</div>
+</div>
+<!-- LATEX SECTION 1: EDUCATION -->
+<div class="mt-4">
+<div class="text-[12px] font-bold tracking-[1.2px] uppercase text-[#0F172A] pb-0.5" style="border-bottom: 1px solid #0F172A;">
+                EDUCATION
+              </div>
+<div class="mt-2 text-[11px] leading-[17px]">
+<div class="flex justify-between items-baseline font-bold text-[#0F172A]">
+<span>Indian Institute of Technology Bombay</span>
+<span>Mumbai, India</span>
+</div>
+<div class="flex justify-between items-baseline italic text-[#334155]">
+<span>Bachelor of Technology in Computer Science and Engineering; CGPA: 9.12 / 10.0</span>
+<span class="not-italic font-medium">Expected May 2026</span>
+</div>
+<div class="text-[10.5px] text-[#475569] mt-0.5">
+<span class="font-semibold text-[#0F172A]">Key Coursework:</span> Distributed Systems, Database Internals, Operating Systems, Machine Learning, Data Structures &amp; Algorithms.
+                </div>
+</div>
+</div>
+<!-- LATEX SECTION 2: VERIFIED TECHNICAL CURRICULUM & HONORS -->
+<div class="mt-4">
+<div class="text-[12px] font-bold tracking-[1.2px] uppercase text-[#0F172A] pb-0.5" style="border-bottom: 1px solid #0F172A;">
+                VERIFIED TECHNICAL CURRICULUM &amp; EXPERIENCE
+              </div>
+<!-- Experience Entry 1 -->
+<div class="mt-2 text-[11px] leading-[17px]">
+<div class="flex justify-between items-baseline font-bold text-[#0F172A]">
+<span>Disheera Collegiate Labs — Full Stack AI Track</span>
+<span>Aug 2024 – Present</span>
+</div>
+<div class="flex justify-between items-baseline italic text-[#334155]">
+<span>Collegiate Fellow &amp; Core Systems Resident</span>
+<span class="not-italic font-mono text-[9.5px] text-[#006d44] bg-[#ECFDF5] px-1 py-0.5 rounded">#DSH-PASS-2025-0842</span>
+</div>
+<div class="text-[10px] text-[#64748B] italic mt-0.5">
+                  Autonomous Merit Score: 88.5% (Tier-1 Cohort Benchmark: Top 3.8%) · Verified Cryptographic Ledger
+                </div>
+<ul class="list-disc ml-4 mt-1 space-y-1 text-[11px] text-[#1E293B]">
+<li>
+                    Engineered high-throughput PostgreSQL query optimization reducing sequential scans across 45M rows by <span class="font-semibold text-[#0F172A]">72%</span> via composite B-tree and BRIN indexing (<span class="font-mono text-[10px]">MD5 Proof #b712a</span>).
+                  </li>
+<li>
+                    Architected distributed caching tier using Redis with atomic invalidation pub/sub bus, handling <span class="font-semibold text-[#0F172A]">14,200 req/sec</span> at sub-5ms p99 latency without master replication drift.
+                  </li>
+<li>
+                    Implemented multi-agent LangChain workflow with deterministic state machines and vector search embeddings via pgvector, accelerating document retrieval by <span class="font-semibold text-[#0F172A]">3.4x</span>.
+                  </li>
+</ul>
+</div>
+</div>
+<!-- LATEX SECTION 3: TECHNICAL PROJECTS -->
+<div class="mt-4">
+<div class="text-[12px] font-bold tracking-[1.2px] uppercase text-[#0F172A] pb-0.5" style="border-bottom: 1px solid #0F172A;">
+                SELECTED TECHNICAL PROJECTS
+              </div>
+<div class="mt-2 text-[11px] leading-[17px]">
+<div class="flex justify-between items-baseline">
+<div>
+<span class="font-bold text-[#0F172A]">Autonomous Ledger &amp; Query Optimizer</span>
+<span class="text-[#64748B]"> | </span>
+<span class="italic text-[#475569]">Next.js 15, PostgreSQL, Redis, Docker, Go</span>
+</div>
+<span class="font-medium text-[#334155]">Oct 2024</span>
+</div>
+<ul class="list-disc ml-4 mt-1 space-y-1 text-[11px] text-[#1E293B]">
+<li>
+                    Constructed a fault-tolerant async execution engine buffering <span class="font-semibold text-[#0F172A]">2,000,000 events/day</span> using message queuing, dropping cold-start compute costs by 41%.
+                  </li>
+<li>
+                    Designed automated stress testing harness running concurrent k6 benchmarks under variable packet drop conditions, verifying zero data corruption in ledger audit writes.
+                  </li>
+</ul>
+</div>
+<div class="mt-3 text-[11px] leading-[17px]">
+<div class="flex justify-between items-baseline">
+<div>
+<span class="font-bold text-[#0F172A]">Vector-Index Sharded Cache</span>
+<span class="text-[#64748B]"> | </span>
+<span class="italic text-[#475569]">Python, C++, FastAPI, pgvector, FAISS</span>
+</div>
+<span class="font-medium text-[#334155]">Dec 2024</span>
+</div>
+<ul class="list-disc ml-4 mt-1 space-y-1 text-[11px] text-[#1E293B]">
+<li>
+                    Engineered custom C++ embedding quantization extension reducing memory overhead of HNSW index by <span class="font-semibold text-[#0F172A]">54%</span> while preserving 99.1% top-k recall accuracy.
+                  </li>
+</ul>
+</div>
+</div>
+<!-- LATEX SECTION 4: TECHNICAL SKILLS -->
+<div class="mt-4">
+<div class="text-[12px] font-bold tracking-[1.2px] uppercase text-[#0F172A] pb-0.5" style="border-bottom: 1px solid #0F172A;">
+                TECHNICAL SKILLS
+              </div>
+<div class="mt-2 text-[11px] leading-[18px] text-[#1E293B] space-y-0.5">
+<div>
+<span class="font-bold text-[#0F172A]">Languages:</span> TypeScript, JavaScript, Python, C++, Go, SQL (PostgreSQL, SQLite), HTML/CSS
+                </div>
+<div>
+<span class="font-bold text-[#0F172A]">Frameworks &amp; Libraries:</span> React 19, Next.js 15, Node.js, Express, FastAPI, LangChain, Tailwind CSS
+                </div>
+<div>
+<span class="font-bold text-[#0F172A]">Infrastructure &amp; Tools:</span> Redis, pgvector, Docker, Kubernetes, Git, GitHub Actions, AWS (S3, ECS), Linux, LaTeX
+                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Real-Time ATS Algorithm Validation Banner -->
+<div class="mt-3 flex items-center gap-space-xs px-4 py-2 bg-surface-pure rounded-full shadow-xs text-slate-caption font-caption text-caption">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified_user</span>
+<span>Validated for 100% parseability by <strong>Workday</strong>, <strong>Greenhouse</strong>, <strong>Lever</strong>, and <strong>Taleo</strong> ATS parsers.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Toast Container -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-on-surface text-surface-pure shadow-xl" id="toastMessage">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]" id="toastIcon">check_circle</span>
+<span class="font-body-sm-medium text-body-sm-medium" id="toastText">Ledger Synced successfully</span>
+</div>
+</div>
+<script>
+  let currentZoom = 1.0;
+
+  function toggleAccordion(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id + '-icon');
+    if (!el) return;
+    
+    if (el.classList.contains('hidden')) {
+      el.classList.remove('hidden');
+      if (icon) icon.style.transform = 'rotate(0deg)';
+    } else {
+      el.classList.add('hidden');
+      if (icon) icon.style.transform = 'rotate(180deg)';
+    }
+  }
+
+  function adjustZoom(delta) {
+    currentZoom = Math.min(Math.max(0.7, currentZoom + delta), 1.3);
+    applyZoom();
+  }
+
+  function resetZoom() {
+    currentZoom = 1.0;
+    applyZoom();
+  }
+
+  function applyZoom() {
+    const sheet = document.getElementById('resumeSheet');
+    const display = document.getElementById('zoomLevelDisplay');
+    if (sheet) {
+      sheet.style.transform = `scale(${currentZoom})`;
+    }
+    if (display) {
+      display.textContent = `${Math.round(currentZoom * 100)}%`;
+    }
+  }
+
+  function setFontSize(size) {
+    const sheet = document.getElementById('resumeSheet');
+    if (!sheet) return;
+    if (size === '10pt') {
+      sheet.style.fontSize = '90%';
+    } else if (size === '11pt') {
+      sheet.style.fontSize = '100%';
+    } else if (size === '12pt') {
+      sheet.style.fontSize = '110%';
+    }
+    showToast(`Font baseline set to ${size}`);
+  }
+
+  function updateResumeField(targetId, val) {
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.textContent = val;
+    }
+  }
+
+  function syncDisheeraLedger() {
+    showToast('Autonomous Ledger Sync complete. 3 verified proofs injected.');
+  }
+
+  function triggerAudit() {
+    showToast('ATS Scoring refreshed: 98 / 100 with zero unparsed entities.');
+  }
+
+  function exportPDF() {
+    showToast('Generating pixel-accurate ATS-compliant PDF with embedded OCR...');
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toastMessage');
+    const toastText = document.getElementById('toastText');
+    if (!toast || !toastText) return;
+
+    toastText.textContent = msg;
+    toast.classList.remove('translate-y-24', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-24', 'opacity-0');
+    }, 2800);
+  }
+</script></main><footer class="w-full bg-surface-pure shadow-[0_-1px_6px_rgba(0,0,0,0.02)] mt-space-2xl"><div class="w-full max-w-[1400px] mx-auto px-gutter py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><span class="font-caption text-caption text-slate-caption">© 2025 Disheera Academic Technologies. Built for institutional rigor and ATS compliance.</span></div><div class="flex items-center gap-space-lg font-caption text-caption text-slate-caption"><a class="hover:text-primary transition-colors" href="#">Institutional Verification</a><a class="hover:text-primary transition-colors" href="#">ATS Parser Specs</a><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></div></div></footer></body></html>
