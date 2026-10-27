@@ -75,7 +75,7 @@
         "properties": {
           "certificateId": {
             "type": "string",
-            "description": "Unique certificate identifier to verify, e.g., 'CP-2026-VRF892' or 'CP-BCA-2025-9921'"
+            "description": "Credential identifier to verify."
           }
         },
         "required": ["certificateId"]

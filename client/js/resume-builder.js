@@ -1381,31 +1381,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   btnClearResume?.addEventListener('click', handleClearResume);
   btnClearResumeQuick?.addEventListener('click', handleClearResume);
 
-  // ── Load Sample Template for Inspiration Handler ──────────────
-  if (btnLoadSampleTemplate) {
-    btnLoadSampleTemplate.addEventListener('click', async () => {
-      const confirmed = confirm('Load sample student resume for inspiration? This will replace your current fields with an example structure.');
-      if (!confirmed) return;
-
-      setSaveStatus('saving', 'Loading sample...');
-      try {
-        const res = await window.API.post('/resume/builder/sample', {}, { auth: true });
-        if (res.success && res.data) {
-          resumeData = res.data;
-          try {
-            localStorage.setItem(getStorageKey(), JSON.stringify(resumeData));
-          } catch (_) {}
-          populateFormFields();
-          renderResumePreview();
-          setSaveStatus('saved', 'Sample Template Ready');
-        }
-      } catch (err) {
-        alert('Failed to load sample: ' + err.message);
-        setSaveStatus('saved', 'Error');
-      }
-    });
-  }
-
   if (btnImportGithubRepos) {
     btnImportGithubRepos.addEventListener('click', async () => {
       btnImportGithubRepos.disabled = true;

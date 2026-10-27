@@ -101,16 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const auditIssuer = document.getElementById('auditIssuer');
     const auditHash = document.getElementById('auditHash');
 
-    if (metaCertId) metaCertId.textContent = `ID: ${data.certificateId}`;
-    if (verifiedStudentName) verifiedStudentName.textContent = data.studentName;
-    if (verifiedRoleTitle) verifiedRoleTitle.textContent = data.targetRole;
-    if (verifiedScoreBadge) verifiedScoreBadge.textContent = `${data.readinessScore}% · ${data.tierLabel || '🔥 JOB READY CERTIFIED'}`;
+    if (metaCertId) metaCertId.textContent = `ID: ${data.certificateId || '—'}`;
+    if (verifiedStudentName) verifiedStudentName.textContent = data.studentName || '—';
+    if (verifiedRoleTitle) verifiedRoleTitle.textContent = data.targetRole || '—';
+    if (verifiedScoreBadge) verifiedScoreBadge.textContent = data.readinessScore != null && Number.isFinite(Number(data.readinessScore)) ? `${Number(data.readinessScore)}% · ${data.tierLabel || 'JOB READY'}` : '—';
 
     const bd = data.breakdown || {};
-    if (metricSkills) metricSkills.textContent = `${bd.verifiedSkills ?? 100}%`;
-    if (metricRoadmap) metricRoadmap.textContent = `${bd.roadmapProgress ?? 100}%`;
-    if (metricResume) metricResume.textContent = `${bd.resumeScore ?? 92}%`;
-    if (metricInterview) metricInterview.textContent = `${bd.interviewScore ?? 90}%`;
+    if (metricSkills) metricSkills.textContent = bd.verifiedSkills != null && Number.isFinite(Number(bd.verifiedSkills)) ? `${Number(bd.verifiedSkills)}%` : '—';
+    if (metricRoadmap) metricRoadmap.textContent = bd.roadmapProgress != null && Number.isFinite(Number(bd.roadmapProgress)) ? `${Number(bd.roadmapProgress)}%` : '—';
+    if (metricResume) metricResume.textContent = bd.resumeScore != null && Number.isFinite(Number(bd.resumeScore)) ? `${Number(bd.resumeScore)}%` : '—';
+    if (metricInterview) metricInterview.textContent = bd.interviewScore != null && Number.isFinite(Number(bd.interviewScore)) ? `${Number(bd.interviewScore)}%` : '—';
 
     if (verifiedSkillsContainer) {
       const skills = Array.isArray(data.verifiedSkills) ? data.verifiedSkills : [];
@@ -121,25 +121,25 @@ document.addEventListener('DOMContentLoaded', () => {
       `).join('');
     }
 
-    const d = data.certifiedAt ? new Date(data.certifiedAt) : new Date();
+    const d = data.certifiedAt ? new Date(data.certifiedAt) : null;
     if (verifiedIssueDate) {
-      verifiedIssueDate.textContent = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      verifiedIssueDate.textContent = d && !Number.isNaN(d.getTime()) ? d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—';
     }
     if (verifiedIdText) verifiedIdText.textContent = data.certificateId;
 
     if (verifiedQrImg) {
       const currentUrl = window.location.href;
-      verifiedQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=0&data=${encodeURIComponent(currentUrl)}`;
-      verifiedQrImg.alt = `QR Code for ${data.certificateId}`;
+      verifiedQrImg.src = data.certificateId ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=0&data=${encodeURIComponent(currentUrl)}` : '';
+      verifiedQrImg.alt = data.certificateId ? `QR Code for ${data.certificateId}` : 'No verification QR is available';
     }
 
-    const hashStr = data.tamperProofHash || 'CC44899A307E2F2C5061A29F4E8DB710294CAE081943892F3E768499B0182CDE';
-    if (verifiedShaHash) verifiedShaHash.textContent = hashStr.slice(0, 18) + '...';
-    if (auditHash) auditHash.textContent = hashStr;
+    const hashStr = data.tamperProofHash || '';
+    if (verifiedShaHash) verifiedShaHash.textContent = hashStr ? hashStr.slice(0, 18) + '...' : '—';
+    if (auditHash) auditHash.textContent = hashStr || '—';
 
-    if (auditCandidate) auditCandidate.textContent = data.studentName;
-    if (auditRole) auditRole.textContent = data.targetRole;
-    if (auditIssuer) auditIssuer.textContent = data.issuer || 'Disheera Global Credential Registry';
+    if (auditCandidate) auditCandidate.textContent = data.studentName || '—';
+    if (auditRole) auditRole.textContent = data.targetRole || '—';
+    if (auditIssuer) auditIssuer.textContent = data.issuer || 'Disheera';
 
     // Configure Action Buttons
     const btnCopyRecord = document.getElementById('btnCopyRecord');
@@ -170,12 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAddLinkedIn = document.getElementById('btnAddLinkedIn');
     if (btnAddLinkedIn) {
       btnAddLinkedIn.onclick = () => {
-        const issueYear = d.getFullYear();
-        const issueMonth = d.getMonth() + 1;
+        const issueDateParams = d && !Number.isNaN(d.getTime()) ? `&issueYear=${d.getFullYear()}&issueMonth=${d.getMonth() + 1}` : '';
+        if (!data.certificateId) return;
         const addLinkedInUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME` +
           `&name=${encodeURIComponent('Verified Job Ready: ' + data.targetRole)}` +
           `&organizationName=${encodeURIComponent('Disheera')}` +
-          `&issueYear=${issueYear}&issueMonth=${issueMonth}` +
+          issueDateParams +
           `&certId=${encodeURIComponent(data.certificateId)}` +
           `&certUrl=${encodeURIComponent(window.location.href)}`;
 

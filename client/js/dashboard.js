@@ -759,30 +759,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     const certMetricInterview = document.getElementById('certMetricInterview');
 
     const user = dashboardData?.user || window.Auth?.getUser();
-    if (certStudentName) certStudentName.textContent = user?.name || 'Verified Scholar';
-    if (certCareerTitle) certCareerTitle.textContent = cp.role || cp.careerTitle || 'Graduated Track';
-    if (certReadinessScore) certReadinessScore.textContent = '100% · 🔥 GRADUATED SPECIALIST';
-    if (certVerificationId) certVerificationId.textContent = cp.credentialId || `CP-CERT-${String(cp.roadmap || 'VRF892').slice(-8).toUpperCase()}`;
+    if (certStudentName) certStudentName.textContent = user?.name || '—';
+    if (certCareerTitle) certCareerTitle.textContent = cp.role || cp.careerTitle || '—';
+    if (certReadinessScore) certReadinessScore.textContent = 'Completed roadmap';
+    if (certVerificationId) certVerificationId.textContent = cp.credentialId || '—';
 
-    const dateVal = cp.completionDate ? new Date(cp.completionDate) : new Date();
+    const dateVal = cp.completionDate ? new Date(cp.completionDate) : null;
     if (certIssueDate) {
-      certIssueDate.textContent = dateVal.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      certIssueDate.textContent = dateVal && !Number.isNaN(dateVal.getTime()) ? dateVal.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—';
     }
 
-    if (certMetricSkills) certMetricSkills.textContent = '100%';
-    if (certMetricRoadmap) certMetricRoadmap.textContent = '100%';
-    if (certMetricResume) certMetricResume.textContent = '95%';
-    if (certMetricInterview) certMetricInterview.textContent = '92%';
+    if (certMetricSkills) certMetricSkills.textContent = '—';
+    if (certMetricRoadmap) certMetricRoadmap.textContent = '—';
+    if (certMetricResume) certMetricResume.textContent = '—';
+    if (certMetricInterview) certMetricInterview.textContent = '—';
 
     if (certSkillsContainer) {
-      const skills = Array.isArray(cp.skillsGained) && cp.skillsGained.length > 0
-        ? cp.skillsGained
-        : ['Full-Stack Implementation', 'Architecture & System Design', 'Automated Testing', 'Production Deployment'];
-      certSkillsContainer.innerHTML = skills.map((s) => `
+      const skills = Array.isArray(cp.skillsGained) ? cp.skillsGained.filter(Boolean) : [];
+      certSkillsContainer.innerHTML = skills.length ? skills.map((skill) => `
         <span class="cert-skill-pill">
-          <i class="bi bi-patch-check-fill text-warning me-1"></i>${escapeHtml(typeof s === 'string' ? s : s.name || 'Skill')}
+          <i class="bi bi-patch-check-fill text-warning me-1"></i>${escapeHtml(typeof skill === 'string' ? skill : skill.name || 'Skill')}
         </span>
-      `).join(' ');
+      `).join(' ') : 'No verified skills recorded';
+    }
+
+    const pathCertId = cp.credentialId || '';
+    const pathVerifyLink = document.getElementById('certVerifyLink');
+    const pathQrCode = document.getElementById('certQrCodeImg');
+    if (pathVerifyLink) {
+      pathVerifyLink.href = pathCertId ? `verify.html?certId=${encodeURIComponent(pathCertId)}` : 'verify.html';
+      pathVerifyLink.textContent = pathCertId ? `verify.html?certId=${pathCertId}` : 'Open verification page';
+    }
+    if (pathQrCode) {
+      pathQrCode.src = pathCertId ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=0&data=${encodeURIComponent(`${window.location.origin}/verify.html?certId=${pathCertId}`)}` : '';
+      pathQrCode.alt = pathCertId ? `Scan to verify credential ${pathCertId}` : 'No verification QR is available';
     }
 
     const modalEl = document.getElementById('certificateModal');
@@ -2143,94 +2153,55 @@ document.addEventListener('DOMContentLoaded', async () => {
       const certShaHash = document.getElementById('certShaHash');
 
       const user = dashboardData?.user || window.Auth?.getUser();
-      const targetRole = data.targetRole || dashboardData?.activeRoadmap?.career?.title || 'Financial Analyst & Modeler';
-      const displayScore = isAdminUser ? Math.max(score, 94) : score;
-      const certId = jobReadyEval?.certificateId || data.certificateId || ('CP-2026-' + (user?._id || user?.id || 'VRF892').slice(-6).toUpperCase());
+      const targetRole = data.targetRole || dashboardData?.activeRoadmap?.career?.title || '—';
+      const displayScore = score;
+      const certId = jobReadyEval?.certificateId || data.certificateId || '';
 
-      if (certStudentName) certStudentName.textContent = user?.name || 'Parth Patil';
+      if (certStudentName) certStudentName.textContent = user?.name || '—';
       if (certCareerTitle) certCareerTitle.textContent = targetRole;
-      if (certReadinessScore) certReadinessScore.textContent = `${displayScore}% · 🔥 JOB READY CERTIFIED`;
+      if (certReadinessScore) certReadinessScore.textContent = Number.isFinite(displayScore) ? `${displayScore}% · JOB READY` : '—';
       if (certVerificationId) certVerificationId.textContent = certId;
       
-      const d = (jobReadyEval?.certifiedAt || data.certifiedAt) ? new Date(jobReadyEval?.certifiedAt || data.certifiedAt) : new Date('2026-10-01T10:00:00.000Z');
+      const rawCertifiedAt = jobReadyEval?.certifiedAt || data.certifiedAt;
+      const d = rawCertifiedAt ? new Date(rawCertifiedAt) : null;
       if (certIssueDate) {
-        certIssueDate.textContent = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        certIssueDate.textContent = d && !Number.isNaN(d.getTime()) ? d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—';
       }
 
       // 4-Pillar Scorecard Metrics
       const bd = data.breakdown || {};
-      if (certMetricSkills) certMetricSkills.textContent = `${isAdminUser ? 100 : (bd.verifiedSkills ?? 100)}%`;
-      if (certMetricRoadmap) certMetricRoadmap.textContent = `${isAdminUser ? 100 : (bd.roadmapProgress ?? 100)}%`;
-      if (certMetricResume) certMetricResume.textContent = `${isAdminUser ? 92 : (bd.resumeScore ?? 92)}%`;
-      if (certMetricInterview) certMetricInterview.textContent = `${isAdminUser ? 90 : (bd.interviewScore ?? 90)}%`;
+      if (certMetricSkills) certMetricSkills.textContent = bd.verifiedSkills != null && Number.isFinite(Number(bd.verifiedSkills)) ? `${Number(bd.verifiedSkills)}%` : '—';
+      if (certMetricRoadmap) certMetricRoadmap.textContent = bd.roadmapProgress != null && Number.isFinite(Number(bd.roadmapProgress)) ? `${Number(bd.roadmapProgress)}%` : '—';
+      if (certMetricResume) certMetricResume.textContent = bd.resumeScore != null && Number.isFinite(Number(bd.resumeScore)) ? `${Number(bd.resumeScore)}%` : '—';
+      if (certMetricInterview) certMetricInterview.textContent = bd.interviewScore != null && Number.isFinite(Number(bd.interviewScore)) ? `${Number(bd.interviewScore)}%` : '—';
 
-      // Role Competencies Alignment (Fixing Skill-Domain Mismatch)
-      const ROLE_COMPETENCY_DICTIONARY = {
-        financial: ['Financial Modeling', 'DCF Valuation', 'Corporate Accounting', 'Excel & VBA', 'Python for Finance'],
-        finance: ['Financial Modeling', 'DCF Valuation', 'Corporate Accounting', 'Excel & VBA', 'Python for Finance'],
-        analyst: ['Financial Modeling', 'DCF Valuation', 'Corporate Accounting', 'Excel & VBA', 'Python for Finance'],
-        investment: ['M&A Valuation', 'LBO Modeling', 'Capital Markets', 'Pitchbook Presentation', 'Financial Due Diligence'],
-        data: ['Machine Learning', 'Python', 'Statistical Inference', 'Pandas & NumPy', 'SQL Analytics'],
-        developer: ['Full-Stack Architecture', 'JavaScript / Node.js', 'React', 'REST APIs', 'Cloud Deployment'],
-        software: ['Full-Stack Architecture', 'JavaScript / Node.js', 'React', 'REST APIs', 'Cloud Deployment'],
-        cloud: ['AWS Cloud Infrastructure', 'Kubernetes Orchestration', 'Terraform (IaC)', 'CI/CD Pipelines', 'Zero Trust Architecture'],
-        cyber: ['Network Security', 'Vulnerability Assessment', 'Penetration Testing', 'SIEM Operations', 'Applied Cryptography']
-      };
-
-      const roleKey = Object.keys(ROLE_COMPETENCY_DICTIONARY).find(k => targetRole.toLowerCase().includes(k));
-      let roleSkills = [];
-
-      if (roleKey) {
-        roleSkills = ROLE_COMPETENCY_DICTIONARY[roleKey];
-      } else {
-        const roadmapSkills = (dashboardData?.activeRoadmap?.career?.requiredSkills || []).map(rs => rs.skill?.name || rs.name || rs.skillName || rs);
-        if (roadmapSkills.length > 0) {
-          roleSkills = roadmapSkills.slice(0, 5);
-        } else {
-          const verified = (user?.skills || []).filter(s => s.isVerified || s.isCodeVerified || s.isQuizVerified);
-          if (verified.length > 0) {
-            roleSkills = verified.slice(0, 5).map(s => s.displayName || s.name);
-          } else {
-            roleSkills = ['Applied Industry Practice', 'Milestone Completion', 'Technical Review', 'Core Competencies'];
-          }
-        }
-      }
+      const roadmapSkills = (dashboardData?.activeRoadmap?.career?.requiredSkills || []).map(rs => rs.skill?.name || rs.name || rs.skillName || rs);
+      const verified = (user?.skills || []).filter(item => item.isVerified || item.isCodeVerified || item.isQuizVerified);
+      const roleSkills = roadmapSkills.length ? roadmapSkills.slice(0, 5) : verified.slice(0, 5).map(item => item.displayName || item.name).filter(Boolean);
 
       if (certSkillsContainer) {
-        certSkillsContainer.innerHTML = roleSkills.map(s => `
+        certSkillsContainer.innerHTML = roleSkills.length ? roleSkills.map(skill => `
           <span class="cert-skill-pill">
-            <i class="bi bi-patch-check-fill text-warning me-1"></i>${escapeHtml(s)}
+            <i class="bi bi-patch-check-fill text-warning me-1"></i>${escapeHtml(skill)}
           </span>
-        `).join('');
+        `).join('') : 'No verified skills recorded';
       }
 
       // Public Verification URL & Scannable QR Code
       const verifyPortalUrl = `${window.location.origin}/verify.html?certId=${encodeURIComponent(certId)}`;
       if (certQrCodeImg) {
-        certQrCodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=0&data=${encodeURIComponent(verifyPortalUrl)}`;
-        certQrCodeImg.alt = `Scan with mobile camera to verify credential ${certId}`;
+        certQrCodeImg.src = certId ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=0&data=${encodeURIComponent(verifyPortalUrl)}` : '';
+        certQrCodeImg.alt = certId ? `Scan to verify credential ${certId}` : 'No verification QR is available';
       }
       if (certVerifyLink) {
-        certVerifyLink.href = `verify.html?certId=${encodeURIComponent(certId)}`;
-        certVerifyLink.textContent = `verify.html?certId=${certId}`;
+        certVerifyLink.href = certId ? `verify.html?certId=${encodeURIComponent(certId)}` : 'verify.html';
+        certVerifyLink.textContent = certId ? `verify.html?certId=${certId}` : 'Open verification page';
       }
 
-      // Deterministic Tamper-Proof SHA-256 Ledger Hash
-      const seedStr = `${certId}|${user?.name || 'Parth Patil'}|${targetRole}|${d.toISOString()}|Team404`;
-      let hashNum = 0;
-      for (let i = 0; i < seedStr.length; i++) {
-        hashNum = ((hashNum << 5) - hashNum) + seedStr.charCodeAt(i);
-        hashNum |= 0;
-      }
-      const p1 = Math.abs(hashNum).toString(16).padStart(8, '0').toUpperCase();
-      const p2 = (Math.abs(hashNum * 37 + 13) >>> 0).toString(16).padStart(8, '0').toUpperCase();
-      const p3 = (Math.abs(hashNum * 59 + 41) >>> 0).toString(16).padStart(8, '0').toUpperCase();
-      const p4 = (Math.abs(hashNum * 97 + 73) >>> 0).toString(16).padStart(8, '0').toUpperCase();
-      const fullHash = `${p1}${p2}${p3}${p4}CC44899A307E2F2C5061A29F4E8D`.slice(0, 64);
-
+      const fullHash = jobReadyEval?.tamperProofHash || data.tamperProofHash || '';
       if (certShaHash) {
-        certShaHash.textContent = fullHash.slice(0, 18) + '...';
-        certShaHash.title = `Tamper-Proof Ledger Hash (SHA-256): ${fullHash}`;
+        certShaHash.textContent = fullHash ? `${fullHash.slice(0, 18)}...` : '—';
+        certShaHash.title = fullHash ? `SHA-256: ${fullHash}` : 'No verification hash is available.';
       }
     } catch (err) {
       console.warn('Failed to load readiness index:', err);
@@ -3549,7 +3520,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnCopy = document.getElementById('btnCopyCertLink');
     if (btnCopy) {
       btnCopy.onclick = () => {
-        const certId = document.getElementById('certVerificationId')?.textContent?.trim() || 'CP-2026-VRF892';
+        const certId = document.getElementById('certVerificationId')?.textContent?.trim() || '';
+        if (!certId || certId === '—') { showAlert('No issued credential is available yet.', 'info'); return; }
         const verifyUrl = `${window.location.origin}/verify.html?certId=${encodeURIComponent(certId)}`;
         if (navigator.clipboard) {
           navigator.clipboard.writeText(verifyUrl).then(() => {
@@ -3567,18 +3539,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnLinkedIn = document.getElementById('btnAddLinkedInCert');
     if (btnLinkedIn) {
       btnLinkedIn.onclick = () => {
-        const certId = document.getElementById('certVerificationId')?.textContent?.trim() || 'CP-2026-VRF892';
-        const role = document.getElementById('certCareerTitle')?.textContent?.trim() || 'Financial Analyst & Modeler';
+        const certId = document.getElementById('certVerificationId')?.textContent?.trim() || '';
+        const role = document.getElementById('certCareerTitle')?.textContent?.trim() || '';
+        if (!certId || certId === '—') { showAlert('No issued credential is available yet.', 'info'); return; }
         const verifyUrl = `${window.location.origin}/verify.html?certId=${encodeURIComponent(certId)}`;
-        const issueDate = new Date();
-        const issueYear = issueDate.getFullYear();
-        const issueMonth = issueDate.getMonth() + 1;
+        const issueDate = new Date(document.getElementById('certIssueDate')?.textContent?.trim() || '');
+        const issueDateParams = !Number.isNaN(issueDate.getTime()) ? `&issueYear=${issueDate.getFullYear()}&issueMonth=${issueDate.getMonth() + 1}` : '';
 
         // Official LinkedIn profile certification pre-fill endpoint
         const addLinkedInUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME` +
           `&name=${encodeURIComponent('Verified Job Ready: ' + role)}` +
           `&organizationName=${encodeURIComponent('Disheera')}` +
-          `&issueYear=${issueYear}&issueMonth=${issueMonth}` +
+          issueDateParams +
           `&certId=${encodeURIComponent(certId)}` +
           `&certUrl=${encodeURIComponent(verifyUrl)}`;
 
@@ -3716,8 +3688,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnShareLegacy = document.getElementById('btnShareCertificate');
     if (btnShareLegacy) {
       btnShareLegacy.onclick = () => {
-        const certId = document.getElementById('certVerificationId')?.textContent?.trim() || 'CP-2026-VRF892';
-        const role = document.getElementById('certCareerTitle')?.textContent?.trim() || 'Financial Analyst & Modeler';
+        const certId = document.getElementById('certVerificationId')?.textContent?.trim() || '';
+        const role = document.getElementById('certCareerTitle')?.textContent?.trim() || '';
+        if (!certId || certId === '—') { showAlert('No issued credential is available yet.', 'info'); return; }
         const verifyUrl = `${window.location.origin}/verify.html?certId=${encodeURIComponent(certId)}`;
         const shareText = `🎓 Verified Job Ready in ${role} on Disheera! Credential ID: ${certId}. Verify at: ${verifyUrl}`;
         const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(verifyUrl)}&summary=${encodeURIComponent(shareText)}`;

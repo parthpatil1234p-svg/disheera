@@ -56,7 +56,7 @@
                       <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-weight: 700; border-radius: 12px; font-size: 0.75rem;">
                         NATIONAL MERIT STANDINGS
                       </span>
-                      <span class="badge bg-light text-secondary border font-monospace small">Plan 46 CMS Engine</span>
+                      <span class="badge bg-light text-secondary border font-monospace small">Career Progress</span>
                     </div>
                     <h4 class="modal-title h5 fw-bold mb-0" style="color: #0F172A;">Disheera Cumulative Merit Leaderboard & Rewards</h4>
                   </div>

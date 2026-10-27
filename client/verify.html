@@ -214,7 +214,7 @@
               type="text"
               id="inputCertId"
               class="form-control form-control-sm bg-white text-ink border-line font-mono"
-              placeholder="e.g. CP-2026-VRF892"
+              placeholder="Enter credential ID"
               required
               data-mcp-param="certificateId"
             />
@@ -229,7 +229,7 @@
     <!-- Main Verification Body -->
     <main class="container py-4 py-md-5 flex-grow-1">
       <!-- Loading State -->
-      <div id="verifyLoadingState" class="text-center py-5">
+      <div id="verifyLoadingState" class="text-center py-5 d-none">
         <div class="spinner-border text-warning mb-3" style="width: 3rem; height: 3rem;" role="status">
           <span class="visually-hidden">Auditing Cryptographic Ledger...</span>
         </div>
@@ -251,9 +251,6 @@
             The credential identifier does not match any authenticated record in the official registry ledger. Please verify the ID for typographical errors.
           </p>
           <div class="d-flex justify-content-center gap-2">
-            <a href="verify.html?certId=CP-2026-VRF892" class="btn btn-outline-info btn-sm font-mono">
-              <i class="bi bi-shield-check me-1"></i> Verify Sample Credential (CP-2026-VRF892)
-            </a>
             <a href="index.html" class="btn cp-btn-outline btn-sm">
               <i class="bi bi-house me-1"></i> Return Home
             </a>
@@ -275,11 +272,11 @@
                   <i class="bi bi-check-circle-fill me-1"></i> VERIFIED ACTIVE & AUTHENTIC
                 </span>
                 <span class="badge bg-secondary bg-opacity-25 text-info font-mono small" id="metaCertId">
-                  ID: CP-2026-VRF892
+                  ID: —
                 </span>
               </div>
               <div class="text-secondary small font-mono">
-                Official accreditation issued by Disheera Global Verified Talent Registry.
+                Credential record issued by Disheera.
               </div>
             </div>
           </div>
@@ -402,13 +399,13 @@
             <div class="cert-content">
               <div class="cert-header-section">
                 <h1 class="cert-main-title">CERTIFICATE</h1>
-                <div class="cert-main-subtitle">of Appreciation</div>
+                <div class="cert-main-subtitle">of Job Readiness</div>
                 <div class="cert-presented-to">Presented to:</div>
-                <h2 class="cert-recipient-name" id="verifiedStudentName">Parth Patil</h2>
+                <h2 class="cert-recipient-name" id="verifiedStudentName">—</h2>
                 <p class="cert-attestation-body mx-auto">
-                  In recognition of exceptional dedication, technical mastery, and invaluable contributions. Your efforts have made a lasting impact and satisfied all verified hiring benchmarks for the professional designation of:
+                  A record of the verified skills and milestones associated with this credential.
                 </p>
-                <div class="cert-target-role" id="verifiedRoleTitle">Financial Analyst &amp; Modeler</div>
+                <div class="cert-target-role" id="verifiedRoleTitle">—</div>
               </div>
 
               <!-- Executive 4-Pillar Scorecard -->
@@ -417,7 +414,7 @@
                   <span class="cert-scorecard-label">
                     <i class="bi bi-shield-check text-success me-1"></i> VERIFIED HIRING BENCHMARK SCORECARD
                   </span>
-                  <span class="font-mono text-dark fw-bold small" id="verifiedScoreBadge">94% &middot; 🔥 JOB READY CERTIFIED</span>
+                  <span class="font-mono text-dark fw-bold small" id="verifiedScoreBadge">—</span>
                 </div>
 
                 <!-- 4 Micro Benchmark Progress Columns -->
@@ -425,28 +422,28 @@
                   <div class="col-6 col-md-3">
                     <div class="cert-metric-pill">
                       <div class="cert-metric-label">🎯 Skills Mastered</div>
-                      <div class="cert-metric-val" id="metricSkills">100%</div>
+                      <div class="cert-metric-val" id="metricSkills">—</div>
                       <div class="cert-metric-sub">Code Verified ✓</div>
                     </div>
                   </div>
                   <div class="col-6 col-md-3">
                     <div class="cert-metric-pill">
                       <div class="cert-metric-label">🗺️ Roadmap Progress</div>
-                      <div class="cert-metric-val" id="metricRoadmap">100%</div>
+                      <div class="cert-metric-val" id="metricRoadmap">—</div>
                       <div class="cert-metric-sub">Milestones Passed ✓</div>
                     </div>
                   </div>
                   <div class="col-6 col-md-3">
                     <div class="cert-metric-pill">
                       <div class="cert-metric-label">📄 ATS Resume Fit</div>
-                      <div class="cert-metric-val" id="metricResume">92%</div>
+                      <div class="cert-metric-val" id="metricResume">—</div>
                       <div class="cert-metric-sub">Strict Structure ✓</div>
                     </div>
                   </div>
                   <div class="col-6 col-md-3">
                     <div class="cert-metric-pill">
                       <div class="cert-metric-label">🎙️ Technical Interview</div>
-                      <div class="cert-metric-val" id="metricInterview">90%</div>
+                      <div class="cert-metric-val" id="metricInterview">—</div>
                       <div class="cert-metric-sub">Voice / Q&amp;A Passed ✓</div>
                     </div>
                   </div>
@@ -461,7 +458,7 @@
                     </div>
                   </div>
                   <span class="cert-competency-status-badge">
-                    <i class="bi bi-shield-check text-success me-1"></i> 5/5 Validated
+                    <i class="bi bi-shield-check text-success me-1"></i> Verified skills
                   </span>
                 </div>
               </div>
@@ -470,12 +467,12 @@
               <div class="cert-footer-row">
                 <div class="cert-footer-col cert-footer-left">
                   <div class="cert-footer-label">Authorized By:</div>
-                  <div class="cert-footer-val">Disheera Accreditation Board</div>
+                  <div class="cert-footer-val">Disheera</div>
                   <div class="cert-signature-line">
-                    <div class="cert-signature-svg" id="signatoryName1">Dr. Rajiv Mehta</div>
+                    <div class="cert-signature-svg" id="signatoryName1">Disheera Authorized Representative</div>
                   </div>
-                  <div class="cert-signatory-name">Dr. Rajiv Mehta</div>
-                  <div class="cert-signatory-title">Dean of Academic Standards &middot; Evaluation Council</div>
+                  <div class="cert-signatory-name">Disheera Authorized Representative</div>
+                  <div class="cert-signatory-title">Credential Issuer</div>
                 </div>
 
                 <div class="cert-footer-col cert-footer-center">
@@ -504,10 +501,10 @@
 
                 <div class="cert-footer-col cert-footer-right">
                   <div class="cert-footer-label">Date:</div>
-                  <div class="cert-footer-val" id="verifiedIssueDate">October 1, 2026</div>
-                  <div class="cert-meta-item mt-1">ID: <strong class="font-mono" id="verifiedIdText">CP-2026-VRF892</strong></div>
+                  <div class="cert-footer-val" id="verifiedIssueDate">—</div>
+                  <div class="cert-meta-item mt-1">ID: <strong class="font-mono" id="verifiedIdText">—</strong></div>
                   <div class="cert-meta-item">
-                    SHA-256: <span id="verifiedShaHash" class="cert-sha-hash font-mono">CC44899A307E...</span>
+                    SHA-256: <span id="verifiedShaHash" class="cert-sha-hash font-mono">—</span>
                   </div>
                   <div class="cert-meta-item text-success fw-semibold mt-1">
                     <i class="bi bi-patch-check-fill me-1"></i> Cryptographically Grounded
@@ -529,28 +526,28 @@
             <div class="col-md-6">
               <div class="p-3 rounded-2 bg-light border border-line h-100">
                 <div class="verify-meta-label mb-1">Candidate Profile</div>
-                <div class="verify-meta-val" id="auditCandidate">Parth Patil</div>
+                <div class="verify-meta-val" id="auditCandidate">—</div>
                 <div class="text-secondary small mt-1">Verified via institutional email and authenticated session check.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 rounded-2 bg-light border border-line h-100">
                 <div class="verify-meta-label mb-1">Target Professional Track</div>
-                <div class="verify-meta-val text-info" id="auditRole">Financial Analyst &amp; Modeler</div>
-                <div class="text-secondary small mt-1">Curated against current Q1-2027 industry hiring bar.</div>
+                <div class="verify-meta-val text-info" id="auditRole">—</div>
+                <div class="text-secondary small mt-1">Based on the skills and milestones recorded for this credential.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 rounded-2 bg-light border border-line h-100">
                 <div class="verify-meta-label mb-1">Issuing Authority</div>
-                <div class="verify-meta-val" id="auditIssuer">Disheera Global Credential Registry</div>
-                <div class="text-secondary small mt-1">Governance by Academic &amp; Industry Certification Council.</div>
+                <div class="verify-meta-val" id="auditIssuer">Disheera</div>
+                <div class="text-secondary small mt-1">Credential information supplied by Disheera.</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 rounded-2 bg-light border border-line h-100">
                 <div class="verify-meta-label mb-1">Tamper-Proof Checksum (SHA-256)</div>
-                <div class="hash-block" id="auditHash">CC44899A307E2F2C5061A29F4E8D...</div>
+                <div class="hash-block" id="auditHash">—</div>
                 <div class="text-secondary small mt-1">Deterministic hash computed across ID, candidate, role, and timestamp.</div>
               </div>
             </div>

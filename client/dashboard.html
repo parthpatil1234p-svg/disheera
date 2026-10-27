@@ -255,233 +255,6 @@
       <!-- Dashboard Content -->
       <div id="dashboardContent" class="d-none">
 
-        <!-- ============================================================
-             STITCH BENTO METRICS & COLLEGIATE ASSIGNMENT HUB (Plan 46)
-             ============================================================ -->
-        
-        <!-- Metrics Bento Grid (3-Card Row) -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-          
-          <!-- Card 1: Cumulative Merit Score (CMS) -->
-          <div class="flex flex-col justify-between p-5 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm">
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-bold text-[#0F172A] text-base">Cumulative Merit Score (CMS)</span>
-                <span class="material-symbols-outlined text-[#475569] text-[20px]">verified_user</span>
-              </div>
-              <p class="text-xs text-[#475569] mt-0.5">Academic rigor &amp; algorithmic proof ledger</p>
-            </div>
-            <div class="flex items-center justify-between gap-4 my-4">
-              <div class="flex flex-col">
-                <div class="flex items-baseline gap-1">
-                  <span class="text-4xl text-[#0F172A] tracking-tight font-bold font-mono" id="cmsDisplayValue">842</span>
-                  <span class="text-sm font-mono text-[#475569]">/ 1000</span>
-                </div>
-                <span class="text-xs font-mono text-emerald-600 font-semibold mt-1">Tier-1 Percentile: Top 4.2%</span>
-              </div>
-              <div class="relative w-16 h-16 shrink-0 flex items-center justify-center">
-                <svg aria-hidden="true" class="w-full h-full -rotate-90" viewBox="0 0 72 72">
-                  <circle class="text-blue-100 fill-none" cx="36" cy="36" r="30" stroke="currentColor" stroke-width="6"></circle>
-                  <circle class="text-blue-600 fill-none transition-all duration-1000" cx="36" cy="36" r="30" stroke="currentColor" stroke-dasharray="188.5" stroke-dashoffset="29.8" stroke-linecap="round" stroke-width="6"></circle>
-                </svg>
-                <span class="absolute text-xs font-mono text-blue-600 font-bold">84%</span>
-              </div>
-            </div>
-            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-medium">
-              <span class="material-symbols-outlined text-[16px]">trending_up</span>
-              <span>+18 points gained from Week 3 Assignment</span>
-            </div>
-          </div>
-
-          <!-- Card 2: Active Sprint Progress -->
-          <div class="flex flex-col justify-between p-5 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm">
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-bold text-[#0F172A] text-base">Active Sprint</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[#0F172A] font-mono text-xs font-semibold">Sprint 04 / 16</span>
-              </div>
-              <h2 class="text-sm text-[#0F172A] font-semibold mt-2 truncate" id="activeSprintCardTitle">Database Optimization &amp; Query Indexing</h2>
-            </div>
-            <div class="flex flex-col gap-1.5 my-3">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-[#475569]">Completion Pace</span>
-                <span class="font-mono text-blue-600 font-bold" id="activeSprintPaceText">5 of 8 tasks complete (62%)</span>
-              </div>
-              <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-700" style="width: 62%;"></div>
-              </div>
-            </div>
-            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100">
-              <div class="flex items-center gap-2 min-w-0">
-                <span class="material-symbols-outlined text-blue-600 text-[18px] shrink-0">radio_button_unchecked</span>
-                <div class="flex flex-col min-w-0">
-                  <span class="text-[11px] text-[#475569]">Up Next</span>
-                  <span class="text-xs font-semibold text-[#0F172A] truncate">Explain Plan Query Analysis</span>
-                </div>
-              </div>
-              <a href="roadmap.html" class="text-xs font-semibold text-blue-600 hover:underline shrink-0">Resume →</a>
-            </div>
-          </div>
-
-          <!-- Card 3: Verifiable Credentials & Seals -->
-          <div class="flex flex-col justify-between p-5 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm">
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-bold text-[#0F172A] text-base">Verifiable Credentials</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-mono text-xs font-semibold">3 Verified Badges</span>
-              </div>
-              <p class="text-xs text-[#475569] mt-0.5">On-chain SHA-256 institutional seals</p>
-            </div>
-            <div class="grid grid-cols-3 gap-2 my-3">
-              <div class="flex flex-col items-center text-center p-2 rounded-xl bg-slate-50 border border-slate-100">
-                <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center mb-1">
-                  <span class="material-symbols-outlined text-[14px]">layers</span>
-                </div>
-                <span class="text-[11px] text-[#0F172A] font-semibold truncate w-full">Next.js 15</span>
-                <span class="font-mono text-emerald-600 text-[9px] font-bold">#B712A</span>
-              </div>
-              <div class="flex flex-col items-center text-center p-2 rounded-xl bg-slate-50 border border-slate-100">
-                <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center mb-1">
-                  <span class="material-symbols-outlined text-[14px]">memory</span>
-                </div>
-                <span class="text-[11px] text-[#0F172A] font-semibold truncate w-full">Redis Cache</span>
-                <span class="font-mono text-emerald-600 text-[9px] font-bold">#E409C</span>
-              </div>
-              <div class="flex flex-col items-center text-center p-2 rounded-xl bg-slate-50 border border-slate-100">
-                <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center mb-1">
-                  <span class="material-symbols-outlined text-[14px]">database</span>
-                </div>
-                <span class="text-[11px] text-[#0F172A] font-semibold truncate w-full">Postgres</span>
-                <span class="font-mono text-emerald-600 text-[9px] font-bold">#F881D</span>
-              </div>
-            </div>
-            <button class="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-[#0F172A] text-xs font-semibold transition-colors" type="button" data-bs-toggle="modal" data-bs-target="#certificateModal">
-              <span>View 16:9 Career Passport</span>
-              <span class="material-symbols-outlined text-[16px]">arrow_outward</span>
-            </button>
-          </div>
-
-        </section>
-
-        <!-- Featured Collegiate Assignment Card (Plan 46 Standard) -->
-        <article class="flex flex-col bg-white rounded-2xl p-6 border border-[#E2E8F0] shadow-sm mb-6">
-          <div class="flex flex-col gap-1">
-            <div class="flex items-center gap-1.5 text-blue-600 text-xs uppercase tracking-wider font-semibold">
-              <span class="material-symbols-outlined text-[16px]">school</span>
-              <span>Collegiate Problem Set · Department of Distributed Systems</span>
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-1">
-              <h2 class="text-xl font-bold text-[#0F172A]">Week 4 Problem Set: PostgreSQL Query Optimization &amp; Indexing</h2>
-              <span class="badge bg-blue-50 text-blue-700 font-mono text-xs px-2.5 py-1 rounded-full self-start sm:self-auto">PLAN 46 STANDARD</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-[#475569]">
-              <div class="flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-blue-600">grade</span>
-                <span>10.0 Marks Maximum</span>
-              </div>
-              <span>·</span>
-              <div class="flex items-center gap-1">
-                <span class="material-symbols-outlined text-[16px] text-emerald-600">history_edu</span>
-                <span>Standard Collegiate Format</span>
-              </div>
-              <span>·</span>
-              <div class="flex items-center gap-1 text-red-600 font-semibold">
-                <span class="material-symbols-outlined text-[16px]">timer</span>
-                <span>Due Sunday 11:59 PM IST</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Structured Two-Part Submission Instruction Box -->
-          <div class="flex flex-col gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 my-4">
-            
-            <!-- Part A Section -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-              <div class="flex items-start gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                  <span class="material-symbols-outlined text-[24px]">badge</span>
-                </div>
-                <div class="flex flex-col min-w-0">
-                  <h3 class="text-sm font-bold text-[#0F172A]">Part A: Mandatory Personalized Cover Sheet</h3>
-                  <p class="text-xs text-[#475569] mt-0.5">Pre-filled institutional identity sheet with cryptographic QR stamp and authentication hashes.</p>
-                </div>
-              </div>
-              <button onclick="window.open('/api/assignments/template?week=4', '_blank')" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-all active:-translate-y-px" type="button">
-                <span class="material-symbols-outlined text-[18px]">download</span>
-                <span>Download Official Cover PDF</span>
-              </button>
-            </div>
-
-            <!-- Part B Section -->
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-blue-600 text-[20px]">upload_file</span>
-                <h3 class="text-sm font-bold text-[#0F172A]">Part B: Solution Dossier &amp; Artifact Upload</h3>
-              </div>
-              <div class="flex flex-col items-center justify-center text-center p-6 rounded-xl bg-white border-2 border-dashed border-slate-200 shadow-xs cursor-pointer hover:bg-blue-50/50 transition-colors" id="dashDropzone">
-                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-2">
-                  <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
-                </div>
-                <span class="text-sm font-bold text-[#0F172A]" id="dashDropzoneTitle">Upload Combined PDF Dossier</span>
-                <span class="text-xs text-[#475569] max-w-md mt-0.5" id="dashDropzoneSubtitle">Part A Cover Sheet + Part B Solution Pages (min 2 pages required). Click to browse or drag &amp; drop PDF (Max 25MB).</span>
-                <input accept=".pdf" class="hidden" id="dashFileUpload" type="file" />
-                <div class="mt-3 inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-100 text-[#475569] font-mono text-[11px]">
-                  <span class="material-symbols-outlined text-[14px]">lock</span>
-                  <span>MD5 &amp; SHA-256 Tamper-Proof Audit Enforced</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Final Action Bar -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-            <div class="flex items-center gap-1.5 text-[#475569] text-xs">
-              <span class="material-symbols-outlined text-emerald-600 text-[18px] shrink-0">format_image_left</span>
-              <span>Evaluated against 4D Collegiate Rubric (Technical Depth, Problem Solving, Code Authenticity, Delivery).</span>
-            </div>
-            <button onclick="document.getElementById('dashFileUpload').click()" class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-all active:-translate-y-px" type="button">
-              <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
-              <span>Upload &amp; Submit for 4D AI Rubric Evaluation</span>
-            </button>
-          </div>
-        </article>
-
-        <!-- Dropzone interactive handler script -->
-        <script>
-          (function() {
-            var dropzone = document.getElementById('dashDropzone');
-            var fileInput = document.getElementById('dashFileUpload');
-            if (dropzone && fileInput) {
-              dropzone.addEventListener('click', function() { fileInput.click(); });
-              fileInput.addEventListener('change', function(e) {
-                if (e.target.files.length > 0) {
-                  var file = e.target.files[0];
-                  var t = document.getElementById('dashDropzoneTitle');
-                  var s = document.getElementById('dashDropzoneSubtitle');
-                  if (t) t.textContent = file.name;
-                  if (s) s.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB · Verified PDF Ready for 4D Evaluation';
-                }
-              });
-              dropzone.addEventListener('dragover', function(e) { e.preventDefault(); dropzone.classList.add('bg-blue-50'); });
-              dropzone.addEventListener('dragleave', function() { dropzone.classList.remove('bg-blue-50'); });
-              dropzone.addEventListener('drop', function(e) {
-                e.preventDefault();
-                dropzone.classList.remove('bg-blue-50');
-                if (e.dataTransfer.files.length > 0) {
-                  fileInput.files = e.dataTransfer.files;
-                  var file = e.dataTransfer.files[0];
-                  var t = document.getElementById('dashDropzoneTitle');
-                  var s = document.getElementById('dashDropzoneSubtitle');
-                  if (t) t.textContent = file.name;
-                  if (s) s.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB · Verified PDF Ready for 4D Evaluation';
-                }
-              });
-            }
-          })();
-        </script>
-
-
         <!-- Top Greeting Header (Screen-12 Elevation) -->
         <div class="dashboard-greeting-bar mb-4">
           <div class="d-flex align-items-center gap-2 text-muted small mb-1">
@@ -547,7 +320,7 @@
                     [✓ Phone Verified]
                   </span>
                 </div>
-                <p class="text-muted small mb-1" id="userEmail">student@example.com</p>
+                <p class="text-muted small mb-1" id="userEmail"></p>
                 <div class="profile-meta-line mt-1.5">
                   <span class="profile-meta-item" id="userDegree"><i class="bi bi-mortarboard-fill text-primary"></i> <span>Degree Pending</span></span>
                   <span class="profile-meta-dot">·</span>
@@ -1736,118 +1509,136 @@
                 <path d="M3 3 L65 3 M3 3 L3 65" stroke="#C79848" stroke-width="1.5" />
               </svg>
 
-              <!-- Main Content Body -->
-              <div class="cert-content">
-                <div class="cert-header-section">
-                  <h1 class="cert-main-title">CERTIFICATE</h1>
-                  <div class="cert-main-subtitle">of Appreciation</div>
-                  <div class="cert-presented-to">Presented to:</div>
-                  <h2 class="cert-recipient-name" id="certStudentName">Parth Patil</h2>
-                  <p class="cert-attestation-body mx-auto">
-                    In recognition of exceptional dedication, technical mastery, and invaluable contributions. Your efforts have made a lasting impact and satisfied all verified hiring benchmarks for the professional designation of:
-                  </p>
-                  <div class="cert-target-role" id="certCareerTitle">Financial Analyst &amp; Modeler</div>
-                </div>
-
-                <!-- Executive 4-Pillar Scorecard -->
-                <div class="cert-scorecard-box p-2 text-start">
-                  <div class="d-flex align-items-center justify-content-between mb-1.5 pb-1 border-bottom border-amber-subtle">
-                    <span class="cert-scorecard-label">
-                      <i class="bi bi-shield-check text-success me-1"></i> VERIFIED HIRING BENCHMARK SCORECARD
-                    </span>
-                    <span class="font-mono text-dark fw-bold small" id="certReadinessScore">94% &middot; 🔥 JOB READY CERTIFIED</span>
-                  </div>
-
-                  <!-- 4 Micro Benchmark Progress Columns -->
-                  <div class="row g-1.5 text-center my-1">
-                    <div class="col-6 col-md-3">
-                      <div class="cert-metric-pill">
-                        <div class="cert-metric-label">🎯 Skills Mastered</div>
-                        <div class="cert-metric-val" id="certMetricSkills">100%</div>
-                        <div class="cert-metric-sub">Code Verified ✓</div>
-                      </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                      <div class="cert-metric-pill">
-                        <div class="cert-metric-label">🗺️ Roadmap Progress</div>
-                        <div class="cert-metric-val" id="certMetricRoadmap">100%</div>
-                        <div class="cert-metric-sub">Milestones Passed ✓</div>
-                      </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                      <div class="cert-metric-pill">
-                        <div class="cert-metric-label">📄 ATS Resume Fit</div>
-                        <div class="cert-metric-val" id="certMetricResume">92%</div>
-                        <div class="cert-metric-sub">Strict Structure ✓</div>
-                      </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                      <div class="cert-metric-pill">
-                        <div class="cert-metric-label">🎙️ Technical Interview</div>
-                        <div class="cert-metric-val" id="certMetricInterview">90%</div>
-                        <div class="cert-metric-sub">Voice / Q&amp;A Passed ✓</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Role-Specific Verified Competency Badges -->
-                  <div class="mt-1.5 pt-1.5 border-top border-amber-subtle d-flex align-items-center justify-content-between flex-wrap gap-2">
-                    <div class="d-flex align-items-center flex-wrap gap-1">
-                      <span class="cert-scorecard-label me-1">VERIFIED ROLE COMPETENCIES:</span>
-                      <div class="d-inline-flex flex-wrap gap-1 align-items-center" id="certSkillsContainer">
-                        <!-- Injected dynamically with role-appropriate skills -->
-                      </div>
-                    </div>
-                    <span class="cert-competency-status-badge">
-                      <i class="bi bi-shield-check text-success me-1"></i> 5/5 Validated
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Footer Signatures & Medal Centerpiece -->
-                <div class="cert-footer-row">
-                  <div class="cert-footer-col cert-footer-left">
-                    <div class="cert-footer-label">Authorized By:</div>
-                    <div class="cert-footer-val">Disheera Accreditation Board</div>
-                    <div class="cert-signature-line">
-                      <div class="cert-signature-svg">Dr. Rajiv Mehta</div>
-                    </div>
-                    <div class="cert-signatory-name">Dr. Rajiv Mehta</div>
-                    <div class="cert-signatory-title">Dean of Academic Standards &middot; Evaluation Council</div>
-                  </div>
-
-                  <div class="cert-footer-col cert-footer-center">
-                    <div class="d-flex align-items-center justify-content-center gap-3">
-                      <div class="cert-rosette-medal-wrapper" title="Authentic Job-Ready Gold Medallion">
-                        <div class="cert-rosette-medal" id="certGoldSeal">
-                          <div class="medal-inner-ring">
-                            <i class="bi bi-patch-check-fill"></i>
-                            <span class="medal-inner-text">VERIFIED</span>
-                          </div>
-                        </div>
-                        <div class="cert-rosette-ribbon cert-rosette-ribbon-left"></div>
-                        <div class="cert-rosette-ribbon cert-rosette-ribbon-right"></div>
-                      </div>
-
-                      <div class="text-center">
-                        <div class="cert-qr-frame">
-                          <img id="certQrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&amp;margin=0&amp;data=https%3A%2F%2Fcareerpath-ai.onrender.com%2Fverify.html%3FcertId%3DCP-2026-VRF892" alt="Scan to Verify" width="50" height="50" class="cert-qr-img" />
-                        </div>
-                        <div class="cert-qr-caption mt-0.5">
-                          <a href="verify.html?certId=CP-2026-VRF892" id="certVerifyLink" target="_blank" class="text-primary text-decoration-none fw-semibold">
-                            <i class="bi bi-qr-code-scan me-1"></i> verify.html
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cert-footer-col cert-footer-right">
-                    <div class="cert-footer-label">Date:</div>
-                    <div class="cert-footer-val" id="certIssueDate">October 11, 2026</div>
-                    <div class="cert-meta-item mt-1">ID: <strong class="font-mono" id="certVerificationId">CP-2026-VRF892</strong></div>
-                    <div class="cert-meta-item">
-                      SHA-256: <span id="certShaHash" class="cert-sha-hash font-mono">CC44899A307E2F2C50...</span>
+              <!-- Main Content Body -->
+              <div class="cert-content">
+                <div class="cert-header-section">
+                  <h1 class="cert-main-title">CERTIFICATE</h1>
+                  <div class="cert-main-subtitle">of Job Readiness</div>
+
+                  <div class="cert-presented-to">Presented to:</div>
+                  <h2 class="cert-recipient-name" id="certStudentName">—</h2>
+
+                  <p class="cert-attestation-body mx-auto">
+                    A record of the verified skills and milestones associated with this credential.
+
+                  </p>
+                  <div class="cert-target-role" id="certCareerTitle">—</div>
+
+                </div>
+
+                <!-- Executive 4-Pillar Scorecard -->
+                <div class="cert-scorecard-box p-2 text-start">
+                  <div class="d-flex align-items-center justify-content-between mb-1.5 pb-1 border-bottom border-amber-subtle">
+                    <span class="cert-scorecard-label">
+                      <i class="bi bi-shield-check text-success me-1"></i> VERIFIED HIRING BENCHMARK SCORECARD
+                    </span>
+                    <span class="font-mono text-dark fw-bold small" id="certReadinessScore">—</span>
+
+                  </div>
+
+                  <!-- 4 Micro Benchmark Progress Columns -->
+                  <div class="row g-1.5 text-center my-1">
+                    <div class="col-6 col-md-3">
+                      <div class="cert-metric-pill">
+                        <div class="cert-metric-label">🎯 Skills Mastered</div>
+                        <div class="cert-metric-val" id="certMetricSkills">—</div>
+
+                        <div class="cert-metric-sub">Code Verified ✓</div>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <div class="cert-metric-pill">
+                        <div class="cert-metric-label">🗺️ Roadmap Progress</div>
+                        <div class="cert-metric-val" id="certMetricRoadmap">—</div>
+
+                        <div class="cert-metric-sub">Milestones Passed ✓</div>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <div class="cert-metric-pill">
+                        <div class="cert-metric-label">📄 ATS Resume Fit</div>
+                        <div class="cert-metric-val" id="certMetricResume">—</div>
+
+                        <div class="cert-metric-sub">Strict Structure ✓</div>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <div class="cert-metric-pill">
+                        <div class="cert-metric-label">🎙️ Technical Interview</div>
+                        <div class="cert-metric-val" id="certMetricInterview">—</div>
+
+                        <div class="cert-metric-sub">Voice / Q&amp;A Passed ✓</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Role-Specific Verified Competency Badges -->
+                  <div class="mt-1.5 pt-1.5 border-top border-amber-subtle d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <div class="d-flex align-items-center flex-wrap gap-1">
+                      <span class="cert-scorecard-label me-1">VERIFIED ROLE COMPETENCIES:</span>
+                      <div class="d-inline-flex flex-wrap gap-1 align-items-center" id="certSkillsContainer">
+                        <!-- Injected dynamically with role-appropriate skills -->
+                      </div>
+                    </div>
+                    <span class="cert-competency-status-badge">
+                      <i class="bi bi-shield-check text-success me-1"></i> Verified skills
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Footer Signatures & Medal Centerpiece -->
+                <div class="cert-footer-row">
+                  <div class="cert-footer-col cert-footer-left">
+                    <div class="cert-footer-label">Authorized By:</div>
+                    <div class="cert-footer-val">Disheera</div>
+
+                    <div class="cert-signature-line">
+                      <div class="cert-signature-svg">Disheera Authorized Representative</div>
+
+                    </div>
+                    <div class="cert-signatory-name">Disheera Authorized Representative</div>
+
+                    <div class="cert-signatory-title">Credential Issuer</div>
+
+                  </div>
+
+                  <div class="cert-footer-col cert-footer-center">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                      <div class="cert-rosette-medal-wrapper" title="Authentic Job-Ready Gold Medallion">
+                        <div class="cert-rosette-medal" id="certGoldSeal">
+                          <div class="medal-inner-ring">
+                            <i class="bi bi-patch-check-fill"></i>
+                            <span class="medal-inner-text">VERIFIED</span>
+                          </div>
+                        </div>
+                        <div class="cert-rosette-ribbon cert-rosette-ribbon-left"></div>
+                        <div class="cert-rosette-ribbon cert-rosette-ribbon-right"></div>
+                      </div>
+
+                      <div class="text-center">
+                        <div class="cert-qr-frame">
+                          <img id="certQrCodeImg" src="" alt="Scan to Verify" width="50" height="50" class="cert-qr-img" />
+
+                        </div>
+                        <div class="cert-qr-caption mt-0.5">
+                          <a href="verify.html" id="certVerifyLink" target="_blank" class="text-primary text-decoration-none fw-semibold">
+
+                            <i class="bi bi-qr-code-scan me-1"></i> verify.html
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="cert-footer-col cert-footer-right">
+                    <div class="cert-footer-label">Date:</div>
+                    <div class="cert-footer-val" id="certIssueDate">—</div>
+
+                    <div class="cert-meta-item mt-1">ID: <strong class="font-mono" id="certVerificationId">—</strong></div>
+
+                    <div class="cert-meta-item">
+                      SHA-256: <span id="certShaHash" class="cert-sha-hash font-mono">—</span>
+
                     </div>
                     <div class="cert-meta-item text-success fw-semibold mt-1">
                       <i class="bi bi-patch-check-fill me-1"></i> Cryptographically Grounded
