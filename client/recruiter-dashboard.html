@@ -27,28 +27,33 @@
     </script>
     <meta
       name="description"
-      content="Corporate Recruiter Portal & Talent Radar &mdash; Disheera"
+      content="Disheera Talent OS &mdash; Recruiter Talent Discovery Cockpit &amp; Candidate Dossier with 4D Empirical Rubrics"
     />
     <meta name="theme-color" content="#FFFFFF" />
-    <title>Recruiter Portal &amp; Applicant Radar &mdash; Disheera</title>
+    <title>Talent Discovery Cockpit &amp; Applicant Radar &mdash; Disheera</title>
 
     <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="apple-touch-icon" href="favicon.svg" />
     <link rel="manifest" href="site.webmanifest" />
 
-    <!-- Google Fonts: Outfit, Inter (Clean Modern Typography) -->
+    <!-- Google Fonts & Material Symbols -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
 
-
-
-
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 CSS & Icons -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Bootstrap Icons -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
       rel="stylesheet"
@@ -57,9 +62,46 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css?v=2.6" />
     <link rel="stylesheet" href="css/dashboard.css?v=2.6" />
+    <link rel="stylesheet" href="css/tokens.css" />
+
+    <!-- Tailwind CSS (Light-Theme Google Stitch Configuration) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "canvas-white": "#F7F9FD",
+              "surface-pure": "#FFFFFF",
+              "surface-muted": "#F1F4FA",
+              "surface-container": "#eaedff",
+              "surface-container-high": "#e2e7ff",
+              "border-whisper": "#E2E8F0",
+              "border-outline": "#CBD5E1",
+              "slate-body": "#334155",
+              "slate-caption": "#475569",
+              "primary-container": "#2563eb",
+              "primary": "#1d4ed8",
+              "blue-soft": "#EFF6FF",
+              "emerald-soft": "#ECFDF5",
+              "secondary": "#059669",
+              "coral-danger": "#DC4B4B",
+              "on-surface": "#0F172A",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              display: ["Outfit", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"]
+            }
+          }
+        }
+      };
+    </script>
 
     <style>
-      /* Page Canvas */
+      /* Light Theme Strict Canvas */
       body.recruiter-portal-page {
         background-color: #F8FAFC;
         background-image: 
@@ -74,10 +116,10 @@
 
       /* Hero Identity Card */
       .recruiter-hero-card {
-        background: rgba(255, 255, 255, 0.92);
+        background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(226, 232, 240, 0.9);
+        border: 1px solid #E2E8F0;
         border-radius: 20px;
         padding: 1.75rem 2rem;
         box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
@@ -91,7 +133,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #10B981 0%, #06B6D4 50%, #3B82F6 100%);
+        background: linear-gradient(90deg, #10B981 0%, #2563EB 50%, #06B6D4 100%);
       }
 
       .company-avatar-box {
@@ -106,7 +148,7 @@
         font-family: 'Outfit', sans-serif;
         font-weight: 800;
         font-size: 1.65rem;
-        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
         flex-shrink: 0;
       }
 
@@ -173,50 +215,6 @@
         color: #0F172A;
         line-height: 1.1;
         margin-block: 0.35rem 0.2rem;
-      }
-
-      /* Candidate Proof-of-Work Badges */
-      .candidate-badge-quiz {
-        background: #EFF6FF;
-        color: #1D4ED8;
-        border: 1px solid #BFDBFE;
-        font-size: 0.72rem;
-        font-weight: 600;
-        padding: 3px 8px;
-        border-radius: 6px;
-      }
-      .candidate-badge-code {
-        background: #F0FDF4;
-        color: #15803D;
-        border: 1px solid #BBF7D0;
-        font-size: 0.72rem;
-        font-weight: 600;
-        padding: 3px 8px;
-        border-radius: 6px;
-      }
-      .candidate-badge-certified {
-        background: #FEF3C7;
-        color: #B45309;
-        border: 1px solid #FDE68A;
-        font-size: 0.72rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 6px;
-      }
-
-      /* Match Ring Score */
-      .match-ring-score {
-        width: 58px;
-        height: 58px;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-family: var(--font-mono);
-        font-variant-numeric: tabular-nums;
-        font-feature-settings: "zero" 0, "tnum" 1;
       }
 
       /* Recruiter CTA Button */
@@ -297,12 +295,11 @@
     <script defer src="/_vercel/insights/script.js"></script>
     <!-- Open Domains Analytics -->
     <script defer src="https://analytics.open-domains.com/script.js" data-website-id="3896a469-edf4-4b58-b379-209d5b3c9e1f"></script>
-  <link rel="stylesheet" href="css/tokens.css">
-</head>
+  </head>
 
   <body class="recruiter-portal-page">
     <!-- ============================================================
-         VENGEANCE UI NOTCH NAVBAR
+         GOOGLE STITCH FLOATING NOTCH TOP NAVIGATION
          ============================================================ -->
     <nav class="cp-navbar-notch" id="mainNavbar">
       <div class="container">
@@ -312,7 +309,10 @@
             <div class="brand-icon">
               <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="40" height="40" />
             </div>
-            <span class="brand-name">Dishe<span class="brand-accent">era</span></span>
+            <div class="d-flex flex-column ms-2">
+              <span class="brand-name leading-tight">Dishe<span class="brand-accent">era</span></span>
+              <span class="font-caption text-[10px] text-slate-500 uppercase tracking-wider font-semibold leading-none">Talent OS</span>
+            </div>
             <span class="badge bg-success-subtle text-success ms-2 px-2.5 py-1 rounded-pill small border border-success-subtle" style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;">
               <span class="pulse-dot-green d-inline-block me-1" style="width: 6px; height: 6px;"></span> RECRUITER
             </span>
@@ -323,8 +323,8 @@
             <li>
               <a class="notch-nav-link active" href="recruiter-dashboard.html" aria-current="page">
                 <i class="bi bi-broadcast me-1"></i>
-                <span class="nav-text-full">Openings &amp; Radar</span>
-                <span class="nav-text-short">Openings</span>
+                <span class="nav-text-full">Talent Discovery &amp; Radar</span>
+                <span class="nav-text-short">Radar</span>
               </a>
             </li>
             <li>
@@ -345,13 +345,22 @@
 
           <!-- Recruiter Profile & Actions -->
           <div class="d-flex align-items-center gap-2" id="recruiterNavActions">
+            <!-- TPO Live Status Beacon -->
+            <div class="d-none d-xl-flex align-items-center gap-2 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-xs font-semibold text-emerald-800">TPO Network: Verified · Sync Active</span>
+            </div>
+
+            <!-- Company Name Pill -->
             <div class="d-none d-md-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white border shadow-xs" style="border-color: #E2E8F0;">
               <i class="bi bi-building text-success"></i>
               <span class="fw-semibold text-ink small" id="navCompanyName">Razorpay Software</span>
               <i class="bi bi-patch-check-fill text-success" title="Verified Corporate Partner"></i>
             </div>
+
+            <!-- Post Opening CTA -->
             <button
-              class="btn btn-recruiter-cta btn-sm px-3 d-flex align-items-center gap-1.5"
+              class="btn btn-recruiter-cta btn-sm px-3 d-flex align-items-center gap-1.5 shadow-sm"
               data-bs-toggle="modal"
               data-bs-target="#postJobModal"
             >
@@ -359,6 +368,8 @@
               <span class="d-none d-sm-inline">Post Opening</span>
               <span class="d-sm-none">Post</span>
             </button>
+
+            <!-- Sign Out -->
             <button
               class="btn btn-outline-danger btn-sm px-2.5 py-1 d-none d-sm-inline-flex align-items-center"
               id="btnRecruiterLogout"
@@ -366,6 +377,8 @@
             >
               <i class="bi bi-box-arrow-right"></i>
             </button>
+
+            <!-- Mobile Menu Toggle -->
             <button
               class="notch-mobile-toggle d-lg-none"
               type="button"
@@ -413,7 +426,7 @@
       <!-- Recruiter Banner / Identity Row (Frosted Glass Card) -->
       <div class="recruiter-hero-card mb-4 mt-2">
         <div class="row align-items-center">
-          <div class="col-md-8">
+          <div class="col-lg-8">
             <div class="d-flex align-items-center gap-3">
               <div class="company-avatar-box" id="companyInitialBox">
                 R
@@ -426,8 +439,13 @@
                   <span class="badge bg-white text-secondary font-mono small border" id="companyDomainBadge" style="border-color: #CBD5E1 !important;">
                     razorpay.com
                   </span>
-                  <span class="badge bg-primary-subtle text-primary small">
-                    <i class="bi bi-lightning-charge-fill me-1"></i>Talent Radar Active
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-mono font-semibold border border-blue-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping"></span>
+                    Ledger Sync: Block #94821
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    Collegiate Oracle Attested
                   </span>
                 </div>
                 <h1 class="h3 fw-bold text-ink mb-1" id="recruiterGreeting">
@@ -439,7 +457,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4 text-md-end mt-3 mt-md-0 d-flex justify-content-md-end gap-2">
+          <div class="col-lg-4 text-lg-end mt-3 mt-lg-0 d-flex justify-content-lg-end gap-2">
             <button
               class="btn btn-recruiter-cta py-2 px-3.5 d-inline-flex align-items-center gap-2 shadow-sm"
               data-bs-toggle="modal"
@@ -472,153 +490,454 @@
       <div id="corporateRadarView">
         <!-- Executive KPI Cards -->
         <div class="row g-3 mb-4">
-        <div class="col-sm-6 col-lg-3">
-          <div class="recruiter-kpi-card">
-            <div class="d-flex align-items-center justify-content-between">
-              <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Active Openings</span>
-              <div class="kpi-icon-wrapper" style="background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0;">
-                <i class="bi bi-briefcase-fill"></i>
+          <div class="col-sm-6 col-lg-3">
+            <div class="recruiter-kpi-card">
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Active Openings</span>
+                <div class="kpi-icon-wrapper" style="background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0;">
+                  <i class="bi bi-briefcase-fill"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiActiveOpenings">1</div>
+              <div class="small text-muted d-flex align-items-center gap-1.5">
+                <span class="pulse-dot-green" style="width: 6px; height: 6px;"></span>
+                <span>Live on Student Job Board</span>
               </div>
             </div>
-            <div class="kpi-value" id="kpiActiveOpenings">1</div>
-            <div class="small text-muted d-flex align-items-center gap-1.5">
-              <span class="pulse-dot-green" style="width: 6px; height: 6px;"></span>
-              <span>Live on Student Job Board</span>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="recruiter-kpi-card">
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Total Applicants</span>
+                <div class="kpi-icon-wrapper" style="background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE;">
+                  <i class="bi bi-people-fill"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiTotalApplicants">1</div>
+              <div class="small text-muted d-flex align-items-center gap-1.5">
+                <i class="bi bi-lightning-charge-fill text-primary"></i>
+                <span>Direct 1-Click Submissions</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="recruiter-kpi-card">
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Shortlisted Talent</span>
+                <div class="kpi-icon-wrapper" style="background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A;">
+                  <i class="bi bi-star-fill"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiShortlisted">1</div>
+              <div class="small text-muted d-flex align-items-center gap-1.5">
+                <i class="bi bi-check2-circle text-warning"></i>
+                <span>High-match candidates</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="recruiter-kpi-card">
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Domain Trust Score</span>
+                <div class="kpi-icon-wrapper" style="background: #ECFEFF; color: #0891B2; border: 1px solid #A5F3FC;">
+                  <i class="bi bi-shield-check"></i>
+                </div>
+              </div>
+              <div class="kpi-value text-success" id="kpiTrustScore">99%</div>
+              <div class="small text-success d-flex align-items-center gap-1.5">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>DNS MX &amp; Probe Verified</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="recruiter-kpi-card">
-            <div class="d-flex align-items-center justify-content-between">
-              <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Total Applicants</span>
-              <div class="kpi-icon-wrapper" style="background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE;">
-                <i class="bi bi-people-fill"></i>
-              </div>
-            </div>
-            <div class="kpi-value" id="kpiTotalApplicants">1</div>
-            <div class="small text-muted d-flex align-items-center gap-1.5">
-              <i class="bi bi-lightning-charge-fill text-primary"></i>
-              <span>Direct 1-Click Submissions</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="recruiter-kpi-card">
-            <div class="d-flex align-items-center justify-content-between">
-              <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Shortlisted Talent</span>
-              <div class="kpi-icon-wrapper" style="background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A;">
-                <i class="bi bi-star-fill"></i>
-              </div>
-            </div>
-            <div class="kpi-value" id="kpiShortlisted">1</div>
-            <div class="small text-muted d-flex align-items-center gap-1.5">
-              <i class="bi bi-check2-circle text-warning"></i>
-              <span>High-match candidates</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="recruiter-kpi-card">
-            <div class="d-flex align-items-center justify-content-between">
-              <span class="small fw-bold text-uppercase" style="color: #64748B; letter-spacing: 0.04em;">Domain Trust Score</span>
-              <div class="kpi-icon-wrapper" style="background: #ECFEFF; color: #0891B2; border: 1px solid #A5F3FC;">
-                <i class="bi bi-shield-check"></i>
-              </div>
-            </div>
-            <div class="kpi-value text-success" id="kpiTrustScore">99%</div>
-            <div class="small text-success d-flex align-items-center gap-1.5">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>DNS MX &amp; Probe Verified</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- B2B Subscription & Candidate Unlock Credits Ribbon -->
-      <div class="card p-3 mb-4 border-line shadow-xs" style="background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF4 100%); border-radius: 14px; border-left: 4px solid #16A34A;">
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-          <div class="d-flex align-items-center gap-3 flex-wrap">
+        <!-- B2B Subscription & Candidate Unlock Credits Ribbon -->
+        <div class="card p-3 mb-4 border-line shadow-xs" style="background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF4 100%); border-radius: 14px; border-left: 4px solid #16A34A;">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-success text-white font-mono px-2.5 py-1 small rounded-pill">
+                  <i class="bi bi-patch-check-fill me-1"></i>TALENT RADAR PRO
+                </span>
+                <span class="fw-bold text-ink small">Active B2B Corporate Subscription</span>
+              </div>
+              <div class="vr d-none d-md-block" style="height: 20px;"></div>
+              <div class="d-flex align-items-center gap-2 small text-muted">
+                <i class="bi bi-unlock-fill text-primary"></i>
+                <span>Verified Candidate Unlocks: <strong class="text-ink font-mono" id="recruiterUnlocksCount">48 / 60 Remaining</strong></span>
+              </div>
+              <div class="vr d-none d-md-block" style="height: 20px;"></div>
+              <div class="small text-muted font-mono">
+                ₹299 / Additional Profile Unlock
+              </div>
+            </div>
             <div class="d-flex align-items-center gap-2">
-              <span class="badge bg-success text-white font-mono px-2.5 py-1 small rounded-pill">
-                <i class="bi bi-patch-check-fill me-1"></i>TALENT RADAR PRO
-              </span>
-              <span class="fw-bold text-ink small">Active B2B Corporate Subscription</span>
+              <button class="btn btn-outline-success btn-sm px-3 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#modalRecruiterPlanDetails">
+                <i class="bi bi-credit-card me-1"></i> Manage Plan &amp; Unlocks
+              </button>
             </div>
-            <div class="vr d-none d-md-block" style="height: 20px;"></div>
-            <div class="d-flex align-items-center gap-2 small text-muted">
-              <i class="bi bi-unlock-fill text-primary"></i>
-              <span>Verified Candidate Unlocks: <strong class="text-ink font-mono" id="recruiterUnlocksCount">48 / 60 Remaining</strong></span>
-            </div>
-            <div class="vr d-none d-md-block" style="height: 20px;"></div>
-            <div class="small text-muted font-mono">
-              ₹299 / Additional Profile Unlock
-            </div>
-          </div>
-          <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-outline-success btn-sm px-3 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#modalRecruiterPlanDetails">
-              <i class="bi bi-credit-card me-1"></i> Manage Plan &amp; Unlocks
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Main Openings Table / Card View -->
-      <div class="recruiter-main-card mb-4">
-        <div class="recruiter-card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
-          <div>
-            <h2 class="h5 fw-bold text-ink mb-0 d-flex align-items-center gap-2">
-              <i class="bi bi-radar text-success"></i> Job Openings &amp; Applicant Radar
-            </h2>
-            <p class="text-muted small mb-0">Review verified candidates ranked by Disheera Skill Match score</p>
-          </div>
-          <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-outline-secondary btn-sm px-3 rounded-pill" id="btnRefreshJobs">
-              <i class="bi bi-arrow-clockwise me-1"></i> Refresh Radar
-            </button>
           </div>
         </div>
 
-        <div class="card-body p-0">
-          <div id="jobsLoadingSpinner" class="text-center py-5">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading openings...</span>
+        <!-- Google Stitch Filter Cockpit Grid -->
+        <div class="w-full bg-white rounded-2xl p-4 shadow-sm border border-slate-200 mb-4 flex flex-col gap-3">
+          <!-- Row 1: Search & Role Track Filters -->
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
+            <div class="relative flex-1">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+              <input
+                type="text"
+                class="w-full pl-10 pr-16 py-2 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                placeholder="Search candidates by name, skill (e.g. Node.js, pgvector), GitHub repo, or college..."
+              />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-slate-200 text-slate-600 font-mono text-[11px] font-bold">⌘K</span>
             </div>
-            <p class="text-muted small mt-2">Loading active corporate job openings...</p>
+            <!-- Role Track Pills -->
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium text-xs shadow-sm flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                All Tracks
+              </button>
+              <button class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors">
+                Full Stack AI
+              </button>
+              <button class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors">
+                Data Engineering
+              </button>
+              <button class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors">
+                DevOps &amp; Platform
+              </button>
+              <button class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors">
+                SecOps
+              </button>
+            </div>
+          </div>
+          <!-- Row 2: Precision Cutoff Sliders, Verification Switches & Campus Tiers -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+            <div class="flex flex-wrap items-center gap-3">
+              <!-- CMS Filter Badge -->
+              <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+                <span class="material-symbols-outlined text-[15px] text-blue-600">tune</span>
+                <span class="text-slate-500 uppercase font-semibold text-[11px]">CMS Cutoff:</span>
+                <span class="font-mono font-bold text-blue-600">800+ (Top 10%)</span>
+              </div>
+              <!-- Verified Collegiate Checkbox -->
+              <label class="flex items-center gap-1.5 cursor-pointer select-none px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-semibold">
+                <input type="checkbox" checked class="w-3.5 h-3.5 accent-emerald-600 rounded" />
+                <span class="material-symbols-outlined text-[15px] text-emerald-600">verified</span>
+                Verified Collegiate Sprints Only
+              </label>
+              <!-- College Tier Dropdown Button -->
+              <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700">
+                <span class="material-symbols-outlined text-[15px] text-slate-500">account_balance</span>
+                <span>Top Tier-1 Engineering Campuses</span>
+                <span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 font-mono text-[10px] font-bold">48 Campuses</span>
+              </div>
+            </div>
+            <!-- Aux Buttons -->
+            <div class="flex items-center gap-2 self-end sm:self-auto">
+              <button class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[15px] text-emerald-600">file_download</span>
+                Export Batch CSV
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Openings Table / Card View -->
+        <div class="recruiter-main-card mb-4">
+          <div class="recruiter-card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <div>
+              <h2 class="h5 fw-bold text-ink mb-0 d-flex align-items-center gap-2">
+                <i class="bi bi-radar text-success"></i> Corporate Job Openings &amp; Live Applicant Radar
+              </h2>
+              <p class="text-muted small mb-0">Review verified candidates ranked by Disheera Skill Match score and 4D empirical metrics</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-outline-secondary btn-sm px-3 rounded-pill" id="btnRefreshJobs">
+                <i class="bi bi-arrow-clockwise me-1"></i> Refresh Radar
+              </button>
+            </div>
           </div>
 
-          <div id="emptyJobsPlaceholder" class="text-center py-5 d-none">
-            <div class="p-3 bg-light rounded-circle d-inline-block text-secondary mb-3">
-              <i class="bi bi-briefcase fs-1"></i>
+          <div class="card-body p-0">
+            <div id="jobsLoadingSpinner" class="text-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading openings...</span>
+              </div>
+              <p class="text-muted small mt-2">Loading active corporate job openings...</p>
             </div>
-            <h3 class="h5 fw-bold text-ink mb-1">No Job Openings Yet</h3>
-            <p class="text-muted small mb-3">Post your first company opportunity to start receiving AI skill-matched applicants.</p>
-            <button
-              class="btn cp-btn-primary btn-sm px-4 py-2"
-              data-bs-toggle="modal"
-              data-bs-target="#postJobModal"
-            >
-              <i class="bi bi-plus-lg me-1"></i> Post Opening Now
-            </button>
-          </div>
 
-          <!-- Openings List Container -->
-          <div class="table-responsive d-none" id="jobsTableContainer">
-            <table class="table table-hover align-middle mb-0">
-              <thead class="table-light text-secondary small" style="font-size: 0.78rem;">
-                <tr>
-                  <th class="ps-4">JOB TITLE &amp; CAREER TRACK</th>
-                  <th>WORKPLACE / LOCATION</th>
-                  <th>SALARY RANGE</th>
-                  <th>REQUIRED VERIFIED SKILLS</th>
-                  <th>STATUS &amp; DEADLINE</th>
-                  <th>APPLICANTS</th>
-                  <th class="pe-4 text-end">ACTIONS</th>
+            <div id="emptyJobsPlaceholder" class="text-center py-5 d-none">
+              <div class="p-3 bg-light rounded-circle d-inline-block text-secondary mb-3">
+                <i class="bi bi-briefcase fs-1"></i>
+              </div>
+              <h3 class="h5 fw-bold text-ink mb-1">No Job Openings Yet</h3>
+              <p class="text-muted small mb-3">Post your first company opportunity to start receiving AI skill-matched applicants.</p>
+              <button
+                class="btn cp-btn-primary btn-sm px-4 py-2"
+                data-bs-toggle="modal"
+                data-bs-target="#postJobModal"
+              >
+                <i class="bi bi-plus-lg me-1"></i> Post Opening Now
+              </button>
+            </div>
+
+            <!-- Openings List Container -->
+            <div class="table-responsive d-none" id="jobsTableContainer">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-secondary small" style="font-size: 0.78rem;">
+                  <tr>
+                    <th class="ps-4">JOB TITLE &amp; CAREER TRACK</th>
+                    <th>WORKPLACE / LOCATION</th>
+                    <th>SALARY RANGE</th>
+                    <th>REQUIRED VERIFIED SKILLS</th>
+                    <th>STATUS &amp; DEADLINE</th>
+                    <th>APPLICANTS</th>
+                    <th class="pe-4 text-end">ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody id="jobsTableBody" class="small">
+                  <!-- Dynamically populated by recruiter.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Stitch High-Density Candidate Data Table Showcase -->
+        <div class="w-full bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-4">
+          <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-600 text-lg">verified_user</span>
+              <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-0">
+                Pre-Vetted Collegiate Engineering Candidates (Batch 2025 - 2026)
+              </h3>
+            </div>
+            <span class="text-xs text-slate-500 font-mono">Ranked by Cumulative Merit Score (CMS)</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-600 text-xs font-semibold uppercase tracking-wider border-b border-slate-200">
+                  <th class="py-3 px-4 w-10 text-center">
+                    <input type="checkbox" class="w-3.5 h-3.5 rounded accent-blue-600" />
+                  </th>
+                  <th class="py-3 px-4">Candidate &amp; Identity</th>
+                  <th class="py-3 px-4">College &amp; Cohort</th>
+                  <th class="py-3 px-4">Cumulative Merit (CMS)</th>
+                  <th class="py-3 px-4">Verified Tech Stack</th>
+                  <th class="py-3 px-4">Anti-Cheat Audit</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody id="jobsTableBody" class="small">
-                <!-- Dynamically populated -->
+              <tbody class="divide-y divide-slate-100 text-sm">
+                <!-- Featured Row 1: Aarav Sharma -->
+                <tr class="bg-blue-50/40 hover:bg-blue-50/80 transition-colors">
+                  <td class="py-3.5 px-4 text-center">
+                    <input type="checkbox" checked class="w-3.5 h-3.5 rounded accent-blue-600" />
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                        AS
+                      </div>
+                      <div class="flex flex-col">
+                        <div class="flex items-center gap-1.5">
+                          <span class="font-semibold text-slate-900">Aarav Sharma</span>
+                          <span class="material-symbols-outlined text-[15px] text-emerald-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <span class="text-xs text-blue-700 font-medium">Full Stack AI &amp; Backend Architect</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-col">
+                      <span class="text-slate-900 font-medium">IIT Bombay</span>
+                      <div class="flex items-center gap-1.5 text-xs text-slate-500">
+                        <span>B.Tech CSE '26</span>
+                        <span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-800 font-mono text-[11px] font-semibold">9.12 CGPA</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-col">
+                      <span class="font-mono font-bold text-slate-900">885 <span class="text-xs text-slate-500 font-normal">/ 1000</span></span>
+                      <span class="text-[11px] font-bold text-emerald-600">★ Top 3.8% Cohort</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-wrap items-center gap-1 max-w-xs">
+                      <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold border border-emerald-200">✓ TypeScript</span>
+                      <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold border border-emerald-200">✓ PG EXPLAIN</span>
+                      <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold border border-emerald-200">✓ Next.js 15</span>
+                      <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold border border-emerald-200">✓ pgvector</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                      <span class="material-symbols-outlined text-[14px]">security</span>
+                      100% Authentic (MD5 Signed)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                      <button
+                        type="button"
+                        class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold shadow-sm hover:bg-blue-700 transition-all flex items-center gap-1"
+                        onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')"
+                      >
+                        <span class="material-symbols-outlined text-[15px]">badge</span>
+                        View Dossier
+                      </button>
+                      <button type="button" class="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Shortlisted">
+                        <span class="material-symbols-outlined text-[17px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 2: Priya Nandakumar -->
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="py-3.5 px-4 text-center">
+                    <input type="checkbox" class="w-3.5 h-3.5 rounded accent-blue-600" />
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-lg bg-slate-200 text-slate-800 text-xs font-bold flex items-center justify-center">
+                        PN
+                      </div>
+                      <div class="flex flex-col">
+                        <div class="flex items-center gap-1.5">
+                          <span class="font-semibold text-slate-900">Priya Nandakumar</span>
+                          <span class="material-symbols-outlined text-[15px] text-emerald-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <span class="text-xs text-slate-500 font-medium">Distributed Systems Engineer</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-col">
+                      <span class="text-slate-900 font-medium">COEP Tech University</span>
+                      <div class="flex items-center gap-1.5 text-xs text-slate-500">
+                        <span>B.Tech '26</span>
+                        <span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-800 font-mono text-[11px] font-semibold">9.35 CGPA</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-col">
+                      <span class="font-mono font-bold text-slate-900">864 <span class="text-xs text-slate-500 font-normal">/ 1000</span></span>
+                      <span class="text-[11px] font-bold text-emerald-600">★ Top 4.5% Cohort</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-wrap items-center gap-1 max-w-xs">
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Go</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Kafka</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Redis</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Docker</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                      <span class="material-symbols-outlined text-[14px]">security</span>
+                      100% Authentic (MD5)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                      <button
+                        type="button"
+                        class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-800 text-xs font-semibold hover:bg-slate-100 transition-colors flex items-center gap-1"
+                        onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')"
+                      >
+                        <span class="material-symbols-outlined text-[15px]">badge</span>
+                        View Dossier
+                      </button>
+                      <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors" title="Shortlist">
+                        <span class="material-symbols-outlined text-[17px]">bookmark_border</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 3: Rohan Varma -->
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="py-3.5 px-4 text-center">
+                    <input type="checkbox" class="w-3.5 h-3.5 rounded accent-blue-600" />
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-lg bg-slate-200 text-slate-800 text-xs font-bold flex items-center justify-center">
+                        RV
+                      </div>
+                      <div class="flex flex-col">
+                        <div class="flex items-center gap-1.5">
+                          <span class="font-semibold text-slate-900">Rohan Varma</span>
+                          <span class="material-symbols-outlined text-[15px] text-emerald-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <span class="text-xs text-slate-500 font-medium">Data Platform Engineer</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-col">
+                      <span class="text-slate-900 font-medium">BITS Pilani</span>
+                      <div class="flex items-center gap-1.5 text-xs text-slate-500">
+                        <span>B.E. '25</span>
+                        <span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-800 font-mono text-[11px] font-semibold">8.94 CGPA</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-col">
+                      <span class="font-mono font-bold text-slate-900">842 <span class="text-xs text-slate-500 font-normal">/ 1000</span></span>
+                      <span class="text-[11px] font-bold text-emerald-600">★ Top 5.0% Cohort</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="flex flex-wrap items-center gap-1 max-w-xs">
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Python</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Apache Spark</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ dbt</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">✓ Snowflake</span>
+                    </div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                      <span class="material-symbols-outlined text-[14px]">verified</span>
+                      99.8% Authentic (3 Sprints)
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                      <button
+                        type="button"
+                        class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-800 text-xs font-semibold hover:bg-slate-100 transition-colors flex items-center gap-1"
+                        onclick="document.getElementById('candidate-dossier-modal').classList.remove('hidden')"
+                      >
+                        <span class="material-symbols-outlined text-[15px]">badge</span>
+                        View Dossier
+                      </button>
+                      <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors" title="Shortlist">
+                        <span class="material-symbols-outlined text-[17px]">bookmark_border</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
+          </div>
+          <!-- Compact Pagination Strip -->
+          <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+            <div>Showing <strong class="text-slate-900 font-bold">1 - 3</strong> of <strong class="text-slate-900 font-bold">312</strong> vetted candidates</div>
+            <div class="flex items-center gap-1">
+              <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-mono font-bold text-xs">1</span>
+              <button class="px-2.5 py-1 rounded bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 font-mono text-xs">2</button>
+              <button class="px-2.5 py-1 rounded bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 font-mono text-xs">3</button>
+            </div>
           </div>
         </div>
       </div>
@@ -793,6 +1112,226 @@
         </div>
       </div>
     </main>
+
+    <!-- ============================================================
+         GOOGLE STITCH: FLOATING DEEP-DIVE CANDIDATE DOSSIER MODAL
+         ============================================================ -->
+    <div
+      class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-200"
+      id="candidate-dossier-modal"
+    >
+      <div class="relative w-full max-w-[680px] max-h-[92vh] flex flex-col bg-white rounded-2xl shadow-[0_20px_50px_-10px_rgba(15,23,42,0.25)] border border-blue-200 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <!-- Modal Header -->
+        <div class="p-4 bg-white border-b border-slate-200 flex items-start justify-between gap-3 relative">
+          <div class="flex items-start gap-3">
+            <!-- Photo / Initial Avatar with Verified Badge -->
+            <div class="relative flex-shrink-0">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-display text-xl font-bold shadow-md">
+                AS
+              </div>
+              <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center border-2 border-white shadow-sm" title="Institutional Identity Verified">
+                <span class="material-symbols-outlined text-[13px]">verified</span>
+              </div>
+            </div>
+            <!-- Name, Role and College Credentials -->
+            <div class="flex flex-col">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h2 class="font-display text-xl font-bold text-slate-900 tracking-tight mb-0">Aarav Sharma</h2>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+                  Top 3.8% Percentile
+                </span>
+                <span class="px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-mono text-[11px] font-bold">
+                  CMS 885 / 1000
+                </span>
+              </div>
+              <p class="text-xs text-slate-600 font-medium mt-1 mb-0">
+                Full Stack AI &amp; Backend Architect &middot; IIT Bombay (Class of 2026)
+              </p>
+              <div class="flex items-center gap-2 mt-2 flex-wrap">
+                <!-- Verified WhatsApp Contact Pill -->
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-mono text-xs font-bold border border-emerald-200">
+                  <span class="material-symbols-outlined text-[13px]">chat</span>
+                  +91 98200 41200 · Verified Identity
+                </span>
+                <!-- Ledger UID Tag -->
+                <span class="font-mono text-[11px] text-slate-500 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">fingerprint</span>
+                  #IITB-26-409 · ECDSA Verified
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Close Button -->
+          <button
+            type="button"
+            class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            onclick="document.getElementById('candidate-dossier-modal').classList.add('hidden')"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- Scrollable Modal Body -->
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-slate-50">
+          <!-- 4D Collegiate Evaluation Rubric Matrix -->
+          <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-blue-600 text-lg">analytics</span>
+                <h3 class="text-sm font-bold text-slate-900 mb-0">4D Empirical Rubric Matrix</h3>
+              </div>
+              <span class="text-xs text-slate-500 font-mono">Collegiate Standard 2.4</span>
+            </div>
+            <div class="flex flex-col gap-2.5">
+              <!-- 1. Technical Depth -->
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between text-xs font-medium">
+                  <span class="text-slate-800">1. Technical Depth &amp; Architectural Mastery</span>
+                  <span class="font-mono font-bold text-blue-600">9.6 / 10</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-blue-600" style="width: 96%"></div>
+                </div>
+                <span class="text-[11px] text-slate-500">Demonstrated in PostgreSQL query tuning, index mechanics, buffer cache analysis.</span>
+              </div>
+              <!-- 2. Problem Solving -->
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between text-xs font-medium">
+                  <span class="text-slate-800">2. Problem Solving &amp; Algorithmic Rigor</span>
+                  <span class="font-mono font-bold text-blue-600">9.4 / 10</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-blue-600" style="width: 94%"></div>
+                </div>
+                <span class="text-[11px] text-slate-500">Query refactoring, Redis distributed locking, zero-downtime schema migrations.</span>
+              </div>
+              <!-- 3. Code Authenticity -->
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between text-xs font-medium">
+                  <span class="text-slate-800 flex items-center gap-1">
+                    3. Code Authenticity &amp; Integrity
+                    <span class="material-symbols-outlined text-[13px] text-emerald-600">verified</span>
+                  </span>
+                  <span class="font-mono font-bold text-emerald-600">10.0 / 10 (Zero Anomaly)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-emerald-600" style="width: 100%"></div>
+                </div>
+                <span class="text-[11px] text-slate-500">0.0% AI Hallucination detected &middot; Biometric keystroke dynamics verified by collegiate oracle.</span>
+              </div>
+              <!-- 4. Delivery Speed -->
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between text-xs font-medium">
+                  <span class="text-slate-800">4. Delivery Speed &amp; Production Cadence</span>
+                  <span class="font-mono font-bold text-blue-600">9.2 / 10</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-blue-600" style="width: 92%"></div>
+                </div>
+                <span class="text-[11px] text-slate-500">1.35x cohort velocity ratio &middot; 3.1 calendar days average per multi-tier sprint.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Verified Artifacts & Evidence Chamber -->
+          <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-emerald-600 text-lg">verified_user</span>
+                <h3 class="text-sm font-bold text-slate-900 mb-0">Tamper-Proof Artifacts &amp; Code Evidence</h3>
+              </div>
+              <span class="text-xs text-slate-500 font-mono font-semibold">3 Cryptographic Seals</span>
+            </div>
+            <div class="flex flex-col divide-y divide-slate-100">
+              <!-- Artifact 1 -->
+              <div class="py-2 flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-xl text-red-500">picture_as_pdf</span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-semibold text-slate-900 leading-tight">Collegiate Sprint 3 Solution Dossier</span>
+                    <span class="text-[11px] text-slate-500">PostgreSQL Optimization &amp; Plan 46 standard &middot; 48 pages &middot; MD5 #b712a</span>
+                  </div>
+                </div>
+                <a class="px-2.5 py-1 rounded bg-slate-50 hover:bg-slate-100 text-blue-600 text-xs font-bold border border-slate-200 flex items-center gap-1 transition-colors text-decoration-none" href="#">
+                  Preview PDF
+                  <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+                </a>
+              </div>
+              <!-- Artifact 2 -->
+              <div class="py-2 flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-xl text-slate-800">terminal</span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-semibold text-slate-900 leading-tight">Verified Git Repository Tree</span>
+                    <span class="font-mono text-[11px] text-slate-500">github.com/aarav-sh/disheera-sprints &middot; 45 commits &middot; 100% tests</span>
+                  </div>
+                </div>
+                <a class="px-2.5 py-1 rounded bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-bold border border-slate-200 flex items-center gap-1 transition-colors text-decoration-none" href="https://github.com" target="_blank">
+                  Inspect Repo
+                  <span class="material-symbols-outlined text-[13px]">code</span>
+                </a>
+              </div>
+              <!-- Artifact 3 -->
+              <div class="py-2 flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-xl text-emerald-600">token</span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-semibold text-slate-900 leading-tight">Disheera Verifiable Credential #DSH-PASS-2025-0842</span>
+                    <span class="text-[11px] text-slate-500">Issued by IIT Bombay Distributed Systems Lab &middot; Non-transferable</span>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-bold">
+                  VALID
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recruiter Match Alignment & Compensation Bracket -->
+          <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-display text-sm font-bold">
+                96%
+              </div>
+              <div class="flex flex-col">
+                <span class="text-xs font-semibold text-slate-900">Target Match: Senior Full Stack AI Resident</span>
+                <span class="text-[11px] text-slate-500">Alignment: High concurrency, PostgreSQL indices, vector store memory</span>
+              </div>
+            </div>
+            <div class="flex flex-col sm:items-end">
+              <span class="text-[10px] text-slate-500 uppercase font-semibold">Comp Expectation</span>
+              <span class="font-mono text-xs font-bold text-slate-900">₹14 - 18 LPA <span class="text-slate-400 font-normal">(July 2026)</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Control Footer -->
+        <div class="p-3.5 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5 text-xs text-slate-600">
+            <span class="material-symbols-outlined text-blue-600 text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span>Shortlisted by <strong>Devina Sen</strong> &middot; Razorpay Pipeline</span>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold flex items-center justify-center gap-1 shadow-sm transition-colors"
+              onclick="alert('Downloading Aarav Sharma ATS Dossier (PDF)...')"
+            >
+              <span class="material-symbols-outlined text-[15px] text-slate-500">description</span>
+              Download ATS Dossier
+            </button>
+            <button
+              type="button"
+              class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-xs font-semibold shadow-md flex items-center justify-center gap-1 transition-all"
+              onclick="alert('Technical Interview invite sent to Aarav Sharma via WhatsApp and Email!')"
+            >
+              <span class="material-symbols-outlined text-[15px]">calendar_add_on</span>
+              Invite to Interview
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ============================================================
          MODAL: POST NEW JOB OPENING
@@ -999,7 +1538,7 @@
 
             <!-- Candidate Cards List -->
             <div class="d-flex flex-column gap-3 d-none" id="radarApplicantsList">
-              <!-- Dynamically populated cards -->
+              <!-- Dynamically populated cards by recruiter.js -->
             </div>
           </div>
         </div>
@@ -1172,19 +1711,23 @@
       }
     </script>
 
-    <!-- Recruiter Footer -->
-    <footer class="atlas-footer py-4 mt-5 border-top border-line">
+    <!-- Recruiter Footer (Google Stitch Institutional Infrastructure Style) -->
+    <footer class="w-full bg-white border-t border-slate-200 py-4 mt-5">
       <div class="container-fluid px-lg-5">
-        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 text-muted small">
-          <div>
-            <span class="fw-bold text-ink">Disheera</span> &bull; Verified Corporate Recruiter Portal (DPDP Act 2023 Compliant)
+        <div class="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-slate-900">Disheera Talent OS</span>
+            <span>&bull;</span>
+            <span>Institutional Verification Infrastructure (DPDP Act 2023 Compliant)</span>
           </div>
-          <div class="d-flex gap-3">
-            <a href="terms.html" class="text-secondary text-decoration-none hover-primary">Terms of Service</a>
-            <a href="privacy.html" class="text-secondary text-decoration-none hover-primary">Privacy Policy</a>
-            <a href="security.html" class="text-secondary text-decoration-none hover-primary">Security Architecture</a>
-            <a href="mailto:parthpatil@disheera.site" class="text-secondary text-decoration-none hover-primary">Support Desk</a>
-            <a href="https://wa.me/917499085045" target="_blank" class="text-success text-decoration-none hover-primary"><i class="bi bi-whatsapp me-1"></i>WhatsApp: 7499085045</a>
+          <div class="flex items-center gap-3 flex-wrap">
+            <a href="terms.html" class="text-slate-600 hover:text-blue-600 text-decoration-none">Terms of Service</a>
+            <a href="privacy.html" class="text-slate-600 hover:text-blue-600 text-decoration-none">Privacy Policy</a>
+            <a href="security.html" class="text-slate-600 hover:text-blue-600 text-decoration-none">Security Architecture</a>
+            <a href="mailto:parthpatil@disheera.site" class="text-slate-600 hover:text-blue-600 text-decoration-none">Support Desk</a>
+            <a href="https://wa.me/917499085045" target="_blank" class="text-emerald-700 hover:text-emerald-800 text-decoration-none font-semibold flex items-center gap-1">
+              <i class="bi bi-whatsapp"></i> WhatsApp: 7499085045
+            </a>
           </div>
         </div>
       </div>
