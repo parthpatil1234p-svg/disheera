@@ -25,10 +25,55 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <link rel="manifest" href="site.webmanifest" />
 
-    <!-- Google Fonts: Outfit, Inter (Clean Modern Typography) -->
+    <!-- Google Fonts & Material Symbols (Stitch Design System) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-
-
+    <!-- Tailwind CSS (Stitch Calibrated Token Engine) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#004ac6",
+              "primary-container": "#2563eb",
+              "primary-fixed": "#dbe1ff",
+              "secondary": "#006d44",
+              "secondary-container": "#7df7b6",
+              "secondary-fixed": "#80fab9",
+              "surface-pure": "#FFFFFF",
+              "canvas-white": "#F7F9FD",
+              "surface-muted": "#F1F4FA",
+              "border-whisper": "#E2E8F0",
+              "border-outline": "#CBD5E1",
+              "slate-body": "#334155",
+              "slate-caption": "#475569",
+              "on-background": "#0F172A",
+              "on-surface": "#131b2e",
+              "blue-soft": "#EFF6FF",
+              "emerald-soft": "#ECFDF5",
+              "coral-danger": "#DC4B4B"
+            },
+            fontFamily: {
+              "display": ["Outfit", "sans-serif"],
+              "headline-lg": ["Outfit", "sans-serif"],
+              "headline-md": ["Outfit", "sans-serif"],
+              "headline-sm": ["Outfit", "sans-serif"],
+              "body-base": ["Inter", "sans-serif"],
+              "body-sm": ["Inter", "sans-serif"],
+              "body-sm-medium": ["Inter", "sans-serif"],
+              "caption": ["Inter", "sans-serif"],
+              "code-base": ["JetBrains Mono", "monospace"],
+              "code-sm": ["JetBrains Mono", "monospace"]
+            }
+          }
+        }
+      };
+    </script>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -52,45 +97,41 @@
     <script defer src="/_vercel/insights/script.js"></script>
     <!-- Open Domains Analytics -->
     <script defer src="https://analytics.open-domains.com/script.js" data-website-id="3896a469-edf4-4b58-b379-209d5b3c9e1f"></script>
-  <link rel="stylesheet" href="css/tokens.css">
-</head>
+    <link rel="stylesheet" href="css/tokens.css">
+  </head>
 
-  <body class="auth-page">
+  <body class="auth-page bg-canvas-white font-body-base text-on-surface antialiased min-h-screen flex flex-col justify-between">
     <!-- ============================================================
-         VENGEANCE UI NOTCH NAVBAR
+         GOOGLE STITCH NOTCH TOP NAVIGATION
          ============================================================ -->
-    <nav class="cp-navbar-notch" id="mainNav">
-      <div class="container">
-        <div class="notch-nav-island">
+    <header class="fixed top-0 w-full z-50 bg-surface-pure/95 backdrop-blur-md border-b border-border-whisper shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <nav class="cp-navbar-notch" id="mainNav">
+        <div class="h-16 w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           <!-- Brand / Logo -->
-          <a class="navbar-brand d-flex align-items-center" href="index.html">
-            <div class="brand-icon">
-              <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="40" height="40" />
-            </div>
-            <span class="brand-name">Dishe<span class="brand-accent">era</span></span>
-          </a>
-
-          <!-- Center Links -->
-          <ul class="notch-nav-links d-none d-lg-flex">
-            <li>
-              <a class="notch-nav-link" href="index.html">
-                <i class="bi bi-house me-1"></i> Home
-              </a>
-            </li>
-            <li>
-              <span class="notch-nav-link active" style="font-size: 0.82rem;">
-                <i class="bi bi-shield-lock me-1"></i> Student Portal
-              </span>
-            </li>
-          </ul>
+          <div class="flex items-center gap-3">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.html">
+              <div class="brand-icon">
+                <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="36" height="36" />
+              </div>
+              <span class="brand-name font-headline-sm text-xl font-bold text-on-surface tracking-tight ms-2">Dishe<span class="text-primary font-bold">era</span></span>
+            </a>
+            <div class="h-5 w-px bg-border-whisper hidden md:block"></div>
+            <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full font-code-sm text-xs bg-blue-soft text-primary font-semibold border border-blue-100">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary me-1.5"></span>
+              Secure Authentication Chamber
+            </span>
+          </div>
 
           <!-- Actions & Mobile Toggle -->
-          <div class="d-flex align-items-center gap-2">
-            <a href="register.html" class="btn cp-btn-primary btn-sm px-3 d-none d-sm-inline-flex">
+          <div class="flex items-center gap-3">
+            <a href="index.html" class="btn cp-btn-ghost btn-sm rounded-xl px-3 py-1.5 font-body-sm-medium text-xs text-slate-caption hover:text-primary transition-colors text-decoration-none">
+              <i class="bi bi-house me-1"></i> Home
+            </a>
+            <a href="register.html" class="btn cp-btn-primary btn-sm rounded-xl px-4 py-1.5 font-body-sm-medium text-xs font-semibold shadow-sm text-decoration-none">
               Create Account
             </a>
             <button
-              class="notch-mobile-toggle d-lg-none"
+              class="notch-mobile-toggle d-lg-none btn btn-sm btn-light border"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#notchMobileMenu"
@@ -101,177 +142,159 @@
               <i class="bi bi-list fs-5"></i>
             </button>
           </div>
-
-          <!-- Mobile Dropdown Collapse -->
-          <div class="collapse notch-mobile-collapse" id="notchMobileMenu">
-            <ul class="notch-mobile-links">
-              <li>
-                <a href="index.html">
-                  <i class="bi bi-house text-teal"></i> Return Home
-                </a>
-              </li>
-              <li>
-                <a href="register.html">
-                  <i class="bi bi-person-plus text-cyan"></i> Create Account
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
-      </div>
-    </nav>
 
-    <!-- Main Content: Two-Column Split Layout -->
-    <main class="auth-wrapper pt-5 mt-4">
-      <div class="container d-flex justify-content-center">
-        <div class="auth-split-grid">
+        <!-- Mobile Dropdown Collapse -->
+        <div class="collapse notch-mobile-collapse bg-surface-pure border-t border-border-whisper px-4 py-3" id="notchMobileMenu">
+          <ul class="notch-mobile-links list-unstyled mb-0 d-flex flex-column gap-2">
+            <li>
+              <a class="text-decoration-none text-slate-body d-flex align-items-center gap-2 py-1" href="index.html">
+                <i class="bi bi-house text-primary"></i> Return Home
+              </a>
+            </li>
+            <li>
+              <a class="text-decoration-none fw-bold text-primary d-flex align-items-center gap-2 py-1" href="register.html">
+                <i class="bi bi-person-plus text-primary"></i> Create Account
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-          <!-- Left Column: Career Atlas Orientation Panel -->
-          <div class="auth-orientation-panel">
-            <div>
-              <div class="atlas-badge mb-3 text-white border-white border-opacity-25" style="background: rgba(255,255,255,0.1);">
-                <i class="bi bi-compass me-1"></i> STUDENT ORIENTATION
-              </div>
-              <h1 class="auth-panel-heading">Welcome back to your Career Atlas</h1>
-              <p class="auth-panel-desc">
-                Log in to resume your active learning roadmap, review your skill gap matrices, and continue checking off weekly technical tasks.
-              </p>
+    <!-- Main Content: Clean Central Auth Screen with Stitch Ambient Aura -->
+    <main class="auth-wrapper flex-grow-1 flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 relative overflow-hidden">
+      <!-- Ambient Blueprint Grid & Glow Accent -->
+      <div class="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_45%,#000_70%,transparent_100%)]"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-blue-soft rounded-full blur-3xl opacity-60 pointer-events-none"></div>
 
-              <div class="auth-panel-bullets">
-                <div class="auth-panel-bullet">
-                  <i class="bi bi-check2-circle fs-5"></i>
-                  <span>Track progress across 4, 8, or 12-week roadmaps</span>
-                </div>
-                <div class="auth-panel-bullet">
-                  <i class="bi bi-diagram-3 fs-5"></i>
-                  <span>Inspect matched, developing, and missing skill lists</span>
-                </div>
-                <div class="auth-panel-bullet">
-                  <i class="bi bi-journal-bookmark fs-5"></i>
-                  <span>Direct links to verified developer documentation</span>
-                </div>
-              </div>
+      <div class="relative z-10 w-full max-w-[460px] bg-surface-pure rounded-2xl border border-border-whisper shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] p-6 sm:p-8">
+        <!-- Brand Emblem & Header -->
+        <div class="flex flex-col items-center text-center mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-primary-container text-white flex items-center justify-center shadow-md mb-3">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon fill="white" points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" stroke="none"></polygon>
+            </svg>
+          </div>
+          <h1 class="font-headline-md text-2xl font-bold text-on-surface tracking-tight mb-1">Sign In to Disheera</h1>
+          <p class="font-body-sm text-slate-caption text-xs px-2 mb-0">
+            Access your autonomous career roadmap, verified skills ledger, and sprint benchmarks
+          </p>
+        </div>
+
+        <!-- Feedback Alert Area -->
+        <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+        <!-- Social Authentication (Google) -->
+        <div class="social-auth-stack mb-4">
+          <button
+            type="button"
+            id="btnGoogleAuth"
+            class="w-full h-11 flex items-center justify-center gap-3 bg-surface-pure hover:bg-slate-50 border border-border-outline rounded-xl shadow-xs text-on-surface font-body-sm-medium text-xs font-semibold transition-all active:-translate-y-px"
+          >
+            <svg class="google-icon-animated w-4 h-4 flex-shrink-0" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+              <path class="google-path-blue" fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+              <path class="google-path-green" fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+              <path class="google-path-yellow" fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/>
+              <path class="google-path-red" fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+            </svg>
+            <span>Continue with Google</span>
+            <span class="inline-flex items-center gap-1 font-caption text-[11px] text-secondary bg-emerald-soft border border-secondary-container px-2 py-0.5 rounded-full ml-auto">
+              <span class="material-symbols-outlined text-[12px]">verified</span> WhatsApp Verified
+            </span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative flex items-center justify-center my-4">
+          <div class="w-full h-px bg-border-whisper"></div>
+          <span class="absolute bg-surface-pure px-3 font-caption text-xs uppercase text-slate-caption tracking-wider">
+            or sign in with credentials
+          </span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" novalidate class="space-y-4">
+          <!-- Email Input -->
+          <div class="flex flex-col gap-1 text-left">
+            <label for="email" class="font-headline-sm text-xs font-semibold text-slate-body">
+              Email Address <span class="text-danger">*</span>
+            </label>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3 text-slate-caption pointer-events-none text-[18px]">
+                mail
+              </span>
+              <input
+                type="email"
+                class="form-control rounded-xl text-xs py-2.5 pl-9 pr-3 border-border-whisper focus:border-primary"
+                id="email"
+                placeholder="student@college.edu"
+                required
+                autocomplete="email"
+              />
             </div>
+            <div class="form-text text-[11px] text-slate-caption">Institutional or registered account email.</div>
+          </div>
 
-            <div class="auth-panel-footer">
-              <div>Disheera &middot; Next-Gen Career Intelligence Platform</div>
-              <div class="text-white text-opacity-50">Intelligent Career Atlas</div>
+          <!-- Password Input -->
+          <div class="flex flex-col gap-1 text-left">
+            <div class="flex justify-between items-center">
+              <label for="password" class="font-headline-sm text-xs font-semibold text-slate-body mb-0">
+                Password <span class="text-danger">*</span>
+              </label>
+              <a href="reset-password.html" class="forgot-password-link font-body-sm-medium text-xs text-primary hover:underline font-semibold text-decoration-none">
+                Forgot password?
+              </a>
+            </div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3 text-slate-caption pointer-events-none text-[18px]">
+                lock
+              </span>
+              <input
+                type="password"
+                class="form-control rounded-xl text-xs py-2.5 pl-9 pr-3 border-border-whisper focus:border-primary"
+                id="password"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              />
             </div>
           </div>
 
-          <!-- Right Column: Authentication Form -->
-          <div class="auth-form-card">
-            <div class="auth-form-header">
-              <span class="atlas-coordinate">SECURITY CHECKPOINT &middot; SEC-01</span>
-              <h2 class="auth-form-title mt-1">Sign In to Disheera</h2>
-              <p class="auth-form-subtitle mb-0">
-                100% Free for Students &bull; Enterprise Portal for Corporate Recruiters
-              </p>
-            </div>
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            id="submitBtn"
+            class="btn cp-btn-primary w-100 py-2.5 rounded-xl font-body-sm-medium text-xs font-semibold shadow-sm flex items-center justify-center gap-2 mt-2"
+          >
+            <span>Log In to Dashboard</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </form>
 
-            <!-- Feedback Alert Area -->
-            <div id="alertContainer" role="alert" aria-live="polite"></div>
-
-            <!-- Social Authentication (Google) -->
-            <div class="social-auth-stack mb-3">
-              <button
-                type="button"
-                id="btnGoogleAuth"
-                class="btn btn-google w-100 py-2 d-flex align-items-center justify-content-center gap-2"
-              >
-                <svg class="google-icon-animated" width="20" height="20" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                  <path class="google-path-blue" fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
-                  <path class="google-path-green" fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
-                  <path class="google-path-yellow" fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/>
-                  <path class="google-path-red" fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
-                </svg>
-                <span class="fw-semibold">Sign In with Google</span>
-              </button>
-            </div>
-
-            <!-- Divider -->
-            <div class="auth-divider">
-              <span>or continue with email</span>
-            </div>
-
-            <!-- Login Form -->
-            <form id="loginForm" novalidate>
-              <!-- Email Input -->
-              <div class="mb-3">
-                <label for="email" class="form-label">
-                  Email Address <span class="text-danger">*</span>
-                </label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-envelope"></i>
-                  </span>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    placeholder="student@college.edu"
-                    required
-                    autocomplete="email"
-                  />
-                </div>
-                <div class="form-text">We'll never share your email with third parties.</div>
-              </div>
-
-              <!-- Password Input -->
-              <div class="mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <label for="password" class="form-label mb-0">
-                    Password <span class="text-danger">*</span>
-                  </label>
-                  <a href="reset-password.html" class="forgot-password-link" style="font-size: 0.82rem; color: #3B1A6E; text-decoration: none; font-weight: 600;">
-                    Forgot password?
-                  </a>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <i class="bi bi-key"></i>
-                  </span>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="••••••••"
-                    required
-                    autocomplete="current-password"
-                  />
-                </div>
-              </div>
-
-              <!-- Submit Button -->
-              <button
-                type="submit"
-                id="submitBtn"
-                class="btn cp-btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2"
-              >
-                <span>Log In to Dashboard</span>
-                <i class="bi bi-arrow-right"></i>
-              </button>
-            </form>
-
-            <!-- Switch to Registration -->
-            <div class="mt-4 pt-3 border-top text-center">
-              <p class="small text-muted mb-2">
-                New to Disheera?
-                <a href="register.html" class="text-primary fw-semibold ms-1 text-decoration-none">
-                  Create student account
-                </a>
-              </p>
-              <p class="small text-muted mb-0" style="font-size: 0.78rem;">
-                <a href="terms.html" class="text-secondary text-decoration-none hover-primary">Terms of Service</a> &bull;
-                <a href="privacy.html" class="text-secondary text-decoration-none hover-primary">Privacy Policy</a> &bull;
-                <a href="security.html" class="text-secondary text-decoration-none hover-primary">Security</a>
-              </p>
-            </div>
+        <!-- Switch to Registration -->
+        <div class="mt-5 pt-4 border-t border-border-whisper text-center">
+          <p class="font-body-sm text-xs text-slate-caption mb-2">
+            New to Disheera?
+            <a href="register.html" class="text-primary font-semibold ms-1 text-decoration-none hover:underline">
+              Create student account
+            </a>
+          </p>
+          <div class="flex items-center justify-center gap-2 text-[11px] text-slate-caption">
+            <span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+            <span>Cryptographically Verified &middot; DPDP Act 2023 Aligned</span>
           </div>
-
         </div>
       </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="py-3 border-t border-border-whisper text-center text-slate-caption text-xs font-mono bg-surface-pure">
+      <div class="container max-w-[1360px]">
+        <div>Disheera &middot; Digital Personal Data Protection (DPDP) Act 2023 Compliant Talent Protocol</div>
+      </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
