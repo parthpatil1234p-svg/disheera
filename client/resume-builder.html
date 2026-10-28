@@ -11,14 +11,11 @@
     <title>AI Resume Builder & ATS Matcher &mdash; Disheera</title>
 
     <!-- Canonical URL (Technical SEO) -->
-    <link rel="canonical" href="https://disheera.site/resume-builder.html" />
+    <link rel="canonical" href="https://disheera.site/resume-builder" />
 
     <!-- Machine-Readable Context & WebMCP Discovery Declarations -->
     <link rel="alternate" type="text/markdown" href="https://disheera.site/llms.txt" title="LLM Machine-Readable Context Manifest" />
     <link rel="alternate" type="application/json" href="https://disheera.site/mcp-actions.json" title="WebMCP Actions Discovery Endpoint" />
-
-    <!-- Canonical URL (Technical SEO) -->
-    <link rel="canonical" href="https://disheera.site/resume-builder" />
 
     <!-- Baidu (百度) Mobile Adaptation -->
     <meta name="applicable-device" content="pc,mobile" />
@@ -58,10 +55,55 @@
     <link rel="apple-touch-icon" href="favicon.svg" />
     <link rel="manifest" href="site.webmanifest" />
 
-    <!-- Google Fonts: Outfit, Inter (Clean Modern Typography) -->
+    <!-- Google Fonts & Material Symbols (Stitch Design System) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-
-
+    <!-- Tailwind CSS (Stitch Calibrated Token Engine) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#004ac6",
+              "primary-container": "#2563eb",
+              "primary-fixed": "#dbe1ff",
+              "secondary": "#006d44",
+              "secondary-container": "#7df7b6",
+              "secondary-fixed": "#80fab9",
+              "surface-pure": "#FFFFFF",
+              "canvas-white": "#F7F9FD",
+              "surface-muted": "#F1F4FA",
+              "border-whisper": "#E2E8F0",
+              "border-outline": "#CBD5E1",
+              "slate-body": "#334155",
+              "slate-caption": "#475569",
+              "on-background": "#0F172A",
+              "on-surface": "#131b2e",
+              "blue-soft": "#EFF6FF",
+              "emerald-soft": "#ECFDF5",
+              "coral-danger": "#DC4B4B"
+            },
+            fontFamily: {
+              "display": ["Outfit", "sans-serif"],
+              "headline-lg": ["Outfit", "sans-serif"],
+              "headline-md": ["Outfit", "sans-serif"],
+              "headline-sm": ["Outfit", "sans-serif"],
+              "body-base": ["Inter", "sans-serif"],
+              "body-sm": ["Inter", "sans-serif"],
+              "body-sm-medium": ["Inter", "sans-serif"],
+              "caption": ["Inter", "sans-serif"],
+              "code-base": ["JetBrains Mono", "monospace"],
+              "code-sm": ["JetBrains Mono", "monospace"]
+            }
+          }
+        }
+      };
+    </script>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -87,124 +129,129 @@
     <script defer src="/_vercel/insights/script.js"></script>
     <!-- Open Domains Analytics -->
     <script defer src="https://analytics.open-domains.com/script.js" data-website-id="3896a469-edf4-4b58-b379-209d5b3c9e1f"></script>
-  <link rel="stylesheet" href="css/tokens.css">
-</head>
+    <link rel="stylesheet" href="css/tokens.css">
+  </head>
 
-  <body class="resume-builder-page">
+  <body class="resume-builder-page bg-canvas-white font-body-base text-on-surface antialiased min-h-screen flex flex-col">
     <!-- ============================================================
-         VENGEANCE UI NOTCH NAVBAR
+         GOOGLE STITCH NOTCH NAVBAR
          ============================================================ -->
-    <nav class="cp-navbar-notch" id="mainNavbar">
-      <div class="container">
-        <div class="notch-nav-island">
-          <!-- Brand / Logo -->
-          <a class="navbar-brand d-flex align-items-center" href="index.html">
+    <nav class="cp-navbar-notch fixed top-0 w-full z-50 bg-surface-pure/95 backdrop-blur-md border-b border-border-whisper shadow-[0_1px_8px_rgba(0,0,0,0.04)]" id="mainNavbar">
+      <div class="h-16 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <!-- Brand / Logo -->
+        <div class="flex items-center gap-3">
+          <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.html">
             <div class="brand-icon">
-              <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="40" height="40" />
+              <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="36" height="36" />
             </div>
-            <span class="brand-name">Dishe<span class="brand-accent">era</span></span>
-            <span class="brand-tagline-sub d-none d-xl-inline-flex align-items-center gap-1"><span class="pulse-dot-indigo"></span>Resume Lab</span>
+            <span class="brand-name font-headline-sm text-xl font-bold text-on-surface tracking-tight ms-2">Dishe<span class="text-primary font-bold">era</span></span>
+            <span class="brand-tagline-sub d-none d-xl-inline-flex align-items-center gap-1 ms-2 font-caption text-xs text-slate-caption"><span class="pulse-dot-indigo"></span>Resume Lab</span>
           </a>
+          <div class="h-5 w-px bg-border-whisper hidden md:block"></div>
+          <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full font-code-sm text-xs bg-blue-soft text-primary font-semibold border border-blue-100">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary me-1.5"></span>
+            ATS Resume Studio &amp; LaTeX Preview
+          </span>
+        </div>
 
-          <!-- Desktop Center Links -->
-          <ul class="notch-nav-links d-none d-lg-flex list-unstyled mb-0">
-            <li>
-              <a class="notch-nav-link" href="dashboard.html">
-                <i class="bi bi-grid-1x2-fill me-1"></i> Dashboard
-              </a>
-            </li>
-            <li>
-              <a class="notch-nav-link" href="recommendations.html">
-                <i class="bi bi-compass me-1"></i>
-                <span class="nav-text-full">Recommendations</span>
-                <span class="nav-text-short">Recs</span>
-              </a>
-            </li>
-            <li>
-              <a class="notch-nav-link" href="roadmap.html">
-                <i class="bi bi-signpost-split me-1"></i>
-                <span class="nav-text-full">Active Roadmap</span>
-                <span class="nav-text-short">Roadmap</span>
-              </a>
-            </li>
-            <li>
-              <a class="notch-nav-link active" href="resume-builder.html">
-                <i class="bi bi-file-earmark-person me-1"></i>
-                <span class="nav-text-full">Resume Builder</span>
-                <span class="nav-text-short">Resume</span>
-              </a>
-            </li>
-            <li>
-              <a class="notch-nav-link" href="jobs.html">
-                <i class="bi bi-briefcase me-1"></i>
-                <span class="nav-text-full">Verified Jobs</span>
-                <span class="nav-text-short">Jobs</span>
-              </a>
-            </li>
-          </ul>
-
-          <!-- Right Auth Section -->
-          <div class="notch-nav-actions d-flex align-items-center gap-2">
-            <span class="save-status-indicator d-none d-md-inline-flex align-items-center gap-1 small text-muted font-mono" id="saveStatus">
-              <span class="badge-dot bg-success"></span> <span id="saveStatusText">Ready</span>
-            </span>
-            <a href="dashboard.html" class="btn cp-btn-ghost btn-sm py-1 px-3 d-none d-sm-inline-flex align-items-center gap-1">
-              <i class="bi bi-arrow-left"></i> Dashboard
+        <!-- Desktop Center Links -->
+        <ul class="notch-nav-links d-none d-lg-flex list-unstyled mb-0 items-center gap-2">
+          <li>
+            <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none" href="dashboard.html">
+              <i class="bi bi-grid-1x2-fill me-1"></i> Dashboard
             </a>
-          </div>
+          </li>
+          <li>
+            <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none" href="recommendations.html">
+              <i class="bi bi-compass me-1"></i>
+              <span class="nav-text-full">Recommendations</span>
+              <span class="nav-text-short">Recs</span>
+            </a>
+          </li>
+          <li>
+            <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none" href="roadmap.html">
+              <i class="bi bi-signpost-split me-1"></i>
+              <span class="nav-text-full">Active Roadmap</span>
+              <span class="nav-text-short">Roadmap</span>
+            </a>
+          </li>
+          <li>
+            <a class="notch-nav-link active text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary-container text-white text-decoration-none" href="resume-builder.html">
+              <i class="bi bi-file-earmark-person me-1"></i>
+              <span class="nav-text-full">Resume Studio</span>
+              <span class="nav-text-short">Resume</span>
+            </a>
+          </li>
+          <li>
+            <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none" href="jobs.html">
+              <i class="bi bi-briefcase me-1"></i>
+              <span class="nav-text-full">Verified Jobs</span>
+              <span class="nav-text-short">Jobs</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Right Auth Section -->
+        <div class="notch-nav-actions d-flex align-items-center gap-2">
+          <span class="save-status-indicator d-none d-md-inline-flex align-items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-soft text-secondary border border-secondary-container font-mono text-xs" id="saveStatus">
+            <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> <span id="saveStatusText">Ready</span>
+          </span>
+          <a href="dashboard.html" class="btn cp-btn-ghost btn-sm py-1.5 px-3 rounded-xl d-none d-sm-inline-flex align-items-center gap-1 font-body-sm-medium text-xs">
+            <i class="bi bi-arrow-left"></i> Dashboard
+          </a>
         </div>
       </div>
     </nav>
 
     <!-- ============================================================
-         STICKY TEMPLATE & ACTION BAR
+         STICKY TEMPLATE & ACTION BAR (Stitch Studio Control)
          ============================================================ -->
-    <header class="builder-header-bar py-2 px-3">
-      <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <header class="builder-header-bar sticky top-16 z-40 w-full bg-surface-pure border-b border-border-whisper shadow-sm mt-16 py-2.5 px-4">
+      <div class="max-w-[1400px] mx-auto flex flex-wrap items-center justify-between gap-3">
         <!-- Template Selection Pills -->
-        <div class="d-flex align-items-center gap-2 overflow-auto py-1" style="max-width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
-          <span class="text-muted small fw-semibold text-uppercase font-mono d-none d-md-inline" style="font-size: 0.75rem;">Template:</span>
-          <button class="template-pill-btn active" data-template="student" id="tplStudentBtn" title="Optimized for freshers with education & GitHub projects">
+        <div class="flex items-center gap-2 overflow-x-auto py-1" style="max-width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
+          <span class="text-slate-caption font-code-sm text-xs font-semibold uppercase tracking-wider hidden md:inline">Template:</span>
+          <button class="template-pill-btn active px-3 py-1.5 rounded-lg font-body-sm-medium text-xs transition-all" data-template="student" id="tplStudentBtn" title="Optimized for freshers with education & GitHub projects">
             <span>⭐ Student / Fresher</span>
           </button>
-          <button class="template-pill-btn" data-template="modern" id="tplModernBtn" title="Two-column layout with sleek sidebar">
+          <button class="template-pill-btn px-3 py-1.5 rounded-lg font-body-sm-medium text-xs transition-all" data-template="modern" id="tplModernBtn" title="Two-column layout with sleek sidebar">
             <span>💎 Modern Two-Column</span>
           </button>
-          <button class="template-pill-btn" data-template="professional" id="tplProfBtn" title="Corporate executive layout">
+          <button class="template-pill-btn px-3 py-1.5 rounded-lg font-body-sm-medium text-xs transition-all" data-template="professional" id="tplProfBtn" title="Corporate executive layout">
             <span>💼 Professional</span>
           </button>
-          <button class="template-pill-btn" data-template="ats_simple" id="tplAtsBtn" title="100% plain text format for maximum ATS compliance">
+          <button class="template-pill-btn px-3 py-1.5 rounded-lg font-body-sm-medium text-xs transition-all" data-template="ats_simple" id="tplAtsBtn" title="100% plain text format for maximum ATS compliance">
             <span>📄 ATS Simple</span>
           </button>
         </div>
 
         <!-- Global Action Buttons -->
-        <div class="d-flex align-items-center gap-2 flex-wrap">
-          <button class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1 px-2.5 py-1" id="btnClearResume" title="Clear all fields and start fresh with an empty resume">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="btn btn-outline-danger btn-sm rounded-xl d-flex align-items-center gap-1 px-3 py-1.5 text-xs font-semibold" id="btnClearResume" title="Clear all fields and start fresh with an empty resume">
             <i class="bi bi-trash3"></i>
             <span>Start Blank</span>
           </button>
-          <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 px-3 py-1" id="btnJobMatchModal" title="Compare your resume against any Job Description">
-            <i class="bi bi-fire text-warning"></i>
-            <span class="fw-semibold">ATS Job Match</span>
+          <button class="btn btn-outline-primary btn-sm rounded-xl d-flex align-items-center gap-1 px-3.5 py-1.5 text-xs font-semibold shadow-xs" id="btnJobMatchModal" title="Compare your resume against any Job Description">
+            <i class="bi bi-fire text-amber-500"></i>
+            <span>ATS Job Match</span>
           </button>
-          <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1 px-3 py-1" id="btnSaveDraft">
+          <button class="btn btn-outline-secondary btn-sm rounded-xl d-flex align-items-center gap-1 px-3 py-1.5 text-xs font-semibold" id="btnSaveDraft">
             <i class="bi bi-floppy"></i>
             <span>Save Draft</span>
           </button>
-          <button class="btn btn-primary btn-sm d-flex align-items-center gap-1 px-3 py-1" id="btnDownloadPdf">
+          <button class="btn btn-primary btn-sm rounded-xl d-flex align-items-center gap-1 px-3.5 py-1.5 text-xs font-semibold shadow-sm" id="btnDownloadPdf">
             <i class="bi bi-download"></i>
-            <span class="fw-semibold">Download PDF</span>
+            <span>Download PDF</span>
           </button>
-          <button class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex align-items-center gap-1 px-2 py-1" id="btnPrintResume" title="Print Resume">
+          <button class="btn btn-outline-secondary btn-sm rounded-xl d-none d-sm-inline-flex align-items-center gap-1 px-2.5 py-1.5 text-xs" id="btnPrintResume" title="Print Resume">
             <i class="bi bi-printer"></i>
           </button>
 
           <!-- Zoom Preview Controls -->
           <div class="btn-group btn-group-sm ms-2 d-none d-xl-inline-flex" role="group">
-            <button type="button" class="btn btn-light border px-2 text-dark" id="btnZoomOut" title="Zoom Out">−</button>
-            <span class="btn btn-light border px-2 font-mono small text-muted" id="zoomLevelDisplay">100%</span>
-            <button type="button" class="btn btn-light border px-2 text-dark" id="btnZoomIn" title="Zoom In">+</button>
+            <button type="button" class="btn btn-light border px-2 text-dark text-xs" id="btnZoomOut" title="Zoom Out">−</button>
+            <span class="btn btn-light border px-2 font-mono text-xs text-slate-caption" id="zoomLevelDisplay">100%</span>
+            <button type="button" class="btn btn-light border px-2 text-dark text-xs" id="btnZoomIn" title="Zoom In">+</button>
           </div>
         </div>
       </div>
@@ -213,73 +260,73 @@
     <!-- ============================================================
          MAIN BUILDER SPLIT SCREEN WORKSPACE
          ============================================================ -->
-    <main class="builder-container">
-      <div class="row g-4">
-        <!-- ── LEFT COLUMN: 8-Step Form Wizard ────────────────── -->
-        <div class="col-lg-5 col-xl-5">
-          <!-- Quick Auto-Fill Banner -->
-          <div class="p-3 mb-3 rounded-3 border border-primary-subtle bg-light d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <main class="builder-container w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex-grow-1">
+      <div class="row g-4 items-start">
+        <!-- ── LEFT COLUMN: 8-Step Form Wizard (42%) ─────────────── -->
+        <div class="col-lg-5 col-xl-5 flex flex-col gap-3">
+          <!-- Quick Auto-Fill Banner (Stitch Autonomous Ledger Sync) -->
+          <div class="p-3.5 mb-2 rounded-2xl border border-blue-100 bg-blue-soft shadow-xs flex flex-wrap align-items-center justify-content-between gap-2">
             <div>
-              <div class="fw-bold text-dark small d-flex align-items-center gap-2">
+              <div class="font-headline-sm text-xs font-bold text-on-surface d-flex align-items-center gap-1.5">
                 <i class="bi bi-magic text-primary"></i> Canvas Controls &amp; Profile Sync
               </div>
-              <div class="text-secondary" style="font-size: 0.78rem;">Start with a blank resume or add details from your profile.</div>
+              <div class="font-body-sm text-slate-caption text-[11px]">Start with a blank canvas or import your verified skill dossier.</div>
             </div>
-            <div class="d-flex gap-2 flex-wrap">
-              <button type="button" class="btn-quick-import text-danger border-danger-subtle" id="btnClearResumeQuick" title="Reset to completely blank resume">
+            <div class="d-flex gap-1.5 flex-wrap">
+              <button type="button" class="btn-quick-import text-danger border-danger-subtle text-xs px-2.5 py-1 rounded-lg" id="btnClearResumeQuick" title="Reset to completely blank resume">
                 <i class="bi bi-trash3 text-danger"></i> Blank Canvas
               </button>
-              <button type="button" class="btn-quick-import" id="btnAutoSyncProfile" title="Sync verified skills & education from your profile">
+              <button type="button" class="btn-quick-import text-xs px-2.5 py-1 rounded-lg font-semibold" id="btnAutoSyncProfile" title="Sync verified skills & education from your profile">
                 <i class="bi bi-arrow-repeat text-primary"></i> Auto-Fill Profile
               </button>
-              <button type="button" class="btn-quick-import" id="btnImportGithubRepos" title="Import GitHub repositories">
+              <button type="button" class="btn-quick-import text-xs px-2.5 py-1 rounded-lg" id="btnImportGithubRepos" title="Import GitHub repositories">
                 <i class="bi bi-github text-dark"></i> GitHub Repos
               </button>
             </div>
           </div>
 
           <!-- SECTION 1: Personal Details -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secPersonalInfo">
-              <h3 class="builder-section-title">
-                <i class="bi bi-person-badge"></i> 1. Personal & Contact Information
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secPersonalInfo">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-person-badge text-primary"></i> 1. Personal &amp; Contact Information
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse show" id="secPersonalInfo">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div class="row g-3">
                   <div class="col-sm-6">
-                    <label class="cp-input-label">Full Name *</label>
-                    <input type="text" class="cp-form-control" id="inpFullName" placeholder="e.g. John Doe" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Full Name *</label>
+                    <input type="text" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpFullName" placeholder="e.g. John Doe" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">Professional Headline *</label>
-                    <input type="text" class="cp-form-control" id="inpHeadline" placeholder="e.g. Full-Stack Developer | BCA Student" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Professional Headline *</label>
+                    <input type="text" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpHeadline" placeholder="e.g. Full-Stack Developer | BCA Student" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">Email Address *</label>
-                    <input type="email" class="cp-form-control" id="inpEmail" placeholder="student@example.com" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Email Address *</label>
+                    <input type="email" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpEmail" placeholder="student@example.com" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">Phone Number</label>
-                    <input type="text" class="cp-form-control" id="inpPhone" placeholder="+91 98765 43210" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Phone Number</label>
+                    <input type="text" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpPhone" placeholder="+91 98765 43210" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">Location / City</label>
-                    <input type="text" class="cp-form-control" id="inpLocation" placeholder="Mumbai, Maharashtra" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Location / City</label>
+                    <input type="text" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpLocation" placeholder="Mumbai, Maharashtra" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">GitHub Profile URL</label>
-                    <input type="url" class="cp-form-control" id="inpGitHub" placeholder="https://github.com/username" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">GitHub Profile URL</label>
+                    <input type="url" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpGitHub" placeholder="https://github.com/username" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">LinkedIn Profile URL</label>
-                    <input type="url" class="cp-form-control" id="inpLinkedIn" placeholder="https://linkedin.com/in/username" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">LinkedIn Profile URL</label>
+                    <input type="url" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpLinkedIn" placeholder="https://linkedin.com/in/username" />
                   </div>
                   <div class="col-sm-6">
-                    <label class="cp-input-label">Portfolio or Blog URL</label>
-                    <input type="url" class="cp-form-control" id="inpPortfolio" placeholder="https://myportfolio.dev" />
+                    <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Portfolio or Blog URL</label>
+                    <input type="url" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpPortfolio" placeholder="https://myportfolio.dev" />
                   </div>
                 </div>
               </div>
@@ -287,46 +334,46 @@
           </div>
 
           <!-- SECTION 2: Career Summary -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secSummary">
-              <h3 class="builder-section-title">
-                <i class="bi bi-card-text"></i> 2. Professional Summary
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secSummary">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-card-text text-primary"></i> 2. Professional Summary
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse show" id="secSummary">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                  <label class="cp-input-label mb-0">Summary Statement</label>
-                  <button type="button" class="btn-ai-polish" id="btnImproveSummary">
+                  <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body mb-0">Summary Statement</label>
+                  <button type="button" class="btn-ai-polish text-xs px-2.5 py-1 rounded-lg" id="btnImproveSummary">
                     <i class="bi bi-stars"></i> ✨ Polish with AI
                   </button>
                 </div>
                 <textarea
-                  class="cp-form-control"
+                  class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper"
                   id="inpSummary"
                   rows="4"
                   placeholder="Detail-oriented computer science student with a strong technical foundation in full-stack web development. Experienced in building responsive user interfaces, integrating RESTful APIs, and collaborating on version-controlled projects."
                 ></textarea>
-                <div class="text-end text-muted mt-1" style="font-size: 0.72rem;" id="summaryWordCount">0 words</div>
+                <div class="text-end text-slate-caption font-code-sm mt-1" style="font-size: 0.72rem;" id="summaryWordCount">0 words</div>
               </div>
             </div>
           </div>
 
           <!-- SECTION 3: Education -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secEducation">
-              <h3 class="builder-section-title">
-                <i class="bi bi-mortarboard"></i> 3. Education
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secEducation">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-mortarboard text-primary"></i> 3. Education
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse show" id="secEducation">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="educationListContainer">
                   <!-- Education repeater items injected here -->
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2" id="btnAddEducation">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-xl w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2 font-body-sm-medium text-xs font-semibold" id="btnAddEducation">
                   <i class="bi bi-plus-circle"></i> Add Education Entry
                 </button>
               </div>
@@ -334,23 +381,23 @@
           </div>
 
           <!-- SECTION 4: Skills & Verified Badges -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secSkills">
-              <h3 class="builder-section-title">
-                <i class="bi bi-check2-circle"></i> 4. Technical Skills & Badges
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secSkills">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-check2-circle text-primary"></i> 4. Technical Skills &amp; Badges
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse show" id="secSkills">
-              <div class="builder-section-body">
-                <div class="p-2 mb-3 rounded-2 bg-indigo bg-opacity-10 border border-indigo border-opacity-25 text-info small d-flex align-items-center gap-2">
-                  <i class="bi bi-shield-check text-success fs-6"></i>
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
+                <div class="p-2.5 mb-3 rounded-xl bg-blue-soft border border-blue-100 text-primary text-xs d-flex align-items-center gap-2">
+                  <i class="bi bi-shield-check text-secondary fs-6"></i>
                   <span>Skills verified via <strong>Disheera Quizzes</strong> or <strong>GitHub Code Analysis</strong> automatically render with proof badges!</span>
                 </div>
                 <div id="skillsListContainer">
                   <!-- Skills repeater items injected here -->
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2" id="btnAddSkill">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-xl w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2 font-body-sm-medium text-xs font-semibold" id="btnAddSkill">
                   <i class="bi bi-plus-circle"></i> Add Skill
                 </button>
               </div>
@@ -358,19 +405,19 @@
           </div>
 
           <!-- SECTION 5: Projects & GitHub Repos -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secProjects">
-              <h3 class="builder-section-title">
-                <i class="bi bi-folder-check"></i> 5. Projects & Study Repositories
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secProjects">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-folder-check text-primary"></i> 5. Projects &amp; Study Repositories
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse show" id="secProjects">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="projectsListContainer">
                   <!-- Project repeater items injected here -->
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2" id="btnAddProject">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-xl w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2 font-body-sm-medium text-xs font-semibold" id="btnAddProject">
                   <i class="bi bi-plus-circle"></i> Add Project
                 </button>
               </div>
@@ -378,19 +425,19 @@
           </div>
 
           <!-- SECTION 6: Experience & Hackathons -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secExperience">
-              <h3 class="builder-section-title">
-                <i class="bi bi-briefcase"></i> 6. Experience & Internships
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secExperience">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-briefcase text-primary"></i> 6. Experience &amp; Internships
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse show" id="secExperience">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="experienceListContainer">
                   <!-- Experience repeater items injected here -->
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2" id="btnAddExperience">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-xl w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2 font-body-sm-medium text-xs font-semibold" id="btnAddExperience">
                   <i class="bi bi-plus-circle"></i> Add Work or Internship Experience
                 </button>
               </div>
@@ -398,19 +445,19 @@
           </div>
 
           <!-- SECTION 7: Certifications -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secCertifications">
-              <h3 class="builder-section-title">
-                <i class="bi bi-award"></i> 7. Certifications & Badges
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secCertifications">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-award text-primary"></i> 7. Certifications &amp; Badges
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse" id="secCertifications">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="certificationsListContainer">
                   <!-- Certification repeater items injected here -->
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2" id="btnAddCertification">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-xl w-100 py-2 d-flex align-items-center justify-content-center gap-2 mt-2 font-body-sm-medium text-xs font-semibold" id="btnAddCertification">
                   <i class="bi bi-plus-circle"></i> Add Certification
                 </button>
               </div>
@@ -418,38 +465,38 @@
           </div>
 
           <!-- SECTION 8: Additional Information -->
-          <div class="builder-section-card">
-            <div class="builder-section-header" data-bs-toggle="collapse" data-bs-target="#secAdditional">
-              <h3 class="builder-section-title">
-                <i class="bi bi-globe2"></i> 8. Additional Details
+          <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secAdditional">
+              <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
+                <i class="bi bi-globe2 text-primary"></i> 8. Additional Details
               </h3>
-              <i class="bi bi-chevron-down text-muted"></i>
+              <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
             <div class="collapse" id="secAdditional">
-              <div class="builder-section-body">
+              <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div class="mb-3">
-                  <label class="cp-input-label">Languages (comma separated)</label>
-                  <input type="text" class="cp-form-control" id="inpLanguages" placeholder="English (Fluent), Hindi (Native), Spanish (Basic)" />
+                  <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Languages (comma separated)</label>
+                  <input type="text" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpLanguages" placeholder="English (Fluent), Hindi (Native), Spanish (Basic)" />
                 </div>
                 <div class="mb-3">
-                  <label class="cp-input-label">Key Achievements & Honors (one per line)</label>
-                  <textarea class="cp-form-control" id="inpAchievements" rows="3" placeholder="Finalist at National Collegiate Hackathon 2026&#10;Won 1st Place in College Coding Competition&#10;Maintained 8.5+ CGPA across all semesters"></textarea>
+                  <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Key Achievements &amp; Honors (one per line)</label>
+                  <textarea class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpAchievements" rows="3" placeholder="Finalist at National Collegiate Hackathon 2026&#10;Won 1st Place in College Coding Competition&#10;Maintained 8.5+ CGPA across all semesters"></textarea>
                 </div>
                 <div class="mb-3">
-                  <label class="cp-input-label">Hobbies & Interests (comma separated)</label>
-                  <input type="text" class="cp-form-control" id="inpHobbies" placeholder="Open Source Contributing, System Architecture, Competitive Programming" />
+                  <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Hobbies &amp; Interests (comma separated)</label>
+                  <input type="text" class="cp-form-control form-control rounded-xl text-xs p-2.5 border-border-whisper" id="inpHobbies" placeholder="Open Source Contributing, System Architecture, Competitive Programming" />
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ── RIGHT COLUMN: Live Interactive A4 Preview Chamber ── -->
+        <!-- ── RIGHT COLUMN: Live Interactive A4 Preview Chamber (58%) ── -->
         <div class="col-lg-7 col-xl-7">
-          <div class="preview-chamber">
-            <div class="preview-scroll-wrapper" id="previewScrollWrapper">
+          <div class="preview-chamber bg-surface-muted p-4 sm:p-6 rounded-2xl border border-border-whisper shadow-inner sticky top-36">
+            <div class="preview-scroll-wrapper overflow-auto flex justify-center max-h-[calc(100vh-12rem)]" id="previewScrollWrapper">
               <!-- Live A4 Paper -->
-              <div class="resume-paper template-student" id="resumePaper">
+              <div class="resume-paper template-student bg-white shadow-xl rounded-md" id="resumePaper">
                 <!-- Live resume markup dynamically injected here -->
               </div>
             </div>
@@ -463,35 +510,35 @@
          ============================================================ -->
     <div class="modal fade" id="aiImproveModal" tabindex="-1" aria-labelledby="aiImproveModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content bg-white text-dark border-0 shadow-lg">
-          <div class="modal-header border-bottom">
+        <div class="modal-content bg-white text-dark border border-border-whisper rounded-2xl shadow-xl overflow-hidden">
+          <div class="modal-header border-b border-border-whisper p-4">
             <div class="d-flex align-items-center gap-2">
-              <div class="badge bg-primary p-2 text-white">
+              <div class="w-10 h-10 rounded-xl bg-blue-soft text-primary flex items-center justify-center">
                 <i class="bi bi-stars fs-5"></i>
               </div>
               <div>
-                <h5 class="modal-title fw-bold text-dark" id="aiImproveModalLabel">AI Resume Enhancer</h5>
-                <p class="text-muted small mb-0">Powered by Groq LLaMA-3 & Google Gemini</p>
+                <h5 class="modal-title font-headline-sm text-base font-bold text-on-surface mb-0" id="aiImproveModalLabel">AI Resume Enhancer</h5>
+                <p class="font-body-sm text-slate-caption text-xs mb-0">Powered by Groq LLaMA-3 &amp; Google Gemini</p>
               </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body p-4">
+          <div class="modal-body p-4 sm:p-5">
             <div class="mb-3">
-              <label class="text-muted small fw-semibold text-uppercase font-mono">Original Text</label>
-              <div class="p-3 rounded bg-light border text-dark small" id="aiOriginalTextDisplay">
+              <label class="text-slate-caption font-code-sm text-xs font-semibold text-uppercase tracking-wider">Original Text</label>
+              <div class="p-3 rounded-xl bg-surface-muted border border-border-whisper font-body-sm text-on-surface text-xs leading-relaxed" id="aiOriginalTextDisplay">
                 Loading original text...
               </div>
             </div>
 
             <div class="mb-2">
-              <label class="text-muted small fw-semibold text-uppercase font-mono">High-Impact AI Variations</label>
+              <label class="text-slate-caption font-code-sm text-xs font-semibold text-uppercase tracking-wider">High-Impact AI Variations</label>
             </div>
 
             <!-- Loading Spinner -->
             <div class="text-center py-4 d-none" id="aiLoadingSpinner">
               <div class="spinner-border text-primary" role="status"></div>
-              <p class="small text-muted mt-2">Generating ATS-optimized suggestions...</p>
+              <p class="font-body-sm text-xs text-slate-caption mt-2">Generating ATS-optimized suggestions...</p>
             </div>
 
             <!-- Suggestions Container -->
@@ -499,8 +546,8 @@
               <!-- Suggestion Cards injected here -->
             </div>
           </div>
-          <div class="modal-footer border-top">
-            <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Cancel</button>
+          <div class="modal-footer border-t border-border-whisper p-3">
+            <button type="button" class="btn btn-secondary btn-sm px-3 rounded-xl font-body-sm-medium text-xs" data-bs-dismiss="modal">Cancel</button>
           </div>
         </div>
       </div>
@@ -511,51 +558,51 @@
          ============================================================ -->
     <div class="modal fade" id="jobMatchModal" tabindex="-1" aria-labelledby="jobMatchModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content bg-white text-dark border-0 shadow-lg">
-          <div class="modal-header border-bottom">
+        <div class="modal-content bg-white text-dark border border-border-whisper rounded-2xl shadow-xl overflow-hidden">
+          <div class="modal-header border-b border-border-whisper p-4">
             <div class="d-flex align-items-center gap-2">
-              <div class="badge bg-primary p-2 text-white">
+              <div class="w-10 h-10 rounded-xl bg-blue-soft text-primary flex items-center justify-center">
                 <i class="bi bi-bullseye fs-5"></i>
               </div>
               <div>
-                <h5 class="modal-title fw-bold text-dark" id="jobMatchModalLabel">Resume → Job ATS Matcher</h5>
-                <p class="text-muted small mb-0">Paste any target Job Description to simulate enterprise ATS scoring</p>
+                <h5 class="modal-title font-headline-sm text-base font-bold text-on-surface mb-0" id="jobMatchModalLabel">Resume → Job ATS Matcher</h5>
+                <p class="font-body-sm text-slate-caption text-xs mb-0">Paste any target Job Description to simulate enterprise ATS scoring</p>
               </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body p-4">
+          <div class="modal-body p-4 sm:p-5">
             <div class="mb-3">
-              <label class="cp-input-label">Target Job Description (JD)</label>
+              <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body">Target Job Description (JD)</label>
               <textarea
-                class="cp-form-control"
+                class="cp-form-control form-control rounded-xl text-xs p-3 border-border-whisper"
                 id="inpJobDescription"
                 rows="5"
                 placeholder="Paste the requirements section from LinkedIn, Indeed, or company portal... (e.g. Seeking a Full-Stack Developer with experience in React, Node.js, REST APIs, MongoDB, Git, and Cloud deployment...)"
               ></textarea>
             </div>
 
-            <button type="button" class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2 fw-semibold" id="btnRunJobMatch">
+            <button type="button" class="btn btn-primary w-100 py-2.5 rounded-xl d-flex align-items-center justify-content-center gap-2 font-body-sm-medium text-xs font-semibold shadow-sm" id="btnRunJobMatch">
               <i class="bi bi-search"></i> Evaluate ATS Match Percentage
             </button>
 
             <!-- Results Section (Initially hidden) -->
-            <div class="mt-4 pt-3 border-top d-none" id="jobMatchResultsArea">
-              <div class="d-flex align-items-center justify-content-between p-3 rounded bg-light border mb-3">
+            <div class="mt-4 pt-3 border-t border-border-whisper d-none" id="jobMatchResultsArea">
+              <div class="d-flex align-items-center justify-content-between p-3.5 rounded-xl bg-surface-muted border border-border-whisper mb-3">
                 <div>
-                  <div class="text-muted small text-uppercase font-mono">ATS Match Score</div>
-                  <h2 class="fw-bold mb-0 text-dark" id="matchScoreDisplay">0%</h2>
-                  <div class="small text-primary mt-1" id="matchVerdictDisplay">Evaluating...</div>
+                  <div class="text-slate-caption font-code-sm text-[11px] uppercase tracking-wider">ATS Match Score</div>
+                  <h2 class="font-headline-lg text-3xl font-bold mb-0 text-on-surface" id="matchScoreDisplay">0%</h2>
+                  <div class="font-body-sm text-xs text-primary font-semibold mt-1" id="matchVerdictDisplay">Evaluating...</div>
                 </div>
                 <div class="text-end">
-                  <div class="badge bg-success py-2 px-3 fs-6 mb-1" id="matchedCountBadge">0 Matched</div>
-                  <div class="badge bg-danger py-2 px-3 fs-6 d-block" id="missingCountBadge">0 Missing</div>
+                  <div class="badge bg-emerald-soft text-secondary border border-secondary-container py-1.5 px-3 font-code-sm text-xs mb-1" id="matchedCountBadge">0 Matched</div>
+                  <div class="badge bg-red-100 text-danger border border-red-200 py-1.5 px-3 font-code-sm text-xs d-block" id="missingCountBadge">0 Missing</div>
                 </div>
               </div>
 
               <!-- Matched Keywords -->
               <div class="mb-3">
-                <div class="text-muted small fw-semibold text-uppercase font-mono mb-2">🟢 Matched Keywords in Your Resume</div>
+                <div class="font-code-sm text-xs text-slate-caption font-semibold uppercase tracking-wider mb-2">🟢 Matched Keywords in Your Resume</div>
                 <div class="d-flex flex-wrap gap-2" id="matchedSkillsTags">
                   <!-- Matched tags -->
                 </div>
@@ -563,7 +610,7 @@
 
               <!-- Missing Keywords -->
               <div class="mb-3">
-                <div class="text-muted small fw-semibold text-uppercase font-mono mb-2">🔴 Missing Keywords (Add these to boost rank)</div>
+                <div class="font-code-sm text-xs text-slate-caption font-semibold uppercase tracking-wider mb-2">🔴 Missing Keywords (Add these to boost rank)</div>
                 <div class="d-flex flex-wrap gap-2" id="missingSkillsTags">
                   <!-- Missing tags -->
                 </div>
@@ -571,19 +618,27 @@
 
               <!-- Tailoring Advice -->
               <div>
-                <div class="text-muted small fw-semibold text-uppercase font-mono mb-2">💡 Tailoring Recommendations</div>
-                <ul class="small text-dark ps-3 mb-0" id="tailoringAdviceList">
+                <div class="font-code-sm text-xs text-slate-caption font-semibold uppercase tracking-wider mb-2">💡 Tailoring Recommendations</div>
+                <ul class="font-body-sm text-xs text-on-surface ps-3 mb-0" id="tailoringAdviceList">
                   <!-- Recommendations -->
                 </ul>
               </div>
             </div>
           </div>
-          <div class="modal-footer border-top">
-            <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">Close</button>
+          <div class="modal-footer border-t border-border-whisper p-3">
+            <button type="button" class="btn btn-secondary btn-sm px-4 rounded-xl font-body-sm-medium text-xs" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-4 border-t border-border-whisper text-center text-slate-caption text-xs font-mono bg-surface-pure">
+      <div class="container max-w-[1400px]">
+        <div>Disheera &middot; Digital Personal Data Protection (DPDP) Act 2023 Compliant Talent Protocol</div>
+        <div class="text-slate-caption mt-1 text-[11px]">Autonomous ATS Resume Generation &middot; Official Support WhatsApp: +91 74990 85045</div>
+      </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
