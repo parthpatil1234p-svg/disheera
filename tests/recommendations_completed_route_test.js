@@ -66,7 +66,7 @@ async function runTest() {
   }
 
   // 4. Test Current Roadmap API provides completed roadmaps
-  const rmRes = await fetch('http://localhost:5000/api/roadmaps/current', {
+  const rmRes = await fetch('http://127.0.0.1:5000/api/roadmaps/current', {
     headers: { Authorization: `Bearer ${token}` },
   });
   const rmData = await rmRes.json();
