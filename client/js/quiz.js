@@ -752,7 +752,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (introSkillCategory) {
       const catLabel = (activeSkillInfo.category || 'TECHNICAL').toUpperCase();
-      introSkillCategory.textContent = `${catLabel} ${isBanked ? '· CURATED 0MS QUESTION BANK' : '· ADAPTIVE AI PROCTORING'}`;
+      introSkillCategory.textContent = `${catLabel} ${isBanked ? '· CURATED QUESTION BANK' : '· ADAPTIVE AI PROCTORING'}`;
     }
     if (introSkillTitle) introSkillTitle.textContent = `${activeSkillInfo.displayName || activeSkillInfo.label || capitalize(canonical)} Reality-Check`;
     if (introSelfRatedProficiency) introSelfRatedProficiency.textContent = capitalize(selfRated);
@@ -766,13 +766,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else if (userSkillObj || activeSkillInfo.isUserSkill) {
         introSkillDesc.innerHTML = `
           You self-rated this skill as <strong class="text-primary">${capitalize(selfRated)}</strong>.
-          Take this 2-minute reality-check to confirm your knowledge level and earn your verified badge.
+          Take the skill check to confirm your knowledge level and earn your verified badge.
         `;
       } else {
         introSkillDesc.innerHTML = `
           ${escapeHtml(activeSkillInfo.description || 'Test your real-world problem-solving abilities and algorithmic knowledge.')}
           <div class="mt-2 text-primary fw-medium small">
-            <i class="bi bi-patch-plus me-1"></i>Taking this quiz will verify this skill and automatically add it with full confidence weight to your profile.
+            <i class="bi bi-patch-plus me-1"></i>Taking this quiz will verify this skill and add it to your profile.
           </div>
         `;
       }
@@ -780,11 +780,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (btnStartQuiz) {
       if (activeSkillInfo.cooldownActive) {
-        btnStartQuiz.innerHTML = `<span>24-Hour Review Cooldown Active</span> <i class="bi bi-clock-history ms-1"></i>`;
+        btnStartQuiz.innerHTML = `<span>Review cooldown active</span> <i class="bi bi-clock-history ms-1"></i>`;
         btnStartQuiz.disabled = true;
       } else {
         btnStartQuiz.innerHTML = `
-          <span>Start 2-Min Reality-Check</span>
+          <span>Start skill check</span>
           <i class="bi bi-lightning-charge-fill ms-1"></i>
         `;
         btnStartQuiz.disabled = false;
@@ -879,11 +879,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           const hours = response.retryAfterHours || 24;
           showAlert(`⏱️ 24-Hour Review Cooldown: Skill checks can only be retaken after a 24-hour review period to protect credential integrity. Retake available in ${hours} hour${hours > 1 ? 's' : ''}.`, 'warning');
           btnStartQuiz.disabled = false;
-          btnStartQuiz.innerHTML = `<span>Start 2-Min Reality-Check</span> <i class="bi bi-lightning-charge-fill ms-1"></i>`;
+          btnStartQuiz.innerHTML = `<span>Start skill check</span> <i class="bi bi-lightning-charge-fill ms-1"></i>`;
         } else {
           showAlert(response.message || 'Could not start quiz session.');
           btnStartQuiz.disabled = false;
-          btnStartQuiz.innerHTML = `<span>Start 2-Min Reality-Check</span> <i class="bi bi-lightning-charge-fill ms-1"></i>`;
+          btnStartQuiz.innerHTML = `<span>Start skill check</span> <i class="bi bi-lightning-charge-fill ms-1"></i>`;
         }
       } catch (err) {
         console.error('Quiz start error:', err);
@@ -894,7 +894,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           showAlert(err.message || 'Network error starting quiz. Please try again.');
         }
         btnStartQuiz.disabled = false;
-        btnStartQuiz.innerHTML = `<span>Start 2-Min Reality-Check</span> <i class="bi bi-lightning-charge-fill ms-1"></i>`;
+          btnStartQuiz.innerHTML = `<span>Start skill check</span> <i class="bi bi-lightning-charge-fill ms-1"></i>`;
       }
     });
   }

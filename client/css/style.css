@@ -10036,6 +10036,7 @@ body.modal-open .cp-chat-card {
 .recommendations-page .cp-chat-question-popup,
 .assessment-page .cp-chat-question-popup,
 body:has(.quiz-page-container) .cp-chat-question-popup,
+body:has(.quiz-page-container) .cp-chat-trigger,
 body.modal-open .cp-chat-question-popup,
 body.modal-open .cp-chat-trigger {
   display: none !important;
@@ -11120,6 +11121,11 @@ body.assessment-page .assessment-layout {
   justify-content: center !important;
   max-width: 1880px !important;
   width: 96% !important;
+}
+
+/* Auth pages use a plain div as the nav row instead of a Bootstrap container. */
+.cp-navbar-notch > div {
+  pointer-events: auto;
 }
 
 /* --------------------------------------------------------------------------
@@ -12398,17 +12404,19 @@ body.assessment-page .assessment-layout {
   gap: 0.4rem;
   overflow-x: auto;
   white-space: nowrap;
-  padding-bottom: 4px;
+  padding: 0.25rem 0 0.5rem;
   scrollbar-width: thin;
+  scrollbar-color: #94A3B8 #F1F5F9;
 }
 
 .category-filter-bar::-webkit-scrollbar {
-  height: 4px;
+  height: 8px;
 }
 
 .category-filter-bar::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: #94A3B8;
+  border: 2px solid #F1F5F9;
+  border-radius: 999px;
 }
 
 .category-filter-pill {
@@ -12425,6 +12433,7 @@ body.assessment-page .assessment-layout {
   cursor: pointer;
   transition: all 0.15s ease;
   user-select: none;
+  min-height: 40px;
 }
 
 .category-filter-pill:hover {
@@ -12447,29 +12456,40 @@ body.assessment-page .assessment-layout {
 
 /* ── Scrollable Skill Tray ───────────────────────────────────── */
 .skill-selector-tray-container {
-  max-height: 250px;
+  max-height: 320px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #CBD5E1 #F8FAFC;
+  scrollbar-color: #94A3B8 #F1F5F9;
+  overscroll-behavior: contain;
 }
 
 .skill-selector-tray-container::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 .skill-selector-tray-container::-webkit-scrollbar-track {
-  background: #F8FAFC;
+  background: #F1F5F9;
 }
 
 .skill-selector-tray-container::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: #94A3B8;
+  border: 2px solid #F1F5F9;
+  border-radius: 999px;
 }
 
 .skill-select-btn {
   padding: 0.55rem 0.95rem;
   font-size: 0.825rem;
   border-radius: 0.65rem;
+  min-height: 44px;
+}
+
+.category-filter-pill:focus-visible,
+.skill-select-btn:focus-visible {
+  outline: 3px solid #1D4ED8;
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Question & Prompt ───────────────────────────────────────── */
@@ -14844,6 +14864,43 @@ img {
     grid-template-columns: 1fr;
     gap: 0.65rem;
   }
+}
+
+/* Keep the auth header's mobile menu reachable and stop field icons covering input text. */
+@media (max-width: 575.98px) {
+  body.auth-page .cp-navbar-notch > div {
+    gap: 0.5rem !important;
+    padding-inline: 0.75rem !important;
+  }
+
+  body.auth-page .cp-navbar-notch > div > .flex.items-center.gap-3:last-child {
+    flex: 0 0 auto;
+    gap: 0.35rem !important;
+  }
+
+  body.auth-page .cp-navbar-notch > div > .flex.items-center.gap-3:last-child > a {
+    display: none !important;
+  }
+
+  body.auth-page .cp-navbar-notch .notch-mobile-toggle {
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  body.auth-page #btnGoogleAuth > span:last-child {
+    display: none !important;
+  }
+}
+
+body.auth-page #email,
+body.auth-page #password {
+  padding-inline-start: 2.75rem !important;
+}
+
+main:has(#verifyLoadingState:not(.d-none), #verifyErrorState:not(.d-none), #verifySuccessState:not(.d-none)) #verifyIdleState {
+  display: none;
 }
 
 

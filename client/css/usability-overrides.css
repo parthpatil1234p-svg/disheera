@@ -1092,3 +1092,40 @@ img {
   }
 }
 
+/* Keep the auth header's mobile menu reachable and stop field icons covering input text. */
+@media (max-width: 575.98px) {
+  body.auth-page .cp-navbar-notch > div {
+    gap: 0.5rem !important;
+    padding-inline: 0.75rem !important;
+  }
+
+  body.auth-page .cp-navbar-notch > div > .flex.items-center.gap-3:last-child {
+    flex: 0 0 auto;
+    gap: 0.35rem !important;
+  }
+
+  body.auth-page .cp-navbar-notch > div > .flex.items-center.gap-3:last-child > a {
+    display: none !important;
+  }
+
+  body.auth-page .cp-navbar-notch .notch-mobile-toggle {
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  body.auth-page #btnGoogleAuth > span:last-child {
+    display: none !important;
+  }
+}
+
+body.auth-page #email,
+body.auth-page #password {
+  padding-inline-start: 2.75rem !important;
+}
+
+main:has(#verifyLoadingState:not(.d-none), #verifyErrorState:not(.d-none), #verifySuccessState:not(.d-none)) #verifyIdleState {
+  display: none;
+}
+

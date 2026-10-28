@@ -1,6 +1,9 @@
 const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../server/.env') });
+const User = require('../server/models/User');
+const generateToken = require('../server/utils/generateToken');
 
 const CHROME_PATH = fs.existsSync('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe')
   ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
@@ -25,35 +28,32 @@ async function runAudit() {
 
   // Helper to log in as student
   async function loginStudent() {
-    console.log('\nLogging in as student...');
-    await page.goto('http://localhost:5500/login.html', { waitUntil: 'domcontentloaded' });
-    await page.evaluate(() => localStorage.clear());
-    await page.goto('http://localhost:5500/login.html', { waitUntil: 'domcontentloaded' });
-    await page.evaluate(() => {
-      const emailInput = document.getElementById('email');
-      const passInput = document.getElementById('password');
-      if (emailInput) emailInput.value = 'kajimew275@blobapps.com';
-      if (passInput) passInput.value = '123456';
-      const form = document.getElementById('loginForm');
-      if (form) form.requestSubmit();
-    });
-    await new Promise(r => setTimeout(r, 2000));
+    console.log('\nSetting up authenticated student session...');
+    const student = await User.findOne({ role: 'student', isVerified: true });
+    if (!student) throw new Error('No verified student account found in database.');
+    const token = generateToken(student);
+    await page.goto('http://localhost:5500/index.html?view=public', { waitUntil: 'domcontentloaded' });
+    await page.evaluate((tok, usr) => {
+      localStorage.clear();
+      localStorage.setItem('careerpath_token', tok);
+      localStorage.setItem('careerpath_user', JSON.stringify(usr));
+    }, token, { id: student._id || student.id, email: student.email, name: student.name || 'Student User', role: 'student' });
+    await new Promise(r => setTimeout(r, 1000));
   }
 
   // Helper to log in as recruiter
   async function loginRecruiter() {
-    console.log('\nLogging in as recruiter...');
-    await page.evaluate(() => localStorage.clear());
-    await page.goto('http://localhost:5500/login.html', { waitUntil: 'networkidle2' });
-    await page.evaluate(() => {
-      const emailInput = document.getElementById('email');
-      const passInput = document.getElementById('password');
-      if (emailInput) emailInput.value = 'recruiter@razorpay.com';
-      if (passInput) passInput.value = 'demo123';
-      const form = document.getElementById('loginForm');
-      if (form) form.requestSubmit();
-    });
-    await new Promise(r => setTimeout(r, 2000));
+    console.log('\nSetting up authenticated recruiter session...');
+    const recruiter = await User.findOne({ role: 'recruiter' });
+    if (!recruiter) throw new Error('No recruiter account found in database.');
+    const token = generateToken(recruiter);
+    await page.goto('http://localhost:5500/index.html?view=public', { waitUntil: 'domcontentloaded' });
+    await page.evaluate((tok, usr) => {
+      localStorage.clear();
+      localStorage.setItem('careerpath_token', tok);
+      localStorage.setItem('careerpath_user', JSON.stringify(usr));
+    }, token, { id: recruiter._id || recruiter.id, email: recruiter.email, name: recruiter.name || 'Recruiter Admin', role: 'recruiter' });
+    await new Promise(r => setTimeout(r, 1000));
   }
 
   // Helper to audit a single page
@@ -76,7 +76,7 @@ async function runAudit() {
       page.on('requestfailed', onRequestFailed);
 
       try {
-        await page.goto(url, { waitUntil: 'load', timeout: 10000 });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
         await new Promise(r => setTimeout(r, 1200));
 
         // Check horizontal overflow

@@ -228,6 +228,16 @@
 
     <!-- Main Verification Body -->
     <main class="container py-4 py-md-5 flex-grow-1">
+      <section id="verifyIdleState" class="text-center py-5" role="status" aria-live="polite">
+        <div class="card p-4 mx-auto verify-lookup-card border-line">
+          <div class="mb-3" aria-hidden="true">
+            <i class="bi bi-search text-primary display-4"></i>
+          </div>
+          <h2 class="h4 fw-bold text-ink mb-2">Verify a credential</h2>
+          <p class="text-secondary small mb-0">Enter a credential ID above to see its verification status.</p>
+        </div>
+      </section>
+
       <!-- Loading State -->
       <div id="verifyLoadingState" class="text-center py-5 d-none">
         <div class="spinner-border text-warning mb-3" style="width: 3rem; height: 3rem;" role="status">

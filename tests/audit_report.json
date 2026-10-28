@@ -78,7 +78,9 @@
     "overflow": false,
     "excessWidth": 0,
     "overflowingElements": [],
-    "brokenImages": [],
+    "brokenImages": [
+      "http://localhost:5500/verify"
+    ],
     "consoleErrors": [],
     "failedRequests": [],
     "screenshot": "Cert_Verify_Desktop.png"
@@ -90,7 +92,9 @@
     "overflow": false,
     "excessWidth": 0,
     "overflowingElements": [],
-    "brokenImages": [],
+    "brokenImages": [
+      "http://localhost:5500/verify"
+    ],
     "consoleErrors": [],
     "failedRequests": [],
     "screenshot": "Cert_Verify_Mobile.png"
@@ -102,7 +106,9 @@
     "overflow": false,
     "excessWidth": 0,
     "overflowingElements": [],
-    "brokenImages": [],
+    "brokenImages": [
+      "http://localhost:5500/dashboard"
+    ],
     "consoleErrors": [],
     "failedRequests": [],
     "screenshot": "Student_Dashboard_Desktop.png"
@@ -114,7 +120,9 @@
     "overflow": false,
     "excessWidth": 0,
     "overflowingElements": [],
-    "brokenImages": [],
+    "brokenImages": [
+      "http://localhost:5500/dashboard"
+    ],
     "consoleErrors": [],
     "failedRequests": [],
     "screenshot": "Student_Dashboard_Mobile.png"
@@ -270,7 +278,9 @@
     "overflow": false,
     "excessWidth": 0,
     "overflowingElements": [],
-    "brokenImages": [],
+    "brokenImages": [
+      "http://localhost:5500/passport"
+    ],
     "consoleErrors": [],
     "failedRequests": [],
     "screenshot": "Student_Passport_Desktop.png"
@@ -282,7 +292,9 @@
     "overflow": false,
     "excessWidth": 0,
     "overflowingElements": [],
-    "brokenImages": [],
+    "brokenImages": [
+      "http://localhost:5500/passport"
+    ],
     "consoleErrors": [],
     "failedRequests": [],
     "screenshot": "Student_Passport_Mobile.png"

@@ -78,6 +78,11 @@ body.assessment-page .assessment-layout {
   width: 96% !important;
 }
 
+/* Auth pages use a plain div as the nav row instead of a Bootstrap container. */
+.cp-navbar-notch > div {
+  pointer-events: auto;
+}
+
 /* --------------------------------------------------------------------------
    2. Floating Central Island (High-End Frosted Glass Capsule)
    -------------------------------------------------------------------------- */

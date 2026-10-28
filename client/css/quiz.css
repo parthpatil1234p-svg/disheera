@@ -160,17 +160,19 @@
   gap: 0.4rem;
   overflow-x: auto;
   white-space: nowrap;
-  padding-bottom: 4px;
+  padding: 0.25rem 0 0.5rem;
   scrollbar-width: thin;
+  scrollbar-color: #94A3B8 #F1F5F9;
 }
 
 .category-filter-bar::-webkit-scrollbar {
-  height: 4px;
+  height: 8px;
 }
 
 .category-filter-bar::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: #94A3B8;
+  border: 2px solid #F1F5F9;
+  border-radius: 999px;
 }
 
 .category-filter-pill {
@@ -187,6 +189,7 @@
   cursor: pointer;
   transition: all 0.15s ease;
   user-select: none;
+  min-height: 40px;
 }
 
 .category-filter-pill:hover {
@@ -209,29 +212,40 @@
 
 /* ── Scrollable Skill Tray ───────────────────────────────────── */
 .skill-selector-tray-container {
-  max-height: 250px;
+  max-height: 320px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #CBD5E1 #F8FAFC;
+  scrollbar-color: #94A3B8 #F1F5F9;
+  overscroll-behavior: contain;
 }
 
 .skill-selector-tray-container::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 .skill-selector-tray-container::-webkit-scrollbar-track {
-  background: #F8FAFC;
+  background: #F1F5F9;
 }
 
 .skill-selector-tray-container::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: #94A3B8;
+  border: 2px solid #F1F5F9;
+  border-radius: 999px;
 }
 
 .skill-select-btn {
   padding: 0.55rem 0.95rem;
   font-size: 0.825rem;
   border-radius: 0.65rem;
+  min-height: 44px;
+}
+
+.category-filter-pill:focus-visible,
+.skill-select-btn:focus-visible {
+  outline: 3px solid #1D4ED8;
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Question & Prompt ───────────────────────────────────────── */

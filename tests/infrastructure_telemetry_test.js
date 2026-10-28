@@ -1,4 +1,6 @@
 const assert = require('assert');
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../server/.env') });
 const { getInfrastructureTelemetry } = require('../server/controllers/adminSystemController');
 
 async function testInfrastructureTelemetry() {
