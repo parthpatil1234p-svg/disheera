@@ -1,12 +1,39 @@
-# Dependencies
-node_modules/
-client/node_modules/
-server/node_modules/
 
-# Environment Variables
+# ==============================================================================
+# Disheera — Production .gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Catch-all: Ignore all dotfiles and dotfolders by default
+# ------------------------------------------------------------------------------
+.*
+**/.*
+
+# ------------------------------------------------------------------------------
+# 2. Whitelist: Required dotfiles and directories (Must NOT be ignored)
+# ------------------------------------------------------------------------------
+!.gitignore
+!**/.gitignore
+!.gitkeep
+!**/.gitkeep
+!.gitmodules
+!.env.example
+!**/.env.example
+!.github/
+!.github/**
+!.well-known/
+!**/.well-known/
+!**/.well-known/**
+
+# ------------------------------------------------------------------------------
+# 3. Explicit Secrets & Environment Files (Defense-in-depth)
+# ------------------------------------------------------------------------------
 .env
 .env.*
 !.env.example
+*.env
+*.env.*
+!*.env.example
 client/.env
 client/.env.*
 !client/.env.example
@@ -14,54 +41,75 @@ server/.env
 server/.env.*
 !server/.env.example
 
-# Logs & Debugging
+# ------------------------------------------------------------------------------
+# 4. Dependencies
+# ------------------------------------------------------------------------------
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# ------------------------------------------------------------------------------
+# 5. Build, Bundles & Deployments
+# ------------------------------------------------------------------------------
+dist/
+build/
+.vercel
+.render
+
+# ------------------------------------------------------------------------------
+# 6. Logs & Debugging
+# ------------------------------------------------------------------------------
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 logs/
 
-# Build & Deployment Outputs
-dist/
-build/
-.vercel
-.render
-
-# Code Coverage & Testing Cache
+# ------------------------------------------------------------------------------
+# 7. Testing, Security Scanners & QA Artifacts
+# ------------------------------------------------------------------------------
 coverage/
 .nyc_output/
 strix_runs/
 tests/audit_screenshots/
 
-# IDE & Editor Configuration
+# ------------------------------------------------------------------------------
+# 8. IDE, OS & Agent Workspaces
+# ------------------------------------------------------------------------------
 .vscode/
 .idea/
 *.swp
 *.swo
 *.sublime-project
 *.sublime-workspace
-
-# Operating System Files
 .DS_Store
 Thumbs.db
 desktop.ini
+.claude/
+.serena/
+.impeccable/
+.playwright/
+.shannon/
+.agents/
+.codex/
+.gemini/
+.diagram-design
 
-# Uploads & Temporary Cache
+# ------------------------------------------------------------------------------
+# 9. Uploads, Cache & Temporary Files
+# ------------------------------------------------------------------------------
 uploads/
 temp/
 tmp/
 .cache/
 *.gltf.cache
 *.bin.cache
+/graft/
 
-# AI Assistant Memory & Internal Files (Ignored for Hackathon)
+# ------------------------------------------------------------------------------
+# 10. AI Assistant Memory & Local Ephemeral Data
+# ------------------------------------------------------------------------------
 AI_BRAIN.md
 AI_RULES.md
 SESSION_MEMORY.md
-.claude/
-
-# graft's local graph cache — regenerable, not committed (run `graft build`).
-/graft/
-
-# Ephemeral Radar Overrides (Migrated to PostgreSQL)
 server/data/radar_overrides.json

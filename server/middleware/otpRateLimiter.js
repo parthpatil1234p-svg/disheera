@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * middleware/otpRateLimiter.js — Balanced OTP Rate Limiting
  * Enforces: Maximum 5 OTP sends per 5 minutes per email/IP.

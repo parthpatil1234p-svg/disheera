@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * tests/audit_otp_signup_verification_test.js
  * Comprehensive automated test suite for OTP signup and verification security.

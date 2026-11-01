@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * middleware/passwordResetRateLimiter.js — IP-Level Rate Limiter for Password Reset
  * Enforces: Maximum 3 password reset / resend OTP requests per 30 minutes per IP address.

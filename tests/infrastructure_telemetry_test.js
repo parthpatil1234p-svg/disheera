@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 const assert = require('assert');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../server/.env') });

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * proximity-radar.js - Pan-India Industrial Proximity Radar (Background Live Location)
  * Dynamically computes Haversine distance to 60+ verified employers across India

@@ -42,8 +42,8 @@
     "career-atlas",
     "roadmap"
   ],
-  "author": "Disheera Team",
-  "license": "MIT",
+  "author": "Disheera Technologies Inc. <parthpatil@disheera.site>",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "@supabase/server": "^1.9.1",

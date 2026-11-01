@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * passportService.js - Compiles Canonical Public Skill Passport Data
  * Generates tamper-proof cryptographic ledger hash for recruiter verification.

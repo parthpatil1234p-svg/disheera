@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * groqService.js — Groq Cloud Ultra-Fast Inference for Disheera
  * Powers instant AI Career Mentoring (< 100ms response time)

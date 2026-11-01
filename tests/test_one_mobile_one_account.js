@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * tests/test_one_mobile_one_account.js
  * Comprehensive automated verification for strict 1:1 mobile number uniqueness across the system.

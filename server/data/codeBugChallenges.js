@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * codeBugChallenges.js - Curated Real-World Bug-Fixing Challenges
  * Powers the In-Browser "Fix-the-Bug" Proof-of-Work Chamber.

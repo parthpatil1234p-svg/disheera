@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 const { generateRecommendations } = require('./services/recommendationService');
 const { DEFAULT_MARKET_INSIGHTS } = require('./services/careerInsightService');
 

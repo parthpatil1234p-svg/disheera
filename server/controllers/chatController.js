@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * controllers/chatController.js — Dual-Engine AI Career Mentor Controller
  * Primary: Groq Cloud (Ultra-Fast <100ms Inference)

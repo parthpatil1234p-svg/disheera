@@ -23,7 +23,7 @@
     <img src="https://img.shields.io/badge/🩺_System_Health-99.9%25_Uptime-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white" alt="Health Status" />
   </a>
   <a href="LICENSE">
-    <img src="https://img.shields.io/badge/📄_Open_Core_License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT" />
+    <img src="https://img.shields.io/badge/📄_License-GNU_AGPLv3-blue.svg?style=for-the-badge" alt="License: AGPL-3.0-or-later" />
   </a>
 </p>
 
@@ -1937,5 +1937,16 @@ Disheera was founded by an engineering-first team dedicated to solving the $50B 
 - **Headquarters & Engineering:** Pune & Nashik, Maharashtra, India.
 - **Official Enterprise Domain:** **[https://disheera.site](https://disheera.site)**
 - **Enterprise Pilots & University Partnerships:** [Contact Founders](mailto:parthpatil@disheera.site) &nbsp;•&nbsp; Alternate: [careerpath.ai.platform@gmail.com](mailto:careerpath.ai.platform@gmail.com)
-- **Open-Core License:** Licensed under the [MIT Open Source License](LICENSE), free for educational and non-commercial institutional research.
+## 📄 License
+
+This software and related documentation are licensed under the **GNU Affero General Public License v3.0 or later** ([AGPL-3.0-or-later](LICENSE)).
+
+See the [`LICENSE`](LICENSE) file for the full unmodified legal text.
+
+> [!IMPORTANT]
+> **Network Use & SaaS Copyleft Notice:** Under Section 13 of the GNU AGPL-3.0, if you run a modified version of this software as a network service (e.g., hosting it on a server or cloud environment for remote users), you must make your complete modified source code available to its users under the terms of this license.
+
+**Copyright (C) 2026 Disheera Technologies Inc. <parthpatil@disheera.site>**
+
+- **License:** Licensed under the [GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)](LICENSE).
 - **Copyright:** © 2026-2027 Disheera Technologies Inc. All rights reserved.

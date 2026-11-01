@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * resume-builder.js — Dual-Pane Reactive Resume Builder & ATS Job Matcher
  * Disheera · Enterprise Platform Engine

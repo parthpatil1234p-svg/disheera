@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * single_route_verification.js — 9-Point Automated Verification Suite
  * Single Active Career Route Hardened Invariants & Progression Engine

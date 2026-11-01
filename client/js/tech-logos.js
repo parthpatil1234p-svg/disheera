@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * client/js/tech-logos.js — Unified Technology & Programming Logo Resolver
  * Powered by All_logo_and_pictures SVG pack (bablubambal) + curated vector icons

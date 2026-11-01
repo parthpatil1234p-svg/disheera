@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * projectVerificationService.js - Real-World Practical Project Verification Engine
  * Inspects GitHub repositories & live URLs, applying an automated 4-dimensional AI rubric.

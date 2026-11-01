@@ -42,8 +42,8 @@
     "edtech",
     "career-atlas"
   ],
-  "author": "Disheera Team",
-  "license": "ISC",
+  "author": "Disheera Technologies Inc. <parthpatil@disheera.site>",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "adm-zip": "^0.6.1",

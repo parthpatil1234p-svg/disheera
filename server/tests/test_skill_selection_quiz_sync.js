@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 // Test script: test_skill_selection_quiz_sync.js
 // Verifies that:
 // 1. Beginner skills (e.g. Solidity, Git) are fully eligible for Reality Check quizzes.

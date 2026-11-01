@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * sync_video_tasks.js
  * Retrofits introductory and 'learn' tasks on existing active roadmaps with video links and isVideoTask: true.

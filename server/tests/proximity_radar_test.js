@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * proximity_radar_test.js - Comprehensive Verification Test for Pan-India Industrial Proximity Radar
  * Validates Haversine distance engine, corridor filtering, and live GPS coordinate sorting.

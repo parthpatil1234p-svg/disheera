@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * services/jobBoardService.js — AI Dev Board Live Jobs Integration
  * Connects to https://aidevboard.com/api/v1 for real-time tech & developer openings.

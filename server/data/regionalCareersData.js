@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * regionalCareersData.js - Localized Maharashtra & Khandesh Industrial Career Tracks
  * Specialized curriculum paths for Jalgaon, Bhusawal, Chhatrapati Sambhajinagar, and Nashik corridors.

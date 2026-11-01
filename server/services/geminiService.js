@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * geminiService.js — Google Gemini AI Integration for Disheera
  * Powers the AI Career Mentor & Doubt Solver

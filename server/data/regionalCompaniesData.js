@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * regionalCompaniesData.js - 60+ Verified Regional & Pan-India Companies
  * Featuring Khandesh (Jalgaon, Bhusawal), Marathwada & Nashik, Pune & Mumbai,

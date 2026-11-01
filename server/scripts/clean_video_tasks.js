@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2026 Disheera Technologies Inc.
+ * Licensed under the GNU Affero General Public License v3.0 or later.
+ * See the LICENSE file for details.
+ */
 /**
  * clean_video_tasks.js
  * Sanitizes existing roadmap tasks in MongoDB to remove video guide flags, YouTube links,
