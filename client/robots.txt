@@ -6,18 +6,29 @@
 # ── General Search Engine Crawlers (Google, Bing, Yahoo, DuckDuckGo) ──────────
 User-agent: *
 Allow: /
-Allow: /index.html
-Allow: /login.html
-Allow: /register.html
-Allow: /jobs.html
-Allow: /verify.html
-Allow: /resume-builder.html
+Allow: /index
+Allow: /login
+Allow: /register
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /recommendations
+Allow: /verify
+Allow: /passport
+Allow: /resume-builder
+Allow: /quiz
+Allow: /support
+Allow: /security
+Allow: /privacy
+Allow: /terms
+Allow: /sitemap.xml
 Allow: /llms.txt
 Allow: /llms-full.txt
 Allow: /mcp-actions.json
 Allow: /.well-known/mcp-actions.json
-Allow: /sitemap.xml
+Disallow: /dashboard
 Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
 Disallow: /recruiter-dashboard.html
 Disallow: /api/
 
@@ -27,17 +38,15 @@ User-agent: Baiduspider
 User-agent: Baiduspider-mobile
 User-agent: Baiduspider-image
 Allow: /
-Allow: /index.html
-Allow: /login.html
-Allow: /register.html
-Allow: /jobs.html
-Allow: /verify.html
-Allow: /resume-builder.html
-Allow: /llms.txt
-Allow: /llms-full.txt
-Allow: /mcp-actions.json
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
 Allow: /sitemap.xml
+Disallow: /dashboard
 Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
 Disallow: /recruiter-dashboard.html
 Disallow: /api/
 
@@ -45,11 +54,17 @@ Disallow: /api/
 # Perplexity AI (Direct Citation & Real-time Web Search)
 User-agent: PerplexityBot
 Allow: /
-Allow: /index.html
-Allow: /jobs.html
-Allow: /verify.html
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
 Allow: /llms.txt
 Allow: /llms-full.txt
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
 Disallow: /api/
 
 # OpenAI ChatGPT Search & Web Browsing (OAI-SearchBot + GPTBot)
@@ -57,11 +72,17 @@ User-agent: OAI-SearchBot
 User-agent: GPTBot
 User-agent: ChatGPT-User
 Allow: /
-Allow: /index.html
-Allow: /jobs.html
-Allow: /verify.html
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
 Allow: /llms.txt
 Allow: /llms-full.txt
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
 Disallow: /api/
 
 # Anthropic Claude Search & Citation Ingestion
@@ -69,11 +90,17 @@ User-agent: ClaudeBot
 User-agent: Claude-Web
 User-agent: anthropic-ai
 Allow: /
-Allow: /index.html
-Allow: /jobs.html
-Allow: /verify.html
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
 Allow: /llms.txt
 Allow: /llms-full.txt
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
 Disallow: /api/
 
 # Google Gemini Grounding & Extended Search
