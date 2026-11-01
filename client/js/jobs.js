@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                    <i class="bi bi-check2-circle me-1"></i> Applied &middot; Under Review
                  </button>`
               : `<button class="btn cp-btn-primary btn-sm px-3.5 py-1.5 fw-semibold btn-open-apply" data-job-id="${job._id}" data-job-title="${escapeHtml(job.title)}" data-company="${escapeHtml(job.companyName)}" data-match="${score}">
-                   <i class="bi bi-send-fill me-1"></i> 1-Click Apply
+                   <i class="bi bi-send-fill me-1"></i> Apply to this role
                  </button>`
             }
           </div>

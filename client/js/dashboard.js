@@ -2086,7 +2086,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                   <i class="bi ${icon} ${passed ? 'text-success' : 'text-warning'} me-1 fs-6"></i>
                   <span>${escapeHtml(title)}</span>
                 </span>
-                <span class="tile-badge badge" style="background: ${passed ? '#16A34A' : '#D97706'} !important; color: #FFFFFF !important; font-size: 0.7rem; font-weight: 700; border-radius: 9999px; padding: 0.22rem 0.55rem; letter-spacing: 0.03em;">
+                <span class="tile-badge badge" style="background: ${passed ? '#15803D' : '#B45309'} !important; color: #FFFFFF !important; font-size: 0.7rem; font-weight: 700; border-radius: 9999px; padding: 0.22rem 0.55rem; letter-spacing: 0.03em;">
                   ${passed ? '✓ PASSED' : '✗ PENDING'}
                 </span>
               </div>

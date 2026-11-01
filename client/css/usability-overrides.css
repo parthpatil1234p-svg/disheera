@@ -1129,3 +1129,32 @@ main:has(#verifyLoadingState:not(.d-none), #verifyErrorState:not(.d-none), #veri
   display: none;
 }
 
+/* Keep dashboard status colors readable on pale badge and card backgrounds. */
+.dashboard-page .text-success,
+.dashboard-page .badge.text-success {
+  color: #166534 !important;
+}
+
+.dashboard-page .text-teal,
+.dashboard-page .badge.text-teal {
+  color: #0F4C5C !important;
+}
+
+.dashboard-page .text-primary,
+.dashboard-page .badge.text-primary {
+  color: #1E40AF !important;
+}
+
+.dashboard-page .badge.text-danger {
+  color: #B91C1C !important;
+}
+
+.dashboard-page .badge-priority-high {
+  color: #B91C1C !important;
+}
+
+.dashboard-page .btn-bridge-gap {
+  color: #B91C1C !important;
+  border-color: #B91C1C !important;
+}
+

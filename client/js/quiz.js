@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return sc === cat;
   };
 
-  // Curated 21 Banked Skills with Instant 0ms Questions
+  // Curated quiz skill bank
   const BANKED_SKILL_KEYS = new Set([
     'javascript', 'python', 'sql', 'react', 'node.js', 'html', 'css',
     'typescript', 'mongodb', 'docker', 'git', 'aws', 'postgresql',
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const tier = result.verificationTier || 'quiz_verified';
       if (tier === 'project_verified') {
         verdictPassportBadge.className = 'passport-tier-badge badge-passport-t2';
-        verdictPassportBadge.innerHTML = '<i class="bi bi-github"></i> Tier 2: Code Verified (100% Weight)';
+        verdictPassportBadge.innerHTML = '<i class="bi bi-github"></i> Tier 2: Code Verified';
       } else if (tier === 'interview_verified') {
         verdictPassportBadge.className = 'passport-tier-badge badge-passport-t3';
         verdictPassportBadge.innerHTML = '<i class="bi bi-mic-fill"></i> Tier 3: Interview Verified';

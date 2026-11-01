@@ -367,15 +367,19 @@ const submitAssignment = async (req, res, next) => {
 
     const relativePdfUrl = `/api/assignments/file/${filename}`;
 
-    // 6. Upsert AssignmentSubmission Record
+    // Determine whether synchronous evaluation was explicitly requested (e.g., test suites)
+    const isSync = req.body?.sync === true || req.query?.sync === 'true' || process.env.ASSIGNMENT_EVAL_SYNC === 'true';
+
+    // 6. Upsert AssignmentSubmission
     const existingSubmission = await prisma.assignmentSubmission.findFirst({
       where: {
-        userId: req.user.id,
-        assignmentId: targetAssignmentId
+        assignmentId: targetAssignmentId,
+        userId: req.user.id
       }
     });
 
     let submission;
+    const initialStatus = isSync ? 'SUBMITTED' : 'EVALUATING';
     if (existingSubmission) {
       // Remove old local file if present
       if (existingSubmission.pdfUrl && existingSubmission.pdfUrl.includes('/api/assignments/file/')) {
@@ -394,7 +398,7 @@ const submitAssignment = async (req, res, next) => {
           pdfUrl: relativePdfUrl,
           fileSizeBytes: pdfBuffer.length,
           pageCount,
-          status: 'SUBMITTED',
+          status: initialStatus,
           submittedAt: new Date()
         }
       });
@@ -408,7 +412,7 @@ const submitAssignment = async (req, res, next) => {
           pdfUrl: relativePdfUrl,
           fileSizeBytes: pdfBuffer.length,
           pageCount,
-          status: 'SUBMITTED'
+          status: initialStatus
         }
       });
     }
@@ -438,37 +442,72 @@ const submitAssignment = async (req, res, next) => {
       console.warn('[assignmentController.submit] RoadmapTask link warning:', taskErr.message);
     }
 
-    // 8. Trigger Phase 2 Dual-Layer AI Evaluation (Multimodal Gemini + Anti-AI Shield)
-    let evaluationResult = null;
-    try {
-      evaluationResult = await evaluateSubmission(submission.id);
-    } catch (evalErr) {
-      console.warn('[assignmentController.submit] AI Auto-Grader async evaluation note:', evalErr.message);
+    // 8. Evaluation Execution: Synchronous vs Asynchronous Non-Blocking Mode
+    if (isSync) {
+      let evaluationResult = null;
+      try {
+        evaluationResult = await evaluateSubmission(submission.id);
+      } catch (evalErr) {
+        console.warn('[assignmentController.submit] Synchronous AI Auto-Grader evaluation warning:', evalErr.message);
+      }
+
+      const currentStatus = evaluationResult ? evaluationResult.status : submission.status;
+      const finalScore = evaluationResult ? evaluationResult.finalScore : submission.finalScore;
+      const aiScore = evaluationResult ? evaluationResult.rawScore : submission.aiScore;
+
+      return res.status(201).json({
+        success: true,
+        message: currentStatus === 'FLAGGED_AI'
+          ? 'Assignment received! High AI writing generation was detected; submission is flagged for human administrative review.'
+          : 'Assignment successfully submitted and officially evaluated!',
+        submission: {
+          id: submission.id,
+          assignmentId: submission.assignmentId,
+          weekNumber: submission.weekNumber,
+          status: currentStatus,
+          pageCount: submission.pageCount,
+          fileSizeBytes: submission.fileSizeBytes,
+          aiScore,
+          finalScore,
+          aiDetected: evaluationResult?.antiAi?.aiDetected ?? false,
+          aiProbability: evaluationResult?.antiAi?.aiProbability ?? 0.0,
+          aiReasons: evaluationResult?.antiAi?.aiReasons ?? [],
+          aiFeedback: evaluationResult?.feedback ?? null,
+          rubricBreakdown: evaluationResult?.rubricBreakdown ?? null,
+          pdfUrl: `/api/assignments/download/${submission.id}`,
+          evalSheetUrl: `/api/assignments/eval-sheet/${submission.id}`,
+          submittedAt: submission.submittedAt
+        }
+      });
     }
 
-    const currentStatus = evaluationResult ? evaluationResult.status : submission.status;
-    const finalScore = evaluationResult ? evaluationResult.finalScore : submission.finalScore;
-    const aiScore = evaluationResult ? evaluationResult.rawScore : submission.aiScore;
+    // Asynchronous Execution (Standard Non-Blocking Mode ~150ms response):
+    setImmediate(async () => {
+      try {
+        await evaluateSubmission(submission.id);
+        console.log(`[assignmentController.submit] Asynchronous background AI evaluation completed for submission: ${submission.id}`);
+      } catch (asyncEvalErr) {
+        console.error(`[assignmentController.submit] Background AI Auto-Grader evaluation error for submission ${submission.id}:`, asyncEvalErr.message);
+      }
+    });
 
-    return res.status(201).json({
+    return res.status(202).json({
       success: true,
-      message: currentStatus === 'FLAGGED_AI'
-        ? 'Assignment received! High AI writing generation was detected; submission is flagged for human administrative review.'
-        : 'Assignment successfully submitted and officially evaluated!',
+      message: 'Assignment successfully uploaded! AI auto-grader is evaluating your submission in the background.',
       submission: {
         id: submission.id,
         assignmentId: submission.assignmentId,
         weekNumber: submission.weekNumber,
-        status: currentStatus,
+        status: 'EVALUATING',
         pageCount: submission.pageCount,
         fileSizeBytes: submission.fileSizeBytes,
-        aiScore,
-        finalScore,
-        aiDetected: evaluationResult?.antiAi?.aiDetected ?? false,
-        aiProbability: evaluationResult?.antiAi?.aiProbability ?? 0.0,
-        aiReasons: evaluationResult?.antiAi?.aiReasons ?? [],
-        aiFeedback: evaluationResult?.feedback ?? null,
-        rubricBreakdown: evaluationResult?.rubricBreakdown ?? null,
+        aiScore: null,
+        finalScore: null,
+        aiDetected: false,
+        aiProbability: 0.0,
+        aiReasons: [],
+        aiFeedback: 'AI auto-grader is actively analyzing your submission dossier in the background...',
+        rubricBreakdown: null,
         pdfUrl: `/api/assignments/download/${submission.id}`,
         evalSheetUrl: `/api/assignments/eval-sheet/${submission.id}`,
         submittedAt: submission.submittedAt
@@ -681,6 +720,72 @@ const downloadEvaluationSheet = async (req, res, next) => {
   }
 };
 
+
+/**
+ * GET /api/assignments/status/:id
+ * Lightweight status polling endpoint for a specific submission.
+ */
+const getSubmissionStatus = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const submission = await prisma.assignmentSubmission.findUnique({
+      where: { id },
+      include: {
+        assignment: {
+          select: {
+            id: true,
+            title: true,
+            weekNumber: true,
+            maxMarks: true
+          }
+        }
+      }
+    });
+
+    if (!submission) {
+      return res.status(404).json({
+        success: false,
+        message: 'Submission dossier not found.'
+      });
+    }
+
+    if (submission.userId !== req.user.id && req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Unauthorized access to submission dossier.'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      submission: {
+        id: submission.id,
+        assignmentId: submission.assignmentId,
+        assignmentTitle: submission.assignment?.title,
+        weekNumber: submission.weekNumber,
+        status: submission.status,
+        pageCount: submission.pageCount,
+        fileSizeBytes: submission.fileSizeBytes,
+        aiScore: submission.aiScore,
+        adminScore: submission.adminScore,
+        finalScore: submission.finalScore,
+        aiDetected: submission.aiDetected,
+        aiProbability: submission.aiProbability,
+        aiReasons: submission.aiDetectionReasons || [],
+        aiFeedback: submission.aiFeedback,
+        adminFeedback: submission.adminFeedback,
+        rubricBreakdown: submission.aiRubricBreakdown || null,
+        pdfUrl: `/api/assignments/download/${submission.id}`,
+        evalSheetUrl: `/api/assignments/eval-sheet/${submission.id}`,
+        submittedAt: submission.submittedAt,
+        aiEvaluatedAt: submission.aiEvaluatedAt
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getWeeklyAssignment,
   downloadCoverTemplate,
@@ -688,5 +793,6 @@ module.exports = {
   evaluateSubmissionEndpoint,
   getMySubmissions,
   downloadSubmissionPdf,
-  downloadEvaluationSheet
+  downloadEvaluationSheet,
+  getSubmissionStatus
 };

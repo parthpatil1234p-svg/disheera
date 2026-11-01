@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         authPanelBullets.innerHTML = `
           <div class="auth-panel-bullet">
             <i class="bi bi-radar fs-5 text-success"></i>
-            <span>Recruiter Talent Radar: Sourcing 5,000+ pre-vetted engineers</span>
+            <span>Recruiter Talent Radar: Candidate access details — TODO(owner-verify)</span>
           </div>
           <div class="auth-panel-bullet">
             <i class="bi bi-shield-check fs-5 text-success"></i>

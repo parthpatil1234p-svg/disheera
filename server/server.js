@@ -683,7 +683,12 @@ const PORT = process.env.PORT || 5000;
 if (!process.env.VERCEL) {
   const server = http.createServer(app);
   initSocket(server);
-  initCron();
+  // Decoupled Background Worker: disabled when running dedicated worker.js or in production
+  if (process.env.RUN_CRON_IN_PROCESS !== 'false') {
+    initCron();
+  } else {
+    console.log('⚡ [Cron] In-process cron worker disabled (RUN_CRON_IN_PROCESS=false). Background routines managed by standalone worker.');
+  }
 
   server.listen(PORT, () => {
     console.log('');

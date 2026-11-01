@@ -1,6 +1,6 @@
 # Disheera Technologies Inc. — Autonomous Career GPS & Verified Talent Operating System
 
-> Disheera is the world's 1st autonomous career GPS and verified talent operating system. Built for college students, academic institutions, and enterprise recruiters, it benchmarks individual capabilities against real-time industry hiring criteria, pin-points critical skill gaps, and generates milestone-calibrated execution roadmaps with server-proctored verification.
+> Disheera is a career planning and skill verification platform for college students, academic institutions, and enterprise recruiters. It benchmarks individual capabilities against industry hiring criteria, identifies skill gaps, and generates milestone-calibrated execution roadmaps with server-proctored verification.
 
 Official Website: https://api.disheera.site  
 API Service: https://api.disheera.site/api  

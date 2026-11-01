@@ -16,7 +16,8 @@ const {
   evaluateSubmissionEndpoint,
   getMySubmissions,
   downloadSubmissionPdf,
-  downloadEvaluationSheet
+  downloadEvaluationSheet,
+  getSubmissionStatus
 } = require('../controllers/assignmentController');
 
 // All assignment endpoints require authentication and student role (or admin)
@@ -42,5 +43,8 @@ router.get('/download/:submissionId', downloadSubmissionPdf);
 
 // 7. Download Part C Official Stamped Evaluation Sheet PDF
 router.get('/eval-sheet/:submissionId', downloadEvaluationSheet);
+
+// 8. Poll submission evaluation status & marks in real-time
+router.get('/status/:id', getSubmissionStatus);
 
 module.exports = router;

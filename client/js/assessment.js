@@ -788,7 +788,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       );
       if (verified.length === 0) {
         showAlert(
-          `🔒 Baseline Verification Required: Please complete at least one 90-second Reality Check Quiz below to calibrate your baseline skill level before proceeding to Goals.`,
+          `🔒 Baseline Verification Required: Please complete at least one Reality Check Quiz below to calibrate your baseline skill level before proceeding to Goals.`,
           'warning'
         );
         const container = document.getElementById('assessmentAlertContainer') || alertContainer;
@@ -1536,7 +1536,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         proveSkillsProgressFill.className = 'prove-skills-progress-fill';
       }
       if (proveSkillsSubtitle) {
-        proveSkillsSubtitle.textContent = 'Select skills above to launch your 90-second reality-check quizzes.';
+        proveSkillsSubtitle.textContent = 'Select skills above to launch your reality-check quizzes.';
       }
       proveSkillsPanel.classList.remove('all-verified');
 
@@ -1817,7 +1817,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else if (!isVerified) {
         const noteDiv = document.createElement('div');
         noteDiv.className = `skill-adjusted-note ${verifiedCount >= 1 ? 'text-muted border-secondary-subtle bg-light' : 'text-warning border-warning-subtle bg-warning-subtle'}`;
-        noteDiv.innerHTML = `<i class="bi ${verifiedCount >= 1 ? 'bi-info-circle text-secondary' : 'bi-shield-lock text-warning'} me-1"></i><span>${verifiedCount >= 1 ? 'Optional calibration: Take the 90-second quiz anytime to prove proficiency, or proceed with baseline.' : 'Knowledge level is not self-rated. Take the 90-second reality-check quiz to prove proficiency.'}</span>`;
+        noteDiv.innerHTML = `<i class="bi ${verifiedCount >= 1 ? 'bi-info-circle text-secondary' : 'bi-shield-lock text-warning'} me-1"></i><span>${verifiedCount >= 1 ? 'Optional calibration: Take the quiz anytime to prove proficiency, or proceed with baseline.' : 'Knowledge level is not self-rated. Take the reality-check quiz to prove proficiency.'}</span>`;
         noteContainer.appendChild(noteDiv);
       } else if (isQuizVer && skill.quizGaps && skill.quizGaps.length > 0) {
         const noteDiv = document.createElement('div');
@@ -3432,7 +3432,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (verifiedSkills.length === 0) {
       updateStepUI(3);
       showAlert(
-        `🔒 Baseline Verification Required: Please complete at least one 90-second Reality Check Quiz to calibrate your baseline skill level before submitting.`,
+        `🔒 Baseline Verification Required: Please complete at least one Reality Check Quiz to calibrate your baseline skill level before submitting.`,
         'warning'
       );
       return;

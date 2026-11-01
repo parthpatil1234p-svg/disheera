@@ -17,6 +17,7 @@ const path = require('path');
 const { PassThrough } = require('stream');
 module.paths.push(path.join(__dirname, '../server/node_modules'));
 require('dotenv').config({ path: path.join(__dirname, '../server/.env') });
+process.env.ASSIGNMENT_EVAL_SYNC = 'true';
 
 const PDFDocument = require('pdfkit');
 const { PDFParse } = require('pdf-parse');
@@ -28,7 +29,8 @@ const {
   submitAssignment,
   evaluateSubmissionEndpoint,
   downloadEvaluationSheet,
-  getMySubmissions
+  getMySubmissions,
+  getSubmissionStatus
 } = require('../server/controllers/assignmentController');
 
 function createMockRes() {
@@ -314,6 +316,45 @@ async function runPhase2Suite() {
     assert(res.headers['content-type'] === 'application/pdf', 'Must return application/pdf');
     assert(streamedData.length > 2000, `Streamed evaluation sheet must have data (got: ${streamedData.length} bytes)`);
     assert(streamedData.subarray(0, 4).toString('ascii').startsWith('%PDF'), 'Streamed data must begin with %PDF');
+  }
+
+
+  // ── TEST 10: Non-Blocking Asynchronous Submission & Status Polling ────────
+  console.log('\n▶ TEST 10: Non-Blocking Asynchronous Submission (202 Accepted & Status Polling)');
+  {
+    delete process.env.ASSIGNMENT_EVAL_SYNC;
+    const req = {
+      body: {
+        weekNumber: 1,
+        careerId: week1Assignment.careerId,
+        fileData: `data:application/pdf;base64,${multiPageAuthenticPdf.toString('base64')}`
+      },
+      user: testStudent
+    };
+    const res = createMockRes();
+    const startTime = Date.now();
+    await submitAssignment(req, res, err => { if (err) throw err; });
+    const elapsedMs = Date.now() - startTime;
+
+    assert(res.statusCode === 202, `Async submission must return 202 Accepted immediately (got: ${res.statusCode})`);
+    assert(res.body?.success === true, 'Response must indicate success: true');
+    assert(res.body?.submission?.status === 'EVALUATING', `Status must be EVALUATING upon immediate return (got: ${res.body?.submission?.status})`);
+    assert(elapsedMs < 10000, `Immediate async response must be sub-second (took: ${elapsedMs}ms)`);
+
+    const asyncSubId = res.body?.submission?.id;
+    assert(Boolean(asyncSubId), 'Submission ID must be returned');
+
+    // Poll status via getSubmissionStatus
+    const statusReq = {
+      params: { id: asyncSubId },
+      user: testStudent
+    };
+    const statusRes = createMockRes();
+    await getSubmissionStatus(statusReq, statusRes, err => { if (err) throw err; });
+
+    assert(statusRes.statusCode === 200, `Status polling must return 200 (got: ${statusRes.statusCode})`);
+    assert(statusRes.body?.submission?.id === asyncSubId, 'Status response must match submission ID');
+    assert(['EVALUATING', 'GRADED'].includes(statusRes.body?.submission?.status), `Status must be EVALUATING or GRADED (got: ${statusRes.body?.submission?.status})`);
   }
 
   console.log('\n================================================================');

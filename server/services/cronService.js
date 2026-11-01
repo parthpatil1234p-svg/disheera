@@ -274,4 +274,6 @@ module.exports = {
   stopCron,
   auditInactivityAndSendNudges,
   cleanupUnverifiedSignups,
+  validateSkillCurrency,
+  auditYouTubeCache,
 };

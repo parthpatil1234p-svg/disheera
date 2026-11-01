@@ -21,6 +21,7 @@
   let currentCareerId = null;
   let currentSubmission = null;
   let isEvaluating = false;
+  let pollTimer = null;
 
   const MODAL_ID = 'weeklyAssignmentModal';
 
@@ -299,6 +300,12 @@
 
     downloadCoverBtn.addEventListener('click', downloadCoverTemplate);
     submitBtn.addEventListener('click', submitAssignmentPdf);
+
+    if (modalEl) {
+      modalEl.addEventListener('hidden.bs.modal', () => {
+        stopPolling();
+      });
+    }
   }
 
   /**
@@ -404,12 +411,107 @@
     }
   }
 
+
+  /**
+   * Stops active polling interval.
+   */
+  function stopPolling() {
+    if (pollTimer) {
+      clearInterval(pollTimer);
+      pollTimer = null;
+    }
+  }
+
+  /**
+   * Polls submission evaluation status in real-time until completion.
+   */
+  function startPollingStatus(submissionId) {
+    stopPolling();
+    let attempts = 0;
+    const maxAttempts = 30; // 30 * 2.5s = 75s
+
+    pollTimer = setInterval(async () => {
+      attempts++;
+      if (attempts > maxAttempts) {
+        stopPolling();
+        const noticeEl = document.getElementById('wamPollingNotice');
+        if (noticeEl) {
+          noticeEl.innerHTML = `
+            <div class="alert alert-light border d-flex align-items-center justify-content-between p-3 rounded-2 mb-0" style="border-color: #CBD5E1 !important; background: #F8FAFC;">
+              <span class="small text-secondary"><i class="bi bi-info-circle me-1 text-primary"></i> Evaluation is progressing in the background. Feel free to resume your roadmap; results and marks will update automatically upon completion.</span>
+              <button class="btn btn-sm btn-outline-primary fw-semibold ms-2" onclick="window.assignmentModal.checkStatus('${submissionId}')"><i class="bi bi-arrow-clockwise me-1"></i> Check Now</button>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      try {
+        const token = window.Auth?.getToken() || localStorage.getItem('token');
+        const res = await fetch(`${window.CONFIG?.API_BASE_URL || '/api'}/assignments/status/${submissionId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        if (data.success && data.submission) {
+          if (data.submission.status !== 'EVALUATING') {
+            stopPolling();
+            currentSubmission = data.submission;
+            renderResultsTab(currentSubmission);
+
+            // Update status pill in header
+            const statusPill = document.getElementById('wamStatusPill');
+            if (statusPill) {
+              const badgeClass = data.submission.status === 'FLAGGED_AI'
+                ? 'bg-danger-subtle text-danger border-danger-subtle'
+                : 'bg-success-subtle text-success border-success-subtle';
+              statusPill.innerHTML = `<span class="badge ${badgeClass} fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> Evaluated (${data.submission.status})</span>`;
+            }
+
+            // Trigger Leaderboard Recalculation Notification
+            if (window.leaderboardView && typeof window.leaderboardView.fetchStanding === 'function') {
+              window.leaderboardView.fetchStanding();
+            }
+          }
+        }
+      } catch (pollErr) {
+        console.warn('[assignmentModal] Background status polling notice:', pollErr.message);
+      }
+    }, 2500);
+  }
+
   /**
    * Renders the Results tab with AI grading, 4D rubric breakdown, anti-AI score, and Part C download.
    */
   function renderResultsTab(submission) {
     const resultsContainer = document.getElementById('wamResultsContent');
     if (!submission) return;
+
+    // Handle asynchronous evaluation in-progress state
+    if (submission.status === 'EVALUATING') {
+      startPollingStatus(submission.id);
+
+      resultsContainer.innerHTML = `
+        <div class="p-4 rounded-3 mb-4 bg-white" style="border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);">
+          <div class="text-center py-4">
+            <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Evaluating...</span>
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #0F172A;">AI Auto-Grader is Evaluating Your Submission Dossier</h5>
+            <p class="text-secondary small mb-3" style="max-width: 580px; margin: 0 auto; line-height: 1.6;">
+              Your solution PDF has been securely uploaded and accepted (~150ms). Our collegiate AI engine is analyzing handwritten derivations, verifying writing authenticity, and compiling your Part C Evaluation Sheet in the background.
+            </p>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill" style="background: #EFF6FF; border: 1px solid #BFDBFE;">
+              <span class="spinner-grow spinner-grow-sm text-primary" role="status"></span>
+              <span class="small text-primary fw-medium font-monospace">Status: EVALUATING • Non-Blocking Live Polling Active</span>
+            </div>
+          </div>
+          <div id="wamPollingNotice" class="mt-3"></div>
+        </div>
+      `;
+      return;
+    }
 
     const marks = submission.finalScore != null ? submission.finalScore : submission.aiScore;
     const scoreColor = marks >= 8 ? '#10b981' : marks >= 5 ? '#eab308' : '#ef4444';
@@ -579,7 +681,23 @@
 
   // Export to window
   window.assignmentModal = {
-    open: openModal
+    open: openModal,
+    stopPolling: stopPolling,
+    checkStatus: async function(submissionId) {
+      try {
+        const token = window.Auth?.getToken() || localStorage.getItem('token');
+        const res = await fetch(`${window.CONFIG?.API_BASE_URL || '/api'}/assignments/status/${submissionId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success && data.submission) {
+          currentSubmission = data.submission;
+          renderResultsTab(currentSubmission);
+        }
+      } catch (e) {
+        console.warn('[assignmentModal.checkStatus] Manual status check failed:', e.message);
+      }
+    }
   };
 
 })();
