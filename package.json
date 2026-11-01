@@ -4,6 +4,7 @@
   "private": true,
   "description": "Disheera — Autonomous AI Career Guidance and Skill Roadmap Platform",
   "scripts": {
+    "index": "node scripts/auto_index.js",
     "start": "node scripts/start-all.js",
     "postinstall": "prisma generate --schema=server/prisma/schema.prisma",
     "dev": "npm --prefix server run dev",
