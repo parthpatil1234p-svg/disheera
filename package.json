@@ -10,6 +10,7 @@
     "dev": "npm --prefix server run dev",
     "build": "prisma generate --schema=server/prisma/schema.prisma && echo 'Client static assets and server ready for production.'",
     "test": "node --check server/server.js && node --check server/seed.js",
+    "test:viva": "node tests/voice_viva_verification_test.js",
     "test:hardened": "node server/tests/single_route_verification.js",
     "test:track-switcher": "node tests/roadmap_completed_track_switcher_test.js",
     "test:recruiter": "node tests/recruiter_verification_e2e_test.js",

@@ -128,6 +128,7 @@ const projectRoutes = require('./routes/projectRoutes');
 const passportRoutes = require('./routes/passportRoutes');
 const assignmentRoutes = require('./routes/assignmentRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
+const vivaRoutes = require('./routes/vivaRoutes');
 const adminHostGuard = require('./middleware/adminHostGuard');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
@@ -626,6 +627,9 @@ app.use('/api/assignments', assignmentRoutes);
 
 // Cumulative Merit Score Engine & Dynamic Leaderboard (Plan 46 Phase 4)
 app.use('/api/leaderboard', leaderboardRoutes);
+
+// Code-Grounded Voice Viva Proctoring Engine (Anti-Cheat Moat)
+app.use('/api/viva', vivaRoutes);
 
 // ── Dedicated Subdomain Admin Panel Routes (/api/admin/*) ────
 // Layer 1: Subdomain Host Guard restricts all admin endpoints to admin.disheera.site (and dev hosts)
