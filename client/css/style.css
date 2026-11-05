@@ -11094,9 +11094,14 @@ body.assessment-page .cp-navbar-notch {
   pointer-events: auto !important;
 }
 
+body.assessment-page .assessment-telemetry-bar {
+  top: 81px !important;
+  margin-top: 81px !important;
+}
+
 body.assessment-page main,
 body.assessment-page .assessment-layout {
-  padding-top: 82px !important;
+  padding-top: 1.5rem !important;
   padding-bottom: 5.5rem !important;
 }
 
