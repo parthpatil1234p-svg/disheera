@@ -153,19 +153,19 @@
               <span class="brand-name font-headline-sm text-xl font-bold text-on-surface tracking-tight ms-2">Dishe<span class="text-primary font-bold">era</span></span>
               <span class="brand-tagline-sub d-none d-xl-inline-flex align-items-center gap-1 ms-2 font-caption text-xs text-slate-caption"><span class="pulse-dot-indigo"></span>Atlas</span>
             </a>
-            <div class="h-5 w-px bg-border-whisper hidden md:block"></div>
-            <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full font-caption text-xs bg-blue-soft text-primary font-semibold">
+            <div class="h-5 w-px bg-border-whisper hidden 2xl:block"></div>
+            <span class="hidden 2xl:inline-flex items-center px-2.5 py-0.5 rounded-full font-caption text-xs bg-blue-soft text-primary font-semibold whitespace-nowrap shrink-0">
               <span class="w-1.5 h-1.5 rounded-full bg-primary me-1.5"></span>
-              Track: Diagnostic Evaluation Chamber
+              Diagnostic Chamber
             </span>
           </div>
 
           <!-- Desktop Center Links & Status -->
           <div class="flex items-center gap-4">
-            <div class="hidden lg:flex items-center gap-1.5 font-caption text-xs text-slate-caption font-medium">
+            <div class="hidden xl:inline-flex items-center gap-1.5 font-caption text-xs text-slate-caption font-medium shrink-0 whitespace-nowrap">
               <span class="material-symbols-outlined text-[16px] text-secondary">shield</span>
               <span>Anti-Cheat Proctor Active</span>
-              <span class="inline-block w-2 h-2 rounded-full bg-secondary ml-1 animate-pulse"></span>
+              <span class="inline-block w-2 h-2 rounded-full bg-secondary ml-0.5 animate-pulse"></span>
             </div>
 
             <ul class="notch-nav-links d-none d-lg-flex list-unstyled mb-0 items-center gap-2">
@@ -238,27 +238,27 @@
 
     <!-- Secondary Sticky Diagnostic Telemetry Bar -->
     <div class="w-full bg-surface-pure border-b border-border-whisper shadow-sm sticky top-16 z-40 mt-16">
-      <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-caption text-xs bg-blue-soft text-primary font-semibold border border-blue-100">
+      <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3 flex-nowrap overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-2.5 shrink-0">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-caption text-xs bg-blue-soft text-primary font-semibold border border-blue-100 whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-            Comprehensive Diagnostic Session
+            Diagnostic Session
           </span>
           <span class="text-border-outline font-caption hidden sm:inline">|</span>
           <div class="flex items-center gap-2">
-            <span class="font-headline-sm text-sm text-on-surface font-semibold">FORM-AST-01</span>
-            <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded text-xs bg-emerald-soft text-secondary font-medium border border-emerald-100">
+            <span class="font-headline-sm text-xs font-semibold text-on-surface whitespace-nowrap">FORM-AST-01</span>
+            <span class="hidden xl:inline-flex items-center px-2 py-0.5 rounded text-xs bg-emerald-soft text-secondary font-medium border border-emerald-100 whitespace-nowrap">
               <i class="bi bi-shield-check me-1"></i> Deterministic Model: 60% Skills &bull; 25% Interests &bull; 15% Academics
             </span>
           </div>
         </div>
 
-        <div class="flex items-center gap-3">
-          <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-caption text-xs bg-emerald-soft text-secondary border border-secondary-container font-semibold">
+        <div class="flex items-center gap-2.5 shrink-0">
+          <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-caption text-xs bg-emerald-soft text-secondary border border-secondary-container font-semibold whitespace-nowrap">
             <span class="material-symbols-outlined text-[15px] text-secondary">security</span>
-            Continuous Proctor Monitored
+            Proctor Monitored
           </div>
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-muted border border-border-whisper font-code-sm text-xs font-semibold text-slate-body">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-muted border border-border-whisper font-code-sm text-xs font-semibold text-slate-body whitespace-nowrap">
             <span class="material-symbols-outlined text-[16px] text-primary">cloud_done</span>
             <span class="hidden sm:inline">Auto-Save:</span> <span>Active</span>
           </div>
@@ -521,7 +521,7 @@
                 </div>
 
                 <!-- Branch / Major -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label for="branch" class="form-label font-headline-sm text-xs font-semibold text-slate-body">Branch / Major</label>
                   <input
                     type="text"
@@ -532,7 +532,7 @@
                 </div>
 
                 <!-- Current Year -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label for="year" class="form-label font-headline-sm text-xs font-semibold text-slate-body">Current Year</label>
                   <select id="year" class="form-select rounded-xl border-border-whisper focus:border-primary p-2.5">
                     <option value="">Select Year...</option>
@@ -544,15 +544,16 @@
                   </select>
                 </div>
 
-                <!-- College Name -->
-                <div class="col-md-4">
+                <!-- College Name (Full Width) -->
+                <div class="col-12">
                   <label for="college" class="form-label font-headline-sm text-xs font-semibold text-slate-body">College / Institute Name</label>
                   <input
                     type="text"
                     id="college"
                     class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5"
-                    placeholder="e.g. Pune Institute of Technology"
+                    placeholder="e.g. G.H. Raisoni College of Engineering and Management, Jalgaon"
                   />
+                  <div class="form-text text-xs text-slate-caption mt-1">Enter your affiliated college, university department, or autonomous campus</div>
                 </div>
               </div>
 
