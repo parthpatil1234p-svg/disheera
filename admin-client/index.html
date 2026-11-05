@@ -63,6 +63,11 @@
           <span class="nav-label">Assignments Cockpit</span>
           <span class="badge" id="navAssignmentsBadge" style="display:none; margin-left:auto; background:var(--accent-rose); font-size:10px;">0</span>
         </a>
+        <a class="nav-link" onclick="switchView('pilot')">
+          <span class="nav-icon"><i class="bi bi-mortarboard-fill"></i></span>
+          <span class="nav-label">Pilot Cohort (GHRCEM)</span>
+          <span class="badge" id="navPilotBadge" style="margin-left:auto; background:#10B981; font-size:10px;">PILOT</span>
+        </a>
         <a class="nav-link" onclick="switchView('audit')">
           <span class="nav-icon"><i class="bi bi-journal-text"></i></span>
           <span class="nav-label">Audit Logs</span>
@@ -857,6 +862,146 @@
             </table>
           </div>
           <div id="assignmentPagination"></div>
+        </div>
+      </section>
+
+      <!-- ── VIEW: GHRCEM Pilot Cohort & TPO Telemetry (Workstream 4) ── -->
+      <section id="view-pilot" class="content-view">
+        <!-- KPI Strip -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="kpi-card accent-blue">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Cohort Enrollment</span>
+                <span class="kpi-subtext">GHRCEM CSE/IT Batch '26</span>
+              </div>
+              <div class="kpi-icon-box blue">
+                <i class="bi bi-mortarboard-fill"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiPilotTotal">0</div>
+              <span class="kpi-trend trend-blue"><i class="bi bi-people-fill"></i> Monitored</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-teal">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Avg Roadmap Progress</span>
+                <span class="kpi-subtext">8-Week Pilot Sprints</span>
+              </div>
+              <div class="kpi-icon-box teal">
+                <i class="bi bi-graph-up-arrow"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiPilotAvgProgress">0%</div>
+              <span class="kpi-trend trend-teal"><i class="bi bi-speedometer2"></i> Velocity</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-rose">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">At-Risk Students</span>
+                <span class="kpi-subtext">Inactive &gt; 7 Days</span>
+              </div>
+              <div class="kpi-icon-box rose">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiPilotAtRisk" style="color: #FB7185;">0</div>
+              <span class="kpi-trend trend-rose"><i class="bi bi-bell-fill"></i> Action Req.</span>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-emerald">
+            <div class="kpi-header">
+              <div class="kpi-label-group">
+                <span class="kpi-label">Placement-Ready</span>
+                <span class="kpi-subtext">&ge; 70% Progress &amp; Viva Seal</span>
+              </div>
+              <div class="kpi-icon-box emerald">
+                <i class="bi bi-patch-check-fill"></i>
+              </div>
+            </div>
+            <div class="kpi-value-row">
+              <div class="kpi-value" id="kpiPilotReady" style="color: #34D399;">0</div>
+              <span class="kpi-trend trend-emerald"><i class="bi bi-briefcase-fill"></i> Verified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Cohort Management Card -->
+        <div class="card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 class="card-title" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0;">
+                <i class="bi bi-buildings-fill" style="color: var(--accent-teal); margin-right: 0.5rem;"></i>GHRCEM Jalgaon Placement Cohort Telemetry
+              </h3>
+              <p class="card-subtitle" style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">
+                Live academic pilot tracking for Third-Year Computer Engineering &amp; IT students. Automated at-risk early detection.
+              </p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <button class="btn-action" onclick="exportPilotCohortCsv()" style="background: var(--accent-emerald, #10B981); color: #fff; border: none; font-size: 0.85rem; padding: 0.5rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; font-weight: 600;" title="Download verified roster CSV formatted for corporate recruiters">
+                <i class="bi bi-file-earmark-spreadsheet-fill"></i> Export Placement-Ready CSV
+              </button>
+              <button class="btn-secondary" onclick="loadPilotCohort()" style="font-size: 0.85rem; padding: 0.5rem 0.85rem;" title="Refresh cohort telemetry">
+                <i class="bi bi-arrow-repeat"></i> Refresh
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Toolbar -->
+          <div style="display: flex; gap: 0.75rem; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06); flex-wrap: wrap; align-items: center; background: rgba(0,0,0,0.15);">
+            <div style="flex: 1; min-width: 220px; position: relative;">
+              <input
+                type="text"
+                id="pilotSearchInput"
+                placeholder="Search student by name, email, or track..."
+                oninput="filterPilotCohort()"
+                style="width: 100%; padding: 0.45rem 0.75rem 0.45rem 2rem; background: var(--bg-surface-elevated, #1a2234); border: 1px solid var(--border-line, rgba(255,255,255,0.1)); border-radius: 6px; color: var(--text-primary); font-size: 0.85rem;"
+              />
+              <i class="bi bi-search" style="position: absolute; left: 0.65rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.8rem;"></i>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <select id="pilotStatusFilter" onchange="filterPilotCohort()" style="padding: 0.45rem 0.75rem; background: var(--bg-surface-elevated, #1a2234); border: 1px solid var(--border-line, rgba(255,255,255,0.1)); border-radius: 6px; color: var(--text-primary); font-size: 0.85rem;">
+                <option value="all">All Statuses</option>
+                <option value="active">Active Sprints</option>
+                <option value="ready">Placement-Ready (&ge;70%)</option>
+                <option value="at-risk">At-Risk Only (Inactive &gt;7d)</option>
+              </select>
+              <select id="pilotTrackFilter" onchange="filterPilotCohort()" style="padding: 0.45rem 0.75rem; background: var(--bg-surface-elevated, #1a2234); border: 1px solid var(--border-line, rgba(255,255,255,0.1)); border-radius: 6px; color: var(--text-primary); font-size: 0.85rem;">
+                <option value="all">All Tracks</option>
+                <option value="Full-Stack">Full-Stack Web &amp; AI</option>
+                <option value="Frontend">Frontend Architecture</option>
+                <option value="Backend">Backend &amp; Cloud APIs</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cohort Table -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student Candidate</th>
+                  <th>Career Track</th>
+                  <th>Roadmap Progression</th>
+                  <th>Engagement State</th>
+                  <th>Voice Viva Seal</th>
+                  <th>Last Active</th>
+                  <th style="text-align: right;">Verified Passport</th>
+                </tr>
+              </thead>
+              <tbody id="pilotCohortTableBody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading GHRCEM student cohort telemetry...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -2162,6 +2307,7 @@
   <script src="js/modules/adminsView.js"></script>
   <script src="js/modules/alertsView.js"></script>
   <script src="js/modules/systemView.js"></script>
+  <script src="js/modules/pilotDashboardView.js"></script>
   <script>
     // ── Application State ──────────────────────────────────────────
     let activeView = 'dashboard';
@@ -2226,6 +2372,9 @@
       } else if (viewName === 'assignments') {
         heading.textContent = 'Collegiate Weekly Assignments Cockpit';
         if (typeof loadAdminAssignments === 'function') loadAdminAssignments(1);
+      } else if (viewName === 'pilot') {
+        heading.textContent = 'GHRCEM Pilot Cohort Telemetry & Placement Roster';
+        if (typeof loadPilotCohort === 'function') loadPilotCohort();
       } else if (viewName === 'audit') {
         heading.textContent = 'Audit Logs & Security History';
         if (typeof loadAuditActionsFilter === 'function') loadAuditActionsFilter();
