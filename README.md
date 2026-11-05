@@ -485,7 +485,7 @@ try {
 - **Bounded Concurrency:** The service layer restricts total active roadmaps to at most **2 tracks** (`status: 'active'`).
 - **Historical Flexibility:** Unlimited completed, abandoned, or archived roadmaps can coexist in the student's career history without index conflicts.
 
-### 5.3 Course Synergy Rules Engine (3-Level Validation)
+### 5.3 Cross-Track Compatibility Engine (3-Level Validation)
 When a student attempts to enroll in a second active course via `POST /api/roadmaps/generate`, `server/services/courseSynergyService.js` executes three sequential runtime checks:
 
 ```
@@ -520,7 +520,7 @@ When a student attempts to enroll in a second active course via `POST /api/roadm
 2. **Check B (`HTTP 409 MAX_ACTIVE_ROUTES_REACHED`):** Checks `prisma.roadmap.count({ where: { userId, status: 'active' } })`. If $\ge 2$, blocks further active enrollments.
 3. **Check C (`HTTP 400 UNRELATED_COURSE_RESTRICTION`):** Evaluates relationship between the new candidate track and the currently active track across 3 deterministic criteria:
    - **Level 1 (Domain Match):** Both careers share the same primary industry category (e.g., both `Development`, both `Data`, or both `Security`).
-   - **Level 2 (Cross-Domain Synergy Pairs):** Recognized industry crossover pairings:
+   - **Level 2 (Cross-Domain Compatible Pairs):** Recognized industry crossover pairings:
      - `full-stack-developer` $\leftrightarrow$ `devops-cloud-engineer`
      - `front-end-developer` $\leftrightarrow$ `ui-ux-designer`
      - `data-analyst` $\leftrightarrow$ `ai-ml-engineer`
