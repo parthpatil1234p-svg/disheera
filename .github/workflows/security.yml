@@ -1,0 +1,26 @@
+# Copyright (C) 2026 Disheera Technologies Inc.
+# Licensed under the GNU Affero General Public License v3.0 or later.
+# See the LICENSE file for details.
+
+name: Pre-Public Secret Shield & Integrity
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  gitleaks:
+    name: Gitleaks Automated Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks Secret Detector
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

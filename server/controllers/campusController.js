@@ -223,13 +223,13 @@ exports.getCampusStats = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       data: {
-        partnerColleges: Math.max(42, totalInquiries + 42),
-        totalStudentReach: '54,000+',
-        averagePlacementBoost: '+38%',
-        accreditationAlignment: 'NAAC A++ & NIRF Metric 5.1/5.2',
+        pilotColleges: 1, // GHRCEM Jalgaon Benchmark Pilot
+        pilotBatchCapacity: '60–80 Students',
+        status: 'Active Pilot Intake Stage',
+        accreditationAlignment: 'NAAC & NIRF Placement Metric 5.1/5.2 Ready',
         inquiriesRecorded: totalInquiries,
         scheduledDemos,
-        activePilots,
+        activePilots: Math.max(1, activePilots),
       },
     });
   } catch (error) {

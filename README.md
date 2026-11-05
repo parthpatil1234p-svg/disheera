@@ -63,7 +63,7 @@
   <img src="https://img.shields.io/badge/Domain_Email-parthpatil@careerpath.is--local.org-4285F4?style=flat-square&logo=gmail&logoColor=white" alt="Custom Domain Email" />
   <img src="https://img.shields.io/badge/Statutory_Compliance-MeitY_DPDP_Act_2023_(Gazette_No._22)-10B981?style=flat-square&logo=gov.uk&logoColor=white" alt="MeitY DPDP Act 2023" />
   <img src="https://img.shields.io/badge/Grievance_Redressal-DPDP_s.8(10)_Officer_Appointed-0ea5e9?style=flat-square" alt="DPDP Grievance Officer" />
-  <img src="https://img.shields.io/badge/Support_Desk-WhatsApp_%2B91_74990_85045_(Chat_Only)-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp Support Desk" />
+  <img src="https://img.shields.io/badge/Support_Desk-support@disheera.site-2563EB?style=flat-square&logo=mail.ru&logoColor=white" alt="WhatsApp Support Desk" />
   <img src="https://img.shields.io/badge/Legal_Portal-Privacy_%7C_Terms_%7C_Security_%7C_Support-7c3aed?style=flat-square" alt="Legal & Trust Suite" />
 </p>
 
@@ -128,7 +128,7 @@
     - [12.6 Strict WhatsApp Phone Link Gate for Existing Students (Option A Compulsory Backdrop Modal)](#126-strict-whatsapp-phone-link-gate-for-existing-students)
     - [12.7 Autonomous n8n Workflow Integration (Job Alerts & Candidate Telemetry)](#127-autonomous-n8n-workflow-integration-job-alerts--candidate-telemetry)
     - [12.8 Instant Text-Only Messaging Engine & Voice Feature Deprecation](#128-instant-text-only-messaging-engine--voice-feature-deprecation)
-    - [12.9 24x7 WhatsApp Support Desk & Counselor Relay (+91 74990 85045)](#129-24x7-whatsapp-support-desk--counselor-relay-91-74990-85045)
+    - [12.9 Institutional Support Desk & Counselor Relay (support@disheera.site)](#129-institutional-support-desk--counselor-relay-supportdisheerasite)
 13. [🎓 16:9 Landscape Widescreen Certificate & Milestone Proctoring](#-13-169-landscape-widescreen-certificate--milestone-proctoring)
     - [13.1 Cinematic 16:9 Landscape Certificate of Appreciation (1120px by 630px, Navy & Gold Waves)](#131-cinematic-169-landscape-certificate-of-appreciation)
     - [13.2 3D Rosette Medallion, Dynamic QR Code & Public Authenticity Verification (`verify.html?certId=...`)](#132-3d-rosette-medallion-dynamic-qr-code--public-authenticity-verification)
@@ -165,7 +165,7 @@ Disheera is an enterprise-grade Autonomous Career Guidance & Talent Intelligence
 | ⚡ **Live API Gateway** | **[https://api.disheera.site](https://api.disheera.site)** | Node.js Express REST API hosted on Render Cloud |
 | 🩺 **Live Health Check** | **[https://api.disheera.site/api/health](https://api.disheera.site/api/health)** | Real-time server telemetry, database connection & uptime monitor |
 | 📧 **Official Support & Inquiries** | **`parthpatil@disheera.site`** | Dedicated enterprise & university partner communication channel |
-| 💬 **Official WhatsApp Support Desk** | **[`+91 74990 85045`](https://wa.me/917499085045?text=Hello%20CareerPath%20AI%20Support)** | 24x7 Student & Partner WhatsApp Help Desk *(Chat Only · No Voice Calls)* with auto-docketing & founder counselor relay |
+| 💬 **Official Support Desk** | **[support@disheera.site](mailto:support@disheera.site)** | Institutional Help Desk with auto-docketing & founder counselor relay *(support@disheera.site)* |
 | 🛡️ **Designated Grievance Officer** | **Parth Patil** &nbsp;•&nbsp; **[`support.html`](https://disheera.site/support.html)** | GHRCEM Jalgaon, Maharashtra · Email: `parthpatil@disheera.site` · 24h SLA, 30-day statutory resolution under DPDP s. 8(10) |
 | ⚖️ **Statutory DPDP Act 2023 Alignment** | **[Gazette No. 22 of 2023](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf)** | Full statutory compliance across notice (s. 5), consent (s. 6), breach notification (s. 8(6)), and data principal rights |
 | 📜 **Legal & Governance Suite** | **[`privacy.html`](https://disheera.site/privacy.html) · [`terms.html`](https://disheera.site/terms.html) · [`security.html`](https://disheera.site/security.html)** | DPDP 2023 & IT Act 2000 compliant legal framework, BYOK local storage guarantee, and deterministic math audit |
@@ -1231,11 +1231,11 @@ To maximize message delivery speed and eliminate media bandwidth bottlenecks acr
      - *"Audio message received. Please type your career question or inquiry as text for sub-second AI mentor guidance and support ticket tracking."*
    - Protects server compute resources while ensuring clear text transcripts for both student review and human counselor escalation.
 
-### 12.9 24x7 WhatsApp Support Desk & Counselor Relay (`+91 74990 85045`)
+### 12.9 Institutional Support Desk & Counselor Relay (support@disheera.site)
 To provide immediate resolution for student technical blockers, OTP issues, and admissions inquiries:
 1. **Dedicated WhatsApp Support Desk:**
-   - Operational helpline: **`+91 74990 85045`** *(WhatsApp Chat Only - Voice Calls Disabled)*.
-   - Provides direct routing for students, educators, and enterprise recruiters via 1-click link: `https://wa.me/917499085045?text=...`.
+   - Operational support desk: **support@disheera.site** *(Disheera Student & Campus Help Desk)*.
+   - Provides direct routing for students, educators, and enterprise recruiters via official support desk email: support@disheera.site.
 2. **Automated Keyword Routing & Query Docketing:**
    - Messages containing keywords such as `SUPPORT`, `HELP`, `TICKET`, or `COUNSELOR` trigger automated docket generation (`#CP-TKT-...`).
    - Dispatches an instant docket receipt with tracking ID, estimated SLA, and direct link to the statutory Grievance Officer details.
@@ -1601,7 +1601,7 @@ In strict adherence to Section 8(10) of the DPDP Act 2023 and Rule 3(2) of the I
 | **Institutional Affiliation** | G.H. Raisoni College of Engineering and Management (GHRCEM) |
 | **Campus / Postal Location** | Gat No. 57/1, Shirsoli Road, Mohadi, Jalgaon - 425002, Maharashtra, India |
 | **Official Statutory Email** | **`parthpatil@disheera.site`**  |
-| **Official WhatsApp Support Desk** | **`+91 74990 85045`** *(WhatsApp Chat Only · Voice Calls Disabled)* |
+| **Official Support Desk** | **support@disheera.site** *(Disheera Campus Help Desk)* |
 | **First Acknowledgment SLA** | Within **24 hours** of ticket receipt |
 | **Statutory Resolution SLA** | Expedited resolution within **30 days** as mandated by the DPDP Act 2023 |
 | **Direct Ticket Submission** | **[`support.html`](https://disheera.site/support.html)** or via REST API `POST /api/support/ticket` |
@@ -1624,7 +1624,7 @@ Disheera ships with four beautifully styled, production-ready legal and governan
    - 4-Tier Recruiter Verification Gate: 60+ Webmail Blacklist, DNS MX resolution, HTTP live website probing, and corporate OTP validation.
    - Responsible Security Disclosure & Bug Bounty Program: Coordinated vulnerability reporting guidelines to `parthpatil@disheera.site`.
 4. **Support & Statutory Grievance Desk (`client/support.html`):**
-   - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`+91 74990 85045`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
+   - Centralized multi-channel assistance portal providing instant FAQ solutions, live WhatsApp desk routing (`support@disheera.site`), online ticket submission (`POST /api/support/ticket`), ticket status lookup, and complete statutory Grievance Officer details.
 
 
 ### 17.5 Admin, Evaluator & System Credential Protection
