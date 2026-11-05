@@ -120,7 +120,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
       }).join('');
 
-      container.innerHTML = activeTabsHtml + completedTabsHtml;
+      let secondSlotTabHtml = '';
+      if (allActiveRoadmaps.length === 1) {
+        secondSlotTabHtml = `
+          <a href="recommendations.html" class="btn btn-sm border border-dashed border-primary text-primary bg-blue-50/50 hover:bg-blue-50 d-inline-flex align-items-center gap-1 rounded-xl px-2.5 py-1 transition-all text-decoration-none" title="Enroll in a complementary career route (e.g. DevOps, Cloud, UI/UX)">
+            <i class="bi bi-plus-circle-dotted"></i>
+            <span class="d-none d-sm-inline">+ Add 2nd Track</span>
+            <span class="badge bg-primary bg-opacity-10 text-primary font-mono ms-1" style="font-size: 0.68rem;">Slot 2/2</span>
+          </a>
+        `;
+      }
+
+      container.innerHTML = activeTabsHtml + secondSlotTabHtml + completedTabsHtml;
 
       container.querySelectorAll('.roadmap-track-tab-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -131,6 +142,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           loadRoadmap(rid);
         });
       });
+
+      const oppBanner = document.getElementById('singleTrackOpportunityBanner');
+      if (oppBanner) {
+        if (allActiveRoadmaps.length === 1) {
+          oppBanner.classList.remove('d-none');
+        } else {
+          oppBanner.classList.add('d-none');
+        }
+      }
 
       if (btnEnroll) {
         if (allActiveRoadmaps.length === 1) {
@@ -145,6 +165,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } else {
       switcher.classList.add('d-none');
+      const oppBanner = document.getElementById('singleTrackOpportunityBanner');
+      if (oppBanner) oppBanner.classList.add('d-none');
     }
   };
 
