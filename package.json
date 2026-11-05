@@ -70,7 +70,7 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "puppeteer-core": "^25.14.0",
+    "puppeteer-core": "^25.16.0",
     "serve": "14.2.4"
   },
   "overrides": {
