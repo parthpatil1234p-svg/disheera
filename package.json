@@ -47,7 +47,7 @@
   "author": "Disheera Technologies Inc. <parthpatil@disheera.site>",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@prisma/client": "^6.19.3",
+    "@prisma/client": "^7.10.1",
     "@supabase/server": "^1.9.1",
     "@vercel/analytics": "^2.0.1",
     "adm-zip": "^0.6.1",
