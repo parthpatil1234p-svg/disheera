@@ -17,6 +17,8 @@ const {
   getCampusLeads,
   getCampusStats,
   getTpoCohortAnalytics,
+  getCohortStudents,
+  exportCohortCsv,
 } = require('../controllers/campusController');
 
 // ── Public Routes ─────────────────────────────────────────────
@@ -24,6 +26,8 @@ router.post('/demo-request', submitDemoRequest);
 router.post('/voice-ai-webhook', voiceAiWebhook);
 router.get('/stats', getCampusStats);
 router.get('/tpo-analytics', getTpoCohortAnalytics);
+router.get('/cohort-students', getCohortStudents);
+router.get('/export-roster-csv', exportCohortCsv);
 
 // ── Pipeline Review Routes ────────────────────────────────────
 router.get('/leads', getCampusLeads);
