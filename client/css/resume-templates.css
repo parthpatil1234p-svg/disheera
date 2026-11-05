@@ -94,6 +94,14 @@
   transition: background-color 0.15s ease;
 }
 
+.builder-section-header .bi-chevron-down {
+  transition: transform 0.2s ease;
+}
+
+.builder-section-header.collapsed .bi-chevron-down {
+  transform: rotate(-90deg);
+}
+
 .builder-section-header:hover {
   background: #f1f5f9;
 }

@@ -284,6 +284,9 @@
               <div class="font-body-sm text-slate-caption text-[11px]">Start with a blank canvas or import your verified skill dossier.</div>
             </div>
             <div class="d-flex gap-1.5 flex-wrap">
+              <button type="button" class="btn-quick-import text-xs px-2.5 py-1 rounded-lg font-semibold" id="btnToggleAllSections" title="Expand or collapse all sections">
+                <i class="bi bi-arrows-expand text-primary"></i> <span id="toggleAllSectionsText">Expand All</span>
+              </button>
               <button type="button" class="btn-quick-import text-danger border-danger-subtle text-xs px-2.5 py-1 rounded-lg" id="btnClearResumeQuick" title="Reset to completely blank resume">
                 <i class="bi bi-trash3 text-danger"></i> Blank Canvas
               </button>
@@ -346,13 +349,13 @@
 
           <!-- SECTION 2: Career Summary -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secSummary">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secSummary">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-card-text text-primary"></i> 2. Professional Summary
               </h3>
               <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
-            <div class="collapse show" id="secSummary">
+            <div class="collapse" id="secSummary">
               <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                   <label class="cp-input-label font-headline-sm text-xs font-semibold text-slate-body mb-0">Summary Statement</label>
@@ -373,13 +376,13 @@
 
           <!-- SECTION 3: Education -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secEducation">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secEducation">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-mortarboard text-primary"></i> 3. Education
               </h3>
               <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
-            <div class="collapse show" id="secEducation">
+            <div class="collapse" id="secEducation">
               <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="educationListContainer">
                   <!-- Education repeater items injected here -->
@@ -393,13 +396,13 @@
 
           <!-- SECTION 4: Skills & Verified Badges -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secSkills">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secSkills">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-check2-circle text-primary"></i> 4. Technical Skills &amp; Badges
               </h3>
               <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
-            <div class="collapse show" id="secSkills">
+            <div class="collapse" id="secSkills">
               <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div class="p-2.5 mb-3 rounded-xl bg-blue-soft border border-blue-100 text-primary text-xs d-flex align-items-center gap-2">
                   <i class="bi bi-shield-check text-secondary fs-6"></i>
@@ -417,13 +420,13 @@
 
           <!-- SECTION 5: Projects & GitHub Repos -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secProjects">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secProjects">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-folder-check text-primary"></i> 5. Projects &amp; Study Repositories
               </h3>
               <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
-            <div class="collapse show" id="secProjects">
+            <div class="collapse" id="secProjects">
               <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="projectsListContainer">
                   <!-- Project repeater items injected here -->
@@ -437,13 +440,13 @@
 
           <!-- SECTION 6: Experience & Hackathons -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secExperience">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secExperience">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-briefcase text-primary"></i> 6. Experience &amp; Internships
               </h3>
               <i class="bi bi-chevron-down text-slate-caption"></i>
             </div>
-            <div class="collapse show" id="secExperience">
+            <div class="collapse" id="secExperience">
               <div class="builder-section-body p-4 pt-1 border-t border-border-whisper">
                 <div id="experienceListContainer">
                   <!-- Experience repeater items injected here -->
@@ -457,7 +460,7 @@
 
           <!-- SECTION 7: Certifications -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secCertifications">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secCertifications">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-award text-primary"></i> 7. Certifications &amp; Badges
               </h3>
@@ -477,7 +480,7 @@
 
           <!-- SECTION 8: Additional Information -->
           <div class="builder-section-card bg-surface-pure rounded-2xl border border-border-whisper shadow-sm overflow-hidden mb-3">
-            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors" data-bs-toggle="collapse" data-bs-target="#secAdditional">
+            <div class="builder-section-header p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-muted/50 transition-colors collapsed" data-bs-toggle="collapse" data-bs-target="#secAdditional">
               <h3 class="builder-section-title font-headline-sm text-sm font-bold text-on-surface mb-0 flex items-center gap-2">
                 <i class="bi bi-globe2 text-primary"></i> 8. Additional Details
               </h3>

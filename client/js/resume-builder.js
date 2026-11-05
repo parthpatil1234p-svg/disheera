@@ -1386,6 +1386,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   btnClearResume?.addEventListener('click', handleClearResume);
   btnClearResumeQuick?.addEventListener('click', handleClearResume);
 
+  const btnToggleAllSections = document.getElementById('btnToggleAllSections');
+  if (btnToggleAllSections) {
+    btnToggleAllSections.addEventListener('click', () => {
+      const sectionCollapses = document.querySelectorAll('.builder-section-card .collapse');
+      const anyCollapsed = Array.from(sectionCollapses).some(el => !el.classList.contains('show'));
+      
+      sectionCollapses.forEach(el => {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(el, { toggle: false });
+        if (anyCollapsed) {
+          bsCollapse.show();
+        } else {
+          // Collapse all except Section 1 (Personal Info)
+          if (el.id !== 'secPersonalInfo') {
+            bsCollapse.hide();
+          }
+        }
+      });
+
+      const icon = btnToggleAllSections.querySelector('i');
+      const textSpan = btnToggleAllSections.querySelector('#toggleAllSectionsText');
+      if (anyCollapsed) {
+        if (icon) icon.className = 'bi bi-arrows-collapse text-primary';
+        if (textSpan) textSpan.textContent = 'Collapse All';
+      } else {
+        if (icon) icon.className = 'bi bi-arrows-expand text-primary';
+        if (textSpan) textSpan.textContent = 'Expand All';
+      }
+    });
+  }
+
   if (btnImportGithubRepos) {
     btnImportGithubRepos.addEventListener('click', async () => {
       btnImportGithubRepos.disabled = true;
