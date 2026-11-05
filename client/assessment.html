@@ -139,13 +139,13 @@
 
   <body class="assessment-page bg-canvas-white font-body-base text-on-surface antialiased">
     <!-- ============================================================
-         GOOGLE STITCH NOTCH TOP NAVIGATION
+         STUDENT-FRIENDLY STITCH HEADER & NAVIGATION
          ============================================================ -->
-    <header class="fixed top-0 w-full z-50 bg-surface-pure/95 backdrop-blur-xl border-b border-border-whisper shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-      <nav class="cp-navbar-notch" id="mainNav">
-        <div class="h-16 w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          <!-- Brand / Logo -->
-          <div class="flex items-center gap-3">
+    <header class="sticky top-0 w-full z-50 bg-surface-pure/95 backdrop-blur-xl border-b border-border-whisper shadow-[0_1px_8px_rgba(0,0,0,0.04)] assessment-header">
+      <nav class="w-full" id="mainNav">
+        <div class="h-16 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          <!-- Brand / Logo & Active Chamber Pill -->
+          <div class="flex items-center gap-3 sm:gap-6">
             <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.html">
               <div class="brand-icon">
                 <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="36" height="36" />
@@ -153,43 +153,48 @@
               <span class="brand-name font-headline-sm text-xl font-bold text-on-surface tracking-tight ms-2">Dishe<span class="text-primary font-bold">era</span></span>
               <span class="brand-tagline-sub d-none d-xl-inline-flex align-items-center gap-1 ms-2 font-caption text-xs text-slate-caption"><span class="pulse-dot-indigo"></span>Atlas</span>
             </a>
-            <div class="h-5 w-px bg-border-whisper hidden 2xl:block"></div>
-            <span class="hidden 2xl:inline-flex items-center px-2.5 py-0.5 rounded-full font-caption text-xs bg-blue-soft text-primary font-semibold whitespace-nowrap shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary me-1.5"></span>
-              Diagnostic Chamber
-            </span>
+            <div class="h-6 w-px bg-slate-200 hidden md:block"></div>
+            <!-- Active Chamber Pill -->
+            <div class="hidden md:flex items-center space-x-2 bg-blue-50/80 border border-blue-200/80 px-3 py-1.5 rounded-lg text-xs font-medium text-blue-900">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              </span>
+              <span class="font-semibold text-blue-950">Track:</span>
+              <span>Diagnostic Evaluation Chamber</span>
+            </div>
+            <!-- Anti-Cheat Status Badge -->
+            <div class="hidden lg:flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+              <i class="bi bi-shield-check text-slate-500"></i>
+              <span>Anti-Cheat Proctor Active</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            </div>
           </div>
 
-          <!-- Desktop Center Links & Status -->
-          <div class="flex items-center gap-4">
-            <div class="hidden xl:inline-flex items-center gap-1.5 font-caption text-xs text-slate-caption font-medium shrink-0 whitespace-nowrap">
-              <span class="material-symbols-outlined text-[16px] text-secondary">shield</span>
-              <span>Anti-Cheat Proctor Active</span>
-              <span class="inline-block w-2 h-2 rounded-full bg-secondary ml-0.5 animate-pulse"></span>
-            </div>
-
-            <ul class="notch-nav-links d-none d-lg-flex list-unstyled mb-0 items-center gap-2">
+          <!-- Desktop Center Links & User Profile -->
+          <div class="flex items-center gap-3 sm:gap-4">
+            <ul class="notch-nav-links d-none d-lg-flex list-unstyled mb-0 items-center gap-1">
               <li>
-                <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none" href="index.html">
-                  <i class="bi bi-house me-1"></i> Home
+                <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none flex items-center gap-1.5" href="index.html">
+                  <i class="bi bi-house"></i> Home
                 </a>
               </li>
               <li>
-                <a class="notch-nav-link active text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary-container text-white text-decoration-none" href="assessment.html" aria-current="page">
-                  <i class="bi bi-pencil-square me-1"></i> Assessment
+                <a class="notch-nav-link active text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-50 text-primary border border-blue-100 shadow-xs text-decoration-none flex items-center gap-1.5" href="assessment.html" aria-current="page">
+                  <i class="bi bi-pencil-square"></i> Assessment
                 </a>
               </li>
               <li>
-                <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none" href="dashboard.html">
-                  <i class="bi bi-grid-1x2-fill me-1"></i> Dashboard
+                <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none flex items-center gap-1.5" href="dashboard.html">
+                  <i class="bi bi-grid-1x2-fill"></i> Dashboard
                 </a>
               </li>
             </ul>
 
             <!-- Auth & Logout -->
             <div id="authNavActions" class="d-flex align-items-center gap-2">
-              <button class="btn btn-outline-danger btn-sm px-3 font-body-sm-medium" onclick="Auth.logout()">
-                <i class="bi bi-box-arrow-right me-1"></i> Logout
+              <button class="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition" onclick="Auth.logout()" title="Logout" type="button">
+                <i class="bi bi-box-arrow-right text-lg"></i>
               </button>
             </div>
 
@@ -237,45 +242,95 @@
     </header>
 
     <!-- Secondary Sticky Diagnostic Telemetry Bar -->
-    <div class="assessment-telemetry-bar w-full bg-surface-pure border-b border-border-whisper shadow-sm sticky top-[81px] z-40 mt-[81px]" style="top: 81px; margin-top: 81px;">
-      <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3 flex-nowrap overflow-x-auto no-scrollbar">
-        <div class="flex items-center gap-2.5 shrink-0">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-caption text-xs bg-blue-soft text-primary font-semibold border border-blue-100 whitespace-nowrap">
-            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-            Diagnostic Session
+    <div class="assessment-telemetry-bar w-full bg-slate-50/90 backdrop-blur-md border-b border-slate-200/80 shadow-2xs sticky top-16 z-40 transition-all">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+        <div class="flex items-center flex-wrap gap-2.5">
+          <span class="inline-flex items-center space-x-1.5 font-semibold text-slate-800 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs text-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Diagnostic Session</span>
           </span>
-          <span class="text-border-outline font-caption hidden sm:inline">|</span>
-          <div class="flex items-center gap-2">
-            <span class="font-headline-sm text-xs font-semibold text-on-surface whitespace-nowrap">FORM-AST-01</span>
-            <span class="hidden xl:inline-flex items-center px-2 py-0.5 rounded text-xs bg-emerald-soft text-secondary font-medium border border-emerald-100 whitespace-nowrap">
-              <i class="bi bi-shield-check me-1"></i> Deterministic Model: 60% Skills &bull; 25% Interests &bull; 15% Academics
-            </span>
+          <span class="px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-blue-700 border border-blue-100 font-mono">FORM-AST-01</span>
+          <div class="hidden sm:inline-flex items-center space-x-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-indigo-900 border border-indigo-100 px-2.5 py-1 rounded-lg font-medium text-[11px]">
+            <span class="text-xs">✨</span>
+            <span>Deterministic Model: 60% Skills • 25% Interests • 15% Academics</span>
           </div>
         </div>
 
-        <div class="flex items-center gap-2.5 shrink-0">
-          <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-caption text-xs bg-emerald-soft text-secondary border border-secondary-container font-semibold whitespace-nowrap">
-            <span class="material-symbols-outlined text-[15px] text-secondary">security</span>
-            Proctor Monitored
-          </div>
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-muted border border-border-whisper font-code-sm text-xs font-semibold text-slate-body whitespace-nowrap">
-            <span class="material-symbols-outlined text-[16px] text-primary">cloud_done</span>
-            <span class="hidden sm:inline">Auto-Save:</span> <span>Active</span>
-          </div>
+        <div class="flex items-center space-x-2.5 text-[11px] font-medium">
+          <span class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+            <i class="bi bi-shield-check text-emerald-600"></i>
+            <span>Proctor Monitored</span>
+          </span>
+          <span class="flex items-center space-x-1.5 text-blue-700 bg-blue-50/80 border border-blue-200/70 px-2.5 py-1 rounded-lg shadow-2xs font-semibold">
+            <i class="bi bi-clock text-blue-600"></i>
+            <span>~4 mins to complete</span>
+          </span>
+          <span class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+            <i class="bi bi-cloud-check text-emerald-600"></i>
+            <span>Auto-Save: Active</span>
+          </span>
         </div>
       </div>
-      <div class="w-full bg-border-whisper h-[2px]">
-        <div class="bg-primary-container h-full w-[20%] transition-all duration-500 ease-out" id="diagnosticProgressLine"></div>
+      <div class="w-full bg-slate-200 h-[2px]">
+        <div class="bg-blue-600 h-full w-[20%] transition-all duration-500 ease-out" id="diagnosticProgressLine"></div>
       </div>
     </div>
 
     <!-- Main Assessment Container -->
-    <main class="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 assessment-layout min-h-[calc(100vh-8rem)]">
+    <main class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 assessment-layout min-h-[calc(100vh-8rem)]">
 
       <!-- Page Title & Overview (Semantic H1) -->
-      <div class="mb-6">
-        <h1 class="font-headline-lg text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">AI Skill Assessment &amp; Career Diagnostic</h1>
-        <p class="font-body-base text-slate-caption text-sm sm:text-base mt-1">Complete your 5-milestone diagnostic to generate your personalized career blueprint, skill-gap radar, and verified roadmap.</p>
+      <section class="mb-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700">
+              <span class="animate-pulse">👋</span>
+              <span id="diagnosticWelcomeText">Welcome back, Parth! Let's shape your tech journey</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+              Skill Assessment &amp; Career Roadmap <span class="text-2xl">🚀</span>
+            </h1>
+            <p class="text-slate-600 text-sm max-w-3xl leading-relaxed">
+              Complete your 5-milestone diagnostic to generate your personalized career blueprint, skill-gap radar, and verified roadmap.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 bg-white p-2.5 rounded-2xl border border-slate-200 shadow-xs" id="userHeaderCard">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-base shadow-xs" id="userAvatarPill">PP</div>
+            <div class="text-left pr-2">
+              <p class="text-xs font-bold text-slate-900 leading-none" id="userHeaderName">Parth Patil</p>
+              <p class="text-[11px] text-blue-600 font-semibold mt-1" id="userHeaderRole">BCA Student • Level 1 Explorer</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scan Alert / Notification Banner -->
+      <div class="mb-6 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xs relative overflow-hidden" id="githubSuperpowersBanner">
+        <div class="flex items-start sm:items-center space-x-3.5 relative z-10">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 text-lg shadow-sm shadow-emerald-500/20">🎉</div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold text-emerald-950 uppercase tracking-wide bg-emerald-100/80 px-2 py-0.5 rounded-md">GitHub Superpowers Detected</span>
+              <span class="text-xs text-slate-600 font-medium">from <span class="font-bold text-slate-900" id="githubSuperpowerUser">@parthpatil1234p-svg</span> (7 study repos)</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 mt-2">
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">React.js</span>
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">TypeScript</span>
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">Node.js</span>
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">Tailwind CSS</span>
+              <span class="text-xs font-medium text-emerald-700 bg-emerald-100/60 px-2 py-1 rounded-lg">+3 auto-verified</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 self-end md:self-center shrink-0 relative z-10">
+          <button type="button" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-emerald-600/30 transition flex items-center space-x-1.5" id="btnApplyGithubSuperpowers" onclick="if(window.Assessment && window.Assessment.quickImportGithubSkills){window.Assessment.quickImportGithubSkills();}else{alert('4 GitHub skills auto-filled into your profile!');}">
+            <span>Use Verified Skills</span>
+            <span>⚡</span>
+          </button>
+          <button type="button" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-white/50" onclick="document.getElementById('githubSuperpowersBanner').style.display='none';">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Feedback Alert Area -->
@@ -316,8 +371,8 @@
         <!-- Left Column: Desktop Step Navigation (Cols 1-4) -->
         <aside class="step-nav-desktop lg:col-span-4 bg-surface-pure p-4 sm:p-5 rounded-2xl border border-border-whisper shadow-[0_4px_20px_rgba(15,23,42,0.04)] sticky top-36" id="stepIndicator" aria-label="Assessment step progress">
           <div class="text-xs font-caption text-slate-caption font-bold text-uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
-            <span>Diagnostic Navigation</span>
-            <span class="font-code-sm text-[11px] text-primary">5 MILESTONES</span>
+            <span class="flex items-center gap-1.5"><span class="text-sm">🗺️</span> Diagnostic Journey</span>
+            <span class="px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-blue-700 border border-blue-100 font-mono">5 MILESTONES</span>
           </div>
 
           <div class="flex flex-col gap-2">
@@ -363,11 +418,17 @@
           </div>
 
           <div class="mt-5 pt-4 border-t border-border-whisper px-1">
-            <div class="p-3 rounded-xl bg-blue-soft border border-blue-100 flex items-start gap-2.5">
-              <span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">verified_user</span>
-              <div class="text-xs text-slate-caption leading-relaxed">
-                <strong class="text-on-surface font-semibold block mb-0.5">Strict Evidence Protocol</strong>
-                All skill verifications and reality checks create verifiable, cryptographic audit records for recruiters.
+            <div class="p-3.5 rounded-xl bg-gradient-to-br from-indigo-50/90 to-blue-50/70 border border-indigo-100 flex items-start gap-3 shadow-2xs">
+              <div class="p-2 rounded-xl bg-white text-indigo-600 shrink-0 shadow-xs border border-indigo-100">
+                <i class="bi bi-shield-lock-fill text-indigo-600 text-base"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-indigo-950 flex items-center gap-1.5 mb-1">
+                  Verified Portfolio Guarantee <span class="text-[11px]">🛡️</span>
+                </h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed mb-0 font-normal">
+                  Every milestone builds your official portfolio credential that recruiters trust for internship &amp; entry-level hiring.
+                </p>
               </div>
             </div>
           </div>
@@ -517,7 +578,13 @@
                     placeholder="e.g. BCA, B.Tech, B.Sc Computer Science"
                     required
                   />
-                  <div class="form-text text-xs text-slate-caption mt-1">Examples: BCA, B.Tech, MCA, B.Sc IT, B.Des, BBA</div>
+                  <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                    <span class="text-[11px] text-slate-500 font-medium">Quick pick:</span>
+                    <button class="px-2 py-0.5 text-[11px] font-bold bg-blue-50 text-blue-700 rounded-md border border-blue-200/80 hover:bg-blue-100 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='BCA';">BCA</button>
+                    <button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='B.Tech CS';">B.Tech CS</button>
+                    <button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='MCA';">MCA</button>
+                    <button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='B.Sc IT';">B.Sc IT</button>
+                  </div>
                 </div>
 
                 <!-- Branch / Major -->
@@ -553,7 +620,10 @@
                     class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5"
                     placeholder="e.g. G.H. Raisoni College of Engineering and Management, Jalgaon"
                   />
-                  <div class="form-text text-xs text-slate-caption mt-1">Enter your affiliated college, university department, or autonomous campus</div>
+                  <div class="flex items-center justify-between text-[11px] text-slate-500 mt-1.5">
+                    <span>Helps customize university placement and hackathon opportunities</span>
+                    <span class="text-emerald-600 font-medium">📍 North Maharashtra</span>
+                  </div>
                 </div>
               </div>
 
@@ -1111,5 +1181,22 @@
     <script src="js/skills-catalog.js?v=4.0.0"></script>
     <script src="js/assessment.js?v=4.0.0"></script>
     <script src="js/chat.js"></script>
-  </body>
+      <!-- AI Mentor Floating Pill -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <div class="flex items-center space-x-2">
+        <div class="hidden sm:flex items-center space-x-2 bg-white px-3.5 py-2 rounded-2xl shadow-lg border border-slate-200 text-xs font-semibold text-slate-700 animate-pulse">
+          <span class="text-base">💡</span>
+          <span>"Need help selecting your specialization, Parth?"</span>
+        </div>
+        <button class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-full shadow-xl shadow-indigo-500/30 flex items-center space-x-2.5 text-xs font-bold border border-white/20 transition-transform active:scale-95" type="button" onclick="if(window.ChatWidget && window.ChatWidget.toggle){window.ChatWidget.toggle();}else{alert('AI Mentor Aarav is active to guide your assessment!');}">
+          <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm">🤖</div>
+          <span>Aarav • AI Guide</span>
+          <span class="inline-flex items-center space-x-1 bg-white/20 px-2 py-0.5 rounded-full text-[10px] tracking-wide">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="uppercase font-bold">ONLINE</span>
+          </span>
+        </button>
+      </div>
+    </div>
+</body>
 </html>

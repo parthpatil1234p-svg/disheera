@@ -11094,9 +11094,17 @@ body.assessment-page .cp-navbar-notch {
   pointer-events: auto !important;
 }
 
+body.assessment-page header.assessment-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+}
+
 body.assessment-page .assessment-telemetry-bar {
-  top: 81px !important;
-  margin-top: 81px !important;
+  position: sticky !important;
+  top: 64px !important;
+  margin-top: 0 !important;
+  z-index: 40 !important;
 }
 
 body.assessment-page main,
