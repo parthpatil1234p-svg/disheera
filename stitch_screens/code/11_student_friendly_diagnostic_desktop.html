@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AI Skill Assessment &amp; Career Diagnostic | Disheera ATLAS</title>
+<!-- Load Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#4f46e5',
+              600: '#4338ca',
+              700: '#3730a3',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Style Tag for animations & custom tweaks -->
+<style data-purpose="custom-enhancements">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+<div class="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<!-- Left: Logo & Track status -->
+<div class="flex items-center space-x-6">
+<div class="flex items-center space-x-2.5">
+<!-- Disheera Brand Icon -->
+<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white font-black text-xl tracking-tighter"><br></div>
+<div class="flex items-center space-x-2">
+<span class="font-extrabold text-xl tracking-tight text-slate-900">Disheera</span>
+<span class="px-2 py-0.5 text-[11px] font-bold tracking-wider text-indigo-700 bg-indigo-50 border border-indigo-200/70 rounded-full uppercase">ATLAS</span>
+</div>
+</div>
+<!-- Vertical Divider -->
+<div class="h-6 w-[1px] bg-slate-200 hidden md:block"></div>
+<!-- Active Chamber Pill -->
+<div class="hidden md:flex items-center space-x-2 bg-blue-50/70 border border-blue-200/70 px-3 py-1.5 rounded-lg text-xs font-medium text-blue-900">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+</span>
+<span class="font-semibold text-blue-950">Track:</span>
+<span class="">Diagnostic Evaluation Chamber</span>
+</div>
+<!-- Anti-Cheat Status Badge -->
+<div class="hidden lg:flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Anti-Cheat Proctor Active</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+</div>
+</div>
+<!-- Center: Navigation Tabs -->
+<nav class="hidden md:flex items-center space-x-1">
+<a class="px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center space-x-1.5" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Home</span>
+</a>
+<a class="px-3.5 py-2 rounded-lg text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 shadow-sm flex items-center space-x-1.5" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Assessment</span>
+</a>
+<a class="px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors flex items-center space-x-1.5" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Dashboard</span>
+</a>
+</nav>
+<!-- Right: Verification, Profile, Logout -->
+<div class="flex items-center space-x-3">
+<!-- Student Verified Pill -->
+<div class="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-semibold text-emerald-700">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span class="">Student ✓</span>
+</div>
+<!-- User Pill -->
+<div class="flex items-center space-x-2 pl-1 pr-3 py-1 rounded-full bg-slate-100 border border-slate-200/80">
+<span class="w-6 h-6 rounded-full bg-blue-600 text-white text-[10px] font-bold flex items-center justify-center">PP</span>
+<span class="text-xs font-semibold text-slate-700">Parth Patil</span>
+</div>
+<!-- Sign Out -->
+<button class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors" title="Log Out">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: SubHeaderMetadata -->
+<section class="bg-slate-50/80 border-b border-slate-200/70 py-2.5"><div class="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8"><div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600"><div class="flex items-center flex-wrap gap-2.5"><span class="inline-flex items-center space-x-1.5 font-semibold text-slate-800 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="">Career Discovery Journey</span></span><span class="px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-blue-700 border border-blue-100">Step 2 of 5</span><div class="hidden sm:inline-flex items-center space-x-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-indigo-900 border border-indigo-100 px-2.5 py-1 rounded-lg font-medium text-[11px]"><span class="text-xs">✨</span><span class="">Holistic Profile: 60% Skills • 25% Passions • 15% Academics</span></div></div><div class="flex items-center space-x-2.5 text-[11px] font-medium"><span class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs"><svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Proctor: Fair &amp; Trusted</span></span><span class="flex items-center space-x-1.5 text-blue-700 bg-blue-50/80 border border-blue-200/70 px-2.5 py-1 rounded-lg shadow-2xs font-semibold"><svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">~4 mins to complete</span></span><span class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs"><svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Auto-saved just now</span></span></div></div></div></section>
+<!-- END: SubHeaderMetadata -->
+<!-- BEGIN: MainContent -->
+<main class="max-w-[1536px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+<!-- Title and Subtitle Block -->
+<section class="mb-6"><div class="flex flex-col md:flex-row md:items-center justify-between gap-4"><div class="space-y-1"> <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700"><span class="animate-pulse">👋</span><span class="">Welcome back, Parth! Let's shape your tech journey</span></div><h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">Skill Assessment &amp; Career Roadmap <span class="text-2xl">🚀</span></h1><p class="text-slate-600 text-sm max-w-3xl leading-relaxed">Complete this quick 5-step diagnostic to unlock your tailor-made role matches, customized skill radar, and actionable recruiter-ready credentials.</p></div><div class="flex items-center gap-2 shrink-0 bg-white p-2.5 rounded-2xl border border-slate-200 shadow-xs"><div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-base shadow-xs">PP</div><div class="text-left pr-2"><p class="text-xs font-bold text-slate-900 leading-none">Parth Patil</p><p class="text-[11px] text-blue-600 font-semibold mt-1">BCA Student • Level 1 Explorer</p></div></div></div></section>
+<!-- Scan Alert / Notification Banner -->
+<div class="mb-7 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xs relative overflow-hidden"><div class="flex items-start sm:items-center space-x-3.5 relative z-10"><div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 text-lg shadow-sm shadow-emerald-500/20">🎉</div><div><div class="flex flex-wrap items-center gap-2"><span class="text-xs font-bold text-emerald-950 uppercase tracking-wide bg-emerald-100/80 px-2 py-0.5 rounded-md">GitHub Superpowers Detected</span><span class="text-xs text-slate-600 font-medium">from <span class="font-bold text-slate-900">@parthpatil1234p-svg</span> (7 study repos)</span></div><div class="flex flex-wrap items-center gap-1.5 mt-2"><span class="text-xs font-semibold text-emerald-900 mr-1">4 Verified Skills:</span><span class="inline-flex items-center px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-xs font-bold text-emerald-800 shadow-2xs">💻 Python</span><span class="inline-flex items-center px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-xs font-bold text-emerald-800 shadow-2xs">⚛️ React.js</span><span class="inline-flex items-center px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-xs font-bold text-emerald-800 shadow-2xs">🗄️ SQL &amp; DBMS</span><span class="inline-flex items-center px-2 py-0.5 rounded-md bg-white border border-emerald-200 text-xs font-bold text-emerald-800 shadow-2xs">🌿 Git &amp; GitHub</span></div></div></div><div class="flex items-center space-x-2 self-end md:self-center shrink-0"><span class="text-xs font-semibold text-emerald-700 bg-emerald-100/60 px-2.5 py-1 rounded-lg border border-emerald-200/50 hidden sm:inline-block">+40 XP Earned ✨</span><button class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-white/60 transition-colors" title="Dismiss">✕</button></div></div>
+<!-- Diagnostic Workspace Two-Column Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT COLUMN: Diagnostic Navigation Stepper & Protocol Card (4 cols) -->
+<aside class="lg:col-span-4 space-y-4"><div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4"><div class="flex items-center justify-between pb-3 border-b border-slate-100"><div><h2 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5"><span class="">🗺️</span> Diagnostic Journey</h2><p class="text-[11px] text-slate-400 font-medium mt-0.5">Step-by-step career blueprint</p></div><span class="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full uppercase tracking-wider border border-blue-200/80 shadow-2xs">2 of 5 Done</span></div><div class="space-y-2.5"><div class="flex items-center p-3 rounded-xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 transition cursor-pointer group shadow-2xs"><div class="w-8 h-8 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mr-3 shrink-0 shadow-xs">✓</div><div class="min-w-0 flex-1"><div class="flex items-center justify-between"><span class="text-xs font-bold text-emerald-950">Stream Selection</span><span class="text-[10px] font-bold text-emerald-700 bg-white px-1.5 py-0.5 rounded border border-emerald-200">Completed</span></div><div class="text-[11px] text-emerald-700/80 truncate">Tech &amp; Computer Applications</div></div></div><div class="flex items-center p-3.5 rounded-xl border-2 border-blue-600 bg-blue-50/70 shadow-sm cursor-pointer relative ring-2 ring-blue-500/10"><div class="w-8 h-8 rounded-xl bg-blue-600 text-white font-black text-xs flex items-center justify-center mr-3 shrink-0 shadow-xs">02</div><div class="min-w-0 flex-1"><div class="flex items-center justify-between"><span class="text-xs font-extrabold text-blue-950 flex items-center gap-1">Academic Details <span class="text-[11px]">✍️</span></span><span class="text-[10px] font-extrabold text-blue-700 bg-white px-1.5 py-0.5 rounded-full border border-blue-200 shadow-2xs animate-pulse">In Progress</span></div><div class="text-[11px] text-blue-700 font-semibold truncate">Degree, branch &amp; university</div></div></div><div class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white transition cursor-pointer group"><div class="w-8 h-8 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 font-bold text-xs flex items-center justify-center mr-3 shrink-0 border border-slate-200 transition-colors">03</div><div class="min-w-0 flex-1"><div class="text-xs font-bold text-slate-700 group-hover:text-slate-900">Career Interests</div><div class="text-[11px] text-slate-400 truncate">Dream roles, domains &amp; curiosities</div></div></div><div class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white transition cursor-pointer group"><div class="w-8 h-8 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 font-bold text-xs flex items-center justify-center mr-3 shrink-0 border border-slate-200 transition-colors">04</div><div class="min-w-0 flex-1"><div class="text-xs font-bold text-slate-700 group-hover:text-slate-900">Skill Reality Check</div><div class="text-[11px] text-slate-400 truncate">Hands-on micro-challenges &amp; quiz</div></div></div><div class="flex items-center p-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white transition cursor-pointer group"><div class="w-8 h-8 rounded-xl bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-blue-600 font-bold text-xs flex items-center justify-center mr-3 shrink-0 border border-slate-200 transition-colors">05</div><div class="min-w-0 flex-1"><div class="text-xs font-bold text-slate-700 group-hover:text-slate-900">Personalized Roadmap</div><div class="text-[11px] text-slate-400 truncate">Job-readiness score &amp; action plan</div></div></div></div></div><div class="bg-gradient-to-br from-indigo-50/90 to-blue-50/70 border border-indigo-100 rounded-2xl p-4 flex items-start space-x-3.5 shadow-2xs"><div class="p-2 rounded-xl bg-white text-indigo-600 shrink-0 shadow-xs border border-indigo-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div><div><h4 class="text-xs font-bold text-indigo-950 flex items-center gap-1.5">Verified Portfolio Guarantee <span class="text-[11px]">🛡️</span></h4><p class="text-[11px] text-slate-600 leading-relaxed mt-1 font-normal">Every milestone builds your official portfolio credential that recruiters trust for internship &amp; entry-level hiring.</p></div></div></aside>
+<!-- RIGHT COLUMN: Main Active Step Form Card (8 cols) -->
+<section class="lg:col-span-8 space-y-4">
+<!-- Saved Profile Banner -->
+<div class="bg-blue-50/40 border border-blue-200/60 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+<div class="flex items-start space-x-3">
+<div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-xs font-bold text-slate-800">Saved Assessment Profile Active</h3>
+<p class="text-xs text-slate-500 mt-0.5">
+                Loaded saved profile for <span class="font-semibold text-slate-700">Engineering &amp; IT</span> • 4 skills • 2 domains of interest. All information is restored.
+              </p>
+</div>
+</div>
+<button class="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-blue-700 shrink-0 self-start sm:self-center">
+<svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+            Review Academics →
+          </button>
+</div>
+<!-- Main Step 01 Academic Form Card -->
+<div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+<!-- Card Header -->
+<div class="flex items-center space-x-4 pb-6 border-b border-slate-100">
+<div class="w-11 h-11 rounded-2xl border-2 border-blue-200 bg-blue-50 text-blue-600 font-extrabold text-base flex items-center justify-center shrink-0">
+              01
+            </div>
+<div>
+<h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Academic Background</h2>
+<p class="text-xs text-slate-500 mt-0.5">Your degree and branch provide context for entry-level hiring criteria</p>
+</div>
+</div>
+<!-- Form Fields Container -->
+<form class="mt-6 space-y-5" onsubmit="event.preventDefault();"><div class="grid grid-cols-1 md:grid-cols-2 gap-5"><div><label class="block text-xs font-bold text-slate-700 mb-1.5" for="fullName">Full Name <span class="text-blue-600">*</span></label><input class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-2xs transition" id="fullName" type="text" value="Parth Patil"><p class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1"><span class="text-emerald-600 font-bold">✓</span> Verified via your profile account</p></div><div><label class="block text-xs font-bold text-slate-700 mb-1.5" for="degreeCourse">Degree / Course <span class="text-blue-600">*</span></label><input class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-2xs transition" id="degreeCourse" type="text" value="BCA"><div class="flex flex-wrap items-center gap-1.5 mt-2"><span class="text-[11px] text-slate-500 font-medium">Quick pick:</span><button class="px-2 py-0.5 text-[11px] font-bold bg-blue-50 text-blue-700 rounded-md border border-blue-200/80 hover:bg-blue-100 transition" type="button">BCA</button><button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition" type="button">B.Tech CS</button><button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition" type="button">MCA</button><button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition" type="button">B.Sc IT</button></div></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5"><div><label class="block text-xs font-bold text-slate-700 mb-1.5" for="branchMajor">Branch / Specialization <span class="text-blue-600">*</span></label><input class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-2xs transition" id="branchMajor" type="text" value="Computer Science"><p class="text-[11px] text-slate-500 mt-1.5">E.g. Computer Science, AI &amp; ML, Information Technology</p></div><div><label class="block text-xs font-bold text-slate-700 mb-1.5" for="currentYear">Current Academic Year <span class="text-blue-600">*</span></label><div class="relative"><select class="w-full appearance-none px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-2xs transition pr-10" id="currentYear"><option>First Year (Freshman)</option><option selected="">Second Year (Sophomore)</option><option>Third Year (Junior)</option><option>Final / Fourth Year (Senior)</option><option>Graduated / Post-Graduate</option></select><div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div></div></div></div><div><label class="block text-xs font-bold text-slate-700 mb-1.5" for="collegeName">College / Institute / University Name <span class="text-blue-600">*</span></label><input class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-2xs transition" id="collegeName" type="text" value="Gh Raisoni College of Engineering &amp; Management, Jalgaon"><div class="flex items-center justify-between text-[11px] text-slate-500 mt-1.5"><span class="">Helps customize university placement and hackathon opportunities</span><span class="text-emerald-600 font-medium">📍 North Maharashtra</span></div></div><div class="pt-6 border-t border-slate-100 flex items-center justify-between gap-4"><button class="px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition shadow-2xs flex items-center space-x-2" type="button"><span class="">← Previous Step</span></button><button class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold shadow-md shadow-blue-500/25 hover:shadow-blue-500/35 transition flex items-center space-x-2" type="button"><span class="">Next: Career Interests</span><span class="">→</span></button></div></form>
+</div>
+</section>
+</div>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: BottomRightWidget -->
+<!-- AI Mentor Floating Pill -->
+<div class="fixed bottom-6 right-6 z-50"><div class="flex items-center space-x-2"><div class="hidden sm:flex items-center space-x-2 bg-white px-3.5 py-2 rounded-2xl shadow-lg border border-slate-200 text-xs font-semibold text-slate-700 animate-pulse"><span class="text-base">💡</span><span class="">"Need help selecting your specialization, Parth?"</span></div><button class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-full shadow-xl shadow-indigo-500/30 flex items-center space-x-2.5 text-xs font-bold border border-white/20 transition-transform active:scale-95"><div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm">🤖</div><span class="">Aarav • AI Guide</span><span class="inline-flex items-center space-x-1 bg-white/20 px-2 py-0.5 rounded-full text-[10px] tracking-wide"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span><span class="uppercase font-bold">ONLINE</span></span></button></div></div>
+<!-- END: BottomRightWidget -->
+
+
+</body></html>
