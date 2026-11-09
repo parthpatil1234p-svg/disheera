@@ -45,7 +45,7 @@
   "author": "Disheera Technologies Inc. <support@disheera.site>",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@prisma/client": "^6.19.3",
+    "@prisma/client": "^7.10.1",
     "adm-zip": "^0.6.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.11.0",
