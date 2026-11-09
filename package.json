@@ -45,7 +45,7 @@
     "career-atlas",
     "roadmap"
   ],
-  "author": "Disheera Technologies Inc. <parthpatil@disheera.site>",
+  "author": "Disheera Technologies Inc. <support@disheera.site>",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@prisma/client": "^6.19.3",
