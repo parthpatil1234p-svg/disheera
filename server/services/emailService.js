@@ -52,7 +52,7 @@ async function sendEmail({ to, subject, html, text = '', replyTo = '', timeoutMs
     subject: subject || 'Disheera Notification',
     html: html || `<p>${text || subject}</p>`,
     text: text || '',
-    replyTo: replyTo || process.env.EMAIL_REPLY_TO || 'disheera.site@gmail.com',
+    replyTo: replyTo || process.env.EMAIL_REPLY_TO || 'support@disheera.site',
   };
 
   try {
