@@ -1,0 +1,21 @@
+{
+  "name": "Disheera — Navigable Career Atlas",
+  "short_name": "Disheera",
+  "description": "AI-powered career guidance, 3D interactive career atlas, and practical skill roadmaps for Indian college students and freshers.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#060913",
+  "theme_color": "#00F2FE",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

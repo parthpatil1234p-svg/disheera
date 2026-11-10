@@ -1,0 +1,234 @@
+# Disheera Technologies Inc. — Full Platform Technical Specification & API Contracts
+
+> Complete machine-readable curriculum, evaluation models, proctoring specifications, and API contracts for LLMs, answer engines, and autonomous agents.
+
+Official URL: https://api.disheera.site  
+Base API URL: https://api.disheera.site/api  
+Corporate Registry: Disheera Technologies Inc.  
+Standards Alignment: ISO/IEEE Skill Assessment Guidelines & SHA-256 Ledger  
+
+---
+
+## 1. System Architecture & Dual-Engine Fallback
+
+Disheera is architected for zero-downtime high-reliability delivery across web and mobile browsers:
+- **Presentation Layer**: High-performance static HTML5/CSS3/ES6+ client hosted on CDN edge nodes.
+  - Three.js WebGL: Renders the 3D Career Universe constellation with interactive raycasting.
+  - GSAP (GreenSock): Micro-interactions, counter animations, and smooth state morphing.
+  - Vengeance UI Notch Navbar: Adaptive floating navigation pill with mobile drawer collapse.
+- **Application Tier**: Node.js and Express.js REST API service with rate-limiting, Helmet security headers, and JWT session handling.
+- **Persistence Tier**: MongoDB Atlas multi-region cluster with Mongoose ORM models for Users, Careers, Skills, Roadmaps, Assessments, and Recruiters.
+- **Dual-Engine AI Intelligence Layer**:
+  - Primary LLM: Groq Cloud (Qwen 2.5 / Llama 3.3) delivering sub-400ms inference for real-time AI career mentoring and roadmap personalization.
+  - Secondary LLM: Google Gemini 1.5 Pro / Flash fallback for deep narrative synthesis and resume parsing.
+  - Deterministic Offline Fallback: Embedded algorithmic rule engine guaranteeing recommendations and roadmap generation even if external AI APIs experience outages.
+
+---
+
+## 2. The 24 Standardized Career Pathways & Core Competency Matrix
+
+Each career is indexed with an importance rating (High, Medium, Low) and required proficiency (Beginner, Intermediate, Advanced):
+
+### 1. Front-End Developer (`front-end-developer`)
+- Domain: Engineering & Tech
+- Core Skills: HTML5, CSS3, JavaScript (ES6+), TypeScript, React, Next.js, Tailwind CSS, Git.
+- Typical Trajectory: 4 to 12 Weeks
+- Benchmark Roles: Junior Frontend Engineer, UI Engineer, Web Developer.
+
+### 2. Full-Stack Developer (`full-stack-developer`)
+- Domain: Engineering & Tech
+- Core Skills: React, Node.js, Express.js, MongoDB, RESTful APIs, Git, Docker, System Design.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Full-Stack Software Engineer, MERN Developer.
+
+### 3. Backend Engineer (`backend-engineer`)
+- Domain: Engineering & Tech
+- Core Skills: Node.js, Python, PostgreSQL, Redis, RESTful APIs, Docker, Linux, System Architecture.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Backend Engineer, API Engineer, Cloud Services Developer.
+
+### 4. Mobile App Developer (`mobile-app-developer`)
+- Domain: Engineering & Tech
+- Core Skills: Flutter, Dart, React Native, State Management, REST APIs, Native iOS/Android APIs.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Mobile Engineer, Flutter Developer, iOS/Android Developer.
+
+### 5. Game Developer (`game-developer`)
+- Domain: Engineering & Tech
+- Core Skills: Unity 3D, C#, Unreal Engine, C++, Game Loops, Physics Engines, 3D Vector Math.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Junior Game Developer, Gameplay Programmer.
+
+### 6. AI & Machine Learning Engineer (`ai-ml-engineer`)
+- Domain: Engineering & Tech
+- Core Skills: Python, NumPy, Pandas, Scikit-Learn, PyTorch, Model Evaluation, Deep Learning, SQL.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: ML Engineer, Applied AI Developer.
+
+### 7. Data Scientist (`data-scientist`)
+- Domain: Engineering & Tech
+- Core Skills: Python, Statistics, Pandas, SQL, Machine Learning, Data Visualization, Scikit-Learn.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Data Scientist, Predictive Modeler.
+
+### 8. Data Analyst (`data-analyst`)
+- Domain: Engineering & Tech
+- Core Skills: Advanced SQL, Microsoft Excel, Power BI, Tableau, Python, Data Cleaning.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: Business Intelligence Analyst, Data Analyst.
+
+### 9. DevOps & Cloud Engineer (`devops-cloud-engineer`)
+- Domain: Engineering & Tech
+- Core Skills: Docker, Kubernetes, AWS Cloud, CI/CD Pipelines, Linux, Terraform, Prometheus/Grafana.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Cloud Engineer, DevOps Specialist, Site Reliability Engineer.
+
+### 10. Cybersecurity Analyst (`cybersecurity-analyst`)
+- Domain: Engineering & Tech
+- Core Skills: Network Security, OWASP Top 10, Penetration Testing, Linux, Cryptography, SIEM.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: SOC Analyst, Security Engineer, Vulnerability Assessor.
+
+### 11. Blockchain Developer (`blockchain-developer`)
+- Domain: Engineering & Tech
+- Core Skills: Solidity, Web3.js, Ethers.js, Smart Contract Auditing, EVM, Hardhat.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Smart Contract Engineer, Web3 Developer.
+
+### 12. UI/UX Designer (`ui-ux-designer`)
+- Domain: Creative & Design
+- Core Skills: Figma, Visual Design Systems, WCAG Accessibility, Wireframing, User Research, Prototyping.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: Product Designer, UI/UX Designer.
+
+### 13. Brand & Visual Identity Designer (`brand-identity-designer`)
+- Domain: Creative & Design
+- Core Skills: Adobe Illustrator, Figma, Vector Graphics, Typography Systems, Brand Books.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: Visual Identity Designer, Brand Strategist.
+
+### 14. Motion Graphics & 3D Designer (`motion-3d-designer`)
+- Domain: Creative & Design
+- Core Skills: Adobe After Effects, Blender 3D, Kinetic Typography, 3D Asset Modeling, Texturing.
+- Typical Trajectory: 6 to 12 Weeks
+- Benchmark Roles: Motion Designer, 3D Artist.
+
+### 15. B2B Technical Copywriter (`copywriter-content-strategist`)
+- Domain: Creative & Design
+- Core Skills: Conversion Copywriting, Landing Page Copy, Pitch Decks, Case Studies, Content Marketing.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: Content Strategist, Conversion Copywriter.
+
+### 16. Financial Analyst & Modeler (`financial-analyst-modeler`)
+- Domain: Business & Finance
+- Core Skills: DCF Valuation, EBITDA Forecasting, Financial Statement Analysis, Excel/VBA, Python.
+- Typical Trajectory: 6 to 12 Weeks
+- Benchmark Roles: Equity Research Associate, Financial Analyst.
+
+### 17. Investment Banking Analyst (`investment-banking-analyst`)
+- Domain: Business & Finance
+- Core Skills: M&A Valuation, LBO Modeling, Capital Markets, Pitchbook Structuring, Financial Due Diligence.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Investment Banking Analyst, Corporate Finance Analyst.
+
+### 18. Business Operations Manager (`business-operations-manager`)
+- Domain: Business & Finance
+- Core Skills: Cross-Functional Operations, Agile/Scrum, Excel Analytics, Process Automation, KPIs.
+- Typical Trajectory: 6 to 10 Weeks
+- Benchmark Roles: BizOps Associate, Revenue Operations Specialist.
+
+### 19. Management Consultant (`management-consultant`)
+- Domain: Business & Finance
+- Core Skills: Structured Problem Solving, Market Research, Quantitative Decision Modeling, Strategy Decks.
+- Typical Trajectory: 6 to 12 Weeks
+- Benchmark Roles: Strategy Consultant, Associate Consultant.
+
+### 20. Performance Marketer & Media Buyer (`performance-marketer`)
+- Domain: Digital Marketing & Growth
+- Core Skills: Meta Ads Manager, Google Ads, CAC/ROAS Optimization, Conversion Funnel Split Testing.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: Growth Marketer, Performance Media Buyer.
+
+### 21. SEO & Organic Growth Strategist (`seo-growth-strategist`)
+- Domain: Digital Marketing & Growth
+- Core Skills: Technical SEO, Answer Engine Optimization (AEO), Content Hubs, Google Search Console, Baidu SEO.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: SEO Manager, Organic Growth Lead.
+
+### 22. Social Media & Content Growth Manager (`social-media-growth-manager`)
+- Domain: Digital Marketing & Growth
+- Core Skills: Short-Form Viral Storytelling, Community Engagement, Algorithm Mechanics, Analytics.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: Social Media Strategist, Content Growth Manager.
+
+### 23. Technical Product Manager (`technical-product-manager`)
+- Domain: Cross-Disciplinary & Tech
+- Core Skills: Agile/Scrum, User Journey Mapping, RICE Prioritization, MVP Scoping, Product Analytics.
+- Typical Trajectory: 8 to 12 Weeks
+- Benchmark Roles: Associate Product Manager (APM), Technical PM.
+
+### 24. Answer Engine Optimization (AEO) Specialist (`aeo-specialist`)
+- Domain: Digital Marketing & Growth
+- Core Skills: Generative Engine Optimization, /llms.txt Architecture, Schema.org Graph Modeling, Entity Grounding.
+- Typical Trajectory: 4 to 8 Weeks
+- Benchmark Roles: AEO Strategist, AI Search Optimization Specialist.
+
+---
+
+## 3. Weekly Milestone Proctoring & Verification Ledger
+
+- **Assessment Frequency**: Exactly once every 7 calendar days per roadmap week.
+- **Question Structure**: 10 randomized multiple-choice questions pulled from an encrypted question bank calibrated to that week's curriculum topics.
+- **Passing Threshold**: Minimum 70% score required to mark the week as passed and unlock the subsequent week.
+- **Freshness Validity**: Verified milestone badges carry a 180-day freshness ledger. Students retake a refresher exam after 180 days to maintain active certification.
+- **Anti-Cheat Controls**:
+  - Fullscreen enforcement.
+  - Tab visibility change monitoring (`document.visibilitychange`).
+  - Strike 1 penalty: -2 minutes off the clock.
+  - Strike 2 penalty: -3 minutes off the clock.
+  - Strike 3 violation: Immediate examination termination, score set to 0%, 24-hour retake lockout.
+
+---
+
+## 4. Cryptographic SHA-256 Job-Ready Certificate
+
+Upon completing all 4 milestone benchmarks (100% Roadmap Tasks, 100% Proctored Exams Passed, $\ge 85\%$ Resume ATS Score, and $\ge 80\%$ AI Mock Interview Score):
+- A verifiable certificate is generated with a unique identifier: `CP-2026-{UUID}`.
+- An immutable SHA-256 checksum is minted over: `{CertificateID}|{StudentName}|{TargetRole}|{IssuedTimestamp}|Disheera`.
+- Public Verification Endpoint: `GET https://api.disheera.site/api/readiness/verify/{CertificateID}`.
+- Web Verification Portal: `https://api.disheera.site/verify.html?id={CertificateID}`.
+
+---
+
+## 5. Commercial SaaS Pricing Architecture
+
+| Plan | Price (INR / USD) | Key Features Included | Ideal Audience |
+| :--- | :--- | :--- | :--- |
+| **Student Starter** | ₹0 (Free Forever) | 3D Universe, 4-step diagnostic, personalized roadmap, curated docs & video masterclasses | Exploring college students |
+| **Pro Accelerator** | ₹499 / mo ($9 / mo) | Unlimited 30-min proctored weekly milestone exams, Focus Chamber, AI Mock Interview, AI Resume ATS Matcher, SHA-256 Certificate, priority talent radar | Ambitious placement candidates |
+| **Campus Enterprise**| Custom Quota | Placement cell dashboard, cohort readiness analytics, curriculum gap alerts, NAAC/NIRF exports, recruiter matching | Colleges, Universities & Bootcamps |
+
+---
+
+## 6. Official REST API Contracts
+
+### Health Check
+- `GET /api/health`
+- Response: `{ status: "healthy", success: true, platform: "Disheera Technologies Inc.", version: "2.5.0" }`
+
+### Authentication
+- `POST /api/auth/register` — Body: `{ name, email, password, role }`
+- `POST /api/auth/login` — Body: `{ email, password }`
+- `GET /api/auth/me` — Headers: `Authorization: Bearer <TOKEN>`
+
+### Assessment & Recommendations
+- `POST /api/assessment` — Body: `{ academic, interests, skills, goals }`
+- `GET /api/recommendations` — Returns top matching careers with cosine-fit scores.
+
+### Roadmaps & Milestone Testing
+- `POST /api/roadmaps/generate` — Body: `{ careerSlug, durationWeeks }`
+- `POST /api/roadmaps/:id/weeks/:weekNumber/test/start` — Initializes 30-min proctored exam session.
+- `POST /api/roadmaps/test/submit` — Grades exam and stamps verified milestone.
+
+### Verification & Credentials
+- `GET /api/readiness/verify/:certId` — Returns cryptographic verification state, student name, score, and SHA-256 digest.

@@ -1,0 +1,134 @@
+# ==============================================================================
+# Disheera — Unified Robots & AI Crawler Discovery Policy
+# Supports: Google, Bing, Baidu (百度), and Modern AI Search (Perplexity, ChatGPT, Claude)
+# ==============================================================================
+
+# ── General Search Engine Crawlers (Google, Bing, Yahoo, DuckDuckGo) ──────────
+User-agent: *
+Allow: /
+Allow: /index
+Allow: /login
+Allow: /register
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /recommendations
+Allow: /verify
+Allow: /passport
+Allow: /resume-builder
+Allow: /quiz
+Allow: /support
+Allow: /security
+Allow: /privacy
+Allow: /terms
+Allow: /sitemap.xml
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /mcp-actions.json
+Allow: /.well-known/mcp-actions.json
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
+Disallow: /api/
+
+# ── Baidu Crawler (百度蜘蛛 — Baiduspider) ─────────────────────────────────────
+# Optimized for Chinese search engine indexing & mobile crawler verification
+User-agent: Baiduspider
+User-agent: Baiduspider-mobile
+User-agent: Baiduspider-image
+Allow: /
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
+Allow: /sitemap.xml
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
+Disallow: /api/
+
+# ── Modern AI Search & Answer Engine Crawlers (AEO / Citation Optimization) ───
+# Perplexity AI (Direct Citation & Real-time Web Search)
+User-agent: PerplexityBot
+Allow: /
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
+Disallow: /api/
+
+# OpenAI ChatGPT Search & Web Browsing (OAI-SearchBot + GPTBot)
+User-agent: OAI-SearchBot
+User-agent: GPTBot
+User-agent: ChatGPT-User
+Allow: /
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
+Disallow: /api/
+
+# Anthropic Claude Search & Citation Ingestion
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+Allow: /
+Allow: /jobs
+Allow: /roadmap
+Allow: /assessment
+Allow: /verify
+Allow: /passport
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard
+Disallow: /dashboard.html
+Disallow: /recruiter-dashboard
+Disallow: /recruiter-dashboard.html
+Disallow: /api/
+
+# Google Gemini Grounding & Extended Search
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Apple Intelligence & Siri Knowledge Graph
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Cohere, Diffbot, and Emerging AI Search Engines
+User-agent: cohere-ai
+User-agent: Diffbot
+User-agent: YouBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# ── Aggressive / Malicious Scraping Bots (Disallowed) ─────────────────────────
+User-agent: Bytespider
+User-agent: CCBot
+Disallow: /
+
+# ── Discovery & Grounding Endpoints ───────────────────────────────────────────
+Sitemap: https://disheera.site/sitemap.xml
+# LLM Machine-Readable Index: https://disheera.site/llms.txt
+# Full LLM Platform Specification: https://disheera.site/llms-full.txt
