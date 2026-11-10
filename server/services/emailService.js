@@ -34,7 +34,7 @@ function isEmailConfigured() {
  * @param {number} [options.timeoutMs=10000] - Request timeout in milliseconds
  * @returns {Promise<{success: boolean, messageId?: string, trackingId?: string, error?: string}>}
  */
-async function sendEmail({ to, subject, html, text = '', replyTo = '', timeoutMs = 10000 }) {
+async function sendEmail({ to, subject, html, text = '', from = '', replyTo = '', timeoutMs = 10000 }) {
   if (!to) {
     return { success: false, error: 'Recipient email ("to") is required.' };
   }
@@ -52,6 +52,7 @@ async function sendEmail({ to, subject, html, text = '', replyTo = '', timeoutMs
     subject: subject || 'Disheera Notification',
     html: html || `<p>${text || subject}</p>`,
     text: text || '',
+    from: from || process.env.EMAIL_FROM || '"Disheera" <no-replay@disheera.site>',
     replyTo: replyTo || process.env.EMAIL_REPLY_TO || 'support@disheera.site',
   };
 

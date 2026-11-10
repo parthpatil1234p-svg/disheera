@@ -20,7 +20,8 @@ const fs = require('fs');
 
 const rootDir = path.resolve(__dirname, '..');
 const serverDir = path.join(rootDir, 'server');
-const clientDir = path.join(rootDir, 'client');
+const frontendDistDir = path.join(rootDir, 'frontend', 'dist');
+const clientDir = fs.existsSync(frontendDistDir) ? frontendDistDir : path.join(rootDir, 'client');
 const adminClientDir = path.join(rootDir, 'admin-client');
 
 // Release ports if previously occupied by orphaned processes to avoid EADDRINUSE
@@ -95,10 +96,13 @@ spawnProcess('Backend API (:5000)', process.execPath, ['server.js'], serverDir, 
 
 // 2. Start Student Client (:5500)
 if (fs.existsSync(clientDir)) {
+  const isSpa = clientDir === frontendDistDir;
+  const serveArgs = isSpa ? [serveBin, clientDir, '-s', '-p', '5500'] : [serveBin, clientDir, '-p', '5500'];
+  const npxArgs = isSpa ? ['--yes', 'serve', clientDir, '-s', '-p', '5500'] : ['--yes', 'serve', clientDir, '-p', '5500'];
   if (serveBin) {
-    spawnProcess('Student Client (:5500)', process.execPath, [serveBin, 'client', '-p', '5500'], rootDir, false);
+    spawnProcess('Student Client (:5500)', process.execPath, serveArgs, rootDir, false);
   } else {
-    spawnProcess('Student Client (:5500)', 'npx', ['--yes', 'serve', 'client', '-p', '5500'], rootDir, true);
+    spawnProcess('Student Client (:5500)', 'npx', npxArgs, rootDir, true);
   }
 } else {
   console.warn('⚠️ [Student Client] Directory not found: client/');

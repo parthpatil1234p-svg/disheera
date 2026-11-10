@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="40%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#EFF6FF" />
+    </linearGradient>
+
+    <!-- Indigo to Royal Blue Gradient -->
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+
+    <!-- Indigo to Cyan Sweep for Score Dial -->
+    <linearGradient id="scoreDialGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+
+    <!-- Emerald Success Gradient -->
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadow Filter -->
+    <filter id="cardShadow2" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.07" />
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.04" />
+    </filter>
+
+    <!-- Subtle Dot Grid Pattern with Indigo Touch -->
+    <pattern id="dotGrid2" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#94A3B8" opacity="0.35" />
+    </pattern>
+  </defs>
+
+  <style>
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", sans-serif; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad2)" />
+
+  <!-- Blueprint Dot Grid -->
+  <rect width="1200" height="800" fill="url(#dotGrid2)" />
+
+  <!-- Top Header Banner -->
+  <g transform="translate(60, 48)">
+    <!-- Stage Pill Badge -->
+    <rect width="250" height="30" rx="15" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.2" />
+    <circle cx="16" cy="15" r="4.5" fill="#4F46E5" />
+    <text x="28" y="19.5" fill="#4338CA" font-size="11.5" font-weight="700" letter-spacing="0.8" class="font-mono">STAGE 2 : REVEALED ROADMAP</text>
+
+    <!-- Status Metric on Right -->
+    <g transform="translate(830, 0)">
+      <rect width="250" height="30" rx="15" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+      <circle cx="16" cy="15" r="4" fill="#10B981" />
+      <text x="28" y="19.5" fill="#065F46" font-size="11.5" font-weight="700" letter-spacing="0.5" class="font-mono">READINESS: 88% · OPTIMAL FIT</text>
+    </g>
+    
+    <!-- Main Title & Subtitle -->
+    <text x="0" y="74" fill="#0F172A" font-size="30" font-weight="800" letter-spacing="-0.5" class="font-sans">Target Career Atlas &amp; Action Plan</text>
+    <text x="0" y="102" fill="#475569" font-size="14.5" class="font-sans">Deterministic gap-closing roadmap with weekly milestone deliverables and verified resources.</text>
+  </g>
+
+  <!-- ============================================================
+       LEFT CARD: Personalized Execution Curriculum
+       ============================================================ -->
+  <g transform="translate(60, 172)" filter="url(#cardShadow2)">
+    <rect width="520" height="570" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+    
+    <!-- Card Header -->
+    <g transform="translate(28, 28)">
+      <circle cx="12" cy="12" r="12" fill="#EEF2FF" />
+      <!-- Roadmap compass / map icon -->
+      <path d="M12 6l5 12-5-3-5 3 5-12z" fill="#4F46E5" />
+      <text x="32" y="17" fill="#0F172A" font-size="17" font-weight="700" class="font-sans">Personalized Execution Curriculum</text>
+      <text x="32" y="35" fill="#4F46E5" font-size="11" font-weight="600" letter-spacing="0.5" class="font-mono">FULL-STACK DEVELOPER · 8-WEEK TRACK</text>
+    </g>
+
+    <!-- Timeline Spine Connecting Milestones -->
+    <line x1="56" y1="120" x2="56" y2="440" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="3 3" />
+
+    <!-- 4 Milestone Cards -->
+    <g transform="translate(28, 76)">
+      <!-- Week 1: Completed -->
+      <g transform="translate(0, 0)">
+        <rect width="464" height="82" rx="12" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.2" />
+        <!-- Emerald Checkmark Badge -->
+        <circle cx="28" cy="41" r="14" fill="#D1FAE5" />
+        <path d="M22 41l4 4 8-8" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        
+        <text x="54" y="27" fill="#0F172A" font-size="13.5" font-weight="700" class="font-sans">Week 1: Modern JavaScript &amp; Async</text>
+        <text x="54" y="47" fill="#475569" font-size="11.5" class="font-sans">Closures, promises, DOM events, modular ES6.</text>
+        
+        <rect x="54" y="55" width="132" height="19" rx="5" fill="#D1FAE5" />
+        <text x="62" y="68.5" fill="#065F46" font-size="9.5" font-weight="700" letter-spacing="0.5" class="font-mono">PROJECT DELIVERED</text>
+        
+        <rect x="402" y="31" width="48" height="23" rx="11.5" fill="#D1FAE5" />
+        <text x="426" y="46.5" fill="#047857" font-size="10.5" font-weight="700" text-anchor="middle" class="font-mono">100%</text>
+      </g>
+
+      <!-- Week 2: Active Module -->
+      <g transform="translate(0, 92)">
+        <rect width="464" height="86" rx="12" fill="#EEF2FF" stroke="#818CF8" stroke-width="1.8" />
+        <!-- Active Target Pulse Icon -->
+        <circle cx="28" cy="43" r="14" fill="#E0E7FF" />
+        <circle cx="28" cy="43" r="6" fill="#4F46E5" />
+        
+        <text x="54" y="28" fill="#0F172A" font-size="13.5" font-weight="700" class="font-sans">Week 2: Express APIs &amp; JWT Security</text>
+        <text x="54" y="48" fill="#475569" font-size="11.5" class="font-sans">Secure CRUD APIs, rate limits, and validated inputs.</text>
+        
+        <rect x="54" y="57" width="116" height="19" rx="5" fill="#E0E7FF" />
+        <text x="62" y="70.5" fill="#3730A3" font-size="9.5" font-weight="700" letter-spacing="0.5" class="font-mono">ACTIVE MODULE</text>
+
+        <!-- Mini Progress Bar -->
+        <rect x="180" y="63" width="180" height="6" rx="3" fill="#E0E7FF" />
+        <rect x="180" y="63" width="135" height="6" rx="3" fill="#4F46E5" />
+
+        <rect x="402" y="32" width="48" height="23" rx="11.5" fill="#E0E7FF" />
+        <text x="426" y="47.5" fill="#4338CA" font-size="10.5" font-weight="700" text-anchor="middle" class="font-mono">75%</text>
+      </g>
+
+      <!-- Week 3: Upcoming Database -->
+      <g transform="translate(0, 188)">
+        <rect width="464" height="82" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+        <circle cx="28" cy="41" r="14" fill="#F1F5F9" />
+        <text x="28" y="46" fill="#64748B" font-size="13" font-weight="700" text-anchor="middle" class="font-mono">3</text>
+        
+        <text x="54" y="27" fill="#334155" font-size="13.5" font-weight="700" class="font-sans">Week 3: MongoDB Data Modeling</text>
+        <text x="54" y="47" fill="#64748B" font-size="11.5" class="font-sans">Schema design, indexes, aggregation, and transactions.</text>
+        
+        <rect x="54" y="55" width="86" height="19" rx="5" fill="#F1F5F9" />
+        <text x="62" y="68.5" fill="#64748B" font-size="9.5" font-weight="700" letter-spacing="0.5" class="font-mono">UPCOMING</text>
+        
+        <rect x="402" y="30" width="48" height="23" rx="11.5" fill="#F1F5F9" />
+        <text x="426" y="45.5" fill="#64748B" font-size="10.5" font-weight="700" text-anchor="middle" class="font-mono">0%</text>
+      </g>
+
+      <!-- Week 4: Upcoming Cloud & CI/CD -->
+      <g transform="translate(0, 280)">
+        <rect width="464" height="82" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+        <circle cx="28" cy="41" r="14" fill="#F1F5F9" />
+        <text x="28" y="46" fill="#64748B" font-size="13" font-weight="700" text-anchor="middle" class="font-mono">4</text>
+        
+        <text x="54" y="27" fill="#334155" font-size="13.5" font-weight="700" class="font-sans">Week 4: Cloud Deploy &amp; GitHub CI/CD</text>
+        <text x="54" y="47" fill="#64748B" font-size="11.5" class="font-sans">Automated tests, production deploys, CORS, and domains.</text>
+        
+        <rect x="54" y="55" width="86" height="19" rx="5" fill="#F1F5F9" />
+        <text x="62" y="68.5" fill="#64748B" font-size="9.5" font-weight="700" letter-spacing="0.5" class="font-mono">UPCOMING</text>
+
+        <rect x="402" y="30" width="48" height="23" rx="11.5" fill="#F1F5F9" />
+        <text x="426" y="45.5" fill="#64748B" font-size="10.5" font-weight="700" text-anchor="middle" class="font-mono">0%</text>
+      </g>
+    </g>
+
+    <!-- Bottom Overall Roadmap Completion Progress Meter -->
+    <g transform="translate(28, 488)">
+      <text x="0" y="14" fill="#475569" font-size="12.5" font-weight="600" class="font-sans">Overall Roadmap Completion</text>
+      <text x="464" y="14" fill="#4F46E5" font-size="12" font-weight="700" text-anchor="end" class="font-mono">45% Complete</text>
+      <rect y="22" width="464" height="9" rx="4.5" fill="#E2E8F0" />
+      <rect y="22" width="208" height="9" rx="4.5" fill="url(#primaryGrad)" />
+      <!-- Glowing tip -->
+      <circle cx="208" cy="26.5" r="5" fill="#38BDF8" />
+    </g>
+  </g>
+
+  <!-- ============================================================
+       RIGHT CARD: Calibrated Placement Telemetry & Ecosystem
+       ============================================================ -->
+  <g transform="translate(620, 172)" filter="url(#cardShadow2)">
+    <rect width="520" height="570" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+    
+    <!-- Card Header -->
+    <g transform="translate(28, 28)">
+      <circle cx="12" cy="12" r="12" fill="#ECFDF5" />
+      <!-- Verified Shield Check Icon -->
+      <path d="M12 6l6 2v4c0 4-3 7-6 8-3-1-6-4-6-8V8l6-2z" fill="#10B981" />
+      <text x="32" y="17" fill="#0F172A" font-size="17" font-weight="700" class="font-sans">Calibrated Placement Telemetry</text>
+      <text x="32" y="35" fill="#059669" font-size="11" font-weight="600" letter-spacing="0.5" class="font-mono">DETERMINISTIC MULTI-FACTOR MATCH</text>
+    </g>
+
+    <!-- Dial Gauge Box -->
+    <g transform="translate(28, 76)">
+      <rect width="464" height="154" rx="14" fill="#F8FAFC" stroke="#C7D2FE" stroke-width="1.2" />
+      
+      <!-- Circular Progress Meter (88%) -->
+      <g transform="translate(80, 77)">
+        <circle r="46" fill="none" stroke="#E2E8F0" stroke-width="9" />
+        <circle r="46" fill="none" stroke="url(#scoreDialGrad2)" stroke-width="9" stroke-dasharray="289" stroke-dashoffset="35" stroke-linecap="round" transform="rotate(-90)" />
+        <text y="7" fill="#4F46E5" font-size="25" font-weight="800" text-anchor="middle" class="font-mono">88%</text>
+        <text y="22" fill="#059669" font-size="9" font-weight="700" text-anchor="middle" letter-spacing="0.5" class="font-mono">PRI</text>
+      </g>
+      
+      <!-- Dial Descriptions & Weighted Factor Breakdown -->
+      <g transform="translate(150, 20)">
+        <text x="0" y="18" fill="#0F172A" font-size="16" font-weight="700" class="font-sans">Full-Stack Developer Optimal Match</text>
+        
+        <!-- Factor 1: Skills -->
+        <g transform="translate(0, 36)">
+          <text x="0" y="10" fill="#475569" font-size="10.5" font-weight="600" class="font-mono">SKILLS MATCH (60% WT)</text>
+          <text x="290" y="10" fill="#4F46E5" font-size="10.5" font-weight="700" text-anchor="end" class="font-mono">86%</text>
+          <rect y="16" width="290" height="5" rx="2.5" fill="#E2E8F0" />
+          <rect y="16" width="249" height="5" rx="2.5" fill="#4F46E5" />
+        </g>
+
+        <!-- Factor 2: Interests -->
+        <g transform="translate(0, 68)">
+          <text x="0" y="10" fill="#475569" font-size="10.5" font-weight="600" class="font-mono">INTEREST FIT (25% WT)</text>
+          <text x="290" y="10" fill="#2563EB" font-size="10.5" font-weight="700" text-anchor="end" class="font-mono">92%</text>
+          <rect y="16" width="290" height="5" rx="2.5" fill="#E2E8F0" />
+          <rect y="16" width="266" height="5" rx="2.5" fill="#2563EB" />
+        </g>
+
+        <!-- Status Tag -->
+        <g transform="translate(0, 98)">
+          <rect width="144" height="20" rx="5" fill="#ECFDF5" />
+          <circle cx="10" cy="10" r="3" fill="#10B981" />
+          <text x="18" y="14" fill="#065F46" font-size="10" font-weight="700" letter-spacing="0.5" class="font-mono">STATUS: OPTIMAL FIT</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Verified Portfolio & Documentation Ecosystem -->
+    <g transform="translate(28, 246)">
+      <rect width="6" height="18" rx="3" fill="#10B981" />
+      <text x="14" y="14" fill="#0F172A" font-size="14" font-weight="700" class="font-sans">Verified Portfolio &amp; Documentation Ecosystem:</text>
+      
+      <!-- Deliverable 1: Git Monorepo -->
+      <g transform="translate(0, 26)">
+        <rect width="464" height="66" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+        <!-- GitHub Repo Icon -->
+        <circle cx="28" cy="33" r="14" fill="#EEF2FF" />
+        <path d="M28 23a10 10 0 00-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 011-2.7c-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.8 1.1a9.7 9.7 0 015 0c2-1.4 2.8-1.1 2.8-1.1.6 1.4.2 2.4.1 2.7a3.9 3.9 0 011 2.7c0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0028 23z" fill="#4F46E5" />
+        <text x="54" y="27" fill="#0F172A" font-size="13.5" font-weight="700" class="font-sans">Production Git Monorepo Deliverables</text>
+        <text x="54" y="46" fill="#475569" font-size="11.5" class="font-sans">Tested code, README docs, and deployment links.</text>
+      </g>
+      
+      <!-- Deliverable 2: Curated Canonical Docs -->
+      <g transform="translate(0, 100)">
+        <rect width="464" height="66" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+        <!-- Verified Documentation Icon -->
+        <circle cx="28" cy="33" r="14" fill="#ECFDF5" />
+        <path d="M22 25h12v16H22z" fill="none" stroke="#059669" stroke-width="1.8" />
+        <path d="M25 29h6m-6 4h4" stroke="#059669" stroke-width="1.8" stroke-linecap="round" />
+        <text x="54" y="27" fill="#0F172A" font-size="13.5" font-weight="700" class="font-sans">Curated Docs &amp; Industry Standards</text>
+        <text x="54" y="46" fill="#475569" font-size="11.5" class="font-sans">Canonical docs from MDN, Node.js, MongoDB, and more.</text>
+      </g>
+
+      <!-- Deliverable 3: AI Mentor Guidance -->
+      <g transform="translate(0, 174)">
+        <rect width="464" height="66" rx="12" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.2" />
+        <!-- AI Sparkle / Robot Icon -->
+        <circle cx="28" cy="33" r="14" fill="#E0E7FF" />
+        <path d="M28 23l1.5 4.5L34 29l-4.5 1.5L28 35l-1.5-4.5L22 29l4.5-1.5z" fill="#4F46E5" />
+        <text x="54" y="27" fill="#0F172A" font-size="13.5" font-weight="700" class="font-sans">24/7 Contextual AI Mentor Guidance</text>
+        <text x="54" y="46" fill="#4338CA" font-size="11.5" class="font-sans">Architecture help, code examples, and milestone guidance.</text>
+      </g>
+    </g>
+
+    <!-- Bottom Status Banner -->
+    <g transform="translate(28, 502)">
+      <rect width="464" height="42" rx="10" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.2" />
+      <!-- Green Check Badge -->
+      <circle cx="28" cy="21" r="10" fill="#10B981" />
+      <path d="M24 21l3 3 5-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <text x="46" y="25" fill="#065F46" font-size="12" font-weight="700" letter-spacing="0.5" class="font-mono">VERIFIED ROADMAP · 100% MEASURABLE PROGRESSION</text>
+    </g>
+  </g>
+</svg>
