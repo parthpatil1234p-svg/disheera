@@ -10,9 +10,7 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-xs">
-                <Compass className="w-5 h-5" />
-              </div>
+              <img src="/logo.svg" alt="Disheera Logo" className="w-9 h-9 object-contain" />
               <span className="text-xl font-bold tracking-tight text-[#0F172A] font-['Outfit']">
                 Dishe<span className="text-[#2563EB]">era</span>
               </span>

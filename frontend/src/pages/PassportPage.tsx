@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Award, 
   ShieldCheck, 
@@ -14,6 +14,7 @@ import {
   FileBadge
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { api } from '../services/api';
 
 export const PassportPage: React.FC = () => {
   const { user } = useAuth();
@@ -21,15 +22,36 @@ export const PassportPage: React.FC = () => {
   const [recordingTime, setRecordingTime] = useState(0);
   const [vivaRecorded, setVivaRecorded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [passportData, setPassportData] = useState<any>(null);
 
-  const candidateName = user?.name || 'Parth Patil';
-  const passportId = 'DSH-2026-9842A';
-  const publicVerifyUrl = `https://disheera.site/verify.html?id=${passportId}`;
+  useEffect(() => {
+    fetchLivePassport();
+  }, [user]);
 
-  const handleToggleRecord = () => {
+  const fetchLivePassport = async () => {
+    try {
+      const res = await api.get(`/passport/${user?.id || 'parth'}`);
+      if (res && res.data && res.data.passport) {
+        setPassportData(res.data.passport);
+      }
+    } catch (_) {}
+  };
+
+  const candidateName = passportData?.name || user?.name || 'Parth Patil';
+  const passportId = passportData?.studentId || 'DSH-2026-9842A';
+  const collegeName = passportData?.college || 'Savitribai Phule Pune University';
+  const trackName = passportData?.degreeBranch || 'Full Stack AI Engineer';
+  const publicVerifyUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}/verify?id=${passportId}`
+    : `https://disheera.site/verify?id=${passportId}`;
+
+  const handleToggleRecord = async () => {
     if (isRecording) {
       setIsRecording(false);
       setVivaRecorded(true);
+      try {
+        await api.post('/viva/evaluate', { duration: recordingTime, studentId: passportId });
+      } catch (_) {}
     } else {
       setIsRecording(true);
       setRecordingTime(0);
@@ -74,10 +96,10 @@ export const PassportPage: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-[#475569]">
-                Candidate Track: <strong className="text-[#0F172A]">Full Stack AI Engineer</strong> · ID: <span className="font-mono text-[#2563EB] font-bold">{passportId}</span>
+                Candidate Track: <strong className="text-[#0F172A]">{trackName}</strong> · ID: <span className="font-mono text-[#2563EB] font-bold">{passportId}</span>
               </p>
               <div className="flex items-center space-x-4 pt-1 text-xs text-[#64748B]">
-                <span>Institution: <strong>Savitribai Phule Pune University</strong></span>
+                <span>Institution: <strong>{collegeName}</strong></span>
                 <span>•</span>
                 <span>Merit Standing: <strong>Top 5%</strong></span>
               </div>

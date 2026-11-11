@@ -56,8 +56,9 @@ export const RecruiterCockpitPage: React.FC = () => {
     setLoading(true);
     try {
       const res = await api.get('/recruiter/candidates');
-      if (res && res.candidates && res.candidates.length > 0) {
-        setCandidates(res.candidates);
+      const cList = res?.data?.candidates || res?.candidates || (Array.isArray(res?.data) ? res.data : []);
+      if (cList && cList.length > 0) {
+        setCandidates(cList);
       } else {
         // Fallback default dataset for talent scouting
         setCandidates([

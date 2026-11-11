@@ -38,9 +38,11 @@ export const Navbar: React.FC = () => {
           
           {/* Brand / Logo */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <Compass className="w-5 h-5" />
-            </div>
+            <img 
+              src="/logo.svg" 
+              alt="Disheera Logo" 
+              className="h-10 w-10 object-contain transition-transform group-hover:scale-105" 
+            />
             <div className="flex flex-col">
               <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
                 Dishe<span className="text-blue-600">era</span>

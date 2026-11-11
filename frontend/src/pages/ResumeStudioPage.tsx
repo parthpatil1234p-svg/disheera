@@ -11,19 +11,29 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { api } from '../services/api';
 
 export const ResumeStudioPage: React.FC = () => {
   const { user } = useAuth();
   const [atsScore, setAtsScore] = useState(94);
   const [isExporting, setIsExporting] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+
+  React.useEffect(() => {
+    api.get(`/passport/${user?.id || 'parth'}`)
+      .then(res => {
+        if (res?.data?.passport) setProfile(res.data.passport);
+      })
+      .catch(() => {});
+  }, [user]);
 
   const candidate = {
-    name: user?.name || 'Parth Patil',
-    email: user?.email || 'parthpatil@disheera.site',
-    phone: '+91 89830 20995',
-    title: 'Full Stack AI Engineer',
-    university: 'Savitribai Phule Pune University',
-    verifiedSkills: ['TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'React', 'Prisma ORM'],
+    name: profile?.name || user?.name || 'Parth Patil',
+    email: profile?.email || user?.email || 'parthpatil@disheera.site',
+    phone: profile?.phoneRaw || '+91 89830 20995',
+    title: profile?.degreeBranch || 'Full Stack AI Engineer',
+    university: profile?.college || 'Savitribai Phule Pune University',
+    verifiedSkills: (profile?.skillsMatrix?.map((s: any) => String(s.displayName || s.name)) || ['TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'React', 'Prisma ORM']) as string[],
     projects: [
       {
         title: 'Disheera — Autonomous Career GPS & Institutional Verification',

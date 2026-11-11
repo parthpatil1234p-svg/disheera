@@ -5,9 +5,7 @@ import { Compass, ArrowRight, ShieldCheck } from 'lucide-react';
 export const NotFoundPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F7F9FD] flex flex-col items-center justify-center py-12 px-4 text-center">
-      <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-4 shadow-2xs">
-        <Compass className="w-8 h-8 animate-spin" style={{ animationDuration: '8s' }} />
-      </div>
+      <img src="/logo.svg" alt="Disheera Logo" className="w-16 h-16 object-contain mb-4 shadow-2xs hover:scale-105 transition-transform" />
       <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">404</h1>
       <h2 className="text-lg font-bold text-slate-800 mt-2">Pathway Not Found</h2>
       <p className="text-xs text-slate-500 max-w-sm mt-1 mb-6">

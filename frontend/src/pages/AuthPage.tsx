@@ -180,9 +180,7 @@ export const AuthPage: React.FC = () => {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <Link to="/" className="inline-flex items-center gap-2.5 mb-4 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-            <ShieldCheck className="w-6 h-6" />
-          </div>
+          <img src="/logo.svg" alt="Disheera Logo" className="w-11 h-11 object-contain transition-transform group-hover:scale-105" />
           <span className="font-extrabold text-2xl text-slate-900 tracking-tight">Disheera</span>
         </Link>
         <h2 className="text-2xl font-bold tracking-tight text-slate-900">

@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="40%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+
+    <!-- Red-to-Rose Danger Gradient -->
+    <linearGradient id="dangerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </linearGradient>
+
+    <!-- Amber Warning Gradient -->
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Score Dial Gradient -->
+    <linearGradient id="scoreDialGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#F87171" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadow Filter -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.07" />
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.04" />
+    </filter>
+
+    <!-- Subtle Dot Grid Pattern -->
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#CBD5E1" opacity="0.45" />
+    </pattern>
+  </defs>
+
+  <style>
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", sans-serif; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)" />
+
+  <!-- Blueprint Dot Grid -->
+  <rect width="1200" height="800" fill="url(#dotGrid)" />
+
+  <!-- Top Header Banner -->
+  <g transform="translate(60, 48)">
+    <!-- Stage Pill Badge -->
+    <rect width="248" height="30" rx="15" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.2" />
+    <circle cx="16" cy="15" r="4.5" fill="#EF4444" />
+    <text x="28" y="19.5" fill="#DC2626" font-size="11.5" font-weight="700" letter-spacing="0.8" class="font-mono">STAGE 1 : RAW ASSESSMENT</text>
+
+    <!-- Status Metric on Right -->
+    <g transform="translate(830, 0)">
+      <rect width="250" height="30" rx="15" fill="#FEF2F2" stroke="#FECDD3" stroke-width="1" />
+      <circle cx="16" cy="15" r="4" fill="#EF4444" />
+      <text x="28" y="19.5" fill="#991B1B" font-size="11.5" font-weight="700" letter-spacing="0.5" class="font-mono">READINESS: 35% · UNPREPARED</text>
+    </g>
+    
+    <!-- Main Title & Subtitle -->
+    <text x="0" y="74" fill="#0F172A" font-size="30" font-weight="800" letter-spacing="-0.5" class="font-sans">Current Skills &amp; Critical Industry Gaps</text>
+    <text x="0" y="102" fill="#475569" font-size="14.5" class="font-sans">Fragmented self-taught foundation leaves vital full-stack production competencies missing.</text>
+  </g>
+
+  <!-- ============================================================
+       LEFT CARD: Self-Reported Skills & Deficit Analysis
+       ============================================================ -->
+  <g transform="translate(60, 172)" filter="url(#cardShadow)">
+    <rect width="520" height="570" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+    
+    <!-- Card Header -->
+    <g transform="translate(28, 28)">
+      <circle cx="12" cy="12" r="12" fill="#F1F5F9" />
+      <!-- User profile icon -->
+      <path d="M12 7a3 3 0 100 6 3 3 0 000-6zm-5 11c0-2.5 2.5-4 5-4s5 1.5 5 4v1H7v-1z" fill="#475569" />
+      <text x="32" y="17" fill="#0F172A" font-size="17" font-weight="700" class="font-sans">Student Self-Reported Profile</text>
+      <text x="32" y="35" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.5" class="font-mono">TARGET: FULL-STACK DEVELOPER</text>
+    </g>
+
+    <!-- Reported Skills Chips with Mini Progress Bars -->
+    <g transform="translate(28, 80)">
+      <!-- Skill 1: HTML & CSS -->
+      <g transform="translate(0, 0)">
+        <rect width="146" height="52" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+        <circle cx="16" cy="18" r="4" fill="#10B981" />
+        <text x="26" y="22" fill="#1E293B" font-size="12" font-weight="600" class="font-sans">HTML5 / CSS3</text>
+        <text x="132" y="22" fill="#059669" font-size="11" font-weight="700" text-anchor="end" class="font-mono">70%</text>
+        <rect x="14" y="32" width="118" height="5" rx="2.5" fill="#E2E8F0" />
+        <rect x="14" y="32" width="82" height="5" rx="2.5" fill="#10B981" />
+      </g>
+
+      <!-- Skill 2: JavaScript -->
+      <g transform="translate(156, 0)">
+        <rect width="156" height="52" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+        <circle cx="16" cy="18" r="4" fill="#F59E0B" />
+        <text x="26" y="22" fill="#1E293B" font-size="12" font-weight="600" class="font-sans">JavaScript (Basic)</text>
+        <text x="142" y="22" fill="#D97706" font-size="11" font-weight="700" text-anchor="end" class="font-mono">35%</text>
+        <rect x="14" y="32" width="128" height="5" rx="2.5" fill="#E2E8F0" />
+        <rect x="14" y="32" width="45" height="5" rx="2.5" fill="#F59E0B" />
+      </g>
+
+      <!-- Skill 3: Git -->
+      <g transform="translate(322, 0)">
+        <rect width="142" height="52" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+        <circle cx="16" cy="18" r="4" fill="#F59E0B" />
+        <text x="26" y="22" fill="#1E293B" font-size="12" font-weight="600" class="font-sans">Git (Basic)</text>
+        <text x="128" y="22" fill="#D97706" font-size="11" font-weight="700" text-anchor="end" class="font-mono">25%</text>
+        <rect x="14" y="32" width="114" height="5" rx="2.5" fill="#E2E8F0" />
+        <rect x="14" y="32" width="28" height="5" rx="2.5" fill="#F59E0B" />
+      </g>
+    </g>
+
+    <!-- Critical Gaps Section Title -->
+    <g transform="translate(28, 154)">
+      <rect width="6" height="18" rx="3" fill="#EF4444" />
+      <text x="14" y="14" fill="#991B1B" font-size="14" font-weight="700" class="font-sans">Detected Industry Skill Gaps (High Severity):</text>
+    </g>
+
+    <!-- 4 Structured Gap Cards -->
+    <g transform="translate(28, 184)">
+      <!-- Gap 1: RESTful API -->
+      <g transform="translate(0, 0)">
+        <rect width="464" height="64" rx="12" fill="#FEF2F2" stroke="#FECDD3" stroke-width="1.2" />
+        <!-- Red Cross Icon in Circle -->
+        <circle cx="28" cy="32" r="14" fill="#FEE2E2" />
+        <path d="M23 27l10 10m0-10L23 37" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" />
+        <text x="54" y="28" fill="#991B1B" font-size="14" font-weight="700" class="font-sans">RESTful API Design &amp; Architecture</text>
+        <text x="54" y="48" fill="#64748B" font-size="12" class="font-sans">Missing: Express.js, HTTP status codes, middleware routing &amp; auth</text>
+      </g>
+
+      <!-- Gap 2: Database Modeling -->
+      <g transform="translate(0, 74)">
+        <rect width="464" height="64" rx="12" fill="#FEF2F2" stroke="#FECDD3" stroke-width="1.2" />
+        <circle cx="28" cy="32" r="14" fill="#FEE2E2" />
+        <path d="M23 27l10 10m0-10L23 37" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" />
+        <text x="54" y="28" fill="#991B1B" font-size="14" font-weight="700" class="font-sans">Database Modeling &amp; Persistence</text>
+        <text x="54" y="48" fill="#64748B" font-size="12" class="font-sans">Missing: MongoDB schema design, indexing, Mongoose ORM models</text>
+      </g>
+
+      <!-- Gap 3: Cloud Deployment -->
+      <g transform="translate(0, 148)">
+        <rect width="464" height="64" rx="12" fill="#FEF2F2" stroke="#FECDD3" stroke-width="1.2" />
+        <circle cx="28" cy="32" r="14" fill="#FEE2E2" />
+        <path d="M23 27l10 10m0-10L23 37" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" />
+        <text x="54" y="28" fill="#991B1B" font-size="14" font-weight="700" class="font-sans">Production Cloud Deployment</text>
+        <text x="54" y="48" fill="#64748B" font-size="12" class="font-sans">Missing: Render / Vercel deployment, CORS security, env config</text>
+      </g>
+
+      <!-- Gap 4: Automated Testing -->
+      <g transform="translate(0, 222)">
+        <rect width="464" height="64" rx="12" fill="#FEF2F2" stroke="#FECDD3" stroke-width="1.2" />
+        <circle cx="28" cy="32" r="14" fill="#FEE2E2" />
+        <path d="M23 27l10 10m0-10L23 37" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" />
+        <text x="54" y="28" fill="#991B1B" font-size="14" font-weight="700" class="font-sans">Automated Testing &amp; CI/CD Pipelines</text>
+        <text x="54" y="48" fill="#64748B" font-size="12" class="font-sans">Missing: GitHub Actions CI workflow, unit testing, lint verification</text>
+      </g>
+    </g>
+
+    <!-- Bottom Warning Callout -->
+    <g transform="translate(28, 502)">
+      <rect width="464" height="42" rx="10" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.2" />
+      <!-- Warning Triangle Icon -->
+      <path d="M24 28l9-16 9 16H24z" fill="#F59E0B" />
+      <path d="M33 19v4m0 3v1" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" />
+      <text x="48" y="26" fill="#92400E" font-size="12.5" font-weight="600" class="font-sans">High Rejection Probability: 0 verified full-stack repositories.</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       RIGHT CARD: Market Alignment & Bottleneck Telemetry
+       ============================================================ -->
+  <g transform="translate(620, 172)" filter="url(#cardShadow)">
+    <rect width="520" height="570" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+    
+    <!-- Card Header -->
+    <g transform="translate(28, 28)">
+      <circle cx="12" cy="12" r="12" fill="#F1F5F9" />
+      <!-- Telemetry Gauge Icon -->
+      <path d="M12 6a7 7 0 00-7 7c0 2.2 1 4.1 2.6 5.4L12 13l4.4 5.4A7 7 0 0012 6z" fill="#475569" />
+      <text x="32" y="17" fill="#0F172A" font-size="17" font-weight="700" class="font-sans">Market Alignment Telemetry</text>
+      <text x="32" y="35" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.5" class="font-mono">PLACEMENT BENCHMARK DEFICIT</text>
+    </g>
+
+    <!-- Dial Gauge Box -->
+    <g transform="translate(28, 76)">
+      <rect width="464" height="146" rx="14" fill="#F8FAFC" stroke="#FECDD3" stroke-width="1.2" />
+      
+      <!-- Circular Progress Meter (35%) -->
+      <g transform="translate(80, 73)">
+        <circle r="46" fill="none" stroke="#E2E8F0" stroke-width="9" />
+        <circle r="46" fill="none" stroke="url(#scoreDialGrad)" stroke-width="9" stroke-dasharray="289" stroke-dashoffset="188" stroke-linecap="round" transform="rotate(-90)" />
+        <text y="7" fill="#DC2626" font-size="25" font-weight="800" text-anchor="middle" class="font-mono">35%</text>
+        <text y="22" fill="#991B1B" font-size="9" font-weight="700" text-anchor="middle" letter-spacing="0.5" class="font-mono">PRI</text>
+      </g>
+      
+      <!-- Dial Descriptions -->
+      <g transform="translate(150, 24)">
+        <text x="0" y="20" fill="#0F172A" font-size="16" font-weight="700" class="font-sans">Low Industry Readiness Score</text>
+        <text x="0" y="42" fill="#64748B" font-size="12" class="font-sans">Student matches entry HTML/CSS syntax but</text>
+        <text x="0" y="58" fill="#64748B" font-size="12" class="font-sans">lacks backend persistence and deployment skills.</text>
+        
+        <!-- Deficit Comparison Bars -->
+        <g transform="translate(0, 74)">
+          <text x="0" y="10" fill="#64748B" font-size="10.5" font-weight="600" class="font-mono">CURRENT: 35%</text>
+          <text x="290" y="10" fill="#059669" font-size="10.5" font-weight="600" text-anchor="end" class="font-mono">BENCHMARK: 85%</text>
+          <rect y="16" width="290" height="6" rx="3" fill="#E2E8F0" />
+          <rect y="16" width="101" height="6" rx="3" fill="#EF4444" />
+          <!-- Benchmark Target Line -->
+          <line x1="246" y1="12" x2="246" y2="26" stroke="#059669" stroke-width="2" stroke-dasharray="2 2" />
+        </g>
+
+        <!-- Status Tag -->
+        <g transform="translate(0, 104)">
+          <rect width="144" height="20" rx="5" fill="#FEE2E2" />
+          <circle cx="10" cy="10" r="3" fill="#EF4444" />
+          <text x="18" y="14" fill="#B91C1C" font-size="10" font-weight="700" letter-spacing="0.5" class="font-mono">STATUS: UNPREPARED</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- The "Tutorial Hell" Learning Bottleneck -->
+    <g transform="translate(28, 240)">
+      <rect width="6" height="18" rx="3" fill="#F59E0B" />
+      <text x="14" y="14" fill="#0F172A" font-size="14" font-weight="700" class="font-sans">The "Tutorial Hell" Learning Bottleneck:</text>
+      
+      <!-- Trap Card 1 -->
+      <g transform="translate(0, 28)">
+        <rect width="464" height="68" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+        <!-- Video screen icon -->
+        <circle cx="28" cy="34" r="14" fill="#EEF2FF" />
+        <path d="M23 28h10a2 2 0 012 2v8a2 2 0 01-2 2H23a2 2 0 01-2-2v-8a2 2 0 012-2zm4 3l4 3-4 3v-6z" fill="#4F46E5" />
+        <text x="54" y="28" fill="#1E293B" font-size="13" font-weight="600" class="font-sans">Watching endless 40-hour video playlists</text>
+        <text x="54" y="48" fill="#DC2626" font-size="12" font-weight="600" class="font-sans">✕ Result: Zero proof of work, no deployable portfolio projects.</text>
+      </g>
+      
+      <!-- Trap Card 2 -->
+      <g transform="translate(0, 108)">
+        <rect width="464" height="68" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+        <!-- Confusion / fragmentation icon -->
+        <circle cx="28" cy="34" r="14" fill="#FEF3C7" />
+        <path d="M25 29a3 3 0 015 2c0 2-2 2-2 4m0 3v1" stroke="#D97706" stroke-width="2" stroke-linecap="round" fill="none" />
+        <text x="54" y="28" fill="#1E293B" font-size="13" font-weight="600" class="font-sans">No structured weekly milestones or verified documentation</text>
+        <text x="54" y="48" fill="#DC2626" font-size="12" font-weight="600" class="font-sans">✕ Result: Overwhelmed by fragmented, contradictory tutorials.</text>
+      </g>
+    </g>
+
+    <!-- Bottom Action CTA Banner -->
+    <g transform="translate(28, 502)">
+      <rect width="464" height="42" rx="10" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.2" />
+      <!-- Pulsing Lightning Icon -->
+      <path d="M24 21l-4 7h6l-2 7 8-9h-6l3-5z" fill="#4F46E5" />
+      <text x="44" y="26" fill="#4338CA" font-size="12" font-weight="700" letter-spacing="0.5" class="font-mono">DRAG SLIDER TO REVEAL AI GUIDED ROADMAP ➔</text>
+    </g>
+  </g>
+</svg>

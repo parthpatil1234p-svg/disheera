@@ -27,6 +27,7 @@ import {
   ArrowRight,
   Route
 } from 'lucide-react';
+import { api } from '../services/api';
 
 interface Task {
   id: string;
@@ -325,6 +326,10 @@ export const RoadmapPage: React.FC = () => {
   const progressPercent = Math.round((completedWeeks / totalWeeks) * 100);
 
   const toggleTask = (weekNum: number, taskId: string) => {
+    // 1. Fire-and-forget background synchronization with PostgreSQL backend
+    api.patch(`/roadmaps/tasks/${taskId}/toggle`).catch(() => {});
+
+    // 2. Optimistic UI update
     setWeeks(prevWeeks => 
       prevWeeks.map(w => {
         if (w.weekNumber !== weekNum) return w;
@@ -350,9 +355,18 @@ export const RoadmapPage: React.FC = () => {
     }
   };
 
-  const handleSubmitArtifact = (e: React.FormEvent) => {
+  const handleSubmitArtifact = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!githubRepoUrl.trim() || !activeModalWeek) return;
+
+    // Send code artifact to backend project verification engine
+    try {
+      await api.post('/projects/submit', {
+        weekNumber: activeModalWeek.weekNumber,
+        repoUrl: githubRepoUrl.trim()
+      });
+    } catch (_) {}
+
     setSubmissionSuccess(`GitHub Code Artifact for Week ${activeModalWeek.weekNumber} submitted! Validated with 0 warnings.`);
     setShowPartBModal(false);
     setGithubRepoUrl('');

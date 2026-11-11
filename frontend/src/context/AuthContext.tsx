@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { api } from '../services/api';
+import { api, getStoredToken, getStoredUser } from '../services/api';
 
 export interface User {
   id: string;
@@ -41,12 +41,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     try {
-      const storedToken = localStorage.getItem('careerpath_token');
-      const storedUser = localStorage.getItem('careerpath_user');
+      const storedToken = getStoredToken();
+      const storedUser = getStoredUser();
 
       if (storedToken && storedUser) {
         setToken(storedToken);
-        setUser(JSON.parse(storedUser));
+        setUser(storedUser);
       }
     } catch (e) {
       console.error('Failed to parse stored auth user', e);
@@ -57,7 +57,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (emailOrToken: string, passwordOrUser?: any) => {
     if (passwordOrUser && typeof passwordOrUser === 'string') {
-      // It is (email, password)
       const res = await api.post('/auth/login', {
         email: emailOrToken,
         password: passwordOrUser,
@@ -76,7 +75,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setToken(authToken);
       setUser(authUser);
     } else {
-      // It is (token, userObject)
       const authToken = emailOrToken;
       const authUser = passwordOrUser || { id: 'user-1', name: 'User', email: 'user@example.com' };
       localStorage.setItem('careerpath_token', authToken);
@@ -108,6 +106,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('careerpath_token');
     localStorage.removeItem('careerpath_user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setToken(null);
     setUser(null);
   };

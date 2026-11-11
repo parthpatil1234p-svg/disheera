@@ -13,6 +13,7 @@ const router = express.Router();
 const { getPassportById } = require('../controllers/passportController');
 
 // Public route for recruiters & public verification
+router.get('/verify/:id', getPassportById);
 router.get('/:id', getPassportById);
 
 module.exports = router;
