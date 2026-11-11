@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Disheera Technologies Inc.
+  Licensed under the GNU Affero General Public License v3.0 or later.
+  See the LICENSE file for details.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Security Architecture & AI Governance at Disheera: 256-bit TLS, Supabase PostgreSQL encryption, 4-tier recruiter anti-fraud gate, BYOK isolation, and proctoring telemetry."
+    />
+
+    <!-- Canonical URL (Technical SEO) -->
+    <link rel="canonical" href="https://disheera.site/security" />
+    <meta name="theme-color" content="#2563EB" />
+    <title>Security Architecture &bull; Disheera</title>
+
+    <!-- Favicon & PWA Manifest -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Google Fonts: Inter & Outfit -->
+
+
+
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css" />
+    <!-- Custom Theme Stylesheet -->
+    <link rel="stylesheet" href="css/style.min.css?v=4.2" />
+
+    <style>
+      .legal-hero {
+        padding: 7rem 0 3rem;
+        background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
+        border-bottom: 1px solid var(--color-border);
+      }
+      @media (max-width: 768px) {
+        .legal-hero {
+          padding: 5.5rem 0 2rem;
+        }
+      }
+      .legal-sidebar {
+        position: sticky;
+        top: 90px;
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
+      }
+      .legal-nav-link {
+        display: block;
+        padding: 0.5rem 0.85rem;
+        color: var(--color-text-secondary);
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: var(--radius-xs);
+        border-left: 2px solid transparent;
+        transition: all var(--transition-fast);
+      }
+      .legal-nav-link:hover {
+        color: var(--color-indigo-600);
+        background: var(--color-surface-muted);
+        border-left-color: var(--color-indigo-500);
+      }
+      .legal-section-card {
+        background: #FFFFFF;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: 2.25rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+        scroll-margin-top: 100px;
+      }
+      .legal-highlight-box {
+        background: var(--color-surface-indigo);
+        border: 1px solid #C7D2FE;
+        border-radius: var(--radius-sm);
+        padding: 1.25rem 1.5rem;
+      }
+      .legal-table {
+        font-size: 0.88rem;
+      }
+      .legal-table th {
+        background: var(--color-surface-muted);
+        color: var(--color-text-primary);
+        font-weight: 600;
+      }
+      .security-badge-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+      .security-pillar-card {
+        background: var(--color-surface-muted);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        padding: 1.25rem;
+        transition: transform var(--transition-fast);
+      }
+      .security-pillar-card:hover {
+        transform: translateY(-2px);
+      }
+      .disclosure-card {
+        background: #FFFFFF;
+        color: #0F172A;
+        border-radius: var(--radius-md);
+        padding: 2rem;
+      }
+      .code-snippet-box {
+        background: #F1F5F9;
+        color: #1E3A8A;
+        font-family: 'JetBrains Mono', monospace;
+        border-radius: var(--radius-sm);
+        padding: 1rem 1.25rem;
+        font-size: 0.86rem;
+        border-left: 4px solid var(--color-indigo-500);
+      }
+    </style>
+  <link rel="stylesheet" href="css/tokens.css">
+</head>
+
+  <body>
+    <!-- ============================================================
+         VENGEANCE UI NOTCH NAVBAR
+         ============================================================ -->
+    <nav class="cp-navbar-notch" id="mainNavbar">
+      <div class="container">
+        <div class="notch-nav-island">
+          <!-- Brand / Logo -->
+          <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <div class="brand-icon">
+              <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="40" height="40" />
+            </div>
+            <span class="brand-name">Dishe<span class="brand-accent">era</span></span>
+          </a>
+
+          <!-- Desktop Center Links -->
+          <ul class="notch-nav-links d-none d-lg-flex mb-0 ps-0">
+            <li><a class="notch-nav-link" href="index.html#how-it-works">Platform</a></li>
+            <li><a class="notch-nav-link" href="index.html#solutions">Solutions</a></li>
+            <li><a class="notch-nav-link text-primary fw-semibold" href="recruiter-dashboard.html"><i class="bi bi-buildings-fill me-1"></i>For Recruiters</a></li>
+            <li><a class="notch-nav-link" href="privacy.html">Privacy</a></li>
+            <li><a class="notch-nav-link" href="terms.html">Terms</a></li>
+            <li><a class="notch-nav-link active" href="security.html">Security</a></li>
+            <li><a class="notch-nav-link" href="support.html">Support</a></li>
+          </ul>
+
+          <!-- Actions & Mobile Toggle -->
+          <div class="d-flex align-items-center gap-2">
+            <div class="d-none d-sm-flex align-items-center gap-2" id="authNavActions">
+              <a class="btn cp-btn-outline btn-sm px-3" href="login.html">Log In</a>
+              <a class="btn cp-btn-primary btn-sm px-3 text-nowrap" href="assessment.html">
+                <i class="bi bi-lightning-charge-fill me-1 text-warning"></i>Start Free
+              </a>
+            </div>
+            <button
+              class="notch-mobile-toggle d-lg-none"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#notchMobileMenu"
+              aria-controls="notchMobileMenu"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="bi bi-list fs-5"></i>
+            </button>
+          </div>
+
+          <!-- Mobile Dropdown Collapse -->
+          <div class="collapse notch-mobile-collapse" id="notchMobileMenu">
+            <ul class="notch-mobile-links mb-0 ps-0">
+              <li><a href="index.html"><i class="bi bi-house text-teal"></i> Home</a></li>
+              <li><a href="index.html#how-it-works"><i class="bi bi-gear-wide-connected text-teal"></i> Platform</a></li>
+              <li><a href="recruiter-dashboard.html"><i class="bi bi-buildings-fill text-primary"></i> For Recruiters</a></li>
+              <li><a href="privacy.html"><i class="bi bi-file-earmark-lock text-primary"></i> Privacy Policy</a></li>
+              <li><a href="terms.html"><i class="bi bi-file-earmark-text text-warning"></i> Terms of Service</a></li>
+              <li><a href="security.html" class="active"><i class="bi bi-shield-lock text-success"></i> Security Architecture</a></li>
+              <li><a href="support.html"><i class="bi bi-headset text-teal"></i> Support Desk</a></li>
+              <li class="pt-2 border-top border-line d-flex gap-2" id="notchMobileAuthActions">
+                <a class="btn cp-btn-outline btn-sm flex-grow-1 text-center" href="login.html">Log In</a>
+                <a class="btn cp-btn-primary btn-sm flex-grow-1 text-center" href="assessment.html">Start Free</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header Section with Breadcrumbs -->
+    <header class="legal-hero">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb small mb-0">
+            <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted"><i class="bi bi-house me-1"></i>Home</a></li>
+            <li class="breadcrumb-item text-muted">Legal &amp; Governance</li>
+            <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">Security Architecture</li>
+          </ol>
+        </nav>
+
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+          <span class="atlas-kicker">
+            <span class="pulse-dot"></span> ZERO-TRUST TECHNICAL SPECIFICATION
+          </span>
+          <span class="badge badge-leaf font-mono">
+            <i class="bi bi-lock-fill me-1"></i> End-to-End Encrypted
+          </span>
+          <span class="badge bg-light text-muted border font-mono">
+            Production Grade &bull; October 2026 Audit
+          </span>
+        </div>
+
+        <h1 class="hero-title mb-2">
+          Security Architecture &amp; AI Governance
+        </h1>
+        <p class="hero-subtitle mb-3" style="max-width: 780px;">
+          An exhaustive engineering breakdown of the defensive infrastructure, cryptographic session authentication, 4-tier recruiter verification, client-side BYOK isolation, and proctoring telemetry safeguarding Disheera.
+        </p>
+
+        <!-- Executive Summary Banner -->
+        <div class="legal-highlight-box d-flex align-items-start gap-3">
+          <i class="bi bi-shield-shaded text-primary fs-3 flex-shrink-0 mt-1"></i>
+          <div>
+            <div class="fw-bold text-ink mb-1">Zero-Trust Philosophy &amp; Transparent Engineering</div>
+            <p class="small text-secondary mb-0">
+              Every component of Disheera is designed under strict defense-in-depth principles: 256-bit TLS 1.3 transit encryption, managed Supabase PostgreSQL with SSL-enforced PgBouncer pooling, zero model training on student telemetry, client-isolated BYOK keys, and immutable SHA-256 certificate ledgers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Layout with Sidebar -->
+    <main class="container py-5">
+      <div class="row g-4 g-xl-5">
+
+        <!-- Sticky Table of Contents Sidebar -->
+        <aside class="col-lg-3 d-none d-lg-block">
+          <div class="legal-sidebar">
+            <div class="fw-bold small text-uppercase text-muted tracking-wider mb-2">
+              <i class="bi bi-list-nested me-1"></i> Architecture Index
+            </div>
+            <nav class="nav flex-column">
+              <a class="legal-nav-link" href="#sec-infra">1. Defense-in-Depth Infrastructure</a>
+              <a class="legal-nav-link" href="#sec-auth">2. Authentication &amp; RBAC</a>
+              <a class="legal-nav-link" href="#sec-recruiter-gate">3. 4-Tier Recruiter Anti-Fraud Gate</a>
+              <a class="legal-nav-link" href="#sec-ai-governance">4. AI Governance &amp; BYOK Isolation</a>
+              <a class="legal-nav-link" href="#sec-document-hygiene">5. Document Hygiene &amp; Binary Inspection</a>
+              <a class="legal-nav-link" href="#sec-proctoring">6. Milestone Proctoring Engine</a>
+              <a class="legal-nav-link" href="#sec-ledger">7. SHA-256 Public Certificate Ledger</a>
+              <a class="legal-nav-link" href="#sec-disclosure">8. Vulnerability Disclosure &amp; Bug Bounty</a>
+            </nav>
+
+            <div class="card p-3 border-line bg-surface-muted mt-4">
+              <div class="small fw-bold text-ink mb-1">
+                <i class="bi bi-bug-fill text-danger me-1"></i> Security Reporting
+              </div>
+              <p class="small text-muted mb-2">
+                Discovered a potential vulnerability? Report directly to our Security Response Desk.
+              </p>
+              <a href="mailto:support@disheera.site" class="btn btn-outline-danger btn-sm w-100 mb-2">
+                <i class="bi bi-shield-shaded me-1"></i> Submit Report
+              </a>
+              <a href="https://wa.me/917499085045" target="_blank" class="btn btn-outline-success btn-sm w-100">
+                <i class="bi bi-whatsapp me-1"></i> WhatsApp: 7499085045
+              </a>
+              <div class="text-center mt-1" style="font-size: 0.72rem; color: #64748B;">WhatsApp Chat Only (No Calls)</div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Security Content -->
+        <div class="col-lg-9">
+
+          <!-- Section 1: Defense-in-Depth Infrastructure -->
+          <article class="legal-section-card" id="sec-infra">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 1</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">Defense-in-Depth Infrastructure &amp; Transport Security</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Disheera operates on an enterprise cloud infrastructure distributed across Vercel Edge CDN, Render Container Services, and Supabase Cloud PostgreSQL, establishing multi-layered boundary controls:
+            </p>
+
+            <div class="security-badge-grid mb-4">
+              <div class="security-pillar-card">
+                <div class="d-flex align-items-center gap-2 mb-2 text-primary fw-bold">
+                  <i class="bi bi-shield-lock fs-5"></i> 256-Bit TLS 1.3
+                </div>
+                <p class="small text-muted mb-0">All traffic strictly enforces TLS 1.3 encryption with HTTP Strict Transport Security (HSTS) headers and automated HTTPS redirects.</p>
+              </div>
+              <div class="security-pillar-card">
+                <div class="d-flex align-items-center gap-2 mb-2 text-teal fw-bold">
+                  <i class="bi bi-database-check fs-5"></i> Supabase SSL / PgBouncer
+                </div>
+                <p class="small text-muted mb-0">Production PostgreSQL enforces SSL-only connection strings with PgBouncer connection pooling and transaction isolation.</p>
+              </div>
+              <div class="security-pillar-card">
+                <div class="d-flex align-items-center gap-2 mb-2 text-indigo fw-bold">
+                  <i class="bi bi-hdd-network fs-5"></i> Zero-Trust Render Boundary
+                </div>
+                <p class="small text-muted mb-0">Node.js/Express backend runs within isolated Linux micro-containers with strict network egress controls and memory budgets.</p>
+              </div>
+              <div class="security-pillar-card">
+                <div class="d-flex align-items-center gap-2 mb-2 text-success fw-bold">
+                  <i class="bi bi-cloud-check fs-5"></i> Vercel Edge CDN
+                </div>
+                <p class="small text-muted mb-0">Static frontend assets and SPA routes are cached across global Edge Points-of-Presence with automated L3/L4 DDoS scrubbing.</p>
+              </div>
+            </div>
+
+            <p class="text-secondary leading-relaxed mb-0">
+              <strong>Data at Rest Encryption:</strong> All database volumes in Supabase are encrypted using industry-standard AES-256 storage encryption. Automated WAL (Write-Ahead Logging) backups are mirrored with point-in-time recovery capabilities to safeguard academic records against hardware loss.
+            </p>
+          </article>
+
+          <!-- Section 2: Authentication & RBAC -->
+          <article class="legal-section-card" id="sec-auth">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 2</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">Cryptographic Authentication &amp; Role-Based Access Control</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Authentication across Disheera eliminates common vector vulnerabilities through cryptographic session tokens, salted password hashing, and strict authorization gates:
+            </p>
+
+            <ul class="text-secondary ps-3 mb-3">
+              <li class="mb-2"><strong>Bcryptjs Salted Password Hashing:</strong> User passwords are never saved in plaintext. Credentials are hashed using <code>bcryptjs</code> with an adaptive work factor of 10 and cryptographically random unique salts per credential.</li>
+              <li class="mb-2"><strong>Signed JWT Tokens:</strong> Sessions are authenticated using JSON Web Tokens (JWT) signed via HMAC-SHA256 with strong runtime secret keys. Tokens encode subject identities, issued timestamps, and role claims with explicit expiration windows.</li>
+              <li class="mb-2"><strong>Dual-Layer RBAC Enforcers:</strong> Access to protected portals is validated on both client and server:
+                <ul class="ps-3 mt-1">
+                  <li><strong>Client-Side Pre-Render Traps:</strong> Inline scripts in <code>dashboard.html</code> and <code>recruiter-dashboard.html</code> verify session validity before DOM initialization, redirecting unauthorized traffic immediately to <code>login.html</code>.</li>
+                  <li><strong>Server-Side Express Middleware:</strong> REST API endpoints execute <code>authMiddleware</code> and <code>requireRole(['student', 'recruiter'])</code> verification before resolving database controllers.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="code-snippet-box">
+              <div class="text-muted mb-1">// Production Auth Invariant: Zero Plaintext Credential Exposure</div>
+              <div>Password Storage: bcryptjs.hash(plainTextPassword, saltRounds = 10)</div>
+              <div>Session Token: jwt.sign({ id, role, email }, JWT_SECRET, { expiresIn: '7d' })</div>
+              <div>API Guard: router.use('/api/recruiter/*', authMiddleware, requireRole('recruiter'))</div>
+            </div>
+          </article>
+
+          <!-- Section 3: 4-Tier Recruiter Anti-Fraud Gate -->
+          <article class="legal-section-card" id="sec-recruiter-gate">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 3</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">Recruiter Verification: The 4-Tier Anti-Fraud Gate</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              To protect student profiles, contact details, and academic portfolios from unverified scrapers and fraudulent agencies, corporate recruiter onboarding is defended by a 4-tier autonomous verification pipeline:
+            </p>
+
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered legal-table align-middle">
+                <thead>
+                  <tr>
+                    <th>Tier</th>
+                    <th>Verification Stage</th>
+                    <th>Mechanism &amp; Test Vector</th>
+                    <th>Failure Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="fw-bold font-mono">Tier 1</td>
+                    <td class="fw-bold text-danger">Disposable &amp; Webmail Blacklist</td>
+                    <td>Regex &amp; set validation against over 5,000 free webmail and burner domains (gmail.com, yahoo.com, hotmail.com, tempmail.com).</td>
+                    <td>Immediate 400 rejection: "Corporate work email domain required".</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold font-mono">Tier 2</td>
+                    <td class="fw-bold text-warning">DNS MX Record Resolution</td>
+                    <td>Node.js <code>dns.promises.resolveMx()</code> directly queries root nameservers to confirm active Mail Exchange routing records.</td>
+                    <td>Immediate rejection: Domain cannot receive legitimate email traffic.</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold font-mono">Tier 3</td>
+                    <td class="fw-bold text-primary">HTTP/HTTPS Live Domain Probing</td>
+                    <td>Automated head request to <code>https://{company-domain}</code> validating HTTP 200/301 status with SSL certificate validation.</td>
+                    <td>Flagged as unverified domain: Prevents parked, expired, or synthetic company domains.</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold font-mono">Tier 4</td>
+                    <td class="fw-bold text-success">Corporate Work Email OTP</td>
+                    <td>Cryptographically secure 6-digit one-time password transmitted to the corporate inbox with 10-minute expiry and 3-attempt limit.</td>
+                    <td>Account creation blocked until live inbox verification is confirmed.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="text-secondary leading-relaxed mb-0">
+              Only recruiters clearing all four tiers receive the verified corporate badge and access to search the student talent radar.
+            </p>
+          </article>
+
+          <!-- Section 4: AI Governance & BYOK Isolation -->
+          <article class="legal-section-card" id="sec-ai-governance">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 4</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">AI Governance, Data Ethics &amp; Client-Side BYOK Isolation</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Disheera enforces strict operational boundaries between generative artificial intelligence and student privacy:
+            </p>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="p-3 border rounded bg-light h-100">
+                  <div class="fw-bold text-primary mb-1"><i class="bi bi-x-octagon-fill me-1"></i>Zero Model Training</div>
+                  <p class="small text-muted mb-0">Candidate resumes, project source code, assessment transcripts, and academic records are NEVER used to train, fine-tune, or calibrate AI models (Groq Llama 3.3, Google Gemini, OpenAI).</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 border rounded bg-light h-100">
+                  <div class="fw-bold text-teal mb-1"><i class="bi bi-key-fill me-1"></i>Client-Side BYOK Isolation</div>
+                  <p class="small text-muted mb-0">User-provided API keys stay quarantined solely in browser <code>localStorage</code>. Requests route directly from the client to the model endpoint, never touching Disheera servers.</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-secondary leading-relaxed mb-0">
+              <strong>Scoring model details:</strong> AI scoring boundaries and verification methodology — TODO(owner-verify).
+            </p>
+          </article>
+
+          <!-- Section 5: Document Hygiene & Binary Inspection -->
+          <article class="legal-section-card" id="sec-document-hygiene">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 5</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">Document Hygiene &amp; Binary Magic-Byte Inspection</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Resume parsing pipelines implement defense-in-depth sanitization to prevent server-side request forgery (SSRF), buffer overflow exploits, and malware distribution:
+            </p>
+            <ul class="text-secondary ps-3 mb-0">
+              <li class="mb-2"><strong>Binary Magic-Byte Validation:</strong> Uploaded files are inspected for the mandatory PDF magic header bytes (<code>%PDF-</code> or hex <code>25 50 44 46</code>) in the raw buffer. Files spoofing extensions (e.g. executable <code>.exe</code> renamed to <code>.pdf</code>) are rejected prior to parser execution.</li>
+              <li class="mb-2"><strong>Strict Buffer Limits:</strong> In-memory file processing is capped at 5 MB per document to prevent memory exhaustion and Denial-of-Service attacks.</li>
+              <li class="mb-2"><strong>Single Active Resume Invariant:</strong> Students maintain exactly one active resume. When an updated PDF is uploaded, the existing file is transactionally deleted from Cloudinary storage, preventing orphaned personal data retention.</li>
+            </ul>
+          </article>
+
+          <!-- Section 6: Milestone Proctoring Engine -->
+          <article class="legal-section-card" id="sec-proctoring">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 6</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">Weekly Milestone Proctoring &amp; Anti-Cheat Engine</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Every weekly milestone test is monitored by automated client-side and server-side proctoring telemetry to certify authentic student mastery:
+            </p>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-4">
+                <div class="p-3 border rounded bg-light text-center h-100">
+                  <div class="fw-bold text-primary mb-1"><i class="bi bi-clock-history me-1"></i>Server Clock Sync</div>
+                  <p class="small text-muted mb-0">The 30-minute exam timer is anchored to database-generated timestamps, preventing client-side clock tampering.</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 border rounded bg-light text-center h-100">
+                  <div class="fw-bold text-warning mb-1"><i class="bi bi-window-split me-1"></i>Tab Blur Telemetry</div>
+                  <p class="small text-muted mb-0">Browser <code>visibilitychange</code> and focus events monitor window state. Leaving the active test triggers a recorded infraction.</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 border rounded bg-light text-center h-100">
+                  <div class="fw-bold text-danger mb-1"><i class="bi bi-shield-x me-1"></i>3-Strike Disqualification</div>
+                  <p class="small text-muted mb-0">Accumulating 3 strikes terminates the test session with an automated failing score (0%) and invalidates active milestone badges.</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-secondary leading-relaxed mb-0">
+              <strong>Anti-Scrub Video Chamber:</strong> YouTube iframe player events are observed via secure postMessage listeners. Students must complete video instruction modules before the corresponding milestone examination is unlocked.
+            </p>
+          </article>
+
+          <!-- Section 7: SHA-256 Public Certificate Ledger -->
+          <article class="legal-section-card" id="sec-ledger">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 7</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">The SHA-256 Public Certificate Ledger</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Every completed career roadmap culminates in the generation of a <strong>cryptographically signed Career Certificate</strong>. The certificate record is permanently registered in our public verification registry:
+            </p>
+
+            <div class="code-snippet-box mb-3">
+              <div class="text-muted mb-1">// Certificate Cryptographic Fingerprint Generation</div>
+              <div>Hash = SHA-256(studentId + careerTrack + completionDate + milestoneScores + SECRET_SALT)</div>
+              <div>Verification URL: https://disheera.site/verify.html?certId=TODO(owner-verify)</div>
+            </div>
+
+            <p class="text-secondary leading-relaxed mb-0">
+              Recruiters can instantly verify credentials by scanning the embedded certificate QR code or entering the Certificate ID on <code>verify.html</code>. Any post-issuance tampering with the student name, score, or track results in immediate cryptographic verification failure.
+            </p>
+          </article>
+
+          <!-- Section 8: Vulnerability Disclosure & Bug Bounty -->
+          <article class="legal-section-card" id="sec-disclosure">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white font-mono">Architecture Pillar 8</span>
+              <h2 class="h4 mb-0 fw-bold text-ink">Responsible Vulnerability Disclosure &amp; Bug Bounty Desk</h2>
+            </div>
+            <p class="text-secondary leading-relaxed">
+              Disheera welcomes ethical security researchers, software engineers, and students who identify potential vulnerabilities in our systems. We are committed to collaborating transparently with researchers acting in good faith.
+            </p>
+
+            <div class="disclosure-card">
+              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                  <h3 class="h5 fw-bold text-white mb-0">Security Vulnerability Response Desk</h3>
+                  <div class="text-info small font-mono">Managed by Parth Patil &bull; Lead Engineer &amp; Security Officer</div>
+                </div>
+                <span class="badge bg-danger px-3 py-2 font-mono">
+                  <i class="bi bi-shield-shaded me-1"></i> Safe Harbor Active
+                </span>
+              </div>
+
+              <div class="row g-3 text-secondary small">
+                <div class="col-sm-6">
+                  <div class="text-muted text-uppercase fw-semibold font-mono" style="font-size: 0.72rem;">Primary Security Contact</div>
+                  <a href="mailto:support@disheera.site" class="text-info text-decoration-none fw-medium">support@disheera.site</a>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-muted text-uppercase fw-semibold font-mono" style="font-size: 0.72rem;">Security WhatsApp Hotline</div>
+                  <div>
+                    <a href="https://wa.me/917499085045" target="_blank" class="text-success text-decoration-none fw-medium">
+                      <i class="bi bi-whatsapp me-1"></i>+91 74990 85045
+                    </a>
+                    <span class="badge bg-success bg-opacity-25 text-white ms-1 font-mono" style="font-size: 0.7rem;">WhatsApp Only</span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-muted text-uppercase fw-semibold font-mono" style="font-size: 0.72rem;">Academic Affiliation</div>
+                  <div class="text-white fw-medium">GHRCEM, Jalgaon, Maharashtra, India</div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-muted text-uppercase fw-semibold font-mono" style="font-size: 0.72rem;">Official Inquiries Email</div>
+                  <a href="mailto:support@disheera.site" class="text-white-50 text-decoration-none fw-medium">support@disheera.site</a>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-muted text-uppercase fw-semibold font-mono" style="font-size: 0.72rem;">Initial Response SLA</div>
+                  <div class="text-white fw-medium">24 Hours (Acknowledgment &amp; Severity Assessment)</div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="text-muted text-uppercase fw-semibold font-mono" style="font-size: 0.72rem;">Remediation Target SLA</div>
+                  <div class="text-white fw-medium">Critical: 48 Hours | High/Medium: 7 Business Days</div>
+                </div>
+              </div>
+
+              <hr class="border-secondary opacity-25 my-3" />
+
+              <h6 class="text-white fw-bold mb-2 small text-uppercase font-mono">In-Scope Research Vectors:</h6>
+              <ul class="text-secondary small ps-3 mb-3">
+                <li>Authentication bypasses, JWT signature forgery, or privilege escalation (e.g. Student accessing Recruiter endpoints).</li>
+                <li>SQL / NoSQL injection, remote code execution, or server-side request forgery (SSRF).</li>
+                <li>Cross-Site Scripting (Stored/Reflected XSS) affecting authenticated user sessions.</li>
+                <li>Circumvention of the 4-tier recruiter verification gate or recruiter talent radar access controls.</li>
+              </ul>
+
+              <div class="p-3 rounded-2 bg-dark bg-opacity-50 border border-secondary border-opacity-25 mb-3 small text-white-50">
+                <div class="fw-semibold text-white mb-1"><i class="bi bi-shield-check text-warning me-1"></i> DPDP Act 2023 Statutory Safeguards &amp; Breach Protocol (Sec 8(5) &amp; 8(6)):</div>
+                Under Section 8(5) of <strong><a href="https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-underline">The Digital Personal Data Protection Act, 2023 (Act No. 22 of 2023)</a></strong>, Disheera implements reasonable security safeguards (TLS 1.3, Supabase AES-256 storage encryption, bcrypt salted hashing) to protect digital personal data. In the event of an identified personal data breach, our incident response protocol mandates prompt intimation to the <strong>Data Protection Board of India (DPBI)</strong> and each affected Data Principal in compliance with Section 8(6) without undue delay.
+              </div>
+
+              <div class="small text-muted mb-0">
+                <i class="bi bi-check-circle-fill text-success me-1"></i>
+                <strong>Safe Harbor Commitment:</strong> If you conduct vulnerability research in good faith, avoid privacy violations, refrain from destroying data, and give us reasonable time to remediate before public disclosure, we commit not to initiate legal action against you under the IT Act 2000.
+              </div>
+            </div>
+
+            <!-- Inter-page Navigation Links -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mt-4 pt-3 border-top border-line">
+              <a href="privacy.html" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-file-earmark-lock me-1"></i> Read Privacy Policy
+              </a>
+              <a href="terms.html" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-file-earmark-text me-1"></i> View Terms of Service
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- Standard Footer -->
+    <footer class="cp-footer atlas-footer">
+      <div class="container">
+        <div class="row g-4 justify-content-between">
+          <div class="col-lg-4">
+            <div class="footer-brand">
+              <div class="brand-compass p-1">
+                <img src="assets/logo.svg" alt="Disheera" class="brand-logo-img" width="38" height="38" />
+              </div>
+              <span class="brand-name">Dishe<span class="brand-accent">era</span></span>
+            </div>
+            <p class="small text-muted mb-2">
+              Career planning and skill verification for students, universities, and recruiters. TODO(owner-verify): platform positioning.
+            </p>
+            <div class="d-flex flex-wrap gap-1 mt-2">
+              <span class="badge bg-white border border-secondary border-opacity-25 text-secondary small">Disheera Technologies Inc.</span>
+              <span class="badge bg-white border border-secondary border-opacity-25 text-secondary small">Zero-Trust Architecture</span>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3 col-lg-2 offset-lg-1">
+            <div class="footer-heading">Platform</div>
+            <ul class="footer-links">
+              <li><a href="roadmap.html">Career Route Map</a></li>
+              <li><a href="assessment.html">Skill Assessment</a></li>
+              <li><a href="roadmap.html">Proctored Roadmaps</a></li>
+              <li><a href="resume-builder.html">AI Resume Builder</a></li>
+              <li><a href="verify.html">SHA-256 Ledger</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-3 col-lg-2">
+            <div class="footer-heading">Solutions</div>
+            <ul class="footer-links">
+              <li><a href="index.html#solutions">For Students (Free)</a></li>
+              <li><a href="recruiter-dashboard.html">For Recruiters</a></li>
+              <li><a href="jobs.html">Verified Job Board</a></li>
+              <li><a href="index.html#pricing">Pricing &amp; Plans</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="footer-heading">Trust &amp; Governance</div>
+            <ul class="footer-links">
+              <li><a href="verify.html"><i class="bi bi-shield-check text-success me-1"></i>Public Registry</a></li>
+              <li><a href="privacy.html"><i class="bi bi-file-earmark-lock me-1"></i>Privacy Policy</a></li>
+              <li><a href="terms.html"><i class="bi bi-file-earmark-text me-1"></i>Terms of Service</a></li>
+              <li><a href="security.html" class="fw-bold text-primary"><i class="bi bi-shield-lock me-1"></i>Security Architecture</a></li>
+              <li><a href="support.html"><i class="bi bi-headset me-1 text-primary"></i>Support &amp; Grievance</a></li>
+              <li><a href="https://wa.me/917499085045" target="_blank" class="text-success"><i class="bi bi-whatsapp me-1"></i>WhatsApp: 7499085045</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 mt-4 pt-3 border-top border-line">
+          <div>
+            <p class="mb-1 small text-muted">
+              &copy; 2026 Disheera Technologies Inc. All rights reserved.
+            </p>
+            <p class="mb-0 small text-muted" style="font-size: 0.78rem;">
+              <span class="badge bg-success-subtle text-success me-1"><i class="bi bi-gift-fill me-1"></i>100% Free For Students</span>
+              Originated at GHRCEM, Jalgaon, Maharashtra, India.
+            </p>
+          </div>
+          <p class="mb-0 small text-muted text-md-end">
+            Autonomous Career GPS &middot; Verified Talent Operating System
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Authentication & Smart Logo State -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js?v=3.0"></script>
+  </body>
+</html>

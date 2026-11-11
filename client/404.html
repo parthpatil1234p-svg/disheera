@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Disheera Technologies Inc.
+  Licensed under the GNU Affero General Public License v3.0 or later.
+  See the LICENSE file for details.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="404 &mdash; Waypoint Uncharted | Disheera"
+    />
+    <title>Waypoint Uncharted (404) &mdash; Disheera</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Google Fonts: Outfit, Inter (Clean Modern Typography) -->
+
+
+
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      .error-page-container {
+        min-height: 75vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .error-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+      }
+      .error-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--coral), var(--gold));
+      }
+      .error-code {
+        font-family: var(--font-mono);
+        font-size: 4.5rem;
+        font-weight: 700;
+        letter-spacing: -2px;
+        line-height: 1;
+        color: var(--navy);
+      }
+      @media (max-width: 575.98px) {
+        .error-card {
+          padding: 2rem 1.25rem !important;
+        }
+        .error-code {
+          font-size: 3.5rem !important;
+        }
+      }
+    </style>
+
+    <!-- Vercel Web Analytics (@vercel/analytics) -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Open Domains Analytics -->
+    <script defer src="https://analytics.open-domains.com/script.js" data-website-id="3896a469-edf4-4b58-b379-209d5b3c9e1f"></script>
+  <link rel="stylesheet" href="css/tokens.css">
+</head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top atlas-navbar" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <div class="brand-compass p-1">
+            <img src="assets/logo.svg" alt="Disheera Logo" width="24" height="24" style="border-radius: 5px; display: block;" />
+          </div>
+          <div class="d-flex flex-column">
+            <span class="brand-title">Dishe<span class="brand-accent">era</span></span>
+            <span class="brand-tagline">Autonomous Career Atlas</span>
+          </div>
+        </a>
+
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <a href="index.html" class="btn btn-outline-navy btn-sm px-3">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container error-page-container pt-5 mt-5 pb-5">
+      <div class="error-card p-5 text-center" style="max-width: 540px;">
+        <div class="error-code mb-2">404</div>
+        <div class="badge badge-coral font-monospace px-3 py-1 mb-3">
+          <i class="bi bi-geo-alt-fill me-1"></i> Coordinate Off Chart
+        </div>
+        <h1 class="h3 fw-bold text-ink mb-3">
+          Waypoint Uncharted
+        </h1>
+        <p class="text-secondary small mb-4">
+          The coordinate, milestone, or page you requested does not exist on this career atlas or has been moved to a new route.
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="index.html" class="btn btn-navy px-4 py-2 fw-semibold">
+            <i class="bi bi-house-door me-1"></i> Return to Homepage
+          </a>
+          <a href="dashboard.html" class="btn btn-outline-navy px-4 py-2 fw-semibold">
+            <i class="bi bi-speedometer2 me-1"></i> Student Dashboard
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="atlas-footer py-4 border-top border-line text-center text-muted small">
+      Disheera &bull; Discover Your Career. Build Your Skills. &bull; Enterprise Edition
+    </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

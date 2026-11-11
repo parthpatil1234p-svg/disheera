@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Disheera Technologies Inc.
+  Licensed under the GNU Affero General Public License v3.0 or later.
+  See the LICENSE file for details.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Student Skill Assessment &mdash; Disheera &middot; Career Atlas"
+    />
+    <meta name="theme-color" content="#FFFFFF" />
+    <title>AI Skill Assessment &amp; Career Diagnostic &mdash; Disheera</title>
+
+    <!-- Machine-Readable Context & WebMCP Discovery Declarations -->
+    <link rel="alternate" type="text/markdown" href="https://disheera.site/llms.txt" title="LLM Machine-Readable Context Manifest" />
+    <link rel="alternate" type="application/json" href="https://disheera.site/mcp-actions.json" title="WebMCP Actions Discovery Endpoint" />
+    <link rel="alternate" type="application/json" href="https://disheera.site/.well-known/mcp-actions.json" title="Well-Known WebMCP Agent Actions" />
+
+    <!-- Canonical URL (Technical SEO) -->
+    <link rel="canonical" href="https://disheera.site/assessment" />
+
+    <!-- Baidu (百度) Mobile Adaptation -->
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://disheera.site/assessment" />
+    <meta property="og:title" content="Student Skill Assessment &amp; Career Diagnostic — Disheera" />
+    <meta property="og:description" content="Take our 4-step comprehensive diagnostic evaluating skills, aptitude, and career alignment across 24 high-demand streams." />
+    <meta property="og:image" content="https://disheera.site/favicon.svg" />
+
+    <!-- BreadcrumbList Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://disheera.site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Skill Assessment",
+          "item": "https://disheera.site/assessment.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Favicon & PWA Manifest -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Google Fonts & Material Symbols (Stitch Design System) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Tailwind CSS (Stitch Calibrated Token Engine) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#004ac6",
+              "primary-container": "#2563eb",
+              "primary-fixed": "#dbe1ff",
+              "secondary": "#006d44",
+              "secondary-container": "#7df7b6",
+              "secondary-fixed": "#80fab9",
+              "surface-pure": "#FFFFFF",
+              "canvas-white": "#F7F9FD",
+              "surface-muted": "#F1F4FA",
+              "border-whisper": "#E2E8F0",
+              "border-outline": "#CBD5E1",
+              "slate-body": "#334155",
+              "slate-caption": "#475569",
+              "on-background": "#0F172A",
+              "on-surface": "#131b2e",
+              "blue-soft": "#EFF6FF",
+              "emerald-soft": "#ECFDF5",
+              "coral-danger": "#DC4B4B"
+            },
+            fontFamily: {
+              "display": ["Outfit", "sans-serif"],
+              "headline-lg": ["Outfit", "sans-serif"],
+              "headline-md": ["Outfit", "sans-serif"],
+              "headline-sm": ["Outfit", "sans-serif"],
+              "body-base": ["Inter", "sans-serif"],
+              "body-sm": ["Inter", "sans-serif"],
+              "body-sm-medium": ["Inter", "sans-serif"],
+              "caption": ["Inter", "sans-serif"],
+              "code-base": ["JetBrains Mono", "monospace"],
+              "code-sm": ["JetBrains Mono", "monospace"]
+            }
+          }
+        }
+      };
+    </script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/quiz.css?v=3.2.0" />
+
+    <!-- Vercel Web Analytics (@vercel/analytics) -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Open Domains Analytics -->
+    <script defer src="https://analytics.open-domains.com/script.js" data-website-id="3896a469-edf4-4b58-b379-209d5b3c9e1f"></script>
+    <link rel="stylesheet" href="css/tokens.css">
+  </head>
+
+  <body class="assessment-page bg-canvas-white font-body-base text-on-surface antialiased">
+    <!-- ============================================================
+         STUDENT-FRIENDLY STITCH HEADER & NAVIGATION
+         ============================================================ -->
+    <header class="sticky top-0 w-full z-50 bg-surface-pure/95 backdrop-blur-xl border-b border-border-whisper shadow-[0_1px_8px_rgba(0,0,0,0.04)] assessment-header">
+      <nav class="w-full" id="mainNav">
+        <div class="h-16 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          <!-- Brand / Logo & Active Chamber Pill -->
+          <div class="flex items-center gap-3 sm:gap-6">
+            <a class="navbar-brand d-flex align-items-center text-decoration-none" href="index.html">
+              <div class="brand-icon">
+                <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="36" height="36" />
+              </div>
+              <span class="brand-name font-headline-sm text-xl font-bold text-on-surface tracking-tight ms-2">Dishe<span class="text-primary font-bold">era</span></span>
+              <span class="brand-tagline-sub d-none d-xl-inline-flex align-items-center gap-1 ms-2 font-caption text-xs text-slate-caption"><span class="pulse-dot-indigo"></span>Atlas</span>
+            </a>
+            <div class="h-6 w-px bg-slate-200 hidden md:block"></div>
+            <!-- Active Chamber Pill -->
+            <div class="hidden md:flex items-center space-x-2 bg-blue-50/80 border border-blue-200/80 px-3 py-1.5 rounded-lg text-xs font-medium text-blue-900">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              </span>
+              <span class="font-semibold text-blue-950">Track:</span>
+              <span>Diagnostic Evaluation Chamber</span>
+            </div>
+            <!-- Anti-Cheat Status Badge -->
+            <div class="hidden lg:flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+              <i class="bi bi-shield-check text-slate-500"></i>
+              <span>Anti-Cheat Proctor Active</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            </div>
+          </div>
+
+          <!-- Desktop Center Links & User Profile -->
+          <div class="flex items-center gap-3 sm:gap-4">
+            <ul class="notch-nav-links d-none d-lg-flex list-unstyled mb-0 items-center gap-1">
+              <li>
+                <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none flex items-center gap-1.5" href="index.html">
+                  <i class="bi bi-house"></i> Home
+                </a>
+              </li>
+              <li>
+                <a class="notch-nav-link active text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-50 text-primary border border-blue-100 shadow-xs text-decoration-none flex items-center gap-1.5" href="assessment.html" aria-current="page">
+                  <i class="bi bi-pencil-square"></i> Assessment
+                </a>
+              </li>
+              <li>
+                <a class="notch-nav-link text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-body hover:text-primary transition-colors text-decoration-none flex items-center gap-1.5" href="dashboard.html">
+                  <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                </a>
+              </li>
+            </ul>
+
+            <!-- Auth & Logout -->
+            <div id="authNavActions" class="d-flex align-items-center gap-2">
+              <button class="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition" onclick="Auth.logout()" title="Logout" type="button">
+                <i class="bi bi-box-arrow-right text-lg"></i>
+              </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button
+              class="notch-mobile-toggle d-lg-none btn btn-sm btn-light border"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#notchMobileMenu"
+              aria-controls="notchMobileMenu"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="bi bi-list fs-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Dropdown Collapse -->
+        <div class="collapse notch-mobile-collapse bg-surface-pure border-t border-border-whisper px-4 py-3" id="notchMobileMenu">
+          <ul class="notch-mobile-links list-unstyled mb-0 d-flex flex-column gap-2">
+            <li>
+              <a class="text-decoration-none text-slate-body d-flex align-items-center gap-2 py-1" href="index.html">
+                <i class="bi bi-house text-primary"></i> Home
+              </a>
+            </li>
+            <li>
+              <a class="active text-decoration-none fw-bold text-primary d-flex align-items-center gap-2 py-1" href="assessment.html">
+                <i class="bi bi-pencil-square text-primary"></i> Assessment
+              </a>
+            </li>
+            <li>
+              <a class="text-decoration-none text-slate-body d-flex align-items-center gap-2 py-1" href="dashboard.html">
+                <i class="bi bi-speedometer2 text-primary"></i> Dashboard
+              </a>
+            </li>
+            <li class="pt-2 border-top border-border-whisper" id="notchMobileAuthActions">
+              <button class="btn btn-outline-danger btn-sm w-100" onclick="Auth.logout()">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Secondary Sticky Diagnostic Telemetry Bar -->
+    <div class="assessment-telemetry-bar w-full bg-slate-50/90 backdrop-blur-md border-b border-slate-200/80 shadow-2xs sticky top-16 z-40 transition-all">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+        <div class="flex items-center flex-wrap gap-2.5">
+          <span class="inline-flex items-center space-x-1.5 font-semibold text-slate-800 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs text-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Diagnostic Session</span>
+          </span>
+          <span class="px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-blue-700 border border-blue-100 font-mono">FORM-AST-01</span>
+          <div class="hidden sm:inline-flex items-center space-x-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-indigo-900 border border-indigo-100 px-2.5 py-1 rounded-lg font-medium text-[11px]">
+            <span class="text-xs">✨</span>
+            <span>Deterministic Model: 60% Skills • 25% Interests • 15% Academics</span>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2.5 text-[11px] font-medium">
+          <span class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+            <i class="bi bi-shield-check text-emerald-600"></i>
+            <span>Proctor Monitored</span>
+          </span>
+          <span class="flex items-center space-x-1.5 text-blue-700 bg-blue-50/80 border border-blue-200/70 px-2.5 py-1 rounded-lg shadow-2xs font-semibold">
+            <i class="bi bi-clock text-blue-600"></i>
+            <span>~4 mins to complete</span>
+          </span>
+          <span class="flex items-center space-x-1.5 text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+            <i class="bi bi-cloud-check text-emerald-600"></i>
+            <span>Auto-Save: Active</span>
+          </span>
+        </div>
+      </div>
+      <div class="w-full bg-slate-200 h-[2px]">
+        <div class="bg-blue-600 h-full w-[20%] transition-all duration-500 ease-out" id="diagnosticProgressLine"></div>
+      </div>
+    </div>
+
+    <!-- Main Assessment Container -->
+    <main class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 assessment-layout min-h-[calc(100vh-8rem)]">
+
+      <!-- Page Title & Overview (Semantic H1) -->
+      <section class="mb-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-semibold text-indigo-700">
+              <span class="animate-pulse">👋</span>
+              <span id="diagnosticWelcomeText">Welcome back, Parth! Let's shape your tech journey</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+              Skill Assessment &amp; Career Roadmap <span class="text-2xl">🚀</span>
+            </h1>
+            <p class="text-slate-600 text-sm max-w-3xl leading-relaxed">
+              Complete your 5-milestone diagnostic to generate your personalized career blueprint, skill-gap radar, and verified roadmap.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 bg-white p-2.5 rounded-2xl border border-slate-200 shadow-xs" id="userHeaderCard">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-base shadow-xs" id="userAvatarPill">PP</div>
+            <div class="text-left pr-2">
+              <p class="text-xs font-bold text-slate-900 leading-none" id="userHeaderName">Parth Patil</p>
+              <p class="text-[11px] text-blue-600 font-semibold mt-1" id="userHeaderRole">BCA Student • Level 1 Explorer</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scan Alert / Notification Banner -->
+      <div class="mb-6 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xs relative overflow-hidden" id="githubSuperpowersBanner">
+        <div class="flex items-start sm:items-center space-x-3.5 relative z-10">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 text-lg shadow-sm shadow-emerald-500/20">🎉</div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-bold text-emerald-950 uppercase tracking-wide bg-emerald-100/80 px-2 py-0.5 rounded-md">GitHub Superpowers Detected</span>
+              <span class="text-xs text-slate-600 font-medium">from <span class="font-bold text-slate-900" id="githubSuperpowerUser">@parthpatil1234p-svg</span> (7 study repos)</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 mt-2">
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">React.js</span>
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">TypeScript</span>
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">Node.js</span>
+              <span class="text-xs font-semibold text-emerald-800 bg-white/90 border border-emerald-200 px-2.5 py-1 rounded-lg">Tailwind CSS</span>
+              <span class="text-xs font-medium text-emerald-700 bg-emerald-100/60 px-2 py-1 rounded-lg">+3 auto-verified</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 self-end md:self-center shrink-0 relative z-10">
+          <button type="button" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-emerald-600/30 transition flex items-center space-x-1.5" id="btnApplyGithubSuperpowers" onclick="if(window.Assessment && window.Assessment.quickImportGithubSkills){window.Assessment.quickImportGithubSkills();}else{alert('4 GitHub skills auto-filled into your profile!');}">
+            <span>Use Verified Skills</span>
+            <span>⚡</span>
+          </button>
+          <button type="button" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-white/50" onclick="document.getElementById('githubSuperpowersBanner').style.display='none';">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Feedback Alert Area -->
+      <div id="alertContainer" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+      <!-- Loading Spinner for Assessment Profile sync -->
+      <div id="loadingSpinner" class="d-none assessment-loading text-center py-5" role="status" aria-live="polite">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading profile...</span>
+        </div>
+        <p class="text-slate-caption font-body-sm mt-2">Synchronizing candidate dossier &amp; verified skill ledger...</p>
+      </div>
+
+      <!-- Mobile Step Progress Header (< 992px) -->
+      <div class="step-nav-mobile lg:hidden mb-4 p-3 bg-surface-pure rounded-xl border border-border-whisper shadow-sm" id="stepIndicatorMobile">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="font-headline-sm text-xs text-uppercase font-bold text-primary" id="mobileStepLabel">
+            Step 1 of 4: Academic Background
+          </span>
+          <span class="text-xs font-code-sm text-slate-caption font-semibold" id="mobileStepPercent">25%</span>
+        </div>
+        <div class="progress rounded-full" style="height: 6px; background-color: #E2E8F0;">
+          <div
+            id="mobileProgressBar"
+            class="progress-bar bg-primary-container rounded-full transition-all duration-300"
+            role="progressbar"
+            style="width: 25%;"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Form Grid: Left Stepper Navigation + Right Form Panels -->
+      <div class="assessment-container grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Left Column: Desktop Step Navigation (Cols 1-4) -->
+        <aside class="step-nav-desktop lg:col-span-4 bg-surface-pure p-4 sm:p-5 rounded-2xl border border-border-whisper shadow-[0_4px_20px_rgba(15,23,42,0.04)] sticky top-36" id="stepIndicator" aria-label="Assessment step progress">
+          <div class="text-xs font-caption text-slate-caption font-bold text-uppercase tracking-wider mb-4 px-1 flex items-center justify-between">
+            <span class="flex items-center gap-1.5"><span class="text-sm">🗺️</span> Diagnostic Journey</span>
+            <span class="px-2 py-0.5 rounded-md bg-blue-50 text-[11px] font-semibold text-blue-700 border border-blue-100 font-mono">5 MILESTONES</span>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div class="step-nav-item active p-3 rounded-xl border border-border-whisper flex items-center gap-3 transition-all cursor-pointer hover:bg-surface-muted" data-step="0" id="navStep0" role="button" tabindex="0">
+              <div class="step-nav-num w-8 h-8 rounded-lg bg-primary-container text-white font-code-sm font-bold flex items-center justify-center shrink-0">0</div>
+              <div>
+                <div class="font-headline-sm text-sm font-bold text-on-surface">Stream Selection</div>
+                <div class="font-body-sm text-xs text-slate-caption">Field, domain &amp; specialization</div>
+              </div>
+            </div>
+
+            <div class="step-nav-item p-3 rounded-xl border border-border-whisper flex items-center gap-3 transition-all cursor-pointer hover:bg-surface-muted" data-step="1" id="navStep1" role="button" tabindex="0">
+              <div class="step-nav-num w-8 h-8 rounded-lg bg-surface-muted text-slate-caption font-code-sm font-bold flex items-center justify-center shrink-0">1</div>
+              <div>
+                <div class="font-headline-sm text-sm font-bold text-on-surface">Academic Details</div>
+                <div class="font-body-sm text-xs text-slate-caption">Degree, institution &amp; year</div>
+              </div>
+            </div>
+
+            <div class="step-nav-item p-3 rounded-xl border border-border-whisper flex items-center gap-3 transition-all cursor-pointer hover:bg-surface-muted" data-step="2" id="navStep2" role="button" tabindex="0">
+              <div class="step-nav-num w-8 h-8 rounded-lg bg-surface-muted text-slate-caption font-code-sm font-bold flex items-center justify-center shrink-0">2</div>
+              <div>
+                <div class="font-headline-sm text-sm font-bold text-on-surface">Career Interests</div>
+                <div class="font-body-sm text-xs text-slate-caption">Domain passion &amp; curious areas</div>
+              </div>
+            </div>
+
+            <div class="step-nav-item p-3 rounded-xl border border-border-whisper flex items-center gap-3 transition-all cursor-pointer hover:bg-surface-muted" data-step="3" id="navStep3" role="button" tabindex="0">
+              <div class="step-nav-num w-8 h-8 rounded-lg bg-surface-muted text-slate-caption font-code-sm font-bold flex items-center justify-center shrink-0">3</div>
+              <div>
+                <div class="font-headline-sm text-sm font-bold text-on-surface">Skill Verification</div>
+                <div class="font-body-sm text-xs text-slate-caption">Capabilities &amp; reality check quiz</div>
+              </div>
+            </div>
+
+            <div class="step-nav-item p-3 rounded-xl border border-border-whisper flex items-center gap-3 transition-all cursor-pointer hover:bg-surface-muted" data-step="4" id="navStep4" role="button" tabindex="0">
+              <div class="step-nav-num w-8 h-8 rounded-lg bg-surface-muted text-slate-caption font-code-sm font-bold flex items-center justify-center shrink-0">4</div>
+              <div>
+                <div class="font-headline-sm text-sm font-bold text-on-surface">Target Aspirations</div>
+                <div class="font-body-sm text-xs text-slate-caption">Career goal &amp; match calculation</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-border-whisper px-1">
+            <div class="p-3.5 rounded-xl bg-gradient-to-br from-indigo-50/90 to-blue-50/70 border border-indigo-100 flex items-start gap-3 shadow-2xs">
+              <div class="p-2 rounded-xl bg-white text-indigo-600 shrink-0 shadow-xs border border-indigo-100">
+                <i class="bi bi-shield-lock-fill text-indigo-600 text-base"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-indigo-950 flex items-center gap-1.5 mb-1">
+                  Verified Portfolio Guarantee <span class="text-[11px]">🛡️</span>
+                </h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed mb-0 font-normal">
+                  Every milestone builds your official portfolio credential that recruiters trust for internship &amp; entry-level hiring.
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Column: Form Step Wizard (Cols 5-12) -->
+        <div class="assessment-form-area lg:col-span-8">
+          <form id="assessmentForm" novalidate aria-describedby="assessmentFormHint" data-mcp-action="start_diagnostic" data-mcp-description="4-step comprehensive diagnostic evaluating skills, aptitude, and career alignment" data-mcp-params='{"targetUrl": "/assessment.html", "method": "POST", "apiEndpoint": "/api/assessments/submit"}'>
+
+            <!-- Active Profile Saved Notification Banner -->
+            <div id="profileLoadedBanner" class="alert alert-primary py-2.5 px-4 mb-4 d-none shadow-sm rounded-xl border border-primary/20 bg-blue-soft" role="alert">
+              <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2.5">
+                  <span class="material-symbols-outlined text-[22px] text-primary">verified</span>
+                  <div>
+                    <strong class="text-on-surface text-sm d-block font-headline-sm">Saved Assessment Profile Active</strong>
+                    <span class="text-slate-caption text-xs" id="profileLoadedDetails">Your previously entered profile and verified skills are loaded and preserved.</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-primary font-body-sm-medium rounded-lg" id="btnJumpToAcademics">
+                    <i class="bi bi-pencil-square me-1"></i> Review Academics &rarr;
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 STEP 0: Choose Your Primary Stream
+                 ======================================================== -->
+            <div class="assessment-step-panel active bg-surface-pure rounded-2xl border border-border-whisper shadow-[0_4px_24px_rgba(15,23,42,0.06)] p-6 sm:p-8" id="stepPanel0">
+              <div class="text-center mb-6 pb-4 border-b border-border-whisper">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-soft text-primary font-code-sm font-bold text-sm mb-2 shadow-sm border border-blue-100">00</span>
+                <h2 class="font-headline-md text-2xl font-bold text-on-surface tracking-tight">Choose Your Primary Stream / Track</h2>
+                <p class="font-body-base text-slate-caption text-sm max-w-xl mx-auto mt-1">Select your discipline so Disheera calibrates questions, skill recommendations, and benchmarks strictly for your domain &mdash; zero clutter.</p>
+              </div>
+
+              <div class="row g-3 justify-content-center mb-5" id="streamCardsGrid">
+                <!-- 1. Engineering & IT -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="stream-card selected p-4 rounded-xl border-2 border-primary bg-blue-soft h-100 flex flex-col justify-between transition-all cursor-pointer shadow-sm hover:shadow-md" data-stream="engineering" role="button" tabindex="0">
+                    <div>
+                      <div class="stream-icon w-10 h-10 rounded-lg bg-white text-primary flex items-center justify-center text-xl mb-3 shadow-sm border border-border-whisper"><i class="bi bi-laptop"></i></div>
+                      <h4 class="stream-title font-headline-sm text-base font-bold text-on-surface mb-1">Engineering &amp; IT</h4>
+                      <p class="stream-desc font-body-sm text-xs text-slate-caption leading-relaxed">Coding, Full Stack Web, Mobile, Cloud, AI, and Distributed Systems.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Business & Finance -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="stream-card p-4 rounded-xl border border-border-whisper bg-surface-pure h-100 flex flex-col justify-between transition-all cursor-pointer hover:bg-surface-muted/60" data-stream="business" role="button" tabindex="0">
+                    <div>
+                      <div class="stream-icon w-10 h-10 rounded-lg bg-surface-muted text-tertiary flex items-center justify-center text-xl mb-3"><i class="bi bi-briefcase"></i></div>
+                      <h4 class="stream-title font-headline-sm text-base font-bold text-on-surface mb-1">Business &amp; Finance</h4>
+                      <p class="stream-desc font-body-sm text-xs text-slate-caption leading-relaxed">Financial Modeling, DCF Valuation, Corporate Finance &amp; Strategy.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3. Digital Marketing & Growth -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="stream-card p-4 rounded-xl border border-border-whisper bg-surface-pure h-100 flex flex-col justify-between transition-all cursor-pointer hover:bg-surface-muted/60" data-stream="marketing" role="button" tabindex="0">
+                    <div>
+                      <div class="stream-icon w-10 h-10 rounded-lg bg-surface-muted text-secondary flex items-center justify-center text-xl mb-3"><i class="bi bi-graph-up-arrow"></i></div>
+                      <h4 class="stream-title font-headline-sm text-base font-bold text-on-surface mb-1">Digital Marketing</h4>
+                      <p class="stream-desc font-body-sm text-xs text-slate-caption leading-relaxed">Performance Ads, SEO Strategy, Content Hubs &amp; Social Growth.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Creative & Design -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="stream-card p-4 rounded-xl border border-border-whisper bg-surface-pure h-100 flex flex-col justify-between transition-all cursor-pointer hover:bg-surface-muted/60" data-stream="creative" role="button" tabindex="0">
+                    <div>
+                      <div class="stream-icon w-10 h-10 rounded-lg bg-surface-muted text-purple-600 flex items-center justify-center text-xl mb-3"><i class="bi bi-palette"></i></div>
+                      <h4 class="stream-title font-headline-sm text-base font-bold text-on-surface mb-1">Creative &amp; Design</h4>
+                      <p class="stream-desc font-body-sm text-xs text-slate-caption leading-relaxed">Brand Identity, Motion Graphics, Blender 3D &amp; Copywriting.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 5. Cross-Disciplinary -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="stream-card p-4 rounded-xl border border-border-whisper bg-surface-pure h-100 flex flex-col justify-between transition-all cursor-pointer hover:bg-surface-muted/60" data-stream="cross" role="button" tabindex="0">
+                    <div>
+                      <div class="stream-icon w-10 h-10 rounded-lg bg-surface-muted text-primary flex items-center justify-center text-xl mb-3"><i class="bi bi-compass"></i></div>
+                      <h4 class="stream-title font-headline-sm text-base font-bold text-on-surface mb-1">Cross-Disciplinary</h4>
+                      <p class="stream-desc font-body-sm text-xs text-slate-caption leading-relaxed">Explore across all technical, business, and creative tracks.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stream Selection Summary Banner -->
+              <div class="p-3.5 rounded-xl bg-surface-muted border border-border-whisper mb-4 flex items-center justify-between flex-wrap gap-2">
+                <span class="font-body-sm text-xs text-slate-caption" id="streamSelectedHint">
+                  <i class="bi bi-shield-check text-secondary me-1"></i> Stream active: <strong class="text-on-surface font-semibold" id="selectedStreamLabel">Engineering &amp; IT</strong>. All subsequent interest and skill prompts will be calibrated exclusively for this domain.
+                </span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md font-code-sm text-xs bg-blue-soft text-primary font-semibold border border-blue-100" id="streamBadge">ENGINEERING TRACK</span>
+              </div>
+
+              <div class="d-flex justify-content-end mt-4 pt-3 border-t border-border-whisper">
+                <button type="button" class="btn cp-btn-primary px-5 py-2.5 rounded-xl font-body-sm-medium font-semibold shadow-sm inline-flex items-center gap-2" id="step0ContinueBtn">
+                  <span>Continue to Academics</span>
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 STEP 1: Academic Background
+                 ======================================================== -->
+            <div class="assessment-step-panel bg-surface-pure rounded-2xl border border-border-whisper shadow-[0_4px_24px_rgba(15,23,42,0.06)] p-6 sm:p-8" id="stepPanel1">
+              <div class="d-flex align-items-center gap-3 mb-6 pb-4 border-b border-border-whisper">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-soft text-primary font-code-sm font-bold text-sm shadow-sm border border-blue-100">01</span>
+                <div>
+                  <h2 class="font-headline-md text-xl font-bold text-on-surface">Academic Background</h2>
+                  <p class="font-body-sm text-slate-caption text-xs mb-0">Your degree and branch provide context for entry-level hiring criteria</p>
+                </div>
+              </div>
+
+              <div class="row g-4">
+                <!-- Full Name -->
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label font-headline-sm text-xs font-semibold text-slate-body">
+                    Full Name <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5"
+                    placeholder="Your full legal name"
+                    required
+                  />
+                </div>
+
+                <!-- Degree / Course -->
+                <div class="col-md-6">
+                  <label for="course" class="form-label font-headline-sm text-xs font-semibold text-slate-body">
+                    Degree / Course <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="course"
+                    class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5"
+                    placeholder="e.g. BCA, B.Tech, B.Sc Computer Science"
+                    required
+                  />
+                  <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                    <span class="text-[11px] text-slate-500 font-medium">Quick pick:</span>
+                    <button class="px-2 py-0.5 text-[11px] font-bold bg-blue-50 text-blue-700 rounded-md border border-blue-200/80 hover:bg-blue-100 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='BCA';">BCA</button>
+                    <button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='B.Tech CS';">B.Tech CS</button>
+                    <button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='MCA';">MCA</button>
+                    <button class="px-2 py-0.5 text-[11px] font-medium bg-slate-100 text-slate-600 rounded-md hover:bg-slate-200 transition quick-course-btn" type="button" onclick="document.getElementById('course').value='B.Sc IT';">B.Sc IT</button>
+                  </div>
+                </div>
+
+                <!-- Branch / Major -->
+                <div class="col-md-6">
+                  <label for="branch" class="form-label font-headline-sm text-xs font-semibold text-slate-body">Branch / Major</label>
+                  <input
+                    type="text"
+                    id="branch"
+                    class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5"
+                    placeholder="e.g. Computer Science, AI, IT"
+                  />
+                </div>
+
+                <!-- Current Year -->
+                <div class="col-md-6">
+                  <label for="year" class="form-label font-headline-sm text-xs font-semibold text-slate-body">Current Year</label>
+                  <select id="year" class="form-select rounded-xl border-border-whisper focus:border-primary p-2.5">
+                    <option value="">Select Year...</option>
+                    <option value="First Year">First Year</option>
+                    <option value="Second Year">Second Year</option>
+                    <option value="Third Year">Third Year</option>
+                    <option value="Final Year">Final Year</option>
+                    <option value="Recent Graduate">Recent Graduate / Fresher</option>
+                  </select>
+                </div>
+
+                <!-- College Name (Full Width) -->
+                <div class="col-12">
+                  <label for="college" class="form-label font-headline-sm text-xs font-semibold text-slate-body">College / Institute Name</label>
+                  <input
+                    type="text"
+                    id="college"
+                    class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5"
+                    placeholder="e.g. G.H. Raisoni College of Engineering and Management, Jalgaon"
+                  />
+                  <div class="flex items-center justify-between text-[11px] text-slate-500 mt-1.5">
+                    <span>Helps customize university placement and hackathon opportunities</span>
+                    <span class="text-emerald-600 font-medium">📍 North Maharashtra</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mt-6 pt-4 border-t border-border-whisper">
+                <button type="button" class="btn cp-btn-outline px-4 py-2 rounded-xl font-body-sm-medium" id="step1BackBtn">
+                  <i class="bi bi-arrow-left me-1"></i>
+                  <span>Back to Stream</span>
+                </button>
+                <button type="button" class="btn cp-btn-primary px-5 py-2 rounded-xl font-body-sm-medium font-semibold shadow-sm" id="step1ContinueBtn">
+                  <span>Continue to Interests</span>
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 STEP 2: Career Interests
+                 ======================================================== -->
+            <div class="assessment-step-panel bg-surface-pure rounded-2xl border border-border-whisper shadow-[0_4px_24px_rgba(15,23,42,0.06)] p-6 sm:p-8" id="stepPanel2">
+              <div class="d-flex align-items-center gap-3 mb-6 pb-4 border-b border-border-whisper">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-soft text-primary font-code-sm font-bold text-sm shadow-sm border border-blue-100">02</span>
+                <div>
+                  <h2 class="font-headline-md text-xl font-bold text-on-surface">Domains of Interest <span class="text-danger">*</span></h2>
+                  <p class="font-body-sm text-slate-caption text-xs mb-0">Select 1 to 10 areas that excite you and represent your desired career direction</p>
+                </div>
+              </div>
+
+              <!-- Interest Chips Container -->
+              <div class="d-flex flex-wrap gap-2 mb-4" id="interestChipsWrapper">
+                <!-- Dynamically rendered via assessment.js -->
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between p-3.5 rounded-xl bg-surface-muted border border-border-whisper mb-4">
+                <span class="font-body-sm text-xs text-slate-caption">
+                  <i class="bi bi-info-circle me-1 text-primary"></i> Select topics that spark your passion.
+                </span>
+                <span class="font-code-sm text-xs font-bold text-on-surface">
+                  Selected: <span id="interestCount" class="text-primary font-bold">0</span> / 10
+                </span>
+              </div>
+
+              <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mt-6 pt-4 border-t border-border-whisper">
+                <button type="button" class="btn cp-btn-outline px-4 py-2 rounded-xl font-body-sm-medium" id="step2BackBtn">
+                  <i class="bi bi-arrow-left me-1"></i>
+                  <span>Back</span>
+                </button>
+                <button type="button" class="btn cp-btn-primary px-5 py-2 rounded-xl font-body-sm-medium font-semibold shadow-sm" id="step2ContinueBtn">
+                  <span>Continue to Skills</span>
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 STEP 3: Skills & Proficiency
+                 ======================================================== -->
+            <div class="assessment-step-panel bg-surface-pure rounded-2xl border border-border-whisper shadow-[0_4px_24px_rgba(15,23,42,0.06)] p-5 sm:p-7" id="stepPanel3">
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-3 pb-3 border-b border-border-whisper flex-wrap">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-soft text-primary font-code-sm font-bold text-sm shadow-sm border border-blue-100">03</span>
+                  <div>
+                    <h2 class="font-headline-md text-lg font-bold text-on-surface mb-0">Technical &amp; Professional Skills <span class="text-danger">*</span></h2>
+                    <p class="font-body-sm text-slate-caption text-xs mb-0">Select skills &bull; Knowledge levels are calibrated via 90s Quiz or GitHub (no unverified self-ratings)</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                  <button
+                    type="button"
+                    id="btnAutoDetectGitHubSkills"
+                    class="btn btn-github btn-sm px-3 py-1.5 d-flex align-items-center gap-1.5 font-headline-sm text-xs font-semibold shadow-sm rounded-lg"
+                    title="Scan repositories from your GitHub account and automatically select skills with verified code badges"
+                  >
+                    <i class="bi bi-github"></i>
+                    <span id="btnAutoDetectGitHubText">Auto-Detect from GitHub Repos</span>
+                  </button>
+                  <button
+                    type="button"
+                    id="btnChangeGitHubAccount"
+                    class="btn btn-outline-secondary btn-sm px-2.5 py-1.5 d-none align-items-center gap-1 font-mono text-xs rounded-lg"
+                    title="Change or link a different GitHub account"
+                  >
+                    <i class="bi bi-arrow-repeat"></i>
+                    <span>Switch GitHub</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Filter & Search Toolbar -->
+              <div class="mb-3">
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text bg-white border-end-0 text-slate-caption py-1.5 ps-3 rounded-l-xl border-border-whisper">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="skillSearchInput"
+                    class="form-control form-control-sm border-start-0 ps-1 py-1.5 rounded-r-xl border-border-whisper text-xs"
+                  placeholder="Search skills (e.g. HTML, Python, Figma, SQL, React, Java)..."
+                    aria-label="Search available skills"
+                  />
+                </div>
+                <div class="skills-category-filter flex flex-wrap gap-1" id="skillCategoryFilter">
+                  <button type="button" class="category-filter-btn active text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="all" aria-pressed="true">All</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="frontend" aria-pressed="false">Frontend</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="backend" aria-pressed="false">Backend</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="data" aria-pressed="false">Data &amp; AI</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="cloud" aria-pressed="false">Cloud / DevOps</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="security" aria-pressed="false">Security</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="mobile" aria-pressed="false">Mobile</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="testing" aria-pressed="false">Testing</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="gaming" aria-pressed="false">Gaming</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="web3" aria-pressed="false">Web3</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="product" aria-pressed="false">Product</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="finance" aria-pressed="false">Finance &amp; Ops</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="marketing" aria-pressed="false">Marketing</button>
+                  <button type="button" class="category-filter-btn text-xs px-2.5 py-1 rounded-lg border border-border-whisper" data-cat="design" aria-pressed="false">Creative Design</button>
+                </div>
+              </div>
+
+              <!-- Top Selected Skills Summary Box -->
+              <div class="selected-skills-box mb-3 py-2.5 px-3.5 rounded-xl bg-surface-muted border border-border-whisper" id="topSelectedSkillsBox">
+                <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                  <span class="font-headline-sm text-xs font-bold text-on-surface d-flex align-items-center gap-1.5 flex-wrap">
+                    <i class="bi bi-check2-circle text-secondary fs-6"></i>
+                    <span>Your Selected Skills (<span id="selectedSkillsCount">0</span>/20):</span>
+                    <span id="realtimeSyncIndicator" class="badge bg-emerald-soft text-secondary border border-emerald-200 font-code-sm px-2 py-0.5 ms-1" style="font-size: 0.72rem; transition: all 0.25s ease;">
+                      <i class="bi bi-cloud-check-fill text-secondary"></i> Synced in real-time
+                    </span>
+                  </span>
+                  <div class="d-flex align-items-center gap-2">
+                    <span id="topQuizStatusHint" class="badge badge-teal small d-none">
+                      <i class="bi bi-lightning-charge-fill text-warning me-1"></i>Take 90s Quiz on any skill below
+                    </span>
+                    <button type="button" id="clearAllSkillsBtn" class="btn btn-link text-danger btn-sm p-0 text-decoration-none text-xs font-semibold">
+                      Clear All
+                    </button>
+                  </div>
+                </div>
+                <div id="selectedSkillsSummary" class="d-flex flex-wrap gap-1.5">
+                  <span class="text-slate-caption text-xs fst-italic">No skills selected yet. Click any skill below to add it and take the reality check quiz.</span>
+                </div>
+              </div>
+
+              <!-- Skills Grid Container with Dedicated Scroll Wrapper -->
+              <div class="skills-grid-scroll-wrap mb-3 max-h-[360px] overflow-y-auto pr-1">
+                <div class="skills-grid-container row g-2" id="skillsGrid" role="group" aria-label="Available skills" aria-live="polite">
+                  <!-- Dynamically populated via assessment.js -->
+                </div>
+              </div>
+
+              <!-- Custom Skill Addition Bar -->
+              <div class="custom-skill-card p-3 rounded-xl bg-surface-muted border border-border-whisper mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                  <span class="font-headline-sm text-xs font-semibold text-on-surface">
+                    <i class="bi bi-plus-circle text-primary me-1"></i> Don't see your skill? Add Custom Skill
+                  </span>
+                  <span class="badge bg-surface-pure text-slate-caption border border-border-whisper font-code-sm text-[11px]">Universal Skill Input</span>
+                </div>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text bg-white border-end-0 text-slate-caption ps-3 rounded-l-xl border-border-whisper">
+                    <i class="bi bi-search text-primary"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="customSkillName"
+                    class="form-control border-start-0 border-border-whisper text-xs"
+                    placeholder="Type custom skill name (e.g. Rust, Solidity, Blender, Swift, Docker)..."
+                    maxlength="50"
+                    aria-label="Custom skill name"
+                  />
+                  <button type="button" id="btnAddCustomSkill" class="btn cp-btn-primary px-3 font-body-sm-medium text-xs font-semibold rounded-r-xl d-inline-flex align-items-center gap-1">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Add</span>
+                  </button>
+                </div>
+                <div id="customSkillFeedback" class="small mt-1.5 d-none" role="status" aria-live="polite"></div>
+              </div>
+
+              <!-- Prove your skills Panel (Verification Gate) -->
+              <div class="prove-skills-panel p-4 rounded-xl border border-border-whisper bg-white shadow-sm mb-3" id="proveSkillsPanel">
+                <div class="prove-skills-header flex justify-between items-center mb-3">
+                  <div>
+                    <h3 class="prove-skills-title font-headline-sm text-sm font-bold text-on-surface flex items-center gap-1.5 mb-0.5">
+                      <i class="bi bi-shield-check text-primary"></i>
+                      <span>Knowledge Level Verification Gate</span>
+                    </h3>
+                    <p class="prove-skills-sub font-body-sm text-xs text-slate-caption mb-0" id="proveSkillsSubtitle">
+                      Knowledge levels are assessed through reality-check quizzes or GitHub code.
+                    </p>
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="prove-skills-badge font-code-sm text-xs px-2.5 py-1 rounded-full bg-blue-soft text-primary font-semibold border border-blue-100" id="proveSkillsBadge">
+                      <i class="bi bi-hourglass-split me-1"></i>
+                      <span id="proveSkillsBadgeText">Progress: 0 of 0 verified</span>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="prove-skills-progress-bar mb-3 rounded-full overflow-hidden bg-slate-100" style="height: 6px;">
+                  <div class="prove-skills-progress-fill bg-primary h-full transition-all duration-300" id="proveSkillsProgressFill" style="width: 0%;"></div>
+                </div>
+
+                <div class="prove-skills-list flex flex-col gap-2" id="proveSkillsList">
+                  <div class="text-slate-caption text-xs py-2 fst-italic">
+                    Select skills above to see reality-check quiz options.
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mt-3 pt-3 border-t border-border-whisper">
+                <button type="button" class="btn cp-btn-outline px-4 py-2 rounded-xl font-body-sm-medium" id="step3BackBtn">
+                  <i class="bi bi-arrow-left me-1"></i>
+                  <span>Back</span>
+                </button>
+                <button type="button" class="btn cp-btn-primary px-5 py-2 rounded-xl font-body-sm-medium font-semibold shadow-sm" id="step3ContinueBtn">
+                  <span>Continue to Goals</span>
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 STEP 4: Career Goals & Submission
+                 ======================================================== -->
+            <div class="assessment-step-panel bg-surface-pure rounded-2xl border border-border-whisper shadow-[0_4px_24px_rgba(15,23,42,0.06)] p-6 sm:p-8" id="stepPanel4">
+              <div class="d-flex align-items-center gap-3 mb-6 pb-4 border-b border-border-whisper">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-soft text-primary font-code-sm font-bold text-sm shadow-sm border border-blue-100">04</span>
+                <div>
+                  <h2 class="font-headline-md text-xl font-bold text-on-surface">Career Aspirations <span class="badge bg-slate-100 text-slate-caption font-code-sm text-[11px] ms-2">Optional</span></h2>
+                  <p class="font-body-sm text-slate-caption text-xs mb-0">What is your target role or learning milestone for this year?</p>
+                </div>
+              </div>
+
+              <div class="mb-5">
+                <label for="careerGoals" class="form-label font-headline-sm text-xs font-semibold text-slate-body">Primary Career Goal</label>
+                <input
+                  type="text"
+                  id="careerGoals"
+                  class="form-control rounded-xl border-border-whisper focus:border-primary p-2.5 text-sm"
+                  placeholder="e.g. Become a Front-End Developer building production web apps by 2027"
+                />
+                <div class="form-text text-xs text-slate-caption mt-1">Optional context that helps shape project recommendations in your roadmap.</div>
+              </div>
+
+              <!-- Summary Card -->
+              <div class="p-4 rounded-xl bg-surface-muted border border-border-whisper mb-5">
+                <div class="d-flex align-items-center gap-2 mb-1.5">
+                  <i class="bi bi-shield-check text-primary fs-5"></i>
+                  <strong class="font-headline-sm text-sm text-on-surface">Ready to generate your Career Atlas</strong>
+                </div>
+                <p class="font-body-sm text-xs text-slate-caption leading-relaxed mb-0">
+                  Clicking "Find my career matches" submits your profile to our weighted matching algorithm. You will immediately see ranked career matches, detailed skill gap breakdowns, and customizable weekly roadmaps.
+                </p>
+              </div>
+
+              <!-- Form Action Buttons -->
+              <div class="d-flex justify-content-between align-items-center pt-4 border-t border-border-whisper">
+                <button type="button" class="btn cp-btn-outline px-4 py-2.5 rounded-xl font-body-sm-medium" id="step4BackBtn">
+                  <i class="bi bi-arrow-left me-1"></i>
+                  <span>Back</span>
+                </button>
+                <button
+                  type="submit"
+                  id="submitAssessmentBtn"
+                  class="rg-button"
+                  data-mcp-action="submit_diagnostic"
+                  data-mcp-description="Submit candidate diagnostic inputs to calculate career matches"
+                >
+                  <span class="rg-shine"><span></span></span>
+                  <span class="rg-bg"></span>
+                  <span class="rg-label">
+                    <span>Find my career matches</span>
+                    <i class="bi bi-compass-fill ms-1"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- ============================================================
+         SKILL REALITY-CHECK MODAL (Step 3 In-Page Adaptive Micro-Quiz)
+         ============================================================ -->
+    <div class="modal fade" id="skillCheckModal" tabindex="-1" aria-labelledby="skillCheckModalTitle" aria-hidden="true" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-2xl border border-border-whisper shadow-xl overflow-hidden bg-white">
+          <!-- Header -->
+          <div class="modal-header d-flex justify-content-between align-items-center border-b border-border-whisper bg-surface-pure px-4 py-3">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <span class="badge bg-blue-soft text-primary border border-blue-100 px-2.5 py-1 font-mono text-xs font-semibold rounded-md" id="modalSkillBadge">Skill</span>
+              <h5 class="modal-title font-headline-sm text-base font-bold mb-0 text-on-surface" id="skillCheckModalTitle">Reality Check</h5>
+              <span class="badge bg-slate-100 text-slate-body border border-border-whisper px-2 py-0.5 text-xs d-none font-mono rounded-md" id="modalProviderBadge"></span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-emerald-soft text-secondary border border-emerald-200 font-mono text-xs px-2.5 py-1 rounded-md" id="modalStrikesBadge">
+                <i class="bi bi-shield-check me-1"></i> Strikes: <span id="modalStrikesCount">0</span>/3
+              </span>
+              <span class="difficulty-pill medium" id="modalDifficultyPill">MEDIUM</span>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalCloseBtn"></button>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="modal-body p-4 sm:p-6" id="modalQuizBody">
+            <!-- Loading state -->
+            <div id="modalLoadingState" class="text-center py-5">
+              <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p class="font-body-sm text-slate-caption text-xs">Preparing your 5 adaptive questions...</p>
+            </div>
+
+            <!-- Question state -->
+            <div id="modalQuestionState" class="d-none">
+              <!-- Stepper dots & 45s Countdown Timer -->
+              <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="font-body-sm text-xs text-slate-caption font-semibold" id="modalStepText">Question 1 of 5</span>
+                  <div class="quiz-timer-badge" id="modalQuizTimerBadge" title="Anti-cheating 45-second timer per question">
+                    <i class="bi bi-clock-history"></i>
+                    <span id="modalQuizTimerSeconds">45</span>s
+                    <div class="quiz-timer-progress-bar" id="modalQuizTimerProgressBar" style="width: 100%;"></div>
+                  </div>
+                </div>
+                <div class="quiz-stepper" id="modalStepper">
+                  <div class="quiz-step-dot active"></div>
+                  <div class="quiz-step-dot"></div>
+                  <div class="quiz-step-dot"></div>
+                  <div class="quiz-step-dot"></div>
+                  <div class="quiz-step-dot"></div>
+                </div>
+              </div>
+
+              <!-- Proctor Warning Alert Toast -->
+              <div class="quiz-proctor-alert d-none mb-3 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-2" id="modalProctorAlert">
+                <i class="bi bi-shield-exclamation text-amber-600"></i>
+                <span id="modalProctorAlertText">Proctor Notice: Tab change detected. Quiz session is actively monitored.</span>
+              </div>
+
+              <!-- Question title -->
+              <div class="quiz-question-title proctored-no-select font-headline-sm text-base font-bold text-on-surface mb-3" id="modalQuestionPrompt"></div>
+
+              <!-- Code snippet (optional) -->
+              <pre class="quiz-code-block proctored-no-select d-none p-3 rounded-xl bg-surface-muted border border-border-whisper text-xs font-mono overflow-x-auto mb-3" id="modalCodeSnippet"><code></code></pre>
+
+              <!-- Option cards -->
+              <div class="quiz-options-list flex flex-col gap-2.5 mb-3" id="modalOptionsList"></div>
+
+              <!-- Feedback card -->
+              <div class="quiz-feedback-box d-none p-3 rounded-xl border mb-3 flex items-start gap-2.5" id="modalFeedbackBox">
+                <i class="quiz-feedback-icon bi bi-check-circle-fill text-primary fs-5 mt-0.5" id="modalFeedbackIcon"></i>
+                <div>
+                  <div class="font-headline-sm text-sm font-bold mb-0.5" id="modalFeedbackHeadline"></div>
+                  <div class="font-body-sm text-xs text-slate-caption" id="modalFeedbackText"></div>
+                </div>
+              </div>
+
+              <!-- Footer Action -->
+              <div class="d-flex justify-content-end align-items-center gap-2 mt-4 pt-3 border-t border-border-whisper flex-wrap">
+                <button type="button" class="btn btn-outline-secondary px-3 py-2 text-xs rounded-xl font-body-sm-medium" data-bs-dismiss="modal" id="modalCancelBtn">Cancel Check</button>
+                <button type="button" class="btn btn-outline-primary px-3 py-2 text-xs rounded-xl font-body-sm-medium" id="modalRestartBtn" title="Restart this quiz from Question 1">
+                  <i class="bi bi-arrow-repeat me-1"></i>
+                  <span>Restart Quiz</span>
+                </button>
+                <button type="button" class="btn cp-btn-primary px-4 py-2 text-xs rounded-xl font-body-sm-medium font-semibold shadow-sm" id="modalSubmitBtn" disabled>
+                  <span>Submit Answer</span>
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+                <button type="button" class="btn cp-btn-primary px-4 py-2 text-xs rounded-xl font-body-sm-medium font-semibold shadow-sm d-none" id="modalNextBtn">
+                  <span>Next Question</span>
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Verdict / Result State -->
+            <div id="modalVerdictState" class="d-none text-center py-3">
+              <div class="mb-3">
+                <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-emerald-soft text-secondary p-3" style="width: 64px; height: 64px;">
+                  <i class="bi bi-patch-check-fill fs-2"></i>
+                </span>
+              </div>
+              <h4 class="font-headline-md text-xl font-bold text-on-surface mb-1" id="modalVerdictHeadline">Skill Verified!</h4>
+              <p class="font-body-sm text-slate-caption text-xs mb-4" id="modalVerdictSub">Reality check completed.</p>
+
+              <!-- Comparison Card -->
+              <div class="comparison-card p-4 rounded-xl border border-border-whisper bg-surface-muted mb-4 text-start">
+                <div class="row align-items-center text-center g-2">
+                  <div class="col-5">
+                    <div class="font-body-sm text-xs text-slate-caption mb-1">You Claimed</div>
+                    <span class="passport-tier-badge badge-passport-t0 text-xs px-2.5 py-1 rounded-md" id="modalVerdictSelfClaimed"><i class="bi bi-person-fill me-1"></i> Advanced</span>
+                  </div>
+                  <div class="col-2 text-slate-caption fs-5">&rarr;</div>
+                  <div class="col-5">
+                    <div class="font-body-sm text-xs text-slate-caption mb-1">Quiz Verified</div>
+                    <div class="d-flex flex-column align-items-center gap-1">
+                      <span class="passport-tier-badge badge-passport-t1 text-xs px-2.5 py-1 rounded-md" id="modalVerdictVerifiedLevel"><i class="bi bi-shield-check me-1"></i> Intermediate</span>
+                      <span class="badge bg-slate-200 text-slate-caption font-mono text-[10px]" id="modalVerdictIntegrityBadge">Integrity: 100/100</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Unconfirmed Telemetry Alert Notice -->
+                <div class="badge-status-unconfirmed w-100 p-2.5 mt-3 d-none rounded-xl bg-amber-50 border border-amber-200 text-amber-900" id="modalVerdictUnconfirmedNotice">
+                  <i class="bi bi-exclamation-triangle-fill fs-6 me-1.5 flex-shrink-0 text-amber-600"></i>
+                  <span class="font-body-sm text-xs" id="modalVerdictUnconfirmedNoticeText">Proctor Notice: Telemetry recorded tab switches or velocity anomalies. Status marked as 'Unconfirmed' pending Tier 2 GitHub repository validation.</span>
+                </div>
+                <div class="mt-3 pt-2 border-t border-border-whisper font-body-sm text-xs text-on-surface" id="modalVerdictExplanation"></div>
+                <div class="mt-2 text-xs text-primary d-none" id="modalVerdictGapsWrap">
+                  <i class="bi bi-lightning-charge me-1"></i>
+                  <span class="font-semibold">Recommended focus areas:</span>
+                  <span id="modalVerdictGaps"></span>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                <button type="button" class="btn btn-outline-primary px-3 py-2 text-xs rounded-xl font-body-sm-medium" id="modalVerdictRetestBtn">
+                  <i class="bi bi-arrow-repeat me-1"></i>
+                  <span>Retest This Skill</span>
+                </button>
+                <button type="button" class="btn cp-btn-primary px-4 py-2 text-xs rounded-xl font-body-sm-medium font-semibold shadow-sm" id="modalVerdictDoneBtn">
+                  <i class="bi bi-check2-circle me-1"></i>
+                  <span>Done &mdash; Return to Assessment</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               STRICT ANTI-CHEATING STRIKE OVERLAY (Interactive Freeze)
+               ============================================================ -->
+          <div id="modalStrikeOverlay" class="d-none">
+            <!-- Strike 1 Card (Amber Warning) -->
+            <div id="strikeView1" class="strike-card strike-card-1 d-none p-4 text-center">
+              <div class="strike-card-header mb-3">
+                <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                  <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+                  <h5 class="font-headline-sm text-base font-bold mb-0 text-slate-900">STRIKE 1 of 3: Cheating Violation Logged</h5>
+                </div>
+                <div class="font-body-sm text-xs font-semibold text-warning-emphasis">Proctor Sensor Triggered</div>
+              </div>
+              <div class="p-2">
+                <div class="strike-penalty-tag mb-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-mono font-semibold">
+                  <i class="bi bi-stopwatch-fill"></i> &minus;10 SECONDS DEDUCTED &middot; INTEGRITY PENALIZED (&minus;25%)
+                </div>
+                <p class="font-body-sm text-xs text-slate-600 mb-3" id="strikeReasonText1">
+                  Focus loss detected (tab switch, window blur, or restricted shortcut). The assessment timer has been docked 10 seconds.
+                </p>
+                <div class="alert alert-warning py-2.5 px-3 text-xs text-start mb-4 rounded-xl">
+                  <strong>Strict Policy Notice:</strong> You have <strong>2 strikes remaining</strong>. A second strike will issue a critical warning, and a third strike results in <strong>immediate disqualification and a 24-hour lockout</strong>.
+                </div>
+                <button type="button" class="btn btn-warning fw-bold px-4 py-2 text-xs w-100 rounded-xl" id="modalStrike1AckBtn">
+                  <i class="bi bi-shield-check me-1"></i> I Acknowledge &amp; Resume Focus
+                </button>
+              </div>
+            </div>
+
+            <!-- Strike 2 Card (Crimson Final Warning) -->
+            <div id="strikeView2" class="strike-card strike-card-2 d-none p-4 text-center">
+              <div class="strike-card-header mb-3">
+                <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                  <i class="bi bi-shield-slash-fill fs-2 text-danger"></i>
+                  <h5 class="font-headline-sm text-base font-bold mb-0 text-danger">STRIKE 2 of 3: FINAL WARNING!</h5>
+                </div>
+                <div class="font-body-sm text-xs font-bold text-danger">CRITICAL INTEGRITY ALERT</div>
+              </div>
+              <div class="p-2">
+                <div class="strike-penalty-tag mb-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-mono font-semibold">
+                  <i class="bi bi-stopwatch-fill"></i> &minus;10 SECONDS DEDUCTED &middot; INTEGRITY AT RISK
+                </div>
+                <p class="font-body-sm text-xs text-red-700 font-semibold mb-3" id="strikeReasonText2">
+                  Second proctoring violation detected. The quiz was frozen and 10 seconds were docked.
+                </p>
+                <div class="alert alert-danger py-2.5 px-3 text-xs text-start mb-4 rounded-xl border-danger">
+                  <strong>🚨 IMMEDIATE DISQUALIFICATION RISK:</strong><br/>
+                  If you switch tabs, click away, copy text, or attempt devtools one more time, your test session will be <strong>permanently terminated with 0%</strong> and your account will be <strong>locked out from this skill for 24 hours</strong>.
+                </div>
+                <button type="button" class="btn btn-danger fw-bold px-4 py-2 text-xs w-100 rounded-xl" id="modalStrike2AckBtn">
+                  <i class="bi bi-exclamation-octagon-fill me-1"></i> I Understand &mdash; Last Chance
+                </button>
+              </div>
+            </div>
+
+            <!-- Strike 3 Card (Disqualification & 24h Lockout) -->
+            <div id="strikeView3" class="strike-card strike-card-3 d-none p-4 text-center">
+              <div class="strike-card-header mb-3">
+                <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                  <i class="bi bi-lock-fill fs-1 text-danger"></i>
+                </div>
+                <h5 class="font-headline-sm text-base font-bold mb-1 text-danger">ASSESSMENT TERMINATED &mdash; DISQUALIFIED</h5>
+                <div class="font-mono text-xs text-slate-caption">INTEGRITY POLICY VIOLATION (3/3 STRIKES)</div>
+              </div>
+              <div class="p-2">
+                <div class="bg-red-50 text-danger border border-red-200 rounded-xl p-3 mb-3 text-center">
+                  <div class="fs-1 fw-bold font-mono">0%</div>
+                  <div class="text-xs fw-bold text-uppercase">Result: Failed (Cheating Flagged)</div>
+                </div>
+                <p class="font-body-sm text-xs text-slate-600 mb-3">
+                  You exceeded the 3-strike limit for proctoring violations. To maintain industry credential trust, your session has been aborted and a <strong>strict 24-hour lockout</strong> has been activated on this skill.
+                </p>
+                <div class="p-3 rounded-xl border border-warning-subtle text-xs text-start mb-4 font-mono" style="background: #FFFBEB; color: #92400E;">
+                  <div class="text-warning-emphasis mb-1"><i class="bi bi-clock-history me-1"></i> <strong>Cooldown Status:</strong> Active</div>
+                  <div>Next Retake Available: <span class="text-dark fw-bold">in 24 Hours</span></div>
+                </div>
+                <button type="button" class="btn btn-danger fw-bold py-2.5 px-4 text-xs w-100 shadow-sm rounded-xl" id="modalDisqualifiedDoneBtn">
+                  <i class="bi bi-arrow-left me-1"></i> Return to Assessment Dashboard
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="atlas-footer py-4 mt-8 border-t border-border-whisper bg-surface-pure">
+      <div class="container max-w-[1360px]">
+        <div class="row align-items-center g-3">
+          <div class="col-md-6 text-center text-md-start">
+            <div class="footer-title font-headline-sm font-bold text-on-surface">Disheera &mdash; Career Atlas</div>
+            <div class="font-body-sm text-slate-caption text-xs">Autonomous AI Career Guidance &amp; Skill Roadmap Ecosystem</div>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <span class="badge bg-blue-soft text-primary font-mono text-xs me-2 border border-blue-100">Enterprise Edition</span>
+            <span class="badge bg-surface-muted text-slate-caption font-mono text-xs px-3 py-1.5 border border-border-whisper">&copy; 2026 Disheera</span>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 mt-3 border-t border-border-whisper text-xs text-slate-caption">
+          <div>
+            Originated at GHRCEM, Jalgaon &bull; DPDP Act 2023 Aligned
+          </div>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="terms.html" class="text-slate-caption text-decoration-none hover:text-primary">Terms of Service</a>
+            <a href="privacy.html" class="text-slate-caption text-decoration-none hover:text-primary">Privacy Policy</a>
+            <a href="security.html" class="text-slate-caption text-decoration-none hover:text-primary">Security Architecture</a>
+            <a href="https://wa.me/917499085045" target="_blank" class="text-secondary text-decoration-none hover:underline font-semibold"><i class="bi bi-whatsapp me-1"></i>WhatsApp: 7499085045</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js?v=3.0"></script>
+    <script src="js/api.js"></script>
+    <script src="js/github-auth.js"></script>
+    <script src="js/animated-icons.js"></script>
+    <script src="js/typing-character-fx.js"></script>
+    <script src="js/tech-logos.js?v=3.2.0"></script>
+    <script src="js/skills-catalog.js?v=4.0.0"></script>
+    <script src="js/assessment.js?v=4.0.0"></script>
+    <script src="js/chat.js"></script>
+      <!-- AI Mentor Floating Pill -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <div class="flex items-center space-x-2">
+        <div class="hidden sm:flex items-center space-x-2 bg-white px-3.5 py-2 rounded-2xl shadow-lg border border-slate-200 text-xs font-semibold text-slate-700 animate-pulse">
+          <span class="text-base">💡</span>
+          <span>"Need help selecting your specialization, Parth?"</span>
+        </div>
+        <button class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-full shadow-xl shadow-indigo-500/30 flex items-center space-x-2.5 text-xs font-bold border border-white/20 transition-transform active:scale-95" type="button" onclick="if(window.ChatWidget && window.ChatWidget.toggle){window.ChatWidget.toggle();}else{alert('AI Mentor Aarav is active to guide your assessment!');}">
+          <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm">🤖</div>
+          <span>Aarav • AI Guide</span>
+          <span class="inline-flex items-center space-x-1 bg-white/20 px-2 py-0.5 rounded-full text-[10px] tracking-wide">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="uppercase font-bold">ONLINE</span>
+          </span>
+        </button>
+      </div>
+    </div>
+</body>
+</html>

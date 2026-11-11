@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Disheera Technologies Inc.
+  Licensed under the GNU Affero General Public License v3.0 or later.
+  See the LICENSE file for details.
+-->
+<html class="scroll-smooth" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Official Disheera platform. Discover your ideal career path with AI diagnostic benchmarking, interactive milestone roadmaps, placement prep, and SHA-256 verified credentials."
+    />
+    <meta name="keywords" content="Disheera, disheera.site, dis era, Disheera AI, Disheera Technologies, career guidance, autonomous career GPS, verified talent OS, skill assessment, proctored roadmaps, student roadmap, placement preparation, campus recruitment OS" />
+    <meta name="author" content="Disheera Technologies Inc." />
+    <meta name="theme-color" content="#FFFFFF" />
+    <title>Disheera™ Official — AI Career Roadmaps &amp; Skill Verification</title>
+
+    <!-- Canonical URL & Machine-Readable LLM Context Declarations -->
+    <link rel="canonical" href="https://disheera.site/" />
+    <link rel="alternate" type="text/markdown" href="https://disheera.site/llms.txt" title="LLM Machine-Readable Context Manifest" />
+    <link rel="alternate" type="text/markdown" href="https://disheera.site/llms-full.txt" title="Full Platform Technical Specification for AI Agents" />
+    <link rel="alternate" type="application/json" href="https://disheera.site/mcp-actions.json" title="WebMCP Actions Discovery Endpoint" />
+    <link rel="alternate" type="application/json" href="https://disheera.site/.well-known/mcp-actions.json" title="Well-Known WebMCP Agent Actions" />
+
+    <!-- Favicon & PWA Manifest -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Open Graph & Social Cards -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://disheera.site/" />
+    <meta property="og:title" content="Disheera™ Official — AI Career Roadmaps &amp; Skill Verification" />
+    <meta property="og:description" content="Official Disheera platform. Discover your ideal career path with AI diagnostic benchmarking, interactive milestone roadmaps, placement prep, and SHA-256 verified credentials." />
+    <meta property="og:image" content="https://disheera.site/assets/logo.svg" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts & Material Symbols -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Tailwind CSS (CDN Engine + Stitch Calibrated Token System) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#004ac6",
+              "primary-container": "#2563eb",
+              "primary-fixed": "#dbe1ff",
+              "on-primary-fixed-variant": "#003ea8",
+              "secondary": "#006d44",
+              "secondary-container": "#7df7b6",
+              "secondary-fixed": "#80fab9",
+              "on-secondary-container": "#007147",
+              "surface-pure": "#FFFFFF",
+              "canvas-white": "#F7F9FD",
+              "surface-muted": "#F1F4FA",
+              "border-whisper": "#E2E8F0",
+              "border-outline": "#CBD5E1",
+              "slate-body": "#334155",
+              "slate-caption": "#475569",
+              "on-background": "#0F172A",
+              "blue-soft": "#EFF6FF",
+              "emerald-soft": "#ECFDF5",
+              "coral-danger": "#DC4B4B"
+            },
+            fontFamily: {
+              "display": ["Outfit", "sans-serif"],
+              "headline-lg": ["Outfit", "sans-serif"],
+              "headline-md": ["Outfit", "sans-serif"],
+              "headline-sm": ["Outfit", "sans-serif"],
+              "body-base": ["Inter", "sans-serif"],
+              "body-sm": ["Inter", "sans-serif"],
+              "body-sm-medium": ["Inter", "sans-serif"],
+              "caption": ["Inter", "sans-serif"],
+              "code-base": ["JetBrains Mono", "monospace"],
+              "code-sm": ["JetBrains Mono", "monospace"]
+            },
+            fontSize: {
+              "display": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+              "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "600" }],
+              "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "600" }],
+              "headline-sm": ["20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }],
+              "body-base": ["16px", { lineHeight: "25.6px", fontWeight: "400" }],
+              "body-sm": ["14px", { lineHeight: "22.4px", fontWeight: "400" }],
+              "body-sm-medium": ["14px", { lineHeight: "22.4px", fontWeight: "500" }],
+              "caption": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }],
+              "code-base": ["14px", { lineHeight: "20px", fontWeight: "500" }],
+              "code-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }]
+            },
+            spacing: {
+              "space-xs": "0.25rem",
+              "space-sm": "0.5rem",
+              "space-md": "1rem",
+              "space-lg": "1.5rem",
+              "space-xl": "2rem",
+              "space-2xl": "3rem",
+              "margin-mobile": "1rem",
+              "margin": "1.5rem"
+            }
+          }
+        }
+      };
+    </script>
+
+    <style>
+      @layer base {
+        html, body {
+          margin: 0;
+          padding: 0;
+          background-color: #F7F9FD;
+        }
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .icon-fill {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+
+    <!-- Immediate Recruiter Auto-Redirect Protection -->
+    <script>
+      (function () {
+        try {
+          if (window.location.search.includes('view=public')) return;
+          var raw = localStorage.getItem('careerpath_user');
+          var token = localStorage.getItem('careerpath_token');
+          if (token && raw) {
+            var u = JSON.parse(raw);
+            if (u && (u.role === 'recruiter' || u.isRecruiter || (u.recruiterProfile && u.recruiterProfile.canPostJobs))) {
+              if (!u.isAdmin) {
+                window.location.replace('recruiter-dashboard.html');
+              }
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Schema.org Entity Graph for SEO & AEO -->
+        <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://disheera.site/#website",
+          "url": "https://disheera.site/",
+          "name": "Disheera",
+          "alternateName": [
+            "Disheera AI",
+            "Disheera Technologies",
+            "Dis era",
+            "disheera.site"
+          ],
+          "description": "Official Disheera platform for career roadmaps, skill verification, and verified job placement.",
+          "publisher": {
+            "@id": "https://disheera.site/#organization"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://disheera.site/jobs?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "EducationalOrganization",
+          "@id": "https://disheera.site/#organization",
+          "name": "Disheera",
+          "alternateName": [
+            "Disheera AI",
+            "Disheera Technologies",
+            "Dis era",
+            "disheera.site"
+          ],
+          "legalName": "Disheera Technologies Inc.",
+          "url": "https://disheera.site/",
+          "logo": "https://disheera.site/assets/logo.svg",
+          "description": "Build job-ready skills with a personalized learning roadmap, guided practice, and shareable skill credentials.",
+          "founder": {
+            "@type": "Person",
+            "name": "Parth Patil"
+          },
+          "sameAs": [
+            "https://github.com/parthpatil1234p-svg/disheera"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://disheera.site/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Disheera?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Disheera is an autonomous career GPS and verified talent operating system. It provides students with personalized milestone roadmaps, diagnostic assessments, and cryptographic SHA-256 verified credentials for recruiters."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does skill verification work on Disheera?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Verification on Disheera combines hands-on GitHub project auditing with 30-minute proctored milestone assessments, issuing verifiable credentials that employers can validate instantly."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+  </head>
+
+  <body class="bg-canvas-white font-body-base text-body-base text-on-background antialiased selection:bg-blue-soft selection:text-primary-container">
+
+    <!-- ============================================================
+         FLOATING STITCH NOTCH NAVBAR
+         ============================================================ -->
+    <header class="fixed top-0 left-0 right-0 z-50 pt-4 px-margin-mobile md:px-margin pointer-events-none">
+      <div class="max-w-[1400px] mx-auto">
+        <div class="pointer-events-auto h-20 bg-surface-pure/95 backdrop-blur-xl border border-border-whisper rounded-full shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] px-space-md md:px-space-lg flex items-center justify-between gap-space-md">
+          
+          <!-- Brand Logo -->
+          <a class="flex items-center gap-space-sm group" href="/">
+            <img src="assets/logo.svg" alt="Disheera Compass" class="h-9 w-9 object-contain transition-transform group-hover:scale-105" />
+            <div class="flex flex-col">
+              <span class="font-headline-sm text-headline-sm text-on-background tracking-tight leading-none">Disheera</span>
+              <span class="font-caption text-caption text-slate-caption uppercase tracking-wider scale-90 -ml-1">Career GPS</span>
+            </div>
+          </a>
+
+          <!-- Center Navigation Links -->
+          <nav class="hidden lg:flex items-center gap-1 p-1 bg-surface-muted/70 rounded-full border border-border-whisper/80">
+            <a class="px-space-md py-2 transition-all bg-primary-container text-white font-body-sm-medium text-body-sm-medium rounded-full shadow-sm" href="#career-tracks">Career Tracks</a>
+            <a class="px-space-md py-2 rounded-full font-body-sm text-body-sm text-slate-caption hover:text-on-background hover:bg-surface-pure transition-all" href="/roadmap">Weekly Sprints</a>
+            <a class="px-space-md py-2 rounded-full font-body-sm text-body-sm text-slate-caption hover:text-on-background hover:bg-surface-pure transition-all" href="/passport">Career Passport</a>
+            <a class="px-space-md py-2 rounded-full font-body-sm text-body-sm text-slate-caption hover:text-on-background hover:bg-surface-pure transition-all" href="/recommendations">Market Radar</a>
+          </nav>
+
+          <!-- Right Action Controls -->
+          <div class="flex items-center gap-space-sm" id="navAuthCluster">
+            <a class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-border-outline rounded-xl bg-surface-pure font-body-sm-medium text-body-sm-medium text-slate-body hover:bg-canvas-white hover:border-slate-body transition-all active:-translate-y-px" href="/recruiter-dashboard">
+              Recruiter Portal
+            </a>
+            <a id="navPrimaryCta" class="inline-flex items-center justify-center px-5 py-2.5 bg-primary-container text-white font-body-sm-medium text-body-sm-medium rounded-xl hover:bg-primary shadow-[0_4px_12px_rgba(37,99,235,0.2)] transition-all active:-translate-y-px" href="/register">
+              Get Started Free
+            </a>
+            <a id="navUserAvatarPill" class="hidden w-9 h-9 rounded-full bg-blue-soft border border-primary-container text-primary-container font-headline-sm flex items-center justify-center shadow-sm" href="/dashboard" title="Go to Dashboard">
+              <span id="navAvatarInitial">U</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <main class="w-full pt-28">
+      <div class="flex flex-col w-full">
+
+        <!-- ============================================================
+             1. ASYMMETRIC HERO SECTION (7:5 SPLIT)
+             ============================================================ -->
+        <section class="max-w-[1400px] mx-auto px-margin-mobile md:px-margin pt-space-lg pb-space-2xl">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+            
+            <!-- Left Column: 7 cols -->
+            <div class="lg:col-span-7 flex flex-col gap-space-lg">
+              
+              <!-- Institutional Pill -->
+              <div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-blue-soft border border-primary-container/20 w-fit">
+                <span class="material-symbols-outlined text-[18px] text-primary-container icon-fill">verified_user</span>
+                <span class="font-body-sm-medium text-body-sm-medium text-primary-container">Disheera Official &bull; Career Planning Platform</span>
+              </div>
+
+              <!-- Headline -->
+              <div class="flex flex-col gap-space-sm">
+                <h1 class="font-display text-display tracking-tight text-on-background max-w-2xl text-balance">
+                  <span class="sr-only">Disheera — </span>Build skills. <span class="text-primary-container">Plan your next</span> career move.
+                </h1>
+                <p class="font-body-base text-body-base text-slate-body max-w-xl">
+                  Choose a target role, follow a personalized roadmap, and practice with guided projects. Keep your verified skills together in a shareable career passport.
+                </p>
+              </div>
+
+              <!-- Action Row -->
+              <div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+                <a href="/register" class="inline-flex items-center justify-center gap-space-xs px-6 py-3.5 bg-primary-container text-white font-body-sm-medium text-body-sm-medium rounded-xl hover:bg-primary shadow-[0_4px_14px_rgba(37,99,235,0.25)] transition-all active:-translate-y-px">
+                  <span>Start Free Skill Assessment</span>
+                  <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </a>
+                <a href="/verify" class="inline-flex items-center justify-center gap-space-xs px-6 py-3.5 bg-surface-pure border border-border-outline text-on-background font-body-sm-medium text-body-sm-medium rounded-xl hover:bg-surface-muted transition-all active:-translate-y-px">
+                  <span class="material-symbols-outlined text-[20px] text-slate-caption">fact_check</span>
+                  <span>Explore Verifiable Credentials</span>
+                </a>
+              </div>
+
+              <div class="mt-space-md pt-space-md border-t border-border-whisper flex flex-wrap items-center gap-x-5 gap-y-2 font-body-sm text-body-sm text-slate-caption" aria-label="Platform audiences">
+                <span>For students</span>
+                <span>For colleges</span>
+                <span>For recruiters</span>
+              </div>
+
+            </div>
+
+            <!-- Right Column: 5 cols (Career workflow preview) -->
+            <div class="lg:col-span-5 relative">
+              <div class="w-full bg-surface-pure rounded-2xl border border-border-whisper p-space-lg md:p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col gap-space-md">
+                <div class="pb-space-sm border-b border-border-whisper">
+                  <span class="font-caption text-caption uppercase tracking-wider text-primary-container">Your career workflow</span>
+                  <h2 class="mt-2 font-headline-md text-headline-md text-on-background">A clear path from learning to showing your skills</h2>
+                </div>
+                <ol class="m-0 flex flex-col gap-space-sm p-0 list-none">
+                  <li class="flex items-start gap-space-md rounded-xl border border-border-whisper bg-canvas-white p-space-md">
+                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-soft text-primary-container" aria-hidden="true"><span class="material-symbols-outlined">fact_check</span></span>
+                    <span class="flex flex-col"><strong class="font-body-sm-medium text-body-sm-medium text-on-background">Assess your skills</strong><span class="font-body-sm text-body-sm text-slate-caption">See where you are starting from.</span></span>
+                  </li>
+                  <li class="flex items-start gap-space-md rounded-xl border border-border-whisper bg-canvas-white p-space-md">
+                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-soft text-primary-container" aria-hidden="true"><span class="material-symbols-outlined">route</span></span>
+                    <span class="flex flex-col"><strong class="font-body-sm-medium text-body-sm-medium text-on-background">Follow a roadmap</strong><span class="font-body-sm text-body-sm text-slate-caption">Practice with guided milestones.</span></span>
+                  </li>
+                  <li class="flex items-start gap-space-md rounded-xl border border-border-whisper bg-canvas-white p-space-md">
+                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-soft text-primary-container" aria-hidden="true"><span class="material-symbols-outlined">workspace_premium</span></span>
+                    <span class="flex flex-col"><strong class="font-body-sm-medium text-body-sm-medium text-on-background">Share your progress</strong><span class="font-body-sm text-body-sm text-slate-caption">Keep verified skills in your passport.</span></span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================================
+             2. ASYMMETRIC BENTO GRID: CAREER TRACKS
+             ============================================================ -->
+        <section id="career-tracks" class="max-w-[1400px] mx-auto px-margin-mobile md:px-margin py-space-2xl border-t border-border-whisper">
+          
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-xl">
+            <div class="flex flex-col gap-space-xs max-w-xl">
+              <div class="inline-flex items-center gap-1 text-primary-container font-caption text-caption uppercase tracking-wider font-semibold">
+                <span class="material-symbols-outlined text-[16px]">radar</span>
+                Career learning paths
+              </div>
+              <h2 class="font-headline-lg text-headline-lg text-on-background">
+                Explore career tracks
+              </h2>
+              <p class="font-body-base text-body-base text-slate-body">
+                Explore in-demand roles, required skills, and hands-on milestones.
+              </p>
+            </div>
+          </div>
+
+          <!-- Asymmetric Bento Grid: 2 Large Primary, 2 Standard Secondary -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-lg">
+            
+            <!-- Bento 1: Full Stack Web (7 Cols) -->
+            <div class="lg:col-span-7 bg-surface-pure rounded-2xl border border-border-whisper p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col justify-between hover:border-primary-container transition-all">
+              <div class="flex flex-col gap-space-md">
+                <div class="flex items-start justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-xl bg-blue-soft border border-primary-container/20 flex items-center justify-center text-primary-container">
+                      <span class="material-symbols-outlined text-[24px]">terminal</span>
+                    </div>
+                    <div>
+                      <h3 class="font-headline-md text-headline-md text-on-background">Full Stack Web Engineering</h3>
+                      <span class="font-caption text-caption text-slate-caption">Frontend and backend development</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 pt-space-xs">
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Frontend</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Backend</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Node.js</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">APIs</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Databases</span>
+                </div>
+
+                <div class="p-space-md rounded-xl bg-canvas-white border border-border-whisper flex flex-col gap-2.5">
+                  <span class="font-caption text-caption text-slate-caption uppercase tracking-wider">Roadmap options</span>
+                  <span class="font-body-sm text-body-sm text-slate-body">Structured in 4, 8, or 12-week tracks matched to your schedule.</span>
+                </div>
+              </div>
+
+              <div class="pt-space-lg border-t border-border-whisper mt-space-lg flex items-center justify-between">
+                <a href="/roadmap?track=fullstack" class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-pure border border-border-outline rounded-xl font-body-sm-medium text-body-sm-medium text-on-background hover:bg-canvas-white hover:border-primary-container transition-all">
+                  <span>Preview Roadmap</span>
+                  <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Bento 2: AI & Data Engineering (5 Cols - High Placement Demand Highlight) -->
+            <div class="lg:col-span-5 bg-surface-pure rounded-2xl border-2 border-primary-container/30 p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col justify-between relative overflow-hidden">
+              <div class="absolute top-0 right-0">
+                <span class="inline-block px-3 py-1 bg-primary-container text-white font-caption text-caption font-semibold rounded-bl-xl uppercase tracking-wider">Career track</span>
+              </div>
+              <div class="flex flex-col gap-space-md pt-2">
+                <div class="flex items-start justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-soft border border-secondary/20 flex items-center justify-center text-secondary">
+                      <span class="material-symbols-outlined text-[24px]">psychology</span>
+                    </div>
+                    <div>
+                      <h3 class="font-headline-md text-headline-md text-on-background">AI &amp; Data Engineering</h3>
+                      <span class="font-caption text-caption text-slate-caption">Data and AI engineering</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Python</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">PyTorch</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Machine learning</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Data pipelines</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">AI applications</span>
+                </div>
+
+                <div class="p-space-md rounded-xl bg-blue-soft border border-primary-container/10 flex flex-col gap-1">
+                  <div class="flex items-center justify-between">
+                    <span class="font-caption text-caption text-primary-container font-semibold uppercase">Learning focus</span>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-slate-body">
+                    Build practical knowledge across data, machine learning, and AI-assisted applications.
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-space-lg border-t border-border-whisper mt-space-lg flex items-center justify-between">
+                <a href="/roadmap?track=ai_data" class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-container text-white rounded-xl font-body-sm-medium text-body-sm-medium hover:bg-primary shadow-sm transition-all">
+                  <span>Preview Roadmap</span>
+                  <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Bento 3: Cloud DevOps & SRE (6 Cols) -->
+            <div class="lg:col-span-6 bg-surface-pure rounded-2xl border border-border-whisper p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col justify-between hover:border-primary-container transition-all">
+              <div class="flex flex-col gap-space-md">
+                <div class="flex items-start justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-xl bg-surface-muted border border-border-whisper flex items-center justify-center text-on-background">
+                      <span class="material-symbols-outlined text-[24px]">cloud_sync</span>
+                    </div>
+                    <div>
+                      <h3 class="font-headline-md text-headline-md text-on-background">Cloud DevOps &amp; SRE</h3>
+                      <span class="font-caption text-caption text-slate-caption">Cloud systems and reliability</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Kubernetes</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Terraform</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">AWS Architecture</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Docker</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Prometheus &amp; Grafana</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-slate-body">
+                  Learn cloud deployment, monitoring, and reliability practices.
+                </p>
+              </div>
+              <div class="pt-space-lg border-t border-border-whisper mt-space-lg flex items-center justify-between">
+                <a href="/roadmap?track=devops" class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-pure border border-border-outline rounded-xl font-body-sm-medium text-body-sm-medium text-on-background hover:bg-canvas-white hover:border-primary-container transition-all">
+                  <span>Preview Roadmap</span>
+                  <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Bento 4: Cybersecurity & SecOps (6 Cols) -->
+            <div class="lg:col-span-6 bg-surface-pure rounded-2xl border border-border-whisper p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col justify-between hover:border-primary-container transition-all">
+              <div class="flex flex-col gap-space-md">
+                <div class="flex items-start justify-between gap-space-sm">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-xl bg-surface-muted border border-border-whisper flex items-center justify-center text-on-background">
+                      <span class="material-symbols-outlined text-[24px]">security</span>
+                    </div>
+                    <div>
+                      <h3 class="font-headline-md text-headline-md text-on-background">Cybersecurity &amp; SecOps</h3>
+                      <span class="font-caption text-caption text-slate-caption">Security fundamentals and operations</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Wireshark</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">SIEM Analytics</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">OWASP Top 10</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Linux Kernel Auditing</span>
+                  <span class="px-2.5 py-1 rounded-md bg-canvas-white border border-border-whisper font-body-sm text-body-sm text-slate-body font-medium">Burp Suite</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-slate-body">
+                  Build foundations in application security, threat monitoring, and incident response.
+                </p>
+              </div>
+              <div class="pt-space-lg border-t border-border-whisper mt-space-lg flex items-center justify-between">
+                <a href="/roadmap?track=cybersecurity" class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-pure border border-border-outline rounded-xl font-body-sm-medium text-body-sm-medium text-on-background hover:bg-canvas-white hover:border-primary-container transition-all">
+                  <span>Preview Roadmap</span>
+                  <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================================
+             3. BILATERAL TRUST INFRASTRUCTURE (DUAL GATEWAY)
+             ============================================================ -->
+        <section class="max-w-[1400px] mx-auto px-margin-mobile md:px-margin py-space-2xl border-t border-border-whisper">
+          <div class="text-center max-w-3xl mx-auto mb-space-xl flex flex-col gap-space-xs">
+            <span class="font-caption text-caption uppercase text-primary-container tracking-wider font-semibold">One platform for different goals</span>
+            <h2 class="font-headline-lg text-headline-lg text-on-background">
+              Learn, verify, and connect
+            </h2>
+            <p class="font-body-base text-body-base text-slate-body">
+              Students build and demonstrate skills. Colleges and recruiters can use the same verified evidence to support career decisions.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl">
+            
+            <!-- Portal Card 1: For Students & Career Switchers -->
+            <div class="bg-surface-pure rounded-2xl border border-border-whisper p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col justify-between">
+              <div class="flex flex-col gap-space-lg">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-full bg-blue-soft border border-primary-container/20 text-primary-container font-caption text-caption font-semibold uppercase tracking-wider">
+                    Student workspace
+                  </span>
+                  <span class="material-symbols-outlined text-primary-container text-[28px]">explore</span>
+                </div>
+                <div class="flex flex-col gap-space-xs">
+                  <h3 class="font-headline-md text-headline-md text-on-background">For Students &amp; Career Switchers</h3>
+                  <p class="font-body-sm text-body-sm text-slate-body">
+                    Set a career goal and use a roadmap to organize your learning and practice.
+                  </p>
+                </div>
+                <div class="space-y-space-md">
+                  <div class="flex items-start gap-space-md">
+                    <div class="w-8 h-8 rounded-lg bg-blue-soft text-primary-container flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="material-symbols-outlined text-[18px]">alt_route</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-body-sm-medium text-body-sm-medium text-on-background">Personalized roadmaps</span>
+                      <span class="font-body-sm text-body-sm text-slate-body">Follow a learning plan based on your skills and target role.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-space-md">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-soft text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="material-symbols-outlined text-[18px]">chat</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-body-sm-medium text-body-sm-medium text-on-background">Guided practice</span>
+                      <span class="font-body-sm text-body-sm text-slate-body">Work through assignments and milestone activities as you learn.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-space-md">
+                    <div class="w-8 h-8 rounded-lg bg-canvas-white text-slate-caption border border-border-whisper flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="material-symbols-outlined text-[18px]">badge</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-body-sm-medium text-body-sm-medium text-on-background">Career passport</span>
+                      <span class="font-body-sm text-body-sm text-slate-body">Keep your verified skills and career progress together.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-space-xl mt-space-lg border-t border-border-whisper">
+                <a href="/register" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary-container text-white font-body-sm-medium text-body-sm-medium rounded-xl hover:bg-primary shadow-sm transition-all active:-translate-y-px">
+                  <span>Create a student account</span>
+                  <span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Portal Card 2: For Recruiters & University TPOs -->
+            <div class="bg-surface-pure rounded-2xl border border-border-whisper p-space-xl shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] flex flex-col justify-between">
+              <div class="flex flex-col gap-space-lg">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-full bg-emerald-soft border border-secondary-fixed text-on-secondary-container font-caption text-caption font-semibold uppercase tracking-wider">
+                    Recruiter and college tools
+                  </span>
+                  <span class="material-symbols-outlined text-secondary text-[28px]">domain_verification</span>
+                </div>
+                <div class="flex flex-col gap-space-xs">
+                  <h3 class="font-headline-md text-headline-md text-on-background">For Recruiters &amp; University TPOs</h3>
+                  <p class="font-body-sm text-body-sm text-slate-body">
+                    Review candidate profiles and skill evidence to support your hiring and placement work.
+                  </p>
+                </div>
+                <div class="space-y-space-md">
+                  <div class="flex items-start gap-space-md">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-soft text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="material-symbols-outlined text-[18px]">rule</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-body-sm-medium text-body-sm-medium text-on-background">Candidate profiles</span>
+                      <span class="font-body-sm text-body-sm text-slate-body">Review a candidate’s background, skills, and learning progress.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-space-md">
+                    <div class="w-8 h-8 rounded-lg bg-blue-soft text-primary-container flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="material-symbols-outlined text-[18px]">verified</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-body-sm-medium text-body-sm-medium text-on-background">Verified skill evidence</span>
+                      <span class="font-body-sm text-body-sm text-slate-body">Explore skills assessed through GitHub work and proctored exams.</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-space-md">
+                    <div class="w-8 h-8 rounded-lg bg-canvas-white text-slate-caption border border-border-whisper flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="material-symbols-outlined text-[18px]">filter_alt</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-body-sm-medium text-body-sm-medium text-on-background">Candidate discovery</span>
+                      <span class="font-body-sm text-body-sm text-slate-body">Find profiles that fit your hiring or placement needs.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-space-xl mt-space-lg border-t border-border-whisper">
+                <a href="/recruiter-dashboard" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-surface-pure border border-border-outline text-on-background font-body-sm-medium text-body-sm-medium rounded-xl hover:bg-canvas-white hover:border-slate-body transition-all active:-translate-y-px">
+                  <span>Open recruiter portal</span>
+                  <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================================
+             4. INSTITUTIONAL ASSURANCE STRIP
+             ============================================================ -->
+        <section class="max-w-[1400px] mx-auto px-margin-mobile md:px-margin pb-space-2xl">
+          <div class="rounded-2xl bg-canvas-white border border-border-whisper p-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md">
+            <div class="flex items-center gap-space-md">
+              <div class="w-12 h-12 rounded-xl bg-blue-soft text-primary-container flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-[24px]">school</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-headline-sm text-on-background">How skill verification works</span>
+                <span class="font-body-sm text-body-sm text-slate-caption">Verification combines GitHub work with proctored assessments.</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-space-sm">
+              <a class="px-4 py-2 rounded-lg bg-surface-pure border border-border-whisper font-body-sm-medium text-body-sm-medium text-slate-body hover:text-on-background hover:border-primary-container transition-colors" href="/verify">
+                Verify a Credential
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="w-full bg-canvas-white border-t border-border-whisper mt-space-2xl">
+      <div class="max-w-[1400px] mx-auto px-margin-mobile md:px-margin py-space-2xl">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-xl pb-space-xl border-b border-border-whisper">
+          <div class="flex flex-col gap-space-xs max-w-md">
+            <div class="flex items-center gap-space-sm">
+              <img src="assets/logo.svg" alt="Disheera" class="h-8 w-8 object-contain" />
+              <span class="font-headline-sm text-headline-sm text-on-background tracking-tight">Disheera</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-slate-body">
+              Personalized career roadmaps, guided practice, and verified skills for students, colleges, and recruiters.
+            </p>
+          </div>
+        </div>
+        <div class="py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md">
+          <div class="flex flex-wrap items-center gap-x-space-lg gap-y-space-xs">
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="#career-tracks">Tracks</a>
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="/verify">Credentials</a>
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="/passport">Career Passport</a>
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="/recruiter-dashboard">For Recruiters</a>
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="/privacy">Privacy</a>
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="/terms">Terms</a>
+            <a class="font-body-sm text-body-sm text-slate-caption hover:text-on-background transition-colors" href="/security">Security</a>
+            <a class="font-body-sm text-body-sm text-secondary hover:text-on-background transition-colors font-medium flex items-center gap-1" href="https://wa.me/917499085045" target="_blank">
+              WhatsApp Support
+            </a>
+          </div>
+          <div class="font-caption text-caption text-slate-caption text-center md:text-right">
+            &copy; 2026 Disheera Technologies Inc. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Client Auth State Synchronizer & Maintenance Guard -->
+    <script>
+      (function() {
+        try {
+          var token = localStorage.getItem('careerpath_token');
+          var rawUser = localStorage.getItem('careerpath_user');
+          if (token && rawUser) {
+            var user = JSON.parse(rawUser);
+            var primaryCta = document.getElementById('navPrimaryCta');
+            var avatarPill = document.getElementById('navUserAvatarPill');
+            var avatarInitial = document.getElementById('navAvatarInitial');
+            if (primaryCta) {
+              primaryCta.textContent = 'Open Dashboard';
+              primaryCta.href = 'dashboard.html';
+            }
+            if (avatarPill && user) {
+              var name = user.name || user.email || 'User';
+              if (avatarInitial) avatarInitial.textContent = name.charAt(0).toUpperCase();
+              avatarPill.classList.remove('hidden');
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/maintenance-guard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Disheera Technologies Inc.
+  Licensed under the GNU Affero General Public License v3.0 or later.
+  See the LICENSE file for details.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Official Public Credential Verification Portal - Disheera Global Accreditation Registry"
+    />
+    <meta name="theme-color" content="#2563EB" />
+    <title>Official Credential Verification - Disheera</title>
+
+    <!-- Machine-Readable Context & WebMCP Discovery Declarations -->
+    <link rel="alternate" type="text/markdown" href="https://disheera.site/llms.txt" title="LLM Machine-Readable Context Manifest" />
+    <link rel="alternate" type="application/json" href="https://disheera.site/mcp-actions.json" title="WebMCP Actions Discovery Endpoint" />
+    <link rel="alternate" type="application/json" href="https://disheera.site/.well-known/mcp-actions.json" title="Well-Known WebMCP Agent Actions" />
+
+    <!-- Canonical URL (Technical SEO) -->
+    <link rel="canonical" href="https://disheera.site/verify" />
+
+    <!-- Baidu (百度) Mobile Adaptation -->
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://disheera.site/verify" />
+    <meta property="og:title" content="Official Credential Verification - Disheera" />
+    <meta property="og:description" content="Verify authentic SHA-256 cryptographic milestone certifications issued by Disheera Technologies Inc." />
+    <meta property="og:image" content="https://disheera.site/favicon.svg" />
+
+    <!-- BreadcrumbList & Credential Verification Service Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://disheera.site/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Public Credential Registry",
+              "item": "https://disheera.site/verify.html"
+            }
+          ]
+        },
+        {
+          "@type": "Service",
+          "@id": "https://disheera.site/verify.html#service",
+          "name": "Disheera Cryptographic Credential Authentication Registry",
+          "description": "Instant public validation of tamper-proof, SHA-256 cryptographic milestone certificates and student skill passports issued by Disheera Technologies Inc.",
+          "provider": {
+            "@type": "EducationalOrganization",
+            "name": "Disheera",
+            "sameAs": "https://disheera.site/"
+          },
+          "serviceType": "Certificate Verification & Proctored Skill Authentication",
+          "url": "https://disheera.site/verify.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Favicon & PWA Manifest -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Google Fonts: Cinzel, Playfair Display, Outfit, Inter -->
+
+
+
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css?v=4.0" />
+    <link rel="stylesheet" href="css/dashboard.css?v=4.0" />
+
+    <style>
+      body.verify-page {
+        background-color: #F8FAFC;
+        background-image: 
+          radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.06) 0%, transparent 60%),
+          radial-gradient(circle at 100% 100%, rgba(14, 165, 233, 0.04) 0%, transparent 50%);
+        color: #1E293B;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .verify-nav {
+        border-bottom: 1px solid #E2E8F0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+      }
+
+      .verify-lookup-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 14px;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      }
+
+      .ledger-audit-box {
+        background: #FFFFFF;
+        border: 1.5px solid #BFDBFE;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.08);
+      }
+
+      .status-pill-authentic {
+        background: #ECFDF5;
+        border: 1.5px solid #10B981;
+        color: #065F46;
+        font-family: var(--font-mono);
+        font-feature-settings: "zero" 0;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-size: 0.82rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+      }
+
+      .status-pill-invalid {
+        background: #FEF2F2;
+        border: 1.5px solid #EF4444;
+        color: #991B1B;
+        font-family: var(--font-mono);
+        font-feature-settings: "zero" 0;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-size: 0.82rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+      }
+
+      .verify-meta-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #64748B;
+        font-family: var(--font-mono);
+        font-feature-settings: "zero" 0;
+      }
+
+      .verify-meta-val {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #0F172A;
+      }
+
+      .verify-card-cert {
+        max-width: 1120px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .hash-block {
+        font-family: var(--font-code, monospace);
+        font-feature-settings: "zero" 0;
+        font-size: 0.72rem;
+        background: #F1F5F9;
+        border: 1px dashed #CBD5E1;
+        padding: 0.4rem 0.75rem;
+        border-radius: 6px;
+        color: #1E293B;
+        word-break: break-all;
+      }
+    </style>
+
+    <!-- Vercel Web Analytics (@vercel/analytics) -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Open Domains Analytics -->
+    <script defer src="https://analytics.open-domains.com/script.js" data-website-id="3896a469-edf4-4b58-b379-209d5b3c9e1f"></script>
+  <link rel="stylesheet" href="css/tokens.css">
+</head>
+
+  <body class="verify-page d-flex flex-column">
+    <!-- Top Navigation -->
+    <header class="verify-nav py-3 sticky-top">
+      <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <a href="index.html" class="d-flex align-items-center text-decoration-none text-dark gap-2">
+          <img src="assets/logo.svg" alt="Disheera" width="36" height="36" />
+          <span class="fs-5 fw-bold font-monospace text-ink">Dishe<span class="text-primary">era</span></span>
+          <span class="badge bg-primary bg-opacity-10 text-primary font-monospace small ms-2 border border-primary border-opacity-25">
+            <i class="bi bi-shield-lock-fill me-1"></i> Public Registry
+          </span>
+        </a>
+
+        <!-- Lookup Search Form in Header (WebMCP Annotated) -->
+        <form id="verifySearchForm" class="d-flex align-items-center gap-2 m-0" style="max-width: 380px;" data-mcp-action="verify_credential" data-mcp-description="Cryptographically verify milestone certificate by identifier" data-mcp-params='{"certificateId": "#inputCertId", "targetUrl": "/verify.html", "method": "GET"}'>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-light border-line text-secondary font-mono">ID:</span>
+            <input
+              type="text"
+              id="inputCertId"
+              class="form-control form-control-sm bg-white text-ink border-line font-mono"
+              placeholder="Enter credential ID"
+              required
+              data-mcp-param="certificateId"
+            />
+            <button class="btn cp-btn-primary btn-sm fw-semibold" type="submit" data-mcp-trigger="verify_credential">
+              <i class="bi bi-search me-1"></i> Verify
+            </button>
+          </div>
+        </form>
+      </div>
+    </header>
+
+    <!-- Main Verification Body -->
+    <main class="container py-4 py-md-5 flex-grow-1">
+      <section id="verifyIdleState" class="text-center py-5" role="status" aria-live="polite">
+        <div class="card p-4 mx-auto verify-lookup-card border-line">
+          <div class="mb-3" aria-hidden="true">
+            <i class="bi bi-search text-primary display-4"></i>
+          </div>
+          <h2 class="h4 fw-bold text-ink mb-2">Verify a credential</h2>
+          <p class="text-secondary small mb-0">Enter a credential ID above to see its verification status.</p>
+        </div>
+      </section>
+
+      <!-- Loading State -->
+      <div id="verifyLoadingState" class="text-center py-5 d-none">
+        <div class="spinner-border text-warning mb-3" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Auditing Cryptographic Ledger...</span>
+        </div>
+        <h2 class="h5 fw-bold text-ink mb-1">Querying Disheera Public Ledger...</h2>
+        <p class="text-secondary small font-mono">Auditing SHA-256 seal &middot; Checking tamper-proof signature &middot; Verifying role competencies</p>
+      </div>
+
+      <!-- Error / Invalid State -->
+      <div id="verifyErrorState" class="d-none text-center py-5">
+        <div class="card p-4 mx-auto verify-lookup-card border-danger border-opacity-50" style="max-width: 580px;">
+          <div class="mb-3">
+            <i class="bi bi-shield-x text-danger display-4"></i>
+          </div>
+          <div class="status-pill-invalid d-inline-block mx-auto mb-3">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i> INVALID OR UNREGISTERED CREDENTIAL
+          </div>
+          <h2 class="h4 fw-bold text-ink mb-2">No Matching Credential Found</h2>
+          <p class="text-secondary small mb-4" id="errorMessageText">
+            The credential identifier does not match any authenticated record in the official registry ledger. Please verify the ID for typographical errors.
+          </p>
+          <div class="d-flex justify-content-center gap-2">
+            <a href="index.html" class="btn cp-btn-outline btn-sm">
+              <i class="bi bi-house me-1"></i> Return Home
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Verified Credential Container -->
+      <div id="verifySuccessState" class="d-none">
+        <!-- Top Status Banner -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4 p-3 rounded-3 ledger-audit-box">
+          <div class="d-flex align-items-center gap-3">
+            <div class="fs-1 text-success">
+              <i class="bi bi-patch-check-fill"></i>
+            </div>
+            <div>
+              <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                <span class="status-pill-authentic">
+                  <i class="bi bi-check-circle-fill me-1"></i> VERIFIED ACTIVE & AUTHENTIC
+                </span>
+                <span class="badge bg-secondary bg-opacity-25 text-info font-mono small" id="metaCertId">
+                  ID: —
+                </span>
+              </div>
+              <div class="text-secondary small font-mono">
+                Credential record issued by Disheera.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <button type="button" class="btn cp-btn-outline btn-sm px-3" id="btnToggleVerifyCertTheme" title="Toggle Parchment / Dark Obsidian Theme">
+              <i class="bi bi-moon-stars-fill me-1"></i> <span id="verifyThemeText">Dark Obsidian</span>
+            </button>
+            <button type="button" class="btn cp-btn-outline btn-sm px-3" id="btnCopyRecord">
+              <i class="bi bi-clipboard-check me-1"></i> Copy Record
+            </button>
+            <button type="button" class="btn cp-btn-outline btn-sm px-3" id="btnAddLinkedIn">
+              <i class="bi bi-linkedin text-info me-1"></i> Add to LinkedIn
+            </button>
+            <button type="button" class="btn cp-btn-primary btn-sm px-3 fw-semibold" id="btnPrintVerifyCertPdf" onclick="window.printCertificate ? window.printCertificate() : window.print()">
+              <i class="bi bi-printer-fill me-1"></i> Print / PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- The Elevated Ivy-League Certificate Presentation -->
+        <div class="verify-card-cert mb-5">
+          <div class="official-certificate-container" id="printableCertificate">
+            <!-- Outer & Inner Framed Borders -->
+            <div class="cert-frame-outer"></div>
+            <div class="cert-frame-inner"></div>
+
+            <!-- Top-Right Luxury Navy & Gold Corner Waves -->
+            <div class="cert-corner-wave cert-wave-tr" aria-hidden="true">
+              <svg viewBox="0 0 380 280" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                <defs>
+                  <linearGradient id="certNavyGradTR" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#081A32" />
+                    <stop offset="55%" stop-color="#0D2E55" />
+                    <stop offset="100%" stop-color="#040D1A" />
+                  </linearGradient>
+                  <linearGradient id="certGoldGradTR" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FDE68A" />
+                    <stop offset="30%" stop-color="#D4AF37" />
+                    <stop offset="70%" stop-color="#B48C36" />
+                    <stop offset="100%" stop-color="#F59E0B" />
+                  </linearGradient>
+                  <linearGradient id="certAccentBlueTR" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1E3A8A" />
+                    <stop offset="100%" stop-color="#0F172A" />
+                  </linearGradient>
+                </defs>
+                <path d="M40 0 C170 30 280 110 355 210 Q372 245 380 280 L380 0 Z" fill="#020617" opacity="0.4" />
+                <path d="M75 0 C195 32 295 115 365 215 Q375 248 380 275 L380 0 Z" fill="url(#certAccentBlueTR)" opacity="0.9" />
+                <path d="M110 0 C220 38 312 122 372 222 Q377 245 380 262 L380 245 Q375 225 368 205 C305 108 215 26 100 0 Z" fill="url(#certGoldGradTR)" />
+                <path d="M130 0 C235 42 322 128 376 228 Q379 242 380 252 L380 0 Z" fill="url(#certNavyGradTR)" />
+                <path d="M130 0 C235 42 322 128 376 228 Q379 242 380 252" stroke="url(#certGoldGradTR)" stroke-width="2.5" fill="none" />
+              </svg>
+            </div>
+
+            <!-- Bottom-Left Luxury Navy & Gold Corner Waves -->
+            <div class="cert-corner-wave cert-wave-bl" aria-hidden="true">
+              <svg viewBox="0 0 380 280" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                <defs>
+                  <linearGradient id="certNavyGradBL" x1="100%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#081A32" />
+                    <stop offset="55%" stop-color="#0D2E55" />
+                    <stop offset="100%" stop-color="#040D1A" />
+                  </linearGradient>
+                  <linearGradient id="certGoldGradBL" x1="100%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#FDE68A" />
+                    <stop offset="30%" stop-color="#D4AF37" />
+                    <stop offset="70%" stop-color="#B48C36" />
+                    <stop offset="100%" stop-color="#F59E0B" />
+                  </linearGradient>
+                  <linearGradient id="certAccentBlueBL" x1="100%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#1E3A8A" />
+                    <stop offset="100%" stop-color="#0F172A" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 40 C30 130 90 200 170 245 Q210 268 280 280 L0 280 Z" fill="#020617" opacity="0.4" />
+                <path d="M0 65 C40 145 105 215 185 255 Q225 272 275 280 L0 280 Z" fill="url(#certAccentBlueBL)" opacity="0.9" />
+                <path d="M0 90 C50 160 120 230 200 265 Q235 275 262 280 L245 280 Q215 272 185 255 C115 215 50 145 0 75 Z" fill="url(#certGoldGradBL)" />
+                <path d="M0 105 C60 175 130 240 210 270 Q235 276 252 280 L0 280 Z" fill="url(#certNavyGradBL)" />
+                <path d="M0 105 C60 175 130 240 210 270 Q235 276 252 280" stroke="url(#certGoldGradBL)" stroke-width="2.5" fill="none" />
+              </svg>
+            </div>
+
+            <!-- Vintage Filigree Corner Ornaments (Sized strictly to prevent overflow) -->
+            <svg class="cert-filigree-corner cert-fc-tl" width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 64px !important; height: 64px !important; max-width: 64px !important; max-height: 64px !important;">
+              <path d="M6 6 C24 6 28 22 18 30 C12 36 6 26 18 20 C30 14 42 28 30 42 C20 52 10 38 24 30" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <path d="M6 6 C6 24 22 28 30 18 C36 12 26 6 20 18 C14 30 28 42 42 30 C52 20 38 10 30 24" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <circle cx="6" cy="6" r="3" fill="#D4AF37" />
+              <circle cx="28" cy="14" r="2" fill="#D4AF37" />
+              <circle cx="14" cy="28" r="2" fill="#D4AF37" />
+              <path d="M3 3 L65 3 M3 3 L3 65" stroke="#C79848" stroke-width="1.5" />
+            </svg>
+            <svg class="cert-filigree-corner cert-fc-tr" width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 64px !important; height: 64px !important; max-width: 64px !important; max-height: 64px !important;">
+              <path d="M6 6 C24 6 28 22 18 30 C12 36 6 26 18 20 C30 14 42 28 30 42 C20 52 10 38 24 30" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <path d="M6 6 C6 24 22 28 30 18 C36 12 26 6 20 18 C14 30 28 42 42 30 C52 20 38 10 30 24" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <circle cx="6" cy="6" r="3" fill="#D4AF37" />
+              <circle cx="28" cy="14" r="2" fill="#D4AF37" />
+              <circle cx="14" cy="28" r="2" fill="#D4AF37" />
+              <path d="M3 3 L65 3 M3 3 L3 65" stroke="#C79848" stroke-width="1.5" />
+            </svg>
+            <svg class="cert-filigree-corner cert-fc-bl" width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 64px !important; height: 64px !important; max-width: 64px !important; max-height: 64px !important;">
+              <path d="M6 6 C24 6 28 22 18 30 C12 36 6 26 18 20 C30 14 42 28 30 42 C20 52 10 38 24 30" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <path d="M6 6 C6 24 22 28 30 18 C36 12 26 6 20 18 C14 30 28 42 42 30 C52 20 38 10 30 24" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <circle cx="6" cy="6" r="3" fill="#D4AF37" />
+              <circle cx="28" cy="14" r="2" fill="#D4AF37" />
+              <circle cx="14" cy="28" r="2" fill="#D4AF37" />
+              <path d="M3 3 L65 3 M3 3 L3 65" stroke="#C79848" stroke-width="1.5" />
+            </svg>
+            <svg class="cert-filigree-corner cert-fc-br" width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 64px !important; height: 64px !important; max-width: 64px !important; max-height: 64px !important;">
+              <path d="M6 6 C24 6 28 22 18 30 C12 36 6 26 18 20 C30 14 42 28 30 42 C20 52 10 38 24 30" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <path d="M6 6 C6 24 22 28 30 18 C36 12 26 6 20 18 C14 30 28 42 42 30 C52 20 38 10 30 24" stroke="#C79848" stroke-width="1.3" fill="none" />
+              <circle cx="6" cy="6" r="3" fill="#D4AF37" />
+              <circle cx="28" cy="14" r="2" fill="#D4AF37" />
+              <circle cx="14" cy="28" r="2" fill="#D4AF37" />
+              <path d="M3 3 L65 3 M3 3 L3 65" stroke="#C79848" stroke-width="1.5" />
+            </svg>
+
+            <!-- Main Content Body -->
+            <div class="cert-content">
+              <div class="cert-header-section">
+                <h1 class="cert-main-title">CERTIFICATE</h1>
+                <div class="cert-main-subtitle">of Job Readiness</div>
+                <div class="cert-presented-to">Presented to:</div>
+                <h2 class="cert-recipient-name" id="verifiedStudentName">—</h2>
+                <p class="cert-attestation-body mx-auto">
+                  A record of the verified skills and milestones associated with this credential.
+                </p>
+                <div class="cert-target-role" id="verifiedRoleTitle">—</div>
+              </div>
+
+              <!-- Executive 4-Pillar Scorecard -->
+              <div class="cert-scorecard-box p-2 text-start">
+                <div class="d-flex align-items-center justify-content-between mb-1.5 pb-1 border-bottom border-amber-subtle">
+                  <span class="cert-scorecard-label">
+                    <i class="bi bi-shield-check text-success me-1"></i> VERIFIED HIRING BENCHMARK SCORECARD
+                  </span>
+                  <span class="font-mono text-dark fw-bold small" id="verifiedScoreBadge">—</span>
+                </div>
+
+                <!-- 4 Micro Benchmark Progress Columns -->
+                <div class="row g-1.5 text-center my-1">
+                  <div class="col-6 col-md-3">
+                    <div class="cert-metric-pill">
+                      <div class="cert-metric-label">🎯 Skills Mastered</div>
+                      <div class="cert-metric-val" id="metricSkills">—</div>
+                      <div class="cert-metric-sub">Code Verified ✓</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="cert-metric-pill">
+                      <div class="cert-metric-label">🗺️ Roadmap Progress</div>
+                      <div class="cert-metric-val" id="metricRoadmap">—</div>
+                      <div class="cert-metric-sub">Milestones Passed ✓</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="cert-metric-pill">
+                      <div class="cert-metric-label">📄 ATS Resume Fit</div>
+                      <div class="cert-metric-val" id="metricResume">—</div>
+                      <div class="cert-metric-sub">Strict Structure ✓</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="cert-metric-pill">
+                      <div class="cert-metric-label">🎙️ Technical Interview</div>
+                      <div class="cert-metric-val" id="metricInterview">—</div>
+                      <div class="cert-metric-sub">Voice / Q&amp;A Passed ✓</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Role-Specific Verified Competency Badges -->
+                <div class="mt-1.5 pt-1.5 border-top border-amber-subtle d-flex align-items-center justify-content-between flex-wrap gap-2">
+                  <div class="d-flex align-items-center flex-wrap gap-1">
+                    <span class="cert-scorecard-label me-1">VERIFIED ROLE COMPETENCIES:</span>
+                    <div class="d-inline-flex flex-wrap gap-1 align-items-center" id="verifiedSkillsContainer">
+                      <!-- Injected dynamically -->
+                    </div>
+                  </div>
+                  <span class="cert-competency-status-badge">
+                    <i class="bi bi-shield-check text-success me-1"></i> Verified skills
+                  </span>
+                </div>
+              </div>
+
+              <!-- Footer Signatures & Medal Centerpiece -->
+              <div class="cert-footer-row">
+                <div class="cert-footer-col cert-footer-left">
+                  <div class="cert-footer-label">Authorized By:</div>
+                  <div class="cert-footer-val">Disheera</div>
+                  <div class="cert-signature-line">
+                    <div class="cert-signature-svg" id="signatoryName1">Disheera Authorized Representative</div>
+                  </div>
+                  <div class="cert-signatory-name">Disheera Authorized Representative</div>
+                  <div class="cert-signatory-title">Credential Issuer</div>
+                </div>
+
+                <div class="cert-footer-col cert-footer-center">
+                  <div class="d-flex align-items-center justify-content-center gap-3">
+                    <div class="cert-rosette-medal-wrapper" title="Authentic Job-Ready Gold Medallion">
+                      <div class="cert-rosette-medal" title="Authentic Cryptographic Seal">
+                        <div class="medal-inner-ring">
+                          <i class="bi bi-patch-check-fill"></i>
+                          <span class="medal-inner-text">VERIFIED</span>
+                        </div>
+                      </div>
+                      <div class="cert-rosette-ribbon cert-rosette-ribbon-left"></div>
+                      <div class="cert-rosette-ribbon cert-rosette-ribbon-right"></div>
+                    </div>
+
+                    <div class="text-center">
+                      <div class="cert-qr-frame">
+                        <img id="verifiedQrImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect width='50' height='50' fill='%23f1f5f9' rx='4'/%3E%3C/svg%3E" alt="Verification QR" width="50" height="50" class="cert-qr-img" />
+                      </div>
+                      <div class="cert-qr-caption mt-0.5">
+                        <i class="bi bi-qr-code-scan me-1 text-primary"></i> Scan with mobile camera
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cert-footer-col cert-footer-right">
+                  <div class="cert-footer-label">Date:</div>
+                  <div class="cert-footer-val" id="verifiedIssueDate">—</div>
+                  <div class="cert-meta-item mt-1">ID: <strong class="font-mono" id="verifiedIdText">—</strong></div>
+                  <div class="cert-meta-item">
+                    SHA-256: <span id="verifiedShaHash" class="cert-sha-hash font-mono">—</span>
+                  </div>
+                  <div class="cert-meta-item text-success fw-semibold mt-1">
+                    <i class="bi bi-patch-check-fill me-1"></i> Cryptographically Grounded
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ledger Audit Details Table for Recruiters -->
+        <div class="card p-4 verify-lookup-card mb-4">
+          <h3 class="h5 fw-bold text-ink mb-3 d-flex align-items-center gap-2">
+            <i class="bi bi-journal-code text-warning"></i>
+            <span>Cryptographic Ledger Audit Breakdown (For Employers &amp; HR)</span>
+          </h3>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="p-3 rounded-2 bg-light border border-line h-100">
+                <div class="verify-meta-label mb-1">Candidate Profile</div>
+                <div class="verify-meta-val" id="auditCandidate">—</div>
+                <div class="text-secondary small mt-1">Verified via institutional email and authenticated session check.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 rounded-2 bg-light border border-line h-100">
+                <div class="verify-meta-label mb-1">Target Professional Track</div>
+                <div class="verify-meta-val text-info" id="auditRole">—</div>
+                <div class="text-secondary small mt-1">Based on the skills and milestones recorded for this credential.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 rounded-2 bg-light border border-line h-100">
+                <div class="verify-meta-label mb-1">Issuing Authority</div>
+                <div class="verify-meta-val" id="auditIssuer">Disheera</div>
+                <div class="text-secondary small mt-1">Credential information supplied by Disheera.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 rounded-2 bg-light border border-line h-100">
+                <div class="verify-meta-label mb-1">Tamper-Proof Checksum (SHA-256)</div>
+                <div class="hash-block" id="auditHash">—</div>
+                <div class="text-secondary small mt-1">Deterministic hash computed across ID, candidate, role, and timestamp.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 text-center text-secondary small border-top border-line bg-white">
+      <div class="container">
+        <div class="mb-1">&copy; 2026 Disheera &middot; Verified Talent Credential Protocol &middot; All Rights Reserved.</div>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="terms.html" class="text-secondary text-decoration-none hover-primary">Terms of Service</a> &bull;
+          <a href="privacy.html" class="text-secondary text-decoration-none hover-primary">Privacy Policy</a> &bull;
+          <a href="security.html" class="text-secondary text-decoration-none hover-primary">Security Architecture</a> &bull;
+          <a href="https://wa.me/917499085045" target="_blank" class="text-success text-decoration-none hover-primary"><i class="bi bi-whatsapp me-1"></i>WhatsApp: 7499085045</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Verification Controller -->
+    <script src="js/verify.js?v=3.9"></script>
+  </body>
+</html>

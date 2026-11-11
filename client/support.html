@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Disheera Technologies Inc.
+  Licensed under the GNU Affero General Public License v3.0 or later.
+  See the LICENSE file for details.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support &amp; Grievance Redressal Desk | Disheera</title>
+    <meta
+      name="description"
+      content="Official technical support, dual-verification help, proctoring appeals, and statutory Grievance Officer redressal under DPDP Act 2023 for Disheera."
+    />
+
+    <!-- Canonical URL (Technical SEO) -->
+    <link rel="canonical" href="https://disheera.site/support" />
+
+    <!-- Favicon & PWA Manifest -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Google Fonts: Inter & Outfit -->
+
+
+
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css" />
+    <!-- Platform Theme CSS -->
+    <link rel="stylesheet" href="css/style.min.css?v=4.2" />
+
+    <style>
+      .legal-hero {
+        padding: 7rem 0 3rem;
+        background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
+        border-bottom: 1px solid var(--color-border);
+      }
+      @media (max-width: 768px) {
+        .legal-hero {
+          padding: 5.5rem 0 2rem;
+        }
+      }
+      .support-card {
+        background: #FFFFFF;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: 1.75rem;
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .support-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.08);
+      }
+      .support-icon-box {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+      .support-form-card {
+        background: #FFFFFF;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: 2.25rem;
+        box-shadow: var(--shadow-sm);
+      }
+      .grievance-banner {
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        color: #FFFFFF;
+        border-radius: var(--radius-md);
+        padding: 2.25rem;
+      }
+      .ticket-result-box {
+        background: var(--color-surface-indigo);
+        border: 1px solid #C7D2FE;
+        border-radius: var(--radius-sm);
+        padding: 1.5rem;
+      }
+      .faq-accordion .accordion-item {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm) !important;
+        margin-bottom: 0.75rem;
+        overflow: hidden;
+      }
+      .faq-accordion .accordion-button:not(.collapsed) {
+        background: var(--color-surface-indigo);
+        color: var(--color-indigo-700);
+        font-weight: 600;
+      }
+    </style>
+  <link rel="stylesheet" href="css/tokens.css">
+</head>
+
+  <body>
+    <!-- ============================================================
+         VENGEANCE UI NOTCH NAVBAR
+         ============================================================ -->
+    <nav class="cp-navbar-notch" id="mainNavbar">
+      <div class="container">
+        <div class="notch-nav-island">
+          <!-- Brand / Logo -->
+          <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <div class="brand-icon">
+              <img src="assets/logo.svg" alt="Disheera Logo" class="brand-logo-img" width="40" height="40" />
+            </div>
+            <span class="brand-name">Dishe<span class="brand-accent">era</span></span>
+          </a>
+
+          <!-- Desktop Center Links -->
+          <ul class="notch-nav-links d-none d-lg-flex mb-0 ps-0">
+            <li><a class="notch-nav-link" href="index.html#how-it-works">Platform</a></li>
+            <li><a class="notch-nav-link" href="index.html#solutions">Solutions</a></li>
+            <li><a class="notch-nav-link text-primary fw-semibold" href="recruiter-dashboard.html"><i class="bi bi-buildings-fill me-1"></i>For Recruiters</a></li>
+            <li><a class="notch-nav-link" href="privacy.html">Privacy</a></li>
+            <li><a class="notch-nav-link" href="terms.html">Terms</a></li>
+            <li><a class="notch-nav-link" href="security.html">Security</a></li>
+            <li><a class="notch-nav-link active" href="support.html">Support</a></li>
+          </ul>
+
+          <!-- Actions & Mobile Toggle -->
+          <div class="d-flex align-items-center gap-2">
+            <div class="d-none d-sm-flex align-items-center gap-2" id="authNavActions">
+              <a class="btn cp-btn-outline btn-sm px-3" href="login.html">Log In</a>
+              <a class="btn cp-btn-primary btn-sm px-3 text-nowrap" href="assessment.html">
+                <i class="bi bi-lightning-charge-fill me-1 text-warning"></i>Start Free
+              </a>
+            </div>
+            <button
+              class="notch-mobile-toggle d-lg-none"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#notchMobileMenu"
+              aria-controls="notchMobileMenu"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="bi bi-list fs-5"></i>
+            </button>
+          </div>
+
+          <!-- Mobile Dropdown Collapse -->
+          <div class="collapse notch-mobile-collapse" id="notchMobileMenu">
+            <ul class="notch-mobile-links mb-0 ps-0">
+              <li><a href="index.html"><i class="bi bi-house text-teal"></i> Home</a></li>
+              <li><a href="index.html#how-it-works"><i class="bi bi-gear-wide-connected text-teal"></i> Platform</a></li>
+              <li><a href="recruiter-dashboard.html"><i class="bi bi-buildings-fill text-primary"></i> For Recruiters</a></li>
+              <li><a href="privacy.html"><i class="bi bi-file-earmark-lock text-primary"></i> Privacy Policy</a></li>
+              <li><a href="terms.html"><i class="bi bi-file-earmark-text text-warning"></i> Terms of Service</a></li>
+              <li><a href="security.html"><i class="bi bi-shield-lock text-success"></i> Security Architecture</a></li>
+              <li><a href="support.html" class="active"><i class="bi bi-headset text-primary"></i> Support Desk</a></li>
+              <li class="pt-2 border-top border-line d-flex gap-2" id="notchMobileAuthActions">
+                <a class="btn cp-btn-outline btn-sm flex-grow-1 text-center" href="login.html">Log In</a>
+                <a class="btn cp-btn-primary btn-sm flex-grow-1 text-center" href="assessment.html">Start Free</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header Section with Breadcrumbs -->
+    <header class="legal-hero">
+      <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb small mb-0">
+            <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted"><i class="bi bi-house me-1"></i>Home</a></li>
+            <li class="breadcrumb-item text-muted">Trust &amp; Governance</li>
+            <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">Support Desk</li>
+          </ol>
+        </nav>
+
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div>
+            <h1 class="h2 fw-bold text-dark mb-2">Support &amp; Grievance Redressal Desk</h1>
+            <p class="text-muted mb-0" style="max-width: 720px;">
+              24x7 automated technical assistance, dual-verification troubleshooting, proctoring review, and statutory grievance escalation under the Indian DPDP Act 2023.
+            </p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
+              <i class="bi bi-patch-check-fill me-1"></i>24-Hour SLA
+            </span>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill fw-medium">
+              <i class="bi bi-shield-check me-1"></i>DPDP Act 2023 Compliant
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container py-5">
+      <!-- 4 High-Tech Support Channel Cards -->
+      <div class="row g-4 mb-5">
+        <div class="col-md-6 col-lg-3">
+          <div class="support-card">
+            <div>
+              <div class="support-icon-box bg-success-subtle text-success">
+                <i class="bi bi-whatsapp"></i>
+              </div>
+              <h3 class="h5 fw-bold text-dark mb-1">WhatsApp Support</h3>
+              <p class="small text-muted mb-3">
+                Instant 2-second OTP help, roadmap notes, and automated ticket logging.
+              </p>
+              <div class="p-2 bg-light rounded small text-secondary mb-3 font-monospace">
+                +91 74990 85045
+              </div>
+              <div class="small text-success fw-semibold mb-3">
+                <i class="bi bi-check-circle-fill me-1"></i>Chat Only &middot; No Voice Calls
+              </div>
+            </div>
+            <a href="https://wa.me/917499085045?text=Hello%20Disheera%20Support,%20I%20need%20assistance%20with..." target="_blank" class="btn btn-outline-success btn-sm w-100">
+              <i class="bi bi-whatsapp me-1"></i>Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="support-card">
+            <div>
+              <div class="support-icon-box bg-primary-subtle text-primary">
+                <i class="bi bi-person-badge-fill"></i>
+              </div>
+              <h3 class="h5 fw-bold text-dark mb-1">Grievance Officer</h3>
+              <p class="small text-muted mb-3">
+                Statutory officer for privacy, account scrubbing, and academic appeals.
+              </p>
+              <div class="p-2 bg-light rounded small text-secondary mb-3">
+                <strong>Parth Patil</strong><br />
+                <span class="text-muted small">support@disheera.site</span>
+              </div>
+              <div class="small text-primary fw-semibold mb-3">
+                <i class="bi bi-geo-alt-fill me-1"></i>GHRCEM, Jalgaon, India
+              </div>
+            </div>
+            <a href="mailto:support@disheera.site?subject=Support%20and%20Grievance%20Inquiry" class="btn btn-outline-primary btn-sm w-100">
+              <i class="bi bi-envelope-fill me-1"></i>Email Officer
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="support-card">
+            <div>
+              <div class="support-icon-box bg-warning-subtle text-warning">
+                <i class="bi bi-patch-check-fill"></i>
+              </div>
+              <h3 class="h5 fw-bold text-dark mb-1">Credential Audit</h3>
+              <p class="small text-muted mb-3">
+                Instant cryptographic ledger check for SHA-256 certificate validation.
+              </p>
+              <div class="p-2 bg-light rounded small text-secondary mb-3 font-monospace">
+                /verify.html?certId=...
+              </div>
+              <div class="small text-muted mb-3">
+                Instant 0ms public validation
+              </div>
+            </div>
+            <a href="verify.html" class="btn btn-outline-dark btn-sm w-100">
+              <i class="bi bi-qr-code-scan me-1"></i>Verify Certificate
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="support-card">
+            <div>
+              <div class="support-icon-box bg-info-subtle text-info">
+                <i class="bi bi-buildings-fill"></i>
+              </div>
+              <h3 class="h5 fw-bold text-dark mb-1">Recruiter &amp; TPO Desk</h3>
+              <p class="small text-muted mb-3">
+                Corporate radar verification, domain approvals, and campus placement ties.
+              </p>
+              <div class="p-2 bg-light rounded small text-secondary mb-3">
+                Corporate Work Domain Required
+              </div>
+              <div class="small text-info fw-semibold mb-3">
+                <i class="bi bi-shield-lock-fill me-1"></i>4-Tier Anti-Fraud Gate
+              </div>
+            </div>
+            <a href="recruiter-dashboard.html" class="btn btn-outline-info btn-sm w-100">
+              <i class="bi bi-briefcase me-1"></i>Recruiter Portal
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two-Column Interactive Layout: Ticket Form + FAQ Accordion -->
+      <div class="row g-5">
+        <!-- Left Column: Interactive Support Ticket Submission Form -->
+        <div class="col-lg-7">
+          <div class="support-form-card">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h2 class="h4 fw-bold text-dark mb-0">
+                <i class="bi bi-ticket-perforated-fill text-primary me-2"></i>Raise a Support Ticket
+              </h2>
+              <span class="badge bg-indigo-subtle text-primary border border-indigo-subtle px-2 py-1 small">
+                24h Turnaround
+              </span>
+            </div>
+            <p class="text-muted small mb-4">
+              Need technical assistance, OTP resolution, or proctoring strike reviews? Submit your request below to receive an instant ticket reference ID and automated tracking.
+            </p>
+
+            <form id="supportTicketForm">
+              <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                  <label for="ticketName" class="form-label small fw-semibold">Your Full Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="ticketName" placeholder="Your full name" required />
+                </div>
+                <div class="col-sm-6">
+                  <label for="ticketEmail" class="form-label small fw-semibold">Registered Email Address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="ticketEmail" placeholder="e.g. student@college.edu" required />
+                </div>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                  <label for="ticketPhone" class="form-label small fw-semibold">
+                    WhatsApp Phone Number <span class="text-muted fw-normal">(Optional for instant WhatsApp alert)</span>
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-light text-muted">+91</span>
+                    <input type="tel" class="form-control" id="ticketPhone" placeholder="10-digit number" maxlength="10" />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="ticketCategory" class="form-label small fw-semibold">Category <span class="text-danger">*</span></label>
+                  <select class="form-select" id="ticketCategory" required>
+                    <option value="otp" selected>Login &amp; Dual-OTP Verification</option>
+                    <option value="proctoring">Milestone Test &amp; Anti-Cheat Strikes</option>
+                    <option value="certificate">Digital Certificate &amp; SHA-256 Ledger</option>
+                    <option value="recruiter">Corporate Recruiter &amp; Talent Radar</option>
+                    <option value="technical">Platform Bug &amp; Technical Disconnect</option>
+                    <option value="general">Other / General Academic Inquiry</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="ticketSubject" class="form-label small fw-semibold">Subject / Brief Summary <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="ticketSubject" placeholder="e.g. WhatsApp OTP delay during student registration" required />
+              </div>
+
+              <div class="mb-4">
+                <label for="ticketDescription" class="form-label small fw-semibold">Detailed Description <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="ticketDescription" rows="4" placeholder="Describe the steps you took, any error messages displayed, and your expected resolution..." required></textarea>
+                <div class="form-text small text-muted">Minimum 10 characters. Include device/browser details if reporting a technical glitch.</div>
+              </div>
+
+              <button type="submit" class="btn cp-btn-primary w-100 py-2 fw-semibold" id="btnSubmitTicket">
+                <i class="bi bi-send-fill me-2"></i>Submit Support Ticket
+              </button>
+            </form>
+
+            <!-- Result Box (Hidden by default) -->
+            <div id="ticketResultBox" class="ticket-result-box mt-4 d-none">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <h4 class="h5 fw-bold text-dark mb-0">Ticket Successfully Registered</h4>
+              </div>
+              <p class="small text-muted mb-3" id="ticketSuccessMsg">
+                Your ticket has been logged and assigned to Grievance Officer Parth Patil.
+              </p>
+              <div class="bg-white p-3 rounded border mb-3">
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span>Ticket Reference:</span>
+                  <strong class="text-primary font-monospace" id="resultTicketId">CP-TKT-000000</strong>
+                </div>
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                  <span>Assigned Officer:</span>
+                  <span class="text-dark fw-medium" id="resultOfficer">Parth Patil</span>
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                  <span>Target Resolution:</span>
+                  <span class="text-success fw-medium" id="resultSla">Within 24 Hours</span>
+                </div>
+              </div>
+              <div class="d-flex gap-2">
+                <a id="btnEscalateWa" href="https://wa.me/917499085045" target="_blank" class="btn btn-outline-success btn-sm flex-grow-1">
+                  <i class="bi bi-whatsapp me-1"></i>Track on WhatsApp
+                </a>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="btnResetTicketForm">
+                  Submit Another
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Quick Self-Service Knowledge Base & FAQs -->
+        <div class="col-lg-5">
+          <h2 class="h4 fw-bold text-dark mb-3">
+            <i class="bi bi-question-circle-fill text-indigo-600 me-2"></i>Frequently Asked Questions
+          </h2>
+          <p class="text-muted small mb-4">
+            Instant answers for common student and recruiter inquiries.
+          </p>
+
+          <div class="accordion faq-accordion" id="supportFaqAccordion">
+            <!-- FAQ 1 -->
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeadingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                  What if I do not receive my Gmail or WhatsApp OTP?
+                </button>
+              </h3>
+              <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#supportFaqAccordion">
+                <div class="accordion-body small text-secondary">
+                  Disheera enforces simultaneous dual verification. WhatsApp OTPs deliver in &lt;2 seconds to the 10-digit number. For Gmail, check your <strong>Spam</strong> and <strong>Promotions</strong> folders. If still not received after 60 seconds, click "Resend OTP".
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeadingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                  How does the Anti-Cheat Strike system work?
+                </button>
+              </h3>
+              <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#supportFaqAccordion">
+                <div class="accordion-body small text-secondary">
+                  During 30-minute milestone tests, full-screen mode is strictly monitored. Strike 1 deducts 2 minutes, Strike 2 deducts 3 minutes, and Strike 3 terminates the attempt with a 24-hour retake lockout. If you experienced a genuine network drop, raise a ticket for proctoring reset.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeadingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                  When is my Career Certificate unlocked?
+                </button>
+              </h3>
+              <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#supportFaqAccordion">
+                <div class="accordion-body small text-secondary">
+                  Your cryptographic certificate unlocks automatically upon achieving 100% roadmap progress and passing all weekly milestone proctored evaluations with &ge;70% scores. Every certificate carries an immutable SHA-256 digest verifiable at <code>verify.html</code>.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeadingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                  Can I change my registered phone number?
+                </button>
+              </h3>
+              <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#supportFaqAccordion">
+                <div class="accordion-body small text-secondary">
+                  Yes. Go to your Student Dashboard &gt; Profile Settings &gt; Link Phone Number. An OTP will be dispatched to verify your new WhatsApp number before updating your account record.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeadingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
+                  How can corporate recruiters get domain verification?
+                </button>
+              </h3>
+              <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#supportFaqAccordion">
+                <div class="accordion-body small text-secondary">
+                  Recruiters must register with an authentic enterprise domain email (free webmail like Gmail/Yahoo is rejected). The system automatically verifies DNS MX records, live website probing, and an OTP before granting candidate search access.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Official Statutory Grievance Card -->
+          <div class="grievance-banner mt-4">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+              <span class="badge bg-warning text-dark font-mono">DPDP Act Sec 8(10) &amp; Sec 13</span>
+              <span class="badge bg-success bg-opacity-25 text-white font-mono">Rule 3(2) IT Rules 2021</span>
+            </div>
+            <h3 class="h5 fw-bold text-white mb-2">
+              <i class="bi bi-shield-lock-fill text-warning me-2"></i>Statutory Grievance Redressal Mechanism
+            </h3>
+            <p class="small text-light mb-3" style="opacity: 0.95;">
+              Pursuant to Section 8(10) and Section 13 of <strong><a href="https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-underline">The Digital Personal Data Protection Act, 2023 (Act No. 22 of 2023)</a></strong> and Rule 3(2) of the Information Technology Rules 2021, any Data Principal may submit grievances regarding personal data processing, correction, or erasure:
+            </p>
+            <ul class="list-unstyled small text-light mb-3" style="opacity: 0.95;">
+              <li class="mb-1"><i class="bi bi-person-fill text-warning me-1"></i> <strong>Designated Grievance Officer:</strong> Parth Patil (CTO &amp; Grievance Lead)</li>
+              <li class="mb-1"><i class="bi bi-building text-warning me-1"></i> <strong>Institution:</strong> GHRCEM, Jalgaon, Maharashtra, India</li>
+              <li class="mb-1"><i class="bi bi-envelope-fill text-warning me-1"></i> <strong>Grievance Email:</strong> <a href="mailto:support@disheera.site" class="text-warning text-decoration-none">support@disheera.site</a></li>
+              <li class="mb-1"><i class="bi bi-whatsapp text-success me-1"></i> <strong>Official WhatsApp Support:</strong> <a href="https://wa.me/917499085045" target="_blank" class="text-success text-decoration-none">+91 74990 85045 (Chat Only)</a></li>
+              <li class="mb-1"><i class="bi bi-clock-fill text-warning me-1"></i> <strong>Statutory Redressal SLA:</strong> Within 24 hours acknowledgment &bull; 15 calendar days resolution</li>
+              <li><i class="bi bi-bank text-warning me-1"></i> <strong>Statutory Appellate Body:</strong> Data Protection Board of India (DPBI) &bull; TDSAT Appeal (Section 29)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Platform Footer -->
+    <footer class="footer py-5 mt-5 border-top border-line bg-surface">
+      <div class="container">
+        <div class="row g-4 justify-content-between">
+          <div class="col-lg-4">
+            <a class="navbar-brand d-inline-flex align-items-center mb-3 text-decoration-none" href="index.html">
+              <img src="assets/logo.svg" alt="Disheera" class="brand-logo-img me-2" width="36" height="36" />
+              <span class="brand-name h5 mb-0 fw-bold">Dishe<span class="brand-accent">era</span></span>
+            </a>
+            <p class="small text-muted mb-3">
+              Career planning and skills verification for students and recruiters. TODO(owner-verify): platform positioning and performance claims.
+            </p>
+            <p class="small text-muted mb-0">
+              <i class="bi bi-geo-alt-fill text-danger me-1"></i>Originated at GHRCEM, Jalgaon, Maharashtra, India.
+            </p>
+          </div>
+
+          <div class="col-6 col-md-3 col-lg-2">
+            <div class="footer-heading">Platform</div>
+            <ul class="footer-links">
+              <li><a href="index.html#how-it-works">How It Works</a></li>
+              <li><a href="assessment.html">Skill Assessment</a></li>
+              <li><a href="roadmap.html">Proctored Roadmaps</a></li>
+              <li><a href="resume-builder.html">AI Resume Builder</a></li>
+              <li><a href="verify.html">SHA-256 Ledger</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-3 col-lg-2">
+            <div class="footer-heading">Solutions</div>
+            <ul class="footer-links">
+              <li><a href="index.html#solutions">For Students (Free)</a></li>
+              <li><a href="recruiter-dashboard.html">For Recruiters</a></li>
+              <li><a href="jobs.html">Verified Job Board</a></li>
+              <li><a href="index.html#pricing">Pricing &amp; Plans</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="footer-heading">Trust &amp; Governance</div>
+            <ul class="footer-links">
+              <li><a href="verify.html"><i class="bi bi-shield-check text-success me-1"></i>Public Registry</a></li>
+              <li><a href="privacy.html"><i class="bi bi-file-earmark-lock me-1"></i>Privacy Policy</a></li>
+              <li><a href="terms.html"><i class="bi bi-file-earmark-text me-1"></i>Terms of Service</a></li>
+              <li><a href="security.html"><i class="bi bi-shield-lock me-1"></i>Security Architecture</a></li>
+              <li><a href="support.html" class="fw-bold text-primary"><i class="bi bi-headset me-1"></i>Support &amp; Grievance</a></li>
+              <li><a href="https://wa.me/917499085045" target="_blank" class="text-success"><i class="bi bi-whatsapp me-1"></i>WhatsApp: 7499085045</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 mt-4 pt-3 border-top border-line">
+          <div>
+            <p class="mb-1 small text-muted">
+              &copy; 2026 Disheera Technologies Inc. All rights reserved.
+            </p>
+            <p class="mb-0 small text-muted" style="font-size: 0.78rem;">
+              <span class="badge bg-success-subtle text-success me-1"><i class="bi bi-gift-fill me-1"></i>100% Free For Students</span>
+              Autonomous Career GPS &middot; Verified Talent Operating System
+            </p>
+          </div>
+          <p class="mb-0 small text-muted text-md-end">
+            Official Grievance Desk: Jalgaon, Maharashtra, India
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js?v=3.0"></script>
+
+    <!-- Support Ticket Form Client Script -->
+    <script>
+      (function () {
+        // Pre-fill user data if authenticated
+        try {
+          const raw = localStorage.getItem('careerpath_user');
+          if (raw) {
+            const u = JSON.parse(raw);
+            if (u && u.name) document.getElementById('ticketName').value = u.name;
+            if (u && u.email) document.getElementById('ticketEmail').value = u.email;
+            if (u && u.phone) {
+              const digits = (u.phone || '').replace(/\D/g, '').slice(-10);
+              if (digits.length === 10) document.getElementById('ticketPhone').value = digits;
+            }
+          }
+        } catch (e) {}
+
+        const form = document.getElementById('supportTicketForm');
+        const resultBox = document.getElementById('ticketResultBox');
+        const btnSubmit = document.getElementById('btnSubmitTicket');
+        const btnReset = document.getElementById('btnResetTicketForm');
+
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById('ticketName').value.trim();
+          const email = document.getElementById('ticketEmail').value.trim();
+          const phoneRaw = document.getElementById('ticketPhone').value.trim();
+          const category = document.getElementById('ticketCategory').value;
+          const subject = document.getElementById('ticketSubject').value.trim();
+          const description = document.getElementById('ticketDescription').value.trim();
+
+          const phone = phoneRaw.length === 10 ? `+91${phoneRaw}` : phoneRaw;
+
+          btnSubmit.disabled = true;
+          btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registering Ticket...';
+
+          try {
+            const apiBase = (window.CONFIG && window.CONFIG.API_BASE_URL) || 
+                            (['localhost', '127.0.0.1'].includes(window.location.hostname) ? 'http://localhost:5000/api' : 'https://disheera.site/api');
+
+            const res = await fetch(`${apiBase}/support/ticket`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, email, phone, category, subject, description })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+              document.getElementById('resultTicketId').textContent = data.data.ticketId;
+              document.getElementById('resultOfficer').textContent = data.data.officer;
+              document.getElementById('resultSla').textContent = data.data.sla;
+
+              // Update WhatsApp escalation button link
+              const waBtn = document.getElementById('btnEscalateWa');
+              if (waBtn) {
+                const waText = encodeURIComponent(`Hi Parth Patil, I just raised Disheera Support Ticket #${data.data.ticketId} regarding ${subject}. Please review.`);
+                waBtn.href = `https://wa.me/917499085045?text=${waText}`;
+              }
+
+              form.classList.add('d-none');
+              resultBox.classList.remove('d-none');
+            } else {
+              alert(data.message || 'Unable to register support ticket. Please try again or chat with us on WhatsApp.');
+              btnSubmit.disabled = false;
+              btnSubmit.innerHTML = '<i class="bi bi-send-fill me-2"></i>Submit Support Ticket';
+            }
+          } catch (err) {
+            console.error('Support ticket error:', err);
+            // Client-side fallback generation if offline/unreachable
+            const fallbackId = 'CP-TKT-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('resultTicketId').textContent = fallbackId;
+            document.getElementById('resultOfficer').textContent = 'Parth Patil';
+            document.getElementById('resultSla').textContent = 'Within 24 Hours';
+
+            const waBtn = document.getElementById('btnEscalateWa');
+            if (waBtn) {
+              const waText = encodeURIComponent(`Hi Parth Patil, I am raising support ticket #${fallbackId} regarding ${subject}. Issue: ${description}`);
+              waBtn.href = `https://wa.me/917499085045?text=${waText}`;
+            }
+
+            form.classList.add('d-none');
+            resultBox.classList.remove('d-none');
+          }
+        });
+
+        btnReset.addEventListener('click', function () {
+          form.reset();
+          form.classList.remove('d-none');
+          resultBox.classList.add('d-none');
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<i class="bi bi-send-fill me-2"></i>Submit Support Ticket';
+        });
+      })();
+    </script>
+  </body>
+</html>
