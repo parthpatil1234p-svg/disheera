@@ -33,17 +33,23 @@ export interface ApiResponse<T = any> {
 
 export function getStoredToken(): string | null {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem('careerpath_token') ||
-         localStorage.getItem('token') ||
-         localStorage.getItem('auth_token') ||
-         null;
+  const token = localStorage.getItem('careerpath_token') ||
+                localStorage.getItem('token') ||
+                localStorage.getItem('auth_token') ||
+                sessionStorage.getItem('careerpath_token') ||
+                sessionStorage.getItem('token');
+  if (token && token !== 'mock-token' && token.trim() !== '') {
+    return token;
+  }
+  return null;
 }
 
 export function getStoredUser(): any | null {
   if (typeof window === 'undefined') return null;
   const raw = localStorage.getItem('careerpath_user') ||
               localStorage.getItem('user') ||
-              null;
+              sessionStorage.getItem('careerpath_user') ||
+              sessionStorage.getItem('user');
   if (!raw) return null;
   try {
     return JSON.parse(raw);

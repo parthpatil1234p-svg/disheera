@@ -13,6 +13,7 @@ import {
   Code2,
   ArrowRight
 } from 'lucide-react';
+import { api } from '../services/api';
 
 interface Question {
   id: number;
@@ -86,6 +87,24 @@ export const AssessmentPage: React.FC = () => {
   const [flaggedQuestions, setFlaggedQuestions] = useState<Record<number, boolean>>({});
   const [secondsRemaining, setSecondsRemaining] = useState(900); // 15 mins
   const [isCompleted, setIsCompleted] = useState(false);
+  const [tabSwitches, setTabSwitches] = useState(0);
+  const [cheatWarning, setCheatWarning] = useState<string | null>(null);
+
+  // Anti-Cheat visibility change detection (matching anti-cheat-lock.js)
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden && !isCompleted) {
+        setTabSwitches(prev => {
+          const nextCount = prev + 1;
+          setCheatWarning(`⚠️ Anti-Cheat Warning: Tab switch detected (${nextCount}/3). All focus loss events are recorded in your verified credential audit trail.`);
+          setTimeout(() => setCheatWarning(null), 6000);
+          return nextCount;
+        });
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, [isCompleted]);
 
   // Timer countdown
   useEffect(() => {
@@ -142,6 +161,26 @@ export const AssessmentPage: React.FC = () => {
 
   const handleFinish = () => {
     setIsCompleted(true);
+
+    // Score calculation
+    let calculatedCorrect = 0;
+    SAMPLE_QUESTIONS.forEach((q) => {
+      if (selectedAnswers[q.id] === q.correctKey) {
+        calculatedCorrect++;
+      }
+    });
+    const finalScore = Math.round((calculatedCorrect / SAMPLE_QUESTIONS.length) * 100);
+
+    // Synchronize diagnostic result with backend database
+    api.post('/assessment/submit', {
+      score: finalScore,
+      correctCount: calculatedCorrect,
+      totalQuestions: SAMPLE_QUESTIONS.length,
+      tabSwitchesCount: tabSwitches,
+      answers: selectedAnswers,
+      completedAt: new Date().toISOString()
+    }).catch(() => {});
+
     try {
       confetti({
         particleCount: 100,
@@ -198,6 +237,13 @@ export const AssessmentPage: React.FC = () => {
             style={{ width: `${progressPercent}%` }}
           />
         </div>
+
+        {/* Anti-Cheat Floating Banner */}
+        {cheatWarning && (
+          <div className="bg-rose-50 border-b border-rose-200 px-4 py-2 text-center text-xs font-bold text-rose-700 animate-fadeIn">
+            {cheatWarning}
+          </div>
+        )}
       </div>
 
       {/* Main Assessment Body */}

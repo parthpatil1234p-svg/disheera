@@ -30,9 +30,11 @@ export const PassportPage: React.FC = () => {
 
   const fetchLivePassport = async () => {
     try {
-      const res = await api.get(`/passport/${user?.id || 'parth'}`);
-      if (res && res.data && res.data.passport) {
-        setPassportData(res.data.passport);
+      const studentId = user?.id || user?._id || 'parth';
+      const res = await api.get(`/passport/${studentId}`);
+      const p = res?.data?.passport || res?.passport;
+      if (p) {
+        setPassportData(p);
       }
     } catch (_) {}
   };

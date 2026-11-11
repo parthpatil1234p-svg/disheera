@@ -8,6 +8,7 @@ import { Footer } from './components/layout/Footer';
 import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { AssessmentPage } from './pages/AssessmentPage';
+import { QuizPage } from './pages/QuizPage';
 import { RoadmapPage } from './pages/RoadmapPage';
 import { PassportPage } from './pages/PassportPage';
 import { ResumeStudioPage } from './pages/ResumeStudioPage';
@@ -59,6 +60,7 @@ export const App: React.FC = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/assessment" element={<AssessmentPage />} />
+            <Route path="/quiz" element={<QuizPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/passport" element={<PassportPage />} />
             <Route path="/resume-builder" element={<ResumeStudioPage />} />

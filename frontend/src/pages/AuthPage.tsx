@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getStoredUser } from '../services/api';
 import { 
   ShieldCheck, Mail, Lock, User, Building, GraduationCap, 
   Briefcase, ArrowRight, CheckCircle2, AlertCircle, RefreshCw, 
@@ -68,7 +69,12 @@ export const AuthPage: React.FC = () => {
     setLoading(true);
     try {
       await login(email.trim(), password);
-      navigate('/dashboard');
+      const activeUser = getStoredUser();
+      if (activeUser?.role === 'recruiter') {
+        navigate('/recruiter-dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err: any) {
       setError(err.message || 'Invalid email or password. Please check your credentials.');
     } finally {
@@ -148,7 +154,12 @@ export const AuthPage: React.FC = () => {
       await verifyOtp(email.trim(), fullOtp);
       setSuccessMsg('Account verified successfully! Redirecting...');
       setTimeout(() => {
-        navigate('/dashboard');
+        const activeUser = getStoredUser();
+        if (activeUser?.role === 'recruiter') {
+          navigate('/recruiter-dashboard');
+        } else {
+          navigate('/dashboard');
+        }
       }, 1000);
     } catch (err: any) {
       setError(err.message || 'Invalid or expired OTP code. Please retry or click Resend.');
@@ -179,9 +190,23 @@ export const AuthPage: React.FC = () => {
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/60 via-transparent to-transparent -z-10" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link to="/" className="inline-flex items-center gap-2.5 mb-4 group">
-          <img src="/logo.svg" alt="Disheera Logo" className="w-11 h-11 object-contain transition-transform group-hover:scale-105" />
-          <span className="font-extrabold text-2xl text-slate-900 tracking-tight">Disheera</span>
+        <Link to="/" className="inline-flex items-center gap-2.5 mb-4 group" title="Return to Disheera">
+          <div className="relative w-11 h-11 rounded-xl p-[2px] bg-gradient-to-tr from-[#00F2FE] via-[#2563EB] to-[#8B5CF6] shadow-xs transition-transform group-hover:scale-105">
+            <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center overflow-hidden p-0.5">
+              <img 
+                src="/logo.png" 
+                alt="Disheera Logo" 
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  const t = e.currentTarget;
+                  if (!t.src.endsWith('/logo.svg')) t.src = '/logo.svg';
+                }}
+              />
+            </div>
+          </div>
+          <span className="font-extrabold text-2xl text-slate-900 tracking-tight">
+            Dishe<span className="text-blue-600">era</span>
+          </span>
         </Link>
         <h2 className="text-2xl font-bold tracking-tight text-slate-900">
           {isOtpStep 

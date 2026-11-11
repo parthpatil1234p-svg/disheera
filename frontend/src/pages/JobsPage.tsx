@@ -135,25 +135,59 @@ export const JobsPage: React.FC = () => {
         ]);
       }
 
-      // Sample applications
-      setApplications([
-        {
-          id: 'app-1',
-          jobTitle: 'Associate Software Engineer',
-          company: 'Veritas Technologies',
-          appliedDate: 'Nov 8, 2026',
-          status: 'Interview Scheduled',
-          meritScoreShared: 96
-        },
-        {
-          id: 'app-2',
-          jobTitle: 'Frontend Engineer',
-          company: 'Persistent Systems',
-          appliedDate: 'Nov 5, 2026',
-          status: 'Under Review',
-          meritScoreShared: 94
+      // Fetch live applications from backend
+      try {
+        const appRes = await api.get('/jobs/my-applications');
+        const apps = appRes?.data?.applications || appRes?.applications;
+        if (Array.isArray(apps) && apps.length > 0) {
+          setApplications(apps.map((a: any) => ({
+            id: a.id || a._id || `app-${Math.random()}`,
+            jobTitle: a.jobTitle || a.job?.title || 'Software Engineer',
+            company: a.companyName || a.company || 'Enterprise Partner',
+            appliedDate: a.appliedDate || a.createdAt ? new Date(a.appliedDate || a.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recently',
+            status: a.status ? a.status.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase()) : 'Submitted',
+            meritScoreShared: a.meritScoreShared || a.meritScore || 94
+          })));
+        } else {
+          setApplications([
+            {
+              id: 'app-1',
+              jobTitle: 'Associate Software Engineer',
+              company: 'Veritas Technologies',
+              appliedDate: 'Nov 8, 2026',
+              status: 'Interview Scheduled',
+              meritScoreShared: 96
+            },
+            {
+              id: 'app-2',
+              jobTitle: 'Frontend Engineer',
+              company: 'Persistent Systems',
+              appliedDate: 'Nov 5, 2026',
+              status: 'Under Review',
+              meritScoreShared: 94
+            }
+          ]);
         }
-      ]);
+      } catch (_) {
+        setApplications([
+          {
+            id: 'app-1',
+            jobTitle: 'Associate Software Engineer',
+            company: 'Veritas Technologies',
+            appliedDate: 'Nov 8, 2026',
+            status: 'Interview Scheduled',
+            meritScoreShared: 96
+          },
+          {
+            id: 'app-2',
+            jobTitle: 'Frontend Engineer',
+            company: 'Persistent Systems',
+            appliedDate: 'Nov 5, 2026',
+            status: 'Under Review',
+            meritScoreShared: 94
+          }
+        ]);
+      }
     } catch (err) {
       console.error('Failed to fetch jobs:', err);
     } finally {

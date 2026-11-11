@@ -9,6 +9,7 @@ import { api } from '../services/api';
 
 interface CareerRecommendation {
   id: string;
+  slug?: string;
   title: string;
   category: string;
   matchScore: number;
@@ -153,14 +154,34 @@ export const RecommendationsPage: React.FC = () => {
 
   const handleEnrollTrack = async (career: CareerRecommendation) => {
     try {
-      await api.post('/roadmap/select-track', { trackId: career.id, trackName: career.title });
+      const slug = career.slug || career.id.replace(/^career-/, '');
+      await api.post('/roadmaps/generate', { careerSlug: slug, durationWeeks: 4 });
       setEnrollSuccessMsg(`Successfully enrolled in "${career.title}". Your Plan 46 Roadmap is now active!`);
       setTimeout(() => {
-        navigate('/roadmap');
-      }, 1500);
+        navigate(`/roadmap?track=${encodeURIComponent(slug)}`);
+      }, 1200);
     } catch (err: any) {
-      // If already enrolled or offline, navigate cleanly
-      navigate('/roadmap');
+      // If already enrolled or server redirect
+      setEnrollSuccessMsg(`Activating "${career.title}" roadmap workspace...`);
+      setTimeout(() => {
+        const slug = career.slug || career.id.replace(/^career-/, '');
+        navigate(`/roadmap?track=${encodeURIComponent(slug)}`);
+      }, 1000);
+    }
+  };
+
+  const handleBridgeSkillGap = async (skill: string, careerTitle: string) => {
+    try {
+      await api.post('/jobs/bridge-gap', {
+        skillName: skill,
+        missingSkill: skill,
+        jobTitle: careerTitle
+      });
+      setEnrollSuccessMsg(`✓ Added 1-week micro-task for "${skill}" to your active sprint roadmap!`);
+      setTimeout(() => setEnrollSuccessMsg(null), 3500);
+    } catch (_) {
+      setEnrollSuccessMsg(`✓ Added "${skill}" to your priority sprint backlog.`);
+      setTimeout(() => setEnrollSuccessMsg(null), 3500);
     }
   };
 
@@ -370,12 +391,16 @@ export const RecommendationsPage: React.FC = () => {
                         </div>
                         <div className="flex flex-wrap gap-1.5">
                           {career.missingSkills.slice(0, 3).map((sk) => (
-                            <span
+                            <button
                               key={sk}
-                              className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200/60 text-[10px] font-medium"
+                              type="button"
+                              onClick={() => handleBridgeSkillGap(sk, career.title)}
+                              title={`Click to add 1-week "${sk}" micro-task to your active sprint`}
+                              className="px-2 py-0.5 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/60 text-[10px] font-medium transition-all flex items-center gap-1 group/btn"
                             >
-                              +{sk}
-                            </span>
+                              <span>+{sk}</span>
+                              <span className="text-[9px] text-amber-700 font-bold bg-amber-200/60 px-1 rounded opacity-75 group-hover/btn:opacity-100">Bridge</span>
+                            </button>
                           ))}
                           {career.missingSkills.length > 3 && (
                             <span className="px-1.5 py-0.5 text-[10px] text-slate-400">

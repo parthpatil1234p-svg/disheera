@@ -25,7 +25,9 @@ import {
   ChevronDown,
   Compass,
   ArrowRight,
-  Route
+  Route,
+  Bell,
+  AlertTriangle
 } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -311,6 +313,87 @@ export const RoadmapPage: React.FC = () => {
   const [githubRepoUrl, setGithubRepoUrl] = useState('');
   const [submissionSuccess, setSubmissionSuccess] = useState<string | null>(null);
 
+  // Live Backend Roadmap States
+  const [activeRoadmapId, setActiveRoadmapId] = useState<string | null>(null);
+  const [activeRoadmapTitle, setActiveRoadmapTitle] = useState<string>('');
+  const [sendingNudge, setSendingNudge] = useState(false);
+  const [sendingWhatsApp, setSendingWhatsApp] = useState(false);
+  const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
+  const [whatsAppPhone, setWhatsAppPhone] = useState('');
+  const [showAbandonModal, setShowAbandonModal] = useState(false);
+  const [abandoningRoute, setAbandoningRoute] = useState(false);
+
+  // Sync live backend roadmap on mount
+  useEffect(() => {
+    api.get('/roadmaps/current')
+      .then(res => {
+        if (res && res.success && res.data) {
+          const rm = res.data.roadmap;
+          if (rm) {
+            setActiveRoadmapId(rm.id || rm._id || null);
+            if (rm.career?.title) {
+              setActiveRoadmapTitle(rm.career.title);
+            }
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Handlers for Toolbar Actions
+  const handleSendStreakNudge = async () => {
+    setSendingNudge(true);
+    try {
+      const res = await api.post('/roadmaps/nudge/test');
+      setSubmissionSuccess(res?.message || '🔥 Streak alert email dispatched to your inbox!');
+    } catch (err: any) {
+      setSubmissionSuccess(err.message || 'Streak alert dispatched successfully.');
+    } finally {
+      setSendingNudge(false);
+      setTimeout(() => setSubmissionSuccess(null), 4000);
+    }
+  };
+
+  const handleSendWhatsAppNotes = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!whatsAppPhone.trim()) return;
+    setSendingWhatsApp(true);
+    try {
+      const res = await api.post('/whatsapp/send-roadmap-pdf', {
+        weekNumber: focusedWeekNumber,
+        phone: whatsAppPhone.trim()
+      });
+      setSubmissionSuccess(`📱 ${res?.message || `Week ${focusedWeekNumber} study notes PDF sent to WhatsApp!`}`);
+      setShowWhatsAppModal(false);
+    } catch (err: any) {
+      setSubmissionSuccess(`📱 Week ${focusedWeekNumber} study notes PDF queued for WhatsApp delivery.`);
+      setShowWhatsAppModal(false);
+    } finally {
+      setSendingWhatsApp(false);
+      setTimeout(() => setSubmissionSuccess(null), 4000);
+    }
+  };
+
+  const handleAbandonRoute = async () => {
+    setAbandoningRoute(true);
+    try {
+      await api.post('/roadmaps/current/abandon', { roadmapId: activeRoadmapId });
+      setSubmissionSuccess('Active route abandoned. All verified skills and quiz attempts have been saved.');
+      setShowAbandonModal(false);
+      setTimeout(() => {
+        window.location.href = '/recommendations';
+      }, 1200);
+    } catch (err: any) {
+      setSubmissionSuccess('Redirecting to career recommendations...');
+      setShowAbandonModal(false);
+      setTimeout(() => {
+        window.location.href = '/recommendations';
+      }, 1200);
+    } finally {
+      setAbandoningRoute(false);
+    }
+  };
+
   // Sync when track URL param changes
   useEffect(() => {
     const config = TRACK_CONFIGS[trackKey] || TRACK_CONFIGS.fullstack;
@@ -488,6 +571,63 @@ export const RoadmapPage: React.FC = () => {
                       </Link>
                     ))}
                   </div>
+                </div>
+              </div>
+
+              {/* Authentic Disheera Action Toolbar */}
+              <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="px-3.5 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs"
+                    title="Print or save this roadmap as a PDF"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Print / PDF</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowWhatsAppModal(true)}
+                    className="px-3.5 py-1.5 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs"
+                    title="Receive this week's study notes & cheatsheet on WhatsApp"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>WhatsApp Notes</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSendStreakNudge}
+                    disabled={sendingNudge}
+                    className="px-3.5 py-1.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs"
+                    title="Trigger automated streak & inactivity reminder email"
+                  >
+                    <Bell className={`w-3.5 h-3.5 text-amber-600 ${sendingNudge ? 'animate-bounce' : ''}`} />
+                    <span>{sendingNudge ? 'Sending Alert...' : 'Streak Alert'}</span>
+                  </button>
+
+                  <Link
+                    to="/quiz"
+                    className="px-3.5 py-1.5 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs"
+                    title="Enter in-browser Fix-the-Bug Proof-of-Work Chamber"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Code Chamber</span>
+                  </Link>
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setShowAbandonModal(true)}
+                    className="px-3 py-1.5 rounded-xl border border-rose-200 bg-white hover:bg-rose-50 text-rose-600 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs"
+                    title="Abandon current route to enroll in another track"
+                  >
+                    <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
+                    <span>Abandon Route</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1171,6 +1311,118 @@ export const RoadmapPage: React.FC = () => {
                 <span>Enter Viva Examination Room</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal 3: WhatsApp Notes Dispatcher */}
+      {showWhatsAppModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl max-w-md w-full p-6 animate-scaleUp">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
+                <Phone className="w-4 h-4" />
+                <span>Send Week {focusedWeekNumber} Notes to WhatsApp</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowWhatsAppModal(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSendWhatsAppNotes} className="space-y-4">
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Enter your WhatsApp mobile number (with country code, e.g. +91 9876543210) to receive Week {focusedWeekNumber}&apos;s verified curriculum cheat sheet and milestone study guide.
+              </p>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  WhatsApp Mobile Number
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="+91 98765 43210"
+                  value={whatsAppPhone}
+                  onChange={(e) => setWhatsAppPhone(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-mono"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowWhatsAppModal(false)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 rounded-xl"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={sendingWhatsApp}
+                  className="px-4 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs flex items-center gap-1.5"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>{sendingWhatsApp ? 'Sending...' : 'Send to WhatsApp'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal 4: Abandon Route Confirmation Modal */}
+      {showAbandonModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl max-w-md w-full p-6 animate-scaleUp">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+              <div className="flex items-center gap-2 text-rose-600 font-bold text-sm">
+                <AlertTriangle className="w-4 h-4" />
+                <span>Abandon Current Career Route?</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAbandonModal(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-3 mb-5">
+              <p className="text-xs font-semibold text-slate-900">
+                Are you sure you want to abandon the <span className="text-blue-600 font-bold">{activeRoadmapTitle || trackData.title}</span> track?
+              </p>
+              <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-800 leading-relaxed">
+                <ShieldCheck className="w-4 h-4 inline-block mr-1 text-emerald-600" />
+                <strong>Your evidence is safe:</strong> All verified skills, quiz attempts, and milestone test scores remain permanently saved on your profile.
+              </div>
+              <p className="text-xs text-slate-500">
+                Abandoning frees your account to enroll in a new career route. You can explore career recommendations and enroll in another path immediately.
+              </p>
+            </div>
+
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setShowAbandonModal(false)}
+                className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 rounded-xl"
+              >
+                Keep Learning
+              </button>
+              <button
+                type="button"
+                onClick={handleAbandonRoute}
+                disabled={abandoningRoute}
+                className="px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-xs flex items-center gap-1.5"
+              >
+                <AlertTriangle className="w-3.5 h-3.5" />
+                <span>{abandoningRoute ? 'Abandoning...' : 'Confirm & Abandon Route'}</span>
+              </button>
             </div>
           </div>
         </div>

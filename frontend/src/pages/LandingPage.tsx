@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -15,10 +15,31 @@ import {
   Award,
   FileCheck2,
   Route,
-  Zap
+  Zap,
+  ChevronDown
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: 'What is Disheera?',
+      a: 'Disheera is an autonomous career GPS and verified talent operating system. It provides students with personalized milestone roadmaps, diagnostic assessments, and cryptographic SHA-256 verified credentials for recruiters.'
+    },
+    {
+      q: 'How does skill verification work on Disheera?',
+      a: 'Verification on Disheera combines hands-on GitHub project auditing with 30-minute proctored milestone assessments and oral AI viva defenses, issuing tamper-proof credentials that employers can validate instantly.'
+    },
+    {
+      q: 'What is the Plan 46 Collegiate Assignment System?',
+      a: 'Plan 46 is an evidence-backed collegiate curriculum with 4-pillar rubrics: Code Quality, Architectural Rigor, Oral AI Viva Defense, and Practical Problem Solving. Turnaround is measured in milliseconds, not weeks.'
+    },
+    {
+      q: 'Can recruiters verify candidate credentials without contacting Disheera?',
+      a: 'Yes, all certificates and student career passports carry a cryptographic SHA-256 ledger hash and live QR code verifiable on https://disheera.site/verify with zero friction.'
+    }
+  ];
   return (
     <div className="w-full pt-24 md:pt-28 pb-20">
       
@@ -407,6 +428,216 @@ export const LandingPage: React.FC = () => {
               Verify Candidate Token
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+           4. BILATERAL TRUST INFRASTRUCTURE (DUAL GATEWAY)
+           ============================================================ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200/80">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+            One Platform · Dual Strategic Portals
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Learn, Verify, and Connect
+          </h2>
+          <p className="text-sm text-slate-600">
+            Students build verifiable code artifacts. Colleges and top tech recruiters utilize the same tamper-proof cryptographic ledger to make fast, evidence-based hiring decisions.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Portal Card 1: For Students */}
+          <div className="bg-white rounded-3xl border border-slate-200/90 p-8 shadow-xs flex flex-col justify-between hover:border-blue-400 transition-all">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider">
+                  Student Workspace
+                </span>
+                <Route className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">For Students &amp; Career Switchers</h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Master a targeted tech track with structured weekly assignments and verifiable skill proof.
+                </p>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Route className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Personalized Roadmaps</h4>
+                    <p className="text-[11px] text-slate-500">Horizontal subway milestone rail with live task progression.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Terminal className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Fix-the-Bug Chamber</h4>
+                    <p className="text-[11px] text-slate-500">Solve real production bugs in-browser to prove proof-of-work.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Award className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Cryptographic Career Passport</h4>
+                    <p className="text-[11px] text-slate-500">SHA-256 verifiable credential with oral AI viva defense records.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-slate-100 mt-6">
+              <Link
+                to="/register"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all"
+              >
+                <span>Create Student Account Free</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Portal Card 2: For Recruiters & Colleges */}
+          <div className="bg-white rounded-3xl border border-slate-200/90 p-8 shadow-xs flex flex-col justify-between hover:border-emerald-400 transition-all">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider">
+                  Recruiter &amp; College Tools
+                </span>
+                <Building2 className="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">For Recruiters &amp; University TPOs</h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Evaluate candidates using empirical code quality, architectural depth, and viva defense metrics.
+                </p>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Empirical Candidate Dossiers</h4>
+                    <p className="text-[11px] text-slate-500">View 4D rubric scores, GitHub PRs, and recorded defense clips.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Tamper-Proof Verification</h4>
+                    <p className="text-[11px] text-slate-500">Scan QR or query SHA-256 hash to audit credentials with 0 fake claims.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Radar className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">Talent Scouting Radar</h4>
+                    <p className="text-[11px] text-slate-500">Filter candidates by merit standing, viva status, and location proximity.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-slate-100 mt-6">
+              <Link
+                to="/recruiter-dashboard"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition-all"
+              >
+                <span>Open Recruiter Cockpit</span>
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ============================================================
+           5. CODE CHAMBER & REALITY-CHECK FEATURE BANNER
+           ============================================================ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+          <div className="space-y-3 z-10 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Fix-the-Bug Proof-of-Work Chamber</span>
+            </div>
+            <h3 className="text-2xl font-black tracking-tight text-white">
+              Debug Production Incidents In-Browser. Prove Real Engineering Ability.
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Skip multiple-choice trivia. Solve live production crash dumps with automated test runners, keystroke cadence tracking, and instant verification.
+            </p>
+          </div>
+
+          <div className="z-10 shrink-0">
+            <Link
+              to="/quiz"
+              className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition flex items-center space-x-2 shadow-lg shadow-blue-500/30 active:scale-95"
+            >
+              <Terminal className="w-4 h-4" />
+              <span>Launch Code Chamber</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+           6. FREQUENTLY ASKED QUESTIONS (FAQ)
+           ============================================================ */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200/80">
+        <div className="text-center mb-10 space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+            Clarity &amp; Governance
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500">
+            Everything you need to know about Disheera’s verifiable talent operating system.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, idx) => (
+            <div
+              key={idx}
+              className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs transition-all"
+            >
+              <button
+                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                className="w-full flex items-center justify-between text-left font-bold text-sm text-slate-900"
+              >
+                <span>{faq.q}</span>
+                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${openFaq === idx ? 'rotate-180 text-blue-600' : ''}`} />
+              </button>
+              {openFaq === idx && (
+                <p className="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                  {faq.a}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 

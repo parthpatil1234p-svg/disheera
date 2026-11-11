@@ -10,7 +10,19 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <img src="/logo.svg" alt="Disheera Logo" className="w-9 h-9 object-contain" />
+              <div className="w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-[#00F2FE] via-[#2563EB] to-[#8B5CF6] shadow-xs">
+                <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center overflow-hidden p-0.5">
+                  <img 
+                    src="/logo.png" 
+                    alt="Disheera Logo" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const t = e.currentTarget;
+                      if (!t.src.endsWith('/logo.svg')) t.src = '/logo.svg';
+                    }}
+                  />
+                </div>
+              </div>
               <span className="text-xl font-bold tracking-tight text-[#0F172A] font-['Outfit']">
                 Dishe<span className="text-[#2563EB]">era</span>
               </span>

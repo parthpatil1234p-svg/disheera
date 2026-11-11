@@ -65,24 +65,25 @@ export const DashboardPage: React.FC = () => {
     try {
       // 1. Fetch live student telemetry from backend
       const res = await api.get('/dashboard');
-      if (res && res.success && res.data) {
-        const d = res.data;
-        const activeRoadmap = d.activeRoadmap || d.roadmap || (d.roadmaps && d.roadmaps[0]);
+      if (res && (res.success || res.data)) {
+        const d = res.data || res;
+        const activeRoadmap = d.activeRoadmap || (d.activeRoadmaps && d.activeRoadmaps[0]);
         const tasks = d.upcomingTasks || (activeRoadmap && activeRoadmap.tasks) || [];
         const nextTask = tasks.find((t: any) => !t.completed) || tasks[0];
+        const progress = d.progress || activeRoadmap?.progress || {};
 
         setMetrics(prev => ({
           ...prev,
-          readinessScore: d.readinessScore || d.metrics?.readinessScore || prev.readinessScore,
-          sprintsCleared: d.sprintsCleared || d.metrics?.sprintsCompleted || prev.sprintsCleared,
-          totalSprints: d.totalSprints || d.metrics?.totalSprints || prev.totalSprints,
-          avgGrade: d.avgGrade || d.metrics?.averageGrade || prev.avgGrade,
+          readinessScore: Math.round(progress.progressPercentage ?? activeRoadmap?.progressPercentage ?? d.readinessScore ?? prev.readinessScore),
+          sprintsCleared: progress.completedTasks ?? activeRoadmap?.completedTasks ?? prev.sprintsCleared,
+          totalSprints: progress.totalTasks || activeRoadmap?.totalTasks || prev.totalSprints,
+          avgGrade: d.avgGrade || (d.metrics?.averageGrade ? `${d.metrics.averageGrade} / 10` : prev.avgGrade),
           hoursDedicated: d.hoursDedicated || d.metrics?.hoursDedicated || prev.hoursDedicated,
           activeTrackTitle: activeRoadmap?.career?.title || activeRoadmap?.title || prev.activeTrackTitle,
-          nextDeliverable: nextTask?.title || nextTask?.skillName || prev.nextDeliverable,
+          nextDeliverable: nextTask?.title || nextTask?.skillName || d.nextRecommendedAction || prev.nextDeliverable,
           currentSprintTitle: activeRoadmap?.currentSprintTitle || activeRoadmap?.title || prev.currentSprintTitle,
-          currentSprintDesc: activeRoadmap?.currentSprintDesc || activeRoadmap?.career?.description || prev.currentSprintDesc,
-          currentSprintNum: activeRoadmap?.currentWeek || prev.currentSprintNum
+          currentSprintDesc: activeRoadmap?.currentSprintDesc || activeRoadmap?.career?.shortDescription || prev.currentSprintDesc,
+          currentSprintNum: activeRoadmap?.currentWeek || activeRoadmap?.weekNumber || prev.currentSprintNum
         }));
       }
 

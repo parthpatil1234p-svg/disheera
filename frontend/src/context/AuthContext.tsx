@@ -3,6 +3,7 @@ import { api, getStoredToken, getStoredUser } from '../services/api';
 
 export interface User {
   id: string;
+  _id?: string;
   name: string;
   email: string;
   role?: string;
@@ -62,23 +63,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password: passwordOrUser,
       });
 
-      const authToken = res.token || 'mock-token';
-      const authUser = res.user || {
-        id: 'user-1',
-        name: emailOrToken.split('@')[0],
-        email: emailOrToken,
-        role: 'student',
-      };
+      const authToken = res.data?.token || res.token;
+      const authUser = res.data?.user || res.user;
 
-      localStorage.setItem('careerpath_token', authToken);
-      localStorage.setItem('careerpath_user', JSON.stringify(authUser));
-      setToken(authToken);
-      setUser(authUser);
+      if (authToken) {
+        localStorage.setItem('careerpath_token', authToken);
+        localStorage.setItem('token', authToken);
+      }
+      if (authUser) {
+        localStorage.setItem('careerpath_user', JSON.stringify(authUser));
+        localStorage.setItem('user', JSON.stringify(authUser));
+      }
+
+      setToken(authToken || null);
+      setUser(authUser || null);
     } else {
       const authToken = emailOrToken;
       const authUser = passwordOrUser || { id: 'user-1', name: 'User', email: 'user@example.com' };
-      localStorage.setItem('careerpath_token', authToken);
-      localStorage.setItem('careerpath_user', JSON.stringify(authUser));
+      if (authToken) {
+        localStorage.setItem('careerpath_token', authToken);
+        localStorage.setItem('token', authToken);
+      }
+      if (authUser) {
+        localStorage.setItem('careerpath_user', JSON.stringify(authUser));
+        localStorage.setItem('user', JSON.stringify(authUser));
+      }
       setToken(authToken);
       setUser(authUser);
     }
@@ -90,11 +99,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const verifyOtp = async (email: string, otp: string) => {
     const res = await api.post('/auth/verify-otp', { email, otp });
-    if (res.token && res.user) {
-      localStorage.setItem('careerpath_token', res.token);
-      localStorage.setItem('careerpath_user', JSON.stringify(res.user));
-      setToken(res.token);
-      setUser(res.user);
+    const authToken = res.data?.token || res.token;
+    const authUser = res.data?.user || res.user;
+    if (authToken && authUser) {
+      localStorage.setItem('careerpath_token', authToken);
+      localStorage.setItem('token', authToken);
+      localStorage.setItem('careerpath_user', JSON.stringify(authUser));
+      localStorage.setItem('user', JSON.stringify(authUser));
+      setToken(authToken);
+      setUser(authUser);
     }
     return res;
   };
@@ -108,6 +121,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('careerpath_user');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    sessionStorage.removeItem('careerpath_token');
+    sessionStorage.removeItem('careerpath_user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     setToken(null);
     setUser(null);
   };
@@ -116,6 +133,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) return;
     const updated = { ...user, ...data };
     localStorage.setItem('careerpath_user', JSON.stringify(updated));
+    localStorage.setItem('user', JSON.stringify(updated));
     setUser(updated);
   };
 

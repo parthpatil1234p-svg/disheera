@@ -11,7 +11,8 @@ import {
   X, 
   Radar,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  Terminal
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -24,6 +25,7 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'Career Tracks', path: '/recommendations', icon: Radar },
     { name: 'Weekly Sprints', path: '/roadmap', icon: Map },
+    { name: 'Code Chamber', path: '/quiz', icon: Terminal },
     { name: 'Career Passport', path: '/passport', icon: Award },
     { name: 'Market Radar', path: '/jobs', icon: Briefcase },
     { name: 'Resume Studio', path: '/resume-builder', icon: FileText },
@@ -31,24 +33,37 @@ export const Navbar: React.FC = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const logoDestination = user?.role === 'recruiter' ? '/recruiter-dashboard' : (user ? '/dashboard' : '/');
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 pt-3 md:pt-4 px-4 sm:px-6 lg:px-8 pointer-events-none">
       <div className="max-w-7xl mx-auto">
         <div className="pointer-events-auto h-16 md:h-18 bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full shadow-[0_20px_45px_-12px_rgba(15,23,42,0.12)] px-4 sm:px-6 flex items-center justify-between gap-4">
           
-          {/* Brand / Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-            <img 
-              src="/logo.svg" 
-              alt="Disheera Logo" 
-              className="h-10 w-10 object-contain transition-transform group-hover:scale-105" 
-            />
+          {/* Brand / Logo with Authentic Squircle Gradient Border & Role-Smart Navigation */}
+          <Link to={logoDestination} className="flex items-center gap-2.5 group shrink-0" title={user?.role === 'recruiter' ? 'Recruiter Hub Home' : 'Disheera Atlas Home'}>
+            <div className="relative w-10 h-10 rounded-xl p-[2px] bg-gradient-to-tr from-[#00F2FE] via-[#2563EB] to-[#8B5CF6] shadow-xs transition-transform group-hover:scale-105">
+              <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center overflow-hidden p-0.5">
+                <img 
+                  src="/logo.png" 
+                  alt="Disheera Official Logo" 
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/logo.svg')) {
+                      target.src = '/logo.svg';
+                    }
+                  }}
+                />
+              </div>
+            </div>
             <div className="flex flex-col">
               <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
                 Dishe<span className="text-blue-600">era</span>
               </span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest scale-90 -ml-1 mt-0.5">
-                Career GPS
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                {user?.role === 'recruiter' ? 'Recruiter Hub' : 'Career GPS · Atlas'}
               </span>
             </div>
           </Link>
