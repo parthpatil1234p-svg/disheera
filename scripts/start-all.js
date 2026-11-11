@@ -78,10 +78,11 @@ function spawnProcess(name, command, args, cwd, useShell = false) {
   return child;
 }
 
-// 0. Ensure ports 5000, 5500, 5501 are clean before booting
+// 0. Ensure ports 5000, 5500, 5501, 5502 are clean before booting
 freePort(5000);
 freePort(5500);
 freePort(5501);
+freePort(5502);
 
 // Resolve local 'serve' package entry point to bypass npx overhead and shell deprecation
 let serveBin = null;
@@ -117,6 +118,18 @@ if (fs.existsSync(adminClientDir)) {
   }
 } else {
   console.warn('⚠️ [Admin Client] Directory not found: admin-client/');
+}
+
+// 4. Start Legacy HTML Client (:5502) if client/ directory exists
+const legacyClientDir = path.join(rootDir, 'client');
+if (fs.existsSync(legacyClientDir) && clientDir !== legacyClientDir) {
+  const legacyArgs = [serveBin, legacyClientDir, '-p', '5502'];
+  const legacyNpxArgs = ['--yes', 'serve', legacyClientDir, '-p', '5502'];
+  if (serveBin) {
+    spawnProcess('Legacy HTML Client (:5502)', process.execPath, legacyArgs, rootDir, false);
+  } else {
+    spawnProcess('Legacy HTML Client (:5502)', 'npx', legacyNpxArgs, rootDir, true);
+  }
 }
 
 // Graceful cleanup handler
