@@ -557,29 +557,29 @@
           </div>
         </div>
 
-        <!-- B2B Subscription & Candidate Unlock Credits Ribbon (Unsubscribed / Free Starter State) -->
-        <div class="card p-3 mb-4 border-line shadow-xs" style="background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%); border-radius: 14px; border-left: 4px solid #94A3B8;">
+        <!-- B2B Subscription & Candidate Unlock Credits Ribbon (Polished SaaS Design) -->
+        <div class="card p-3 mb-4 border border-slate-200 shadow-xs" style="background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%); border-radius: 16px; border-left: 4px solid #2563EB;">
           <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div class="d-flex align-items-center gap-3 flex-wrap">
               <div class="d-flex align-items-center gap-2">
-                <span class="badge bg-secondary text-white font-mono px-2.5 py-1 small rounded-pill">
-                  <i class="bi bi-shield-lock me-1"></i>STARTER TIER (FREE)
+                <span class="badge bg-blue-50 text-blue-700 border border-blue-200 font-semibold px-2.5 py-1 text-xs rounded-full d-inline-flex align-items-center gap-1.5 shadow-xs">
+                  <i class="bi bi-shield-check text-blue-600"></i> Corporate Starter Tier
                 </span>
-                <span class="fw-bold text-ink small">No Active B2B Subscription</span>
+                <span class="fw-bold text-slate-900 text-sm">Free Employer Account</span>
               </div>
-              <div class="vr d-none d-md-block" style="height: 20px;"></div>
-              <div class="d-flex align-items-center gap-2 small text-muted">
-                <i class="bi bi-lock-fill text-muted"></i>
-                <span>Verified Candidate Unlocks: <strong class="text-slate-700 font-mono" id="recruiterUnlocksCount">0 Unlocks Available</strong></span>
+              <div class="vr d-none d-md-block" style="height: 20px; opacity: 0.15;"></div>
+              <div class="d-flex align-items-center gap-2 text-xs text-slate-600 bg-white border border-slate-200 px-3 py-1 rounded-full shadow-xs">
+                <i class="bi bi-person-badge text-blue-600"></i>
+                <span>Candidate Unlocks: <strong class="text-slate-900 font-bold" id="recruiterUnlocksCount">0 Available</strong></span>
               </div>
-              <div class="vr d-none d-md-block" style="height: 20px;"></div>
-              <div class="small text-muted font-mono">
-                Free Starter Preview Mode
+              <div class="vr d-none d-md-block" style="height: 20px; opacity: 0.15;"></div>
+              <div class="text-xs text-slate-500 font-medium d-none d-lg-inline">
+                Upgrade to Pro for 60 verified student unlocks / month
               </div>
             </div>
             <div class="d-flex align-items-center gap-2">
-              <button class="btn btn-primary btn-sm px-3 rounded-pill fw-semibold shadow-xs" data-bs-toggle="modal" data-bs-target="#modalRecruiterPlanDetails">
-                <i class="bi bi-lightning-charge-fill me-1"></i> Upgrade to Talent Radar Pro
+              <button class="btn btn-sm px-3.5 py-2 rounded-xl fw-semibold text-xs text-white shadow-xs d-inline-flex align-items-center gap-1.5" style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); border: none;" data-bs-toggle="modal" data-bs-target="#modalRecruiterPlanDetails">
+                <i class="bi bi-stars"></i> Upgrade to Talent Radar Pro
               </button>
             </div>
           </div>
@@ -1555,126 +1555,230 @@
          ============================================================ -->
     <div class="modal fade" id="modalRecruiterPlanDetails" tabindex="-1" aria-labelledby="modalRecruiterPlanDetailsLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-          <div class="modal-header px-4 py-3 bg-white border-bottom border-line">
-            <div class="d-flex align-items-center gap-2.5">
-              <div class="p-2 rounded bg-primary bg-opacity-10 text-primary">
+        <div class="modal-content border-0 shadow-xl rounded-2xl overflow-hidden">
+          <!-- Modal Header -->
+          <div class="modal-header px-4 py-3.5 bg-white border-bottom border-slate-200">
+            <div class="d-flex align-items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
                 <i class="bi bi-radar fs-4"></i>
               </div>
               <div>
-                <h5 class="modal-title fw-bold text-ink mb-0" id="modalRecruiterPlanDetailsLabel">
-                  B2B Subscription &middot; Plan Status &amp; Upgrades
+                <h5 class="modal-title fw-bold text-slate-900 mb-0 fs-5" id="modalRecruiterPlanDetailsLabel">
+                  B2B Recruitment &middot; Plan &amp; Unlocks Management
                 </h5>
-                <p class="text-muted small mb-0">Manage corporate recruitment package, verified profile unlocks, and billing</p>
+                <p class="text-slate-500 text-xs mb-0 mt-0.5">Manage verified student candidate unlocks, enterprise radar access, and invoicing</p>
               </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <div class="modal-body p-4 bg-light">
-            <!-- Current Plan Summary Card (Inactive / Starter) -->
-            <div class="card p-3 mb-4 border border-line shadow-xs" style="background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%); border-radius: 16px;">
+          <div class="modal-body p-4 bg-slate-50">
+            <!-- 1. Current Plan Status Card -->
+            <div class="card p-4 mb-4 border border-slate-200 shadow-xs rounded-2xl bg-white">
               <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
                 <div class="d-flex align-items-center gap-2">
-                  <span class="badge bg-secondary text-white font-mono px-2.5 py-1 small rounded-pill">
-                    <i class="bi bi-shield-slash me-1"></i> INACTIVE / STARTER PLAN
+                  <span class="badge bg-slate-100 text-slate-700 border border-slate-200 font-semibold px-2.5 py-1 text-xs rounded-full d-inline-flex align-items-center gap-1.5">
+                    <i class="bi bi-shield-check text-blue-600"></i> CURRENT PLAN: FREE STARTER
                   </span>
-                  <h6 class="fw-bold text-ink mb-0 fs-5">Recruiter Free Starter Tier</h6>
+                  <h6 class="fw-bold text-slate-900 mb-0 fs-6">Corporate Starter Account</h6>
                 </div>
                 <div class="text-end">
-                  <span class="fs-4 fw-extrabold text-slate-700 font-heading">₹0</span>
-                  <span class="text-muted small">/ Free</span>
+                  <span class="fs-4 fw-extrabold text-slate-900 font-heading">₹0</span>
+                  <span class="text-slate-500 text-xs font-normal"> / Free</span>
                 </div>
               </div>
 
-              <!-- Unlocks Meter (0 Remaining) -->
-              <div class="p-3 bg-white rounded-3 border border-line mb-3">
-                <div class="d-flex align-items-center justify-content-between mb-1.5 small">
-                  <span class="fw-semibold text-ink"><i class="bi bi-lock-fill text-muted me-1"></i> Monthly Candidate Unlocks</span>
-                  <span class="font-mono fw-bold text-secondary" id="modalUnlocksProgressText">0 Unlocks Remaining</span>
+              <!-- Unlocks Meter -->
+              <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200 mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-semibold text-slate-800 text-xs d-flex align-items-center gap-1.5">
+                    <i class="bi bi-person-check-fill text-blue-600"></i> Monthly Verified Candidate Profile Unlocks
+                  </span>
+                  <span class="fw-bold text-slate-900 text-xs font-mono" id="modalUnlocksProgressText">0 / 0 Unlocks Remaining</span>
                 </div>
-                <div class="progress" style="height: 8px;">
-                  <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="60"></div>
+                <div class="progress rounded-pill bg-slate-200" style="height: 8px;">
+                  <div class="progress-bar rounded-pill bg-blue-600" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="60"></div>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mt-2 small text-muted font-monospace" style="font-size: 0.75rem;">
-                  <span>No active unlock quota</span>
-                  <span>Upgrade to Pro to unlock verified candidate contact details</span>
+                <div class="d-flex align-items-center justify-content-between mt-2 text-xs text-slate-500">
+                  <span>Free starter quota: Public preview mode</span>
+                  <span class="text-blue-600 fw-semibold">Pro tier includes 60 verified unlocks/mo</span>
                 </div>
               </div>
 
-              <!-- Feature Breakdown (Locked State) -->
-              <div class="row g-2 small text-secondary">
-                <div class="col-sm-6 d-flex align-items-center gap-2">
-                  <i class="bi bi-check-circle-fill text-success"></i>
-                  <span>Public Candidate Previews &amp; Search</span>
-                </div>
-                <div class="col-sm-6 d-flex align-items-center gap-2">
-                  <i class="bi bi-check-circle-fill text-success"></i>
-                  <span>Role Track &amp; Skill Filtering</span>
-                </div>
-                <div class="col-sm-6 d-flex align-items-center gap-2">
-                  <i class="bi bi-x-circle text-muted"></i>
-                  <span class="text-muted">Direct Candidate Messaging (Pro Required)</span>
-                </div>
-                <div class="col-sm-6 d-flex align-items-center gap-2">
-                  <i class="bi bi-x-circle text-muted"></i>
-                  <span class="text-muted">Anti-Cheat Proctor Audio/Screen Logs (Pro Required)</span>
-                </div>
-                <div class="col-sm-6 d-flex align-items-center gap-2">
-                  <i class="bi bi-x-circle text-muted"></i>
-                  <span class="text-muted">Unredacted Contact Info &amp; Phone (Pro Required)</span>
-                </div>
-                <div class="col-sm-6 d-flex align-items-center gap-2">
-                  <i class="bi bi-x-circle text-muted"></i>
-                  <span class="text-muted">ATS Candidate Export in CSV/JSON (Pro Required)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pro Upgrade Package Banner -->
-            <div class="card p-3 mb-4 border border-primary-subtle shadow-xs" style="background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%); border-radius: 14px;">
-              <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <div>
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <span class="badge bg-primary text-white font-mono px-2 py-0.5 rounded-pill" style="font-size: 0.7rem;">RECOMMENDED</span>
-                    <h6 class="fw-bold text-ink mb-0">Talent Radar Pro Subscription</h6>
+              <!-- Included & Pro Features Matrix -->
+              <div class="row g-2.5 pt-1 text-xs">
+                <div class="col-sm-6">
+                  <div class="d-flex align-items-center gap-2 py-1.5 px-2.5 rounded-lg bg-emerald-50/70 border border-emerald-100 text-emerald-900">
+                    <i class="bi bi-check-circle-fill text-emerald-600 fs-6 shrink-0"></i>
+                    <span class="font-medium">Public Candidate Search &amp; Previews</span>
                   </div>
-                  <p class="text-muted small mb-0">₹9,999 / month · Includes 60 verified candidate profile unlocks, unredacted contact info, anti-cheat test audits, and 1-click candidate invites.</p>
                 </div>
-                <div>
-                  <button type="button" class="btn cp-btn-primary px-4 py-2 rounded-xl fw-bold shadow-xs" onclick="initiateRecruiterProUpgrade()">
-                    <i class="bi bi-lightning-charge-fill me-1"></i> Subscribe to Pro (₹9,999/mo)
-                  </button>
+                <div class="col-sm-6">
+                  <div class="d-flex align-items-center gap-2 py-1.5 px-2.5 rounded-lg bg-emerald-50/70 border border-emerald-100 text-emerald-900">
+                    <i class="bi bi-check-circle-fill text-emerald-600 fs-6 shrink-0"></i>
+                    <span class="font-medium">Curriculum Track &amp; College Filtering</span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="d-flex align-items-center gap-2 py-1.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600">
+                    <i class="bi bi-lock-fill text-slate-400 fs-6 shrink-0"></i>
+                    <span>1-Click Candidate Messaging &amp; Invites <span class="badge bg-blue-100 text-blue-700 font-semibold px-1.5 py-0.5 rounded text-[10px] ms-1">PRO</span></span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="d-flex align-items-center gap-2 py-1.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600">
+                    <i class="bi bi-lock-fill text-slate-400 fs-6 shrink-0"></i>
+                    <span>Zero-Cheating Deep Audio &amp; Screen Logs <span class="badge bg-blue-100 text-blue-700 font-semibold px-1.5 py-0.5 rounded text-[10px] ms-1">PRO</span></span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="d-flex align-items-center gap-2 py-1.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600">
+                    <i class="bi bi-lock-fill text-slate-400 fs-6 shrink-0"></i>
+                    <span>Unredacted Candidate Contact Emails &amp; Phones <span class="badge bg-blue-100 text-blue-700 font-semibold px-1.5 py-0.5 rounded text-[10px] ms-1">PRO</span></span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="d-flex align-items-center gap-2 py-1.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600">
+                    <i class="bi bi-lock-fill text-slate-400 fs-6 shrink-0"></i>
+                    <span>Full Candidate ATS Export in CSV &amp; JSON <span class="badge bg-blue-100 text-blue-700 font-semibold px-1.5 py-0.5 rounded text-[10px] ms-1">PRO</span></span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Invoices & Tax Receipts -->
-            <div class="p-3 rounded-3 bg-white border border-line d-flex align-items-center justify-content-between flex-wrap gap-2">
-              <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-receipt text-secondary fs-4"></i>
-                <div>
-                  <div class="fw-bold text-ink small">Tax Invoices &amp; Receipts</div>
-                  <div class="text-muted font-mono" style="font-size: 0.75rem;">No invoices generated yet · Receipts appear after subscription activation</div>
+            <!-- 2. Upgrade to Talent Radar Pro Tier Banner -->
+            <div class="card p-4 mb-4 border border-blue-200 shadow-xs rounded-2xl" style="background: linear-gradient(135deg, #F0F7FF 0%, #FFFFFF 100%);">
+              <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="flex-grow-1" style="max-width: 480px;">
+                  <div class="d-flex align-items-center gap-2 mb-1.5">
+                    <span class="badge bg-blue-600 text-white font-mono px-2 py-0.5 rounded-full text-[10px] fw-bold">RECOMMENDED B2B</span>
+                    <h6 class="fw-bold text-slate-900 mb-0 fs-6">Talent Radar Pro Subscription</h6>
+                  </div>
+                  <p class="text-slate-600 text-xs mb-2 leading-relaxed">
+                    Includes <strong>60 verified candidate profile unlocks</strong> per month, full anti-cheat proctoring logs, direct contact details, and priority candidate outreach.
+                  </p>
+                  <div class="d-flex align-items-baseline gap-2">
+                    <span class="fs-4 fw-extrabold text-blue-600 font-heading">₹9,999</span>
+                    <span class="text-slate-500 text-xs">/ month · Billed monthly via Cashfree</span>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <button type="button" class="btn cp-btn-primary px-4 py-2.5 rounded-xl fw-bold text-xs shadow-xs d-inline-flex align-items-center gap-2" onclick="initiateRecruiterProUpgrade()">
+                    <i class="bi bi-lightning-charge-fill"></i> Subscribe to Pro (₹9,999/mo)
+                  </button>
+                  <div class="text-slate-400 text-[11px] mt-1.5 text-center">Instant Cashfree activation &middot; Cancel anytime</div>
                 </div>
               </div>
-              <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill" disabled>
-                <i class="bi bi-dash-circle me-1"></i> No Invoices Yet
+            </div>
+
+            <!-- 3. Candidate Unlock Credit Top-Up Packs (3 Bento Cards) -->
+            <div class="mb-4">
+              <div class="d-flex align-items-center justify-content-between mb-2.5">
+                <h6 class="fw-bold text-slate-800 mb-0 d-flex align-items-center gap-1.5 text-xs text-uppercase tracking-wider">
+                  <i class="bi bi-plus-circle-fill text-blue-600"></i> Need Additional Profile Unlock Credits?
+                </h6>
+                <span class="text-slate-400 text-xs">Available for corporate accounts</span>
+              </div>
+              <div class="row g-3">
+                <div class="col-sm-4">
+                  <div class="card p-3.5 bg-white border border-slate-200 rounded-2xl text-center h-100 d-flex flex-column justify-content-between shadow-xs hover:border-slate-300 transition-all">
+                    <div>
+                      <div class="text-xs text-slate-500 font-medium mb-1">Starter Pack</div>
+                      <div class="fs-5 fw-bold text-slate-900">+10 Profiles</div>
+                      <div class="text-blue-600 fw-bold fs-6 mt-1">₹1,999</div>
+                      <div class="text-slate-400 text-[11px] mt-0.5">₹199 / candidate</div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-xl mt-3 fw-semibold text-xs py-1.5" onclick="topUpUnlocks(10, 1999)">
+                      <i class="bi bi-cart-plus me-1"></i> Add Pack
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card p-3.5 bg-blue-50/40 border-2 border-blue-500 rounded-2xl text-center h-100 d-flex flex-column justify-content-between shadow-sm position-relative">
+                    <span class="badge bg-blue-600 text-white position-absolute top-0 start-50 translate-middle font-mono px-2.5 py-0.5 rounded-full text-[10px] fw-bold shadow-xs">MOST POPULAR</span>
+                    <div>
+                      <div class="text-xs text-blue-600 font-semibold mb-1">Growth Pack</div>
+                      <div class="fs-5 fw-bold text-slate-900">+25 Profiles</div>
+                      <div class="text-blue-600 fw-bold fs-6 mt-1">₹3,999</div>
+                      <div class="text-slate-400 text-[11px] mt-0.5">₹159 / candidate (Save 20%)</div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm rounded-xl mt-3 fw-bold text-xs py-1.5 shadow-xs" onclick="topUpUnlocks(25, 3999)">
+                      <i class="bi bi-cart-plus-fill me-1"></i> Add Pack
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card p-3.5 bg-white border border-slate-200 rounded-2xl text-center h-100 d-flex flex-column justify-content-between shadow-xs hover:border-slate-300 transition-all">
+                    <div>
+                      <div class="text-xs text-slate-500 font-medium mb-1">Scale Pack</div>
+                      <div class="fs-5 fw-bold text-slate-900">+50 Profiles</div>
+                      <div class="text-blue-600 fw-bold fs-6 mt-1">₹6,999</div>
+                      <div class="text-slate-400 text-[11px] mt-0.5">₹139 / candidate (Save 30%)</div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-xl mt-3 fw-semibold text-xs py-1.5" onclick="topUpUnlocks(50, 6999)">
+                      <i class="bi bi-cart-plus me-1"></i> Add Pack
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Tax Invoices & Receipts -->
+            <div class="p-3.5 rounded-2xl bg-white border border-slate-200 d-flex align-items-center justify-content-between flex-wrap gap-2 shadow-xs">
+              <div class="d-flex align-items-center gap-3">
+                <div class="p-2 rounded-xl bg-rose-50 text-rose-600">
+                  <i class="bi bi-file-earmark-pdf-fill fs-5"></i>
+                </div>
+                <div>
+                  <div class="fw-bold text-slate-900 text-xs">GST Tax Invoices &amp; Invoicing History</div>
+                  <div class="text-slate-500 text-[11px]">Download official GST tax invoices (18% input credit eligible) for your corporate entity</div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-secondary btn-sm rounded-xl text-xs px-3.5 py-1.5 text-slate-600" onclick="alert('No tax invoices generated yet. Invoices appear automatically upon subscription purchase.')">
+                <i class="bi bi-download me-1"></i> Download PDF
               </button>
             </div>
           </div>
 
-          <div class="modal-footer px-4 py-3 bg-white border-top">
-            <span class="small text-muted me-auto font-monospace" style="font-size: 0.78rem;">
-              <i class="bi bi-headset text-primary me-1"></i> Priority Corporate Support: priority@disheera.site · +91 7499085045
-            </span>
-            <button type="button" class="btn btn-secondary btn-sm px-4 rounded-pill" data-bs-dismiss="modal">Close</button>
+          <!-- Modal Footer -->
+          <div class="modal-footer px-4 py-3 bg-white border-top border-slate-200">
+            <div class="d-flex align-items-center gap-2 text-slate-500 text-xs me-auto">
+              <i class="bi bi-headset text-blue-600 fs-6"></i>
+              <span>Corporate Priority Support: <a href="mailto:priority@disheera.site" class="text-blue-600 fw-semibold text-decoration-none">priority@disheera.site</a> &middot; +91 7499085045</span>
+            </div>
+            <button type="button" class="btn btn-light border border-slate-200 text-slate-700 btn-sm px-4 rounded-xl fw-semibold text-xs hover:bg-slate-100" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
 
     <script>
+      function topUpUnlocks(count, price) {
+        if (confirm(`Purchase ${count} verified candidate unlock credits for ₹${price.toLocaleString('en-IN')} via Cashfree?`)) {
+          if (window.API && typeof window.API.post === 'function') {
+            window.API.post('/payments/create-order', {
+              amount: price,
+              planName: `${count} Candidate Unlocks Top-Up Pack`
+            }, { auth: true }).then(res => {
+              if (res.success && res.data && res.data.paymentSessionId) {
+                if (window.Cashfree) {
+                  const cf = window.Cashfree({ mode: 'production' });
+                  cf.checkout({ paymentSessionId: res.data.paymentSessionId });
+                } else {
+                  alert('Cashfree Gateway initialized. Order ID: ' + res.data.orderId);
+                }
+              } else {
+                alert(res.message || 'Could not initiate top-up order.');
+              }
+            }).catch(err => {
+              alert(err.message || 'Payment initiation failed.');
+            });
+          } else {
+            alert(`Top-up pack of ${count} profiles selected. Contact priority@disheera.site to setup direct invoice billing.`);
+          }
+        }
+      }
+
       function initiateRecruiterProUpgrade() {
         if (confirm('Initiate Talent Radar Pro B2B subscription for ₹9,999/month via Cashfree?')) {
           if (window.API && typeof window.API.post === 'function') {
