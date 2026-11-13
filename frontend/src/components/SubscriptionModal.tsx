@@ -8,7 +8,8 @@ import {
   X, 
   ArrowRight, 
   Loader2,
-  Lock
+  Lock,
+  Tag
 } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -35,8 +36,39 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponSuccess, setCouponSuccess] = useState<string | null>(null);
 
   if (!isOpen) return null;
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) {
+      setError('Please enter a coupon code.');
+      return;
+    }
+    setCouponLoading(true);
+    setError(null);
+    setCouponSuccess(null);
+    try {
+      const res = await api.post('/coupons/redeem', {
+        couponCode: couponCode.trim()
+      });
+      if (res && res.success) {
+        setCouponSuccess(res.message || '🎉 100% Free Pro Access activated successfully!');
+        setTimeout(() => {
+          if (onSuccess) onSuccess();
+          onClose();
+        }, 1500);
+      } else {
+        setError(res?.message || 'Invalid or expired coupon code.');
+      }
+    } catch (cErr: any) {
+      setError(cErr.message || 'Coupon redemption failed.');
+    } finally {
+      setCouponLoading(false);
+    }
+  };
 
   const loadRazorpayScript = (): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -235,6 +267,40 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 <span><strong>ATS LaTeX Resumes</strong> with live QR verification</span>
               </div>
             </div>
+          </div>
+
+          {/* Promo / Coupon Code Section */}
+          <div className="p-3.5 bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] space-y-2">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-bold text-[#0F172A] flex items-center space-x-1.5">
+                <Tag className="w-3.5 h-3.5 text-blue-600" />
+                <span>Have an Institutional / Admin Promo Code?</span>
+              </span>
+              <span className="text-[11px] text-emerald-600 font-semibold">100% Free Access</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                placeholder="e.g. STU-PILOT-PRO5 or ADMIN PASS"
+                className="flex-1 px-3 py-2 bg-white rounded-xl border border-[#CBD5E1] text-xs font-mono font-bold text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-blue-500 uppercase tracking-wider"
+              />
+              <button
+                type="button"
+                onClick={handleApplyCoupon}
+                disabled={couponLoading || !couponCode.trim()}
+                className="px-4 py-2 bg-[#0F172A] hover:bg-slate-800 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shrink-0"
+              >
+                {couponLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>Apply Code</span>}
+              </button>
+            </div>
+            {couponSuccess && (
+              <div className="text-[11px] text-emerald-700 font-semibold flex items-center space-x-1.5 pt-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span>{couponSuccess}</span>
+              </div>
+            )}
           </div>
 
           {/* Security & Payment Rail Notice */}

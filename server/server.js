@@ -132,6 +132,7 @@ const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const vivaRoutes = require('./routes/vivaRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const razorpayRoutes = require('./routes/razorpayRoutes');
+const couponRoutes = require('./routes/couponRoutes');
 const adminHostGuard = require('./middleware/adminHostGuard');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
@@ -668,6 +669,9 @@ app.use('/api/payments', paymentRoutes);
 // Razorpay Standard Web Checkout Integration (Direct & Prefixed routes)
 app.use('/api', razorpayRoutes);
 app.use('/api/razorpay', razorpayRoutes);
+
+// Zero-Payment Pilot & Fixed Admin Promo Coupon Engine
+app.use('/api/coupons', couponRoutes);
 
 // ── Dedicated Subdomain Admin Panel Routes (/api/admin/*) ────
 // Layer 1: Subdomain Host Guard restricts all admin endpoints to admin.disheera.site (and dev hosts)
