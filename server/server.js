@@ -131,6 +131,7 @@ const assignmentRoutes = require('./routes/assignmentRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const vivaRoutes = require('./routes/vivaRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const razorpayRoutes = require('./routes/razorpayRoutes');
 const adminHostGuard = require('./middleware/adminHostGuard');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
@@ -175,7 +176,8 @@ app.use(helmet({
         "https://analytics.open-domains.com",
         "https://www.googletagmanager.com",
         "https://www.google-analytics.com",
-        "https://sdk.cashfree.com"
+        "https://sdk.cashfree.com",
+        "https://checkout.razorpay.com"
       ],
       styleSrc: [
         "'self'",
@@ -195,7 +197,9 @@ app.use(helmet({
         "'self'",
         "https://sdk.cashfree.com",
         "https://api.cashfree.com",
-        "https://payments.cashfree.com"
+        "https://payments.cashfree.com",
+        "https://api.razorpay.com",
+        "https://checkout.razorpay.com"
       ],
       imgSrc: ["'self'", "data:", "https:", "blob:"],
       connectSrc: [
@@ -217,7 +221,9 @@ app.use(helmet({
         "https://www.google-analytics.com",
         "https://region1.google-analytics.com",
         "https://api.cashfree.com",
-        "https://sandbox.cashfree.com"
+        "https://sandbox.cashfree.com",
+        "https://api.razorpay.com",
+        "https://lumberjack.razorpay.com"
       ],
     }
   },
@@ -658,6 +664,10 @@ app.use('/api/viva', vivaRoutes);
 
 // Cashfree Payment Gateway & Pro Membership Subscription
 app.use('/api/payments', paymentRoutes);
+
+// Razorpay Standard Web Checkout Integration (Direct & Prefixed routes)
+app.use('/api', razorpayRoutes);
+app.use('/api/razorpay', razorpayRoutes);
 
 // ── Dedicated Subdomain Admin Panel Routes (/api/admin/*) ────
 // Layer 1: Subdomain Host Guard restricts all admin endpoints to admin.disheera.site (and dev hosts)
