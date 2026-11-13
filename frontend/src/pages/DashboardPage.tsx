@@ -68,16 +68,16 @@ export const DashboardPage: React.FC = () => {
     endDate: null
   });
   const [metrics, setMetrics] = useState<DashboardMetrics>({
-    readinessScore: 88.5,
-    sprintsCleared: 2,
-    totalSprints: 16,
-    avgGrade: '9.4 / 10',
-    hoursDedicated: '14h 20m',
-    activeTrackTitle: 'Full Stack AI Engineer',
-    nextDeliverable: 'Week 3 SQL Index Lab',
-    currentSprintTitle: 'PostgreSQL Optimization, Indexing & ACID Transactions',
-    currentSprintDesc: 'Understand B-Tree vs GIN indexing tradeoffs, write-ahead logging (WAL), row-level locks, and multi-table ACID transaction safety.',
-    currentSprintNum: 3
+    readinessScore: 0,
+    sprintsCleared: 0,
+    totalSprints: 0,
+    avgGrade: '—',
+    hoursDedicated: '0h',
+    activeTrackTitle: 'No Active Track',
+    nextDeliverable: 'Enroll in Track',
+    currentSprintTitle: 'Start Your Career Journey',
+    currentSprintDesc: 'Browse and enroll in a career track to begin your personalized learning roadmap.',
+    currentSprintNum: 1
   });
   const [matchJobs, setMatchJobs] = useState<MatchJob[]>([]);
 
@@ -160,25 +160,7 @@ export const DashboardPage: React.FC = () => {
           matchScore: j.matchScore || Math.floor(Math.random() * 8) + 90
         })));
       } else {
-        // Calibrated enterprise partner fallback
-        setMatchJobs([
-          {
-            id: 'job-1',
-            title: 'Junior Backend Engineer',
-            company: 'Acme Systems',
-            location: 'Pune (Hybrid)',
-            salary: '₹8.5L – ₹12.0L / yr',
-            matchScore: 92
-          },
-          {
-            id: 'job-2',
-            title: 'Full Stack Associate',
-            company: 'NexTalent Cloud',
-            location: 'Remote',
-            salary: '₹7.0L – ₹10.5L / yr',
-            matchScore: 89
-          }
-        ]);
+        setMatchJobs([]);
       }
     } catch (e) {
       console.warn('Dashboard live telemetry fetch failed, falling back to cached profile state.', e);
@@ -187,7 +169,7 @@ export const DashboardPage: React.FC = () => {
     }
   };
 
-  const studentName = user?.name || 'Aarav Sharma';
+  const studentName = user?.name || 'Student';
 
   return (
     <div className="min-h-screen bg-[#F7F9FD] py-8 sm:py-12">
@@ -456,22 +438,29 @@ export const DashboardPage: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                {matchJobs.map((j) => (
-                  <Link
-                    key={j.id}
-                    to="/jobs"
-                    className="block p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-blue-300 transition space-y-1.5"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="text-xs font-bold text-[#0F172A]">{j.title}</div>
-                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                        {j.matchScore}% Match
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-[#64748B]">{j.company} · {j.location}</div>
-                    <div className="text-[11px] font-mono text-[#0F172A] font-bold">{j.salary}</div>
-                  </Link>
-                ))}
+                {matchJobs.length > 0 ? (
+                  matchJobs.map((j) => (
+                    <Link
+                      key={j.id}
+                      to="/jobs"
+                      className="block p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-blue-300 transition space-y-1.5"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div className="text-xs font-bold text-[#0F172A]">{j.title}</div>
+                        <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                          {j.matchScore}% Match
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-[#64748B]">{j.company} · {j.location}</div>
+                      <div className="text-[11px] font-mono text-[#0F172A] font-bold">{j.salary}</div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-center space-y-1">
+                    <p className="text-xs font-semibold text-[#0F172A]">No Active Job Matches Yet</p>
+                    <p className="text-[11px] text-[#64748B]">Enroll in a roadmap to discover matched industry openings.</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
