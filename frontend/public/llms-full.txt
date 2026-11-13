@@ -2,26 +2,34 @@
 
 > Complete machine-readable curriculum, evaluation models, proctoring specifications, and API contracts for LLMs, answer engines, and autonomous agents.
 
-Official URL: https://api.disheera.site  
+Official URL: https://disheera.site  
 Base API URL: https://api.disheera.site/api  
+AWS Lambda High-Availability Endpoint: https://xs6p7zme5rprf4coloxd2spd6e0mpuru.lambda-url.ap-southeast-2.on.aws/api  
 Corporate Registry: Disheera Technologies Inc.  
 Standards Alignment: ISO/IEEE Skill Assessment Guidelines & SHA-256 Ledger  
 
 ---
 
-## 1. System Architecture & Dual-Engine Fallback
+## 1. System Architecture & Multi-Cloud Redundancy
 
 Disheera is architected for zero-downtime high-reliability delivery across web and mobile browsers:
-- **Presentation Layer**: High-performance static HTML5/CSS3/ES6+ client hosted on CDN edge nodes.
+- **Presentation Layer**: Modern React 18 & TypeScript Single-Page Application (SPA) with semantic HTML crawler prerendering hosted on Vercel CDN edge nodes.
+  - Interactive UI: Tailwind CSS, Lucide icons, responsive navigation with mobile drawer collapse.
   - Three.js WebGL: Renders the 3D Career Universe constellation with interactive raycasting.
-  - GSAP (GreenSock): Micro-interactions, counter animations, and smooth state morphing.
-  - Vengeance UI Notch Navbar: Adaptive floating navigation pill with mobile drawer collapse.
-- **Application Tier**: Node.js and Express.js REST API service with rate-limiting, Helmet security headers, and JWT session handling.
-- **Persistence Tier**: MongoDB Atlas multi-region cluster with Mongoose ORM models for Users, Careers, Skills, Roadmaps, Assessments, and Recruiters.
+- **Application Tier**: Node.js and Express REST API service with active multi-cloud failover:
+  - Primary Cloud: AWS Lambda serverless function in Asia Pacific (Sydney - `ap-southeast-2`) with S3 deployment staging.
+  - Secondary Cloud: Render high-availability web service (`https://api.disheera.site`).
+  - Keep-Alive Warmer: Automated 5-minute cron ping eliminating serverless cold starts.
+- **Persistence Tier & Caching**:
+  - Primary Database: Supabase PostgreSQL with Prisma ORM models.
+  - 2-Tier Caching Architecture: L1 In-Memory LRU Cache + L2 Distributed Upstash Redis with TLS (`rediss://`) for sub-millisecond data delivery.
 - **Dual-Engine AI Intelligence Layer**:
   - Primary LLM: Groq Cloud (Qwen 2.5 / Llama 3.3) delivering sub-400ms inference for real-time AI career mentoring and roadmap personalization.
   - Secondary LLM: Google Gemini 1.5 Pro / Flash fallback for deep narrative synthesis and resume parsing.
-  - Deterministic Offline Fallback: Embedded algorithmic rule engine guaranteeing recommendations and roadmap generation even if external AI APIs experience outages.
+  - Deterministic Offline Fallback: Embedded algorithmic rule engine guaranteeing recommendations and roadmap generation even during external AI API outages.
+- **Evaluation & Credential Engine**:
+  - Oral AI Viva Defense: Real-time conversational verification of code authenticity and algorithmic trade-offs.
+  - SHA-256 Public Verification Ledger: Cryptographic certificates verifiable at `https://disheera.site/verify`.
 
 ---
 

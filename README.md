@@ -11,13 +11,16 @@
 
 <p align="center">
   <a href="https://disheera.site">
-    <img src="https://img.shields.io/badge/🌐_Production_Domain-careerpath.is--local.org-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Custom Domain" />
+    <img src="https://img.shields.io/badge/🌐_Production_Domain-disheera.site-2563EB?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Custom Domain" />
   </a>
-  <a href="https://disheera.site">
-    <img src="https://img.shields.io/badge/⚡_Vercel_Mirror-careerpath--ai--jade.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Edge Mirror" />
+  <a href="https://xs6p7zme5rprf4coloxd2spd6e0mpuru.lambda-url.ap-southeast-2.on.aws/api/health">
+    <img src="https://img.shields.io/badge/⚡_AWS_Lambda_API-ap--southeast--2-FF9900?style=for-the-badge&logo=awslambda&logoColor=white" alt="AWS Lambda API" />
   </a>
   <a href="https://api.disheera.site">
-    <img src="https://img.shields.io/badge/⚡_API_Gateway-Render_Cloud-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Live API Gateway" />
+    <img src="https://img.shields.io/badge/⚡_API_Gateway-api.disheera.site-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Render API Gateway" />
+  </a>
+  <a href="https://upstash.com">
+    <img src="https://img.shields.io/badge/🚀_Distributed_Cache-Upstash_Redis_L2-00E599?style=for-the-badge&logo=redis&logoColor=white" alt="Upstash Redis Caching" />
   </a>
   <a href="https://api.disheera.site/api/health">
     <img src="https://img.shields.io/badge/🩺_System_Health-99.9%25_Uptime-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white" alt="Health Status" />

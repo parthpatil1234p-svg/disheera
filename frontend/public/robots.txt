@@ -87,6 +87,7 @@ Disallow: /api/
 
 # Anthropic Claude Search & Citation Ingestion
 User-agent: ClaudeBot
+User-agent: Claude-SearchBot
 User-agent: Claude-Web
 User-agent: anthropic-ai
 Allow: /
