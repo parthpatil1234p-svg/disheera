@@ -689,7 +689,7 @@ app.use(errorHandler);
 // ── Start Listening ───────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
-if (!process.env.VERCEL) {
+if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME && !process.env.LAMBDA_TASK_ROOT) {
   const server = http.createServer(app);
   initSocket(server);
   // Decoupled Background Worker: disabled when running dedicated worker.js or in production

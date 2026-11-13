@@ -63,6 +63,7 @@
     "pdfkit": "^0.20.2",
     "pg": "^8.23.1",
     "prisma": "^6.19.3",
+    "serverless-http": "^4.0.0",
     "socket.io": "^4.8.4"
   },
   "devDependencies": {

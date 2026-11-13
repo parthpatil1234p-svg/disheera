@@ -1,0 +1,133 @@
+name: Deploy Backend to AWS Lambda
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'server/**'
+      - 'disheera/server/**'
+      - '.github/workflows/deploy-aws-lambda.yml'
+  workflow_dispatch: # Allows manual 1-click trigger from GitHub Actions UI
+
+concurrency:
+  group: lambda-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build, Package & Deploy to Lambda
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Check out repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Set up Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: 🔐 Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-2
+
+      - name: 📦 Install Production Dependencies & Build Prisma
+        run: |
+          if [ -d "server" ]; then
+            TARGET_DIR="server"
+          elif [ -d "disheera/server" ]; then
+            TARGET_DIR="disheera/server"
+          else
+            TARGET_DIR="."
+          fi
+          echo "Target server directory: $TARGET_DIR"
+          cd "$TARGET_DIR"
+
+          # 1. Clean production install
+          npm ci --omit=dev
+
+          # 2. Generate Prisma client (binary target: rhel-openssl-3.0.x for Lambda)
+          npx prisma generate
+
+          # 3. Prune development bloat, tests, and temporary caches
+          rm -rf node_modules/prisma
+          rm -rf node_modules/@prisma/engines
+          rm -rf node_modules/.cache
+          rm -rf tests loadtest backups uploads scripts *.log
+
+      - name: 🗜️ Create Deployment Package
+        run: |
+          if [ -d "server" ]; then
+            TARGET_DIR="server"
+          elif [ -d "disheera/server" ]; then
+            TARGET_DIR="disheera/server"
+          else
+            TARGET_DIR="."
+          fi
+          cd "$TARGET_DIR"
+
+          zip -r -q ../deployment.zip .
+          cd ..
+          
+          echo "ZIP size:"
+          ls -lh deployment.zip
+          SIZE_BYTES=$(stat -c%s deployment.zip)
+          echo "SIZE_BYTES=$SIZE_BYTES" >> $GITHUB_ENV
+
+      - name: 🚀 Deploy to AWS Lambda
+        run: |
+          FUNCTION_NAME="disheera-backend"
+          REGION="ap-southeast-2"
+          
+          # Direct upload limit is 50MB (52428800 bytes)
+          if [ "$SIZE_BYTES" -lt 52428800 ]; then
+            echo "📦 Package is < 50MB. Uploading directly to Lambda..."
+            aws lambda update-function-code \
+              --function-name "$FUNCTION_NAME" \
+              --zip-file fileb://deployment.zip \
+              --region "$REGION"
+          else
+            echo "📦 Package is >= 50MB ($SIZE_BYTES bytes). Routing via S3 staging bucket..."
+            ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+            BUCKET_NAME="disheera-lambda-deploy-${ACCOUNT_ID}-${REGION}"
+            
+            # Check or create bucket
+            if ! aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
+              echo "Creating deployment S3 bucket: $BUCKET_NAME"
+              aws s3api create-bucket \
+                --bucket "$BUCKET_NAME" \
+                --region "$REGION" \
+                --create-bucket-configuration LocationConstraint="$REGION"
+            fi
+            
+            echo "Uploading deployment.zip to s3://${BUCKET_NAME}/disheera-backend.zip..."
+            aws s3 cp deployment.zip "s3://${BUCKET_NAME}/disheera-backend.zip"
+            
+            echo "Updating Lambda function from S3..."
+            aws lambda update-function-code \
+              --function-name "$FUNCTION_NAME" \
+              --s3-bucket "$BUCKET_NAME" \
+              --s3-key "disheera-backend.zip" \
+              --region "$REGION"
+          fi
+
+          echo "⏳ Waiting for function code update to complete..."
+          aws lambda wait function-updated --function-name "$FUNCTION_NAME" --region "$REGION"
+
+          echo "⚙️ Ensuring Lambda Handler is configured to lambda.handler..."
+          aws lambda update-function-configuration \
+            --function-name "$FUNCTION_NAME" \
+            --handler lambda.handler \
+            --region "$REGION"
+
+          echo "✅ Lambda successfully updated and ready!"
+
+      - name: 🩺 Health Check Function URL
+        run: |
+          FUNCTION_URL="https://xs6p7zme5rprf4coloxd2spd6e0mpuru.lambda-url.ap-southeast-2.on.aws/api/health"
+          echo "Pinging Function URL: $FUNCTION_URL"
+          curl -s -i "$FUNCTION_URL" || true
