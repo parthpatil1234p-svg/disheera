@@ -8,6 +8,10 @@
  * - Server Pre-Warming
  */
 
+export const AWS_LAMBDA_API_URL = 'https://xs6p7zme5rprf4coloxd2spd6e0mpuru.lambda-url.ap-southeast-2.on.aws/api';
+export const RENDER_API_URL = 'https://careerpath-ai-bdbt.onrender.com/api';
+export const CLOUD_API_URL = 'https://api.disheera.site/api';
+
 const getApiBaseUrl = (): string => {
   if (typeof window !== 'undefined') {
     const host = window.location.hostname;
@@ -15,11 +19,10 @@ const getApiBaseUrl = (): string => {
       return 'http://localhost:5000/api';
     }
   }
-  return 'https://api.disheera.site/api';
+  return import.meta.env.VITE_API_URL || AWS_LAMBDA_API_URL;
 };
 
 export const API_BASE_URL = getApiBaseUrl();
-export const CLOUD_API_URL = 'https://api.disheera.site/api';
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -84,11 +87,25 @@ export async function apiRequest<T = any>(
     try {
       res = await fetch(url, fetchConfig);
     } catch (fetchErr) {
-      // Graceful failover to live cloud backend if local server is down
+      // Dual-Cloud failover (Localhost -> AWS Lambda -> Render)
       if (url.includes('localhost:5000') || url.includes('127.0.0.1:5000')) {
-        console.warn('⚠️ Local backend at localhost:5000 is offline. Failing over to live Disheera cloud cluster...');
-        const cloudUrl = url.replace(/https?:\/\/(localhost|127\.0\.0\.1):5000\/api/, CLOUD_API_URL);
-        res = await fetch(cloudUrl, fetchConfig);
+        console.warn('⚠️ Local backend at localhost:5000 is offline. Failing over to AWS Lambda cluster...');
+        try {
+          const lambdaUrl = url.replace(/https?:\/\/(localhost|127\.0\.0\.1):5000\/api/, AWS_LAMBDA_API_URL);
+          res = await fetch(lambdaUrl, fetchConfig);
+        } catch (_) {
+          console.warn('⚠️ AWS Lambda unreachable. Failing over to Render persistent cluster...');
+          const renderUrl = url.replace(/https?:\/\/(localhost|127\.0\.0\.1):5000\/api/, RENDER_API_URL);
+          res = await fetch(renderUrl, fetchConfig);
+        }
+      } else if (url.includes('lambda-url') || url.includes('on.aws')) {
+        console.warn('⚠️ AWS Lambda request failed. Failing over to Render cluster...');
+        const renderUrl = url.replace(/https?:\/\/[^/]+\/api/, RENDER_API_URL);
+        res = await fetch(renderUrl, fetchConfig);
+      } else if (url.includes('onrender.com') || url.includes('api.disheera.site')) {
+        console.warn('⚠️ Render request failed. Failing over to AWS Lambda cluster...');
+        const lambdaUrl = url.replace(/https?:\/\/[^/]+\/api/, AWS_LAMBDA_API_URL);
+        res = await fetch(lambdaUrl, fetchConfig);
       } else {
         throw fetchErr;
       }
