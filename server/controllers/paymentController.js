@@ -4,24 +4,24 @@
  * See the LICENSE file for details.
  */
 /**
- * controllers/paymentController.js — Cashfree Payment & Subscription Controller
+ * controllers/paymentController.js — Razorpay Payment & Subscription Controller (Live Gateway)
  *
  * Endpoints:
- *   POST /api/payments/create-order     → Create Cashfree payment order for ₹499 Pro Plan
- *   POST /api/payments/verify           → Verify Cashfree payment and activate Pro membership
+ *   POST /api/payments/create-order     → Create Razorpay order for ₹499 Pro Plan (or custom pack)
+ *   POST /api/payments/verify           → Verify Razorpay HMAC-SHA256 signature and activate Pro membership
  *   GET  /api/payments/subscription     → Get real-time subscription status & remaining days
- *   POST /api/payments/webhook          → Webhook for automated server-to-server payment verification
+ *   POST /api/payments/webhook          → Razorpay Webhook receiver
  *
  * Disheera Technologies Inc.
  */
 
-const cashfreeService = require('../services/cashfreeService');
+const razorpayService = require('../services/razorpayService');
 const subscriptionManager = require('../utils/subscriptionManager');
 const { prisma } = require('../config/prisma');
 
 /**
  * POST /api/payments/create-order
- * Creates a Cashfree payment order
+ * Creates a Razorpay payment order
  */
 exports.createOrder = async (req, res) => {
   try {
@@ -31,34 +31,42 @@ exports.createOrder = async (req, res) => {
     }
 
     const { amount = 499, planName = 'Pro Career Accelerator' } = req.body;
+    const numericAmount = Number(amount);
 
-    const origin = req.headers.origin || req.headers.referer;
-    let clientUrl = 'https://disheera.site';
-    if (origin) {
-      try {
-        const parsed = new URL(origin);
-        clientUrl = parsed.origin;
-      } catch (_) {}
+    if (isNaN(numericAmount) || numericAmount < 1) {
+      return res.status(400).json({ success: false, message: 'Amount must be at least ₹1.00' });
     }
 
-    const order = await cashfreeService.createOrder({
-      userId: user.id,
-      userName: user.name,
-      userEmail: user.email,
-      userPhone: user.phone,
-      amount,
-      planName,
-      clientUrl
+    // Convert INR to Paise for Razorpay
+    const amountInPaise = Math.round(numericAmount * 100);
+
+    const orderData = await razorpayService.createOrder({
+      amount: amountInPaise,
+      currency: 'INR',
+      receipt: `rcpt_${user.id.substring(0, 8)}_${Date.now()}`,
+      notes: {
+        userId: user.id,
+        userEmail: user.email,
+        planName
+      }
     });
 
     return res.status(200).json({
       success: true,
-      message: 'Cashfree order created successfully',
-      data: order
+      message: 'Razorpay order created successfully',
+      data: {
+        orderId: orderData.order_id,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        keyId: process.env.RAZORPAY_KEY_ID || '',
+        userName: user.name,
+        userEmail: user.email,
+        userPhone: user.phone
+      }
     });
   } catch (err) {
     console.error('❌ [PaymentController] createOrder error:', err.message);
-    return res.status(500).json({
+    return res.status(err.statusCode || 500).json({
       success: false,
       message: err.message || 'Could not initiate payment order'
     });
@@ -67,7 +75,7 @@ exports.createOrder = async (req, res) => {
 
 /**
  * POST /api/payments/verify
- * Verifies that the order was paid on Cashfree and activates Pro membership
+ * Verifies Razorpay payment signature and activates Pro membership in Database
  */
 exports.verifyPayment = async (req, res) => {
   try {
@@ -76,41 +84,55 @@ exports.verifyPayment = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Authentication required' });
     }
 
-    const { orderId } = req.body;
-    if (!orderId) {
-      return res.status(400).json({ success: false, message: 'Order ID is required for verification' });
-    }
+    const {
+      orderId,
+      paymentId,
+      signature,
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature
+    } = req.body;
 
-    // 1. Fetch live order details from Cashfree API
-    const orderData = await cashfreeService.getOrder(orderId);
+    const finalOrderId = razorpay_order_id || orderId;
+    const finalPaymentId = razorpay_payment_id || paymentId;
+    const finalSignature = razorpay_signature || signature;
 
-    if (orderData.order_status !== 'PAID') {
+    if (!finalOrderId || !finalPaymentId || !finalSignature) {
       return res.status(400).json({
         success: false,
-        message: `Payment not completed yet. Current status: ${orderData.order_status}`,
-        orderStatus: orderData.order_status
+        verified: false,
+        message: 'Missing orderId, paymentId, or signature for verification'
       });
     }
 
-    // 2. Fetch payment details to obtain payment ID and method
-    const payments = await cashfreeService.getOrderPayments(orderId);
-    const successfulPayment = payments.find(p => p.payment_status === 'SUCCESS') || payments[0] || {};
+    // 1. Verify HMAC-SHA256 signature
+    const verification = razorpayService.verifySignature({
+      order_id: finalOrderId,
+      payment_id: finalPaymentId,
+      razorpay_signature: finalSignature
+    });
 
-    const paymentId = successfulPayment.cf_payment_id || `cf_pay_${Date.now()}`;
-    const paymentMethod = successfulPayment.payment_group || 'UPI/Card';
-    const amount = orderData.order_amount || 499;
+    if (!verification.isValid) {
+      console.warn(`⚠️ [PaymentController] Razorpay signature mismatch for user ${user.id}, order ${finalOrderId}`);
+      return res.status(400).json({
+        success: false,
+        verified: false,
+        message: 'Payment verification failed: cryptographic signature mismatch'
+      });
+    }
 
-    // 3. Activate PRO Subscription in Database
+    // 2. Activate PRO Subscription in Database
     const subscription = await subscriptionManager.activatePro(user.id, {
-      orderId,
-      paymentId: String(paymentId),
-      amount,
-      paymentMethod,
+      orderId: finalOrderId,
+      paymentId: String(finalPaymentId),
+      amount: 499,
+      paymentMethod: 'RAZORPAY_STANDARD',
       validityDays: 30
     });
 
     return res.status(200).json({
       success: true,
+      verified: true,
       message: 'Payment verified successfully! Pro Career Accelerator activated.',
       data: {
         subscription
@@ -161,45 +183,46 @@ exports.getSubscription = async (req, res) => {
 
 /**
  * POST /api/payments/webhook
- * Cashfree Server-to-Server Webhook Receiver
+ * Razorpay Server-to-Server Webhook Receiver
  */
 exports.handleWebhook = async (req, res) => {
   try {
-    const signature = req.headers['x-webhook-signature'];
-    const timestamp = req.headers['x-webhook-timestamp'];
+    const signature = req.headers['x-razorpay-signature'];
+    const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET || process.env.RAZORPAY_KEY_SECRET;
     const rawBody = req.rawBody || JSON.stringify(req.body);
 
-    // Verify signature
-    const isValid = cashfreeService.verifyWebhookSignature(rawBody, signature, timestamp);
-    if (!isValid && process.env.NODE_ENV === 'production') {
-      console.warn('⚠️ [PaymentWebhook] Invalid Cashfree webhook signature detected');
-      return res.status(400).json({ success: false, message: 'Invalid signature' });
+    if (webhookSecret && signature) {
+      const crypto = require('crypto');
+      const expectedSignature = crypto
+        .createHmac('sha256', webhookSecret)
+        .update(rawBody)
+        .digest('hex');
+
+      if (expectedSignature !== signature && process.env.NODE_ENV === 'production') {
+        console.warn('⚠️ [PaymentWebhook] Invalid Razorpay webhook signature detected');
+        return res.status(400).json({ success: false, message: 'Invalid signature' });
+      }
     }
 
     const payload = req.body;
-    console.log(`🔔 [PaymentWebhook] Received Cashfree event: ${payload?.type || 'UNKNOWN'}`);
+    console.log(`🔔 [PaymentWebhook] Received Razorpay event: ${payload?.event || 'UNKNOWN'}`);
 
-    // Check for payment success event
-    if (payload?.type === 'PAYMENT_SUCCESS_WEBHOOK') {
-      const orderData = payload.data?.order;
-      const paymentData = payload.data?.payment;
-      const customerData = payload.data?.customer_details;
-
-      const orderId = orderData?.order_id;
-      const userId = customerData?.customer_id;
-      const paymentId = paymentData?.cf_payment_id;
-      const amount = orderData?.order_amount || 499;
-      const paymentMethod = paymentData?.payment_group || 'UPI/Card';
+    if (payload?.event === 'order.paid' || payload?.event === 'payment.captured') {
+      const paymentEntity = payload.payload?.payment?.entity;
+      const orderId = paymentEntity?.order_id;
+      const paymentId = paymentEntity?.id;
+      const userId = paymentEntity?.notes?.userId;
+      const amount = (paymentEntity?.amount || 49900) / 100;
 
       if (userId && orderId) {
         await subscriptionManager.activatePro(userId, {
           orderId,
           paymentId: String(paymentId),
           amount,
-          paymentMethod,
+          paymentMethod: 'RAZORPAY_WEBHOOK',
           validityDays: 30
         });
-        console.log(`✅ [PaymentWebhook] Auto-activated Pro for user: ${userId} via Webhook`);
+        console.log(`✅ [PaymentWebhook] Auto-activated Pro for user: ${userId} via Razorpay Webhook`);
       }
     }
 

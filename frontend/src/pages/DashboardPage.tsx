@@ -87,7 +87,7 @@ export const DashboardPage: React.FC = () => {
     checkUrlPaymentReturn();
   }, [user]);
 
-  // Check if student just returned from Cashfree checkout via query params
+  // Check if student just returned from payment checkout via query params
   const checkUrlPaymentReturn = async () => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
@@ -468,7 +468,7 @@ export const DashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Cashfree Pro Subscription Modal */}
+      {/* Razorpay Pro Subscription Modal */}
       <SubscriptionModal
         isOpen={showSubModal}
         onClose={() => setShowSubModal(false)}

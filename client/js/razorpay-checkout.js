@@ -145,7 +145,7 @@
 
     // 4. Configure Razorpay modal options
     const options = {
-      key: key_id || window.RAZORPAY_KEY_ID || 'rzp_test_Tzker41KEXw1ts',
+      key: key_id || window.RAZORPAY_KEY_ID || 'rzp_live_Tzl9Yoenjvn6Nn',
       amount: verifiedAmount,
       currency: currency.toUpperCase(),
       name: 'Disheera Technologies Inc.',

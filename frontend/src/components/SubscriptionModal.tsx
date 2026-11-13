@@ -8,14 +8,13 @@ import {
   X, 
   ArrowRight, 
   Loader2,
-  Lock,
-  MessageSquare
+  Lock
 } from 'lucide-react';
 import { api } from '../services/api';
 
 declare global {
   interface Window {
-    Cashfree: any;
+    Razorpay: any;
   }
 }
 
@@ -39,12 +38,30 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 
   if (!isOpen) return null;
 
+  const loadRazorpayScript = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      if (window.Razorpay) return resolve(true);
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
   const handleCheckout = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // 1. Create order on backend via Cashfree
+      // 1. Ensure Razorpay SDK script is loaded
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded || !window.Razorpay) {
+        throw new Error('Razorpay Payment Gateway SDK failed to load. Please check your network connection.');
+      }
+
+      // 2. Create order on backend via Razorpay
       const res = await api.post('/payments/create-order', {
         amount: 499,
         planName: 'Pro Career Accelerator'
@@ -54,63 +71,71 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
         throw new Error(res?.message || 'Could not initiate payment order.');
       }
 
-      const { paymentSessionId, orderId } = res.data;
+      const { orderId, amount, keyId, userName, userEmail, userPhone } = res.data;
 
-      if (!paymentSessionId) {
-        throw new Error('Payment session could not be established.');
+      if (!orderId) {
+        throw new Error('Payment order could not be established.');
       }
 
-      // 2. Initialize Cashfree SDK v3
-      if (!window.Cashfree) {
-        throw new Error('Cashfree Payment Gateway SDK failed to load. Please refresh and try again.');
-      }
+      // 3. Launch Razorpay Standard Web Checkout Modal
+      const options = {
+        key: keyId || (import.meta as any).env?.VITE_RAZORPAY_KEY_ID || 'rzp_live_Tzl9Yoenjvn6Nn',
+        amount: amount || 49900,
+        currency: 'INR',
+        name: 'Disheera Technologies Inc.',
+        description: 'Pro Career Accelerator (30 Days)',
+        image: '/client/assets/brand/disheera_icon_256.png',
+        order_id: orderId,
+        prefill: {
+          name: userName || '',
+          email: userEmail || '',
+          contact: userPhone || ''
+        },
+        theme: {
+          color: '#2563EB'
+        },
+        modal: {
+          backdropclose: false,
+          ondismiss: () => {
+            setLoading(false);
+          }
+        },
+        handler: async (response: any) => {
+          try {
+            const verifyRes = await api.post('/payments/verify', {
+              orderId: response.razorpay_order_id,
+              paymentId: response.razorpay_payment_id,
+              signature: response.razorpay_signature
+            });
 
-      const cashfree = window.Cashfree({
-        mode: 'production' // Live production mode with verified merchant keys
+            if (verifyRes && verifyRes.success) {
+              if (onSuccess) onSuccess();
+              onClose();
+            } else {
+              setError(verifyRes?.message || 'Payment confirmation pending. Please check again in a moment.');
+            }
+          } catch (vErr: any) {
+            console.error('Signature verification error:', vErr);
+            setError(vErr.message || 'Payment verification could not be confirmed.');
+          } finally {
+            setLoading(false);
+          }
+        }
+      };
+
+      const rzpInstance = new window.Razorpay(options);
+
+      rzpInstance.on('payment.failed', (failRes: any) => {
+        console.error('Razorpay payment failed:', failRes.error);
+        setError(failRes.error?.description || 'Payment was cancelled or could not be completed.');
+        setLoading(false);
       });
 
-      // 3. Launch Cashfree Drop-in Checkout
-      cashfree.checkout({
-        paymentSessionId: paymentSessionId,
-        redirectTarget: '_modal'
-      }).then((result: any) => {
-        if (result.error) {
-          console.warn('Cashfree payment warning:', result.error);
-          setError(result.error.message || 'Payment was cancelled or could not be completed.');
-          setLoading(false);
-          return;
-        }
-
-        if (result.paymentDetails) {
-          // Trigger immediate server verification
-          verifyServerPayment(orderId);
-        }
-      }).catch((checkoutErr: any) => {
-        console.warn('Cashfree checkout modal dismiss or redirect:', checkoutErr);
-        // Fallback: Check if payment completed
-        verifyServerPayment(orderId);
-      });
+      rzpInstance.open();
 
     } catch (err: any) {
       console.error('Payment checkout failed:', err);
       setError(err.message || 'An unexpected error occurred while starting checkout.');
-      setLoading(false);
-    }
-  };
-
-  const verifyServerPayment = async (orderId: string) => {
-    try {
-      const verifyRes = await api.post('/payments/verify', { orderId });
-      if (verifyRes && verifyRes.success) {
-        if (onSuccess) onSuccess();
-        onClose();
-      } else {
-        setError(verifyRes?.message || 'Payment confirmation pending. Please check again in a moment.');
-      }
-    } catch (vErr: any) {
-      console.warn('Verification error:', vErr);
-      setError(vErr.message || 'Verification could not be confirmed.');
-    } finally {
       setLoading(false);
     }
   };
@@ -216,10 +241,10 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
           <div className="flex items-center justify-between pt-2 border-t border-[#F1F5F9] text-[11px] text-[#64748B]">
             <div className="flex items-center space-x-1.5">
               <Lock className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Secured by <strong>Cashfree Payment Gateway</strong></span>
+              <span>Secured by <strong>Razorpay Payment Gateway (Live)</strong></span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="font-semibold text-slate-500">UPI · Cards · NetBanking</span>
+              <span className="font-semibold text-slate-500">UPI · Cards · NetBanking · Wallets</span>
             </div>
           </div>
 
@@ -227,12 +252,12 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
           <button
             onClick={handleCheckout}
             disabled={loading}
-            className="w-full py-3.5 px-6 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm sm:text-base transition flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25 active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full py-3.5 px-6 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm sm:text-base transition flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25 active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
           >
             {loading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Connecting to Cashfree...</span>
+                <span>Connecting to Razorpay...</span>
               </>
             ) : (
               <>

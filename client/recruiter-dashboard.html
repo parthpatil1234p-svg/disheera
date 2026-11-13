@@ -54,6 +54,9 @@
       rel="stylesheet"
     />
 
+    <!-- Razorpay Standard Web Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <!-- Bootstrap 5 CSS & Icons -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -1619,14 +1622,14 @@
                   </p>
                   <div class="d-flex align-items-baseline gap-2">
                     <span class="fs-4 fw-extrabold text-blue-600 font-heading">₹9,999</span>
-                    <span class="text-slate-500 text-xs">/ month · Billed monthly via Cashfree</span>
+                    <span class="text-slate-500 text-xs">/ month · Billed monthly via Razorpay</span>
                   </div>
                 </div>
                 <div class="d-flex flex-column align-items-end justify-content-center gap-1.5">
                   <button type="button" class="btn cp-btn-primary px-4 py-2.5 rounded-xl fw-bold text-xs shadow-xs d-inline-flex align-items-center gap-2" onclick="initiateRecruiterProUpgrade()">
                     <i class="bi bi-lightning-charge-fill"></i> Subscribe to Pro (₹9,999/mo)
                   </button>
-                  <span class="text-slate-400 text-[11px]">Instant Cashfree activation &middot; Cancel anytime</span>
+                  <span class="text-slate-400 text-[11px]">Instant Razorpay activation &middot; Cancel anytime</span>
                 </div>
               </div>
 
@@ -1753,24 +1756,24 @@
 
     <script>
       function topUpUnlocks(count, price) {
-        if (confirm(`Purchase ${count} verified candidate unlock credits for ₹${price.toLocaleString('en-IN')} via Cashfree?`)) {
-          if (window.API && typeof window.API.post === 'function') {
-            window.API.post('/payments/create-order', {
+        if (confirm(`Purchase ${count} verified candidate unlock credits for ₹${price.toLocaleString('en-IN')} via Razorpay?`)) {
+          if (window.DisheeraRazorpay && typeof window.DisheeraRazorpay.openCheckout === 'function') {
+            const user = (window.Auth && window.Auth.getUser) ? window.Auth.getUser() : {};
+            window.DisheeraRazorpay.openCheckout({
               amount: price,
-              planName: `${count} Candidate Unlocks Top-Up Pack`
-            }, { auth: true }).then(res => {
-              if (res.success && res.data && res.data.paymentSessionId) {
-                if (window.Cashfree) {
-                  const cf = window.Cashfree({ mode: 'production' });
-                  cf.checkout({ paymentSessionId: res.data.paymentSessionId });
-                } else {
-                  alert('Cashfree Gateway initialized. Order ID: ' + res.data.orderId);
-                }
-              } else {
-                alert(res.message || 'Could not initiate top-up order.');
+              planName: `${count} Candidate Unlocks Top-Up Pack`,
+              prefill: {
+                name: user.name || user.company || 'Corporate Recruiter',
+                email: user.email || '',
+                contact: user.phone || ''
+              },
+              onSuccess: function (res) {
+                alert(`✅ Payment verified! ${count} candidate unlock credits added to your account.`);
+                window.location.reload();
+              },
+              onError: function (err) {
+                alert('Payment error: ' + (err.message || 'Transaction could not be completed'));
               }
-            }).catch(err => {
-              alert(err.message || 'Payment initiation failed.');
             });
           } else {
             alert(`Top-up pack of ${count} profiles selected. Contact priority@disheera.site to setup direct invoice billing.`);
@@ -1779,24 +1782,24 @@
       }
 
       function initiateRecruiterProUpgrade() {
-        if (confirm('Initiate Talent Radar Pro B2B subscription for ₹9,999/month via Cashfree?')) {
-          if (window.API && typeof window.API.post === 'function') {
-            window.API.post('/payments/create-order', {
+        if (confirm('Initiate Talent Radar Pro B2B subscription for ₹9,999/month via Razorpay?')) {
+          if (window.DisheeraRazorpay && typeof window.DisheeraRazorpay.openCheckout === 'function') {
+            const user = (window.Auth && window.Auth.getUser) ? window.Auth.getUser() : {};
+            window.DisheeraRazorpay.openCheckout({
               amount: 9999,
-              planName: 'Talent Radar Pro'
-            }, { auth: true }).then(res => {
-              if (res.success && res.data && res.data.paymentSessionId) {
-                if (window.Cashfree) {
-                  const cf = window.Cashfree({ mode: 'production' });
-                  cf.checkout({ paymentSessionId: res.data.paymentSessionId });
-                } else {
-                  alert('Cashfree Gateway initialized. Order ID: ' + res.data.orderId);
-                }
-              } else {
-                alert(res.message || 'Could not initiate subscription order.');
+              planName: 'Talent Radar Pro Subscription',
+              prefill: {
+                name: user.name || user.company || 'Corporate Recruiter',
+                email: user.email || '',
+                contact: user.phone || ''
+              },
+              onSuccess: function (res) {
+                alert('🎉 Congratulations! Talent Radar Pro B2B Subscription is now Active.');
+                window.location.reload();
+              },
+              onError: function (err) {
+                alert('Payment error: ' + (err.message || 'Transaction could not be completed'));
               }
-            }).catch(err => {
-              alert(err.message || 'Payment initiation failed.');
             });
           } else {
             alert('Corporate billing gateway ready. Contact priority@disheera.site to setup invoice billing.');
@@ -1834,6 +1837,7 @@
     <script src="js/auth.js?v=3.0"></script>
     <script src="js/api.js"></script>
     <script src="js/i18n.js"></script>
+    <script src="js/razorpay-checkout.js"></script>
     <script src="js/recruiter.js"></script>
     <script src="js/tpo-cockpit.js"></script>
   </body>
