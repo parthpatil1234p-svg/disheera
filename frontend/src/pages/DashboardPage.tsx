@@ -12,10 +12,15 @@ import {
   PlayCircle,
   FileCheck2,
   RefreshCw,
-  AlertCircle
+  AlertCircle,
+  Crown,
+  Zap,
+  ShieldCheck,
+  Calendar
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
+import { SubscriptionModal } from '../components/SubscriptionModal';
 
 interface DashboardMetrics {
   readinessScore: number;
@@ -39,9 +44,29 @@ interface MatchJob {
   matchScore: number;
 }
 
+interface SubscriptionInfo {
+  tier: string;
+  isActive: boolean;
+  status: string;
+  daysRemaining: number;
+  hoursRemaining: number;
+  endDate: string | null;
+  planName?: string;
+}
+
 export const DashboardPage: React.FC = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [showSubModal, setShowSubModal] = useState(false);
+  const [paymentSuccessToast, setPaymentSuccessToast] = useState<string | null>(null);
+  const [subscription, setSubscription] = useState<SubscriptionInfo>({
+    tier: 'FREE',
+    isActive: false,
+    status: 'ACTIVE',
+    daysRemaining: 0,
+    hoursRemaining: 0,
+    endDate: null
+  });
   const [metrics, setMetrics] = useState<DashboardMetrics>({
     readinessScore: 88.5,
     sprintsCleared: 2,
@@ -58,7 +83,42 @@ export const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     loadDashboardData();
+    loadSubscriptionData();
+    checkUrlPaymentReturn();
   }, [user]);
+
+  // Check if student just returned from Cashfree checkout via query params
+  const checkUrlPaymentReturn = async () => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('order_id');
+
+    if (orderId) {
+      try {
+        const verifyRes = await api.post('/payments/verify', { orderId });
+        if (verifyRes && verifyRes.success) {
+          setPaymentSuccessToast('🎉 Payment Verified! Your 30-Day Pro Career Accelerator membership is active.');
+          loadSubscriptionData();
+        }
+      } catch (err) {
+        console.warn('Auto-verify error on return:', err);
+      } finally {
+        // Clean URL parameters without page refresh
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  };
+
+  const loadSubscriptionData = async () => {
+    try {
+      const res = await api.get('/payments/subscription');
+      if (res && res.success && res.data) {
+        setSubscription(res.data);
+      }
+    } catch (e) {
+      console.warn('Failed to fetch real-time subscription details', e);
+    }
+  };
 
   const loadDashboardData = async () => {
     setLoading(true);
@@ -133,16 +193,51 @@ export const DashboardPage: React.FC = () => {
     <div className="min-h-screen bg-[#F7F9FD] py-8 sm:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
+        {/* Payment Success Toast */}
+        {paymentSuccessToast && (
+          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-semibold flex items-center justify-between shadow-xs animate-in slide-in-from-top-2">
+            <div className="flex items-center space-x-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <span>{paymentSuccessToast}</span>
+            </div>
+            <button 
+              onClick={() => setPaymentSuccessToast(null)} 
+              className="text-emerald-700 hover:text-emerald-900 text-xs font-bold underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
         {/* Welcome Header */}
         <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E2E8F0] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold text-[#2563EB] bg-[#EFF6FF] px-2.5 py-0.5 rounded-full border border-[#BFDBFE]">
                 Active Enrolled Candidate
               </span>
+              
+              {subscription.isActive ? (
+                <button
+                  onClick={() => setShowSubModal(true)}
+                  className="text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 hover:bg-amber-100 transition flex items-center space-x-1 cursor-pointer"
+                >
+                  <Crown className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+                  <span>👑 Pro Member · {subscription.daysRemaining} {subscription.daysRemaining === 1 ? 'day' : 'days'} left</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowSubModal(true)}
+                  className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 hover:bg-blue-100 transition flex items-center space-x-1 cursor-pointer"
+                >
+                  <Zap className="w-3.5 h-3.5 text-blue-600 fill-blue-500" />
+                  <span>Upgrade to Pro (₹499)</span>
+                </button>
+              )}
+
               <span className="text-xs font-semibold text-emerald-600 flex items-center space-x-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>WhatsApp 2-Step Verified</span>
+                <span>WhatsApp Active</span>
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] font-['Outfit']">
@@ -155,7 +250,7 @@ export const DashboardPage: React.FC = () => {
 
           <div className="flex items-center space-x-3 shrink-0">
             <button
-              onClick={loadDashboardData}
+              onClick={() => { loadDashboardData(); loadSubscriptionData(); }}
               title="Refresh Telemetry"
               className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition shadow-2xs"
             >
@@ -275,8 +370,80 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Sidebar: Recommended Jobs & Market Match (1 col) */}
+          {/* Right Sidebar: Membership Telemetry & Recommended Jobs (1 col) */}
           <div className="space-y-6">
+            
+            {/* Membership Telemetry Card */}
+            <div className="p-6 rounded-3xl bg-white border border-[#E2E8F0] shadow-xs space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className={`p-2 rounded-xl ${subscription.isActive ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'}`}>
+                    <Crown className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0F172A]">Membership Status</h3>
+                    <p className="text-[11px] text-[#64748B]">
+                      {subscription.isActive ? 'Pro Career Accelerator' : 'Free Student Tier'}
+                    </p>
+                  </div>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                  subscription.isActive 
+                    ? 'text-emerald-700 bg-emerald-50 border-emerald-200' 
+                    : 'text-slate-600 bg-slate-100 border-slate-200'
+                }`}>
+                  {subscription.isActive ? 'Active Pro' : 'Free Tier'}
+                </span>
+              </div>
+
+              {subscription.isActive ? (
+                <div className="space-y-3 pt-1">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-xs text-[#64748B] font-medium">Time Remaining:</span>
+                    <span className="text-sm font-bold text-[#0F172A] font-mono">
+                      {subscription.daysRemaining} {subscription.daysRemaining === 1 ? 'Day' : 'Days'} ({subscription.hoursRemaining}h)
+                    </span>
+                  </div>
+
+                  {/* 30-Day Cycle Progress Bar */}
+                  <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        subscription.daysRemaining <= 5 ? 'bg-amber-500' : 'bg-[#2563EB]'
+                      }`}
+                      style={{ width: `${Math.min(100, Math.max(5, (subscription.daysRemaining / 30) * 100))}%` }}
+                    />
+                  </div>
+
+                  <p className="text-[11px] text-[#475569] leading-relaxed">
+                    Automated WhatsApp expiry nudges are active on your registered phone.
+                  </p>
+
+                  <button
+                    onClick={() => setShowSubModal(true)}
+                    className="w-full py-2.5 px-4 rounded-xl border border-slate-200 hover:border-blue-400 bg-white hover:bg-blue-50 text-[#2563EB] text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-2xs"
+                  >
+                    <span>Extend 30 Days (₹499)</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-3 pt-1">
+                  <p className="text-xs text-[#475569] leading-relaxed">
+                    Upgrade to unlock automated viva proctoring, Plan 46 rubric evaluations & direct recruiter routing.
+                  </p>
+                  <button
+                    onClick={() => setShowSubModal(true)}
+                    className="w-full py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-md shadow-blue-500/20 active:scale-95"
+                  >
+                    <Zap className="w-3.5 h-3.5 fill-current text-amber-300" />
+                    <span>Upgrade to Pro for ₹499</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Verified Match Jobs Card */}
             <div className="p-6 rounded-3xl bg-white border border-[#E2E8F0] shadow-xs space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-bold text-[#0F172A] flex items-center space-x-2">
@@ -311,6 +478,18 @@ export const DashboardPage: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Cashfree Pro Subscription Modal */}
+      <SubscriptionModal
+        isOpen={showSubModal}
+        onClose={() => setShowSubModal(false)}
+        onSuccess={() => {
+          setPaymentSuccessToast('🎉 Pro Membership activated successfully! Welcome to the Pro Career Accelerator.');
+          loadSubscriptionData();
+        }}
+        currentDaysRemaining={subscription.daysRemaining}
+        isPro={subscription.isActive}
+      />
     </div>
   );
 };

@@ -21,11 +21,13 @@ const Roadmap = require('../models/Roadmap');
 const RoadmapTask = require('../models/RoadmapTask');
 const User = require('../models/User');
 const { sendInactivityNudgeEmail } = require('./emailService');
+const subscriptionNudgeService = require('./subscriptionNudgeService');
 
 let hourlyTimer = null;
 let dailyTimer = null;
 let nudgeTimer = null;
 let cleanupTimer = null;
+let subscriptionTimer = null;
 
 /**
  * Purges unverified pending signups and legacy unverified User rows older than 24 hours.
@@ -235,6 +237,9 @@ function initCron() {
     validateSkillCurrency();
     auditInactivityAndSendNudges();
     cleanupUnverifiedSignups();
+    subscriptionNudgeService.auditAndSendNudges().catch(err => {
+      console.warn('⚠️ [Cron] Initial subscription audit warning:', err.message);
+    });
   }, 10000);
 
   // Hourly routine: YouTube cache health & connection check
@@ -247,9 +252,12 @@ function initCron() {
     cleanupUnverifiedSignups();
   }, 6 * 60 * 60 * 1000);
 
-  // Daily routine: 180-day skill currency audit
+  // Daily routine: 180-day skill currency audit + Subscription Expiry & WhatsApp Nudge
   dailyTimer = setInterval(() => {
     validateSkillCurrency();
+    subscriptionNudgeService.auditAndSendNudges().catch(err => {
+      console.warn('⚠️ [Cron] Daily subscription audit warning:', err.message);
+    });
   }, 24 * 60 * 60 * 1000);
 
   // Twice-daily routine (every 12 hours): Inactivity & Streak Nudge audit
@@ -268,10 +276,12 @@ function stopCron() {
   if (dailyTimer) clearInterval(dailyTimer);
   if (nudgeTimer) clearInterval(nudgeTimer);
   if (cleanupTimer) clearInterval(cleanupTimer);
+  if (subscriptionTimer) clearInterval(subscriptionTimer);
   hourlyTimer = null;
   dailyTimer = null;
   nudgeTimer = null;
   cleanupTimer = null;
+  subscriptionTimer = null;
 }
 
 module.exports = {

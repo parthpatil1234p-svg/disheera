@@ -130,6 +130,7 @@ const passportRoutes = require('./routes/passportRoutes');
 const assignmentRoutes = require('./routes/assignmentRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const vivaRoutes = require('./routes/vivaRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 const adminHostGuard = require('./middleware/adminHostGuard');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
@@ -171,7 +172,10 @@ app.use(helmet({
         "https://cdn.jsdelivr.net",
         "https://cdnjs.cloudflare.com",
         "https://unpkg.com",
-        "https://analytics.open-domains.com"
+        "https://analytics.open-domains.com",
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://sdk.cashfree.com"
       ],
       styleSrc: [
         "'self'",
@@ -187,7 +191,12 @@ app.use(helmet({
         "https://cdn.jsdelivr.net",
         "data:"
       ],
-      frameSrc: ["'self'"],
+      frameSrc: [
+        "'self'",
+        "https://sdk.cashfree.com",
+        "https://api.cashfree.com",
+        "https://payments.cashfree.com"
+      ],
       imgSrc: ["'self'", "data:", "https:", "blob:"],
       connectSrc: [
         "'self'",
@@ -203,7 +212,12 @@ app.use(helmet({
         "https://api.disheera.site",
         "https://api.groq.com",
         "https://generativelanguage.googleapis.com",
-        "https://analytics.open-domains.com"
+        "https://analytics.open-domains.com",
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://region1.google-analytics.com",
+        "https://api.cashfree.com",
+        "https://sandbox.cashfree.com"
       ],
     }
   },
@@ -641,6 +655,9 @@ app.use('/api/leaderboard', leaderboardRoutes);
 
 // Code-Grounded Voice Viva Proctoring Engine (Anti-Cheat Moat)
 app.use('/api/viva', vivaRoutes);
+
+// Cashfree Payment Gateway & Pro Membership Subscription
+app.use('/api/payments', paymentRoutes);
 
 // ── Dedicated Subdomain Admin Panel Routes (/api/admin/*) ────
 // Layer 1: Subdomain Host Guard restricts all admin endpoints to admin.disheera.site (and dev hosts)
