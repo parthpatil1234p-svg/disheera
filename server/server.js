@@ -60,7 +60,7 @@ function validateEnv() {
     console.error('\n❌ [FATAL] STARTUP ABORTED: Missing required environment variables:');
     missing.forEach(k => console.error(`  - ${k}`));
     console.error('\nPlease copy .env.example to .env and configure the missing variables.\n');
-    if (!process.env.VERCEL) {
+    if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME && !process.env.LAMBDA_TASK_ROOT) {
       process.exit(1);
     }
   }
@@ -68,8 +68,8 @@ function validateEnv() {
   // Mandatory Dedicated ADMIN_JWT_SECRET Validation (Plan 45 v1.2)
   const adminJwtSecret = process.env.ADMIN_JWT_SECRET;
   if (!adminJwtSecret || adminJwtSecret.length < 32) {
-    if (process.env.VERCEL) {
-      console.warn('\u26a0\ufe0f [Serverless Notice] ADMIN_JWT_SECRET not configured or < 32 chars in Vercel environment variables. Admin routes will remain protected.');
+    if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT) {
+      console.warn('⚠️ [Serverless Notice] ADMIN_JWT_SECRET not configured or < 32 chars in serverless environment variables. Admin routes will remain protected.');
     } else {
       console.error('\n🛑 [FATAL] STARTUP ABORTED: ADMIN_JWT_SECRET must be configured with at least 32 characters in .env.');
       process.exit(1);
