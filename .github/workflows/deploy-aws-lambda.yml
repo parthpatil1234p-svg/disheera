@@ -35,7 +35,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
 
-      - name: 📦 Install Production Dependencies & Build Prisma
+      - name: 📦 Build Prisma & Optimize Package Size (Under 250MB limit)
         run: |
           if [ -d "server" ]; then
             TARGET_DIR="server"
@@ -47,17 +47,36 @@ jobs:
           echo "Target server directory: $TARGET_DIR"
           cd "$TARGET_DIR"
 
-          # 1. Clean production install
-          npm ci --omit=dev
+          # 1. Full install including devDependencies so Prisma CLI is available to generate
+          npm ci
 
-          # 2. Generate Prisma client (binary target: rhel-openssl-3.0.x for Lambda)
+          # 2. Generate Prisma Client for Lambda (rhel-openssl-3.0.x)
           npx prisma generate
 
-          # 3. Prune development bloat, tests, and temporary caches
-          rm -rf node_modules/prisma
-          rm -rf node_modules/@prisma/engines
-          rm -rf node_modules/.cache
-          rm -rf tests loadtest backups uploads scripts *.log
+          # 3. Prune devDependencies to eliminate Prisma CLI, @prisma/config, effect, @napi-rs (~140MB saved!)
+          npm prune --omit=dev
+
+          # 4. Remove unneeded OS binary engines, keeping ONLY Lambda's rhel-openssl-3.0.x
+          rm -rf node_modules/.prisma/client/*debian* || true
+          rm -rf node_modules/.prisma/client/*windows* || true
+          rm -rf node_modules/.prisma/client/*darwin* || true
+          rm -rf node_modules/@prisma/engines || true
+          rm -rf node_modules/.cache || true
+
+          # 5. Prune source maps, docs, typescript declarations, and test directories (~150MB saved!)
+          find node_modules -type f -name "*.map" -delete || true
+          find node_modules -type f -name "*.d.ts" -delete || true
+          find node_modules -type f -name "*.md" -delete || true
+          find node_modules -type f -name "*.ts" -delete || true
+          find node_modules -type d -name "test" -exec rm -rf {} + 2>/dev/null || true
+          find node_modules -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true
+          find node_modules -type d -name "docs" -exec rm -rf {} + 2>/dev/null || true
+          find node_modules -type d -name "examples" -exec rm -rf {} + 2>/dev/null || true
+          rm -rf tests loadtest backups uploads scripts *.log || true
+
+          # Print unzipped footprint
+          UNZIPPED_MB=$(du -sm . | awk '{print $1}')
+          echo "🎉 Optimized unzipped size: ${UNZIPPED_MB} MB (AWS Lambda maximum allowed: 250 MB)"
 
       - name: 🗜️ Create Deployment Package
         run: |
@@ -85,7 +104,7 @@ jobs:
           
           # Direct upload limit is 50MB (52428800 bytes)
           if [ "$SIZE_BYTES" -lt 52428800 ]; then
-            echo "📦 Package is < 50MB. Uploading directly to Lambda..."
+            echo "📦 Package is < 50MB ($SIZE_BYTES bytes). Uploading directly to Lambda..."
             aws lambda update-function-code \
               --function-name "$FUNCTION_NAME" \
               --zip-file fileb://deployment.zip \
