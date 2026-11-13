@@ -7,30 +7,45 @@
  * utils/cacheManager.js — Universal High-Performance Caching Layer
  *
  * Implements:
- * 1. Cache-aside pattern with TTL (time-to-live) and thundering-herd (stampede) protection.
- * 2. $0 Cost: In-memory store by default with LRU bounding and non-blocking background sweep.
- * 3. Optional Redis sync if REDIS_URL is configured in environment.
- * 4. User-isolated key namespacing with targeted user invalidation.
- * 5. Telemetry & cache statistics (hits, misses, evictions).
+ * 1. Multi-Tier Hybrid Cache:
+ *    - L1: In-Memory LRU Map (instant sub-millisecond local hit)
+ *    - L2: Distributed Upstash Redis (shared state across AWS Lambda, Render, and Vercel)
+ * 2. Cache-aside pattern with TTL and thundering-herd (stampede) protection.
+ * 3. Graceful degradation: If Redis is offline or slow, falls back to L1 without failing requests.
+ * 4. User-isolated key namespacing with targeted invalidation.
+ * 5. Telemetry & cache statistics (hits, misses, evictions, redis connected).
  *
  * Disheera · Enterprise Scalability Infrastructure
  */
+
+let Redis = null;
+try {
+  Redis = require('ioredis');
+} catch (_) {
+  Redis = null;
+}
 
 class CacheManager {
   constructor(options = {}) {
     this.maxItems = options.maxItems || 5000;
     this.defaultTtlSec = options.defaultTtlSec || 300; // 5 minutes default
-    this.store = new Map();
-    this.inFlight = new Map(); // Promise coalescing for thundering herd prevention
+    this.store = new Map(); // L1 In-Memory LRU
+    this.inFlight = new Map(); // Promise coalescing for stampede prevention
     this.stats = {
       hits: 0,
       misses: 0,
       sets: 0,
       deletes: 0,
       evictions: 0,
+      redisHits: 0,
+      redisSets: 0,
     };
 
-    // Periodic sweep every 60 seconds (unref prevents hanging test runners / processes)
+    this.redis = null;
+    this.redisConnected = false;
+    this.initRedis();
+
+    // Periodic L1 sweep every 60 seconds
     this.sweepInterval = setInterval(() => {
       this.purgeExpired();
     }, 60000);
@@ -41,9 +56,58 @@ class CacheManager {
   }
 
   /**
-   * Retrieve item from cache
-   * @param {string} key
-   * @returns {any|null}
+   * Initialize Redis L2 connection if REDIS_URL is provided
+   */
+  initRedis() {
+    let redisUrl = process.env.REDIS_URL;
+    if (!redisUrl && process.env.UPSTASH_REDIS_REST_URL) {
+      redisUrl = process.env.UPSTASH_REDIS_REST_URL;
+    }
+
+    if (redisUrl && Redis) {
+      // Normalize TLS protocol for Upstash
+      if (redisUrl.startsWith('redis://') && redisUrl.includes('upstash.io')) {
+        redisUrl = redisUrl.replace('redis://', 'rediss://');
+      }
+
+      try {
+        this.redis = new Redis(redisUrl, {
+          maxRetriesPerRequest: 1,
+          connectTimeout: 4000,
+          lazyConnect: true,
+          retryStrategy: (times) => {
+            if (times > 3) return null; // Do not hang if Redis is unreachable
+            return Math.min(times * 500, 2000);
+          },
+        });
+
+        this.redis.connect().then(() => {
+          this.redisConnected = true;
+          console.log('⚡ [Cache] Upstash Redis Distributed L2 Cache Connected!');
+        }).catch((err) => {
+          this.redisConnected = false;
+          console.warn('⚠️ [Cache] Redis connection initial warning (falling back to L1 RAM):', err.message);
+        });
+
+        this.redis.on('error', (err) => {
+          this.redisConnected = false;
+        });
+
+        this.redis.on('ready', () => {
+          this.redisConnected = true;
+        });
+
+        this.redis.on('close', () => {
+          this.redisConnected = false;
+        });
+      } catch (err) {
+        console.warn('⚠️ [Cache] Failed to initialize Redis client:', err.message);
+      }
+    }
+  }
+
+  /**
+   * Synchronous L1 memory get
    */
   get(key) {
     if (!key) return null;
@@ -64,52 +128,70 @@ class CacheManager {
   }
 
   /**
-   * Set item in cache with explicit or default TTL in seconds
-   * @param {string} key
-   * @param {any} value
-   * @param {number} [ttlSec]
+   * Async get checking L1 memory first, then L2 Redis
+   */
+  async getAsync(key) {
+    const l1 = this.get(key);
+    if (l1 !== null) return l1;
+
+    // Check L2 Redis
+    if (this.redisConnected && this.redis) {
+      try {
+        const val = await this.redis.get(`disheera:${key}`);
+        if (val) {
+          this.stats.redisHits++;
+          const parsed = JSON.parse(val);
+          // Backfill into L1 for instant subsequent reads
+          this.set(key, parsed, 60);
+          return parsed;
+        }
+      } catch (_) {}
+    }
+    return null;
+  }
+
+  /**
+   * Set item in L1 RAM and L2 Redis with TTL
    */
   set(key, value, ttlSec) {
     if (!key || value === undefined) return;
     const ttl = typeof ttlSec === 'number' ? ttlSec : this.defaultTtlSec;
     if (ttl <= 0) return;
 
-    // Enforce max capacity bounding
+    // L1: In-memory LRU
     if (this.store.size >= this.maxItems && !this.store.has(key)) {
       this.evictOldest();
     }
-
     const expiresAt = Date.now() + ttl * 1000;
     this.store.set(key, { value, expiresAt, createdAt: Date.now() });
     this.stats.sets++;
+
+    // L2: Asynchronous write to Redis (non-blocking)
+    if (this.redisConnected && this.redis) {
+      try {
+        const str = JSON.stringify(value);
+        this.redis.set(`disheera:${key}`, str, 'EX', ttl)
+          .then(() => { this.stats.redisSets++; })
+          .catch(() => {});
+      } catch (_) {}
+    }
   }
 
-  /**
-   * Check if valid key exists
-   * @param {string} key
-   * @returns {boolean}
-   */
   has(key) {
     return this.get(key) !== null;
   }
 
-  /**
-   * Delete a specific key
-   * @param {string} key
-   * @returns {boolean}
-   */
   del(key) {
     if (!key) return false;
     const deleted = this.store.delete(key);
     if (deleted) this.stats.deletes++;
+
+    if (this.redisConnected && this.redis) {
+      this.redis.del(`disheera:${key}`).catch(() => {});
+    }
     return deleted;
   }
 
-  /**
-   * Delete all keys starting with a prefix
-   * @param {string} prefix
-   * @returns {number} count of keys deleted
-   */
   delPrefix(prefix) {
     if (!prefix) return 0;
     let count = 0;
@@ -120,15 +202,18 @@ class CacheManager {
       }
     }
     this.stats.deletes += count;
+
+    // Clean from Redis if active
+    if (this.redisConnected && this.redis) {
+      this.redis.keys(`disheera:${prefix}*`).then((keys) => {
+        if (keys && keys.length > 0) {
+          this.redis.del(...keys).catch(() => {});
+        }
+      }).catch(() => {});
+    }
     return count;
   }
 
-  /**
-   * Invalidate all cached data for a specific user ID
-   * Targets dashboard, readiness, user queries across any format
-   * @param {string|object} userId
-   * @returns {number} count of purged keys
-   */
   invalidateUser(userId) {
     if (!userId) return 0;
     const uid = String(userId);
@@ -142,31 +227,17 @@ class CacheManager {
 
   /**
    * Cache-Aside Wrapper with Thundering Herd (Stampede) Protection
-   * If key is in cache, returns immediately.
-   * If multiple requests miss simultaneously, coalesces them into a single fetch execution.
-   *
-   * @param {string} key
-   * @param {number} ttlSec
-   * @param {Function} fetchFn Async function returning data to cache
-   * @returns {Promise<any>}
    */
   async wrap(key, ttlSec, fetchFn) {
-    const cached = this.get(key);
+    const cached = await this.getAsync(key);
     if (cached !== null) {
       return cached;
     }
 
-    // Check if another concurrent request is already fetching this exact key
     if (this.inFlight.has(key)) {
-      try {
-        return await this.inFlight.get(key);
-      } catch (err) {
-        // If in-flight fails, let current caller try or propagate
-        throw err;
-      }
+      return await this.inFlight.get(key);
     }
 
-    // Execute fetch and store in-flight promise
     const promise = (async () => {
       try {
         const result = await fetchFn();
@@ -183,9 +254,6 @@ class CacheManager {
     return await promise;
   }
 
-  /**
-   * Evict expired items
-   */
   purgeExpired() {
     const now = Date.now();
     for (const [key, entry] of this.store.entries()) {
@@ -196,15 +264,9 @@ class CacheManager {
     }
   }
 
-  /**
-   * Evict the oldest item when capacity limit is reached
-   */
   evictOldest() {
-    // Purge expired first to free slots
     this.purgeExpired();
     if (this.store.size < this.maxItems) return;
-
-    // Prune first key in insertion order (Map preserves insertion order)
     const firstKey = this.store.keys().next().value;
     if (firstKey) {
       this.store.delete(firstKey);
@@ -212,31 +274,29 @@ class CacheManager {
     }
   }
 
-  /**
-   * Clear entire cache
-   */
   clear() {
     this.store.clear();
     this.inFlight.clear();
   }
 
-  /**
-   * Get telemetry stats
-   */
   getStats() {
-    const hitRate = this.stats.hits + this.stats.misses > 0
-      ? (this.stats.hits / (this.stats.hits + this.stats.misses)).toFixed(4)
+    const totalHits = this.stats.hits + this.stats.redisHits;
+    const totalRequests = totalHits + this.stats.misses;
+    const hitRate = totalRequests > 0
+      ? (totalHits / totalRequests).toFixed(4)
       : '0.0000';
+
     return {
       ...this.stats,
       size: this.store.size,
       maxItems: this.maxItems,
       hitRate: `${(parseFloat(hitRate) * 100).toFixed(2)}%`,
+      redisConfigured: !!(process.env.REDIS_URL || process.env.UPSTASH_REDIS_REST_URL),
+      redisConnected: this.redisConnected,
     };
   }
 }
 
-// Global Singleton Instance
 const cacheManager = new CacheManager();
 
 module.exports = {
