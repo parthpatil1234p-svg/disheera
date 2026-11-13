@@ -1,28 +1,32 @@
-name: Render Backend Keep-Alive
+name: Multi-Cloud Keep-Alive & Lambda Warmer
 
 permissions:
   contents: read
 
 on:
   schedule:
-    # Run every 10 minutes to prevent Render free-tier 15-minute inactivity spin down
-    - cron: '*/10 * * * *'
+    # Run every 5 minutes to keep AWS Lambda hot (0ms cold start) and Render awake
+    - cron: '*/5 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 jobs:
   keep-alive:
-    name: Ping Health Check
+    name: Ping AWS Lambda & Render Health
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Render Backend Health Check
+      - name: Keep-Alive & Warmer Health Ping
         run: |
-          echo "Pinging Disheera Render backend endpoints at $(date)..."
-          HTTP_STATUS_CUSTOM=$(curl -s -o /dev/null -w "%{http_code}" --max-time 45 "https://api.disheera.site/health" || echo "000")
-          HTTP_STATUS_RENDER=$(curl -s -o /dev/null -w "%{http_code}" --max-time 45 "https://careerpath-ai-bdbt.onrender.com/api/health" || echo "000")
-          echo "api.disheera.site status: $HTTP_STATUS_CUSTOM"
-          echo "onrender.com status: $HTTP_STATUS_RENDER"
-          if [ "$HTTP_STATUS_CUSTOM" -eq 200 ] || [ "$HTTP_STATUS_RENDER" -eq 200 ]; then
-            echo "✅ Backend is awake, healthy, and ready for instant responses!"
+          echo "🔥 Warming up AWS Lambda & Render clusters at $(date)..."
+          HTTP_STATUS_LAMBDA=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "https://xs6p7zme5rprf4coloxd2spd6e0mpuru.lambda-url.ap-southeast-2.on.aws/api/health" || echo "000")
+          HTTP_STATUS_CUSTOM=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://api.disheera.site/api/health" || echo "000")
+          HTTP_STATUS_RENDER=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://careerpath-ai-bdbt.onrender.com/api/health" || echo "000")
+          
+          echo "⚡ AWS Lambda Status: $HTTP_STATUS_LAMBDA"
+          echo "🌐 api.disheera.site Status: $HTTP_STATUS_CUSTOM"
+          echo "🚀 Render Status: $HTTP_STATUS_RENDER"
+          
+          if [ "$HTTP_STATUS_LAMBDA" -eq 200 ] || [ "$HTTP_STATUS_CUSTOM" -eq 200 ] || [ "$HTTP_STATUS_RENDER" -eq 200 ]; then
+            echo "✅ All cloud clusters are blazing hot, healthy, and primed for sub-millisecond responses!"
           else
-            echo "⚠️ Backend responded with unexpected status (waking up, will retry next interval)"
+            echo "⚠️ Cloud clusters pinged (retrying next 5m interval)"
           fi

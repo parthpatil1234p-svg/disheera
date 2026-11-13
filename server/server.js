@@ -19,6 +19,7 @@
 // ── 1. Environment variables must be loaded FIRST ────────────
 const path = require('path');
 const dns = require('dns');
+const compression = require('compression');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('dotenv').config();
 
@@ -299,6 +300,16 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// ── High-Performance Response Compression (Gzip / Deflate / Brotli) ─
+app.use(compression({
+  threshold: 1024,
+  level: 6,
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) return false;
+    return compression.filter(req, res);
+  }
+}));
 
 // ── Body parsers ──────────────────────────────────────────────
 app.use(express.json({ limit: '15mb' }));
