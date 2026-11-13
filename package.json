@@ -51,7 +51,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@prisma/client": "^6.19.3",
-    "@supabase/server": "^1.9.1",
+    "@supabase/server": "^1.9.2",
     "@vercel/analytics": "^2.0.1",
     "adm-zip": "^0.6.1",
     "bcryptjs": "^2.4.3",
