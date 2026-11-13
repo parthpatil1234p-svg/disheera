@@ -18,10 +18,10 @@ const getPassportById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!id || typeof id !== 'string') {
+    if (!id || typeof id !== 'string' || id.includes('@')) {
       return res.status(400).json({
         success: false,
-        message: 'A valid student ID or credential reference is required.'
+        message: 'A valid student ID or credential reference is required. Direct email queries are prohibited for privacy protection.'
       });
     }
 

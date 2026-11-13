@@ -389,9 +389,9 @@ const verifyOtp = async (req, res, next) => {
         const emailOk = pendingSignupStore.verifyOtpHash(cleanInput, pending.emailOtpHash);
         const waOk = pending.whatsappOtpHash ? pendingSignupStore.verifyOtpHash(cleanInput, pending.whatsappOtpHash) : false;
         const backupOk = Boolean(pending.backupOtp && String(pending.backupOtp).trim() === cleanInput);
-        const testSuiteBypass = Boolean(process.env.NODE_ENV !== 'production' && req.headers['x-test-suite'] === 'true' && cleanInput === '999999');
+        // Test bypass removed for production security (AUTHZ-02 fix)
 
-        if (emailOk || waOk || backupOk || testSuiteBypass) {
+        if (emailOk || waOk || backupOk) {
           isMatch = true;
         } else {
           const attempts = await pendingSignupStore.recordAttempt(normalizedEmail);
@@ -1046,7 +1046,7 @@ const googleAuth = async (req, res, next) => {
     }
 
     // 3. Check automated test suite bypass
-    const isTestSuite = Boolean(req.headers['x-test-suite'] === 'true' || req.body.skipOtp === true);
+    const isTestSuite = false;
 
     // 4. WhatsApp OTP Verification Flow
     const isResendRequested = Boolean(requestResendOtp === true);
@@ -1145,10 +1145,6 @@ const googleAuth = async (req, res, next) => {
         if (waOk || emailOk || backupOk) {
           isOtpValid = true;
         }
-      }
-
-      if (!isOtpValid && process.env.NODE_ENV !== 'production' && cleanOtp === '999999') {
-        isOtpValid = true;
       }
 
       if (!isOtpValid) {

@@ -23,11 +23,11 @@ async function generatePassportData(userOrId) {
   if (typeof userOrId === 'object') {
     user = userOrId;
   } else if (typeof userOrId === 'string') {
+    // Disallow email lookup to prevent user enumeration / IDOR (AUTHZ-01)
     if (userOrId.includes('@')) {
-      user = await User.findOne({ email: userOrId.toLowerCase() });
-    } else {
-      user = await User.findById(userOrId);
+      return null;
     }
+    user = await User.findById(userOrId);
   }
 
   if (!user) return null;
@@ -104,10 +104,15 @@ async function generatePassportData(userOrId) {
     credentialStatus = 'pending';
   }
 
+  // Mask email to protect PII against public harvesting (AUTHZ-01)
+  const maskedEmail = user.email
+    ? user.email.replace(/^(.)(.*)(@.*)$/, (_, first, middle, domain) => `${first}${'*'.repeat(Math.min(middle.length, 5))}${domain}`)
+    : '';
+
   return {
     studentId: user.id,
     name: user.name || 'Verified Candidate',
-    email: user.email,
+    email: maskedEmail,
     avatarUrl: user.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'Student')}&background=0D8ABC&color=fff&size=128`,
     primaryStream: user.primaryStream || 'engineering',
     college: collegeName,
@@ -115,7 +120,6 @@ async function generatePassportData(userOrId) {
     graduationYear: education.year || 'Class of 2026',
     universityAffiliation: 'KBCNMU / Autonomous University System',
     phoneMasked: user.phone ? user.phone.replace(/(\d{2})\d{6}(\d{2})/, '$1******$2') : '+91 98******12',
-    phoneRaw: user.phone || '',
     whatsappAvailable: Boolean(user.phone),
     hasCompletedSkillVerification: Boolean(user.hasCompletedSkillVerification || verifiedSkillsCount > 0),
     readinessScore,

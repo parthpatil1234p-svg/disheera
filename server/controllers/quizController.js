@@ -25,7 +25,7 @@ const quizStartRateLimiter = new Map();
  */
 exports.startQuiz = async (req, res) => {
   try {
-    const { skill, provider, userApiKey, displayName, forceAI, bypassCooldown } = req.body;
+    const { skill, provider, userApiKey, displayName, forceAI } = req.body;
     if (!skill) {
       return res.status(400).json({ success: false, message: 'Skill parameter is required' });
     }
@@ -49,18 +49,14 @@ exports.startQuiz = async (req, res) => {
       quizStartRateLimiter.set(clientIp, recentAttempts);
     }
 
-    const isBypass = Boolean(
-      bypassCooldown ||
-      req.query.bypassCooldown === 'true' ||
-      req.headers['x-bypass-cooldown'] === 'true'
-    );
+    // Client bypass removed (AUTHZ-03 fix)
 
     const session = await quizService.startQuizSession(req.user.id, skill, {
       provider,
       userApiKey: userApiKey || req.headers['x-user-api-key'] || null,
       displayName,
       forceAI: Boolean(forceAI),
-      bypassCooldown: isBypass
+      bypassCooldown: false
     });
 
     return res.status(200).json({ success: true, data: session });
