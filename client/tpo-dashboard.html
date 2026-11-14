@@ -3,6 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Immediate Synchronous Portal Isolation Guard (Zero-Flash Redirect for Students & Recruiters) -->
+  <script>
+    (function() {
+      try {
+        var tpoToken = localStorage.getItem('disheera_tpo_token');
+        var rawTpoUser = localStorage.getItem('disheera_tpo_user');
+        
+        var generalToken = localStorage.getItem('careerpath_token') || localStorage.getItem('token');
+        var rawGeneralUser = localStorage.getItem('careerpath_user') || localStorage.getItem('user');
+
+        // Case 1: Student or Recruiter logged in with general session and NO valid TPO token
+        if (rawGeneralUser && !tpoToken) {
+          var generalUser = JSON.parse(rawGeneralUser);
+          if (generalUser.role === 'recruiter') {
+            sessionStorage.setItem(
+              'portal_redirect_alert',
+              '🏢 Recruiter accounts cannot access the institutional Campus TPO Cockpit. You have been redirected to your Recruiter Portal.'
+            );
+            window.location.replace('recruiter-dashboard.html');
+            return;
+          } else if (generalUser.role === 'student' || !generalUser.role) {
+            sessionStorage.setItem(
+              'portal_redirect_alert',
+              '🎓 Student accounts cannot access the institutional Campus TPO Cockpit. You have been redirected to your Student Dashboard.'
+            );
+            window.location.replace('dashboard.html');
+            return;
+          }
+        }
+
+        // Case 2: TPO user object is present in storage, verify role
+        if (rawTpoUser) {
+          var tpoUser = JSON.parse(rawTpoUser);
+          if (tpoUser && tpoUser.role === 'recruiter') {
+            sessionStorage.setItem(
+              'portal_redirect_alert',
+              '🏢 Recruiter accounts cannot access the institutional Campus TPO Cockpit. You have been redirected to your Recruiter Portal.'
+            );
+            window.location.replace('recruiter-dashboard.html');
+            return;
+          }
+          if (tpoUser && tpoUser.role !== 'tpo' && tpoUser.role !== 'admin') {
+            sessionStorage.setItem(
+              'portal_redirect_alert',
+              '🎓 Student accounts cannot access the institutional Campus TPO Cockpit. You have been redirected to your Student Dashboard.'
+            );
+            window.location.replace('dashboard.html');
+            return;
+          }
+        }
+
+        // Case 3: Completely unauthenticated
+        if (!tpoToken && !generalToken) {
+          window.location.replace('tpo-login.html');
+          return;
+        }
+      } catch (e) {
+        // Fallback handled in loadTpoProfileAndTelemetry
+      }
+    })();
+  </script>
+
   <title>Campus TPO Cockpit &middot; Institutional Placement OS &middot; Disheera</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 
@@ -482,15 +545,38 @@
       loadTpoProfileAndTelemetry();
     });
 
-    async function loadTpoProfileAndTelemetry() {
+        async function loadTpoProfileAndTelemetry() {
       const token = localStorage.getItem('disheera_tpo_token');
-      if (!token) return;
+      if (!token) {
+        window.location.replace('tpo-login.html');
+        return;
+      }
 
       try {
         const res = await fetch(`${getApiBase()}/campus/tpo/dashboard-telemetry`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
+
+        if (res.status === 403 || res.status === 401 || !data.success) {
+          const msg = data.message || 'Access denied. Campus TPO Cockpit is restricted to Training & Placement Officers.';
+          alert(msg);
+          const rawUser = localStorage.getItem('careerpath_user') || localStorage.getItem('disheera_tpo_user');
+          if (rawUser) {
+            try {
+              const u = JSON.parse(rawUser);
+              if (u.role === 'recruiter') {
+                window.location.replace('recruiter-dashboard.html');
+                return;
+              } else if (u.role === 'student') {
+                window.location.replace('dashboard.html');
+                return;
+              }
+            } catch (_) {}
+          }
+          window.location.replace('tpo-login.html');
+          return;
+        }
 
         if (data.success) {
           const col = data.college;

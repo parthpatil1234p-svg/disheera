@@ -383,6 +383,14 @@ exports.getProfile = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Authentication required' });
     }
 
+    if (user.role && user.role !== 'tpo' && user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        code: user.role === 'recruiter' ? 'RECRUITER_TPO_ACCESS_DENIED' : 'STUDENT_TPO_ACCESS_DENIED',
+        message: 'Access denied. Campus TPO Cockpit profile is restricted to Training & Placement Officers.'
+      });
+    }
+
     const dbUser = await prisma.user.findUnique({
       where: { id: user.id },
       include: {

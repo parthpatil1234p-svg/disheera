@@ -17,6 +17,14 @@
           var token = localStorage.getItem('careerpath_token');
           if (token && rawUser) {
             var user = JSON.parse(rawUser);
+            if (user && user.role === 'tpo' && user.role !== 'admin') {
+              sessionStorage.setItem(
+                'portal_redirect_alert',
+                '🎓 TPO accounts cannot access student learning and roadmap resources. You have been redirected to your Campus TPO Cockpit.'
+              );
+              window.location.replace('tpo-dashboard.html');
+              return;
+            }
             if (user && user.role === 'recruiter' && user.role !== 'admin') {
               sessionStorage.setItem(
                 'portal_redirect_alert',

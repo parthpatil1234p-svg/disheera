@@ -19,7 +19,7 @@
  */
 
 const path = require('path');
-const { requireStudent, requireRecruiter } = require('../server/middleware/authMiddleware');
+const { requireStudent, requireRecruiter, requireTpo } = require('../server/middleware/authMiddleware');
 
 function createMockRes() {
   const res = {
@@ -273,6 +273,83 @@ console.log('\n▶ TEST 9: Landing Page Auto-Redirect & ?view=public Logic');
     shouldRedirectFromLanding({ user: { role: 'admin', isAdmin: true, email: 'admin@disheera.site' }, search: '' }) === false,
     'Admin user on index.html is NOT redirected'
   );
+}
+
+
+// --- Test 10: requireTpo blocks recruiter role ---
+console.log('\n▶ TEST 10: requireTpo blocks recruiter role');
+{
+  const req = { user: { role: 'recruiter', email: 'hr@corp.com' } };
+  const res = createMockRes();
+  let nextCalled = false;
+  requireTpo(req, res, () => { nextCalled = true; });
+
+  assert(!nextCalled, 'Next must NOT be called for recruiter on TPO endpoints');
+  assert(res.statusCode === 403, 'Status must be 403');
+  assert(res.body && res.body.code === 'RECRUITER_TPO_ACCESS_DENIED', 'Error code must be RECRUITER_TPO_ACCESS_DENIED');
+}
+
+// --- Test 11: requireTpo blocks student role ---
+console.log('\n▶ TEST 11: requireTpo blocks student role');
+{
+  const req = { user: { role: 'student', email: 'student@college.edu' } };
+  const res = createMockRes();
+  let nextCalled = false;
+  requireTpo(req, res, () => { nextCalled = true; });
+
+  assert(!nextCalled, 'Next must NOT be called for student on TPO endpoints');
+  assert(res.statusCode === 403, 'Status must be 403');
+  assert(res.body && res.body.code === 'STUDENT_TPO_ACCESS_DENIED', 'Error code must be STUDENT_TPO_ACCESS_DENIED');
+}
+
+// --- Test 12: requireTpo allows tpo role ---
+console.log('\n▶ TEST 12: requireTpo allows tpo role');
+{
+  const req = { user: { role: 'tpo', email: 'tpo@coep.ac.in' } };
+  const res = createMockRes();
+  let nextCalled = false;
+  requireTpo(req, res, () => { nextCalled = true; });
+
+  assert(nextCalled, 'Next MUST be called for authorized tpo role');
+  assert(res.statusCode === 200, 'Status remains 200');
+}
+
+// --- Test 13: requireTpo allows true admin role ---
+console.log('\n▶ TEST 13: requireTpo allows true admin role');
+{
+  const req = { user: { role: 'admin', email: 'admin@disheera.site' } };
+  const res = createMockRes();
+  let nextCalled = false;
+  requireTpo(req, res, () => { nextCalled = true; });
+
+  assert(nextCalled, 'Next MUST be called for admin role on TPO endpoints');
+  assert(res.statusCode === 200, 'Status remains 200');
+}
+
+// --- Test 14: requireStudent blocks tpo role ---
+console.log('\n▶ TEST 14: requireStudent blocks tpo role');
+{
+  const req = { user: { role: 'tpo', email: 'tpo@coep.ac.in' } };
+  const res = createMockRes();
+  let nextCalled = false;
+  requireStudent(req, res, () => { nextCalled = true; });
+
+  assert(!nextCalled, 'Next must NOT be called for tpo on student endpoints');
+  assert(res.statusCode === 403, 'Status must be 403');
+  assert(res.body && res.body.code === 'TPO_ACCESS_DENIED', 'Error code must be TPO_ACCESS_DENIED');
+}
+
+// --- Test 15: requireRecruiter blocks tpo role ---
+console.log('\n▶ TEST 15: requireRecruiter blocks tpo role');
+{
+  const req = { user: { role: 'tpo', email: 'tpo@coep.ac.in' } };
+  const res = createMockRes();
+  let nextCalled = false;
+  requireRecruiter(req, res, () => { nextCalled = true; });
+
+  assert(!nextCalled, 'Next must NOT be called for tpo on recruiter endpoints');
+  assert(res.statusCode === 403, 'Status must be 403');
+  assert(res.body && res.body.code === 'TPO_ACCESS_DENIED', 'Error code must be TPO_ACCESS_DENIED');
 }
 
 console.log('\n════════════════════════════════════════════════════════════════');

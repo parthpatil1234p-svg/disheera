@@ -87,6 +87,14 @@ exports.getDashboardTelemetry = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Authentication required' });
     }
 
+    if (user.role && user.role !== 'tpo' && user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        code: user.role === 'recruiter' ? 'RECRUITER_TPO_ACCESS_DENIED' : 'STUDENT_TPO_ACCESS_DENIED',
+        message: 'Access denied. Campus TPO Cockpit telemetry is restricted to Training & Placement Officers.'
+      });
+    }
+
     const dbUser = await prisma.user.findUnique({
       where: { id: user.id },
       include: {
@@ -224,7 +232,18 @@ exports.getDashboardTelemetry = async (req, res) => {
 exports.generateInviteLink = async (req, res) => {
   try {
     const user = req.user;
-    const dbUser = await prisma.user.findUnique({
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
+    if (user.role && user.role !== 'tpo' && user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        code: user.role === 'recruiter' ? 'RECRUITER_TPO_ACCESS_DENIED' : 'STUDENT_TPO_ACCESS_DENIED',
+        message: 'Access denied. Generating student invite links is restricted to Training & Placement Officers.'
+      });
+    }
+const dbUser = await prisma.user.findUnique({
       where: { id: user.id },
       include: { college: true, managedCollege: true }
     });
@@ -255,7 +274,18 @@ exports.generateInviteLink = async (req, res) => {
 exports.uploadStudentRoster = async (req, res) => {
   try {
     const user = req.user;
-    const { students = [] } = req.body;
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
+    if (user.role && user.role !== 'tpo' && user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        code: user.role === 'recruiter' ? 'RECRUITER_TPO_ACCESS_DENIED' : 'STUDENT_TPO_ACCESS_DENIED',
+        message: 'Access denied. Roster upload is restricted to Training & Placement Officers.'
+      });
+    }
+const { students = [] } = req.body;
 
     if (!Array.isArray(students) || students.length === 0) {
       return res.status(400).json({ success: false, message: 'A list of student records is required' });

@@ -198,6 +198,14 @@ const requireVerifiedRecruiter = (req, res, next) => {
     return next();
   }
 
+  if (req.user.role === 'tpo') {
+    return res.status(403).json({
+      success: false,
+      code: 'TPO_ACCESS_DENIED',
+      message: 'Access denied. Institutional TPO accounts cannot access corporate recruiter hiring workflows. Please use your Campus TPO Cockpit.',
+    });
+  }
+
   if (req.user.role !== 'recruiter') {
     return res.status(403).json({
       success: false,
@@ -242,6 +250,15 @@ const requireStudent = (req, res, next) => {
     });
   }
 
+  if (req.user.role === 'tpo') {
+    return res.status(403).json({
+      success: false,
+      code: 'TPO_ACCESS_DENIED',
+      message: 'Access denied. Institutional TPO accounts cannot access student learning and roadmap resources. Please use your Campus TPO Cockpit.',
+    });
+  }
+
+
   next();
 };
 
@@ -262,11 +279,55 @@ const requireRecruiter = (req, res, next) => {
     return next();
   }
 
+  if (req.user.role === 'tpo') {
+    return res.status(403).json({
+      success: false,
+      code: 'TPO_ACCESS_DENIED',
+      message: 'Access denied. Institutional TPO accounts cannot access corporate recruiter hiring workflows. Please use your Campus TPO Cockpit.',
+    });
+  }
+
   if (req.user.role !== 'recruiter') {
     return res.status(403).json({
       success: false,
       code: 'STUDENT_ACCESS_DENIED',
       message: 'Access denied. Student accounts cannot access the company recruiter portal.',
+    });
+  }
+
+  next();
+};
+
+// ── requireTpo ─────────────────────────────────────────────────
+/**
+ * requireTpo — Ensures authenticated user has institutional TPO access.
+ * Strictly blocks students and recruiters from accessing college TPO Cockpit and telemetry.
+ */
+const requireTpo = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({
+      success: false,
+      message: 'Access denied. Authentication required.',
+    });
+  }
+
+  if (req.user.role === 'admin') {
+    return next();
+  }
+
+  if (req.user.role === 'recruiter') {
+    return res.status(403).json({
+      success: false,
+      code: 'RECRUITER_TPO_ACCESS_DENIED',
+      message: 'Access denied. Corporate recruiter accounts cannot access the institutional Campus TPO Cockpit. Please use the Recruiter Portal.',
+    });
+  }
+
+  if (req.user.role !== 'tpo') {
+    return res.status(403).json({
+      success: false,
+      code: 'STUDENT_TPO_ACCESS_DENIED',
+      message: 'Access denied. Student accounts cannot access the institutional Campus TPO Cockpit. Please use your Student Dashboard.',
     });
   }
 
@@ -280,5 +341,6 @@ module.exports = {
   requireVerifiedRecruiter,
   requireStudent,
   requireRecruiter,
+  requireTpo,
 };
 

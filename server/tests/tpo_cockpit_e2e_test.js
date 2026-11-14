@@ -163,13 +163,44 @@ async function runTestSuite() {
     throw new Error(`Approval failed: ${approveRes.data?.message}`);
   }
 
+
+  // ── Test 8: Student & Recruiter Access Restriction on TPO Telemetry ────
+  console.log('\nTest 8: Student & Recruiter Access Restriction on TPO Telemetry...');
+  const studentTelemReq = {
+    user: { id: 'some-student-id', role: 'student' }
+  };
+  const studentTelemRes = {
+    status: function (code) { this.statusCode = code; return this; },
+    json: function (payload) { this.data = payload; return this; }
+  };
+  await tpoDashboardController.getDashboardTelemetry(studentTelemReq, studentTelemRes);
+  if (studentTelemRes.statusCode === 403 && studentTelemRes.data.code === 'STUDENT_TPO_ACCESS_DENIED') {
+    console.log('  ✓ Student access strictly blocked with 403 STUDENT_TPO_ACCESS_DENIED');
+  } else {
+    throw new Error(`Expected 403 for student but got ${studentTelemRes.statusCode}`);
+  }
+
+  const recTelemReq = {
+    user: { id: 'some-recruiter-id', role: 'recruiter' }
+  };
+  const recTelemRes = {
+    status: function (code) { this.statusCode = code; return this; },
+    json: function (payload) { this.data = payload; return this; }
+  };
+  await tpoDashboardController.getDashboardTelemetry(recTelemReq, recTelemRes);
+  if (recTelemRes.statusCode === 403 && recTelemRes.data.code === 'RECRUITER_TPO_ACCESS_DENIED') {
+    console.log('  ✓ Recruiter access strictly blocked with 403 RECRUITER_TPO_ACCESS_DENIED');
+  } else {
+    throw new Error(`Expected 403 for recruiter but got ${recTelemRes.statusCode}`);
+  }
+
   // ── Clean up test user & college ──────────────────────────
   console.log('\nCleaning up test artifacts...');
   await prisma.user.delete({ where: { id: createdUser.id } });
   await prisma.college.delete({ where: { id: registeredData.college.id } });
   console.log('  ✓ Test user & college cleaned up.');
 
-  console.log('\n🎉 ALL 7 CAMPUS TPO COCKPIT BACKEND TESTS PASSED CLEANLY!\n');
+  console.log('\n🎉 ALL 8 CAMPUS TPO COCKPIT & RBAC TESTS PASSED CLEANLY!\n');
 }
 
 runTestSuite()

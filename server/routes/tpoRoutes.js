@@ -13,7 +13,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/authMiddleware');
+const { protect, requireTpo } = require('../middleware/authMiddleware');
 const tpoAuthController = require('../controllers/tpoAuthController');
 const tpoDashboardController = require('../controllers/tpoDashboardController');
 
@@ -22,12 +22,12 @@ router.get('/aishe-lookup', tpoAuthController.aisheLookup);
 router.post('/register', tpoAuthController.registerTpo);
 router.post('/login', tpoAuthController.loginTpo);
 
-// ── Protected Institutional Operations (TPO Access) ─────────
-router.post('/verify-otp', protect, tpoAuthController.verifyOtp);
-router.get('/profile', protect, tpoAuthController.getProfile);
-router.get('/dashboard-telemetry', protect, tpoDashboardController.getDashboardTelemetry);
-router.post('/invite-link', protect, tpoDashboardController.generateInviteLink);
-router.post('/upload-roster', protect, tpoDashboardController.uploadStudentRoster);
+// ── Protected Institutional Operations (Strict TPO / Admin Access Only) ──
+router.post('/verify-otp', protect, requireTpo, tpoAuthController.verifyOtp);
+router.get('/profile', protect, requireTpo, tpoAuthController.getProfile);
+router.get('/dashboard-telemetry', protect, requireTpo, tpoDashboardController.getDashboardTelemetry);
+router.post('/invite-link', protect, requireTpo, tpoDashboardController.generateInviteLink);
+router.post('/upload-roster', protect, requireTpo, tpoDashboardController.uploadStudentRoster);
 
 // ── Admin Verification Gate ────────────────────────────────
 router.post('/admin/approve', tpoAuthController.approveTpo);
