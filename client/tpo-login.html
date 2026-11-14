@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus TPO Cockpit &middot; Institutional Portal &middot; Disheera</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #F8FAFC;
+      color: #334155;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Top Institutional Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 text-decoration-none">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            D
+          </div>
+          <span class="font-bold text-slate-900 text-lg tracking-tight">Disheera</span>
+        </a>
+        <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-200">
+          Campus OS &middot; TPO Cockpit
+        </span>
+      </div>
+      <div class="flex items-center gap-3 text-xs">
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+          <i class="bi bi-shield-check text-blue-600"></i> AISHE / AICTE Recognized
+        </span>
+        <a href="login.html" class="text-slate-600 hover:text-blue-600 font-medium">Student Portal &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Login / Registration Form -->
+  <main class="flex-grow flex items-center justify-center px-4 py-10">
+    <div class="w-full max-w-xl bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+      
+      <!-- Card Header -->
+      <div class="p-6 sm:p-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white relative">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-xs font-semibold mb-2 border border-white/20">
+          <i class="bi bi-building"></i> Higher Education Institutional Access
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          Campus TPO Cockpit
+        </h1>
+        <p class="text-blue-100 text-xs sm:text-sm mt-1">
+          Real-time batch skill telemetry, NAAC Criterion 5 automation & verified student passports.
+        </p>
+
+        <!-- Tab Switcher -->
+        <div class="flex items-center gap-2 mt-6 p-1 bg-white/10 rounded-2xl border border-white/15">
+          <button 
+            id="tabBtnLogin" 
+            onclick="switchAuthTab('login')" 
+            class="flex-1 py-2 rounded-xl text-xs font-bold transition-all bg-white text-blue-700 shadow-sm"
+          >
+            TPO Sign In
+          </button>
+          <button 
+            id="tabBtnRegister" 
+            onclick="switchAuthTab('register')" 
+            class="flex-1 py-2 rounded-xl text-xs font-bold transition-all text-white hover:bg-white/10"
+          >
+            College Onboarding (4-Tier)
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab 1: TPO Sign In -->
+      <div id="viewLogin" class="p-6 sm:p-8 space-y-4">
+        <div id="loginAlertBox" class="hidden p-3 rounded-xl text-xs font-medium border"></div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Official Institutional Email Address
+          </label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input 
+              type="email" 
+              id="loginEmail" 
+              placeholder="placements@coep.ac.in or tpo@college.edu" 
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
+            />
+          </div>
+          <span class="text-[11px] text-slate-400 mt-1 block">Institutional email required (@college.ac.in, @college.edu).</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Password
+          </label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+              <i class="bi bi-lock"></i>
+            </span>
+            <input 
+              type="password" 
+              id="loginPassword" 
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" 
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
+            />
+          </div>
+        </div>
+
+        <button 
+          type="button" 
+          id="btnLoginSubmit" 
+          onclick="handleTpoLogin()" 
+          class="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-500/20 active:scale-[0.99] transition flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Log In to Campus OS</span>
+        </button>
+
+        <p class="text-center text-xs text-slate-500 pt-2">
+          New educational institution? 
+          <button type="button" onclick="switchAuthTab('register')" class="text-blue-600 font-bold hover:underline">
+            Register with AISHE Code &rarr;
+          </button>
+        </p>
+      </div>
+
+      <!-- Tab 2: College Onboarding (4-Tier Verification Registration) -->
+      <div id="viewRegister" class="hidden p-6 sm:p-8 space-y-4">
+        <div id="registerAlertBox" class="hidden p-3 rounded-xl text-xs font-medium border"></div>
+
+        <!-- Tier 3: Live AISHE Code Lookup -->
+        <div class="p-3.5 bg-blue-50/50 border border-blue-200 rounded-2xl space-y-2">
+          <label class="block text-xs font-bold text-blue-900 uppercase tracking-wider">
+            <i class="bi bi-search me-1"></i> Tier 3: Search AISHE National College Registry
+          </label>
+          <div class="flex gap-2">
+            <input 
+              type="text" 
+              id="regAisheInput" 
+              placeholder="e.g. C-41234 or COEP, Raisoni, VJTI" 
+              class="flex-1 px-3 py-2 bg-white rounded-xl border border-blue-200 text-xs font-mono text-slate-800 focus:outline-none focus:border-blue-500 uppercase"
+            />
+            <button 
+              type="button" 
+              onclick="searchAisheRegistry()" 
+              class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition cursor-pointer"
+            >
+              Verify Code
+            </button>
+          </div>
+          <div id="aisheLookupResult" class="text-xs text-slate-600 hidden"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Officer Full Name
+            </label>
+            <input 
+              type="text" 
+              id="regName" 
+              placeholder="Dr. Suresh Patil" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Designation
+            </label>
+            <input 
+              type="text" 
+              id="regDesignation" 
+              value="Training & Placement Officer (TPO)" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+            Official College / University Name
+          </label>
+          <input 
+            type="text" 
+            id="regCollegeName" 
+            placeholder="College of Engineering, Pune" 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Official Email (@college.ac.in)
+            </label>
+            <input 
+              type="email" 
+              id="regEmail" 
+              placeholder="tpo@coep.ac.in" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Mobile / WhatsApp Number
+            </label>
+            <input 
+              type="tel" 
+              id="regPhone" 
+              placeholder="+919876543210" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Affiliated University
+            </label>
+            <input 
+              type="text" 
+              id="regUniversity" 
+              placeholder="SPPU / Autonomous / DBATU" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              State & City
+            </label>
+            <input 
+              type="text" 
+              id="regCityState" 
+              placeholder="Pune, Maharashtra" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+            Create Master Password
+          </label>
+          <input 
+            type="password" 
+            id="regPassword" 
+            placeholder="Minimum 8 characters" 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-500 transition"
+          />
+        </div>
+
+        <button 
+          type="button" 
+          id="btnRegisterSubmit" 
+          onclick="handleTpoRegister()" 
+          class="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-500/20 active:scale-[0.99] transition flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>Submit for 4-Tier Verification &rarr;</span>
+        </button>
+
+        <p class="text-center text-xs text-slate-400">
+          Already registered? 
+          <button type="button" onclick="switchAuthTab('login')" class="text-blue-600 font-bold hover:underline">
+            Sign In here
+          </button>
+        </p>
+      </div>
+
+      <!-- OTP Verification Modal View -->
+      <div id="viewOtp" class="hidden p-6 sm:p-8 space-y-4">
+        <div class="text-center">
+          <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto text-xl mb-2">
+            <i class="bi bi-shield-lock"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-lg">Verify Institutional Email OTP</h3>
+          <p class="text-xs text-slate-500 mt-1" id="otpSubtitle">
+            A 6-digit cryptographic verification code has been dispatched to your official email.
+          </p>
+        </div>
+
+        <div id="otpAlertBox" class="hidden p-3 rounded-xl text-xs font-medium border"></div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 text-center">
+            Enter 6-Digit Email OTP
+          </label>
+          <input 
+            type="text" 
+            id="inputOtpCode" 
+            maxlength="6" 
+            placeholder="123456" 
+            class="w-full text-center tracking-[0.5em] font-mono text-xl py-3 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <button 
+          type="button" 
+          id="btnVerifyOtpSubmit" 
+          onclick="handleVerifyOtp()" 
+          class="w-full py-3 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-500/20 transition flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <i class="bi bi-check2-circle"></i>
+          <span>Verify &amp; Launch Campus OS</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>&copy; 2026 Disheera Technologies Inc. &middot; Institutional Campus OS</span>
+      <div class="flex items-center gap-4">
+        <a href="terms.html" class="hover:text-blue-600">Terms</a>
+        <a href="privacy.html" class="hover:text-blue-600">Privacy Policy</a>
+        <a href="mailto:support@disheera.site" class="hover:text-blue-600">Institutional Helpdesk</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Logic -->
+  <script>
+    function getApiBase() {
+      if (window.location.origin.includes('5500') || window.location.origin.includes('5173') || window.location.origin.includes('3000')) {
+        return 'http://localhost:5000/api';
+      }
+      return '/api';
+    }
+
+    function switchAuthTab(tab) {
+      const vLogin = document.getElementById('viewLogin');
+      const vRegister = document.getElementById('viewRegister');
+      const vOtp = document.getElementById('viewOtp');
+      const btnL = document.getElementById('tabBtnLogin');
+      const btnR = document.getElementById('tabBtnRegister');
+
+      vOtp.classList.add('hidden');
+
+      if (tab === 'login') {
+        vLogin.classList.remove('hidden');
+        vRegister.classList.add('hidden');
+        btnL.className = 'flex-1 py-2 rounded-xl text-xs font-bold transition-all bg-white text-blue-700 shadow-sm';
+        btnR.className = 'flex-1 py-2 rounded-xl text-xs font-bold transition-all text-white hover:bg-white/10';
+      } else {
+        vLogin.classList.add('hidden');
+        vRegister.classList.remove('hidden');
+        btnR.className = 'flex-1 py-2 rounded-xl text-xs font-bold transition-all bg-white text-blue-700 shadow-sm';
+        btnL.className = 'flex-1 py-2 rounded-xl text-xs font-bold transition-all text-white hover:bg-white/10';
+      }
+    }
+
+    async function searchAisheRegistry() {
+      const q = document.getElementById('regAisheInput').value.trim();
+      const resEl = document.getElementById('aisheLookupResult');
+      if (!q) {
+        alert('Please enter an AISHE code (e.g. C-41234) or College Name.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${getApiBase()}/campus/tpo/aishe-lookup?query=${encodeURIComponent(q)}`);
+        const json = await res.json();
+
+        if (json.success && json.institution) {
+          const inst = json.institution;
+          document.getElementById('regCollegeName').value = inst.name;
+          document.getElementById('regUniversity').value = inst.affiliatedTo || '';
+          document.getElementById('regCityState').value = `${inst.city}, ${inst.state}`;
+          
+          resEl.className = 'p-2.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs space-y-1 block';
+          resEl.innerHTML = `<strong>✓ Recognized Institution:</strong> ${inst.name}<br/><span class="text-[11px] text-emerald-700">AISHE: ${inst.aisheCode} &middot; NAAC: ${inst.naacGrade} &middot; Domain: ${inst.domain}</span>`;
+        } else {
+          resEl.className = 'p-2 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 text-xs block';
+          resEl.innerHTML = `<strong>Note:</strong> AISHE code not in local pre-cache. You can proceed with manual entry; our verification team will review your institution letterhead.`;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function handleTpoLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const alertBox = document.getElementById('loginAlertBox');
+      const btn = document.getElementById('btnLoginSubmit');
+
+      alertBox.className = 'hidden';
+      if (!email || !password) {
+        alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+        alertBox.textContent = 'Please enter your institutional email and password.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Authenticating...';
+
+      try {
+        const res = await fetch(`${getApiBase()}/campus/tpo/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (data.success && data.token) {
+          localStorage.setItem('disheera_tpo_token', data.token);
+          localStorage.setItem('disheera_tpo_user', JSON.stringify(data.user));
+          if (data.college) localStorage.setItem('disheera_tpo_college', JSON.stringify(data.college));
+
+          alertBox.className = 'p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs block';
+          alertBox.textContent = 'Login successful! Launching Campus OS...';
+          setTimeout(() => {
+            window.location.href = 'tpo-dashboard.html';
+          }, 800);
+        } else {
+          alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+          alertBox.textContent = data.message || 'Login failed. Please check credentials.';
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i><span>Log In to Campus OS</span>';
+        }
+      } catch (err) {
+        alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+        alertBox.textContent = err.message || 'Network error occurred.';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i><span>Log In to Campus OS</span>';
+      }
+    }
+
+    async function handleTpoRegister() {
+      const name = document.getElementById('regName').value.trim();
+      const designation = document.getElementById('regDesignation').value.trim();
+      const collegeName = document.getElementById('regCollegeName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const affiliatedTo = document.getElementById('regUniversity').value.trim();
+      const cityState = document.getElementById('regCityState').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const aisheCode = document.getElementById('regAisheInput').value.trim();
+
+      const alertBox = document.getElementById('registerAlertBox');
+      const btn = document.getElementById('btnRegisterSubmit');
+
+      if (!name || !collegeName || !email || !password) {
+        alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+        alertBox.textContent = 'Please fill out all required fields.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Validating 4-Tier Verification...';
+
+      try {
+        const res = await fetch(`${getApiBase()}/campus/tpo/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            designation,
+            collegeName,
+            email,
+            phone,
+            affiliatedTo,
+            city: cityState.split(',')[0]?.trim() || 'Pune',
+            state: cityState.split(',')[1]?.trim() || 'Maharashtra',
+            password,
+            aisheCode
+          })
+        });
+        const data = await res.json();
+
+        if (data.success && data.token) {
+          localStorage.setItem('disheera_tpo_token', data.token);
+          localStorage.setItem('disheera_tpo_user', JSON.stringify(data.user));
+          if (data.college) localStorage.setItem('disheera_tpo_college', JSON.stringify(data.college));
+
+          // Switch to OTP Verification View
+          document.getElementById('viewRegister').classList.add('hidden');
+          document.getElementById('viewOtp').classList.remove('hidden');
+          document.getElementById('otpSubtitle').textContent = `A 6-digit verification code has been dispatched to ${email}.`;
+        } else {
+          alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+          alertBox.textContent = data.message || 'Registration failed.';
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-shield-lock-fill"></i><span>Submit for 4-Tier Verification &rarr;</span>';
+        }
+      } catch (err) {
+        alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+        alertBox.textContent = err.message || 'Registration error occurred.';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-shield-lock-fill"></i><span>Submit for 4-Tier Verification &rarr;</span>';
+      }
+    }
+
+    async function handleVerifyOtp() {
+      const otp = document.getElementById('inputOtpCode').value.trim();
+      const token = localStorage.getItem('disheera_tpo_token');
+      const alertBox = document.getElementById('otpAlertBox');
+      const btn = document.getElementById('btnVerifyOtpSubmit');
+
+      if (!otp || otp.length < 6) {
+        alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+        alertBox.textContent = 'Please enter the complete 6-digit OTP code.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Verifying...';
+
+      try {
+        const res = await fetch(`${getApiBase()}/campus/tpo/verify-otp`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ otp })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          alertBox.className = 'p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs block';
+          alertBox.textContent = 'Email verified! Redirecting to Campus TPO Cockpit...';
+          setTimeout(() => {
+            window.location.href = 'tpo-dashboard.html';
+          }, 1000);
+        } else {
+          alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+          alertBox.textContent = data.message || 'OTP verification failed.';
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-check2-circle"></i><span>Verify &amp; Launch Campus OS</span>';
+        }
+      } catch (err) {
+        alertBox.className = 'p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs block';
+        alertBox.textContent = err.message || 'Error verifying OTP.';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-check2-circle"></i><span>Verify &amp; Launch Campus OS</span>';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -57,6 +57,8 @@ model User {
   builtResume                   Json?
   verificationOtp               Json?
   encryptedVault                Json?
+  collegeId                     String?
+  tpoProfile                    Json?
 
   // Relations
   roadmaps                      Roadmap[]
@@ -67,6 +69,8 @@ model User {
   recruiterApplications         JobApplication[] @relation("RecruiterApplications")
   assignmentSubmissions         AssignmentSubmission[]
   meritScore                    StudentMeritScore?
+  college                       College?  @relation("CollegeStudents", fields: [collegeId], references: [id])
+  managedCollege                College?  @relation("CollegeTpo")
 
   createdAt                     DateTime  @default(now())
   updatedAt                     DateTime  @updatedAt
@@ -74,6 +78,7 @@ model User {
   @@index([role])
   @@index([googleId])
   @@index([githubId])
+  @@index([collegeId])
 }
 
 // ── 2. Roadmap Model ──────────────────────────────────────────
@@ -609,4 +614,49 @@ model InternshipReward {
   createdAt            DateTime @default(now())
 
   @@map("internship_rewards")
+}
+
+// ── 20. College / Institutional Campus Model (Campus OS) ──────
+model College {
+  id                      String    @id @default(uuid())
+  name                    String
+  slug                    String    @unique
+  aisheCode               String    @unique // e.g. C-41234
+  aicteCode               String?
+  domain                  String    @unique // e.g. raisoni.net, coep.ac.in
+  website                 String?
+  state                   String    @default("Maharashtra")
+  city                    String    @default("Pune")
+  affiliatedTo            String?   // e.g. SPPU, DBATU
+  naacGrade               String?   @default("A+")
+  nirfBand                String?   @default("Top 100")
+  logoUrl                 String?
+  inviteCode              String    @unique // e.g. COEP2026 for student batch onboarding
+  isVerified              Boolean   @default(false)
+  verifiedAt              DateTime?
+  verificationDocumentUrl String?
+  tpoUserId               String?   @unique
+
+  // Relations
+  tpoUser                 User?     @relation("CollegeTpo", fields: [tpoUserId], references: [id])
+  students                User[]    @relation("CollegeStudents")
+
+  // Telemetry & Aggregation Cache
+  studentCount            Int       @default(0)
+  avgPlacementScore       Float     @default(78.5)
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  @@index([aisheCode])
+  @@index([domain])
+  @@index([inviteCode])
+  @@map("colleges")
+}
+
+model SystemSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @default(now()) @updatedAt
+  updatedBy String?
 }

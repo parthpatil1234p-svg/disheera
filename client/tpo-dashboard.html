@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus TPO Cockpit &middot; Institutional Placement OS &middot; Disheera</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #F8FAFC;
+      color: #334155;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand & College Identity -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 text-decoration-none">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            D
+          </div>
+          <span class="font-bold text-slate-900 text-lg tracking-tight">Disheera</span>
+        </a>
+        <div class="h-5 w-[1px] bg-slate-200 hidden sm:block"></div>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-900" id="headerCollegeName">COEP Technological University</span>
+          <span class="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-200" id="headerAisheBadge">
+            AISHE: C-41234
+          </span>
+        </div>
+      </div>
+
+      <!-- User Actions & Verification Status -->
+      <div class="flex items-center gap-3">
+        <span id="verificationStatusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
+          <i class="bi bi-shield-exclamation text-amber-600"></i> Sandbox Preview Mode
+        </span>
+
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <div class="text-right hidden md:block">
+            <div class="text-xs font-bold text-slate-900 leading-tight" id="headerTpoName">Placement Cell</div>
+            <div class="text-[10px] text-slate-400" id="headerTpoRole">Head, T&amp;P</div>
+          </div>
+          <button 
+            type="button" 
+            onclick="handleTpoLogout()" 
+            class="p-2 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition text-sm cursor-pointer"
+            title="Log Out"
+          >
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Sandbox Mode Notice Ribbon (if pending) -->
+  <div id="sandboxBanner" class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border-b border-amber-200/60 px-4 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-amber-900">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        <span><strong>Interactive Demo Sandbox Active:</strong> Exploring sample 2026 cohort telemetry (420 students). Live corporate recruiting drives unlock upon institutional verification.</span>
+      </div>
+      <button 
+        type="button" 
+        onclick="openVerificationUploadModal()" 
+        class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-[11px] shadow-sm transition"
+      >
+        Submit College Letterhead &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full space-y-6 flex-grow">
+    
+    <!-- Top Hero Banner with Student Invite Link Bar -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+            <i class="bi bi-mortarboard-fill"></i> NAAC &amp; NIRF Criterion 5 Operating System
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight" id="heroCollegeHeading">
+            Institutional Placement Cockpit
+          </h1>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1">
+            Real-time batch skill telemetry, anti-cheat AI viva defenses, and verified candidate pipelines.
+          </p>
+        </div>
+
+        <!-- Student Onboarding Invite Link Box -->
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 max-w-md w-full space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="bi bi-link-45deg text-blue-600"></i> Student Batch Onboarding Link
+            </span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
+              Auto-Mapping Active
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input 
+              type="text" 
+              id="inviteLinkInput" 
+              readonly 
+              value="https://disheera.site/register.html?college=COEP-2026" 
+              class="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-mono text-slate-600 truncate focus:outline-none"
+            />
+            <button 
+              type="button" 
+              onclick="copyInviteLink()" 
+              id="btnCopyInvite"
+              class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer shrink-0"
+            >
+              <i class="bi bi-clipboard"></i>
+              <span>Copy</span>
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-400">
+            Share this link with students or WhatsApp groups to automatically map their verified passports to your institution.
+          </p>
+        </div>
+      </div>
+
+      <!-- Executive KPI Strip (4 Bento Cards) -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6 pt-6 border-t border-slate-100">
+        
+        <div class="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0]">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Graduating Batch Size</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 font-mono" id="kpiBatchSize">420</div>
+          <div class="text-[11px] text-emerald-600 font-semibold mt-0.5">
+            <i class="bi bi-check-circle-fill me-1"></i> 100% Monitored
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0]">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Placement Readiness Index</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-blue-600 mt-1 font-mono" id="kpiPlacementRate">74.2%</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Target: 80% Benchmark</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0]">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">NAAC Metric 5.2.1 Status</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-emerald-700 mt-1 font-mono" id="kpiNaacStatus">IQAC Ready</div>
+          <div class="text-[11px] text-emerald-600 font-semibold mt-0.5">
+            <i class="bi bi-shield-check me-1"></i> Audit-Proof
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0]">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Verified Merit Passports</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-indigo-600 mt-1 font-mono" id="kpiVerifiedPassports">294</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">SHA-256 Authenticated</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2-Column Grid: Skill Deficit Heatmap (Left) & NAAC Metric 5.2.1 (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Module 1: Batch Skill Deficit & Readiness Heatmap (2 Cols) -->
+      <div class="lg:col-span-2 bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="badge px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                CRITICAL INTERVENTION
+              </span>
+              <h2 class="text-lg font-bold text-slate-900 mb-0">Module 1: Batch Skill Deficit Heatmap</h2>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Identifies technology gaps between industry recruiter demand and current student proficiency.
+            </p>
+          </div>
+          <button 
+            type="button" 
+            onclick="triggerCohortCalibrationNotice()" 
+            class="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+          >
+            <i class="bi bi-lightning-charge-fill text-blue-600"></i> Dispatch Roadmap Calibration
+          </button>
+        </div>
+
+        <!-- Heatmap Progress List -->
+        <div class="space-y-3.5 pt-2" id="skillDeficitList">
+          <!-- Dynamically populated or default fallback -->
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">Docker &amp; Containerization (DevOps)</span>
+              <span class="font-bold text-rose-600 font-mono">-43% Deficit (High Priority)</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+              <div class="bg-blue-600 h-2" style="width: 42%;"></div>
+              <div class="bg-rose-400/50 h-2" style="width: 43%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-500">
+              <span>Cohort Proficiency: 42%</span>
+              <span>Corporate Cutoff: 85%</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">FastAPI &amp; Microservices Architecture</span>
+              <span class="font-bold text-rose-600 font-mono">-32% Deficit (High Priority)</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+              <div class="bg-blue-600 h-2" style="width: 48%;"></div>
+              <div class="bg-rose-400/50 h-2" style="width: 32%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-500">
+              <span>Cohort Proficiency: 48%</span>
+              <span>Corporate Cutoff: 80%</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">System Design &amp; Scalability</span>
+              <span class="font-bold text-rose-600 font-mono">-36% Deficit (High Priority)</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+              <div class="bg-blue-600 h-2" style="width: 39%;"></div>
+              <div class="bg-rose-400/50 h-2" style="width: 36%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-500">
+              <span>Cohort Proficiency: 39%</span>
+              <span>Corporate Cutoff: 75%</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">PostgreSQL Query Tuning &amp; Indexes</span>
+              <span class="font-bold text-amber-600 font-mono">-24% Deficit (Medium Priority)</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+              <div class="bg-blue-600 h-2" style="width: 61%;"></div>
+              <div class="bg-amber-400/50 h-2" style="width: 24%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-500">
+              <span>Cohort Proficiency: 61%</span>
+              <span>Corporate Cutoff: 85%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 2: NAAC / NIRF Criterion 5 Employability Analytics (1 Col) -->
+      <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm space-y-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="badge px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+              ACCREDITATION AUTOMATION
+            </span>
+            <h2 class="text-lg font-bold text-slate-900 mb-0">Module 2: NAAC Analytics</h2>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Instant 1-Click reports for IQAC and NAAC Peer Team inspections.
+          </p>
+        </div>
+
+        <!-- Metric 5.2.1 Box -->
+        <div class="p-4 rounded-2xl bg-blue-50/40 border border-blue-100 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-blue-900">NAAC Metric 5.2.1</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">74.2% Verified</span>
+          </div>
+          <p class="text-[11px] text-slate-600 leading-snug">
+            <strong>Placement of outgoing students:</strong> 312 of 420 students authenticated with corporate offer letters and active recruitment radar unlocks.
+          </p>
+        </div>
+
+        <!-- Metric 5.1.4 Box -->
+        <div class="p-4 rounded-2xl bg-indigo-50/40 border border-indigo-100 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-900">NAAC Metric 5.1.4</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800">98.1% Covered</span>
+          </div>
+          <p class="text-[11px] text-slate-600 leading-snug">
+            <strong>Skill development initiatives:</strong> 412 students completed oral AI viva defenses and proctored code chambers with zero-cheating sensor audit.
+          </p>
+        </div>
+
+        <!-- Download Reports Button -->
+        <div class="pt-2">
+          <button 
+            type="button" 
+            onclick="downloadNaacReport()" 
+            class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+          >
+            <i class="bi bi-file-earmark-pdf-fill text-rose-400"></i>
+            <span>Export IQAC NAAC Report (PDF &amp; Excel)</span>
+          </button>
+          <span class="text-[10px] text-slate-400 text-center block mt-1.5">
+            Pre-formatted with table headers as mandated by NAAC manual.
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Module 4: Student Cohort Management Table -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 mb-0">Module 4: Student Cohort Management</h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Verified student career passports with 4D empirical rubric scores and oral viva defense records.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button 
+            type="button" 
+            onclick="openBatchCsvUploadModal()" 
+            class="px-3.5 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+          >
+            <i class="bi bi-upload"></i> Upload Batch CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Cohort Table -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-200">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+            <tr>
+              <th class="py-3 px-4">Student Name</th>
+              <th class="py-3 px-4">Branch &amp; Roll No</th>
+              <th class="py-3 px-4">Target Track</th>
+              <th class="py-3 px-4">Merit Score</th>
+              <th class="py-3 px-4">Viva Defense</th>
+              <th class="py-3 px-4">Passport Hash</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100" id="cohortTableBody">
+            <tr class="hover:bg-slate-50/70 transition">
+              <td class="py-3 px-4 font-bold text-slate-900">Aarav Sharma</td>
+              <td class="py-3 px-4 text-slate-500">CSE &middot; 2026CS101</td>
+              <td class="py-3 px-4 text-blue-600 font-medium">Backend Architect</td>
+              <td class="py-3 px-4 font-mono font-bold text-emerald-700">94 / 100</td>
+              <td class="py-3 px-4">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[10px]">
+                  <i class="bi bi-check-circle-fill text-emerald-600"></i> VERIFIED
+                </span>
+              </td>
+              <td class="py-3 px-4 font-mono text-slate-400">0x8f2d...a49b</td>
+            </tr>
+            <tr class="hover:bg-slate-50/70 transition">
+              <td class="py-3 px-4 font-bold text-slate-900">Pooja Deshmukh</td>
+              <td class="py-3 px-4 text-slate-500">IT &middot; 2026IT142</td>
+              <td class="py-3 px-4 text-blue-600 font-medium">Full Stack Engineer</td>
+              <td class="py-3 px-4 font-mono font-bold text-emerald-700">88 / 100</td>
+              <td class="py-3 px-4">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[10px]">
+                  <i class="bi bi-check-circle-fill text-emerald-600"></i> VERIFIED
+                </span>
+              </td>
+              <td class="py-3 px-4 font-mono text-slate-400">0x3c1a...77e2</td>
+            </tr>
+            <tr class="hover:bg-slate-50/70 transition">
+              <td class="py-3 px-4 font-bold text-slate-900">Rohan Kulkarni</td>
+              <td class="py-3 px-4 text-slate-500">AI/DS &middot; 2026DS033</td>
+              <td class="py-3 px-4 text-blue-600 font-medium">MLOps Engineer</td>
+              <td class="py-3 px-4 font-mono font-bold text-emerald-700">91 / 100</td>
+              <td class="py-3 px-4">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[10px]">
+                  <i class="bi bi-check-circle-fill text-emerald-600"></i> VERIFIED
+                </span>
+              </td>
+              <td class="py-3 px-4 font-mono text-slate-400">0x99a4...c018</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Module 3: Corporate Recruitment Drives & Whitelist -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 mb-0">Module 3: Corporate Recruitment Drives &amp; Radar Whitelist</h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Active corporate hiring pipelines connected to your students' skill portfolios.
+          </p>
+        </div>
+        <button 
+          type="button" 
+          onclick="alert('Invite link copied. Corporate partners can view your whitelisted batch at: ' + document.getElementById('inviteLinkInput').value)" 
+          class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+        >
+          <i class="bi bi-person-plus-fill"></i> Invite Corporate Recruiter
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 text-xs">Persistent Systems</span>
+            <span class="badge px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Whitelisted</span>
+          </div>
+          <div class="text-[11px] text-slate-500">2 Drives Open &middot; Package: ₹7.5 - ₹12 LPA</div>
+          <div class="text-[11px] text-blue-600 font-semibold">Requirement: Node.js, Docker, Microservices</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 text-xs">Tata Consultancy Services (Digital)</span>
+            <span class="badge px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Whitelisted</span>
+          </div>
+          <div class="text-[11px] text-slate-500">1 Drive Open &middot; Package: ₹7.0 - ₹9.0 LPA</div>
+          <div class="text-[11px] text-blue-600 font-semibold">Requirement: Full Stack Java/Python &amp; Cloud</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900 text-xs">Disheera Talent Radar B2B Network</span>
+            <span class="badge px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-bold">Active Radar</span>
+          </div>
+          <div class="text-[11px] text-slate-500">8 Drives Open &middot; Package: ₹6.0 - ₹24 LPA</div>
+          <div class="text-[11px] text-blue-600 font-semibold">Direct candidate profile unlock access</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-5 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-900">Disheera Campus OS</span>
+        <span>&bull;</span>
+        <span>Institutional Training &amp; Placement Infrastructure</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>AISHE / AICTE Data Model v1.0</span>
+        <span>&bull;</span>
+        <a href="mailto:support@disheera.site" class="text-blue-600 hover:underline">Support Desk</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Logic -->
+  <script>
+    function getApiBase() {
+      if (window.location.origin.includes('5500') || window.location.origin.includes('5173') || window.location.origin.includes('3000')) {
+        return 'http://localhost:5000/api';
+      }
+      return '/api';
+    }
+
+    // 1. Session Isolation Guard
+    (function checkTpoAuth() {
+      const token = localStorage.getItem('disheera_tpo_token');
+      if (!token) {
+        window.location.replace('tpo-login.html');
+      }
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTpoProfileAndTelemetry();
+    });
+
+    async function loadTpoProfileAndTelemetry() {
+      const token = localStorage.getItem('disheera_tpo_token');
+      if (!token) return;
+
+      try {
+        const res = await fetch(`${getApiBase()}/campus/tpo/dashboard-telemetry`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          const col = data.college;
+          const telem = data.telemetry;
+
+          if (col) {
+            document.getElementById('headerCollegeName').textContent = col.name;
+            document.getElementById('heroCollegeHeading').textContent = col.name + ' \u2014 Campus Cockpit';
+            document.getElementById('headerAisheBadge').textContent = `AISHE: ${col.aisheCode}`;
+            
+            const origin = window.location.origin;
+            document.getElementById('inviteLinkInput').value = `${origin}/register.html?college=${encodeURIComponent(col.inviteCode)}`;
+          }
+
+          if (telem) {
+            const sum = telem.summary;
+            if (sum) {
+              document.getElementById('kpiBatchSize').textContent = sum.totalStudents || 420;
+              document.getElementById('kpiPlacementRate').textContent = (sum.placementRate || 74.2) + '%';
+              document.getElementById('kpiVerifiedPassports').textContent = sum.verifiedPassports || 294;
+            }
+
+            const sandboxBanner = document.getElementById('sandboxBanner');
+            const statusBadge = document.getElementById('verificationStatusBadge');
+            if (telem.isSandboxMode) {
+              sandboxBanner.classList.remove('hidden');
+              statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200';
+              statusBadge.innerHTML = '<i class="bi bi-shield-exclamation text-amber-600"></i> Sandbox Preview Mode';
+            } else {
+              sandboxBanner.classList.add('hidden');
+              statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200';
+              statusBadge.innerHTML = '<i class="bi bi-patch-check-fill text-emerald-600"></i> Verified Institution';
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Telemetry load fallback:', err);
+      }
+    }
+
+    function copyInviteLink() {
+      const input = document.getElementById('inviteLinkInput');
+      input.select();
+      input.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(input.value);
+
+      const btn = document.getElementById('btnCopyInvite');
+      btn.innerHTML = '<i class="bi bi-check2"></i><span>Copied!</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<i class="bi bi-clipboard"></i><span>Copy</span>';
+      }, 2000);
+    }
+
+    function downloadNaacReport() {
+      alert('Generating IQAC NAAC Metric 5.2.1 Audit Document...\nYour pre-formatted institutional placement report PDF is compiling.');
+    }
+
+    function triggerCohortCalibrationNotice() {
+      alert('Calibration notice dispatched! Students whose roadmaps fall below corporate cutoff will receive WhatsApp & Dashboard alerts to calibrate Docker & FastAPI milestones.');
+    }
+
+    function openVerificationUploadModal() {
+      const doc = prompt('Enter your Institutional Authorization Letter URL or Google Drive link for instant Super-Admin verification:');
+      if (doc) {
+        alert('Verification document submitted! Disheera Super-Admin has received your document for immediate review.');
+      }
+    }
+
+    function openBatchCsvUploadModal() {
+      alert('Batch Roster CSV Tool: Upload student names and roll numbers in standard format (Name, Email, Branch, RollNo). Auto-mapping will link them to your college dashboard.');
+    }
+
+    function handleTpoLogout() {
+      if (confirm('Are you sure you want to log out from Campus TPO Cockpit?')) {
+        localStorage.removeItem('disheera_tpo_token');
+        localStorage.removeItem('disheera_tpo_user');
+        localStorage.removeItem('disheera_tpo_college');
+        window.location.href = 'tpo-login.html';
+      }
+    }
+  </script>
+</body>
+</html>
