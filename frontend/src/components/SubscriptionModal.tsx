@@ -274,16 +274,15 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-[#0F172A] flex items-center space-x-1.5">
                 <Tag className="w-3.5 h-3.5 text-blue-600" />
-                <span>Have an Institutional / Admin Promo Code?</span>
+                <span>Have a promo or voucher code?</span>
               </span>
-              <span className="text-[11px] text-emerald-600 font-semibold">100% Free Access</span>
             </div>
             <div className="flex items-center space-x-2">
               <input
                 type="text"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                placeholder="e.g. STU-PILOT-PRO5 or ADMIN PASS"
+                placeholder="Enter promo code"
                 className="flex-1 px-3 py-2 bg-white rounded-xl border border-[#CBD5E1] text-xs font-mono font-bold text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-blue-500 uppercase tracking-wider"
               />
               <button
