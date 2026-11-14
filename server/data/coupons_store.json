@@ -1,0 +1,56 @@
+{
+  "DISHEERA-ADMIN-VIP": {
+    "code": "DISHEERA-ADMIN-VIP",
+    "description": "Fixed Master Admin Pass — 100% Free Pro Access (Unlimited)",
+    "discountPercent": 100,
+    "maxUses": 999999,
+    "usedCount": 0,
+    "validityDays": 365,
+    "applicableRoles": [
+      "student",
+      "recruiter",
+      "tpo",
+      "college",
+      "admin"
+    ],
+    "usedBy": []
+  },
+  "STU-PILOT-PRO5": {
+    "code": "STU-PILOT-PRO5",
+    "description": "Student Pilot Program — 100% Free Pro Career Accelerator (5 Slots)",
+    "discountPercent": 100,
+    "maxUses": 5,
+    "usedCount": 0,
+    "validityDays": 90,
+    "applicableRoles": [
+      "student"
+    ],
+    "usedBy": []
+  },
+  "REC-RADAR-VIP3": {
+    "code": "REC-RADAR-VIP3",
+    "description": "Corporate Recruiter Radar Pro — 100% Free Access + 60 Unlocks (3 Slots)",
+    "discountPercent": 100,
+    "maxUses": 3,
+    "usedCount": 0,
+    "validityDays": 90,
+    "applicableRoles": [
+      "recruiter",
+      "employer"
+    ],
+    "usedBy": []
+  },
+  "CAMPUS-OS-FREE1": {
+    "code": "CAMPUS-OS-FREE1",
+    "description": "Institutional Campus TPO Cockpit — 100% Free College OS (1 Institution)",
+    "discountPercent": 100,
+    "maxUses": 1,
+    "usedCount": 0,
+    "validityDays": 365,
+    "applicableRoles": [
+      "tpo",
+      "college"
+    ],
+    "usedBy": []
+  }
+}

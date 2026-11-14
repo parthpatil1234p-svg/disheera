@@ -1725,7 +1725,34 @@
               </div>
             </div>
 
-            <!-- 4. Tax Invoices & Invoicing History -->
+            <!-- 4. Promo / VIP Access Code Section -->
+            <div class="p-3 mb-3 rounded-xl bg-slate-50 border border-slate-200 shadow-xs">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-bold text-slate-800 text-xs d-flex align-items-center gap-1.5">
+                  <i class="bi bi-tag-fill text-blue-600"></i> Have an Institutional / VIP Promo Code?
+                </span>
+                <span class="text-[11px] text-emerald-600 fw-bold">100% Zero-Payment</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <input
+                  type="text"
+                  id="recruiterCouponInput"
+                  placeholder="e.g. REC-RADAR-VIP3 or DISHEERA-ADMIN-VIP"
+                  class="form-control form-control-sm font-mono text-uppercase fw-bold text-xs bg-white border-slate-300"
+                />
+                <button
+                  type="button"
+                  id="btnApplyRecruiterCoupon"
+                  onclick="applyRecruiterCoupon()"
+                  class="btn btn-dark btn-sm text-xs px-3 fw-bold rounded-lg shrink-0"
+                >
+                  Apply Code
+                </button>
+              </div>
+              <div id="recruiterCouponMsg" class="mt-2 text-xs d-none"></div>
+            </div>
+
+            <!-- 5. Tax Invoices & Invoicing History -->
             <div class="p-3 rounded-xl bg-white border border-slate-200 d-flex align-items-center justify-content-between flex-wrap gap-2 shadow-xs">
               <div class="d-flex align-items-center gap-2.5">
                 <div class="p-2 rounded-lg bg-rose-50 text-rose-600">
@@ -1804,6 +1831,38 @@
           } else {
             alert('Corporate billing gateway ready. Contact priority@disheera.site to setup invoice billing.');
           }
+        }
+      }
+
+      async function applyRecruiterCoupon() {
+        const input = document.getElementById('recruiterCouponInput');
+        const msg = document.getElementById('recruiterCouponMsg');
+        const code = input ? input.value.trim().toUpperCase() : '';
+        if (!code) {
+          alert('Please enter a coupon code.');
+          return;
+        }
+
+        const btn = document.getElementById('btnApplyRecruiterCoupon');
+        if (btn) btn.disabled = true;
+
+        try {
+          const res = await window.API.post('/coupons/redeem', { couponCode: code }, { auth: true });
+          if (res && res.success) {
+            msg.className = 'mt-2 text-xs text-emerald-700 fw-bold d-block';
+            msg.textContent = res.message || '🎉 100% Free Talent Radar Pro Activated!';
+            setTimeout(() => {
+              window.location.reload();
+            }, 1200);
+          } else {
+            msg.className = 'mt-2 text-xs text-rose-600 fw-semibold d-block';
+            msg.textContent = res.message || 'Invalid or expired coupon code.';
+            if (btn) btn.disabled = false;
+          }
+        } catch (err) {
+          msg.className = 'mt-2 text-xs text-rose-600 fw-semibold d-block';
+          msg.textContent = err.message || 'Coupon redemption failed.';
+          if (btn) btn.disabled = false;
         }
       }
     </script>
