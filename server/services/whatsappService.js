@@ -521,7 +521,42 @@ async function sendVoiceNote(phone, audioSource) {
   return { success: true, provider: 'console_fallback', messageId: `mock-voice-${Date.now()}` };
 }
 
+
+/**
+ * Sends a native WhatsApp interactive Poll with clickable options.
+ * Allows students to 1-tap options directly without typing.
+ */
+async function sendPoll(phone, name, options) {
+  const formattedPhone = formatPhoneNumber(phone);
+  if (!formattedPhone) return { success: false, error: 'Invalid phone number' };
+
+  const digits = getPhoneDigits(formattedPhone);
+  const { url: openwaUrl, apiKey: openwaApiKey, sessionId: openwaSessionId } = getOpenwaConfig();
+
+  if (openwaUrl && openwaApiKey && openwaSessionId) {
+    try {
+      const payload = JSON.stringify({
+        chatId: `${digits}@c.us`,
+        name: name || 'DheePath Quick Actions',
+        options: Array.isArray(options) ? options.slice(0, 12) : ['JOBS', 'ROADMAP', 'NOTES', 'SUPPORT']
+      });
+
+      const res = await openwaApiRequest(
+        `/api/sessions/${openwaSessionId}/messages/send-poll`,
+        payload
+      );
+      console.log(`[WhatsApp Poll] Interactive Poll dispatched to ${formattedPhone} (id: ${res.messageId || 'sent'})`);
+      return { success: true, provider: 'openwa_gateway', messageId: res.messageId };
+    } catch (err) {
+      console.error('[WhatsApp Poll] OpenWA Poll failed:', err.message);
+    }
+  }
+
+  return { success: true, provider: 'console_fallback' };
+}
+
 module.exports = {
+  sendPoll,
   formatPhoneNumber,
   getPhoneDigits,
   sendOtp,
