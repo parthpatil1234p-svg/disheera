@@ -1466,24 +1466,22 @@ Aapka reply mentor ko forward kar diya gaya hai. Vo jald hi aapse yahan connect 
     // Welcomes new unlinked users sending greetings with instant portal registration instructions
     if (!userContext.isRegistered && /^(hi|hii|hiii|hello|hey|namaste|start|\/start)\b/i.test(targetCmd)) {
       const welcomeOnboardingMsg = 
-`*Disheera  |  Autonomous Career GPS*
+`*Disheera  |  AI Career Mentor*
 
 Namaste ${userContext.name},
-Welcome to Disheera. Your WhatsApp number is not yet linked to an active student account.
+Disheera me aapka swagat hai! Aapka WhatsApp number abhi registered account se linked nahi hai.
 
-About Disheera:
-Disheera is India's autonomous career acceleration platform providing personalized 12-week roadmaps, proctored milestones, verified cryptographic skill credentials, and direct tech recruiter access.
-
-Quick Options:
-[1]  JOBS  -  Explore verified tech openings
-[2]  ROADMAP  -  Explore 12-week track curriculum
-[8]  COUNSELOR  -  Request 1-on-1 advisor callback
-[9]  SUPPORT  -  Student Support & Inquiries
-
-Create & link your free student account:
+🌐 *Apna Free Account Banayein & Link Karein:*
 https://disheera.site
 
-Reply with 1, 2, 8, or 9 to proceed.
+📋 *Quick Services (Direct Check Karein):*
+
+[1]  JOBS  —  Latest tech openings aur internships
+[2]  ROADMAP  —  12-Week curated study syllabus
+[8]  COUNSELOR  —  Career expert se 1-on-1 call
+[9]  SUPPORT  —  Student helpdesk aur help
+
+👉 *Sirf number (1, 2, 8 ya 9) bhej kar explore karein!*
 ───────────────────────────
 Disheera Technologies Inc.`;
 
@@ -1502,21 +1500,27 @@ Disheera Technologies Inc.`;
 `*Disheera  |  AI Career Mentor*
 
 Namaste ${userContext.name},
-Please select an option by replying with its number:
+Aapko kya karna hai? Bas neeche diye gaye number me se ek reply karein:
 
-[1]  JOBS  -  Verified tech openings & internships
-[2]  ROADMAP  -  Week ${userContext.activeWeek} milestones & focus topics
-[3]  NOTES  -  Download Week ${userContext.activeWeek} Cheatsheet PDF
-[4]  PASSPORT  -  Verified skill badges & cryptographic ledger
-[5]  QUIZ  -  Proctored milestone evaluation & code chamber
-[6]  RESUME  -  AI ATS Resume Builder & score optimization
-[7]  INTERVIEW  -  AI Mock Interview preparation & readiness
-[8]  COUNSELOR  -  Request 1-on-1 human advisor callback
-[9]  SUPPORT  -  Official Grievance Redressal Desk
+📚 *STUDY & ROADMAP*
+[1]  JOBS  —  Latest verified tech jobs aur internships
+[2]  ROADMAP  —  Week ${userContext.activeWeek} ka study plan aur topics
+[3]  NOTES  —  Week ${userContext.activeWeek} Cheatsheet PDF download karein
 
-Reply with 1 to 9 (or type command name).
+🛠️ *SKILLS & PRACTICE*
+[4]  PASSPORT  —  Verified certificate aur skill badges
+[5]  QUIZ  —  Weekly practice test aur code test start karein
+[6]  RESUME  —  AI Resume Builder aur free ATS score
+
+🎯 *PREP & GUIDANCE*
+[7]  INTERVIEW  —  AI mock interview ki practice karein
+[8]  COUNSELOR  —  Expert mentor se 1-on-1 call callback
+[9]  SUPPORT  —  Helpdesk aur technical support
+
 ───────────────────────────
-Official Portal: https://disheera.site
+👉 *Sirf number (1 to 9) reply karein* — jaise *3* likh kar send karte hi PDF mil jayegi!
+
+🌐 *Web Portal:* https://disheera.site
 Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, menuReply, {
