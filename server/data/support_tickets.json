@@ -10,32 +10,32 @@
     "targetCareer": "Full Stack Engineer"
   },
   {
-    "ticketId": "CP-COUNSEL-245098",
-    "studentName": "Rohit Verma",
-    "phone": "+919876543210",
     "type": "HUMAN_COUNSELOR_CALLBACK",
     "issue": "1-on-1 Human Career Counseling & Callback Request",
-    "targetCareer": "Full Stack Engineer",
-    "activeWeek": 1,
+    "phone": "+919876543210",
     "skills": [],
+    "status": "PENDING_COUNSELOR_CALLBACK",
+    "ticketId": "CP-COUNSEL-245098",
     "createdAt": "2026-11-17T07:38:56.361Z",
-    "status": "PENDING_COUNSELOR_CALLBACK"
+    "activeWeek": 1,
+    "studentName": "Rohit Verma",
+    "targetCareer": "Full Stack Engineer"
   },
   {
-    "ticketId": "CP-QRY-654316",
-    "studentName": "Rohit Verma",
-    "phone": "+919876543210",
     "type": "STUDENT_COUNSELOR_QUERY",
     "issue": "How do I connect to Supabase Prisma pooler with pgbouncer?",
-    "targetCareer": "Full Stack Engineer",
-    "activeWeek": 1,
-    "createdAt": "2026-11-17T07:38:56.383Z",
+    "phone": "+919876543210",
     "status": "RESOLVED",
+    "ticketId": "CP-QRY-654316",
+    "createdAt": "2026-11-17T07:38:56.383Z",
     "lastReply": "Use port 6543 with pgbouncer=true in DATABASE_URL, and direct 5432 for DIRECT_URL.",
-    "lastReplyBy": "Suyog Pawar",
-    "lastReplyAt": "2026-11-17T07:38:56.387Z",
+    "activeWeek": 1,
+    "resolvedAt": "2026-11-17T07:38:56.388Z",
     "resolvedBy": "Parth Patil",
-    "resolvedAt": "2026-11-17T07:38:56.388Z"
+    "lastReplyAt": "2026-11-17T07:38:56.387Z",
+    "lastReplyBy": "Suyog Pawar",
+    "studentName": "Rohit Verma",
+    "targetCareer": "Full Stack Engineer"
   },
   {
     "type": "HUMAN_COUNSELOR_CALLBACK",
@@ -251,18 +251,56 @@
     "studentName": "Student"
   },
   {
+    "type": "DIRECT_MENTOR_OUTREACH",
+    "issue": "Hello Rohit, maine aapka Week 1 progress dekha. Project me koi doubt hai?",
+    "phone": "+919876543210",
+    "status": "SENT_BY_MENTOR",
     "ticketId": "CP-MSG-617805",
+    "counselor": "Parth Patil",
+    "createdAt": "2026-11-17T07:38:56.695Z",
+    "studentName": "Student"
+  },
+  {
+    "ticketId": "CP-COUNSEL-725330",
+    "studentName": "Rohit Verma",
+    "phone": "+919876543210",
+    "type": "HUMAN_COUNSELOR_CALLBACK",
+    "issue": "1-on-1 Human Career Counseling & Callback Request",
+    "targetCareer": "Full Stack Engineer",
+    "activeWeek": 1,
+    "skills": [],
+    "createdAt": "2026-11-17T07:49:56.627Z",
+    "status": "PENDING_COUNSELOR_CALLBACK"
+  },
+  {
+    "ticketId": "CP-QRY-924503",
+    "studentName": "Rohit Verma",
+    "phone": "+919876543210",
+    "type": "STUDENT_COUNSELOR_QUERY",
+    "issue": "How do I connect to Supabase Prisma pooler with pgbouncer?",
+    "targetCareer": "Full Stack Engineer",
+    "activeWeek": 1,
+    "createdAt": "2026-11-17T07:49:56.641Z",
+    "status": "RESOLVED",
+    "lastReply": "Use port 6543 with pgbouncer=true in DATABASE_URL, and direct 5432 for DIRECT_URL.",
+    "lastReplyBy": "Suyog Pawar",
+    "lastReplyAt": "2026-11-17T07:49:56.645Z",
+    "resolvedBy": "Parth Patil",
+    "resolvedAt": "2026-11-17T07:49:56.646Z"
+  },
+  {
+    "ticketId": "CP-MSG-821267",
     "studentName": "Student",
     "phone": "+919876543210",
     "type": "DIRECT_MENTOR_OUTREACH",
     "issue": "Hello Rohit, maine aapka Week 1 progress dekha. Project me koi doubt hai?",
-    "createdAt": "2026-11-17T07:38:56.695Z",
+    "createdAt": "2026-11-17T07:49:56.896Z",
     "status": "RESOLVED",
     "counselor": "Parth Patil",
     "lastReply": "Great question Rohit! Main aapko sample Axios code send kar rahi hu.",
-    "lastReplyAt": "2026-11-17T07:38:56.698Z",
+    "lastReplyAt": "2026-11-17T07:49:56.898Z",
     "lastReplyBy": "Sanika",
     "resolvedBy": "Sanika",
-    "resolvedAt": "2026-11-17T07:38:56.700Z"
+    "resolvedAt": "2026-11-17T07:49:56.899Z"
   }
 ]

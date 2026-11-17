@@ -1031,7 +1031,8 @@ Kripya apna sawal ya issue yahan *WhatsApp text message* me bhejiye:
     }
 
     // ── SUPPORT SYSTEM ROUTER: Instant Human & Grievance Support Desk ──
-    const isSupportKeyword = /^(support|help|madad|contact|grievance|complaint|issue|problem|human|agent|officer|admin|customercare|customer\s*care|ticket|helpline|desk)\b/i.test(targetCmd) ||
+    const isSupportKeyword = cleanLower === '9' || cleanLower.startsWith('9️⃣') || targetCmd === '9' ||
+                             /^(support|help|madad|contact|grievance|complaint|issue|problem|human|agent|officer|admin|customercare|customer\s*care|ticket|helpline|desk)\b/i.test(targetCmd) ||
                              targetCmd.startsWith('/support') ||
                              targetCmd.startsWith('!support') ||
                              targetCmd.includes('contact support') ||
@@ -1204,7 +1205,7 @@ Reply *TICKET: Recruiter onboarding assistance*
     }
 
     // 3. Human Career Counselor & 1-on-1 Callback Desk
-    const isCounselorKeyword = cleanLower === '6' || cleanLower.startsWith('6️⃣') || targetCmd === '6' ||
+    const isCounselorKeyword = cleanLower === '8' || cleanLower.startsWith('8️⃣') || targetCmd === '8' ||
                                /^(counselor|counsellor|counseling|career\s*counselor|human\s*counselor|academic\s*counselor|callback|call\s*me|call\s*back|phone\s*support|talk\s*to\s*human|live\s*agent|expert|mentor\s*call|founder)\b/i.test(targetCmd) ||
                                targetCmd.includes('talk to human') ||
                                targetCmd.includes('human counselor') ||
@@ -1393,26 +1394,25 @@ Grievance Officer (Parth Patil) in sabhi requests par actively work kar rahe hai
 `🛠️ *Disheera  -  Official Support & Grievance Desk*
 
 Namaste ${userContext.name}! 👋
-Typing ka jhanjhat khatam! Neeche diye gaye *1-Tap Clickable Links* ya buttons par tap karke instant help paayein:
+Disheera Support System me aapka swagat hai:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📞 *OFFICIAL SUPPORT CHANNELS:*
 • *WhatsApp Support:* +91 74990 85045 (Chat Only)
 • *Grievance Email:* support@disheera.site / parthpatil@disheera.site
-• *Grievance Officer:* Parth Patil (GHRCEM, Jalgaon)
+• *Grievance Officer:* Parth Patil (GHRCEM, Jalgaon, MH)
 • *Response SLA:* Within 24 Hours (DPDP Act 2023)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-⚡ *1-Tap Instant Actions (Direct Click):*
-• 🔑 *Login & OTP Help:* https://wa.me/917499085045?text=1
-• ⏱️ *Milestone Test & Anti-Cheat:* https://wa.me/917499085045?text=2
-• 📜 *Certificate & SHA-256:* https://wa.me/917499085045?text=3
-• 🏢 *Recruiter Portal:* https://wa.me/917499085045?text=4
-• 🎫 *Raise Priority Ticket:* https://wa.me/917499085045?text=TICKET:+Issue
-• 🧑‍🏫 *Counselor Callback:* https://wa.me/917499085045?text=COUNSELOR
-• 🔍 *Check Active Tickets:* https://wa.me/917499085045?text=STATUS
+📋 *QUICK SUPPORT COMMANDS:*
+• *TICKET: [aapka issue]* ➔ Open priority ticket for Parth Patil
+• *QUERY: [aapka sawal]* ➔ Submit academic / technical doubt
+• *COUNSELOR* ➔ 1-on-1 human guidance callback
+• *STATUS* ➔ Check your active tickets
+• *OTP* ➔ Login & Dual-Verification help
+• *CERT* ➔ Certificate & SHA-256 verification help
 
-👇 *Ya neeche interactive buttons par 1-tap karein:*
+💬 _Tip: Main menu ke liye kisi bhi waqt *MENU* reply karein._
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🌐 *Web Portal:* https://disheera.site
 🚀 *Disheera · 24x7 Verified Talent OS*`;
@@ -1421,24 +1421,6 @@ Typing ka jhanjhat khatam! Neeche diye gaye *1-Tap Clickable Links* ya buttons p
         context: 'SUPPORT_MENU',
         studentName: userContext.name
       });
-
-      try {
-        await whatsappService.sendPoll(
-          senderPhone,
-          '🛠️ Support Desk Actions (1-Tap):',
-          [
-            '1️⃣ Login & OTP Help',
-            '2️⃣ Milestone Test Help',
-            '3️⃣ Certificate Verification',
-            '4️⃣ Recruiter Radar Help',
-            '5️⃣ Raise Support Ticket',
-            '6️⃣ Human Counselor Callback',
-            '7️⃣ Check Ticket Status'
-          ]
-        );
-      } catch (pollErr) {
-        console.warn('[WhatsApp Support] Poll dispatch warning:', pollErr.message);
-      }
       return;
     }
 
@@ -1495,24 +1477,18 @@ Aapka yeh WhatsApp number hamare main portal par abhi *Registered / Linked* nahi
 Yeh Bharat ka 1st Autonomous Career GPS platform hai — jo aapko personalized 12-week roadmap, live coding milestones, verified skill certificates aur top tech recruiters se connect karwata hai!
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ *1-Tap Clickable Actions (Zero Typing):*
+⚡ *Quick 1-Digit Dial (Typing ki zarurat nahi):*
 
-1️⃣ 🌐 *Free Student Account Banayein (1 Min):*
+1️⃣ 💼 *Jobs & Internships*
+2️⃣ 🗺️ *12-Week Roadmap*
+8️⃣ 🧑‍🏫 *Talk to Counselor (1-on-1)*
+9️⃣ 🛠️ *Support Desk*
+
+🌐 *Free Student Account Banayein (1 Min):*
 👉 https://disheera.site
+_(Website par sign up karke apna number link karein)_
 
-2️⃣ 💼 *Live Jobs & Internships:*
-👉 https://wa.me/917499085045?text=JOBS
-
-3️⃣ 🗺️ *Explore 12-Week Roadmap:*
-👉 https://wa.me/917499085045?text=ROADMAP
-
-4️⃣ 🧑‍🏫 *1-on-1 Human Counselor Callback:*
-👉 https://wa.me/917499085045?text=COUNSELOR
-
-5️⃣ 🛠️ *Support & Help Desk:*
-👉 https://wa.me/917499085045?text=SUPPORT
-
-👇 *Ya neeche diye interactive options par 1-tap karein:*
+👉 *Bas 1, 2, 8 ya 9 send karein explore karne ke liye!*
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🚀 *Disheera · 24x7 Verified Talent OS*`;
 
@@ -1520,21 +1496,6 @@ Yeh Bharat ka 1st Autonomous Career GPS platform hai — jo aapko personalized 1
         context: 'UNREGISTERED_WELCOME_ONBOARDING',
         studentName: userContext.name
       });
-
-      try {
-        await whatsappService.sendPoll(
-          senderPhone,
-          '⚡ Disheera Quick Actions (1-Tap):',
-          [
-            '💼 JOBS',
-            '🗺️ ROADMAP',
-            '🧑‍🏫 COUNSELOR',
-            '🛠️ SUPPORT'
-          ]
-        );
-      } catch (pollErr) {
-        console.warn('[WhatsApp Onboarding] Poll dispatch warning:', pollErr.message);
-      }
       return;
     }
 
@@ -1543,56 +1504,36 @@ Yeh Bharat ka 1st Autonomous Career GPS platform hai — jo aapko personalized 1
                           (userContext.isRegistered && /^(hi|hii|hiii|hello|hey|namaste|start|\/start)\b/i.test(targetCmd));
     if (isMenuKeyword) {
       const menuReply = 
-`🚀 *Disheera  -  Interactive Career GPS*
+`🚀 *Disheera  -  24x7 AI Career GPS*
 
 Namaste ${userContext.name}! 👋
-Typing ka jhanjhat khatam! Neeche diye gaye *1-Tap Clickable Links* ya direct button se option select karein:
+Typing ka jhanjhat khatam — bas neeche diye gaye number me se koi bhi *ek digit* reply karein:
 
-⚡ *1-Tap Quick Actions (Direct Click):*
-• 💼 *Jobs & Internships:* https://wa.me/917499085045?text=JOBS
-• 🗺️ *Your Roadmap (Wk ${userContext.activeWeek}):* https://wa.me/917499085045?text=ROADMAP
-• 📚 *Study Notes & PDF:* https://wa.me/917499085045?text=NOTES
-• 🛡️ *Skill Passport:* https://wa.me/917499085045?text=PASSPORT
-• 🧪 *Milestone Quiz:* https://wa.me/917499085045?text=QUIZ
-• 📄 *AI ATS Resume:* https://wa.me/917499085045?text=RESUME
-• 🎙️ *Mock Interview:* https://wa.me/917499085045?text=INTERVIEW
-• 🧑‍🏫 *Counselor Callback:* https://wa.me/917499085045?text=COUNSELOR
-• 🛠️ *Support & Help:* https://wa.me/917499085045?text=SUPPORT
+1️⃣ 💼 *1 ya JOBS* ➔ Verified tech openings & internships
+2️⃣ 🗺️ *2 ya ROADMAP* ➔ Week ${userContext.activeWeek} milestones
+3️⃣ 📚 *3 ya NOTES* ➔ Download Cheatsheet PDF instantly
+4️⃣ 🛡️ *4 ya PASSPORT* ➔ Verified skill badges & credentials
+5️⃣ 🧪 *5 ya QUIZ* ➔ Anti-cheat milestone test chamber
+6️⃣ 📄 *6 ya RESUME* ➔ AI ATS Resume Builder & score
+7️⃣ 🎙️ *7 ya INTERVIEW* ➔ AI Mock Interview prep
+8️⃣ 🧑‍🏫 *8 ya COUNSELOR* ➔ 1-on-1 human mentor callback
+9️⃣ 🛠️ *9 ya SUPPORT* ➔ Grievance Redressal Desk
 
-👇 *Ya neeche diye interactive options par 1-tap karein:*
+👉 *Sirf number (1 se 9) reply karein ya command likhein!*
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌐 *Web Portal:* https://disheera.site
+🌐 *Portal:* https://disheera.site
 🚀 *Disheera · Your 24x7 Career GPS*`;
 
       await whatsappService.sendTextMessage(senderPhone, menuReply, {
         context: 'DISHEERA_COMMANDS_MENU',
         studentName: userContext.name
       });
-
-      try {
-        await whatsappService.sendPoll(
-          senderPhone,
-          '⚡ Select an option (1-Tap):',
-          [
-            '💼 JOBS',
-            '🗺️ ROADMAP',
-            '📚 NOTES',
-            '🛡️ PASSPORT',
-            '🧪 QUIZ',
-            '📄 RESUME',
-            '🎙️ INTERVIEW',
-            '🧑‍🏫 COUNSELOR',
-            '🛠️ SUPPORT'
-          ]
-        );
-      } catch (pollErr) {
-        console.warn('[WhatsApp Menu] Interactive poll dispatch warning:', pollErr.message);
-      }
       return;
     }
 
     // ── WEBSITE FEATURE INTEGRATION: LIVE JOB RADAR ──
-    const isJobKeyword = /^(jobs?|careers?|internships?|vacanc(y|ies)|hiring|openings?)\b/i.test(targetCmd) ||
+    const isJobKeyword = targetCmd === '1' || cleanLower === '1' || cleanLower.startsWith('1️⃣') ||
+                         /^(jobs?|careers?|internships?|vacanc(y|ies)|hiring|openings?)\b/i.test(targetCmd) ||
                          targetCmd.startsWith('/jobs') ||
                          targetCmd.startsWith('!jobs');
     if (isJobKeyword) {
@@ -1643,10 +1584,7 @@ ${jobsListText}
 👉 https://disheera.site/jobs.html
 _(Includes 1-click apply via LinkedIn, Naukri, Foundit & Indeed)_
 
-⚡ *1-Tap Next Steps:*
-• 📄 [AI Resume Builder](https://wa.me/917499085045?text=RESUME)
-• 🗺️ [Career Roadmap](https://wa.me/917499085045?text=ROADMAP)
-• 📋 [Commands Menu](https://wa.me/917499085045?text=MENU)
+💬 _Quick Options: Reply 2 (Roadmap) · 6 (Resume) · MENU_
 🚀 *Disheera · 24x7 Verified Talent OS*`;
 
       await whatsappService.sendTextMessage(senderPhone, jobsReply, {
@@ -1657,7 +1595,8 @@ _(Includes 1-click apply via LinkedIn, Naukri, Foundit & Indeed)_
     }
 
     // ── WEBSITE FEATURE INTEGRATION: DYNAMIC ROADMAP & MILESTONES ──
-    const isRoadmapKeyword = /^(roadmap|plan|syllabus|curriculum|milestones?)\b/i.test(targetCmd) ||
+    const isRoadmapKeyword = targetCmd === '2' || cleanLower === '2' || cleanLower.startsWith('2️⃣') ||
+                             /^(roadmap|plan|syllabus|curriculum|milestones?)\b/i.test(targetCmd) ||
                              targetCmd.startsWith('/roadmap') ||
                              targetCmd.startsWith('week');
     if (isRoadmapKeyword) {
@@ -1683,10 +1622,7 @@ Type *NOTES* to get your Week ${userContext.activeWeek} PDF Cheatsheet sent righ
 🧪 *Take Proctored Milestone Test:*
 👉 Reply with *QUIZ* or visit https://disheera.site/quiz.html
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ *1-Tap Next Steps:*
-• 📚 [Download Study Notes PDF](https://wa.me/917499085045?text=NOTES)
-• 🧪 [Take Milestone Quiz](https://wa.me/917499085045?text=QUIZ)
-• 📋 [Commands Menu](https://wa.me/917499085045?text=MENU)
+💬 _Quick Options: Reply 3 (Notes PDF) · 5 (Quiz) · MENU_
 🚀 *Disheera · 24x7 Autonomous Career GPS*`;
 
       await whatsappService.sendTextMessage(senderPhone, roadmapReply, {
@@ -1697,7 +1633,8 @@ Type *NOTES* to get your Week ${userContext.activeWeek} PDF Cheatsheet sent righ
     }
 
     // ── WEBSITE FEATURE INTEGRATION: ON-DEMAND STUDY NOTES PDF ──
-    const isNotesKeyword = /^(notes|cheatsheet|pdf|study|material|handout)\b/i.test(targetCmd) ||
+    const isNotesKeyword = targetCmd === '3' || cleanLower === '3' || cleanLower.startsWith('3️⃣') ||
+                           /^(notes|cheatsheet|pdf|study|material|handout)\b/i.test(targetCmd) ||
                            targetCmd.startsWith('/notes') ||
                            targetCmd.startsWith('/pdf');
     if (isNotesKeyword) {
@@ -1750,7 +1687,8 @@ Aap direct PDF download aur interactive lessons access kar sakte hain!
     }
 
     // ── WEBSITE FEATURE INTEGRATION: CRYPTOGRAPHIC SKILL PASSPORT ──
-    const isPassportKeyword = /^(passport|skills?|badges?|credentials?)\b/i.test(targetCmd) ||
+    const isPassportKeyword = targetCmd === '4' || cleanLower === '4' || cleanLower.startsWith('4️⃣') ||
+                              /^(passport|skills?|badges?|credentials?)\b/i.test(targetCmd) ||
                               targetCmd.startsWith('/passport');
     if (isPassportKeyword) {
       const skillsList = userContext.skills && userContext.skills.length > 0
@@ -1790,7 +1728,8 @@ ${skillsList}
     }
 
     // ── WEBSITE FEATURE INTEGRATION: MILESTONE QUIZ & CODE CHAMBER ──
-    const isQuizKeyword = /^(quiz|code|challenge|exam|test\s*link|chamber)\b/i.test(targetCmd) ||
+    const isQuizKeyword = targetCmd === '5' || cleanLower === '5' || cleanLower.startsWith('5️⃣') ||
+                          /^(quiz|code|challenge|exam|test\s*link|chamber)\b/i.test(targetCmd) ||
                           targetCmd.startsWith('/quiz');
     if (isQuizKeyword) {
       const quizReply = 
@@ -1824,7 +1763,8 @@ Aapke *Week ${userContext.activeWeek} (${userContext.targetCareer})* ka mileston
     }
 
     // ── WEBSITE FEATURE INTEGRATION: AI ATS RESUME BUILDER ──
-    const isResumeKeyword = /^(resume|cv|ats|portfolio|resumebuilder)\b/i.test(targetCmd) ||
+    const isResumeKeyword = targetCmd === '6' || cleanLower === '6' || cleanLower.startsWith('6️⃣') ||
+                            /^(resume|cv|ats|portfolio|resumebuilder)\b/i.test(targetCmd) ||
                             targetCmd.startsWith('/resume');
     if (isResumeKeyword) {
       const resumeReply = 
