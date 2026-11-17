@@ -133,7 +133,6 @@ async function loadAuditLogs(page = 1) {
         `;
       }).join('');
 
-      // Render pagination
       if (paginationEl && res.pagination) {
         const p = res.pagination;
         paginationEl.innerHTML = `

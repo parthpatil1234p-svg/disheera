@@ -410,7 +410,6 @@ const uploadAvatar = async (req, res, next) => {
     const uploadRes = await uploadAvatarToCloudinary(fileData, req.user._id);
     const avatarUrl = uploadRes.secure_url;
 
-    // Update user in DB
     const user = await User.findByIdAndUpdate(
       req.user._id,
       { $set: { avatarUrl } },

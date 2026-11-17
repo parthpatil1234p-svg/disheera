@@ -25,16 +25,7 @@
 
 const fs = require('fs');
 const path = require('path');
-let _PDFParse = null;
-function getPDFParse() {
-  if (!_PDFParse) {
-    if (typeof globalThis.DOMMatrix === 'undefined') {
-      globalThis.DOMMatrix = class DOMMatrix {};
-    }
-    _PDFParse = require('pdf-parse').PDFParse;
-  }
-  return _PDFParse;
-}
+const { getPDFParse } = require('../utils/pdfParser');
 const { prisma } = require('../config/prisma');
 const { detectAiContent } = require('./antiAiDetectionService');
 const { generateEvaluationSheetPdf, notifyStudentEvaluation } = require('./assignmentFeedbackService');

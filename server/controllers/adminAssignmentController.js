@@ -284,7 +284,6 @@ async function reviewAssignment(req, res, next) {
       finalScore = null;
     }
 
-    // Update submission record
     const updatedSubmission = await prisma.assignmentSubmission.update({
       where: { id },
       data: {

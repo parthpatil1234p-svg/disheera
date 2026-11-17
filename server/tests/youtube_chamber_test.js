@@ -9,7 +9,7 @@
  * curated masterclass resolution, MongoDB TTL cache, and instructor switching.
  */
 require('dotenv').config({ path: __dirname + '/../.env' });
-const mongoose = require('mongoose');
+const { connectPrisma, prisma } = require('../config/prisma');
 const YoutubeCache = require('../models/YoutubeCache');
 const RoadmapTask = require('../models/RoadmapTask');
 const youtubeService = require('../services/youtubeService');
@@ -20,7 +20,7 @@ async function runTestSuite() {
   console.log('==================================================================\n');
 
   if (process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await connectPrisma();
     console.log('✓ [DB] Connected to MongoDB Atlas');
   } else {
     console.warn('⚠️ [DB] MONGODB_URI not detected in environment, skipping DB-dependent checks');
@@ -66,7 +66,7 @@ async function runTestSuite() {
   // -------------------------------------------------------------
   // Test 3: YoutubeCache Persistence & Cache Hits
   // -------------------------------------------------------------
-  if (mongoose.connection.readyState === 1) {
+  if (true) {
     console.log('\n--- 3. YoutubeCache TTL Cache Integrity ---');
     const testKey = 'skill:test-react-cache';
     await YoutubeCache.deleteOne({ queryKey: testKey });
@@ -119,7 +119,7 @@ async function runTestSuite() {
   // -------------------------------------------------------------
   // Test 5: Instructor Switch Persistence on RoadmapTask
   // -------------------------------------------------------------
-  if (mongoose.connection.readyState === 1) {
+  if (true) {
     console.log('\n--- 5. RoadmapTask Instructor Switching & Persistence ---');
     let sampleTask = await RoadmapTask.findOne();
     if (!sampleTask) {
@@ -176,8 +176,8 @@ async function runTestSuite() {
   console.log('🎉 ALL FOCUS VIDEO CHAMBER YOUTUBE v3 TESTS PASSED PERFECTLY!');
   console.log('==================================================================\n');
 
-  if (mongoose.connection.readyState === 1) {
-    await mongoose.disconnect();
+  if (true) {
+    await prisma.$disconnect();
     console.log('✓ Disconnected from MongoDB');
   }
 }

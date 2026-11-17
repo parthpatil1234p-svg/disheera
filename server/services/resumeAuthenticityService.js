@@ -15,16 +15,7 @@
  * Disheera · Enterprise Backend Service
  */
 
-let _PDFParse = null;
-function getPDFParse() {
-  if (!_PDFParse) {
-    if (typeof globalThis.DOMMatrix === 'undefined') {
-      globalThis.DOMMatrix = class DOMMatrix {};
-    }
-    _PDFParse = require('pdf-parse').PDFParse;
-  }
-  return _PDFParse;
-}
+const { getPDFParse } = require('../utils/pdfParser');
 let AdmZip = null;
 try {
   AdmZip = require('adm-zip');

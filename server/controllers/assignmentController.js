@@ -22,16 +22,7 @@ const { prisma } = require('../config/prisma');
 const { generateCoverPagePdf } = require('../services/assignmentTemplateService');
 const { evaluateSubmission } = require('../services/assignmentAiGraderService');
 const { generateEvaluationSheetPdf } = require('../services/assignmentFeedbackService');
-let _PDFParse = null;
-function getPDFParse() {
-  if (!_PDFParse) {
-    if (typeof globalThis.DOMMatrix === 'undefined') {
-      globalThis.DOMMatrix = class DOMMatrix {};
-    }
-    _PDFParse = require('pdf-parse').PDFParse;
-  }
-  return _PDFParse;
-}
+const { getPDFParse } = require('../utils/pdfParser');
 
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads', 'assignments');
 const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB

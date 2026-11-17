@@ -3,8 +3,8 @@
  * Licensed under the GNU Affero General Public License v3.0 or later.
  * See the LICENSE file for details.
  */
-const { generateRecommendations } = require('./services/recommendationService');
-const { DEFAULT_MARKET_INSIGHTS } = require('./services/careerInsightService');
+const { generateRecommendations } = require('../services/recommendationService');
+const { DEFAULT_MARKET_INSIGHTS } = require('../services/careerInsightService');
 
 async function testStreamIsolation() {
   console.log('=== STARTING STRICT STREAM ISOLATION INTEGRATION TESTS ===\n');

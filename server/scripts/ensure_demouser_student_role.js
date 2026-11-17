@@ -4,9 +4,8 @@
  * See the LICENSE file for details.
  */
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../server/.env') });
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
-const { prisma } = require('../server/config/prisma');
+const { prisma } = require('../config/prisma');
 
 async function fixRoles() {
   console.log('--- CHECKING & ENSURING STRICT STUDENT ROLE FOR DEMOUSER ---');

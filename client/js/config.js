@@ -84,6 +84,17 @@
     // Expose to window for vanilla JS scripts
     window.CONFIG = CONFIG;
 
+    // Universal Safe HTML Entity Escaper
+    window.escapeHtml = window.escapeHtml || function (str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    };
+
     // Vercel Web Analytics (@vercel/analytics) Universal Queue & Event Tracker
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     window.trackVercelEvent = function (name, data) {

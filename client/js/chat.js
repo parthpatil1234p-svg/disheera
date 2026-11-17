@@ -79,18 +79,11 @@
   };
 
   function getApiBaseUrl() {
-    if (window.CONFIG && window.CONFIG.API_BASE_URL) {
-      return window.CONFIG.API_BASE_URL;
-    }
-    const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    return isLocalhost ? 'http://localhost:5000/api' : 'https://api.disheera.site/api';
+    return window.API?.getBaseUrl?.() || window.CONFIG?.API_BASE_URL || 'http://localhost:5000/api';
   }
 
   function getAuthToken() {
-    if (window.Auth && typeof window.Auth.getToken === 'function') {
-      return window.Auth.getToken();
-    }
-    return localStorage.getItem('careerpath_token') || localStorage.getItem('token') || null;
+    return window.API?.getToken?.() || window.Auth?.getToken?.() || localStorage.getItem('token') || null;
   }
 
   function getStudentContext() {

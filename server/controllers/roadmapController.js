@@ -944,7 +944,6 @@ const linkProjectRepo = async (req, res, next) => {
 
     repoData.detectedSkills = Array.from(skillsToAward);
 
-    // Update task
     task.linkedRepoUrl = `https://github.com/${owner}/${repoName}`;
     task.isProjectVerified = true;
     task.projectVerifiedAt = new Date();

@@ -11,6 +11,14 @@
  */
 
 const API = {
+  getBaseUrl() {
+    return window.CONFIG?.API_BASE_URL || 'http://localhost:5000/api';
+  },
+
+  getToken() {
+    return window.Auth?.getToken() || localStorage.getItem('token') || sessionStorage.getItem('token') || '';
+  },
+
   /**
    * Generic request dispatcher
    *

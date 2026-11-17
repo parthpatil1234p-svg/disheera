@@ -10,7 +10,7 @@
  */
 
 const assert = require('assert');
-const mongoose = require('mongoose');
+const crypto = require('crypto');
 const Roadmap = require('../models/Roadmap');
 const User = require('../models/User');
 
@@ -19,15 +19,15 @@ function runHardenedVerificationSuite() {
   console.log('🚀 9-POINT HARDENED SINGLE ACTIVE ROUTE VERIFICATION SUITE');
   console.log('================================================================\n');
 
-  const mockUserId = new mongoose.Types.ObjectId();
-  const attackerUserId = new mongoose.Types.ObjectId();
+  const mockUserId = crypto.randomUUID();
+  const attackerUserId = crypto.randomUUID();
 
   // -------------------------------------------------------------
   // Test 1: Start 2nd route while one is active -> 409 Conflict
   // -------------------------------------------------------------
   console.log('✔ Test 1: Start a 2nd route while one is active...');
   const mockActiveRoadmap = {
-    _id: new mongoose.Types.ObjectId(),
+    _id: crypto.randomUUID(),
     user: mockUserId,
     status: 'active',
     careerSnapshot: { title: 'Full-Stack Developer', slug: 'full-stack-developer' },
@@ -200,7 +200,7 @@ function runHardenedVerificationSuite() {
   // -------------------------------------------------------------
   console.log('✔ Test 6: Non-destructive route abandonment & 7-day cooldown...');
   const activeRoadmapToAbandon = {
-    _id: new mongoose.Types.ObjectId(),
+    _id: crypto.randomUUID(),
     user: mockUserId,
     status: 'active',
     careerSnapshot: { title: 'Backend Engineer' },

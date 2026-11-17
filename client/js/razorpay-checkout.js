@@ -54,14 +54,7 @@
    * Resolves the backend base URL
    */
   function getApiBaseUrl() {
-    if (window.CONFIG && window.CONFIG.API_BASE_URL) {
-      return window.CONFIG.API_BASE_URL;
-    }
-    const origin = window.location.origin;
-    if (origin.includes('5500') || origin.includes('5173') || origin.includes('3000')) {
-      return 'http://localhost:5000/api';
-    }
-    return '/api';
+    return window.API?.getBaseUrl?.() || window.CONFIG?.API_BASE_URL || 'http://localhost:5000/api';
   }
 
   /**

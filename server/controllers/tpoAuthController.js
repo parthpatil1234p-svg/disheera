@@ -330,7 +330,6 @@ exports.loginTpo = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
-    // Check Role
     if (user.role !== 'tpo' && user.role !== 'admin') {
       return res.status(403).json({
         success: false,

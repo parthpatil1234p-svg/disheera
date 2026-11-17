@@ -1556,6 +1556,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadRecommendations();
   });
 
-  // Load recommendations
   loadRecommendations();
 });

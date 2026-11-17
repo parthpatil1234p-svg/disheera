@@ -17,7 +17,7 @@
  */
 
 require('dotenv').config({ path: __dirname + '/../.env' });
-const mongoose = require('mongoose');
+const { connectPrisma, prisma } = require('../config/prisma');
 const assert = require('assert');
 const User = require('../models/User');
 const quizService = require('../services/quizService');
@@ -27,7 +27,7 @@ async function runStrictAntiCheatSuite() {
   console.log('🛡️  STRICT ANTI-CHEATING & 24-HOUR LOCKOUT VERIFICATION SUITE');
   console.log('==================================================================\n');
 
-  await mongoose.connect(process.env.MONGODB_URI);
+  await connectPrisma();
   console.log('✓ Connected to MongoDB Atlas\n');
 
   // Create disposable test student
@@ -179,7 +179,7 @@ async function runStrictAntiCheatSuite() {
     // Clean up test user
     await User.findByIdAndDelete(testUser._id);
     console.log('✓ Cleaned up disposable test student');
-    await mongoose.disconnect();
+    await prisma.$disconnect();
     console.log('✓ Disconnected from MongoDB Atlas');
   }
 }

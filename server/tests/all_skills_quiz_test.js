@@ -18,7 +18,7 @@
  */
 
 require('dotenv').config({ path: __dirname + '/../.env' });
-const mongoose = require('mongoose');
+const { connectPrisma, prisma } = require('../config/prisma');
 const assert = require('assert');
 const User = require('../models/User');
 const quizService = require('../services/quizService');
@@ -50,8 +50,8 @@ async function runAllSkillsQuizSuite() {
   }
 
   // 1. Database Connection
-  await mongoose.connect(process.env.MONGODB_URI);
-  console.log('✓ Connected to MongoDB Atlas\n');
+  await connectPrisma();
+  console.log('✓ Connected to Supabase PostgreSQL (Prisma)\n');
 
   // Create disposable test student
   const testEmail = `all_skills_tester_${Date.now()}@example.com`;
@@ -191,8 +191,8 @@ async function runAllSkillsQuizSuite() {
     // Cleanup disposable test student
     await User.findByIdAndDelete(testUser._id);
     console.log('✓ Cleaned up disposable test student');
-    await mongoose.disconnect();
-    console.log('✓ Disconnected from MongoDB');
+    await prisma.$disconnect();
+    console.log('✓ Disconnected from Database');
   }
 }
 

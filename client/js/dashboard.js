@@ -184,7 +184,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Render Resume Status
     const viewResumeLink = document.getElementById('viewResumeLink');
     const noResumeText = document.getElementById('noResumeText');
     if (user?.resumeUrl) {
@@ -203,7 +202,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (noResumeText) noResumeText.classList.remove('d-none');
     }
 
-    // Render Skills Matrix Card
     renderSkillsMatrix(user?.skills || []);
 
     // Render GitHub Study Lab & Repositories Card
@@ -455,7 +453,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Render Upcoming Incomplete Tasks
     renderUpcomingTasksList(upcomingTasks);
 
     // 4.6 Render Career GPS Telemetry & Modules
@@ -1429,7 +1426,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 4000);
   };
 
-  // Load catalog into select
   const loadSkillsCatalog = async () => {
     try {
       const res = await window.API.get('/skills');
@@ -1787,7 +1783,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         showAlert('Uploading resume document to Cloudinary...', 'info');
         const downloadUrl = await window.CloudinaryService.uploadResume(file, userId);
 
-        // Save resumeUrl to profile
         const updateRes = await window.API.put('/users/me', { resumeUrl: downloadUrl }, { auth: true });
         if (updateRes.success && updateRes.data?.user) {
           window.Auth.setCurrentUser(updateRes.data.user);
@@ -2215,7 +2210,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 2. AI Resume Lab & ATS Analyzer (Strict Single-Resume Architecture)
   const loadResumeLab = async () => {
-    // Set target role badge
     const resumeTargetCareerBadge = document.getElementById('resumeTargetCareerBadge');
     const activeCareer = dashboardData?.activeRoadmap?.career?.title || 'Full-Stack Developer';
     if (resumeTargetCareerBadge) {
@@ -2943,7 +2937,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     };
 
-    // Render Question
     const renderInterviewQuestion = () => {
       stopInterviewAudio();
       if (!interviewSession || !interviewSession.questions || !interviewSession.questions.length) return;

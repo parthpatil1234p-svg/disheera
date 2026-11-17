@@ -8,7 +8,7 @@
  * End-to-end verification of AI Video Dedication & Anti-Slacking Learning Chamber.
  */
 require('dotenv').config({ path: __dirname + '/../.env' });
-const mongoose = require('mongoose');
+const { connectPrisma, prisma } = require('../config/prisma');
 const RoadmapTask = require('../models/RoadmapTask');
 const Roadmap = require('../models/Roadmap');
 const User = require('../models/User');
@@ -20,7 +20,7 @@ const { calculateRoadmapProgress } = require('../services/roadmapService');
 
 async function runTests() {
   console.log('=== STARTING VIDEO DEDICATION SYSTEM TESTS ===\n');
-  await mongoose.connect(process.env.MONGODB_URI);
+  await connectPrisma();
   console.log('✓ Connected to MongoDB');
 
   // 1. Test Concept Pulse Generation
@@ -87,7 +87,7 @@ async function runTests() {
   console.log('\n======================================================');
   console.log('🎉 ALL VIDEO DEDICATION SYSTEM TESTS PASSED SUCCESSFULLY!');
   console.log('======================================================\n');
-  await mongoose.disconnect();
+  await prisma.$disconnect();
 }
 
 runTests().catch((err) => {

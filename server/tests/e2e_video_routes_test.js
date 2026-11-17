@@ -8,7 +8,7 @@
  * End-to-end route tests for video dedication and verification.
  */
 require('dotenv').config({ path: __dirname + '/../.env' });
-const mongoose = require('mongoose');
+const { connectPrisma, prisma } = require('../config/prisma');
 const User = require('../models/User');
 const RoadmapTask = require('../models/RoadmapTask');
 const Roadmap = require('../models/Roadmap');
@@ -19,7 +19,7 @@ const {
 const { calculateRoadmapProgress } = require('../services/roadmapService');
 
 async function testSuite() {
-  await mongoose.connect(process.env.MONGODB_URI);
+  await connectPrisma();
   console.log('✓ Connected to MongoDB');
 
   // Find a video task directly
@@ -97,7 +97,7 @@ async function testSuite() {
   console.log('\n==================================================================');
   console.log('🎉 ALL VIDEO DEDICATION SERVICES & FLOWS FULLY VERIFIED!');
   console.log('==================================================================\n');
-  await mongoose.disconnect();
+  await prisma.$disconnect();
 }
 
 testSuite().catch((err) => {

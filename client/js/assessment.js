@@ -562,7 +562,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
 
-    // Update desktop stepper
     desktopNavItems.forEach((item, idx) => {
       if (item) {
         item.classList.toggle('active', idx === currentStep);
@@ -574,7 +573,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
 
-    // Update mobile progress bar
     if (mobileStepLabel) {
       mobileStepLabel.textContent = `Step ${currentStep} of 4: ${STEP_TITLES[currentStep] || ''}`;
     }
@@ -1680,7 +1678,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    // Render Skill Rows
     proveSkillsList.innerHTML = '';
     requiredSkills.forEach((skill) => {
       const isQuizVer = !!skill.isQuizVerified;

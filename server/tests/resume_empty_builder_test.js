@@ -9,7 +9,7 @@
  * never auto-fill random dummy data, and support clearing to a blank canvas.
  */
 require('dotenv').config({ path: __dirname + '/../.env' });
-const mongoose = require('mongoose');
+const { connectPrisma, prisma } = require('../config/prisma');
 const User = require('../models/User');
 const {
   getBuiltResume,
@@ -22,7 +22,7 @@ async function runTestSuite() {
   console.log('🧪 TESTING RESUME BUILDER EMPTY INITIALIZATION & CANVAS CONTROLS');
   console.log('==================================================================\n');
 
-  await mongoose.connect(process.env.MONGODB_URI);
+  await connectPrisma();
   console.log('✓ Connected to MongoDB');
 
   // Test User: Clean test account with no prior resume
@@ -168,7 +168,7 @@ async function runTestSuite() {
   } finally {
     // Clean up test user
     await User.findByIdAndDelete(testUser._id);
-    await mongoose.disconnect();
+    await prisma.$disconnect();
     console.log('✓ Cleaned up test user & disconnected from DB');
   }
 }

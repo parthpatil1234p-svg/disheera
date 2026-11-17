@@ -492,7 +492,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
 
-    // Update Counts on UI
     const countAllEl = document.getElementById('countAll');
     if (countAllEl) countAllEl.textContent = `(${allSkillsCatalog.length})`;
     const countMySkillsEl = document.getElementById('countMySkills');
@@ -1174,7 +1173,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       verdictMessage.textContent = result.realityCheckMessage || result.summaryMessage || 'Reality-check validation complete.';
     }
 
-    // Render Gaps
     if (verdictGapsList && verdictGapsSection) {
       const gaps = Array.isArray(result.gaps) ? result.gaps : Array.isArray(result.identifiedGaps) ? result.identifiedGaps : [];
       if (gaps.length > 0) {

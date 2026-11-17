@@ -394,7 +394,6 @@ async function submitWeeklyTest(userId, attemptId, manual = true, submittedAnswe
   attempt.status = manual ? 'completed' : 'timed_out';
   await attempt.save();
 
-  // Update Roadmap Progress
   const roadmap = await Roadmap.findById(attempt.roadmap);
   let nextWeekUnlocked = false;
   let roadmapGraduated = false;

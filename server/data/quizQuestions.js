@@ -3240,28 +3240,7 @@ Object.assign(QUIZ_QUESTIONS, additionalQuestions);
 
 const skillsData = require('./skillsData');
 
-function normalizeSkillKey(skill) {
-  const s = (skill || '').toLowerCase().trim();
-  if (s === 'nodejs' || s === 'node') return 'node.js';
-  if (s === 'reactjs' || s === 'react.js') return 'react';
-  if (s === 'express' || s === 'expressjs') return 'express.js';
-  if (s === 'html5') return 'html';
-  if (s === 'css3') return 'css';
-  if (s === 'js') return 'javascript';
-  if (s === 'py') return 'python';
-  if (s === 'golang') return 'go';
-  if (s === 'ts') return 'typescript';
-  if (s === 'postgres') return 'postgresql';
-  if (s === 'mongo') return 'mongodb';
-  if (s === 'k8s') return 'kubernetes';
-  if (s === 'tailwind') return 'tailwind-css';
-  if (s === 'next' || s === 'nextjs') return 'next.js';
-  if (s === 'tf') return 'terraform';
-  if (s === 'rest' || s === 'restapi' || s === 'rest-api') return 'rest-apis';
-  if (s === 'fast-api') return 'fastapi';
-  if (s === 'ui/ux' || s === 'uiux') return 'ui/ux-design';
-  return s;
-}
+const { normalizeSkillKey } = require('../utils/skillNormalizer');
 
 /**
  * Helper to fetch a question by skill, difficulty, and optional exclusions
