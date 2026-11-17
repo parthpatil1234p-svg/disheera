@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentRoadmap.durationWeeks === 4
           ? 'Fast-track Pace'
           : currentRoadmap.durationWeeks === 12
-          ? 'Deep Dive Pace'
+          ? 'In-Depth Pace'
           : 'Balanced Pace';
     }
 
@@ -2048,7 +2048,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <i class="bi bi-youtube text-danger fs-5"></i>
                 <div>
                   <div class="fw-semibold text-ink">Video Masterclass & Tutorial</div>
-                  <div class="text-muted small" style="font-size: 0.75rem;">Comprehensive video breakdown on YouTube</div>
+                  <div class="text-muted small" style="font-size: 0.75rem;">Full walkthrough video on YouTube</div>
                 </div>
               </div>
               <i class="bi bi-play-circle-fill text-danger"></i>

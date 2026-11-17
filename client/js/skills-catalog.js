@@ -293,7 +293,7 @@ window.DEFAULT_94_SKILLS = [
     "name": "graphql",
     "displayName": "GraphQL",
     "category": "backend",
-    "description": "Declarative query language and runtime for APIs that empowers clients to request exactly what they need."
+    "description": "Declarative query language and runtime for APIs that enables clients to request exactly what they need."
   },
   {
     "key": "docker",
@@ -412,7 +412,7 @@ window.DEFAULT_94_SKILLS = [
     "name": "java",
     "displayName": "Java",
     "category": "backend",
-    "description": "Robust, object-oriented, class-based programming language powering enterprise backends and distributed systems."
+    "description": "Object-oriented, class-based programming language powering enterprise backends and distributed systems."
   },
   {
     "key": "spring-boot",
@@ -468,7 +468,7 @@ window.DEFAULT_94_SKILLS = [
     "name": "postman",
     "displayName": "Postman & API Testing",
     "category": "testing",
-    "description": "Comprehensive API development, automated regression testing, environment simulation, and contract verification platform."
+    "description": "End-to-end API development, automated regression testing, environment simulation, and contract verification platform."
   },
   {
     "key": "unity",

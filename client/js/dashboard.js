@@ -3401,7 +3401,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const commScore = evalData.communicationScore ?? evalData.rubric?.communication ?? compositeScore;
             const pracScore = evalData.practicalScore ?? evalData.rubric?.practicalApplication ?? compositeScore;
             const feedback = evalData.feedback || 'Good structured response.';
-            const modelAnswer = evalData.modelAnswer || evalData.modelAnswerSnippet || 'Comprehensive technical design answer.';
+            const modelAnswer = evalData.modelAnswer || evalData.modelAnswerSnippet || 'Detailed technical design answer.';
 
             // Record into session history
             sessionHistory.push({

@@ -633,7 +633,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (bannerTitle) bannerTitle.innerHTML = `<span class="badge badge-navy me-1 font-mono">1/2</span> ${escapeHtml(title1)}`;
         if (bannerProgress) bannerProgress.textContent = `${weekStr1} · ${pct1}% Complete`;
         if (bannerSubtitle) {
-          bannerSubtitle.innerHTML = `You are actively enrolled in <strong>1 of 2 allowed courses</strong>. You can enroll in a <strong>2nd related course</strong> in parallel to accelerate your skill synergy!`;
+          bannerSubtitle.innerHTML = `You are actively enrolled in <strong>1 of 2 allowed courses</strong>. You can enroll in a <strong>2nd related course</strong> in parallel to build complementary technical skills!`;
         }
       } else {
         const titles = userActiveRoadmaps.map(r => `${escapeHtml(r.career?.title || 'Track')} (${Math.round(r.progressPercentage || 0)}%)`).join(' & ');
@@ -1439,7 +1439,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                           <span>Enroll as 2nd Active Course</span>
                         </button>`;
               } else {
-                return `<button type="button" class="btn cp-btn-locked btn-sm px-4 py-2 text-nowrap" disabled title="Cross-domain track must satisfy synergy criteria to take as concurrent course">
+                return `<button type="button" class="btn cp-btn-locked btn-sm px-4 py-2 text-nowrap" disabled title="Cross-domain track must satisfy prerequisite criteria to take as concurrent course">
                           <i class="bi bi-lock-fill me-1"></i> Locked (Unrelated Track)
                         </button>`;
               }
