@@ -909,11 +909,11 @@ const handleIncomingWebhook = async (req, res) => {
     const trimmed = (incomingText || '').trim();
     const cleanLower = trimmed.toLowerCase();
 
-    // Comprehensive emoji & prefix stripper for 1-tap clickable options and polls
-    let cleanCmd = cleanLower.replace(/^[\p{Extended_Pictographic}\uFE0F\u200D\u20E3\s\-_•*#]+/u, '').trim();
-    const numberedMatch = cleanCmd.match(/^[0-9]+[\.\)\:\-]\s*(.*)$/);
-    if (numberedMatch && numberedMatch[1]) {
-      cleanCmd = numberedMatch[1].trim();
+    // Strip brackets [1], symbols, and emojis for clean professional option matching
+    let cleanCmd = cleanLower.replace(/[\[\]\(\)]/g, '').replace(/^[\p{Extended_Pictographic}\uFE0F\u200D\u20E3\s\-_•*#]+/u, '').trim();
+    const numberedMatch = cleanCmd.match(/^([0-9]+)[\.\)\:\-]\s*(.*)$/);
+    if (numberedMatch) {
+      cleanCmd = numberedMatch[2] ? numberedMatch[2].trim() : numberedMatch[1].trim();
     }
     const targetCmd = cleanCmd || cleanLower;
 
@@ -1391,31 +1391,28 @@ Grievance Officer (Parth Patil) in sabhi requests par actively work kar rahe hai
     // 6. General Support Protocol Menu
     if (isSupportKeyword) {
       const supportMenuReply = 
-`🛠️ *Disheera  -  Official Support & Grievance Desk*
+`*Disheera  |  Official Support & Grievance Desk*
 
-Namaste ${userContext.name}! 👋
-Disheera Support System me aapka swagat hai:
+Namaste ${userContext.name},
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📞 *OFFICIAL SUPPORT CHANNELS:*
-• *WhatsApp Support:* +91 74990 85045 (Chat Only)
-• *Grievance Email:* support@disheera.site / parthpatil@disheera.site
-• *Grievance Officer:* Parth Patil (GHRCEM, Jalgaon, MH)
-• *Response SLA:* Within 24 Hours (DPDP Act 2023)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Official Support Channels:
+• WhatsApp Support: +91 74990 85045 (Chat Only)
+• Grievance Email: support@disheera.site / parthpatil@disheera.site
+• Grievance Officer: Parth Patil (GHRCEM, Jalgaon, MH)
+• Statutory SLA: Within 24 Hours (DPDP Act 2023 & IT Rules 2021)
 
-📋 *QUICK SUPPORT COMMANDS:*
-• *TICKET: [aapka issue]* ➔ Open priority ticket for Parth Patil
-• *QUERY: [aapka sawal]* ➔ Submit academic / technical doubt
-• *COUNSELOR* ➔ 1-on-1 human guidance callback
-• *STATUS* ➔ Check your active tickets
-• *OTP* ➔ Login & Dual-Verification help
-• *CERT* ➔ Certificate & SHA-256 verification help
+Support Commands:
+• TICKET: [issue description]  -  Open priority ticket for Parth Patil
+• QUERY: [question/doubt]  -  Submit technical or academic query
+• COUNSELOR  -  Request 1-on-1 human advisor callback
+• STATUS  -  Check status of your active tickets
+• OTP  -  Dual-verification & login assistance
+• CERT  -  Certificate & credential verification
 
-💬 _Tip: Main menu ke liye kisi bhi waqt *MENU* reply karein._
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌐 *Web Portal:* https://disheera.site
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+Reply with MENU at any time to return to main options.
+───────────────────────────
+Official Portal: https://disheera.site
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, supportMenuReply, {
         context: 'SUPPORT_MENU',
@@ -1469,28 +1466,26 @@ Aapka reply mentor ko forward kar diya gaya hai. Vo jald hi aapse yahan connect 
     // Welcomes new unlinked users sending greetings with instant portal registration instructions
     if (!userContext.isRegistered && /^(hi|hii|hiii|hello|hey|namaste|start|\/start)\b/i.test(targetCmd)) {
       const welcomeOnboardingMsg = 
-`👋 *Namaste ${userContext.name}! Disheera me aapka swagat hai!*
+`*Disheera  |  Autonomous Career GPS*
 
-Aapka yeh WhatsApp number hamare main portal par abhi *Registered / Linked* nahi hai.
+Namaste ${userContext.name},
+Welcome to Disheera. Your WhatsApp number is not yet linked to an active student account.
 
-🎯 *Disheera kya hai?*
-Yeh Bharat ka 1st Autonomous Career GPS platform hai — jo aapko personalized 12-week roadmap, live coding milestones, verified skill certificates aur top tech recruiters se connect karwata hai!
+About Disheera:
+Disheera is India's autonomous career acceleration platform providing personalized 12-week roadmaps, proctored milestones, verified cryptographic skill credentials, and direct tech recruiter access.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ *Quick 1-Digit Dial (Typing ki zarurat nahi):*
+Quick Options:
+[1]  JOBS  -  Explore verified tech openings
+[2]  ROADMAP  -  Explore 12-week track curriculum
+[8]  COUNSELOR  -  Request 1-on-1 advisor callback
+[9]  SUPPORT  -  Student Support & Inquiries
 
-1️⃣ 💼 *Jobs & Internships*
-2️⃣ 🗺️ *12-Week Roadmap*
-8️⃣ 🧑‍🏫 *Talk to Counselor (1-on-1)*
-9️⃣ 🛠️ *Support Desk*
+Create & link your free student account:
+https://disheera.site
 
-🌐 *Free Student Account Banayein (1 Min):*
-👉 https://disheera.site
-_(Website par sign up karke apna number link karein)_
-
-👉 *Bas 1, 2, 8 ya 9 send karein explore karne ke liye!*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+Reply with 1, 2, 8, or 9 to proceed.
+───────────────────────────
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, welcomeOnboardingMsg, {
         context: 'UNREGISTERED_WELCOME_ONBOARDING',
@@ -1504,25 +1499,25 @@ _(Website par sign up karke apna number link karein)_
                           (userContext.isRegistered && /^(hi|hii|hiii|hello|hey|namaste|start|\/start)\b/i.test(targetCmd));
     if (isMenuKeyword) {
       const menuReply = 
-`🚀 *Disheera  -  24x7 AI Career GPS*
+`*Disheera  |  AI Career Mentor*
 
-Namaste ${userContext.name}! 👋
-Typing ka jhanjhat khatam — bas neeche diye gaye number me se koi bhi *ek digit* reply karein:
+Namaste ${userContext.name},
+Please select an option by replying with its number:
 
-1️⃣ 💼 *1 ya JOBS* ➔ Verified tech openings & internships
-2️⃣ 🗺️ *2 ya ROADMAP* ➔ Week ${userContext.activeWeek} milestones
-3️⃣ 📚 *3 ya NOTES* ➔ Download Cheatsheet PDF instantly
-4️⃣ 🛡️ *4 ya PASSPORT* ➔ Verified skill badges & credentials
-5️⃣ 🧪 *5 ya QUIZ* ➔ Anti-cheat milestone test chamber
-6️⃣ 📄 *6 ya RESUME* ➔ AI ATS Resume Builder & score
-7️⃣ 🎙️ *7 ya INTERVIEW* ➔ AI Mock Interview prep
-8️⃣ 🧑‍🏫 *8 ya COUNSELOR* ➔ 1-on-1 human mentor callback
-9️⃣ 🛠️ *9 ya SUPPORT* ➔ Grievance Redressal Desk
+[1]  JOBS  -  Verified tech openings & internships
+[2]  ROADMAP  -  Week ${userContext.activeWeek} milestones & focus topics
+[3]  NOTES  -  Download Week ${userContext.activeWeek} Cheatsheet PDF
+[4]  PASSPORT  -  Verified skill badges & cryptographic ledger
+[5]  QUIZ  -  Proctored milestone evaluation & code chamber
+[6]  RESUME  -  AI ATS Resume Builder & score optimization
+[7]  INTERVIEW  -  AI Mock Interview preparation & readiness
+[8]  COUNSELOR  -  Request 1-on-1 human advisor callback
+[9]  SUPPORT  -  Official Grievance Redressal Desk
 
-👉 *Sirf number (1 se 9) reply karein ya command likhein!*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌐 *Portal:* https://disheera.site
-🚀 *Disheera · Your 24x7 Career GPS*`;
+Reply with 1 to 9 (or type command name).
+───────────────────────────
+Official Portal: https://disheera.site
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, menuReply, {
         context: 'DISHEERA_COMMANDS_MENU',
@@ -1550,42 +1545,43 @@ Typing ka jhanjhat khatam — bas neeche diye gaye number me se koi bhi *ek digi
       let jobsListText = '';
       if (liveJobs.length > 0) {
         jobsListText = liveJobs.map((j, i) => {
-          return `${i + 1}️⃣ *${j.title}*\n   🏢 ${j.companyName} · 📍 ${j.location || 'India / Remote'}\n   💰 ${j.salaryText || 'Competitive'}\n   🔗 Apply: ${j.url || 'https://disheera.site/jobs.html'}`;
+          return `[${i + 1}]  *${j.title}*\n     Company: ${j.companyName} | Location: ${j.location || 'India / Remote'}\n     Compensation: ${j.salaryText || 'Competitive'}\n     Apply: ${j.url || 'https://disheera.site/jobs.html'}`;
         }).join('\n\n');
       } else {
         jobsListText = 
-`1️⃣ *Junior Frontend Engineer (React & TypeScript)*
-   🏢 Synthetix AI Lab · 📍 Remote / Pune
-   💰 ₹6,00,000 – ₹9,50,000 / yr
-   🔗 Apply: https://disheera.site/jobs.html
+`[1]  *Junior Frontend Engineer (React & TypeScript)*
+     Company: Synthetix AI Lab | Location: Remote / Pune
+     Compensation: ₹6,00,000 – ₹9,50,000 / yr
+     Apply: https://disheera.site/jobs.html
 
-2️⃣ *Full Stack Developer (Node.js & React)*
-   🏢 CloudScale Tech · 📍 Mumbai / Hybrid
-   💰 ₹7,00,000 – ₹11,00,000 / yr
-   🔗 Apply: https://disheera.site/jobs.html
+[2]  *Full Stack Developer (Node.js & React)*
+     Company: CloudScale Tech | Location: Mumbai / Hybrid
+     Compensation: ₹7,00,000 – ₹11,00,000 / yr
+     Apply: https://disheera.site/jobs.html
 
-3️⃣ *Python Data Analyst Intern*
-   🏢 DataPulse Labs · 📍 Bengaluru / Remote
-   💰 ₹25,000 / month stipend
-   🔗 Apply: https://disheera.site/jobs.html`;
+[3]  *Python Data Analyst Intern*
+     Company: DataPulse Labs | Location: Bengaluru / Remote
+     Compensation: ₹25,000 / month stipend
+     Apply: https://disheera.site/jobs.html`;
       }
 
       const jobsReply = 
-`💼 *Disheera  -  Live Verified Job Radar*
+`*Disheera  |  Live Verified Job Radar*
 
-Namaste ${userContext.name}!
-Aapke track (*${userContext.targetCareer}*) ke liye latest verified openings:
+Namaste ${userContext.name},
+Latest verified openings for your track (${userContext.targetCareer}):
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+───────────────────────────
 ${jobsListText}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+───────────────────────────
 
-🔍 *Explore 100+ Maharashtra & India Tech Openings:*
-👉 https://disheera.site/jobs.html
-_(Includes 1-click apply via LinkedIn, Naukri, Foundit & Indeed)_
+Explore 100+ tech openings across India:
+https://disheera.site/jobs.html
+(Includes 1-click apply via LinkedIn, Naukri, Foundit & Indeed)
 
-💬 _Quick Options: Reply 2 (Roadmap) · 6 (Resume) · MENU_
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+Options: Reply 2 (Roadmap) · 6 (Resume) · MENU
+───────────────────────────
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, jobsReply, {
         context: 'LIVE_JOBS_FEED',
@@ -1601,29 +1597,29 @@ _(Includes 1-click apply via LinkedIn, Naukri, Foundit & Indeed)_
                              targetCmd.startsWith('week');
     if (isRoadmapKeyword) {
       const roadmapReply = 
-`🗺️ *Disheera  -  Your 12-Week Career Roadmap*
+`*Disheera  |  12-Week Career Roadmap*
 
-Namaste ${userContext.name}! 👋
-• *Target Track:* ${userContext.targetCareer}
-• *Current Milestone:* Week ${userContext.activeWeek} of 12
+Namaste ${userContext.name},
+Track: ${userContext.targetCareer}
+Current Milestone: Week ${userContext.activeWeek} of 12
 
-🎯 *Week ${userContext.activeWeek} Key Focus:*
-• Core architectural principles & hands-on development
+Week ${userContext.activeWeek} Key Focus:
+• Core architectural principles & hands-on engineering
 • Interactive code challenges & anti-cheat quiz
-• Real-world production repository integration
+• Production repository and CI/CD workflow
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📥 *Download Weekly Study Material:*
-Type *NOTES* to get your Week ${userContext.activeWeek} PDF Cheatsheet sent right here on WhatsApp!
+───────────────────────────
+Study Notes PDF:
+Reply 3 or NOTES to receive your Week ${userContext.activeWeek} PDF Cheatsheet.
 
-🌐 *Access Interactive Dynamic Roadmap:*
-👉 https://disheera.site/roadmap.html
+Interactive Dynamic Roadmap:
+https://disheera.site/roadmap.html
 
-🧪 *Take Proctored Milestone Test:*
-👉 Reply with *QUIZ* or visit https://disheera.site/quiz.html
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💬 _Quick Options: Reply 3 (Notes PDF) · 5 (Quiz) · MENU_
-🚀 *Disheera · 24x7 Autonomous Career GPS*`;
+Milestone Assessment:
+Reply 5 or QUIZ (https://disheera.site/quiz.html)
+───────────────────────────
+Options: Reply 3 (Notes PDF) · 5 (Quiz) · MENU
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, roadmapReply, {
         context: 'STUDENT_ROADMAP_OVERVIEW',
@@ -1652,14 +1648,17 @@ Type *NOTES* to get your Week ${userContext.activeWeek} PDF Cheatsheet sent righ
         await whatsappService.sendDocument(senderPhone, pdfBuffer, filename, caption);
 
         const notesConfirm = 
-`📄 *Week ${weekNum} Cheatsheet Dispatched!*
+`*Disheera  |  Study Material Dispatched*
 
-Namaste ${userContext.name}! Aapka Week ${weekNum} detailed study guide and cheatsheet PDF dispatch ho gaya hai.
+Namaste ${userContext.name},
+Your Week ${weekNum} study notes and cheatsheet PDF has been delivered above.
 
-• *Interactive Portal:* https://disheera.site/roadmap.html
-• *Milestone Quiz:* Reply *QUIZ* when ready to test your skills!
+• Interactive Lessons: https://disheera.site/roadmap.html
+• Milestone Quiz: Reply 5 or QUIZ when ready to evaluate your skills.
 
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+───────────────────────────
+Options: Reply 1 (Jobs) · 2 (Roadmap) · MENU
+Disheera Technologies Inc.`;
 
         await whatsappService.sendTextMessage(senderPhone, notesConfirm, {
           context: 'STUDY_NOTES_DISPATCH_CONFIRM',
@@ -1733,27 +1732,24 @@ ${skillsList}
                           targetCmd.startsWith('/quiz');
     if (isQuizKeyword) {
       const quizReply = 
-`🧪 *Disheera  -  Milestone Skill Verifier & Code Chamber*
+`*Disheera  |  Milestone Skill Verifier & Code Chamber*
 
-Namaste ${userContext.name}! 👋
-Aapke *Week ${userContext.activeWeek} (${userContext.targetCareer})* ka milestone test ready hai:
+Namaste ${userContext.name},
+Milestone assessment for Week ${userContext.activeWeek} (${userContext.targetCareer}):
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⏱️ *Test Parameters & Anti-Cheat Rules:*
-• *Pass Threshold:* 70% passing score is mandatory to advance to next week.
-• *Strict Anti-Cheat Proctoring:*
-  - Fullscreen lock is required.
-  - Tab switch Strike 1: -2 min penalty.
-  - Strike 2: -3 min penalty.
-  - Strike 3: Immediate termination & 24h lockout.
-• *Live Code Sandbox:* Browser me auto-evaluated test cases.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+───────────────────────────
+Assessment Parameters:
+• Pass Threshold: 70% passing score required to advance.
+• Strict Anti-Cheat Proctoring: Fullscreen lock, tab switch detection.
+• Live Evaluator: Automated browser test cases.
+───────────────────────────
 
-🚀 *Start Week ${userContext.activeWeek} Milestone Test:*
-👉 https://disheera.site/quiz.html
+Start Assessment:
+https://disheera.site/quiz.html
 
-💡 _Tip: Review your notes first by typing *NOTES*!_
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+Options: Reply 3 (Notes PDF) · 2 (Roadmap) · MENU
+───────────────────────────
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, quizReply, {
         context: 'MILESTONE_QUIZ_GUIDE',
@@ -1768,24 +1764,25 @@ Aapke *Week ${userContext.activeWeek} (${userContext.targetCareer})* ka mileston
                             targetCmd.startsWith('/resume');
     if (isResumeKeyword) {
       const resumeReply = 
-`📄 *Disheera  -  AI ATS Resume Builder*
+`*Disheera  |  AI ATS Resume Builder*
 
-Namaste ${userContext.name}! 👋
-Top tech companies ke ATS (Applicant Tracking Systems) ko pass karne ke liye:
+Namaste ${userContext.name},
+Applicant Tracking System (ATS) optimization guidelines:
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✨ *ATS Optimization Tips:*
-1. *Quantifiable Bullets:* Use "Action Verb + Task + Quantified Impact" (e.g. "Optimized API latency by 35% using Redis caching").
-2. *Clean Layout:* Single-column, standard fonts, no complex tables.
-3. *Verified Disheera Badge:* Include your verified Passport link for instant recruiter trust.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+───────────────────────────
+Optimization Standards:
+1. Quantifiable Bullets: Use "Action Verb + Task + Quantified Impact".
+2. Clean Layout: Single-column standard structure, machine-readable.
+3. Verified Badges: Embed your Disheera Passport link for instant recruiter validation.
+───────────────────────────
 
-🛠️ *Launch Disheera AI Resume Builder:*
-👉 https://disheera.site/resume-builder.html
-_(Includes real-time ATS scoring, keyword matching, and 1-click PDF export)_
+Launch Resume Builder:
+https://disheera.site/resume-builder.html
+(Includes real-time ATS scoring and 1-click PDF export)
 
-💡 _Apply directly after building: Type *JOBS* for active openings!_
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+Options: Reply 1 (Jobs) · 7 (Interview) · MENU
+───────────────────────────
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, resumeReply, {
         context: 'ATS_RESUME_BUILDER_GUIDE',
@@ -1799,23 +1796,24 @@ _(Includes real-time ATS scoring, keyword matching, and 1-click PDF export)_
                                targetCmd.startsWith('/interview');
     if (isInterviewKeyword) {
       const interviewReply = 
-`🎙️ *Disheera  -  AI Mock Interview Evaluator*
+`*Disheera  |  AI Mock Interview Evaluator*
 
-Namaste ${userContext.name}! 👋
-Tech interviews crack karne ke liye realistic AI practice sessions:
+Namaste ${userContext.name},
+Realistic technical interview practice sessions:
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 *Assessment Dimensions:*
-• *Technical Depth:* Core CS, Data Structures, System Design, Framework concepts.
-• *Communication & STAR Method:* Situation, Task, Action, Result structured responses.
-• *Instant Feedback Report:* Score breakdown with weakness identification and suggested learning tasks.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+───────────────────────────
+Evaluation Dimensions:
+• Technical Depth: Core CS, Data Structures, System Design, Framework concepts.
+• Communication Structure: STAR methodology (Situation, Task, Action, Result).
+• Comprehensive Diagnostic: Detailed readiness score and skill gap breakdown.
+───────────────────────────
 
-🚀 *Start AI Mock Interview Assessment:*
-👉 https://disheera.site/assessment.html
+Start Interview Assessment:
+https://disheera.site/assessment.html
 
-💡 _Need guidance from our leadership team? Reply *COUNSELOR* anytime!_
-🚀 *Disheera · 24x7 Verified Talent OS*`;
+Options: Reply 1 (Jobs) · 8 (Counselor) · MENU
+───────────────────────────
+Disheera Technologies Inc.`;
 
       await whatsappService.sendTextMessage(senderPhone, interviewReply, {
         context: 'AI_MOCK_INTERVIEW_GUIDE',
