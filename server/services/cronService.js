@@ -22,6 +22,7 @@ const RoadmapTask = require('../models/RoadmapTask');
 const User = require('../models/User');
 const { sendInactivityNudgeEmail } = require('./emailService');
 const subscriptionNudgeService = require('./subscriptionNudgeService');
+const whatsappService = require('./whatsappService');
 
 let hourlyTimer = null;
 let dailyTimer = null;
@@ -203,6 +204,27 @@ async function auditInactivityAndSendNudges(options = {}) {
             lastNudgeEmailSentAt: new Date(),
           };
           await user.save();
+        }
+
+        // WhatsApp Daily Streak & Milestone Nudge (if phone exists)
+        if (user.phone && user.whatsappNotificationsEnabled !== false) {
+          try {
+            const streakWaMsg = 
+`*Disheera  |  Daily Study Reminder*
+
+Namaste ${user.name || 'Student'},
+Aapke Week ${currentWeek} track (${careerTitle}) me ${remainingInWeek.length || incompleteTasks.length} tasks baaki hain.
+
+📖 Agla Task: ${nextTask ? nextTask.title : 'Continue curriculum'}
+
+👉 Reply 3 likh kar Week ${currentWeek} ka Cheatsheet PDF paayein, ya portal kholein:
+${clientUrl}/roadmap.html
+───────────────────────────
+Disheera Technologies Inc.`;
+            await whatsappService.sendTextMessage(user.phone, streakWaMsg, { context: 'STREAK_NUDGE_REMINDER' });
+          } catch (waNudgeErr) {
+            console.warn('[Cron] WhatsApp streak reminder warning:', waNudgeErr.message);
+          }
         }
       } catch (userErr) {
         results.errors.push({ roadmapId: roadmap.id, error: userErr.message });
