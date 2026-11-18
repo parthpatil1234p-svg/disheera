@@ -13,7 +13,7 @@
  */
 
 const DAKLY_API_URL = (process.env.DAKLY_API_URL || 'https://dakly-engin.vercel.app/api/send').trim();
-const DAKLY_API_KEY = (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0').trim();
+const DAKLY_API_KEY = (process.env.DAKLY_API_KEY || '').trim();
 
 /**
  * Checks if email delivery is configured and ready

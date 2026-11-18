@@ -269,7 +269,7 @@ const registerUser = async (req, res, next) => {
 
     const isEmailConfigured = Boolean(
       isEmailServiceConfigured() ||
-      (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0') ||
+      process.env.DAKLY_API_KEY ||
       ((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS))
     );
     const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';
@@ -652,7 +652,7 @@ const resendOtp = async (req, res, next) => {
 
     const isEmailConfigured = Boolean(
       isEmailServiceConfigured() ||
-      (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0') ||
+      process.env.DAKLY_API_KEY ||
       ((process.env.SMTP_USER || process.env.EMAIL_USER) && (process.env.SMTP_PASS || process.env.EMAIL_PASS))
     );
     const mailSent = isEmailConfigured || process.env.NODE_ENV === 'production';

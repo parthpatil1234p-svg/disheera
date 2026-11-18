@@ -20,7 +20,7 @@ async function runEmailDiagnostics() {
   console.log('======================================================\n');
 
   const apiUrl = (process.env.DAKLY_API_URL || 'https://dakly-engin.vercel.app/api/send').trim();
-  const apiKey = (process.env.DAKLY_API_KEY || 'gkey_live_657886f2e5c57f4f0632b0d4bd896a623231c0a05beb69b0').trim();
+  const apiKey = (process.env.DAKLY_API_KEY || '').trim();
 
   console.log('1. Configuration Overview:');
   console.log(`   - DAKLY_API_URL: ${apiUrl}`);
