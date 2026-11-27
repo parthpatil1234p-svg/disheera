@@ -72,23 +72,24 @@
       /* Floating Call Trigger Button */
       .voice-call-fab {
         position: fixed;
-        bottom: 24px;
+        bottom: 86px;
         right: 24px;
-        z-index: 1040;
+        z-index: 9998;
         background: #2563EB;
         color: #FFFFFF;
         border: none;
         border-radius: 9999px;
-        padding: 12px 20px;
+        padding: 10px 18px;
         font-family: inherit;
         font-weight: 600;
         font-size: 14px;
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         box-shadow: 0 10px 25px -4px rgba(37, 99, 235, 0.4);
         cursor: pointer;
         transition: all 0.2s ease;
+        user-select: none;
       }
       .voice-call-fab:hover {
         background: #1D4ED8;
@@ -96,12 +97,24 @@
         box-shadow: 0 14px 28px -4px rgba(37, 99, 235, 0.45);
       }
       .voice-call-fab .pulse-dot {
-        width: 10px;
-        height: 10px;
+        width: 9px;
+        height: 9px;
         background: #10B981;
         border-radius: 50%;
         display: inline-block;
         animation: fabPulse 1.8s infinite;
+        flex-shrink: 0;
+      }
+      .voice-call-fab svg {
+        flex-shrink: 0;
+      }
+      @media (max-width: 640px) {
+        .voice-call-fab {
+          bottom: 74px;
+          right: 16px;
+          padding: 8px 14px;
+          font-size: 13px;
+        }
       }
       @keyframes fabPulse {
         0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
@@ -326,15 +339,18 @@
       <div class="voice-modal-sheet">
         <div class="voice-sheet-header">
           <h3 class="voice-sheet-title">
-            <i class="bi bi-headset text-primary"></i>
-            Arya · Disheera Voice AI Support
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="#2563EB" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"/></svg>
+            <span>Arya · Disheera Voice AI Support</span>
           </h3>
           <button type="button" class="btn-close" id="voiceCloseBtn" aria-label="Close"></button>
         </div>
         <div class="voice-sheet-body">
           <div class="voice-orb-container">
             <div class="voice-orb" id="voiceOrb">
-              <i class="bi bi-mic-fill" id="voiceOrbIcon"></i>
+              <svg id="voiceOrbIcon" width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5z"/>
+              </svg>
             </div>
           </div>
           <div class="voice-status-text" id="voiceStatusText">Connecting Call...</div>
@@ -347,7 +363,7 @@
 
           <!-- Ticket Notification Banner -->
           <div class="voice-ticket-badge" id="voiceTicketBadge">
-            <i class="bi bi-check-circle-fill me-1"></i>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="#059669" style="display:inline-block;vertical-align:middle;margin-right:4px;"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
             <span id="voiceTicketText">Support Ticket #CP-TKT-XXXXXX Registered</span>
           </div>
 
@@ -368,10 +384,15 @@
           <!-- Controls -->
           <div class="voice-controls">
             <button class="btn-circle btn-circle-mute" id="voiceMuteBtn" title="Mute Microphone">
-              <i class="bi bi-mic-fill" id="voiceMuteIcon"></i>
+              <svg id="voiceMuteIcon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5z"/>
+              </svg>
             </button>
             <button class="btn-circle btn-circle-end" id="voiceEndBtn" title="End Call">
-              <i class="bi bi-telephone-x-fill"></i>
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+              </svg>
             </button>
           </div>
         </div>
@@ -395,9 +416,12 @@
     const fab = document.createElement('button');
     fab.id = 'voiceCallFab';
     fab.className = 'voice-call-fab';
+    fab.setAttribute('aria-label', 'Open Voice AI Support');
     fab.innerHTML = `
       <span class="pulse-dot"></span>
-      <i class="bi bi-headset"></i>
+      <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:middle;">
+        <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"/>
+      </svg>
       <span>Voice Support</span>
     `;
     fab.addEventListener('click', startCall);
@@ -715,14 +739,22 @@
     });
 
     const muteBtn = document.getElementById('voiceMuteBtn');
-    const muteIcon = document.getElementById('voiceMuteIcon');
     if (state.isMuted) {
       muteBtn.classList.add('active');
-      muteIcon.className = 'bi bi-mic-mute-fill';
+      muteBtn.innerHTML = `
+        <svg id="voiceMuteIcon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.12 2.12A3 3 0 0 1 11 3zM2.854.146a.5.5 0 1 1 .708.708l12 12a.5.5 0 0 1-.708.708l-2.09-2.09A5.968 5.968 0 0 1 8 13.975V15h-3a.5.5 0 0 1 0-1h3v-1.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 2.086 3.5l-1.09-1.09A3 3 0 0 1 5 7V4.414L2.854 2.268a.5.5 0 0 1 0-.708z"/>
+        </svg>
+      `;
       updateStatus('Microphone Muted', 'Click mic icon to resume speaking.');
     } else {
       muteBtn.classList.remove('active');
-      muteIcon.className = 'bi bi-mic-fill';
+      muteBtn.innerHTML = `
+        <svg id="voiceMuteIcon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+          <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5z"/>
+        </svg>
+      `;
       updateStatus('Arya Listening...', 'Speak your query or question.');
     }
   }
