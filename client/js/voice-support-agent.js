@@ -28,7 +28,7 @@
       return window.CONFIG.API_BASE_URL.replace(/\/+$/, '');
     }
     const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    return isLocal ? 'http://localhost:5000/api' : 'https://disheera.site/api';
+    return isLocal ? 'http://localhost:5000/api' : 'https://voice-agent.disheera.site/api';
   }
 
   // Auth Helpers

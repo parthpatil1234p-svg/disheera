@@ -121,28 +121,37 @@ async function generateSupportResponse(conversationHistory, studentMessage) {
   ];
 
   if (groqKey) {
-    try {
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${groqKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          messages,
-          temperature: 0.5,
-          max_tokens: 250,
-        }),
-      });
+    const candidateModels = [
+      'qwen/qwen3.8-27b',
+      'openai/gpt-oss-20b',
+      'llama-3.3-70b-versatile',
+      'llama3-70b-8192',
+    ];
 
-      if (res.ok) {
-        const data = await res.json();
-        const content = data.choices?.[0]?.message?.content || '';
-        if (content.trim()) return { content: content.trim(), provider: 'groq' };
+    for (const model of candidateModels) {
+      try {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${groqKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model,
+            messages,
+            temperature: 0.5,
+            max_tokens: 250,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const content = data.choices?.[0]?.message?.content || '';
+          if (content.trim()) return { content: content.trim(), provider: `groq:${model}` };
+        }
+      } catch (e) {
+        console.warn(`[VoiceServer] Groq ${model} failed, trying next:`, e.message);
       }
-    } catch (e) {
-      console.warn('[VoiceServer] Groq LPU failed, trying Gemini:', e.message);
     }
   }
 

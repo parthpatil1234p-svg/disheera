@@ -54,8 +54,15 @@
     // Dedicated Heavy Compute & Background Operations Endpoint
     HEAVY_API_BASE_URL: isLocal ? LOCAL_API_URL : 'https://api.disheera.site/api',
 
-    // Dedicated Standalone Voice AI Service (Isolated Microservice)
-    VOICE_API_BASE_URL: isLocal ? (window.__VOICE_API_URL__ || LOCAL_API_URL) : (window.__VOICE_API_URL__ || 'https://api.disheera.site/api'),
+    // Dedicated Standalone Voice AI Service (Isolated Microservice on Render)
+    // Primary: https://voice-agent.disheera.site/api
+    // Direct Fallback: https://disheera-voice-service.onrender.com/api
+    VOICE_API_BASE_URL: isLocal
+      ? (window.__VOICE_API_URL__ || LOCAL_API_URL)
+      : (window.__VOICE_API_URL__ || 'https://voice-agent.disheera.site/api'),
+    VOICE_API_FALLBACK_URL: isLocal
+      ? 'http://localhost:5001/api'
+      : 'https://disheera-voice-service.onrender.com/api',
 
     // Persistent Real-Time & WebSockets (Render in Prod, localhost:5000 in dev)
     REALTIME_BASE_URL: isLocal ? LOCAL_REALTIME_URL : PRODUCTION_REALTIME_URL,

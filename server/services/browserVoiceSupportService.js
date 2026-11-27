@@ -141,30 +141,39 @@ async function generateSupportResponse(conversationHistory, studentMessage) {
 
   // 1. Try Groq LPU (Sub-second latency)
   if (apiKey) {
-    try {
-      const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          messages,
-          temperature: 0.5,
-          max_tokens: 300,
-        }),
-      });
+    const candidateModels = [
+      'qwen/qwen3.8-27b',
+      'openai/gpt-oss-20b',
+      'llama-3.3-70b-versatile',
+      'llama3-70b-8192',
+    ];
 
-      if (groqResponse.ok) {
-        const groqData = await groqResponse.json();
-        const rawContent = groqData.choices?.[0]?.message?.content || '';
-        if (rawContent.trim()) {
-          return { content: rawContent.trim(), provider: 'groq' };
+    for (const model of candidateModels) {
+      try {
+        const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model,
+            messages,
+            temperature: 0.5,
+            max_tokens: 300,
+          }),
+        });
+
+        if (groqResponse.ok) {
+          const groqData = await groqResponse.json();
+          const rawContent = groqData.choices?.[0]?.message?.content || '';
+          if (rawContent.trim()) {
+            return { content: rawContent.trim(), provider: `groq:${model}` };
+          }
         }
+      } catch (groqErr) {
+        console.warn(`[VoiceSupportService] Groq ${model} failed, trying next:`, groqErr.message);
       }
-    } catch (groqErr) {
-      console.warn('[VoiceSupportService] Groq LPU attempt failed, falling back to Gemini:', groqErr.message);
     }
   }
 
