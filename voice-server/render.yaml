@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: disheera-voice-service
+    env: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: MAIN_API_URL
+        value: https://disheera.site/api
+      - key: ALLOWED_ORIGINS
+        value: https://disheera.site,https://www.disheera.site,https://admin.disheera.site

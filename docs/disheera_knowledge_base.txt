@@ -1,0 +1,89 @@
+================================================================================
+DISHEERA TECHNOLOGIES — OFFICIAL KNOWLEDGE BASE & PLATFORM DOCUMENTATION
+================================================================================
+Platform Name  : Disheera
+Official URL   : https://disheera.site
+Parent Entity  : Disheera Technologies Inc.
+Contact Email  : support@disheera.site
+Category       : B2B2C EdTech, Campus Operating System & Verified Talent Intelligence
+
+--------------------------------------------------------------------------------
+1. COMPANY & PLATFORM MISSION
+--------------------------------------------------------------------------------
+Disheera is India's autonomous career navigation, skill-gap intelligence, and campus placement platform. 
+Our mission is threefold:
+1. For Students: Provide verified skill roadmaps, adaptive quizzes, and AI voice mock interviews so they graduate placement-ready.
+2. For Colleges & Universities (Campus OS): Automate NAAC Criterion 5 placement compliance, batch skill telemetry, and corporate campus drives.
+3. For Tech Recruiters: Deliver pre-verified tech talent with code-grounded proof of work and zero spam.
+
+Disheera is compliant with the Information Technology Act 2000, maintains strict data privacy, and enforces 100% Light-Theme accessible UI (WCAG AAA standards).
+
+--------------------------------------------------------------------------------
+2. CAMPUS OS & TPO COCKPIT (FOR COLLEGES & UNIVERSITIES)
+--------------------------------------------------------------------------------
+The Campus TPO Cockpit is a specialized portal built for College Training & Placement Officers (TPOs), Deans, and Principals.
+
+Key Capabilities:
+- AISHE Institutional Verification: Seamlessly links with the National Higher Education AISHE registry (e.g. C-41234 for COEP, PICT, VJTI, etc.).
+- 4-Tier Verification Gate: Requires official academic email domain (@college.ac.in), institutional letterhead upload, and mobile OTP.
+- NAAC Criterion 5 Automation: Instantly aggregates and generates official audit reports for NAAC Criterion 5.2.1 (Student Progression & Campus Placement Metrics), saving hundreds of hours of manual compilation.
+- Real-Time Batch Skill Telemetry: Live department-wise heatmaps tracking skill strengths and deficits across Computer Science, IT, AI/Data Science, Electronics, and Mechanical cohorts.
+- Corporate Drive Activation: Colleges can host verified on-campus or virtual recruitment drives once institutional verification completes.
+- Pricing & Pilot Program:
+  * 100% Free Interactive Demo Sandbox: Available immediately for any college to explore 2026 cohort telemetry.
+  * Institutional Pilot: Free 30-day pilot for accredited universities.
+  * Enterprise Annual Subscription: Tailored per batch size with unlimited NAAC reports and student passports.
+
+--------------------------------------------------------------------------------
+3. STUDENT MODULE & CAREER NAVIGATION
+--------------------------------------------------------------------------------
+Disheera helps students discover their optimal career route and scientifically prove their skills.
+
+Core Features:
+- 4-Step Career Diagnostic: Assesses academic stream, interests, aptitude, and aspirations across 24 high-growth career tracks (Full-Stack Engineer, Backend Architect, Data Analyst, Cloud DevOps, UI/UX Designer, etc.).
+- Dual Concurrent Career Tracks: Students can pursue up to two complementary tracks simultaneously (e.g. Full-Stack + Data Analysis) to broaden their employability.
+- 94-Skill Reality Check Quiz: Adaptive MCQ benchmark ("You Said vs. Quiz Says") testing practical conceptual knowledge in JavaScript, Python, SQL, Docker, React, and more.
+- Voice Viva Chamber & Code Proof of Work: Real-time, voice-interactive technical screening and code verification simulating realistic employer interview rounds.
+- Digital Verified Student Passport: A tamper-proof digital credential featuring unique verification IDs, skill badges, rubric breakdown, and QR verification for resumes.
+- Automated Streak & Inactivity Nudges: Smart notifications motivating students to complete their weekly roadmap milestones.
+
+--------------------------------------------------------------------------------
+4. CORPORATE RECRUITER PORTAL
+--------------------------------------------------------------------------------
+The Recruiter Portal enables tech startups, IT service leaders, and enterprises to scout placement-ready talent.
+
+Key Capabilities:
+- Pre-Verified Candidate Scouting: Browse candidates who have cleared code-grounded assessments, viva interviews, and GitHub verification.
+- 4D Empirical Rubric Matrix: Evaluate candidates across 4 core vectors: Code Quality, Architectural Rigour, Viva Defense, and Problem Solving.
+- Smart Search & Proximity Radar: Filter candidates by target role, merit score (75%+), graduation year (2025/2026), and verified technical skills.
+- 1-Click Candidate Contact Unlocks: Direct access to candidate contact information, verified resumes, and project deliverables.
+- Strict Role Isolation: Corporate recruiters cannot tamper with student profiles or access internal college TPO analytics.
+- Pricing:
+  * Free Recruiter Account: Search, filter, and view anonymized talent portfolios for free.
+  * Contact Unlock Packs: Affordable pay-as-you-go credit packages for direct candidate outreach.
+
+--------------------------------------------------------------------------------
+5. FREQUENTLY ASKED QUESTIONS (FAQS)
+--------------------------------------------------------------------------------
+
+Q1: What is Disheera in simple terms?
+A: Disheera is an AI-powered career guidance and campus placement operating system that bridges students, universities, and tech recruiters through verified skills.
+
+Q2: How does a College TPO get started?
+A: TPOs visit disheera.site/tpo-login.html, click 'College Onboarding (4-Tier)', search their AISHE code or college name, register with their official college email (@college.ac.in), and submit their institutional letterhead.
+
+Q3: Is Disheera free for students?
+A: Yes, students can access career assessments, roadmap generation, skill quizzes, and progress tracking for free.
+
+Q4: What makes Disheera's student certificates verifiable?
+A: Each certificate and student passport is backed by code-grounded proof of work, test scores, and unique hash IDs that anyone can verify at disheera.site/verify.html.
+
+Q5: How does NAAC Criterion 5 automation work?
+A: Disheera tracks every student's placement offers, skill certifications, and internship telemetry in real time, formatting the data strictly according to NAAC Criterion 5.2.1 guidelines for 1-click audit download.
+
+Q6: How can recruiters hire from Disheera?
+A: Recruiters sign up at disheera.site/login.html under the Recruiter tab using their corporate email. They can immediately scout verified candidates and invite them to interview.
+
+Q7: How do I book a live demonstration of Campus OS?
+A: Interested colleges can request a 10-minute live demonstration by contacting our team at support@disheera.site or via our website at disheera.site.
+================================================================================

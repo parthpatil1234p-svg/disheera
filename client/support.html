@@ -204,6 +204,42 @@
 
     <!-- Main Content Container -->
     <main class="container py-5">
+      <!-- Browser Voice AI Support Agent: Arya Real-Time Call Hub -->
+      <section class="card border-0 mb-5 p-4 rounded-4" style="background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%); border: 1px solid #BFDBFE !important; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.08);">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-7">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-primary text-white px-3 py-1 rounded-pill small fw-semibold">
+                <i class="bi bi-broadcast me-1"></i>Live · Dual-Engine Groq LPU + Gemini
+              </span>
+              <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill small">
+                <i class="bi bi-lightning-charge-fill me-1"></i>Sub-300ms Response
+              </span>
+            </div>
+            <h2 class="h3 fw-bold text-dark mb-2">Speak with Arya — Browser Voice AI Support Guide</h2>
+            <p class="text-secondary mb-0 small" style="line-height: 1.6;">
+              Stuck on a roadmap task, code verification, weekly assignment AI grading, or camera proctoring issue? 
+              Connect directly with <strong>Arya</strong> right inside your browser. No phone dialing needed. 
+              Arya answers your platform doubts verbally in real-time, and can instantly generate official grievance tickets sent directly to your WhatsApp.
+            </p>
+          </div>
+          <div class="col-lg-5 text-center text-lg-end">
+            <div class="p-4 bg-white rounded-4 border d-inline-block text-center w-100" style="max-width: 380px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);">
+              <div class="mb-3">
+                <div style="width: 68px; height: 68px; border-radius: 50%; background: #EFF6FF; color: #2563EB; display: inline-flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);">
+                  <i class="bi bi-mic-fill"></i>
+                </div>
+              </div>
+              <h4 class="h6 fw-bold text-dark mb-1">Instant Voice Support</h4>
+              <p class="small text-muted mb-3">Requires active student login &amp; microphone access.</p>
+              <button type="button" id="startBrowserVoiceCallBtn" class="btn cp-btn-primary w-100 fw-semibold py-2 shadow-sm">
+                <i class="bi bi-telephone-fill me-2"></i>Start Voice Call with Arya
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- 4 High-Tech Support Channel Cards -->
       <div class="row g-4 mb-5">
         <div class="col-md-6 col-lg-3">
@@ -676,7 +712,11 @@
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = '<i class="bi bi-send-fill me-2"></i>Submit Support Ticket';
         });
+
       })();
     </script>
+
+    <!-- Browser Voice AI Support Agent Client -->
+    <script src="js/voice-support-agent.js"></script>
   </body>
 </html>

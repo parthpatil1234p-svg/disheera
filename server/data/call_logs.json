@@ -1,0 +1,51 @@
+[
+  {
+    "id": "call_b964f6f11bb7026f",
+    "userId": "test-student-47-id",
+    "userName": "Parth Patil",
+    "userEmail": "parth@disheera.site",
+    "userPhone": "7499085045",
+    "durationSeconds": 8,
+    "status": "ESCALATED_TICKET",
+    "ticketId": "CP-TKT-851833",
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Namaste Parth Patil! I am Arya, your Disheera Support Assistant. How can I help you with your roadmap, assignments, or platform features today?",
+        "timestamp": 1795764111029
+      },
+      {
+        "speaker": "user",
+        "text": "Who won the ICC Cricket World Cup in 2023?",
+        "timestamp": 1795764111029
+      },
+      {
+        "speaker": "agent",
+        "text": "I am the Disheera Support Assistant. I can only assist you with Disheera roadmaps, assignments, proctoring, skill verification, and platform features. How can I help you with your Disheera learning journey today?",
+        "timestamp": 1795764113810
+      },
+      {
+        "speaker": "user",
+        "text": "How do I submit my weekly assignment for AI grading?",
+        "timestamp": 1795764113810
+      },
+      {
+        "speaker": "agent",
+        "text": "You can submit your assignment directly through the Assignments section on your Disheera dashboard. Simply upload your work or code file and click submit. Our Gemini Multimodal AI will evaluate it and give you detailed feedback with marks out of 10!",
+        "timestamp": 1795764116525
+      },
+      {
+        "speaker": "user",
+        "text": "My camera locked my test by mistake and I want to report a bug to a human supervisor immediately!",
+        "timestamp": 1795764116525
+      },
+      {
+        "speaker": "agent",
+        "text": "I completely understand your concern, and I am so sorry for the interruption. I am escalating this right away to our support team so a supervisor can review your proctoring logs and assist you. I have officially logged priority support ticket #CP-TKT-851833 for you and dispatched a WhatsApp confirmation. Grievance Officer Parth Patil will follow up within 24 hours.",
+        "timestamp": 1795764119157
+      }
+    ],
+    "recordingUrl": "/uploads/calls/call_call_b964f6f11bb7026f_1795764119158.webm",
+    "createdAt": "2026-11-27T07:21:59.158Z"
+  }
+]

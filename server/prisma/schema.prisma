@@ -71,6 +71,7 @@ model User {
   meritScore                    StudentMeritScore?
   college                       College?  @relation("CollegeStudents", fields: [collegeId], references: [id])
   managedCollege                College?  @relation("CollegeTpo")
+  callLogs                      CallLog[]
 
   createdAt                     DateTime  @default(now())
   updatedAt                     DateTime  @updatedAt
@@ -659,4 +660,26 @@ model SystemSetting {
   value     String
   updatedAt DateTime @default(now()) @updatedAt
   updatedBy String?
+}
+
+// ── 21. CallLog Model (Browser Voice Support Agent) ──────────
+model CallLog {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userName        String
+  userEmail       String
+  userPhone       String
+  durationSeconds Int       @default(0)
+  status          String    @default("RESOLVED") // "RESOLVED", "ESCALATED_TICKET", "ABANDONED"
+  ticketId        String?
+  transcript      Json?     // Array of { speaker, text, timestamp }
+  recordingUrl    String?   // Local or hosted audio recording path
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("call_logs")
 }

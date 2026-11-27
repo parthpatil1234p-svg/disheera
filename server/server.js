@@ -130,6 +130,7 @@ const passportRoutes = require('./routes/passportRoutes');
 const assignmentRoutes = require('./routes/assignmentRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const vivaRoutes = require('./routes/vivaRoutes');
+const voiceRoutes = require('./routes/voiceRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const razorpayRoutes = require('./routes/razorpayRoutes');
 const couponRoutes = require('./routes/couponRoutes');
@@ -147,6 +148,7 @@ const adminAssignmentRoutes = require('./routes/adminAssignmentRoutes');
 const adminAuditRoutes = require('./routes/adminAuditRoutes');
 const adminManagementRoutes = require('./routes/adminManagementRoutes');
 const adminAlertRoutes = require('./routes/adminAlertRoutes');
+const adminCallsRoutes = require('./routes/adminCallsRoutes');
 const adminSystemRoutes = require('./routes/adminSystemRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
 
@@ -664,6 +666,10 @@ app.use('/api/leaderboard', leaderboardRoutes);
 // Code-Grounded Voice Viva Proctoring Engine (Anti-Cheat Moat)
 app.use('/api/viva', vivaRoutes);
 
+// Browser Voice AI Support Agent (Dual-Engine Groq + Gemini)
+app.use('/api/voice', voiceRoutes);
+app.use('/uploads/calls', express.static(path.join(__dirname, 'uploads/calls')));
+
 // Cashfree Payment Gateway & Pro Membership Subscription
 app.use('/api/payments', paymentRoutes);
 
@@ -716,6 +722,9 @@ app.use('/api/admin/admins', adminManagementRoutes);
 
 // Subdomain Admin WhatsApp & n8n Broadcast Alerts (Confirmation & rate-limited)
 app.use('/api/admin/alerts', adminAlertRoutes);
+
+// Subdomain Admin Voice Support Cockpit & Call Telemetry (Plan 47)
+app.use('/api/admin/calls', adminCallsRoutes);
 
 // Subdomain Admin System Telemetry & Operational Health
 app.use('/api/admin/system', adminSystemRoutes);

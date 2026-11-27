@@ -54,6 +54,9 @@
     // Dedicated Heavy Compute & Background Operations Endpoint
     HEAVY_API_BASE_URL: isLocal ? LOCAL_API_URL : 'https://api.disheera.site/api',
 
+    // Dedicated Standalone Voice AI Service (Isolated Microservice)
+    VOICE_API_BASE_URL: isLocal ? (window.__VOICE_API_URL__ || LOCAL_API_URL) : (window.__VOICE_API_URL__ || 'https://api.disheera.site/api'),
+
     // Persistent Real-Time & WebSockets (Render in Prod, localhost:5000 in dev)
     REALTIME_BASE_URL: isLocal ? LOCAL_REALTIME_URL : PRODUCTION_REALTIME_URL,
     SOCKET_URL: isLocal ? LOCAL_REALTIME_URL : PRODUCTION_REALTIME_URL,
